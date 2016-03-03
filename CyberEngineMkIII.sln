@@ -3,8 +3,41 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CMakeLists", "CMakeLists", "{7B814CDC-3467-444E-903C-AEEF7326E60E}"
+	ProjectSection(SolutionItems) = preProject
+		CMakeLists.txt = CMakeLists.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildScripts", "BuildScripts", "{0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CMake", "CMake", "{0710498A-6BF6-47FB-B552-02E0EFA6D542}"
+	ProjectSection(SolutionItems) = preProject
+		BuildScripts\CMake\PrecompiledHeader.cmake = BuildScripts\CMake\PrecompiledHeader.cmake
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doxygen", "Doxygen", "{71BE47D7-4057-4C10-A9FC-4685F0947B80}"
+	ProjectSection(SolutionItems) = preProject
+		BuildScripts\Doxygen\CyberEngineMkIIAPIDoxy.cfg = BuildScripts\Doxygen\CyberEngineMkIIAPIDoxy.cfg
+		BuildScripts\Doxygen\CyberEngineMkIIDoxy.cfg = BuildScripts\Doxygen\CyberEngineMkIIDoxy.cfg
+		BuildScripts\Doxygen\doxygen.exe = BuildScripts\Doxygen\doxygen.exe
+		BuildScripts\Doxygen\GenerateDox.ps1 = BuildScripts\Doxygen\GenerateDox.ps1
+		BuildScripts\Doxygen\TFSUploadDox.ps1 = BuildScripts\Doxygen\TFSUploadDox.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RemoteDebug", "RemoteDebug", "{AD52B059-EDE4-4BF9-B6A6-AFDE22310615}"
+	ProjectSection(SolutionItems) = preProject
+		BuildScripts\RemoteDebug\plink.exe = BuildScripts\RemoteDebug\plink.exe
+		BuildScripts\RemoteDebug\PrivateKey.ppk = BuildScripts\RemoteDebug\PrivateKey.ppk
+		BuildScripts\RemoteDebug\pscp.exe = BuildScripts\RemoteDebug\pscp.exe
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0710498A-6BF6-47FB-B552-02E0EFA6D542} = {0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}
+		{71BE47D7-4057-4C10-A9FC-4685F0947B80} = {0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}
+		{AD52B059-EDE4-4BF9-B6A6-AFDE22310615} = {0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}
 	EndGlobalSection
 EndGlobal

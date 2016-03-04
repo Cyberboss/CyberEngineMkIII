@@ -9,6 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CMakeList", "CMakeList", "{
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildScripts", "BuildScripts", "{0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}"
+	ProjectSection(SolutionItems) = preProject
+		BuildScripts\PostBuild.ps1 = BuildScripts\PostBuild.ps1
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CMake", "CMake", "{0710498A-6BF6-47FB-B552-02E0EFA6D542}"
 	ProjectSection(SolutionItems) = preProject

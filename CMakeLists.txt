@@ -19,6 +19,8 @@ set(CMAKE_C_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG -O3")
 
 #support libs here
 
-
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Werror")
 include(${CYB_BASE_DIR}/BuildScripts/CMake/PrecompiledHeader.cmake)
+
+add_subdirectory(Engine)
+add_subdirectory(Executable)

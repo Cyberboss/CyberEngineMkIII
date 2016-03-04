@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CMakeLists", "CMakeLists", "{7B814CDC-3467-444E-903C-AEEF7326E60E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CMakeList", "CMakeList", "{7B814CDC-3467-444E-903C-AEEF7326E60E}"
 	ProjectSection(SolutionItems) = preProject
 		CMakeLists.txt = CMakeLists.txt
 	EndProjectSection
@@ -31,7 +31,39 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RemoteDebug", "RemoteDebug"
 		BuildScripts\RemoteDebug\pscp.exe = BuildScripts\RemoteDebug\pscp.exe
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{364E825E-F224-4853-BD93-58C4AD7D36E4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Executable", "Executable\Executable.vcxproj", "{1F07588E-625E-42BF-A4BD-93D7FD67F082}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+		Remote|x64 = Remote|x64
+		Remote|x86 = Remote|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{364E825E-F224-4853-BD93-58C4AD7D36E4}.Debug|x64.ActiveCfg = Debug|x64
+		{364E825E-F224-4853-BD93-58C4AD7D36E4}.Debug|x64.Build.0 = Debug|x64
+		{364E825E-F224-4853-BD93-58C4AD7D36E4}.Debug|x86.ActiveCfg = Debug|x64
+		{364E825E-F224-4853-BD93-58C4AD7D36E4}.Release|x64.ActiveCfg = Release|x64
+		{364E825E-F224-4853-BD93-58C4AD7D36E4}.Release|x64.Build.0 = Release|x64
+		{364E825E-F224-4853-BD93-58C4AD7D36E4}.Release|x86.ActiveCfg = Release|x64
+		{364E825E-F224-4853-BD93-58C4AD7D36E4}.Remote|x64.ActiveCfg = Remote|x64
+		{364E825E-F224-4853-BD93-58C4AD7D36E4}.Remote|x64.Build.0 = Remote|x64
+		{364E825E-F224-4853-BD93-58C4AD7D36E4}.Remote|x86.ActiveCfg = Remote|x64
+		{1F07588E-625E-42BF-A4BD-93D7FD67F082}.Debug|x64.ActiveCfg = Debug|x64
+		{1F07588E-625E-42BF-A4BD-93D7FD67F082}.Debug|x64.Build.0 = Debug|x64
+		{1F07588E-625E-42BF-A4BD-93D7FD67F082}.Debug|x86.ActiveCfg = Debug|x64
+		{1F07588E-625E-42BF-A4BD-93D7FD67F082}.Release|x64.ActiveCfg = Release|x64
+		{1F07588E-625E-42BF-A4BD-93D7FD67F082}.Release|x64.Build.0 = Release|x64
+		{1F07588E-625E-42BF-A4BD-93D7FD67F082}.Release|x86.ActiveCfg = Release|x64
+		{1F07588E-625E-42BF-A4BD-93D7FD67F082}.Remote|x64.ActiveCfg = Remote|x64
+		{1F07588E-625E-42BF-A4BD-93D7FD67F082}.Remote|x64.Build.0 = Remote|x64
+		{1F07588E-625E-42BF-A4BD-93D7FD67F082}.Remote|x86.ActiveCfg = Remote|x64
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

@@ -42,7 +42,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <TargetName>CyberEngineMkIII</TargetName>
+    <TargetName>CyberEngineMkIIID</TargetName>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <OutDir>$(SolutionDir)Output\bin\</OutDir>
   </PropertyGroup>

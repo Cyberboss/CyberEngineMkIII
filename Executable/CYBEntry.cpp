@@ -1,4 +1,5 @@
-#define TARGET_OS_WINDOWS
+#include "../Engine/CYB.hpp"
+
 #ifdef TARGET_OS_WINDOWS
 #define main wmain
 #endif

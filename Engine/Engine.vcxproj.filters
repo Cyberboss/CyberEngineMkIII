@@ -5,5 +5,33 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CYBSource.cpp" />
+    <ClCompile Include="CYB.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Base">
+      <UniqueIdentifier>{91a25ee3-0f4c-4d14-b006-01dd1bcd4e54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Declarations">
+      <UniqueIdentifier>{feb77a55-d65b-4fdc-8b07-b3f500785485}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CYB.hpp">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="CyberEngine.hpp">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Preprocessor.hpp">
+      <Filter>Declarations</Filter>
+    </ClInclude>
+    <ClInclude Include="Endianess.hpp">
+      <Filter>Declarations</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemChecks.hpp">
+      <Filter>Declarations</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

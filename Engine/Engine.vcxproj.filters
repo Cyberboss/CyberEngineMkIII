@@ -4,26 +4,47 @@
     <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CYBSource.cpp" />
-    <ClCompile Include="CYB.cpp">
-      <Filter>Base</Filter>
+    <ClCompile Include="CYBMain.cpp">
+      <Filter>Engine\Initialization</Filter>
+    </ClCompile>
+    <ClCompile Include="CYBWin32Process.cpp">
+      <Filter>Platform\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="CYB.cpp" />
+    <ClCompile Include="CYBPosixProcess.cpp">
+      <Filter>Platform\Posix</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Base">
-      <UniqueIdentifier>{91a25ee3-0f4c-4d14-b006-01dd1bcd4e54}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Declarations">
       <UniqueIdentifier>{feb77a55-d65b-4fdc-8b07-b3f500785485}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{bb1df916-5885-4f0f-abe2-150f831aa0a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API">
+      <UniqueIdentifier>{fa07e106-577a-4426-847a-cfacb07f8457}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Initialization">
+      <UniqueIdentifier>{b22139a3-9de7-475c-b23b-58a57a2aa074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{fdb152be-6add-4659-81d1-d81b75bd3684}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Win32">
+      <UniqueIdentifier>{c1ad93c7-1ca0-439d-a0f0-986278690b3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Posix">
+      <UniqueIdentifier>{9a3b2811-55ab-4eb9-a75a-02a4b7307b2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\OSX">
+      <UniqueIdentifier>{3f6d7dc9-d3d0-4eac-942a-99aae7dbea3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Linux">
+      <UniqueIdentifier>{3c9a42bc-a56a-4254-9d7e-d2327ddc5ce1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CYB.hpp">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="CyberEngine.hpp">
-      <Filter>Base</Filter>
-    </ClInclude>
     <ClInclude Include="Preprocessor.hpp">
       <Filter>Declarations</Filter>
     </ClInclude>
@@ -32,6 +53,40 @@
     </ClInclude>
     <ClInclude Include="SystemChecks.hpp">
       <Filter>Declarations</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBMain.hpp">
+      <Filter>Engine\Initialization</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBWin32Process.hpp">
+      <Filter>Platform\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="CYB.hpp" />
+    <ClInclude Include="CYBEngine.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBPlatform.hpp">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="CyberEngine.hpp">
+      <Filter>API</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBProcess.hpp">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBWin32Implementation.hpp">
+      <Filter>Platform\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBPosixImplementation.hpp">
+      <Filter>Platform\Posix</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBPosixProcess.hpp">
+      <Filter>Platform\Posix</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBOSXImplementation.hpp">
+      <Filter>Platform\OSX</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBLinuxImplementation.hpp">
+      <Filter>Platform\Linux</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

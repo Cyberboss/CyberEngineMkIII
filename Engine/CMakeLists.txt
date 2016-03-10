@@ -4,8 +4,21 @@ project(Engine)
 
 include_directories(${CYB_BASE_DIR}/Engine)
 
+IF(APPLE)
+set(PlatformImplentations "")
+ELSE()
+set(PlatformImplentations "")
+ENDIF()
+
 add_library(EngineBase STATIC
-CYBSource.cpp)
+
+#Platform
+${PlatformImplementations}
+CYBPosixProcess.cpp
+
+#Engine
+CYBMain.cpp
+)
 
 add_precompiled_header(EngineBase CYB.hpp)
 

@@ -1,0 +1,4 @@
+Are you commiting to fix the build? If so make sure it works on Linux and OSX before continuing.
+Does your commit message clearly state what you've changed?
+Have you thouroughly documented the file classes and functions?
+Have you calculated the time complexity of your algorithm? Does it take page faults into account?

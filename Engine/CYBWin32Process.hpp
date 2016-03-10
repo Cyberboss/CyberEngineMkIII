@@ -5,7 +5,14 @@ namespace CYB {
 		//! @file Encapsulates Platform specific functions
 		namespace Implementation {
 			class Process {
-
+			protected:
+				Win32::HANDLE FHandle;
+			public:
+				Process(Win32::HANDLE AProcess);
+				Process(const Process&) = delete;
+				Process(Process&& AMove);
+				Process& operator=(Process&& AMove);
+				~Process();
 			};
 		};
 	};

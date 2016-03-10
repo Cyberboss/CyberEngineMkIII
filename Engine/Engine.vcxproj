@@ -68,6 +68,7 @@
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>CYB.hpp</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4820;4668;4623;4626;4625</DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -87,6 +88,7 @@
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>CYB.hpp</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4820;4668;4623;4626;4625</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

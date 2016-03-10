@@ -50,6 +50,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Remote", "Utilities\Remote\
 		{CC599006-A54B-417F-9E3D-650A38A7C3E5} = {CC599006-A54B-417F-9E3D-650A38A7C3E5}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Programming Guide", "Programming Guide", "{CDC7A60A-EFF5-47F8-8FF4-2AC8F5DB02A6}"
+	ProjectSection(SolutionItems) = preProject
+		Before You Commit.txt = Before You Commit.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

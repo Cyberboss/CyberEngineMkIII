@@ -4,5 +4,7 @@
 
 void CYB::Engine::Init::Run[[noreturn]](void) {
 
-	CYB::Platform::Process::GetSelf().Terminate();
+	Platform::Process::GetSelf().Terminate();
+
+	HCF();
 }

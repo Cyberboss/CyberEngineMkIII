@@ -2,7 +2,6 @@
 
 #pragma once
 
-//! @brief Encapsulates the engine
 namespace CYB {
 	//! @brief Encapsulates platform agnostic engine functions
 	namespace Engine {

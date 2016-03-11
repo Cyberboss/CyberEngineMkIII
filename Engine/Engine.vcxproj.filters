@@ -14,6 +14,12 @@
     <ClCompile Include="CYBPosixProcess.cpp">
       <Filter>Platform\Posix</Filter>
     </ClCompile>
+    <ClCompile Include="CYBWin32Syscalls.cpp">
+      <Filter>Platform\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="CYBPosixSyscalls.cpp">
+      <Filter>Platform\Posix</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Declarations">
@@ -87,6 +93,21 @@
     </ClInclude>
     <ClInclude Include="CYBLinuxImplementation.hpp">
       <Filter>Platform\Linux</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBLinuxSyscalls.hpp">
+      <Filter>Platform\Linux</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBSyscalls.hpp">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBWin32Syscalls.hpp">
+      <Filter>Platform\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBOSXSyscalls.hpp">
+      <Filter>Platform\OSX</Filter>
+    </ClInclude>
+    <ClInclude Include="STL.hpp">
+      <Filter>Declarations</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

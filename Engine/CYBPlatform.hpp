@@ -15,4 +15,5 @@
 #include "CYBLinuxImplementation.hpp"
 #endif
 
+#include "CYBSyscalls.hpp"
 #include "CYBProcess.hpp"

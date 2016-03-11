@@ -14,6 +14,7 @@ add_library(EngineBase STATIC
 
 #Platform
 ${PlatformImplementations}
+CYBPosixSyscalls.cpp
 CYBPosixProcess.cpp
 
 #Engine

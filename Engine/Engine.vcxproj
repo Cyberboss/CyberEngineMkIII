@@ -100,12 +100,16 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="CYBPosixSyscalls.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="CYBMain.cpp" />
     <ClCompile Include="CYBPosixProcess.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="CYBWin32Process.cpp" />
+    <ClCompile Include="CYBWin32Syscalls.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
@@ -114,17 +118,22 @@
     <ClInclude Include="CYB.hpp" />
     <ClInclude Include="CyberEngine.hpp" />
     <ClInclude Include="CYBLinuxImplementation.hpp" />
+    <ClInclude Include="CYBLinuxSyscalls.hpp" />
     <ClInclude Include="CYBMain.hpp" />
     <ClInclude Include="CYBOSXImplementation.hpp" />
+    <ClInclude Include="CYBOSXSyscalls.hpp" />
     <ClInclude Include="CYBPlatform.hpp" />
     <ClInclude Include="CYBPosixImplementation.hpp" />
     <ClInclude Include="CYBPosixProcess.hpp" />
+    <ClInclude Include="CYBSyscalls.hpp" />
     <ClInclude Include="CYBWin32Implementation.hpp" />
+    <ClInclude Include="CYBWin32Syscalls.hpp" />
     <ClInclude Include="Endianess.hpp" />
     <ClInclude Include="CYBWin32Process.hpp" />
     <ClInclude Include="CYBEngine.hpp" />
     <ClInclude Include="Preprocessor.hpp" />
     <ClInclude Include="CYBProcess.hpp" />
+    <ClInclude Include="STL.hpp" />
     <ClInclude Include="SystemChecks.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

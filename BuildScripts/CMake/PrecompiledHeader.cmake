@@ -177,13 +177,13 @@ function(add_precompiled_header _target _input)
 if(CMAKE_BUILD_TYPE MATCHES DEBUG)
     add_custom_command(
       OUTPUT "${_output_cxx}"
-      COMMAND "${CMAKE_CXX_COMPILER}" ${_compiler_FLAGS} -DDEBUG -g -msse2 -x c++-header -std=c++14 -o "${_output_cxx}" "${_pchfile}"
+      COMMAND "${CMAKE_CXX_COMPILER}" ${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_DEBUG} -o "${_output_cxx}" "${_pchfile}"
       DEPENDS "${_pchfile}" "${_pch_flags_file}"
       COMMENT "Precompiling ${_name} for ${_target} (C++)")
 else()
     add_custom_command(
       OUTPUT "${_output_cxx}"
-      COMMAND "${CMAKE_CXX_COMPILER}" ${_compiler_FLAGS} -O3 -DNDEBUG -msse2 -x c++-header -std=c++14 -o "${_output_cxx}" "${_pchfile}"
+      COMMAND "${CMAKE_CXX_COMPILER}" ${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_RELEASE} -o "${_output_cxx}" "${_pchfile}"
       DEPENDS "${_pchfile}" "${_pch_flags_file}"
       COMMENT "Precompiling ${_name} for ${_target} (C++)")
 endif()

@@ -13,6 +13,19 @@ CYB::Platform::Process CYB::Platform::Process::GetSelf(void) {
 CYB::Platform::Implementation::Process::Process(CYB::Platform::Implementation::Win32::HANDLE AHandle) :
 	FHandle(AHandle)
 {}
+
+CYB::Platform::Implementation::Process::Process(Process&& AMove) :
+	FHandle(AMove.FHandle)
+{
+	AMove.FHandle = nullptr;
+}
+
+CYB::Platform::Implementation::Process& CYB::Platform::Implementation::Process::operator=(Process&& AMove) {
+	FHandle = AMove.FHandle;
+	AMove.FHandle = nullptr;
+	return *this;
+}
+
 CYB::Platform::Implementation::Process::~Process() {
 	if(FHandle != nullptr)
 		Win32::CloseHandle(FHandle);

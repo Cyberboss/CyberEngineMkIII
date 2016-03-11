@@ -9,3 +9,30 @@
 
 #include "SystemChecks.hpp"
 #include "Endianess.hpp"
+
+#define NOP static_cast<void>(nullptr)
+//! @brief Breaks code execution at line used if DEBUG is defined. Must be defined by user otherwise.
+#define BREAK NOP
+
+#undef BREAK
+#ifdef TARGET_OS_WINDOWS
+#define BREAK __debugbreak()
+#elif defined(TARGET_OS_MAC)
+#define BREAK __builtin_trap()
+#else
+#define BREAK __asm__("int3")
+#endif
+
+//! @brief Encapsulates the engine
+namespace CYB {
+	inline void HCF[[noreturn]](void){
+#ifdef DEBUG
+		BREAK;
+#endif
+#ifdef TARGET_OS_WINDOWS
+		__assume(false);
+#else
+		__builtin_unreachable();
+#endif
+	}
+}

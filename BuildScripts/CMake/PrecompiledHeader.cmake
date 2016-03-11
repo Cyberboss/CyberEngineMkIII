@@ -174,7 +174,7 @@ function(add_precompiled_header _target _input)
       COMMAND "${CMAKE_COMMAND}" -E copy "${_pch_header}" "${_pchfile}"
       DEPENDS "${_pch_header}"
       COMMENT "Updating ${_name}")
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+if(CMAKE_BUILD_TYPE MATCHES DEBUG)
     add_custom_command(
       OUTPUT "${_output_cxx}"
       COMMAND "${CMAKE_CXX_COMPILER}" ${_compiler_FLAGS} -DDEBUG -g -msse2 -x c++-header -std=c++14 -o "${_output_cxx}" "${_pchfile}"

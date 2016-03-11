@@ -20,6 +20,9 @@
     <ClCompile Include="CYBPosixSyscalls.cpp">
       <Filter>Platform\Posix</Filter>
     </ClCompile>
+    <ClCompile Include="CYBProcess.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Declarations">

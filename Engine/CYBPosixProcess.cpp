@@ -3,8 +3,7 @@
 #include "CYB.hpp"
 
 void CYB::Platform::Process::Terminate(void) {
-	if (FPID == Implementation::Posix::getpid())
-		//just call exit, it's nicer
+	if (FPID == Implementation::Posix::getpid());
 		Sys::Call(Sys::EXIT, 0);
 	Implementation::Posix::kill(FPID, SIGKILL);
 }

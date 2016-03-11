@@ -6,17 +6,23 @@ namespace CYB {
 	namespace Platform {
 		//! @brief An object representing an operating system process
 		class Process : private Implementation::Process {
-		public:
-			using Implementation::Process::Process;
+		private:
 			/*!
-				@brief Terminates the Process
+				@brief Runs actual termination code on a Process guaranteed to be destroyed afterwards
 			*/
 			void Terminate(void);
+		public:
+			using Implementation::Process::Process;
 			/*!
 				@brief Get's the Process representing the current execution
 				@return The current Process
 			*/
 			static Process GetSelf(void);
+			/*!
+				@brief Terminates the Process with exit code zero and ensures destruction of the object
+				@param AProcess An xvalue of the process to terminate
+			*/
+			static void Terminate(Process&& AProcess);
 		};
 	};
 };

@@ -174,19 +174,23 @@ function(add_precompiled_header _target _input)
       COMMAND "${CMAKE_COMMAND}" -E copy "${_pch_header}" "${_pchfile}"
       DEPENDS "${_pch_header}"
       COMMENT "Updating ${_name}")
-if(CMAKE_BUILD_TYPE MATCHES DEBUG)
-    add_custom_command(
-      OUTPUT "${_output_cxx}"
-      COMMAND "${CMAKE_CXX_COMPILER}" "${CMAKE_CXX_FLAGS}" "${CMAKE_CXX_FLAGS_DEBUG}" -o "${_output_cxx}" "${_pchfile}"
-      DEPENDS "${_pchfile}" "${_pch_flags_file}"
-      COMMENT "Precompiling ${_name} for ${_target} (C++)")
-else()
-    add_custom_command(
-      OUTPUT "${_output_cxx}"
-      COMMAND "${CMAKE_CXX_COMPILER}" "${CMAKE_CXX_FLAGS}" "${CMAKE_CXX_FLAGS_RELEASE}" -o "${_output_cxx}" "${_pchfile}"
-      DEPENDS "${_pchfile}" "${_pch_flags_file}"
-      COMMENT "Precompiling ${_name} for ${_target} (C++)")
-endif()
+	if(CMAKE_BUILD_TYPE MATCHES DEBUG)
+	  set(final_flags "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_DEBUG}")
+	  combine_arguments(final_flags)
+		add_custom_command(
+		  OUTPUT "${_output_cxx}"
+		  COMMAND "${CMAKE_CXX_COMPILER}" ${final_flags} -x c++-header -o "${_output_cxx}" "${_pchfile}"
+		  DEPENDS "${_pchfile}" "${_pch_flags_file}"
+		  COMMENT "Precompiling ${_name} for ${_target} (C++)")
+	else()
+	  set(final_flags "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_RELEASE}")
+	  combine_arguments(final_flags)
+		add_custom_command(
+		  OUTPUT "${_output_cxx}"
+		  COMMAND "${CMAKE_CXX_COMPILER}" ${final_flags} -x c++-header -o "${_output_cxx}" "${_pchfile}"
+		  DEPENDS "${_pchfile}" "${_pch_flags_file}"
+		  COMMENT "Precompiling ${_name} for ${_target} (C++)")
+	endif()
 
     get_property(_sources TARGET ${_target} PROPERTY SOURCES)
     foreach(_source ${_sources})

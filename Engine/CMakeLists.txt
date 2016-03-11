@@ -24,7 +24,7 @@ CYBProcess.cpp
 CYBMain.cpp
 )
 
-add_precompiled_header(EngineBase CYB.hpp)
+add_precompiled_header(EngineBase CYB.cpp)
 
 set_property(TARGET EngineBase PROPERTY CXX_STANDARD 14)
 set_property(TARGET EngineBase PROPERTY CXX_STANDARD_REQUIRED ON)

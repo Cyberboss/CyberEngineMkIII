@@ -36,3 +36,5 @@ namespace CYB {
 #endif
 	}
 }
+
+#define ASSERT(X) if(!(X)) ::CYB::HCF();

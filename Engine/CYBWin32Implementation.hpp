@@ -12,4 +12,5 @@ namespace CYB {
 	};
 };
 
+#include "CYBWin32Syscalls.hpp"
 #include "CYBWin32Process.hpp"

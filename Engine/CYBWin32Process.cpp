@@ -3,6 +3,7 @@
 #include "CYB.hpp"
 
 void CYB::Platform::Process::Terminate(void) {
+	//Self terminating is actually safer than exiting due to locks and shit
 	Implementation::Win32::TerminateProcess(FHandle, 0);
 }
 

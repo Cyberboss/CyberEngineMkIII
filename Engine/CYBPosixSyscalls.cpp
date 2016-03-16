@@ -1,4 +1,4 @@
-//! @file CYBPosixSyscalls.hpp Implements asm x86_64 syscalls
+//! @file CYBPosixSyscalls.cpp Implements asm x86_64 syscalls
 #include "CYB.hpp"
 
 unsigned long long CYB::Platform::Sys::DoCall(const CallNumber ACallNumber) {

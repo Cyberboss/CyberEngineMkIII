@@ -126,9 +126,12 @@
     <ClInclude Include="CYBPlatform.hpp" />
     <ClInclude Include="CYBPosixImplementation.hpp" />
     <ClInclude Include="CYBPosixProcess.hpp" />
+    <ClInclude Include="CYBPosixThread.hpp" />
     <ClInclude Include="CYBSyscalls.hpp" />
+    <ClInclude Include="CYBThread.hpp" />
     <ClInclude Include="CYBWin32Implementation.hpp" />
     <ClInclude Include="CYBWin32Syscalls.hpp" />
+    <ClInclude Include="CYBWin32Thread.hpp" />
     <ClInclude Include="Endianess.hpp" />
     <ClInclude Include="CYBWin32Process.hpp" />
     <ClInclude Include="CYBEngine.hpp" />

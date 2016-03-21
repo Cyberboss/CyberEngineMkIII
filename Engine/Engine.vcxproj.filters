@@ -52,6 +52,9 @@
     <Filter Include="Platform\Linux">
       <UniqueIdentifier>{3c9a42bc-a56a-4254-9d7e-d2327ddc5ce1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Memory">
+      <UniqueIdentifier>{30c8468c-f4a2-4737-9f2d-5e1165f77516}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Preprocessor.hpp">
@@ -111,6 +114,15 @@
     </ClInclude>
     <ClInclude Include="STL.hpp">
       <Filter>Declarations</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBThread.hpp">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBPosixThread.hpp">
+      <Filter>Platform\Posix</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBWin32Thread.hpp">
+      <Filter>Platform\Win32</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

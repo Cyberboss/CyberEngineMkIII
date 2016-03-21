@@ -4,13 +4,14 @@ namespace CYB {
 	namespace Platform {
 		namespace Implementation {
 			namespace Win32 {
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
-#undef WIN32_LEAN_AND_MEAN
+				#define WIN32_LEAN_AND_MEAN
+				#include <Windows.h>
+				#undef WIN32_LEAN_AND_MEAN
 			};
 		};
 	};
 };
 
 #include "CYBWin32Syscalls.hpp"
+#include "CYBWin32Thread.hpp"
 #include "CYBWin32Process.hpp"

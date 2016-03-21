@@ -16,4 +16,5 @@
 #endif
 
 #include "CYBSyscalls.hpp"
+#include "CYBThread.hpp"
 #include "CYBProcess.hpp"

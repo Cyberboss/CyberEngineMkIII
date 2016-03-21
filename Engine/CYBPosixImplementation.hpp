@@ -5,12 +5,13 @@ namespace CYB {
 	namespace Platform {
 		namespace Implementation {
 			namespace Posix {
-#include <sys/types.h>
-#include <unistd.h>
-#include <signal.h>
+				#include <sys/types.h>
+				#include <unistd.h>
+				#include <signal.h>
 			};
 		};
 	};
 };
 
+#include "CYBPosixThread.hpp"
 #include "CYBPosixProcess.hpp"

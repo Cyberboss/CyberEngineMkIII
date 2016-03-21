@@ -23,7 +23,6 @@
 #define BREAK __asm__("int3")
 #endif
 
-//! @brief Encapsulates the engine
 namespace CYB {
 	inline void HCF[[noreturn]](void){
 #ifdef DEBUG

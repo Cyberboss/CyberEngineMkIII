@@ -13,3 +13,5 @@ namespace CYB {
 #include "Preprocessor.hpp"
 
 #include "STL.hpp"
+
+#include "Thread.hpp"

@@ -124,5 +124,8 @@
     <ClInclude Include="CYBWin32Thread.hpp">
       <Filter>Platform\Win32</Filter>
     </ClInclude>
+    <ClInclude Include="Thread.hpp">
+      <Filter>API</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

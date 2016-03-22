@@ -4,6 +4,7 @@ namespace CYB {
 	namespace Platform {
 		//! @brief Definition of a platform thread object
 		class Thread : private Implementation::Thread {
+		public:
 
 		};
 	};

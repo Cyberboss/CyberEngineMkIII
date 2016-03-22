@@ -139,6 +139,7 @@
     <ClInclude Include="CYBProcess.hpp" />
     <ClInclude Include="STL.hpp" />
     <ClInclude Include="SystemChecks.hpp" />
+    <ClInclude Include="Thread.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -23,6 +23,9 @@
     <ClCompile Include="CYBProcess.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
+    <ClCompile Include="CYBThread.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Declarations">
@@ -126,6 +129,12 @@
     </ClInclude>
     <ClInclude Include="Thread.hpp">
       <Filter>API</Filter>
+    </ClInclude>
+    <ClInclude Include="Exception.hpp">
+      <Filter>Declarations</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.hpp">
+      <Filter>Declarations</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

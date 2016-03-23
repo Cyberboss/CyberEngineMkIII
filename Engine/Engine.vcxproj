@@ -68,7 +68,7 @@
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>CYB.hpp</PrecompiledHeaderFile>
-      <DisableSpecificWarnings>4820;4668;4623;4626;4625</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4548;4668;4623;4626;4625;4820;5026;5027</DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -88,7 +88,7 @@
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>CYB.hpp</PrecompiledHeaderFile>
-      <DisableSpecificWarnings>4820;4668;4623;4626;4625</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4548;4668;4623;4626;4625;4820;5026;5027</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -109,6 +109,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="CYBProcess.cpp" />
+    <ClCompile Include="CYBThread.cpp" />
     <ClCompile Include="CYBWin32Process.cpp" />
     <ClCompile Include="CYBWin32Syscalls.cpp" />
   </ItemGroup>
@@ -135,11 +136,13 @@
     <ClInclude Include="Endianess.hpp" />
     <ClInclude Include="CYBWin32Process.hpp" />
     <ClInclude Include="CYBEngine.hpp" />
+    <ClInclude Include="Exception.hpp" />
     <ClInclude Include="Preprocessor.hpp" />
     <ClInclude Include="CYBProcess.hpp" />
     <ClInclude Include="STL.hpp" />
     <ClInclude Include="SystemChecks.hpp" />
     <ClInclude Include="Thread.hpp" />
+    <ClInclude Include="Types.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

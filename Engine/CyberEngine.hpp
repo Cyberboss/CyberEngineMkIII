@@ -11,7 +11,10 @@ namespace CYB {
 };
 
 #include "Preprocessor.hpp"
+#include "Types.hpp"
 
 #include "STL.hpp"
+
+#include "Exception.hpp"
 
 #include "Thread.hpp"

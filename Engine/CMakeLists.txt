@@ -19,8 +19,10 @@ CYB.hpp
 ${PlatformImplementations}
 
 CYBPosixSyscalls.cpp
+CYBPosixThread.cpp
 CYBPosixProcess.cpp
 
+CYBThread.cpp
 CYBProcess.cpp
 
 #Engine

@@ -19,10 +19,11 @@ namespace CYB {
 				@param AThreadable A reference to the threadable object the Thread will run
 			*/
 			Thread(API::Threadable& AThreadable);
+			Thread(const Thread&) = delete;
 			~Thread();
 
 			void Cancel(void);
-			bool GetState(void) const;
+			bool IsFinished(void) const;
 			void Wait(void) const;
 		};
 	};

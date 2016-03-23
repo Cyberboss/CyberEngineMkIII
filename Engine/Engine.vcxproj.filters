@@ -26,6 +26,9 @@
     <ClCompile Include="CYBThread.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
+    <ClCompile Include="CYBWin32Thread.cpp">
+      <Filter>Platform\Win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Declarations">

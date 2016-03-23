@@ -68,7 +68,7 @@
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>CYB.hpp</PrecompiledHeaderFile>
-      <DisableSpecificWarnings>4548;4668;4623;4626;4625;4820;5026;5027</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4548;4571;4668;4623;4626;4625;4820;5026;5027</DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -88,7 +88,7 @@
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>CYB.hpp</PrecompiledHeaderFile>
-      <DisableSpecificWarnings>4548;4668;4623;4626;4625;4820;5026;5027</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4548;4571;4668;4623;4626;4625;4820;5026;5027</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -112,6 +112,7 @@
     <ClCompile Include="CYBThread.cpp" />
     <ClCompile Include="CYBWin32Process.cpp" />
     <ClCompile Include="CYBWin32Syscalls.cpp" />
+    <ClCompile Include="CYBWin32Thread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

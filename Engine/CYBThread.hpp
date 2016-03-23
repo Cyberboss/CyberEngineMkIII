@@ -25,6 +25,8 @@ namespace CYB {
 			void Cancel(void);
 			bool IsFinished(void) const;
 			void Wait(void) const;
+
+			static void Yield(void);
 		};
 	};
 };

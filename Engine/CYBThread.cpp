@@ -11,3 +11,8 @@ CYB::Platform::Thread::~Thread() {
 		Wait();
 	}
 }
+
+void CYB::Platform::Thread::Cancel(void) {
+	if (!IsFinished())
+		FThreadable.CancelThreadedOperation();
+}

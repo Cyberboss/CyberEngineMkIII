@@ -27,12 +27,6 @@ unsigned long __stdcall CYB::Platform::Implementation::Thread::ThreadProc(void* 
 	catch (...) {}
 	return 0;
 }
-
-void CYB::Platform::Thread::Cancel(void) {
-	if(!IsFinished())
-		FThreadable.CancelThreadedOperation();
-}
-
 bool CYB::Platform::Thread::IsFinished(void) const {
 	typedef Implementation::Win32::DWORD DWORD;
 	return Implementation::Win32::WaitForSingleObject(FThread, 0) == WAIT_OBJECT_0;
@@ -40,4 +34,8 @@ bool CYB::Platform::Thread::IsFinished(void) const {
 
 void CYB::Platform::Thread::Wait(void) const {
 	Implementation::Win32::WaitForSingleObject(FThread, INFINITE);
+}
+
+void CYB::Platform::Thread::Yield(void) {
+	Implementation::Win32::SwitchToThread();
 }

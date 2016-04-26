@@ -13,7 +13,7 @@ namespace CYB {
 				Posix::pthread_t FThread;
 				std::atomic_bool FRunning;
 			private:
-				void* ThreadProc(void* const AThreadData);
+				static void* ThreadProc(void* const AThreadData);
 			protected:
 				Thread(API::Threadable& AThreadable);
 			};

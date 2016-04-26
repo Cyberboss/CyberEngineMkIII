@@ -15,7 +15,7 @@ CYB::Platform::Implementation::Thread::Thread(API::Threadable& AThreadable) :
 		Platform::Thread::Yield();
 }
 
-void* CYB::Platform::Implementation::Thread::ThreadProc(volatile void* const AThreadData) {
+void* CYB::Platform::Implementation::Thread::ThreadProc(void* const AThreadData) {
 	std::atomic_bool* const RunningAtomic(static_cast<volatile ThreadData*>(AThreadData)->FRunningPointer);
 	API::Threadable* Threadable(static_cast<volatile ThreadData*>(AThreadData)->FThreadable);
 	RunningAtomic->store(true, std::memory_order_release);

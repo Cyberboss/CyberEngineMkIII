@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RemoteLinux|x64'">
+    <RemoteHostName>192.168.0.144</RemoteHostName>
+    <RemoteUserName>debugbot</RemoteUserName>
+    <PrivateKey>$(ProjectDir)../../BuildScripts/RemoteDebug/PrivateKey.ppk</PrivateKey>
+    <SecureShellExecutable>$(ProjectDir)../../BuildScripts/RemoteDebug/plink.exe</SecureShellExecutable>
+    <RemoteWorkingDirectory>/home/debugbot/CEMKIIIDebug/Output/bin</RemoteWorkingDirectory>
+    <RemoteExecutable>CyberEngineMkIIID</RemoteExecutable>
+    <DebuggerFlavor>LinuxDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RemoteOSX|x64'">
+    <RemoteHostName>192.168.0.145</RemoteHostName>
+    <RemoteUserName>debugbot</RemoteUserName>
+    <PrivateKey>$(ProjectDir)../../BuildScripts/RemoteDebug/PrivateKey.ppk</PrivateKey>
+    <SecureShellExecutable>$(ProjectDir)../../BuildScripts/RemoteDebug/plink.exe</SecureShellExecutable>
+    <RemoteWorkingDirectory>/home/debugbot/CEMKIIIDebug/Output/bin</RemoteWorkingDirectory>
+    <RemoteExecutable>CyberEngineMkIIID</RemoteExecutable>
+    <DebuggerFlavor>LinuxDebugger</DebuggerFlavor>
+  </PropertyGroup>
+</Project>

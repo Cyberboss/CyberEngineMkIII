@@ -9,4 +9,4 @@ $userhost = "$username@$server"
 $paththing = "$wd/../../"
 $command = "mkdir -p $wd; cd $paththing;rm -rf *; echo Working Directory cleared"
 & "../../BuildScripts/RemoteDebug/plink.exe" $userhost -i "$key" "$command"
-& "../ModifiedSources/bin/Debug/ModifiedSources.exe" --clear
+& "../ModifiedSources/bin/Remote/ModifiedSources.exe" --clear

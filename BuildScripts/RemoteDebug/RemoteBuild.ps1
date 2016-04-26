@@ -6,7 +6,7 @@
     [string]$wd = $(throw "-wd is required.")
  )
 cd ../..
-& "Utilities/ModifiedSources/bin/Debug/ModifiedSources.exe"
+& "Utilities/ModifiedSources/bin/Remote/ModifiedSources.exe"
 if($LastExitCode -eq 0){
 	$userhost = "$username@$server"
 	$paththing = $userhost + ":" + "$wd/../../"

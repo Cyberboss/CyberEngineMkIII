@@ -8,6 +8,8 @@ namespace CYB {
 				#include <sys/types.h>
 				#include <unistd.h>
 				#include <signal.h>
+				#include <sched.h>
+				#include <pthread.h>
 			};
 		};
 	};

@@ -4,9 +4,6 @@
     <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CYBMain.cpp">
-      <Filter>Engine\Initialization</Filter>
-    </ClCompile>
     <ClCompile Include="CYBWin32Process.cpp">
       <Filter>Platform\Win32</Filter>
     </ClCompile>
@@ -31,6 +28,9 @@
     </ClCompile>
     <ClCompile Include="CYBPosixThread.cpp">
       <Filter>Platform\Posix</Filter>
+    </ClCompile>
+    <ClCompile Include="CYBInit.cpp">
+      <Filter>Engine\Initialization</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -74,9 +74,6 @@
     </ClInclude>
     <ClInclude Include="SystemChecks.hpp">
       <Filter>Declarations</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBMain.hpp">
-      <Filter>Engine\Initialization</Filter>
     </ClInclude>
     <ClInclude Include="CYBWin32Process.hpp">
       <Filter>Platform\Win32</Filter>
@@ -141,6 +138,9 @@
     </ClInclude>
     <ClInclude Include="Types.hpp">
       <Filter>Declarations</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBInit.hpp">
+      <Filter>Engine\Initialization</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

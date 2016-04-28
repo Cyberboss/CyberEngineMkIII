@@ -5,6 +5,9 @@ namespace CYB {
 	namespace Platform {
 		namespace Implementation {
 			namespace Posix {
+				#ifdef CYB_BUILDING_TESTS
+				typedef ::pid_t pid_t;
+				#endif
 				#include <sys/types.h>
 				#include <unistd.h>
 				#include <signal.h>

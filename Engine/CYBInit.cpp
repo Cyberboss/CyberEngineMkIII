@@ -28,5 +28,5 @@ void CYB::Engine::Init::Run[[noreturn]](void) {
 
 	Platform::Process::Terminate(Platform::Process::GetSelf());
 
-	HCF();
+	CYB::API::HCF();
 }

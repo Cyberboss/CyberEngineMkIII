@@ -135,6 +135,7 @@
     <ClInclude Include="CYBPosixThread.hpp" />
     <ClInclude Include="CYBSyscalls.hpp" />
     <ClInclude Include="CYBThread.hpp" />
+    <ClInclude Include="CYBVirtualMemory.hpp" />
     <ClInclude Include="CYBWin32Implementation.hpp" />
     <ClInclude Include="CYBWin32Syscalls.hpp" />
     <ClInclude Include="CYBWin32Thread.hpp" />
@@ -146,7 +147,7 @@
     <ClInclude Include="CYBProcess.hpp" />
     <ClInclude Include="STL.hpp" />
     <ClInclude Include="SystemChecks.hpp" />
-    <ClInclude Include="Thread.hpp" />
+    <ClInclude Include="Threadable.hpp" />
     <ClInclude Include="Types.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

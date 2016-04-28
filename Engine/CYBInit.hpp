@@ -8,7 +8,13 @@ namespace CYB {
 		//! @brief Contains engine initialization functions
 		class Init {
 		public:
-			//! @brief Runs the engine and self terminates
+			/*! 
+				@brief Runs the engine and self terminates
+				@par Thread Safety
+					This function should only be called once
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
 			static void Run[[noreturn]](void);
 		};
 	};

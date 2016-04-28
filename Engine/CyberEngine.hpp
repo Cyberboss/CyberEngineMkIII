@@ -17,4 +17,4 @@ namespace CYB {
 
 #include "Exception.hpp"
 
-#include "Thread.hpp"
+#include "Threadable.hpp"

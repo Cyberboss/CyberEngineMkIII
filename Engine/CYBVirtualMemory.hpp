@@ -23,7 +23,7 @@ namespace CYB {
 			*/
 			static void* Reserve(unsigned long long ANumBytes);
 			/*!
-				@brief Commit some amount of memory from a reserved address space. On return, the memory will be usable. The access of the reservation will be AccessLevel::READ_WRITE upon return
+				@brief Commit some amount of memory from a reserved address space. On return, the memory will be usable. The access of the reservation will be AccessLevel::READ_WRITE upon return if it succeeds, or the previous AccessLevel otherwise
 				@param AReservation An address returned from Reserve
 				@param ANumBytes The number of bytes in the address space to commit, will be rounded up to the nearest reservable granularity
 				@par Thread Safety

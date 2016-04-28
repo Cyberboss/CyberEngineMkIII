@@ -41,6 +41,9 @@
     <ClCompile Include="CYBWin32VirtualMemory.cpp">
       <Filter>Platform\Win32</Filter>
     </ClCompile>
+    <ClCompile Include="CYBPosixVirtualMemory.cpp">
+      <Filter>Platform\Posix</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Declarations">

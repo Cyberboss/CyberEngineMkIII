@@ -5,7 +5,7 @@
 void CYB::Platform::Process::Terminate(void) {
 	if (FPID == Implementation::Posix::getpid());
 		Sys::Call(Sys::EXIT, 0);
-	Implementation::Posix::kill(FPID, SIGKILL);
+	Sys::Call(Sys::KILL, FPID, SIGKILL);
 }
 
 CYB::Platform::Process CYB::Platform::Process::GetSelf(void) {

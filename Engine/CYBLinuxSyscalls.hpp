@@ -9,6 +9,7 @@ namespace CYB {
 			public:
 				enum CallNumber : unsigned long long {
 					EXIT = 60,
+					KILL = 62,
 				};
 			};
 		};

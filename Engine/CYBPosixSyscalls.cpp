@@ -97,5 +97,8 @@ void CYB::Platform::Sys::VerifyArgumentCount(const CallNumber ACallNumber, const
 	case EXIT:
 		ASSERT(ANumArgs == 1);
 		break;
+	case KILL:
+		ASSERT(ANumArgs == 2);
+		break;
 	}
 }

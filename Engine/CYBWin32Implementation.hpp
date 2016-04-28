@@ -8,6 +8,8 @@ namespace CYB {
 				#include <Windows.h>
 				#undef WIN32_LEAN_AND_MEAN
 				#undef Yield
+				#undef min
+				#undef max
 			};
 		};
 	};

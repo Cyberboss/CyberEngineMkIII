@@ -53,6 +53,8 @@ namespace CYB {
 				MEMORY_RESERVATION_FAILURE,
 				THREAD_CREATION_FAILURE,
 			};
+		private:
+			static const char* ErrorMessage(const ErrorCode AErrorCode);
 		public:
 			SystemData(const ErrorCode AErrorCode);
 		};

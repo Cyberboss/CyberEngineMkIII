@@ -5,6 +5,7 @@ project(Tests)
 
 add_executable(CyberEngineMkIIITester
 Main.cpp
+VirtualMemory.cpp
 )
 
 add_definitions(-D__USE_XOPEN2K8)

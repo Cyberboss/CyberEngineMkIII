@@ -2,10 +2,14 @@
 #include "CYB.hpp"
 
 void* CYB::Platform::VirtualMemory::Reserve(const unsigned long long ANumBytes) {
-	void* const Result(Implementation::Win32::VirtualAlloc(nullptr, ANumBytes, MEM_RESERVE, 0));
-	if (Result == nullptr)
+	if (ANumBytes >= 1024) {
+		void* const Result(Implementation::Win32::VirtualAlloc(nullptr, ANumBytes, MEM_RESERVE, PAGE_NOACCESS));
+		if (Result == nullptr)
+			throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
+		return Result;
+	}
+	else
 		throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
-	return Result;
 }
 
 void CYB::Platform::VirtualMemory::Commit(void* const AReservation, const unsigned long long ANumBytes) {

@@ -39,7 +39,3 @@ bool CYB::Platform::Thread::IsFinished(void) const {
 void CYB::Platform::Thread::Wait(void) const {
 	Implementation::Posix::pthread_join(FThread, nullptr);
 }
-
-void CYB::Platform::Thread::Yield(void) {
-	Implementation::Posix::sched_yield();
-}

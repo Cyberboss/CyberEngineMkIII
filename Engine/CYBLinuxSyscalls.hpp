@@ -8,6 +8,7 @@ namespace CYB {
 			class Sys {
 			public:
 				enum CallNumber : unsigned long long {
+					YIELD = 24,
 					EXIT = 60,
 					KILL = 62,
 				};

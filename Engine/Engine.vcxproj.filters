@@ -32,6 +32,12 @@
     <ClCompile Include="CYBInit.cpp">
       <Filter>Engine\Initialization</Filter>
     </ClCompile>
+    <ClCompile Include="CYBOSXThread.cpp">
+      <Filter>Platform\OSX</Filter>
+    </ClCompile>
+    <ClCompile Include="CYBLinuxThread.cpp">
+      <Filter>Platform\Linux</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Declarations">

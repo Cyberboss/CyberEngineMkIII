@@ -10,6 +10,7 @@
 #include "SystemChecks.hpp"
 #include "Endianess.hpp"
 
+//! @brief No operation macro
 #define NOP static_cast<void>(nullptr)
 //! @brief Breaks code execution at line used if DEBUG is defined. Must be defined by user otherwise.
 #define BREAK NOP
@@ -24,16 +25,35 @@
 #endif
 
 namespace CYB {
-	inline void HCF[[noreturn]](void){
+	namespace API {
+		/*! 
+			@brief Indicates unreachable code
+			@par Thread Safety
+				This function requires no thread safety
+			@par Exception Safety
+				This function does not throw exceptions
+		*/
+		inline void HCF[[noreturn]](void){
 #ifdef DEBUG
-		BREAK;
+			BREAK;
 #endif
 #ifdef TARGET_OS_WINDOWS
-		__assume(false);
+			__assume(false);
 #else
-		__builtin_unreachable();
+			__builtin_unreachable();
 #endif
-	}
-}
-
-#define ASSERT(X) if(!(X)) ::CYB::HCF();
+		}
+		/*!
+			@brief Assertion function. @p AExpression should always be evaluated
+			@param AExpression The expression to check. Will call HCF if false
+			@par Thread Safety
+				This function requires no thread safety
+			@par Exception Safety
+				This function does not throw exceptions
+		*/
+		inline void Assert(const bool AExpression) {
+			if (!AExpression)
+				HCF();
+		}
+	};
+};

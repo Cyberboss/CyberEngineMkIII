@@ -130,9 +130,6 @@
     <ClInclude Include="CYBWin32Thread.hpp">
       <Filter>Platform\Win32</Filter>
     </ClInclude>
-    <ClInclude Include="Thread.hpp">
-      <Filter>API</Filter>
-    </ClInclude>
     <ClInclude Include="Exception.hpp">
       <Filter>Declarations</Filter>
     </ClInclude>
@@ -141,6 +138,12 @@
     </ClInclude>
     <ClInclude Include="CYBInit.hpp">
       <Filter>Engine\Initialization</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBVirtualMemory.hpp">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Threadable.hpp">
+      <Filter>API</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -95,10 +95,10 @@ unsigned long long CYB::Platform::Sys::DoCall(const CallNumber ACallNumber, cons
 void CYB::Platform::Sys::VerifyArgumentCount(const CallNumber ACallNumber, const size_t ANumArgs) {
 	switch (ACallNumber) {
 	case EXIT:
-		ASSERT(ANumArgs == 1);
+		CYB::API::Assert(ANumArgs == 1);
 		break;
 	case KILL:
-		ASSERT(ANumArgs == 2);
+		CYB::API::Assert(ANumArgs == 2);
 		break;
 	}
 }

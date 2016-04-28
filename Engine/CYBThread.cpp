@@ -3,16 +3,16 @@
 
 CYB::Platform::Thread::Thread(API::Threadable& AThreadable) :
 	Implementation::Thread(AThreadable),
-	FThreadable(AThreadable)
+	FThreadable(AThreadable),
+	FCancelSubmitted(false)
 {}
 CYB::Platform::Thread::~Thread() {
-	if (!IsFinished()) {
-		//! @todo Log dev warning
-		Wait();
-	}
+	Wait();
 }
 
 void CYB::Platform::Thread::Cancel(void) {
-	if (!IsFinished())
+	if (!FCancelSubmitted && !IsFinished()) {
+		FCancelSubmitted = true;
 		FThreadable.CancelThreadedOperation();
+	}
 }

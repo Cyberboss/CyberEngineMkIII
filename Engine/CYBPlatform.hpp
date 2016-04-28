@@ -1,6 +1,9 @@
 //! @file CYBPlatform.hpp Includes platform headers
 #pragma once
 
+//! @brief Namespace containing engine Platform functions
+namespace Platform {};
+
 #ifdef TARGET_OS_WINDOWS
 #include "CYBWin32Implementation.hpp"
 #else
@@ -16,5 +19,6 @@
 #endif
 
 #include "CYBSyscalls.hpp"
+#include "CYBVirtualMemory.hpp"
 #include "CYBThread.hpp"
 #include "CYBProcess.hpp"

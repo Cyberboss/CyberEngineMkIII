@@ -38,6 +38,9 @@
     <ClCompile Include="CYBLinuxThread.cpp">
       <Filter>Platform\Linux</Filter>
     </ClCompile>
+    <ClCompile Include="CYBWin32VirtualMemory.cpp">
+      <Filter>Platform\Win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Declarations">

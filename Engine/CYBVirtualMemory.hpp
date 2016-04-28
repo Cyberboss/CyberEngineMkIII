@@ -6,6 +6,12 @@ namespace CYB {
 		//! @brief Access and abstraction to the basic OS memory functions
 		class VirtualMemory {
 		public:
+			enum class AccessLevel {
+				READ,
+				READ_WRITE,
+				NONE,
+			};
+		public:
 			/*!
 				@brief Reserve some amount of address space for future allocation
 				@param ANumBytes The number of bytes in the address space to reserve, will be rounded up to the nearest system page
@@ -25,11 +31,11 @@ namespace CYB {
 				@par Exception Safety
 					CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the commital was unable to be made
 			*/
-			static void Commit(const void* const AReservation, const unsigned long long ANumBytes);
+			static void Commit(void* const AReservation, const unsigned long long ANumBytes);
 			/*!
 				@brief Designate an area of memory as not needed for the time being, improving performance. It may be reaccessed at any time, however, it should be assumed to be filled with random data upon doing so
 				@param AMemory An address in a committed area of memory
-				@param ANumBytes The number of bytes to discard, will be rounded down to the nearest discardable granularity
+				@param ANumBytes The number of bytes to discard, will be rounded down to the nearest discardable granularity. Must be less than reservation size
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
@@ -44,18 +50,17 @@ namespace CYB {
 				@par Exception Safety
 					CYB::Exception::SystemData::MEMORY_RELEASE_FAILURE if the commital was unable to be made
 			*/
-			static void Release(const void* const AReservation);
+			static void Release(void* const AReservation);
 			/*!
 				@brief Set the memory protection on a reservation
 				@param AReservation An address returned from Reserve
-				@param ARead Is the range readable
-				@param AWrite Is the range writable
+				@param AAccess The access level of the 
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
 					CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE if the commital was unable to be made
 			*/
-			static void Access(const void* const AReservation, const bool ARead, const bool AWrite);
+			static void Access(void* const AReservation, const AccessLevel AAccess);
 		};
 	};
 };

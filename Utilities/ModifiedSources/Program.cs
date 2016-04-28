@@ -21,7 +21,14 @@ namespace ModifiedSources
         {
             Directory.CreateDirectory(CurrentPath);
             foreach (var Dir in ADir.GetDirectories())
-                if (Dir.Name != ".git" && Dir.Name != ".vs" && Dir.Name != "Documentation" && Dir.Name != "GDBSync")
+                if (ADir.Name == "SupportLibs" && Dir.Name == "Catch")
+                {
+                    var NewPath = CurrentPath + Path.DirectorySeparatorChar + Dir.Name + Path.DirectorySeparatorChar + "single_include";
+                    Directory.CreateDirectory(CurrentPath + Path.DirectorySeparatorChar + Dir.Name);
+                    Directory.CreateDirectory(NewPath);
+                    ParseDirectory(new DirectoryInfo(Dir.FullName + Path.DirectorySeparatorChar + "single_include"), NewPath);
+                }
+                else if (Dir.Name != ".git" && Dir.Name != ".vs" && Dir.Name != "Documentation" && Dir.Name != "GDBSync")
                     ParseDirectory(Dir, CurrentPath + Path.DirectorySeparatorChar + Dir.Name);
             
             var actualfiles = ADir.GetFiles();

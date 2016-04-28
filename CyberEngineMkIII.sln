@@ -40,6 +40,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{364E825E-F224-4853-BD93-58C4AD7D36E4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Executable", "Executable\Executable.vcxproj", "{1F07588E-625E-42BF-A4BD-93D7FD67F082}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C278CE8B-BC54-466E-A4F9-56F07CEB116F} = {C278CE8B-BC54-466E-A4F9-56F07CEB116F}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{4A2D05F7-6B95-4803-9807-F3E38919B099}"
 EndProject
@@ -58,6 +61,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SupportLibs", "SupportLibs", "{323845DB-C57F-48B8-8D9B-33CA513E85FE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catch", "Catch", "{A4BD2B4E-C162-4329-B6CF-E0C2F610E5B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "single_include", "single_include", "{85E06AE1-C645-43EE-B02E-24AFAF5CB194}"
+	ProjectSection(SolutionItems) = preProject
+		SupportLibs\Catch\single_include\catch.hpp = SupportLibs\Catch\single_include\catch.hpp
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tests", "Tests\Tests.vcxproj", "{C278CE8B-BC54-466E-A4F9-56F07CEB116F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +101,12 @@ Global
 		{793D95A4-706F-49FF-A1E1-8C9E01E94655}.RemoteLinux|x64.Build.0 = RemoteLinux|x64
 		{793D95A4-706F-49FF-A1E1-8C9E01E94655}.RemoteOSX|x64.ActiveCfg = RemoteOSX|x64
 		{793D95A4-706F-49FF-A1E1-8C9E01E94655}.RemoteOSX|x64.Build.0 = RemoteOSX|x64
+		{C278CE8B-BC54-466E-A4F9-56F07CEB116F}.Debug|x64.ActiveCfg = Debug|x64
+		{C278CE8B-BC54-466E-A4F9-56F07CEB116F}.Debug|x64.Build.0 = Debug|x64
+		{C278CE8B-BC54-466E-A4F9-56F07CEB116F}.Release|x64.ActiveCfg = Release|x64
+		{C278CE8B-BC54-466E-A4F9-56F07CEB116F}.Release|x64.Build.0 = Release|x64
+		{C278CE8B-BC54-466E-A4F9-56F07CEB116F}.RemoteLinux|x64.ActiveCfg = Release|x64
+		{C278CE8B-BC54-466E-A4F9-56F07CEB116F}.RemoteOSX|x64.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,5 +117,6 @@ Global
 		{AD52B059-EDE4-4BF9-B6A6-AFDE22310615} = {0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}
 		{CC599006-A54B-417F-9E3D-650A38A7C3E5} = {4A2D05F7-6B95-4803-9807-F3E38919B099}
 		{A4BD2B4E-C162-4329-B6CF-E0C2F610E5B6} = {323845DB-C57F-48B8-8D9B-33CA513E85FE}
+		{85E06AE1-C645-43EE-B02E-24AFAF5CB194} = {A4BD2B4E-C162-4329-B6CF-E0C2F610E5B6}
 	EndGlobalSection
 EndGlobal

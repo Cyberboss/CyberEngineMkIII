@@ -20,3 +20,4 @@ include(${CYB_BASE_DIR}/BuildScripts/CMake/PrecompiledHeader.cmake)
 
 add_subdirectory(Engine)
 add_subdirectory(Executable)
+add_subdirectory(Tests)

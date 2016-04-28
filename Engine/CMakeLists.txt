@@ -23,6 +23,7 @@ CYBPosixThread.cpp
 CYBPosixProcess.cpp
 CYBPosixVirtualMemory.cpp
 
+CYBException.cpp
 CYBThread.cpp
 CYBProcess.cpp
 

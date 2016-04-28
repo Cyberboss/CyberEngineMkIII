@@ -100,7 +100,7 @@
       <EntryPointSymbol>wmainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>Powershell -File "$(ProjectDir)..\BuildScripts\PostBuild.ps1" "$(OutDir)" "Release"</Command>
+      <Command>Powershell -File "$(ProjectDir)..\BuildScripts\PostBuild.ps1" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

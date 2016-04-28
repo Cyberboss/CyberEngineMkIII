@@ -44,6 +44,9 @@
     <ClCompile Include="CYBPosixVirtualMemory.cpp">
       <Filter>Platform\Posix</Filter>
     </ClCompile>
+    <ClCompile Include="CYBException.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Declarations">

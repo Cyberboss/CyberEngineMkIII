@@ -3,11 +3,19 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TestHeader.cpp" />
+    <ClCompile Include="VirtualMemory.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{908278e1-4fc0-4a66-a6d2-c0f6b7060186}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

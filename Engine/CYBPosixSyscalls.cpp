@@ -94,6 +94,12 @@ unsigned long long CYB::Platform::Sys::DoCall(const CallNumber ACallNumber, cons
 }
 void CYB::Platform::Sys::VerifyArgumentCount(const CallNumber ACallNumber, const size_t ANumArgs) {
 	switch (ACallNumber) {
+	case YIELD:
+#ifdef TARGET_OS_MAC
+		CYB::API::HCF();
+#endif
+		CYB::API::Assert(ANumArgs == 0);
+		break;
 	case EXIT:
 		CYB::API::Assert(ANumArgs == 1);
 		break;

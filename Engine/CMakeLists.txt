@@ -5,9 +5,9 @@ project(Engine)
 include_directories(${CYB_BASE_DIR}/Engine)
 
 IF(APPLE)
-set(PlatformImplentations "")
+set(PlatformImplentations "CYBOSXThread.cpp")
 ELSE()
-set(PlatformImplentations "")
+set(PlatformImplentations "CYBLinuxThread.cpp")
 ENDIF()
 
 add_library(EngineBase STATIC

@@ -26,7 +26,7 @@ CYBThread.cpp
 CYBProcess.cpp
 
 #Engine
-CYBMain.cpp
+CYBInit.cpp
 )
 
 add_precompiled_header(EngineBase CYB.hpp FORCEINCLUDE)

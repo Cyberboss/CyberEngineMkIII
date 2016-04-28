@@ -21,6 +21,7 @@ ${PlatformImplementations}
 CYBPosixSyscalls.cpp
 CYBPosixThread.cpp
 CYBPosixProcess.cpp
+CYBPosixVirtualMemory.cpp
 
 CYBThread.cpp
 CYBProcess.cpp

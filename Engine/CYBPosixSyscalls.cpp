@@ -103,8 +103,15 @@ void CYB::Platform::Sys::VerifyArgumentCount(const CallNumber ACallNumber, const
 	case EXIT:
 		CYB::API::Assert(ANumArgs == 1);
 		break;
+	case MUNMAP:
 	case KILL:
 		CYB::API::Assert(ANumArgs == 2);
+		break;
+	case MPROTECT:
+		CYB::API::Assert(ANumArgs == 3);
+		break;
+	case MMAP:
+		CYB::API::Assert(ANumArgs == 6);
 		break;
 	}
 }

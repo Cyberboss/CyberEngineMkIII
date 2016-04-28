@@ -21,9 +21,9 @@ namespace CYB {
 				@par Exception Safety
 					CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE if the reservation was unable to be made
 			*/
-			static void* Reserve(const unsigned long long ANumBytes);
+			static void* Reserve(unsigned long long ANumBytes);
 			/*!
-				@brief Commit some amount of memory from a reserved address space. On return, the memory will be usable
+				@brief Commit some amount of memory from a reserved address space. On return, the memory will be usable. The access of the reservation will be AccessLevel::READ_WRITE upon return
 				@param AReservation An address returned from Reserve
 				@param ANumBytes The number of bytes in the address space to commit, will be rounded up to the nearest reservable granularity
 				@par Thread Safety
@@ -31,7 +31,7 @@ namespace CYB {
 				@par Exception Safety
 					CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the commital was unable to be made
 			*/
-			static void Commit(void* const AReservation, const unsigned long long ANumBytes);
+			static void Commit(void* const AReservation, unsigned long long ANumBytes);
 			/*!
 				@brief Designate an area of memory as not needed for the time being, improving performance. It may be reaccessed at any time, however, it should be assumed to be filled with random data upon doing so
 				@param AMemory An address in a committed area of memory
@@ -50,7 +50,7 @@ namespace CYB {
 				@par Exception Safety
 					CYB::Exception::SystemData::MEMORY_RELEASE_FAILURE if the commital was unable to be made
 			*/
-			static void Release(void* const AReservation);
+			static void Release(void* AReservation);
 			/*!
 				@brief Set the memory protection on a reservation
 				@param AReservation An address returned from Reserve
@@ -60,7 +60,7 @@ namespace CYB {
 				@par Exception Safety
 					CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE if the commital was unable to be made
 			*/
-			static void Access(void* const AReservation, const AccessLevel AAccess);
+			static void Access(void* AReservation, const AccessLevel AAccess);
 		};
 	};
 };

@@ -8,5 +8,5 @@
 
 //! @brief Call CYB::Engine::Init::Run and exit
 int main(void) {
-	CYB::Engine::Init::Run();
+	CYB::Engine::Core::Run();
 }

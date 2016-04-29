@@ -23,9 +23,6 @@
     <ClCompile Include="CYBPosixThread.cpp">
       <Filter>Platform\Posix</Filter>
     </ClCompile>
-    <ClCompile Include="CYBInit.cpp">
-      <Filter>Engine\Initialization</Filter>
-    </ClCompile>
     <ClCompile Include="CYBOSXThread.cpp">
       <Filter>Platform\OSX</Filter>
     </ClCompile>
@@ -47,6 +44,9 @@
     <ClCompile Include="CYBWin32Syscalls.cpp">
       <Filter>Platform\Win32</Filter>
     </ClCompile>
+    <ClCompile Include="CYBCore.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Declarations">
@@ -57,9 +57,6 @@
     </Filter>
     <Filter Include="API">
       <UniqueIdentifier>{fa07e106-577a-4426-847a-cfacb07f8457}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Initialization">
-      <UniqueIdentifier>{b22139a3-9de7-475c-b23b-58a57a2aa074}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{fdb152be-6add-4659-81d1-d81b75bd3684}</UniqueIdentifier>
@@ -139,9 +136,6 @@
     <ClInclude Include="Types.hpp">
       <Filter>Declarations</Filter>
     </ClInclude>
-    <ClInclude Include="CYBInit.hpp">
-      <Filter>Engine\Initialization</Filter>
-    </ClInclude>
     <ClInclude Include="CYBVirtualMemory.hpp">
       <Filter>Platform</Filter>
     </ClInclude>
@@ -165,6 +159,9 @@
     </ClInclude>
     <ClInclude Include="CYBSyscalls.hpp">
       <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBCore.hpp">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

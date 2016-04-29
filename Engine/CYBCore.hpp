@@ -6,9 +6,17 @@ namespace CYB {
 		//! @brief An instance of this object is the entirety of the engine
 		class Core {
 		private:
+			enum {
+				VERSION_MAJOR = 3,
+				VERSION_MINOR = 0,
+				VERSION_REVISION = 0,
+				COPYRIGHT_YEAR = 2016,
+			};
+		private:
 			static Core* FCore;	//!< @brief Pointer to the single Core instance
-			//Engine String	- Set FCore
-			//Engine Version
+		public:
+			API::EngineInformation FEngineInformation;	//!< Information describing the engine
+
 			//Modules
 				//User
 				//GDI
@@ -21,7 +29,9 @@ namespace CYB {
 			//Logger
 				//Heap
 			//Heap
+			//ThreadPool
 			//Steam
+			//Command Line
 			//API
 				//
 			//Unit
@@ -41,6 +51,7 @@ namespace CYB {
 				@brief Cleans up the engine and terminates the process
 			*/
 			~Core();
+			API::EngineInformation CreateEngineInformation(void);
 			/*!
 				@brief Run the main unit
 				@return true if the Unit should be launch again, false otherwise
@@ -49,6 +60,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
+
 			bool LaunchUnit(void);
 		public:
 			/*!

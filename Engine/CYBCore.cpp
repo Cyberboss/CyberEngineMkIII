@@ -22,7 +22,9 @@
 */
 CYB::Engine::Core* CYB::Engine::Core::FCore(nullptr);
 
-CYB::Engine::Core::Core() {
+CYB::Engine::Core::Core():
+	FEngineInformation(CreateEngineInformation())
+{
 
 }
 CYB::Engine::Core::~Core(void) {
@@ -30,6 +32,19 @@ CYB::Engine::Core::~Core(void) {
 	//Explicitly run destructors
 
 	Platform::Process::Terminate(Platform::Process::GetSelf());
+}
+
+CYB::API::EngineInformation CYB::Engine::Core::CreateEngineInformation(void) {
+	return {
+		u8"CyberEngine Mark III",
+		u8"Copyright Dextraspace Entertainment",
+		COPYRIGHT_YEAR,
+		VERSION_MAJOR,
+		VERSION_MINOR,
+		VERSION_REVISION,
+		__DATE__,
+		__TIME__ " EST",
+	};
 }
 
 bool CYB::Engine::Core::LaunchUnit(void) {

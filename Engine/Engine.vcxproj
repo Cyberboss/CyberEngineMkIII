@@ -159,6 +159,7 @@
     <ClInclude Include="Endianess.hpp" />
     <ClInclude Include="CYBWin32Process.hpp" />
     <ClInclude Include="CYBEngine.hpp" />
+    <ClInclude Include="EngineInformation.hpp" />
     <ClInclude Include="Exception.hpp" />
     <ClInclude Include="Preprocessor.hpp" />
     <ClInclude Include="CYBProcess.hpp" />

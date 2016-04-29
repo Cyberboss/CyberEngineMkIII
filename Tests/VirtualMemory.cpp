@@ -115,4 +115,22 @@ SCENARIO("VirtualMemory reservations handle various commit sizes", "[VirtualMemo
 		}
 		CYB::Platform::VirtualMemory::Release(Reservation);
 	}
+
+	GIVEN("A standard reservation and commit") {
+		auto Reservation(CYB::Platform::VirtualMemory::Reserve(1000000));
+		CYB::Platform::VirtualMemory::Commit(Reservation, 500000);
+		WHEN("A smaller commit is made") {
+			bool Error(false);
+			try {
+				CYB::Platform::VirtualMemory::Commit(Reservation, 1000);
+			}
+			catch (...) {
+				Error = true;
+			}
+			THEN("No changes are made but the function succeeds") {
+				REQUIRE(!Error);
+			}
+		}
+		CYB::Platform::VirtualMemory::Release(Reservation);
+	}
 }

@@ -87,7 +87,7 @@ void CYB::Platform::VirtualMemory::Release(void* const AReservation) {
 void CYB::Platform::VirtualMemory::Access(void* const AReservation, const AccessLevel AAccessLevel) {
 	using namespace Implementation::Posix;
 	auto const Superblock(GetSuperblockFromReservation(AReservation));
-	if (mprotect(Superblock, Superblock[1], AAccessLevel == AccessLevel::READ_WRITE ? PROT_READ | PROT_WRITE : (AAccessLevel == AccessLevel::READ ? PROT_READ : PROT_NONE)) != 0)
+	if (!AccessSuperblock(AReservation) || mprotect(Superblock, Superblock[1], AAccessLevel == AccessLevel::READ_WRITE ? PROT_READ | PROT_WRITE : (AAccessLevel == AccessLevel::READ ? PROT_READ : PROT_NONE)) != 0)
 		throw Exception::SystemData(Exception::SystemData::MEMORY_PROTECT_FAILURE);
 }
 

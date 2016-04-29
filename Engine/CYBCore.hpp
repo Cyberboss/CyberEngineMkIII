@@ -4,7 +4,7 @@
 namespace CYB {
 	namespace Engine {
 		//! @brief An instance of this object is the entirety of the engine
-		class Core {
+		class Core : protected API::Singleton<Core>{
 		private:
 			enum {
 				VERSION_MAJOR = 3,
@@ -12,8 +12,6 @@ namespace CYB {
 				VERSION_REVISION = 0,
 				COPYRIGHT_YEAR = 2016,
 			};
-		private:
-			static Core* FCore;	//!< @brief Pointer to the single Core instance
 		public:
 			API::EngineInformation FEngineInformation;	//!< Information describing the engine
 

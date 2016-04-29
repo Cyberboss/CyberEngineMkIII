@@ -3,3 +3,4 @@
 
 #include <utility>
 #include <atomic>
+#include <type_traits>

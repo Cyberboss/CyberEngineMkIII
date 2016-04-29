@@ -163,6 +163,7 @@
     <ClInclude Include="Exception.hpp" />
     <ClInclude Include="Preprocessor.hpp" />
     <ClInclude Include="CYBProcess.hpp" />
+    <ClInclude Include="Singleton.hpp" />
     <ClInclude Include="STL.hpp" />
     <ClInclude Include="SystemChecks.hpp" />
     <ClInclude Include="Threadable.hpp" />

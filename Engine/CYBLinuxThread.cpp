@@ -2,5 +2,5 @@
 #include "CYB.hpp"
 
 void CYB::Platform::Thread::Yield(void) {
-	Sys::Call(Sys::YIELD);
+	Implementation::Posix::sched_yield();
 }

@@ -4,10 +4,12 @@
 //! @brief Namespace containing engine Platform functions
 namespace Platform {};
 
+#ifndef DOXY
 #ifdef TARGET_OS_WINDOWS
 #include "CYBWin32Implementation.hpp"
 #else
 #include "CYBPosixImplementation.hpp"
+#endif
 #endif
 
 #if defined(TARGET_OS_MAC) && !defined(DOXY)

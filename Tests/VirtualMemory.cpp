@@ -1,23 +1,41 @@
 #include "TestHeader.hpp"
-
-SCENARIO("VirtualMemory reservations handle various sizes", "[VirtualMemory]") {
-	GIVEN("Some reservation size") {
-		unsigned long long ReservationSize;
-		WHEN("The size is sane") {
-			ReservationSize = 1000000;
-			void* Result(nullptr);
+SCENARIO("VirtualMemory reservations can be made and released", "[VirtualMemory]") {
+	GIVEN("A sane reservation size") {
+		const auto ReservationSize(1000000);
+		WHEN("A reservation is made") {
 			bool Error(false);
+			void* Result(nullptr);
 			try {
 				Result = CYB::Platform::VirtualMemory::Reserve(ReservationSize);
 			}
 			catch (...) {
 				Error = true;
 			}
-			THEN("The range is reserved and result is not null") {
+			THEN("No errors occur and a valid address is returned") {
 				REQUIRE(Result != nullptr);
 				REQUIRE(!Error);
 			}
 		}
+	}
+	GIVEN("An existing reservation of sane size") {
+		void* const Result(CYB::Platform::VirtualMemory::Reserve(1000000));
+		WHEN("The reservation is released") {
+			bool Error(false);
+			try {
+				CYB::Platform::VirtualMemory::Release(Result);
+			}
+			catch (...) {
+				Error = true;
+			}
+			THEN("No errors occur") {
+				REQUIRE(!Error);
+			}
+		}
+	}
+}
+SCENARIO("VirtualMemory reservations handle various sizes", "[VirtualMemory]") {
+	GIVEN("Some reservation size") {
+		unsigned long long ReservationSize;
 		WHEN("The size is insanely small") {
 			ReservationSize = 12;
 			bool Error(false);

@@ -160,5 +160,11 @@
     <ClInclude Include="Threadable.hpp">
       <Filter>API</Filter>
     </ClInclude>
+    <ClInclude Include="CYBPosixVirtualMemory.hpp">
+      <Filter>Platform\Posix</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBWin32VirtualMemory.hpp">
+      <Filter>Platform\Win32</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

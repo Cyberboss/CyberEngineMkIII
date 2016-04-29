@@ -1,4 +1,7 @@
 //! @file CYBMain.hpp Includes headers for platform agnostic engine functions
 #pragma once
 
-#include "CYBInit.hpp"
+//! @brief Encapsulates platform agnostic engine functions
+namespace Engine {};
+
+#include "CYBCore.hpp"

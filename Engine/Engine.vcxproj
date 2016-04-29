@@ -109,7 +109,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="CYBInit.cpp" />
+    <ClCompile Include="CYBCore.cpp" />
     <ClCompile Include="CYBPosixProcess.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -140,7 +140,6 @@
     <ClInclude Include="CYB.hpp" />
     <ClInclude Include="CyberEngine.hpp" />
     <ClInclude Include="CYBLinuxImplementation.hpp" />
-    <ClInclude Include="CYBInit.hpp" />
     <ClInclude Include="CYBLinuxSyscalls.hpp" />
     <ClInclude Include="CYBOSXImplementation.hpp" />
     <ClInclude Include="CYBOSXSyscalls.hpp" />
@@ -149,6 +148,7 @@
     <ClInclude Include="CYBPosixProcess.hpp" />
     <ClInclude Include="CYBPosixThread.hpp" />
     <ClInclude Include="CYBPosixVirtualMemory.hpp" />
+    <ClInclude Include="CYBCore.hpp" />
     <ClInclude Include="CYBSyscalls.hpp" />
     <ClInclude Include="CYBThread.hpp" />
     <ClInclude Include="CYBVirtualMemory.hpp" />

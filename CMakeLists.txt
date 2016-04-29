@@ -18,6 +18,11 @@ set(CMAKE_C_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG -O3")
 
 include(${CYB_BASE_DIR}/BuildScripts/CMake/PrecompiledHeader.cmake)
 
+Project(CyberEngineMarkIII)
+
 add_subdirectory(Engine)
 add_subdirectory(Executable)
 add_subdirectory(Tests)
+
+enable_testing()
+add_test(NAME EngineTests COMMAND CyberEngineMkIIITester)

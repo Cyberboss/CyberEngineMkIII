@@ -18,4 +18,6 @@ namespace CYB {
 
 #include "Exception.hpp"
 
+#include "Singleton.hpp"
+
 #include "Threadable.hpp"

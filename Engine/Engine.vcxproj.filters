@@ -79,6 +79,9 @@
     <Filter Include="API\Meta">
       <UniqueIdentifier>{4d92c1de-fa60-4bc8-bde4-afe644e1a639}</UniqueIdentifier>
     </Filter>
+    <Filter Include="API\Types">
+      <UniqueIdentifier>{2b26b238-b87a-4ee6-85af-25be3af3ff01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Preprocessor.hpp">
@@ -168,6 +171,9 @@
     </ClInclude>
     <ClInclude Include="EngineInformation.hpp">
       <Filter>API\Meta</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.hpp">
+      <Filter>API\Types</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

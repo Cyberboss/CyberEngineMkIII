@@ -20,7 +20,6 @@
 		. Activate the unit's memory pool
 
 */
-CYB::Engine::Core* CYB::Engine::Core::FCore(nullptr);
 
 CYB::Engine::Core::Core():
 	FEngineInformation(CreateEngineInformation())
@@ -29,9 +28,6 @@ CYB::Engine::Core::Core():
 }
 CYB::Engine::Core::~Core(void) {
 
-	//Explicitly run destructors
-
-	Platform::Process::Terminate(Platform::Process::GetSelf());
 }
 
 CYB::API::EngineInformation CYB::Engine::Core::CreateEngineInformation(void) {
@@ -52,14 +48,14 @@ bool CYB::Engine::Core::LaunchUnit(void) {
 }
 
 CYB::Engine::Core& CYB::Engine::Core::GetCore(void) {
-	return *FCore;
+	return *FSingleton;
 }
 void CYB::Engine::Core::Run[[noreturn]](void) {
-	API::Assert(FCore == nullptr);
 	{
 		Core CyberEngineMarkIII;
 		for (; CyberEngineMarkIII.LaunchUnit(););
 	}
+	Platform::Process::Terminate(Platform::Process::GetSelf());
 	CYB::API::HCF();
 }
 CYB::Engine::Core& CYB::Core(void) {

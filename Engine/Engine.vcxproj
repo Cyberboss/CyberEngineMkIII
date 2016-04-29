@@ -146,6 +146,7 @@
     <ClInclude Include="CYBOSXSyscalls.hpp" />
     <ClInclude Include="CYBPlatform.hpp" />
     <ClInclude Include="CYBPosixImplementation.hpp" />
+    <ClInclude Include="CYBPosixModule.hpp" />
     <ClInclude Include="CYBPosixProcess.hpp" />
     <ClInclude Include="CYBPosixThread.hpp" />
     <ClInclude Include="CYBPosixVirtualMemory.hpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="CYBThread.hpp" />
     <ClInclude Include="CYBVirtualMemory.hpp" />
     <ClInclude Include="CYBWin32Implementation.hpp" />
+    <ClInclude Include="CYBWin32Module.hpp" />
     <ClInclude Include="CYBWin32Syscalls.hpp" />
     <ClInclude Include="CYBWin32Thread.hpp" />
     <ClInclude Include="CYBWin32VirtualMemory.hpp" />
@@ -162,6 +164,7 @@
     <ClInclude Include="CYBEngine.hpp" />
     <ClInclude Include="EngineInformation.hpp" />
     <ClInclude Include="Exception.hpp" />
+    <ClInclude Include="CYBModule.hpp" />
     <ClInclude Include="Preprocessor.hpp" />
     <ClInclude Include="CYBProcess.hpp" />
     <ClInclude Include="Singleton.hpp" />

@@ -181,5 +181,14 @@
     <ClInclude Include="CYBModuleMacros.hpp">
       <Filter>Engine\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="CYBModule.hpp">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBWin32Module.hpp">
+      <Filter>Platform\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBPosixModule.hpp">
+      <Filter>Platform\Posix</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

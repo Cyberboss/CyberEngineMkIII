@@ -12,6 +12,7 @@ namespace CYB {
 
 #include "Preprocessor.hpp"
 #include "Types.hpp"
+#include "EngineInformation.hpp"
 
 #include "STL.hpp"
 

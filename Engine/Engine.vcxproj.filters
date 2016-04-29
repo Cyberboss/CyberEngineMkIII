@@ -76,6 +76,9 @@
     <Filter Include="Engine\Memory">
       <UniqueIdentifier>{30c8468c-f4a2-4737-9f2d-5e1165f77516}</UniqueIdentifier>
     </Filter>
+    <Filter Include="API\Meta">
+      <UniqueIdentifier>{4d92c1de-fa60-4bc8-bde4-afe644e1a639}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Preprocessor.hpp">
@@ -162,6 +165,9 @@
     </ClInclude>
     <ClInclude Include="CYBCore.hpp">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineInformation.hpp">
+      <Filter>API\Meta</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

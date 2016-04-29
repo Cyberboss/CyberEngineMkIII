@@ -4,17 +4,17 @@
 const char* CYB::Exception::SystemData::ErrorMessage(const ErrorCode AErrorCode) {
 	switch (AErrorCode) {
 	case MEMORY_RESERVATION_FAILURE:
-		return "Failed to reserve virtual memory from the OS.";
+		return u8"Failed to reserve virtual memory from the OS.";
 	case MEMORY_COMMITAL_FAILURE:
-		return "Failed to commit virtual memory from the OS.";
+		return u8"Failed to commit virtual memory from the OS.";
 	case MEMORY_DISCARD_FAILURE:
-		return "Failed to discard virtual memory to the OS.";
+		return u8"Failed to discard virtual memory to the OS.";
 	case MEMORY_PROTECT_FAILURE:
-		return "Failed to implement requested virtual memory protection level.";
+		return u8"Failed to implement requested virtual memory protection level.";
 	case MEMORY_RELEASE_FAILURE:
-		return "Failed to return virtual memory to the OS.";
+		return u8"Failed to return virtual memory to the OS.";
 	case THREAD_CREATION_FAILURE:
-		return "OS failed to create requested thread.";
+		return u8"OS failed to create requested thread.";
 	default:
 		CYB::API::HCF();
 	}

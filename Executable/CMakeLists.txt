@@ -1,7 +1,5 @@
 cmake_minimum_required (VERSION 3.4.3)
 
-project(Executable)
-
 IF(CMAKE_BUILD_TYPE MATCHES DEBUG)
 set(CYB_EXE_NAME "CyberEngineMkIIID")
 ELSE()

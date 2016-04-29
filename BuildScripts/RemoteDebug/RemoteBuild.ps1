@@ -13,7 +13,7 @@ if($LastExitCode -eq 0){
 	& "BuildScripts/RemoteDebug/plink.exe" "$userhost" -i "$key" "mkdir -p $wd"
 	& "BuildScripts/RemoteDebug/pscp.exe" -i "$key" -r GDBSync/* "$paththing"
 	rm -r GDBSync
-	$command = "cd $wd; cd ../..;cmake . -DCMAKE_BUILD_TYPE=DEBUG;make"
+	$command = "cd $wd; cd ../..;cmake . -DCMAKE_BUILD_TYPE=DEBUG;make;make test ARGS=`"-V`""
 	& "BuildScripts/RemoteDebug/plink.exe" "$userhost" -i "$key" "$command"
 }
 

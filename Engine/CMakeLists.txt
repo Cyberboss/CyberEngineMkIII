@@ -1,7 +1,5 @@
 cmake_minimum_required (VERSION 3.4.3)
 
-project(Engine)
-
 include_directories(${CYB_BASE_DIR}/Engine)
 
 IF(APPLE)

@@ -82,6 +82,9 @@
     <Filter Include="API\Types">
       <UniqueIdentifier>{2b26b238-b87a-4ee6-85af-25be3af3ff01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Modules">
+      <UniqueIdentifier>{4d40a415-2774-4307-b316-c3e3960e6c24}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Preprocessor.hpp">
@@ -174,6 +177,9 @@
     </ClInclude>
     <ClInclude Include="Singleton.hpp">
       <Filter>API\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBModuleMacros.hpp">
+      <Filter>Engine\Modules</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

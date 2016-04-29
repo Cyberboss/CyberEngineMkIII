@@ -4,7 +4,7 @@
 namespace CYB {
 	namespace API {
 		template <class T> class Singleton {
-		public:
+		protected:
 			static T* FSingleton;
 		protected:
 			Singleton() {

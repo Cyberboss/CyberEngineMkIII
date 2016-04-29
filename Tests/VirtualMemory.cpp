@@ -134,3 +134,50 @@ SCENARIO("VirtualMemory reservations handle various commit sizes", "[VirtualMemo
 		CYB::Platform::VirtualMemory::Release(Reservation);
 	}
 }
+SCENARIO("VirtualMemory reservation protection levels can be changed", "[VirtualMemory]") {
+	GIVEN("A standard reservation and commit which has some data written to it") {
+		auto Reservation(static_cast<unsigned long long*>(CYB::Platform::VirtualMemory::Reserve(1000000)));
+		CYB::Platform::VirtualMemory::Commit(Reservation, 500000);
+		*Reservation = 1234;
+		WHEN("The access level is set to NONE") {
+			bool Error(false);
+			try {
+				CYB::Platform::VirtualMemory::Access(Reservation, CYB::Platform::VirtualMemory::AccessLevel::NONE);
+			}
+			catch (...) {
+				Error = true;
+			}
+			THEN("No errors occur and pages cannot be used") {
+				REQUIRE(!Error);
+			}
+		}
+		WHEN("The access level is set to READ") {
+			bool Error(false);
+			try {
+				CYB::Platform::VirtualMemory::Access(Reservation, CYB::Platform::VirtualMemory::AccessLevel::READ);
+			}
+			catch (...) {
+				Error = true;
+			}
+			THEN("No errors occur and pages can be read") {
+				REQUIRE(!Error);
+				REQUIRE(*Reservation == 1234U);
+			}
+		}
+		WHEN("The access level is set to READ_WRITE") {
+			bool Error(false);
+			try {
+				CYB::Platform::VirtualMemory::Access(Reservation, CYB::Platform::VirtualMemory::AccessLevel::READ_WRITE);
+			}
+			catch (...) {
+				Error = true;
+			}
+			THEN("No errors occur and pages can be read and written") {
+				REQUIRE(!Error);
+				REQUIRE(*Reservation == 1234U);
+				*Reservation = 5678;
+			}
+		}
+		CYB::Platform::VirtualMemory::Release(Reservation);
+	}
+}

@@ -3,6 +3,7 @@
 
 namespace CYB {
 	namespace Platform {
+		//Note, keep public inheritance for call number access
 		class Sys : public Implementation::Sys {
 		public:
 			union Union64 {

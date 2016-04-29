@@ -4,7 +4,7 @@
 namespace CYB {
 	namespace Platform {
 		//! @brief Access and abstraction to the basic OS memory functions
-		class VirtualMemory {
+		class VirtualMemory : private Implementation::VirtualMemory {
 		public:
 			enum class AccessLevel {
 				READ,

@@ -13,8 +13,15 @@ void* CYB::Platform::VirtualMemory::Reserve(const unsigned long long ANumBytes) 
 }
 
 void CYB::Platform::VirtualMemory::Commit(void* const AReservation, const unsigned long long ANumBytes) {
-	//Const cast is fine since we don't touch the memory
-	const void* const Result(Implementation::Win32::VirtualAlloc(AReservation, ANumBytes, MEM_COMMIT, 0));
+	try {
+		Access(AReservation, AccessLevel::READ_WRITE);
+	}
+	catch (Exception::SystemData AException) {
+		if(AException.FErrorCode == Exception::SystemData::MEMORY_PROTECT_FAILURE)
+			throw Exception::SystemData(Exception::SystemData::MEMORY_COMMITAL_FAILURE);
+		throw AException;
+	}
+	const void* const Result(Implementation::Win32::VirtualAlloc(AReservation, ANumBytes, MEM_COMMIT, PAGE_READWRITE));
 	if (Result == nullptr)
 		throw Exception::SystemData(Exception::SystemData::MEMORY_COMMITAL_FAILURE);
 }

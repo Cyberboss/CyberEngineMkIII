@@ -141,6 +141,7 @@
     <ClInclude Include="CyberEngine.hpp" />
     <ClInclude Include="CYBLinuxImplementation.hpp" />
     <ClInclude Include="CYBLinuxSyscalls.hpp" />
+    <ClInclude Include="CYBModuleMacros.hpp" />
     <ClInclude Include="CYBOSXImplementation.hpp" />
     <ClInclude Include="CYBOSXSyscalls.hpp" />
     <ClInclude Include="CYBPlatform.hpp" />

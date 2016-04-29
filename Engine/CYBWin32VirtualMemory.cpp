@@ -4,12 +4,10 @@
 void* CYB::Platform::VirtualMemory::Reserve(const unsigned long long ANumBytes) {
 	if (ANumBytes >= 1024) {
 		void* const Result(Implementation::Win32::VirtualAlloc(nullptr, ANumBytes, MEM_RESERVE, PAGE_NOACCESS));
-		if (Result == nullptr)
-			throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
-		return Result;
+		if (Result != nullptr)
+			return Result;
 	}
-	else
-		throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
+	throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
 }
 
 void CYB::Platform::VirtualMemory::Commit(void* const AReservation, const unsigned long long ANumBytes) {
@@ -38,7 +36,8 @@ void CYB::Platform::VirtualMemory::Access(void* const AReservation, const Access
 
 	if (Info.State == MEM_COMMIT) {
 		Implementation::Win32::DWORD Last;
-		if (Implementation::Win32::VirtualProtect(AReservation, Info.RegionSize, static_cast<Implementation::Win32::DWORD>(AAccessLevel == AccessLevel::READ_WRITE ? PAGE_READWRITE : (AAccessLevel == AccessLevel::NONE ? PAGE_NOACCESS : PAGE_READONLY)), &Last))
+		//for some reason we can't use the base of the allocation when protecting :/
+		if (Implementation::Win32::VirtualProtect(static_cast<unsigned long long*>(AReservation) + 1, Info.RegionSize - 1, static_cast<Implementation::Win32::DWORD>(AAccessLevel == AccessLevel::READ_WRITE ? PAGE_READWRITE : (AAccessLevel == AccessLevel::NONE ? PAGE_NOACCESS : PAGE_READONLY)), &Last)) 
 			throw Exception::SystemData(Exception::SystemData::MEMORY_PROTECT_FAILURE);
 	}
 }

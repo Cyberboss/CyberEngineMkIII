@@ -23,3 +23,4 @@ namespace CYB {
 #include "CYBPosixThread.hpp"
 #include "CYBPosixProcess.hpp"
 #include "CYBPosixVirtualMemory.hpp"
+#include "CYBPosixModule.hpp"

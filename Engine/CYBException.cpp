@@ -13,6 +13,10 @@ const char* CYB::Exception::SystemData::ErrorMessage(const ErrorCode AErrorCode)
 		return u8"Failed to implement requested virtual memory protection level.";
 	case MEMORY_RELEASE_FAILURE:
 		return u8"Failed to return virtual memory to the OS.";
+	case MODULE_FUNCTION_LOAD_FAILURE:
+		return u8"Failed to load a requested function from a module.";
+	case MODULE_LOAD_FAILURE:
+		return u8"Failed to load a requested module.";
 	case THREAD_CREATION_FAILURE:
 		return u8"OS failed to create requested thread.";
 	default:

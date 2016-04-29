@@ -32,6 +32,21 @@ SCENARIO("VirtualMemory reservations can be made and released", "[VirtualMemory]
 			}
 		}
 	}
+	GIVEN("A nonsense reservation") {
+		auto Reservation(nullptr);
+		WHEN("The reservation is released") {
+			bool Error(false);
+			try {
+				CYB::Platform::VirtualMemory::Release(Reservation);
+			}
+			catch (CYB::Exception::SystemData AExcpetion) {
+				Error = AExcpetion.FErrorCode == CYB::Exception::SystemData::MEMORY_RELEASE_FAILURE;
+			}
+			THEN("The appropriate error occurs") {
+				REQUIRE(Error);
+			}
+		}
+	}
 }
 SCENARIO("VirtualMemory reservations handle various sizes", "[VirtualMemory]") {
 	GIVEN("Some reservation size") {
@@ -70,7 +85,7 @@ SCENARIO("VirtualMemory reservations handle various sizes", "[VirtualMemory]") {
 #endif
 	}
 }
-SCENARIO("VirtualMemory reservations handle various commit sizes", "[VirtualMemory]") {
+SCENARIO("VirtualMemory commits work as intended", "[VirtualMemory]") {
 	GIVEN("A standard reservation") {
 		auto Reservation(CYB::Platform::VirtualMemory::Reserve(1000000));
 		unsigned long long CommitSize;
@@ -115,7 +130,6 @@ SCENARIO("VirtualMemory reservations handle various commit sizes", "[VirtualMemo
 		}
 		CYB::Platform::VirtualMemory::Release(Reservation);
 	}
-
 	GIVEN("A standard reservation and commit") {
 		auto Reservation(CYB::Platform::VirtualMemory::Reserve(1000000));
 		CYB::Platform::VirtualMemory::Commit(Reservation, 500000);
@@ -132,6 +146,21 @@ SCENARIO("VirtualMemory reservations handle various commit sizes", "[VirtualMemo
 			}
 		}
 		CYB::Platform::VirtualMemory::Release(Reservation);
+	}
+	GIVEN("A nonsense reservation") {
+		auto Reservation(nullptr);
+		WHEN("A commit is attempted"){
+			bool Error(false);
+			try {
+				CYB::Platform::VirtualMemory::Commit(Reservation, 500000);
+			}
+			catch (CYB::Exception::SystemData AExcpetion) {
+				Error = AExcpetion.FErrorCode == CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE;
+			}
+			THEN("The appropriate error occurs") {
+				REQUIRE(Error);
+			}
+		}
 	}
 }
 SCENARIO("VirtualMemory reservation protection levels can be changed", "[VirtualMemory]") {
@@ -179,5 +208,80 @@ SCENARIO("VirtualMemory reservation protection levels can be changed", "[Virtual
 			}
 		}
 		CYB::Platform::VirtualMemory::Release(Reservation);
+	}
+	GIVEN("A nonsense reservation") {
+		unsigned long long* Reservation(nullptr);
+		WHEN("The access level is set to NONE") {
+			bool Error(false);
+			try {
+				CYB::Platform::VirtualMemory::Access(Reservation, CYB::Platform::VirtualMemory::AccessLevel::NONE);
+			}
+			catch (CYB::Exception::SystemData AException) {
+				Error = AException.FErrorCode == CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE;
+			}
+			THEN("The appropriate error occurs") {
+				REQUIRE(Error);
+			}
+		}
+		WHEN("The access level is set to READ") {
+			bool Error(false);
+			try {
+				CYB::Platform::VirtualMemory::Access(Reservation, CYB::Platform::VirtualMemory::AccessLevel::READ);
+			}
+			catch (CYB::Exception::SystemData AException) {
+				Error = AException.FErrorCode == CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE;
+			}
+			THEN("The appropriate error occurs") {
+				REQUIRE(Error);
+			}
+		}
+		WHEN("The access level is set to READ_WRITE") {
+			bool Error(false);
+			try {
+				CYB::Platform::VirtualMemory::Access(Reservation, CYB::Platform::VirtualMemory::AccessLevel::READ_WRITE);
+			}
+			catch (CYB::Exception::SystemData AException) {
+				Error = AException.FErrorCode == CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE;
+			}
+			THEN("The appropriate error occurs") {
+				REQUIRE(Error);
+			}
+		}
+	}
+}
+SCENARIO("VirtualMemory can be discarded and reused") {
+	GIVEN("A standard reservation and commit which has some data written to it") {
+		auto Reservation(static_cast<unsigned long long*>(CYB::Platform::VirtualMemory::Reserve(1000000)));
+		CYB::Platform::VirtualMemory::Commit(Reservation, 500000);
+		*Reservation = 1234;
+		WHEN("The memory is discarded") {
+			bool Error(false);
+			try {
+				CYB::Platform::VirtualMemory::Discard(Reservation, 500000);
+			}
+			catch (...) {
+				Error = true;
+			}
+			THEN("No errors occur and pages can be reused but data may differ") {
+				REQUIRE(!Error);
+				*Reservation = 5678;
+			}
+		}
+		CYB::Platform::VirtualMemory::Release(Reservation);
+	}
+	GIVEN("A nonsense reservation") {
+		unsigned long long* Reservation(nullptr);
+		WHEN("The memory is discarded") {
+			bool Error(false);
+			try {
+				CYB::Platform::VirtualMemory::Discard(Reservation, 500000);
+			}
+			catch (CYB::Exception::SystemData AExcpetion) {
+				Error = AExcpetion.FErrorCode == CYB::Exception::SystemData::MEMORY_DISCARD_FAILURE;
+			}
+			THEN("The appropriate error occurs") {
+				REQUIRE(Error);
+			}
+		}
 	}
 }

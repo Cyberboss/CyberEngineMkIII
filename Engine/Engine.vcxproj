@@ -105,11 +105,16 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="CYBModule.cpp" />
     <ClCompile Include="CYBOSXThread.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="CYBCore.cpp" />
+    <ClCompile Include="CYBPosixModule.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="CYBPosixProcess.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -128,6 +133,7 @@
     </ClCompile>
     <ClCompile Include="CYBProcess.cpp" />
     <ClCompile Include="CYBThread.cpp" />
+    <ClCompile Include="CYBWin32Module.cpp" />
     <ClCompile Include="CYBWin32Process.cpp" />
     <ClCompile Include="CYBWin32Syscalls.cpp" />
     <ClCompile Include="CYBWin32Thread.cpp" />

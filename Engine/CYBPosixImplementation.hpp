@@ -15,6 +15,7 @@ namespace CYB {
 				#include <signal.h>
 				#include <sched.h>
 				#include <pthread.h>
+				#include <dlfcn.h> 
 			};
 		};
 	};

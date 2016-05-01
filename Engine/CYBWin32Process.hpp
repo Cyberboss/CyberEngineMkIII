@@ -7,7 +7,7 @@ namespace CYB {
 			class Process {
 			protected:
 				Win32::HANDLE FHandle;
-			public:
+			protected:
 				Process(Win32::HANDLE AProcess);
 				Process(const Process&) = delete;
 				Process(Process&& AMove);

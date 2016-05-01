@@ -20,10 +20,12 @@ CYBPosixSyscalls.cpp
 CYBPosixThread.cpp
 CYBPosixProcess.cpp
 CYBPosixVirtualMemory.cpp
+CYBPosixModule.cpp
 
 CYBException.cpp
 CYBThread.cpp
 CYBProcess.cpp
+CYBModule.cpp
 
 #Engine
 CYBCore.cpp

@@ -15,8 +15,16 @@ namespace CYB {
 					This function does not throw exceptions
 			*/
 			void Terminate(void);
-		public:
+		protected:
 			using Implementation::Process::Process;
+		public:
+			Process(const Process&) = delete;
+			Process(Process&& AMove);
+			Process& operator=(Process&& AMove);
+			/*!
+				@brief Closes the handle to a process
+			*/
+			~Process() = default;
 			/*!
 				@brief Get's the Process representing the current execution
 				@return The current Process

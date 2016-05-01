@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildScripts", "BuildScript
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CMake", "CMake", "{0710498A-6BF6-47FB-B552-02E0EFA6D542}"
 	ProjectSection(SolutionItems) = preProject
-		BuildScripts\CMake\PrecompiledHeader.cmake = BuildScripts\CMake\PrecompiledHeader.cmake
+		BuildScripts\CMake\cotire.cmake = BuildScripts\CMake\cotire.cmake
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doxygen", "Doxygen", "{71BE47D7-4057-4C10-A9FC-4685F0947B80}"

@@ -4,6 +4,9 @@
 #pragma warning(disable : 4464)
 #else
 #include <time.h>
+#undef LITTLE_ENDIAN
+#undef BIG_ENDIAN
+#undef PDP_ENDIAN
 #endif
 #include "../Engine/CYB.hpp"
 #ifdef _MSC_VER

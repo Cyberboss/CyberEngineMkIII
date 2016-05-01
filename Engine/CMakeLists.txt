@@ -28,7 +28,9 @@ CYBModule.cpp
 CYBCore.cpp
 )
 
-#add_precompiled_header(EngineBase CYB.hpp FORCEINCLUDE)
-
 set_property(TARGET EngineBase PROPERTY CXX_STANDARD 14)
 set_property(TARGET EngineBase PROPERTY CXX_STANDARD_REQUIRED ON)
+
+set_property (SOURCE "CYB.cpp" PROPERTY COTIRE_DEPENDENCY "TRUE")
+set_target_properties(EngineBase PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "CYB.hpp")
+cotire(EngineBase)

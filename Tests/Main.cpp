@@ -6,5 +6,7 @@
 #pragma warning(disable : 4371)
 #pragma warning(disable : 4464)
 #pragma warning(disable : 4710)
-#endif
 #include "../SupportLibs/Catch/single_include/catch.hpp"
+#else
+#include "VirtualMemory.cpp"
+#endif

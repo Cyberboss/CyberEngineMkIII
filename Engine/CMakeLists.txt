@@ -10,9 +10,6 @@ ENDIF()
 
 add_library(EngineBase STATIC
 
-CYB.cpp
-CYB.hpp
-
 #Platform
 ${PlatformImplementations}
 
@@ -31,7 +28,7 @@ CYBModule.cpp
 CYBCore.cpp
 )
 
-add_precompiled_header(EngineBase CYB.hpp FORCEINCLUDE)
+#add_precompiled_header(EngineBase CYB.hpp FORCEINCLUDE)
 
 set_property(TARGET EngineBase PROPERTY CXX_STANDARD 14)
 set_property(TARGET EngineBase PROPERTY CXX_STANDARD_REQUIRED ON)

@@ -7,7 +7,7 @@ namespace CYB {
 		public:
 			/*!
 				@brief Constructs a module reference. The module named by @p ANonSuffixedModuleName will be loaded into the process' memory space if it is not already there
-				@param ANonSuffixedModuleName The name of the module to load excluding the platform specific extension
+				@param ANonModuleName The name of the module to load excluding the platform specific extension or the 'lib' prefix
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety

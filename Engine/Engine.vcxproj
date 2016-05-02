@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CYB.hpp" />
+    <ClInclude Include="CYBAutoModule.hpp" />
     <ClInclude Include="CyberEngine.hpp" />
     <ClInclude Include="CYBLinuxImplementation.hpp" />
     <ClInclude Include="CYBLinuxSyscalls.hpp" />
@@ -171,13 +172,19 @@
     <ClInclude Include="EngineInformation.hpp" />
     <ClInclude Include="Exception.hpp" />
     <ClInclude Include="CYBModule.hpp" />
+    <ClInclude Include="ParameterPackIndexer.hpp" />
     <ClInclude Include="Preprocessor.hpp" />
     <ClInclude Include="CYBProcess.hpp" />
     <ClInclude Include="Singleton.hpp" />
     <ClInclude Include="STL.hpp" />
     <ClInclude Include="SystemChecks.hpp" />
     <ClInclude Include="Threadable.hpp" />
+    <ClInclude Include="Typename.hpp" />
     <ClInclude Include="Types.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CYBAutoModule.inl" />
+    <None Include="CYBPlatformModules.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

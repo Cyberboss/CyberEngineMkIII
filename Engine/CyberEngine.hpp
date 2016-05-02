@@ -11,7 +11,9 @@ namespace CYB {
 };
 
 #include "Preprocessor.hpp"
+
 #include "Types.hpp"
+
 #include "EngineInformation.hpp"
 
 #include "STL.hpp"
@@ -19,5 +21,7 @@ namespace CYB {
 #include "Exception.hpp"
 
 #include "Singleton.hpp"
+#include "ParameterPackIndexer.hpp"
+#include "Typename.hpp"
 
 #include "Threadable.hpp"

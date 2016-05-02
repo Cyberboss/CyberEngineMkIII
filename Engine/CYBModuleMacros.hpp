@@ -1,5 +1,6 @@
 //! @file CYBModuleMacros.hpp Defines the DEFINE_MODULE macro for easily adding modules
 #pragma once
+#ifndef DOXY
 #define NARGS_IMPL(x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,N,...) N
 #define EXPAND(X) X
 #define NARGS(...) EXPAND(NARGS_IMPL(__VA_ARGS__,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0))
@@ -47,18 +48,25 @@
 #define APPLY2_18(X, Y, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18) X(Y, x1), X(Y, x2), X(Y, x3), X(Y, x4), X(Y, x5), X(Y, x6), X(Y, x7), X(Y, x8), X(Y, x9), X(Y, x10), X(Y, x11), X(Y, x12), X(Y, x13), X(Y, x14), X(Y, x15), X(Y, x16), X(Y, x17), X(Y, x18)
 
 #define STRINGIFY(X) #X
-#define RESTRINGIFY(Prefix, X) STRINGIFY(Prefix##X)
-#define DECLTYPE_EXPAND(X) decltype(::##X)
-#define DECLTYPE_REEXPAND(Prefix, X) decltype(::Prefix##X)
+#define DECLTYPE_EXPAND(APlatform, X) decltype(CYB::Platform::Implementation::APlatform::##X)
 
-//module macro
-
-#define DEFINE_MODULE(Name, ShortName, ...)\
-enum class Name: unsigned int {\
-	__VA_ARGS__\
+#define DEFINE_MODULE(AModuleName, AShortName, APlatform, ...)\
+namespace CYB {\
+	namespace Platform {\
+		namespace Implementation {\
+			namespace ModuleDefinitions {\
+				typedef typename Engine::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)> AM##AModuleName;\
+				enum class AModuleName: unsigned int {\
+					__VA_ARGS__\
+				};\
+			};\
+		};\
+	};\
 };\
-const char * const F##Name##Functions[NARGS(__VA_ARGS__)]{\
-	APPLY(STRINGIFY,__VA_ARGS__)\
-};\
-typedef typename Platform::FunctionMapping<Name, NARGS(__VA_ARGS__), APPLY(DECLTYPE_EXPAND,__VA_ARGS__)> FM##Name;\
-FM##Name* F##ShortName(nullptr)
+template <> constexpr const char* CYB::Engine::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::ModuleName(void){\
+	return STRINGIFY(AModuleName); \
+}\
+template <> constexpr const char* CYB::Engine::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::FunctionNames(void){\
+	return{ APPLY(STRINGIFY,__VA_ARGS__) }; \
+}
+#endif

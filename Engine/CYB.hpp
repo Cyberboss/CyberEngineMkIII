@@ -11,3 +11,5 @@
 #include "CYBPlatform.hpp"
 
 #include "CYBEngine.hpp"
+
+#include "CYBPlatformModules.inl"

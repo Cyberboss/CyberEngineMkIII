@@ -199,5 +199,22 @@
     <ClInclude Include="CYBPosixModule.hpp">
       <Filter>Platform\Posix</Filter>
     </ClInclude>
+    <ClInclude Include="CYBAutoModule.hpp">
+      <Filter>Engine\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ParameterPackIndexer.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Typename.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CYBAutoModule.inl">
+      <Filter>Engine\Modules</Filter>
+    </None>
+    <None Include="CYBPlatformModules.inl">
+      <Filter>Platform</Filter>
+    </None>
   </ItemGroup>
 </Project>

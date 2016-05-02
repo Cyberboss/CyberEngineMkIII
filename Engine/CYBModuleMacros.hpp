@@ -50,7 +50,7 @@
 #define STRINGIFY(X) #X
 #define DECLTYPE_EXPAND(APlatform, X) decltype(CYB::Platform::Implementation::APlatform::##X)
 
-#define DEFINE_MODULE(AModuleName, AShortName, APlatform, ...)\
+#define DEFINE_MODULE(AModuleName, APlatform, ...)\
 namespace CYB {\
 	namespace Platform {\
 		namespace Implementation {\

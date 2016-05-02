@@ -1,7 +1,7 @@
 //! @file CYBAutoModule.hpp Defines the interface for creating templates that are modules as objects
 #pragma once
 namespace CYB {
-	namespace Engine {
+	namespace Platform {
 		/*! 
 			@brief Automated intialization, function loading, and calling of module functions
 			@par Params
@@ -10,7 +10,7 @@ namespace CYB {
 		*/
 		template <unsigned int N, typename... AFunctionTypes> class AutoModule {
 		private:
-			Platform::Module FLibrary;	//!< @brief The owned module
+			Module FLibrary;	//!< @brief The owned module
 			void* FFunctionPointers[N];	//!< @brief Pointers to loaded functions
 		private:
 			/*!

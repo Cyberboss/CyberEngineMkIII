@@ -50,11 +50,11 @@
     <ClCompile Include="CYBWin32Module.cpp">
       <Filter>Platform\Win32</Filter>
     </ClCompile>
-    <ClCompile Include="CYBModule.cpp">
-      <Filter>Platform</Filter>
-    </ClCompile>
     <ClCompile Include="CYBPosixModule.cpp">
       <Filter>Platform\Posix</Filter>
+    </ClCompile>
+    <ClCompile Include="CYBModule.cpp">
+      <Filter>Platform\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,7 +91,7 @@
     <Filter Include="API\Types">
       <UniqueIdentifier>{2b26b238-b87a-4ee6-85af-25be3af3ff01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Modules">
+    <Filter Include="Platform\Modules">
       <UniqueIdentifier>{4d40a415-2774-4307-b316-c3e3960e6c24}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -187,9 +187,6 @@
     <ClInclude Include="Singleton.hpp">
       <Filter>API\Types</Filter>
     </ClInclude>
-    <ClInclude Include="CYBModule.hpp">
-      <Filter>Platform</Filter>
-    </ClInclude>
     <ClInclude Include="CYBWin32Module.hpp">
       <Filter>Platform\Win32</Filter>
     </ClInclude>
@@ -197,7 +194,7 @@
       <Filter>Platform\Posix</Filter>
     </ClInclude>
     <ClInclude Include="CYBAutoModule.hpp">
-      <Filter>Engine\Modules</Filter>
+      <Filter>Platform\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ParameterPackIndexer.hpp">
       <Filter>API\Types</Filter>
@@ -206,15 +203,24 @@
       <Filter>API\Types</Filter>
     </ClInclude>
     <ClInclude Include="CYBModuleMacros.hpp">
-      <Filter>Platform</Filter>
+      <Filter>Platform\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBModuleManager.hpp">
+      <Filter>Platform\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBModule.hpp">
+      <Filter>Platform\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBModules.hpp">
+      <Filter>Platform\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="CYBAutoModule.inl">
-      <Filter>Engine\Modules</Filter>
+      <Filter>Platform\Modules</Filter>
     </None>
     <None Include="CYBPlatformModuleDefinitions.hpp">
-      <Filter>Platform</Filter>
+      <Filter>Platform\Modules</Filter>
     </None>
   </ItemGroup>
 </Project>

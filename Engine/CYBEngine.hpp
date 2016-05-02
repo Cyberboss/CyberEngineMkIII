@@ -4,8 +4,5 @@
 //! @brief Encapsulates platform agnostic engine functions
 namespace Engine {};
 
-#include "CYBAutoModule.hpp"
-#include "CYBAutoModule.inl"
-#include "CYBModuleMacros.hpp"
 
 #include "CYBCore.hpp"

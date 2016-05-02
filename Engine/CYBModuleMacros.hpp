@@ -55,7 +55,7 @@ namespace CYB {\
 	namespace Platform {\
 		namespace Implementation {\
 			namespace ModuleDefinitions {\
-				typedef typename Engine::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)> AM##AModuleName;\
+				typedef typename Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)> AM##AModuleName;\
 				enum class AModuleName: unsigned int {\
 					__VA_ARGS__\
 				};\
@@ -63,10 +63,10 @@ namespace CYB {\
 		};\
 	};\
 };\
-template <> constexpr const char* CYB::Engine::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::ModuleName(void){\
+template <> constexpr const char* CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::ModuleName(void){\
 	return STRINGIFY(AModuleName); \
 }\
-template <> constexpr const char* CYB::Engine::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::FunctionNames(void){\
+template <> constexpr const char* CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::FunctionNames(void){\
 	return{ APPLY(STRINGIFY,__VA_ARGS__) }; \
 }
 #endif

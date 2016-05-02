@@ -24,5 +24,4 @@ namespace Platform {};
 #include "CYBVirtualMemory.hpp"
 #include "CYBThread.hpp"
 #include "CYBProcess.hpp"
-#include "CYBModule.hpp"
-#include "CYBModuleMacros.hpp"
+#include "CYBModules.hpp"

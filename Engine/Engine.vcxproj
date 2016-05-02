@@ -184,7 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CYBAutoModule.inl" />
-    <None Include="CYBPlatformModules.inl" />
+    <None Include="CYBModulesDefinitions.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -25,3 +25,5 @@ namespace Platform {};
 #include "CYBThread.hpp"
 #include "CYBProcess.hpp"
 #include "CYBModule.hpp"
+#include "CYBModuleMacros.hpp"
+#include "CYBModulesDefinitions.hpp"

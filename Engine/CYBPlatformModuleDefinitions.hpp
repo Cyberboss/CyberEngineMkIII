@@ -8,6 +8,8 @@ namespace CYB {
 
 #ifndef DOXY
 
-
+#ifdef TARGET_OS_WINDOWS
+DEFINE_MODULE(Kernel32, Win32, DiscardVirtualMemory)
+#endif
 
 #endif

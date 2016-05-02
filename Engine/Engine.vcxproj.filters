@@ -213,7 +213,7 @@
     <None Include="CYBAutoModule.inl">
       <Filter>Engine\Modules</Filter>
     </None>
-    <None Include="CYBModulesDefinitions.hpp">
+    <None Include="CYBPlatformModuleDefinitions.hpp">
       <Filter>Platform</Filter>
     </None>
   </ItemGroup>

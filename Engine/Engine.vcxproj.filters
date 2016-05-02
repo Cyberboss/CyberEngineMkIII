@@ -187,9 +187,6 @@
     <ClInclude Include="Singleton.hpp">
       <Filter>API\Types</Filter>
     </ClInclude>
-    <ClInclude Include="CYBModuleMacros.hpp">
-      <Filter>Engine\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="CYBModule.hpp">
       <Filter>Platform</Filter>
     </ClInclude>
@@ -208,12 +205,15 @@
     <ClInclude Include="Typename.hpp">
       <Filter>API\Types</Filter>
     </ClInclude>
+    <ClInclude Include="CYBModuleMacros.hpp">
+      <Filter>Platform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="CYBAutoModule.inl">
       <Filter>Engine\Modules</Filter>
     </None>
-    <None Include="CYBPlatformModules.inl">
+    <None Include="CYBModulesDefinitions.hpp">
       <Filter>Platform</Filter>
     </None>
   </ItemGroup>

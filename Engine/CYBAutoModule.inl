@@ -1,16 +1,15 @@
 //! @file CYBAutoModule.inl Implements CYB::Engine::AutoModule
 #pragma once
 
-template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::AutoModule<AN, AFunctionTypes...>::AutoModule(const bool AOptionalFunctions) :
+template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::AutoModule<AN, AFunctionTypes...>::AutoModule() :
 	FLibrary(ModuleName())
 {
-	auto Names(FunctionNames());
 	for (unsigned int I(0); I < AN; ++I) {
 		try {
-			FFunctionPointers[I] = FLibrary.LoadFunction(Names[I]);
+			FFunctionPointers[I] = FLibrary.LoadFunction(FFunctionNames[I]);
 		}
 		catch (Exception::SystemData AException) {
-			if (AOptionalFunctions && AException.FErrorCode == Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE)
+			if (OptionalFunctions() && AException.FErrorCode == Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE)
 				FFunctionPointers[I] = nullptr;
 			else
 				throw AException;
@@ -18,12 +17,9 @@ template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::AutoModule
 	}
 }
 template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::AutoModule<AN, AFunctionTypes...>::AutoModule(AutoModule&& AMove) :
-	FLibrary(std::move(AMove.FLibrary))
-{
-	auto Names(FunctionNames());
-	for (unsigned int I(0); I < AN; ++I)
-		FFunctionPointers = FLibrary.LoadFunction(Names[I]);
-}
+	FLibrary(std::move(AMove.FLibrary)),
+	FFunctionPointers(AMove.FFunctionPointers)
+{}
 template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::AutoModule<AN, AFunctionTypes...>& CYB::Platform::AutoModule<AN, AFunctionTypes...>::operator=(AutoModule&& AMove) {
 	FLibrary = std::move(AMove.FLibrary);
 	FFunctionPointers = AMove.FFunctionPointers;

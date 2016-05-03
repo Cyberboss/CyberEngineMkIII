@@ -15,6 +15,8 @@ namespace CYB {
 		public:
 			API::EngineInformation FEngineInformation;	//!< Information describing the engine
 
+			Platform::ModuleManager FModuleManager;
+
 			//Modules
 				//User
 				//GDI

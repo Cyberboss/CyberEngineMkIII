@@ -9,4 +9,5 @@
 #include "../SupportLibs/Catch/single_include/catch.hpp"
 #else
 #include "VirtualMemory.cpp"
+#include "Modules.cpp"
 #endif

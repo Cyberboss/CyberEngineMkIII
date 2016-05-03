@@ -6,6 +6,9 @@
     <ClCompile Include="VirtualMemory.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
+    <ClCompile Include="Modules.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />

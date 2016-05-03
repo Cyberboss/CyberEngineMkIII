@@ -1,5 +1,5 @@
 #include "TestHeader.hpp"
-SCENARIO("VirtualMemory reservations can be made and released", "[VirtualMemory]") {
+SCENARIO("VirtualMemory reservations can be made and released", "[Platform][VirtualMemory]") {
 	GIVEN("A sane reservation size") {
 		const auto ReservationSize(1000000);
 		WHEN("A reservation is made") {
@@ -48,7 +48,7 @@ SCENARIO("VirtualMemory reservations can be made and released", "[VirtualMemory]
 		}
 	}
 }
-SCENARIO("VirtualMemory reservations handle various sizes", "[VirtualMemory]") {
+SCENARIO("VirtualMemory reservations handle various sizes", "[Platform][VirtualMemory]") {
 	GIVEN("Some reservation size") {
 		unsigned long long ReservationSize;
 		WHEN("The size is insanely small") {
@@ -85,7 +85,7 @@ SCENARIO("VirtualMemory reservations handle various sizes", "[VirtualMemory]") {
 #endif
 	}
 }
-SCENARIO("VirtualMemory commits work as intended", "[VirtualMemory]") {
+SCENARIO("VirtualMemory commits work as intended", "[Platform][VirtualMemory]") {
 	GIVEN("A standard reservation") {
 		auto Reservation(CYB::Platform::VirtualMemory::Reserve(1000000));
 		unsigned long long CommitSize;
@@ -163,7 +163,7 @@ SCENARIO("VirtualMemory commits work as intended", "[VirtualMemory]") {
 		}
 	}
 }
-SCENARIO("VirtualMemory reservation protection levels can be changed", "[VirtualMemory]") {
+SCENARIO("VirtualMemory reservation protection levels can be changed", "[Platform][VirtualMemory]") {
 	GIVEN("A standard reservation and commit which has some data written to it") {
 		auto Reservation(static_cast<unsigned long long*>(CYB::Platform::VirtualMemory::Reserve(1000000)));
 		CYB::Platform::VirtualMemory::Commit(Reservation, 500000);
@@ -250,7 +250,7 @@ SCENARIO("VirtualMemory reservation protection levels can be changed", "[Virtual
 	}
 }
 #ifndef TARGET_OS_WINDOWS	//dependance on Core
-SCENARIO("VirtualMemory can be discarded and reused") {
+SCENARIO("VirtualMemory can be discarded and reused","[Platform][VirtualMemory]") {
 	GIVEN("A standard reservation and commit which has some data written to it") {
 		auto Reservation(static_cast<unsigned long long*>(CYB::Platform::VirtualMemory::Reserve(1000000)));
 		CYB::Platform::VirtualMemory::Commit(Reservation, 500000);

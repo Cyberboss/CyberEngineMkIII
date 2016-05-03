@@ -5,5 +5,5 @@
 #include "CYBAutoModule.hpp"
 #include "CYBAutoModule.inl"
 #include "CYBModuleMacros.hpp"
-#include "CYBPlatformModuleDefinitions.hpp"
+#include "CYBModuleDefinitions.hpp"
 #include "CYBModuleManager.hpp"

@@ -179,6 +179,7 @@
     <ClInclude Include="EngineInformation.hpp" />
     <ClInclude Include="Exception.hpp" />
     <ClInclude Include="CYBModule.hpp" />
+    <ClInclude Include="Heap.hpp" />
     <ClInclude Include="ParameterPackIndexer.hpp" />
     <ClInclude Include="Preprocessor.hpp" />
     <ClInclude Include="CYBProcess.hpp" />

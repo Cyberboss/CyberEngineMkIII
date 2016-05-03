@@ -91,8 +91,7 @@ void CYB::Platform::VirtualMemory::Access(void* const AReservation, const Access
 		throw Exception::SystemData(Exception::SystemData::MEMORY_PROTECT_FAILURE);
 }
 
-void CYB::Platform::VirtualMemory::Discard(const void* const AMemory, const unsigned long long ANumBytes) {
-	static_cast<void>(AMemory);
-	static_cast<void>(ANumBytes);
-	//! @todo Implement using a K32 optional function set
+void CYB::Platform::VirtualMemory::Discard(void* const AMemory, const unsigned long long ANumBytes) {
+	using namespace Implementation::Posix;
+	madvise(AMemory, ANumBytes, MADV_DONTNEED);
 }

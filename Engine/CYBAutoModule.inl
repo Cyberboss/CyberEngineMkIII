@@ -31,9 +31,9 @@ template <unsigned int AN, typename... AFunctionTypes> template <unsigned int AP
 	return FFunctionPointers[APointerIndex] != nullptr;
 }
 
-template <unsigned int AN, typename... AFunctionTypes> template <unsigned int APointerIndex, typename... Args> auto CYB::Platform::AutoModule<AN, AFunctionTypes...>::Call(Args&&... AArguments) const {
+template <unsigned int AN, typename... AFunctionTypes> template <unsigned int APointerIndex, typename... AArgs> auto CYB::Platform::AutoModule<AN, AFunctionTypes...>::Call(AArgs&&... AArguments) const {
 	typedef typename API::ParameterPackIndexer<APointerIndex, AFunctionTypes...>::type CallableType;
 	static_assert(std::is_function<CallableType>::value, "Call must refer to a function");
 	auto Callable(reinterpret_cast<CallableType*>(FFunctionPointers[APointerIndex]));
-	return Callable(std::forward<Args>(AArguments)...);
+	return Callable(std::forward<AArgs>(AArguments)...);
 }

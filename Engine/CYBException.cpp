@@ -7,8 +7,6 @@ const char* CYB::Exception::SystemData::ErrorMessage(const ErrorCode AErrorCode)
 		return u8"Failed to reserve virtual memory from the OS.";
 	case MEMORY_COMMITAL_FAILURE:
 		return u8"Failed to commit virtual memory from the OS.";
-	case MEMORY_DISCARD_FAILURE:
-		return u8"Failed to discard virtual memory to the OS.";
 	case MEMORY_PROTECT_FAILURE:
 		return u8"Failed to implement requested virtual memory protection level.";
 	case MEMORY_RELEASE_FAILURE:

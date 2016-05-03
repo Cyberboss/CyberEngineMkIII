@@ -226,6 +226,9 @@
     <ClInclude Include="CYBWin32RequiredModules.hpp">
       <Filter>Platform\Win32</Filter>
     </ClInclude>
+    <ClInclude Include="CYBFile.hpp">
+      <Filter>Platform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="CYBAutoModule.inl">

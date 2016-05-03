@@ -1,28 +1,42 @@
 //! @file CYBAutoModule.inl Implements CYB::Engine::AutoModule
 #pragma once
 
-template <unsigned int N, typename... AFunctionTypes> CYB::Platform::AutoModule<N, AFunctionTypes...>::AutoModule() :
+template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::AutoModule<AN, AFunctionTypes...>::AutoModule(const bool AOptionalFunctions) :
 	FLibrary(ModuleName())
 {
 	auto Names(FunctionNames());
-	for (unsigned int I(0); I < N; ++I)
-		FFunctionPointers = FLibrary.LoadFunction(Names[I]);
+	for (unsigned int I(0); I < AN; ++I) {
+		try {
+			FFunctionPointers[I] = FLibrary.LoadFunction(Names[I]);
+		}
+		catch (Exception::SystemData AException) {
+			if (AOptionalFunctions && AException.FErrorCode == Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE)
+				FFunctionPointers[I] = nullptr;
+			else
+				throw AException;
+		}
+	}
 }
-template <unsigned int N, typename... AFunctionTypes> CYB::Platform::AutoModule<N, AFunctionTypes...>::AutoModule(AutoModule&& AMove) :
+template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::AutoModule<AN, AFunctionTypes...>::AutoModule(AutoModule&& AMove) :
 	FLibrary(std::move(AMove.FLibrary))
 {
 	auto Names(FunctionNames());
-	for (unsigned int I(0); I < N; ++I)
+	for (unsigned int I(0); I < AN; ++I)
 		FFunctionPointers = FLibrary.LoadFunction(Names[I]);
 }
-template <unsigned int N, typename... AFunctionTypes> CYB::Platform::AutoModule<N, AFunctionTypes...>& CYB::Platform::AutoModule<N, AFunctionTypes...>::operator=(AutoModule&& AMove) {
+template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::AutoModule<AN, AFunctionTypes...>& CYB::Platform::AutoModule<AN, AFunctionTypes...>::operator=(AutoModule&& AMove) {
 	FLibrary = std::move(AMove.FLibrary);
 	FFunctionPointers = AMove.FFunctionPointers;
 	return *this;
 }
-template <unsigned int N, typename... AFunctionTypes> template <unsigned int PointerIndex, typename... Args> auto CYB::Platform::AutoModule<N, AFunctionTypes...>::Call(Args&&... AArguments) {
-	typedef typename API::ParameterPackIndexer::GetType<PointerIndex, AFunctionTypes...>::type CallableType;
+
+template <unsigned int AN, typename... AFunctionTypes> template <unsigned int APointerIndex> bool CYB::Platform::AutoModule<AN, AFunctionTypes...>::Loaded(void) const {
+	return FFunctionPointers[APointerIndex] != nullptr;
+}
+
+template <unsigned int AN, typename... AFunctionTypes> template <unsigned int APointerIndex, typename... Args> auto CYB::Platform::AutoModule<AN, AFunctionTypes...>::Call(Args&&... AArguments) const {
+	typedef typename API::ParameterPackIndexer<APointerIndex, AFunctionTypes...>::type CallableType;
 	static_assert(std::is_function<CallableType>::value, "Call must refer to a function");
-	auto Callable(reinterpret_cast<CallableType*>(FFunctionPointers[PointerIndex]));
+	auto Callable(reinterpret_cast<CallableType*>(FFunctionPointers[APointerIndex]));
 	return Callable(std::forward<Args>(AArguments)...);
 }

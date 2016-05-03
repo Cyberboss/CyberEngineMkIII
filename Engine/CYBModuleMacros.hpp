@@ -66,10 +66,11 @@ namespace CYB {\
 template <> constexpr const char* CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::ModuleName(void){\
 	return STRINGIFY(AModuleName); \
 }\
-template <> const char* CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::FFunctionNames[NARGS(__VA_ARGS__)]{\
-	 APPLY(STRINGIFY,__VA_ARGS__)\
+template <> inline const char* const* CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::FunctionNames(void){\
+	static const char* Names[NARGS(__VA_ARGS__)]{ APPLY(STRINGIFY,__VA_ARGS__) };\
+	return Names;\
 };\
 template <> constexpr bool CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::OptionalFunctions(void) {\
-		return AOptionalFunctions;\
+	return AOptionalFunctions;\
 }
 #endif

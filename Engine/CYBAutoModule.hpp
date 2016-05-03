@@ -9,28 +9,27 @@ namespace CYB {
 		*/
 		template <unsigned int AN, typename... AFunctionTypes> class AutoModule {
 		private:
-			static const char* FFunctionNames[AN]; //!< @brief The names of the functions associated with this AutoModule. Must be implemented;
-
 			Module FLibrary;	//!< @brief The owned module
 			void* FFunctionPointers[AN];	//!< @brief Pointers to loaded functions
 		private:
 			/*!
 				@brief Get the library name for this auto module. Must be implemented
 				@return The names of the Module associated with this AutoModule
+			*/
+			static constexpr const char* ModuleName(void);
+			/*!
+				@brief The names of the functions associated with this AutoModule. Must be implemented;
+				@return The names of the functions associated with this AutoModule
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			static constexpr const char* ModuleName(void);
+			static const char* const* FunctionNames(void);
 		public:
 			/*!
 				@brief Checks if functions loaded for this auto module will be optional. If true functions should be checked with Loaded to make sure they exist. Must be implemented
 				@return true if the AutoModule loads functions optionally, false otherwise
-				@par Thread Safety
-					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			static constexpr bool OptionalFunctions(void);
 			/*!

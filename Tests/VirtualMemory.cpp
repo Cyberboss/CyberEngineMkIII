@@ -249,6 +249,7 @@ SCENARIO("VirtualMemory reservation protection levels can be changed", "[Virtual
 		}
 	}
 }
+#ifndef TARGET_OS_WINDOWS	//dependance on Core
 SCENARIO("VirtualMemory can be discarded and reused") {
 	GIVEN("A standard reservation and commit which has some data written to it") {
 		auto Reservation(static_cast<unsigned long long*>(CYB::Platform::VirtualMemory::Reserve(1000000)));
@@ -269,19 +270,5 @@ SCENARIO("VirtualMemory can be discarded and reused") {
 		}
 		CYB::Platform::VirtualMemory::Release(Reservation);
 	}
-	GIVEN("A nonsense reservation") {
-		unsigned long long* Reservation(nullptr);
-		WHEN("The memory is discarded") {
-			bool Error(false);
-			try {
-				CYB::Platform::VirtualMemory::Discard(Reservation, 500000);
-			}
-			catch (CYB::Exception::SystemData AExcpetion) {
-				Error = AExcpetion.FErrorCode == CYB::Exception::SystemData::MEMORY_DISCARD_FAILURE;
-			}
-			THEN("The appropriate error occurs") {
-				REQUIRE(Error);
-			}
-		}
-	}
 }
+#endif

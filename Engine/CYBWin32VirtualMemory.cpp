@@ -1,6 +1,16 @@
 //! @file CYBWin32VirtualMemory.cpp Implements CYB::Platform::VirtualMemory for Win32
 #include "CYB.hpp"
 
+unsigned int CYB::Platform::Implementation::VirtualMemory::SystemPageSize(void) {
+	Win32::SYSTEM_INFO Info;
+	Win32::GetSystemInfo(&Info);
+	return Info.dwPageSize;
+}
+
+void* CYB::Platform::Implementation::VirtualMemory::PageAlignedUpperBound(void* AMemory, const unsigned int APageSize) {
+	return reinterpret_cast<void*>(reinterpret_cast<unsigned long long>(AMemory) + (APageSize - (reinterpret_cast<unsigned long long>(AMemory) % APageSize)));
+}
+
 void* CYB::Platform::VirtualMemory::Reserve(const unsigned long long ANumBytes) {
 	if (ANumBytes >= 1024) {
 		void* const Result(Implementation::Win32::VirtualAlloc(nullptr, ANumBytes, MEM_RESERVE, PAGE_NOACCESS));
@@ -42,8 +52,17 @@ void CYB::Platform::VirtualMemory::Access(void* const AReservation, const Access
 	}
 }
 
-void CYB::Platform::VirtualMemory::Discard(const void* const AMemory, const unsigned long long ANumBytes) {
-	static_cast<void>(AMemory);
-	static_cast<void>(ANumBytes);
-	//! @todo Implement using a K32 optional function set
+void CYB::Platform::VirtualMemory::Discard(void* const AMemory, const unsigned long long ANumBytes) {
+	const auto PageSize(Implementation::VirtualMemory::SystemPageSize());
+	if (ANumBytes >= PageSize) {
+		auto const AlignedMemory(Implementation::VirtualMemory::PageAlignedUpperBound(AMemory, PageSize));
+		const auto Difference(reinterpret_cast<unsigned long long>(AlignedMemory) - reinterpret_cast<unsigned long long>(AMemory));
+		if (Difference < ANumBytes) {
+			const auto BytesAvailableToDiscard(ANumBytes - Difference);
+			const auto TrueDiscardSize(BytesAvailableToDiscard - (BytesAvailableToDiscard % PageSize));
+			if(TrueDiscardSize >= PageSize
+				&& Core().FModuleManager.FK32Extended.Loaded<ModuleDefinitions::Kernel32::DiscardVirtualMemory>())
+					Core().FModuleManager.FK32Extended.Call<ModuleDefinitions::Kernel32::DiscardVirtualMemory>(AlignedMemory, TrueDiscardSize);
+		}
+	}
 }

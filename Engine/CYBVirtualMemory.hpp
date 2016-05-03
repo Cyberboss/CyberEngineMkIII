@@ -39,9 +39,9 @@ namespace CYB {
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
-					CYB::Exception::SystemData::MEMORY_DISCARD_FAILURE if the commital was unable to be made
+					This function does not throw exceptions
 			*/
-			static void Discard(const void* const AMemory, const unsigned long long ANumBytes);
+			static void Discard(void* const AMemory, const unsigned long long ANumBytes);
 			/*!
 				@brief Undo a reservation, improving performance. All memory that was used in entire reserved address space will be lost
 				@param AReservation An address returned from ReserveMemory

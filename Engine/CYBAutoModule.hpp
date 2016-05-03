@@ -56,7 +56,7 @@ namespace CYB {
 			/*!
 				@brief Call a loaded function
 				@tparam APointerIndex The enum value of the function to be called. Generated in CYB::Platform::Implementation::Modules
-				@tparam Args The types of the arguments of the function to call
+				@tparam AArgs The types of the arguments of the function to call
 				@param AArguments The arguments to the function represented by PointerIndex
 				@return The result from the called function
 				@par Thread Safety
@@ -64,7 +64,7 @@ namespace CYB {
 				@par Exception Safety
 					This function will throw any exception from the called function
 			*/
-			template<unsigned int APointerIndex, typename... Args> auto Call(Args&&... AArguments) const;
+			template<unsigned int APointerIndex, typename... AArgs> auto Call(AArgs&&... AArguments) const;
 		};
 	};
 };

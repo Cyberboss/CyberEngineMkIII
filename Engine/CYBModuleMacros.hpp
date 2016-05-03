@@ -48,17 +48,15 @@
 #define APPLY2_18(X, Y, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18) X(Y, x1), X(Y, x2), X(Y, x3), X(Y, x4), X(Y, x5), X(Y, x6), X(Y, x7), X(Y, x8), X(Y, x9), X(Y, x10), X(Y, x11), X(Y, x12), X(Y, x13), X(Y, x14), X(Y, x15), X(Y, x16), X(Y, x17), X(Y, x18)
 
 #define STRINGIFY(X) #X
-#define DECLTYPE_EXPAND(APlatform, X) decltype(CYB::Platform::Implementation::APlatform::##X)
+#define DECLTYPE_EXPAND(APlatform, X) decltype(CYB::Platform::Implementation::APlatform::X)
 
 #define DEFINE_MODULE(AModuleName, APlatform, AOptionalFunctions, ...)\
 namespace CYB {\
 	namespace Platform {\
-		namespace Implementation {\
-			namespace ModuleDefinitions {\
-				typedef typename Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)> AM##AModuleName;\
-				enum class AModuleName: unsigned int {\
-					__VA_ARGS__\
-				};\
+		namespace ModuleDefinitions {\
+			typedef typename Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)> AM##AModuleName;\
+			enum AModuleName: unsigned int {\
+				__VA_ARGS__\
 			};\
 		};\
 	};\

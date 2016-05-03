@@ -4,9 +4,10 @@
 template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::AutoModule<AN, AFunctionTypes...>::AutoModule() :
 	FLibrary(ModuleName())
 {
+	auto Names(FunctionNames());
 	for (unsigned int I(0); I < AN; ++I) {
 		try {
-			FFunctionPointers[I] = FLibrary.LoadFunction(FFunctionNames[I]);
+			FFunctionPointers[I] = FLibrary.LoadFunction(Names[I]);
 		}
 		catch (Exception::SystemData AException) {
 			if (OptionalFunctions() && AException.FErrorCode == Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE)

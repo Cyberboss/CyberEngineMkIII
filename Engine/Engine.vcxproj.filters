@@ -214,6 +214,18 @@
     <ClInclude Include="CYBModules.hpp">
       <Filter>Platform\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="CYBLinuxRequiredModules.hpp">
+      <Filter>Platform\Linux</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBOSXRequiredModules.hpp">
+      <Filter>Platform\OSX</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBPosixRequiredModules.hpp">
+      <Filter>Platform\Posix</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBWin32RequiredModules.hpp">
+      <Filter>Platform\Win32</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="CYBAutoModule.inl">

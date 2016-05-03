@@ -20,7 +20,7 @@ namespace CYB {
 			/*!
 				@brief Destroys a module reference. If all references to a module are destroyed, functions loaded from those modules become invalid
 			*/
-			~Module();
+			~Module() = default;
 
 			/*!
 				@brief Load a pointer to a function from a module. Pointer valid for as long as one reference to the owned module exists

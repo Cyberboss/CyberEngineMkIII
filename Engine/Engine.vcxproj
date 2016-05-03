@@ -147,16 +147,19 @@
     <ClInclude Include="CYBAutoModule.hpp" />
     <ClInclude Include="CyberEngine.hpp" />
     <ClInclude Include="CYBLinuxImplementation.hpp" />
+    <ClInclude Include="CYBLinuxRequiredModules.hpp" />
     <ClInclude Include="CYBLinuxSyscalls.hpp" />
     <ClInclude Include="CYBModuleMacros.hpp" />
     <ClInclude Include="CYBModuleManager.hpp" />
     <ClInclude Include="CYBModules.hpp" />
     <ClInclude Include="CYBOSXImplementation.hpp" />
+    <ClInclude Include="CYBOSXRequiredModules.hpp" />
     <ClInclude Include="CYBOSXSyscalls.hpp" />
     <ClInclude Include="CYBPlatform.hpp" />
     <ClInclude Include="CYBPosixImplementation.hpp" />
     <ClInclude Include="CYBPosixModule.hpp" />
     <ClInclude Include="CYBPosixProcess.hpp" />
+    <ClInclude Include="CYBPosixRequiredModules.hpp" />
     <ClInclude Include="CYBPosixThread.hpp" />
     <ClInclude Include="CYBPosixVirtualMemory.hpp" />
     <ClInclude Include="CYBCore.hpp" />
@@ -165,6 +168,7 @@
     <ClInclude Include="CYBVirtualMemory.hpp" />
     <ClInclude Include="CYBWin32Implementation.hpp" />
     <ClInclude Include="CYBWin32Module.hpp" />
+    <ClInclude Include="CYBWin32RequiredModules.hpp" />
     <ClInclude Include="CYBWin32Syscalls.hpp" />
     <ClInclude Include="CYBWin32Thread.hpp" />
     <ClInclude Include="CYBWin32VirtualMemory.hpp" />

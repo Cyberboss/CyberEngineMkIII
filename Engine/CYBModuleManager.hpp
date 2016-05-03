@@ -3,8 +3,7 @@
 namespace CYB {
 	namespace Platform {
 		//! @brief Manages the engine's loaded modules
-		class ModuleManager {
-
+		class ModuleManager : public Implementation::RequiredModules {
 		};
 	};
 };

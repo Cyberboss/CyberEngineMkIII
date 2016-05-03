@@ -50,7 +50,7 @@
 #define STRINGIFY(X) #X
 #define DECLTYPE_EXPAND(APlatform, X) decltype(CYB::Platform::Implementation::APlatform::##X)
 
-#define DEFINE_MODULE(AModuleName, APlatform, ...)\
+#define DEFINE_MODULE(AModuleName, APlatform, AOptionalFunctions, ...)\
 namespace CYB {\
 	namespace Platform {\
 		namespace Implementation {\
@@ -66,7 +66,10 @@ namespace CYB {\
 template <> constexpr const char* CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::ModuleName(void){\
 	return STRINGIFY(AModuleName); \
 }\
-template <> constexpr const char* CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::FunctionNames(void){\
-	return{ APPLY(STRINGIFY,__VA_ARGS__) }; \
+template <> const char* CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::FFunctionNames[NARGS(__VA_ARGS__)]{\
+	 APPLY(STRINGIFY,__VA_ARGS__)\
+};\
+template <> constexpr bool CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::OptionalFunctions(void) {\
+		return AOptionalFunctions;\
 }
 #endif

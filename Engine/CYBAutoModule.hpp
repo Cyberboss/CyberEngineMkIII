@@ -9,11 +9,13 @@ namespace CYB {
 		*/
 		template <unsigned int AN, typename... AFunctionTypes> class AutoModule {
 		private:
+			static const char* FFunctionNames[AN]; //!< @brief The names of the functions associated with this AutoModule. Must be implemented;
+
 			Module FLibrary;	//!< @brief The owned module
 			void* FFunctionPointers[AN];	//!< @brief Pointers to loaded functions
 		private:
 			/*!
-				@brief Get the Library name for this auto module, must be implemented
+				@brief Get the library name for this auto module. Must be implemented
 				@return The names of the Module associated with this AutoModule
 				@par Thread Safety
 					This function requires no thread safety
@@ -21,26 +23,25 @@ namespace CYB {
 					This function does not throw exceptions
 			*/
 			static constexpr const char* ModuleName(void);
+		public:
 			/*!
-				@brief Get the functions for this auto module, must be implemented
-				@return The names of the functions associated with this AutoModule
+				@brief Checks if functions loaded for this auto module will be optional. If true functions should be checked with Loaded to make sure they exist. Must be implemented
+				@return true if the AutoModule loads functions optionally, false otherwise
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			static constexpr const char* FunctionNames(void);
-		public:
+			static constexpr bool OptionalFunctions(void);
 			/*!
 				@brief Construct an AutoModule
-				@param AOptionalFunctions Don't throw an error if a function fails to load. Functions should be checked with Loaded to make sure they exist
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
 					CYB::Exception::SystemData::MODULE_LOAD_FAILURE if the module is unable to be loaded<BR>
-					CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE if a requested function is unable to be loaded from the owned module, unless @p AOptionalFunctions is true
+					CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
 			*/
-			AutoModule(const bool AOptionalFunctions);
+			AutoModule();
 			AutoModule(AutoModule&& AMove);
 			AutoModule& operator=(AutoModule&& AMove);
 

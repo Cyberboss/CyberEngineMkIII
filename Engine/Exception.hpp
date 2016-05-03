@@ -66,13 +66,6 @@ namespace CYB {
 		public:
 			Internal(const ErrorCode AErrorCode);
 		};
-		class Unit : public Base {
-		public:
-			enum ErrorCode : unsigned int {
-			};
-		public:
-			Unit(const char* const AMessage, const ErrorCode AErrorCode);
-		};
 		class Fatal : public Base {
 		public:
 			enum ErrorCode : unsigned int {

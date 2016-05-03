@@ -24,4 +24,6 @@ namespace CYB {
 #include "ParameterPackIndexer.hpp"
 #include "Typename.hpp"
 
+#include "Heap.hpp"
+
 #include "Threadable.hpp"

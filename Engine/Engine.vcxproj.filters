@@ -94,6 +94,9 @@
     <Filter Include="Platform\Modules">
       <UniqueIdentifier>{4d40a415-2774-4307-b316-c3e3960e6c24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="API\Memory">
+      <UniqueIdentifier>{8a6ade50-f358-494d-97ac-5c110f6e5e9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Preprocessor.hpp">
@@ -228,6 +231,9 @@
     </ClInclude>
     <ClInclude Include="CYBFile.hpp">
       <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Heap.hpp">
+      <Filter>API\Memory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

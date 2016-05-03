@@ -2,14 +2,19 @@
 #pragma once
 namespace CYB {
 	namespace API {
-		class ParameterPackIndexer {
+		/*! 
+			@brief Indexes template parameter packs
+			@tparam AIndex The index to retrieve
+			@tparam AType The first type in the parameter pack
+			@tparam ARemaining the other types in the parameter pack
+		*/
+		template<unsigned int AIndex, typename AType, typename... ARemaining> class ParameterPackIndexer {
 		public:
-			template<unsigned int Index, typename Type, typename... Remaining> struct GetType {
-				typedef typename GetType<Index - 1, Remaining...>::type type;
-			};
-			template<typename Type, typename... Remaining> struct GetType<0, Type, Remaining...> {
-				typedef Type type;
-			};
+			typedef typename ParameterPackIndexer<AIndex - 1, ARemaining...>::type type;	//!< @brief The type of the indexed template parameter
+		};
+		template<typename AType, typename... ARemaining> class ParameterPackIndexer<0, AType, ARemaining...> {
+		public:
+			typedef AType type;
 		};
 	};
 };

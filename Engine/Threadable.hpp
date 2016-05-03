@@ -31,7 +31,6 @@ namespace CYB {
 			/*!
 				@brief Construct a ThreadableTaskset
 				@param ANumTasks The number of tasks to run on this taskset
-				@param AContinueOnError Whether or not tasks should continue after an error
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety

@@ -3,20 +3,34 @@
 
 namespace CYB {
 	namespace API {
-		template <class T> class Singleton {
+		/*! 
+			@brief A class for creating static singletons
+			@tparam AParent The class that will be inheriting from this one to create a singleton
+		*/
+		template <class AParent> class Singleton {
 		protected:
-			static T* FSingleton;
+			static AParent* FSingleton;	//!< @brief The singleton object
 		protected:
+			/*!
+				@brief Construct a singleton and initialize it's pointer
+				@par Thread Safety
+					Access to this function must be synchronized per template instantiation
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
 			Singleton() {
-				static_assert(std::is_base_of<Singleton<T>, T>::value, "CYB::API::Singleton may only be used via inheritance");
+				static_assert(std::is_base_of<Singleton<AParent>, AParent>::value, "CYB::API::Singleton may only be used via inheritance");
 				Assert(FSingleton == nullptr);
-				FSingleton = static_cast<T*>(this);
+				FSingleton = static_cast<AParent*>(this);
 			}
+			/*!
+				@brief Destroy a singleton and deinitialize it's pointer
+			*/
 			~Singleton() {
-				Assert(FSingleton == static_cast<T*>(this));
+				Assert(FSingleton == static_cast<AParent*>(this));
 				FSingleton = nullptr;
 			}
 		};
 	};
 };
-template <class T> T* CYB::API::Singleton<T>::FSingleton(nullptr);
+template <class AParent> AParent* CYB::API::Singleton<AParent>::FSingleton(nullptr);

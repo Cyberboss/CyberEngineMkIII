@@ -143,6 +143,7 @@
     <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CStyleString.hpp" />
     <ClInclude Include="CYB.hpp" />
     <ClInclude Include="CYBAutoModule.hpp" />
     <ClInclude Include="CyberEngine.hpp" />
@@ -185,14 +186,18 @@
     <ClInclude Include="CYBProcess.hpp" />
     <ClInclude Include="Singleton.hpp" />
     <ClInclude Include="STL.hpp" />
+    <ClInclude Include="StaticString.hpp" />
+    <ClInclude Include="Strings.hpp" />
     <ClInclude Include="SystemChecks.hpp" />
     <ClInclude Include="Threadable.hpp" />
     <ClInclude Include="Typename.hpp" />
-    <ClInclude Include="Types.hpp" />
+    <ClInclude Include="BasicTypes.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CStyleString.inl" />
     <None Include="CYBAutoModule.inl" />
     <None Include="CYBModuleDefinitions.hpp" />
+    <None Include="StaticString.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

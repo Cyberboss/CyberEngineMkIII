@@ -12,7 +12,7 @@ namespace CYB {
 
 #include "Preprocessor.hpp"
 
-#include "Types.hpp"
+#include "BasicTypes.hpp"
 
 #include "EngineInformation.hpp"
 
@@ -23,6 +23,8 @@ namespace CYB {
 #include "Singleton.hpp"
 #include "ParameterPackIndexer.hpp"
 #include "Typename.hpp"
+
+#include "Strings.hpp"
 
 #include "Heap.hpp"
 

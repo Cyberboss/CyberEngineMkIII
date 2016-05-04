@@ -58,9 +58,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Declarations">
-      <UniqueIdentifier>{feb77a55-d65b-4fdc-8b07-b3f500785485}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine">
       <UniqueIdentifier>{bb1df916-5885-4f0f-abe2-150f831aa0a2}</UniqueIdentifier>
     </Filter>
@@ -97,16 +94,22 @@
     <Filter Include="API\Memory">
       <UniqueIdentifier>{8a6ade50-f358-494d-97ac-5c110f6e5e9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="API\Strings">
+      <UniqueIdentifier>{e56aa628-ce5a-4a16-b43d-542753279801}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\Declarations">
+      <UniqueIdentifier>{feb77a55-d65b-4fdc-8b07-b3f500785485}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Preprocessor.hpp">
-      <Filter>Declarations</Filter>
+      <Filter>API\Declarations</Filter>
     </ClInclude>
     <ClInclude Include="Endianess.hpp">
-      <Filter>Declarations</Filter>
+      <Filter>API\Declarations</Filter>
     </ClInclude>
     <ClInclude Include="SystemChecks.hpp">
-      <Filter>Declarations</Filter>
+      <Filter>API\Declarations</Filter>
     </ClInclude>
     <ClInclude Include="CYBWin32Process.hpp">
       <Filter>Platform\Win32</Filter>
@@ -140,7 +143,7 @@
       <Filter>Platform\Linux</Filter>
     </ClInclude>
     <ClInclude Include="STL.hpp">
-      <Filter>Declarations</Filter>
+      <Filter>API\Declarations</Filter>
     </ClInclude>
     <ClInclude Include="CYBThread.hpp">
       <Filter>Platform</Filter>
@@ -152,10 +155,7 @@
       <Filter>Platform\Win32</Filter>
     </ClInclude>
     <ClInclude Include="Exception.hpp">
-      <Filter>Declarations</Filter>
-    </ClInclude>
-    <ClInclude Include="Types.hpp">
-      <Filter>Declarations</Filter>
+      <Filter>API\Declarations</Filter>
     </ClInclude>
     <ClInclude Include="CYBVirtualMemory.hpp">
       <Filter>Platform</Filter>
@@ -235,6 +235,18 @@
     <ClInclude Include="Heap.hpp">
       <Filter>API\Memory</Filter>
     </ClInclude>
+    <ClInclude Include="Strings.hpp">
+      <Filter>API\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticString.hpp">
+      <Filter>API\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="CStyleString.hpp">
+      <Filter>API\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicTypes.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="CYBAutoModule.inl">
@@ -242,6 +254,12 @@
     </None>
     <None Include="CYBModuleDefinitions.hpp">
       <Filter>Platform\Modules</Filter>
+    </None>
+    <None Include="CStyleString.inl">
+      <Filter>API\Strings</Filter>
+    </None>
+    <None Include="StaticString.inl">
+      <Filter>API\Strings</Filter>
     </None>
   </ItemGroup>
 </Project>

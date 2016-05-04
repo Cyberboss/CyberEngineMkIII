@@ -247,6 +247,12 @@
     <ClInclude Include="BasicTypes.hpp">
       <Filter>API\Types</Filter>
     </ClInclude>
+    <ClInclude Include="CYBLinuxModule.hpp">
+      <Filter>Platform\Linux</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBOSXModule.hpp">
+      <Filter>Platform\OSX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="CYBAutoModule.inl">

@@ -4,10 +4,10 @@ static const CYB::API::String::Static ExistingLibrary(
 #ifdef TARGET_OS_WINDOWS
 	"Kernel32"
 #else
-	"m"
+	"dl"
 #endif
 );
-static const CYB::API::String::Static FakeLibrary("Thisreallyshouldntexitsimeancomeon");
+static const CYB::API::String::Static FakeLibrary("Thisreallyshouldntexistimeancomeon");
 
 SCENARIO("Modules can load a library", "[Platform][Modules]") {
 	GIVEN("An existing library") {

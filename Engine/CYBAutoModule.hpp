@@ -16,7 +16,7 @@ namespace CYB {
 				@brief Get the library name for this auto module. Must be implemented
 				@return The names of the Module associated with this AutoModule
 			*/
-			static constexpr const char* ModuleName(void);
+			static constexpr char* ModuleName(void);
 			/*!
 				@brief The names of the functions associated with this AutoModule. Must be implemented;
 				@return The names of the functions associated with this AutoModule
@@ -25,7 +25,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			static const char* const* FunctionNames(void);
+			static const API::String::Static* FunctionNames(void);
 		public:
 			/*!
 				@brief Checks if functions loaded for this auto module will be optional. If true functions should be checked with Loaded to make sure they exist. Must be implemented

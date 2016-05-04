@@ -49,7 +49,7 @@ void* CYB::Platform::VirtualMemory::Reserve(unsigned long long ANumBytes) {
 				else if (AException.FErrorCode == Exception::SystemData::MEMORY_COMMITAL_FAILURE)
 					throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
 				else
-					throw AException;
+					throw;
 			}
 		}
 		else {

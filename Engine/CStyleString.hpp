@@ -6,8 +6,8 @@ namespace CYB {
 			//! @brief A basic char contained string
 			class CStyle {
 			protected:
-				char* FData;
-				unsigned long long FLength;
+				char* FData;	//!< @brief String data. May be const, do not modify from this class
+				unsigned int FLength;	//!< @brief Number of bytes before null terminator in FData
 			protected:
 				/*!
 					@brief Construct a CStyle string
@@ -26,17 +26,8 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				unsigned long long CalculateByteLength(void) const;
+				unsigned int CalculateByteLength(void) const;
 			public:
-				/*!
-					@brief Get the contained CString
-					@return The char array of the CStyle
-					@par Thread Safety
-						This function requires synchronization at the object level
-					@par Exception Safety
-						This function does not throw exceptions
-				*/
-				char* CString(void);
 				/*!
 					@brief Get the contained const CString
 					@return The const char array of the CStyle
@@ -54,7 +45,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				virtual unsigned long long Length(void) const = 0;
+				virtual unsigned int Length(void) const = 0;
 				/*!
 					@brief Get the byte length of the contained CString
 					@return The byte length of the contained CString
@@ -63,7 +54,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				unsigned long long RawLength(void) const;
+				unsigned int RawLength(void) const;
 			};
 		};
 	};

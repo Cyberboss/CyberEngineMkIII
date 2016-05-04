@@ -2,8 +2,8 @@
 
 #include "CYB.hpp"
 
-CYB::Platform::Implementation::Module::Module(const char* const AModuleName) :
-	FModule{ Posix::dlopen(AModuleName, RTLD_LAZY) }
+CYB::Platform::Implementation::Module::Module(const API::String::CStyle& AModuleName) :
+	FModule{ Posix::dlopen(AModuleName.CString(), RTLD_LAZY) }
 {
 	if (FModule == nullptr)
 		throw Exception::SystemData(Exception::SystemData::MODULE_LOAD_FAILURE);
@@ -13,8 +13,8 @@ CYB::Platform::Implementation::Module::~Module() {
 		Posix::dlclose(FModule);
 }
 
-void* CYB::Platform::Module::LoadFunction(const char* const AFunctionName) {
-	auto Result(Implementation::Posix::dlsym(FModule, AFunctionName));
+void* CYB::Platform::Module::LoadFunction(const API::String::CStyle& AFunctionName) {
+	auto Result(Implementation::Posix::dlsym(FModule, AFunctionName.CString()));
 	if (Result == nullptr)
 		throw Exception::SystemData(Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE);
 	return Result;

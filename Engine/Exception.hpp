@@ -16,7 +16,7 @@ namespace CYB {
 			};
 		public:
 			//! @todo Make the error message allocated
-			const char* const FMessage;	//!< @brief An english description of the error
+			API::String::Static FMessage;	//!< @brief An english description of the error
 			const unsigned int FErrorCode;	//!< @brief The assigned error code
 			const Level FLevel;	//!< @brief The type of the exception
 		protected:
@@ -30,11 +30,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			Base(const char* const AMessage, const unsigned int AErrorCode, const Level ALevel) :
-				FMessage(AMessage),
-				FErrorCode(AErrorCode),
-				FLevel(ALevel)
-			{}
+			Base(API::String::Static&& AMessage, const unsigned int AErrorCode, const Level ALevel);
 		};
 		class Violation : public Base {
 		public:
@@ -55,7 +51,7 @@ namespace CYB {
 				THREAD_CREATION_FAILURE,
 			};
 		private:
-			static const char* ErrorMessage(const ErrorCode AErrorCode);
+			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
 			SystemData(const ErrorCode AErrorCode);
 		};
@@ -75,3 +71,5 @@ namespace CYB {
 		};
 	};
 };
+
+#include "Exception.inl"

@@ -1,17 +1,17 @@
 #include "TestHeader.hpp"
 
-static const char* const ExistingLibrary(
+static const CYB::API::String::Static ExistingLibrary(
 #ifdef TARGET_OS_WINDOWS
 	"Kernel32"
 #else
 	"m"
 #endif
 );
-static const char* const FakeLibrary("Thisreallyshouldntexitsimeancomeon");
+static const CYB::API::String::Static FakeLibrary("Thisreallyshouldntexitsimeancomeon");
 
 SCENARIO("Modules can load a library", "[Platform][Modules]") {
 	GIVEN("An existing library") {
-		const char* const Library(ExistingLibrary);
+		auto& Library(ExistingLibrary);
 		WHEN("The library name is used to construct a Module") {
 			CYB::Platform::Module* Result(nullptr);
 			bool Error(false);
@@ -29,7 +29,7 @@ SCENARIO("Modules can load a library", "[Platform][Modules]") {
 		}
 	};
 	GIVEN("A non existant library") {
-		const char* const Library(FakeLibrary);
+		auto& Library(FakeLibrary);
 		WHEN("The library name is used to construct a Module") {
 			CYB::Platform::Module* Result(nullptr);
 			bool Error(false);

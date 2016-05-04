@@ -27,7 +27,7 @@ void CYB::Platform::VirtualMemory::Commit(void* const AReservation, const unsign
 	catch (Exception::SystemData AException) {
 		if(AException.FErrorCode == Exception::SystemData::MEMORY_PROTECT_FAILURE)
 			throw Exception::SystemData(Exception::SystemData::MEMORY_COMMITAL_FAILURE);
-		throw AException;
+		throw;
 	}
 	const void* const Result(Implementation::Win32::VirtualAlloc(AReservation, ANumBytes, MEM_COMMIT, PAGE_READWRITE));
 	if (Result == nullptr)

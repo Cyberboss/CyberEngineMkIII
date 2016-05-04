@@ -7,7 +7,7 @@ namespace CYB {
 			protected:
 				Win32::HMODULE FModule;
 			protected:
-				Module(const char* const AModuleName);
+				Module(const API::String::CStyle& AModuleName);
 				Module(const Module&) = delete;
 				Module(Module&& AMove);
 				Module& operator=(Module&& AMove);

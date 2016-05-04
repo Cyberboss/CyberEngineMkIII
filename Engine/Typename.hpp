@@ -12,10 +12,10 @@ namespace CYB {
 				@brief Gets the typename of type AType
 				@return The name of the type in a string
 			*/
-			static constexpr const char* Name(void);
+			static constexpr const String::Static Name(void);
 		};
 	};
 };
 
 //! @brief Macro for auto-naming types
-#define ENABLE_TYPENAME(AType, ANamespace) namespace CYB { namespace API { template<> class Typename<ANamespace::AType> { public: constexpr const char* Name(void) { return #AType; }};}}
+#define ENABLE_TYPENAME(AType, ANamespace) namespace CYB { namespace API { template<> class Typename<ANamespace::AType> { public: constexpr const String::Static Name(void) { return #AType; }};}}

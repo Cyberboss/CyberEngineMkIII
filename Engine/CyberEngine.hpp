@@ -12,19 +12,19 @@ namespace CYB {
 
 #include "Preprocessor.hpp"
 
+#include "STL.hpp"
+
 #include "BasicTypes.hpp"
 
-#include "EngineInformation.hpp"
+#include "Strings.hpp"
 
-#include "STL.hpp"
+#include "EngineInformation.hpp"
 
 #include "Exception.hpp"
 
 #include "Singleton.hpp"
 #include "ParameterPackIndexer.hpp"
 #include "Typename.hpp"
-
-#include "Strings.hpp"
 
 #include "Heap.hpp"
 

@@ -1,7 +1,7 @@
 //! @file CYBModule.cpp Shared function implementations for CYB::Platform::Module
 #include "CYB.hpp"
 
-CYB::Platform::Module::Module(const char* const AModuleName):
+CYB::Platform::Module::Module(const API::String::CStyle& AModuleName):
 	Implementation::Module(AModuleName)
 {}
 CYB::Platform::Module::Module(Module&& AMove):

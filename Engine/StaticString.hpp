@@ -13,12 +13,14 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				Static(char* const AData);
-
+				Static(const char* const AData);
+				Static(const Static&) = default;
+				Static(Static&& AMove);
+				Static& operator=(Static&& AMove);
 				/*!
 					@brief Equivalent to CYB::API::String::CStyle::RawLength
 				*/
-				unsigned long long Length(void) const override;
+				unsigned int Length(void) const override;
 			};
 		};
 	};

@@ -2,7 +2,7 @@
 #pragma once
 
 template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::AutoModule<AN, AFunctionTypes...>::AutoModule() :
-	FLibrary(ModuleName())
+	FLibrary(API::String::Static(ModuleName()))
 {
 	auto Names(FunctionNames());
 	for (unsigned int I(0); I < AN; ++I) {
@@ -13,7 +13,7 @@ template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::AutoModule
 			if (OptionalFunctions() && AException.FErrorCode == Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE)
 				FFunctionPointers[I] = nullptr;
 			else
-				throw AException;
+				throw;
 		}
 	}
 }

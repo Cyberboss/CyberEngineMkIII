@@ -13,7 +13,7 @@ namespace CYB {
 				@par Exception Safety
 					CYB::Exception::SystemData::MODULE_LOAD_FAILURE if the module is unable to be loaded
 			*/
-			Module(const char* const AModuleName);
+			Module(const API::String::CStyle& AModuleName);
 			Module(const Module&) = delete;
 			Module(Module&& AMove);
 			Module& operator=(Module&& AMove);
@@ -31,7 +31,7 @@ namespace CYB {
 				@par Exception Safety
 					CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE if the requested function is unable to be loaded from the owned module
 			*/
-			void* LoadFunction(const char* const AFunctionName);
+			void* LoadFunction(const API::String::CStyle& AFunctionName);
 		};
 	};
 };

@@ -1,10 +1,18 @@
 //! @file CYBPosixModule.cpp Implements CYB::Platform::Module for Posix
-
 #include "CYB.hpp"
 
-CYB::Platform::Implementation::Module::Module(const API::String::CStyle& AModuleName) :
-	FModule{ Posix::dlopen(AModuleName.CString(), RTLD_LAZY) }
-{
+using namespace CYB::Platform::Implementation::Posix;
+
+#include <cstring>
+
+CYB::Platform::Implementation::Module::Module(const API::String::CStyle& AModuleName) {
+	char PrefixAndBuffer[256](u8"lib");
+	auto const PostPrefixOffset(PrefixAndBuffer + 3);
+
+	memcpy(PostPrefixOffset, AModuleName.CString(), AModuleName.RawLength());
+	memcpy(PostPrefixOffset + AModuleName.RawLength(), Suffix(), API::String::Static(Suffix()).RawLength());
+
+	FModule = Posix::dlopen(PrefixAndBuffer, RTLD_LAZY);
 	if (FModule == nullptr)
 		throw Exception::SystemData(Exception::SystemData::MODULE_LOAD_FAILURE);
 }

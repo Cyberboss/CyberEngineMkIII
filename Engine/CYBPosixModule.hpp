@@ -6,6 +6,8 @@ namespace CYB {
 			class Module {
 			protected:
 				void* FModule;
+			private:
+				static constexpr const char* Suffix(void);
 			protected:
 				Module(const API::String::CStyle& AModuleName);
 				Module(const Module&) = delete;

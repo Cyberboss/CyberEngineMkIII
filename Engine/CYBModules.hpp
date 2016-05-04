@@ -14,10 +14,12 @@
 #endif
 
 #ifdef TARGET_OS_LINUX
+#include "CYBLinuxModule.hpp"
 #include "CYBLinuxRequiredModules.hpp"
 #endif
 
 #ifdef TARGET_OS_MAC
+#include "CYBOSXModule.hpp"
 #include "CYBOSXRequiredModules.hpp"
 #endif
 

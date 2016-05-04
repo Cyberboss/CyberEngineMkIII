@@ -149,12 +149,14 @@
     <ClInclude Include="CyberEngine.hpp" />
     <ClInclude Include="CYBFile.hpp" />
     <ClInclude Include="CYBLinuxImplementation.hpp" />
+    <ClInclude Include="CYBLinuxModule.hpp" />
     <ClInclude Include="CYBLinuxRequiredModules.hpp" />
     <ClInclude Include="CYBLinuxSyscalls.hpp" />
     <ClInclude Include="CYBModuleMacros.hpp" />
     <ClInclude Include="CYBModuleManager.hpp" />
     <ClInclude Include="CYBModules.hpp" />
     <ClInclude Include="CYBOSXImplementation.hpp" />
+    <ClInclude Include="CYBOSXModule.hpp" />
     <ClInclude Include="CYBOSXRequiredModules.hpp" />
     <ClInclude Include="CYBOSXSyscalls.hpp" />
     <ClInclude Include="CYBPlatform.hpp" />

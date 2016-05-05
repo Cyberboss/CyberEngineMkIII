@@ -22,7 +22,8 @@
 */
 
 CYB::Engine::Core::Core():
-	FEngineInformation(CreateEngineInformation())
+	FEngineInformation(CreateEngineInformation()),
+	FHeap(Parameters::ENGINE_HEAP_INITIAL_COMMIT_SIZE)
 {
 
 }

@@ -105,6 +105,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="CYBException.cpp" />
+    <ClCompile Include="CYBHeap.cpp" />
     <ClCompile Include="CYBLinuxThread.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -150,6 +151,7 @@
     <ClInclude Include="CStyleString.hpp" />
     <ClInclude Include="CYB.hpp" />
     <ClInclude Include="CYBAutoModule.hpp" />
+    <ClInclude Include="CYBEngineParameters.hpp" />
     <ClInclude Include="CyberEngine.hpp" />
     <ClInclude Include="CYBFile.hpp" />
     <ClInclude Include="CYBHeap.hpp" />
@@ -187,9 +189,11 @@
     <ClInclude Include="EngineInformation.hpp" />
     <ClInclude Include="Exception.hpp" />
     <ClInclude Include="CYBModule.hpp" />
+    <ClInclude Include="Expressions.hpp" />
     <ClInclude Include="Heap.hpp" />
+    <ClInclude Include="OSDeclaration.hpp" />
     <ClInclude Include="ParameterPackIndexer.hpp" />
-    <ClInclude Include="Preprocessor.hpp" />
+    <ClInclude Include="Assert.hpp" />
     <ClInclude Include="CYBProcess.hpp" />
     <ClInclude Include="Singleton.hpp" />
     <ClInclude Include="STL.hpp" />
@@ -201,10 +205,13 @@
     <ClInclude Include="BasicTypes.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assert.inl" />
     <None Include="CStyleString.inl" />
     <None Include="CYBAutoModule.inl" />
     <None Include="CYBModuleDefinitions.hpp" />
+    <None Include="Endianess.inl" />
     <None Include="Exception.inl" />
+    <None Include="Expressions.inl" />
     <None Include="StaticString.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

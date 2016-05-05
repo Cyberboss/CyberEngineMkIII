@@ -25,6 +25,7 @@ CYBProcess.cpp
 CYBModule.cpp
 
 #Engine
+CYBHeap.cpp
 CYBCore.cpp
 )
 

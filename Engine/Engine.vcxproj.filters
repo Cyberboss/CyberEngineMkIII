@@ -35,17 +35,11 @@
     <ClCompile Include="CYBPosixVirtualMemory.cpp">
       <Filter>Platform\Posix</Filter>
     </ClCompile>
-    <ClCompile Include="CYBException.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="CYBPosixSyscalls.cpp">
       <Filter>Platform\Posix</Filter>
     </ClCompile>
     <ClCompile Include="CYBWin32Syscalls.cpp">
       <Filter>Platform\Win32</Filter>
-    </ClCompile>
-    <ClCompile Include="CYBCore.cpp">
-      <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="CYBWin32Module.cpp">
       <Filter>Platform\Win32</Filter>
@@ -55,6 +49,15 @@
     </ClCompile>
     <ClCompile Include="CYBModule.cpp">
       <Filter>Platform\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="CYBHeap.cpp">
+      <Filter>Engine\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="CYBException.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="CYBCore.cpp">
+      <Filter>Engine\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,11 +103,11 @@
     <Filter Include="API\Declarations">
       <UniqueIdentifier>{feb77a55-d65b-4fdc-8b07-b3f500785485}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Core">
+      <UniqueIdentifier>{7d357251-032e-4d44-8752-b9dd099ec944}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Preprocessor.hpp">
-      <Filter>API\Declarations</Filter>
-    </ClInclude>
     <ClInclude Include="Endianess.hpp">
       <Filter>API\Declarations</Filter>
     </ClInclude>
@@ -181,9 +184,6 @@
     <ClInclude Include="CYBSyscalls.hpp">
       <Filter>Platform</Filter>
     </ClInclude>
-    <ClInclude Include="CYBCore.hpp">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="EngineInformation.hpp">
       <Filter>API\Meta</Filter>
     </ClInclude>
@@ -256,6 +256,21 @@
     <ClInclude Include="CYBHeap.hpp">
       <Filter>Engine\Memory</Filter>
     </ClInclude>
+    <ClInclude Include="CYBCore.hpp">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBEngineParameters.hpp">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions.hpp">
+      <Filter>API\Declarations</Filter>
+    </ClInclude>
+    <ClInclude Include="Assert.hpp">
+      <Filter>API\Declarations</Filter>
+    </ClInclude>
+    <ClInclude Include="OSDeclaration.hpp">
+      <Filter>API\Declarations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="CYBAutoModule.inl">
@@ -271,6 +286,15 @@
       <Filter>API\Strings</Filter>
     </None>
     <None Include="Exception.inl">
+      <Filter>API\Declarations</Filter>
+    </None>
+    <None Include="Expressions.inl">
+      <Filter>API\Declarations</Filter>
+    </None>
+    <None Include="Assert.inl">
+      <Filter>API\Declarations</Filter>
+    </None>
+    <None Include="Endianess.inl">
       <Filter>API\Declarations</Filter>
     </None>
   </ItemGroup>

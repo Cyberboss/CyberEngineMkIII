@@ -102,3 +102,15 @@ SCENARIO("Functions can be loaded from modules", "[Platform][Modules]") {
 		}
 	}
 }
+
+#ifndef TARGET_OS_WINDOWS
+DEFINE_MODULE(dl, Posix, false, dlopen, dlclose, dlsym)
+#endif
+
+TEST_CASE("AutoModules work as intended", "[Platform][Modules]") {
+#ifdef TARGET_OS_WINDOWS
+	CYB::Platform::ModuleDefinitions::AMKernel32();
+#else
+	CYB::Platform::ModuleDefinitions::AMdl();
+#endif
+}

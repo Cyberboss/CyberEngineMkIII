@@ -4,6 +4,9 @@
 //! @brief Encapsulates platform agnostic engine functions
 namespace Engine {};
 
+#include "CYBEngineParameters.hpp"
+
+#include "CYBBlock.hpp"
 #include "CYBHeap.hpp"
 
 #include "CYBCore.hpp"

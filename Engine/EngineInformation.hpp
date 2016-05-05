@@ -1,6 +1,7 @@
 #pragma once
 namespace CYB {
 	namespace API {
+		//! @brief Infomation about the running engine version
 		class EngineInformation {
 		public:
 			const API::String::Static FEngineName,	//!< @brief Engine name

@@ -271,6 +271,9 @@
     <ClInclude Include="OSDeclaration.hpp">
       <Filter>API\Declarations</Filter>
     </ClInclude>
+    <ClInclude Include="CYBBlock.hpp">
+      <Filter>Engine\Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="CYBAutoModule.inl">

@@ -3,6 +3,7 @@
 
 namespace CYB {
 	namespace API {
+		//! @brief Converters from large byte types to smaller ones
 		class ByteConverters {
 		public:
 			/*!

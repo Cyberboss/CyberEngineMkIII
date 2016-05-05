@@ -68,7 +68,7 @@
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>CYB.hpp</PrecompiledHeaderFile>
-      <DisableSpecificWarnings>4548;4571;4668;4623;4626;4625;4820;5026;5027</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4265;4548;4571;4668;4623;4626;4625;4710;4820;5026;5027</DisableSpecificWarnings>
       <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Bscmake>
@@ -92,7 +92,7 @@
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>CYB.hpp</PrecompiledHeaderFile>
-      <DisableSpecificWarnings>4548;4571;4668;4623;4626;4625;4820;5026;5027</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4265;4548;4571;4668;4623;4626;4625;4710;4820;5026;5027</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -151,6 +151,7 @@
     <ClInclude Include="CStyleString.hpp" />
     <ClInclude Include="CYB.hpp" />
     <ClInclude Include="CYBAutoModule.hpp" />
+    <ClInclude Include="CYBBlock.hpp" />
     <ClInclude Include="CYBEngineParameters.hpp" />
     <ClInclude Include="CyberEngine.hpp" />
     <ClInclude Include="CYBFile.hpp" />

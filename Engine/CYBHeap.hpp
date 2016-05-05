@@ -4,19 +4,27 @@ namespace CYB {
 	namespace Engine {
 		//! @brief A memory pool manager and allocator
 		class Heap : public API::Heap {
+		private:
+			void* FReservation; //!< The VirtualMemory mapping owned by the heap
 		public:
 			/*!
 				@brief Create a Heap
-				@param AInitialCommit The amount of memory to initalize the heap with, must be smaller than @p AReservationSize
+				@param AInitialCommitSize The amount of memory to initalize the heap with, must be smaller than @p AReservationSize
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
 					CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the memory could not be committed
 			*/
-			Heap(const unsigned long long AInitialCommit);
+			Heap(const unsigned long long AInitialCommitSize);
 			Heap(const Heap&) = delete;
 			Heap(Heap&& AMove);
 			Heap& operator=(Heap&& AMove);
+			/*!
+				@brief Destroys a heap, invalidating any memory allocated from it
+				@par WARNING
+					Potential hard crash due to possiblity of uncaught exception: CYB::Exception::SystemData::MEMORY_RELEASE_FAILURE
+			*/
+			~Heap();
 
 			/*!
 				@brief Lock the Heap, preventing reads and writes to the owned memory
@@ -75,9 +83,9 @@ namespace CYB {
 			//! @brief See CYB::API::Heap::Alloc
 			void* Alloc(const unsigned int ASize) final override;
 			//! @brief See CYB::API::Heap::Relloc
-			virtual void* Realloc(void* const APreviousAllocation, const unsigned int ANewSize) final override;
+			void* Realloc(void* const APreviousAllocation, const unsigned int ANewSize) final override;
 			//! @brief See CYB::API::Heap::Free
-			virtual void* Free(void* const APreviousAllocation) final override;
+			void* Free(void* const APreviousAllocation) final override;
 		};
 	};
 };

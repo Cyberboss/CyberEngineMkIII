@@ -3,8 +3,12 @@
 
 namespace CYB {
 	namespace Engine {
-		enum class Parameters {
-			HEAP_RESERVATION_SIZE = 
+		//! @brief Compilation configuration variables
+		class Parameters {
+		public:
+			enum : unsigned long long {
+				HEAP_RESERVATION_SIZE = API::ByteConverters::Terabytes(1),	//!< @brief The amount of address space reserved by CYB::Engine::Heap
+			};
 		};
-	}
-}
+	};
+};

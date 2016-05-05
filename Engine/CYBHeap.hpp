@@ -85,7 +85,7 @@ namespace CYB {
 			//! @brief See CYB::API::Heap::Relloc
 			void* Realloc(void* const APreviousAllocation, const unsigned int ANewSize) final override;
 			//! @brief See CYB::API::Heap::Free
-			void* Free(void* const APreviousAllocation) final override;
+			void Free(void* const APreviousAllocation) final override;
 		};
 	};
 };

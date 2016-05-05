@@ -16,19 +16,16 @@ namespace CYB {
 			API::EngineInformation FEngineInformation;	//!< Information describing the engine
 
 			Platform::ModuleManager FModuleManager;
-
-			//Modules
 				//User
 				//GDI
 				//Winsock
 				//Vulkan
 				//OpenAL
 				//Optional
-					//ExtendedKernel
 					//XInput
 			//Logger
 				//Heap
-			//Heap
+			Heap FHeap;
 			//ThreadPool
 			//Steam
 			//Command Line

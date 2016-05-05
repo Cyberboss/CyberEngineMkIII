@@ -33,7 +33,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			virtual void* Free(void* const APreviousAllocation) = 0;
+			virtual void Free(void* const APreviousAllocation) = 0;
 		};
 	};
 };

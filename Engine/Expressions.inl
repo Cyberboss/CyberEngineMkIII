@@ -2,14 +2,14 @@
 #pragma once
 
 constexpr unsigned long long CYB::API::ByteConverters::Terabytes(const unsigned long long ANumber) {
-	return Gigabytes(ANumber * 1000);
+	return Gigabytes(ANumber * 1024);
 }
 constexpr unsigned long long CYB::API::ByteConverters::Gigabytes(const unsigned long long ANumber) {
-	return Megabytes(ANumber * 1000);
+	return Megabytes(ANumber * 1024);
 }
 constexpr unsigned long long CYB::API::ByteConverters::Megabytes(const unsigned long long ANumber) {
-	return Kilobytes(ANumber * 1000);
+	return Kilobytes(ANumber * 1024);
 }
 constexpr unsigned long long CYB::API::ByteConverters::Kilobytes(const unsigned long long ANumber) {
-	return ANumber * 1000;
+	return ANumber * 1024;
 }

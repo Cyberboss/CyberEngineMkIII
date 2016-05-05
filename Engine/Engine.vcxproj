@@ -148,6 +148,7 @@
     <ClInclude Include="CYBAutoModule.hpp" />
     <ClInclude Include="CyberEngine.hpp" />
     <ClInclude Include="CYBFile.hpp" />
+    <ClInclude Include="CYBHeap.hpp" />
     <ClInclude Include="CYBLinuxImplementation.hpp" />
     <ClInclude Include="CYBLinuxModule.hpp" />
     <ClInclude Include="CYBLinuxRequiredModules.hpp" />

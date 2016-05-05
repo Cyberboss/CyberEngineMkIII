@@ -16,7 +16,7 @@ namespace CYB {
 				@brief Get the library name for this auto module. Must be implemented
 				@return The names of the Module associated with this AutoModule
 			*/
-			static constexpr char* ModuleName(void);
+			static constexpr const char* ModuleName(void);
 			/*!
 				@brief The names of the functions associated with this AutoModule. Must be implemented;
 				@return The names of the functions associated with this AutoModule

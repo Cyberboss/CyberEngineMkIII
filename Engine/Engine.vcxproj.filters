@@ -253,6 +253,9 @@
     <ClInclude Include="CYBOSXModule.hpp">
       <Filter>Platform\OSX</Filter>
     </ClInclude>
+    <ClInclude Include="CYBHeap.hpp">
+      <Filter>Engine\Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="CYBAutoModule.inl">

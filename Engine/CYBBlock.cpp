@@ -9,7 +9,7 @@ static_assert(sizeof(CYB::Engine::Block) ==
 #endif
 	, "Block size has changed, check algorithms");
 
-CYB::Engine::Block::Block(const int ASpaceAvailable, const Block& ALeftBlock, const bool AFree) :
+CYB::Engine::Block::Block(const unsigned int ASpaceAvailable, const Block& ALeftBlock, const bool AFree) :
 	FMagicHeader(MAGIC_HEADER),
 	FSizeAndFreeBit(InitializeData(ASpaceAvailable, AFree)),
 	FOffsetToPreviousBlock(CalculateOffset(ALeftBlock)),
@@ -18,12 +18,13 @@ CYB::Engine::Block::Block(const int ASpaceAvailable, const Block& ALeftBlock, co
 	API::Assert(ASpaceAvailable > sizeof(Block) || ASpaceAvailable == 0);
 }
 
-unsigned int CYB::Engine::Block::InitializeData(const int ASize, const bool AFree) {
-	API::Assert(ASize >= 0);
+unsigned int CYB::Engine::Block::InitializeData(const unsigned int ASize, const bool AFree) {
+	const long long DataSize(ASize - sizeof(Block));
+	API::Assert(DataSize >= 0 && DataSize <= std::numeric_limits<int>().max());
 	if(AFree)
-		return ASize | 1U << 31;
+		return DataSize | 1U << 31;
 	else
-		return ASize & ~(1U << 31);
+		return DataSize & ~(1U << 31);
 }
 
 unsigned int CYB::Engine::Block::CalculateOffset(const Block& ABlock) {

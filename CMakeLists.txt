@@ -1,5 +1,7 @@
 cmake_minimum_required (VERSION 3.4.3)
 
+Project(CyberEngineMarkIII)
+
 set(CYB_BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CYB_BASE_DIR}/Output/bin")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CYB_BASE_DIR}/Output/bin")
@@ -15,8 +17,6 @@ set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DDEBUG")
 #support libs here
 
 include(${CYB_BASE_DIR}/BuildScripts/CMake/cotire.cmake)
-
-Project(CyberEngineMarkIII)
 
 add_subdirectory(Engine)
 add_subdirectory(Executable)

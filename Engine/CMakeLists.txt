@@ -10,22 +10,29 @@ ENDIF()
 
 add_library(EngineBase STATIC
 
-#Platform
 ${PlatformImplementations}
 
+#Posix
 CYBPosixSyscalls.cpp
 CYBPosixThread.cpp
 CYBPosixProcess.cpp
 CYBPosixVirtualMemory.cpp
 CYBPosixModule.cpp
 
-CYBException.cpp
+#Platform
 CYBThread.cpp
 CYBProcess.cpp
 CYBModule.cpp
 
 #Engine
+
+#Memory
+CYBBlock.cpp
+CYBLargeBlock.cpp
 CYBHeap.cpp
+
+#Core
+CYBException.cpp
 CYBCore.cpp
 )
 

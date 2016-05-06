@@ -5,3 +5,4 @@
 #include <atomic>
 #include <type_traits>
 #include <limits>
+#include <new>

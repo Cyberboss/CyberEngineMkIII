@@ -59,6 +59,12 @@
     <ClCompile Include="CYBCore.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="CYBLargeBlock.cpp">
+      <Filter>Engine\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="CYBBlock.cpp">
+      <Filter>Engine\Memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -272,6 +278,9 @@
       <Filter>API\Declarations</Filter>
     </ClInclude>
     <ClInclude Include="CYBBlock.hpp">
+      <Filter>Engine\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBLargeBlock.hpp">
       <Filter>Engine\Memory</Filter>
     </ClInclude>
   </ItemGroup>

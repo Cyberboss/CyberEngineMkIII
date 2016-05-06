@@ -12,8 +12,25 @@ namespace CYB {
 			Block* FFreeList; //!< @brief The first block in the linked free list
 			LargeBlock* FLargeBlock; //!< @brief The block that extends to the end of the free list
 		private:
+			/*!
+				@brief A small max comparison of @p AInitialCommitSize and sizeof(Block) + 1
+				@param AInitialCommitSize The wanted initial commit size
+				@return The minimum valid initial commit size
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
 			static unsigned long long CalculateInitialCommitSize(const unsigned long long AInitialCommitSize);
 
+			/*!
+				@brief Get a reference to the first block in the reservation
+				@return A reference to the first block in the reservation
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
 			Block& FirstBlock(void);
 		public:
 			/*!

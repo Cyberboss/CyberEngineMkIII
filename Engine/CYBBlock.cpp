@@ -60,9 +60,8 @@ CYB::Engine::Block* CYB::Engine::Block::LeftBlock(void) {
 }
 
 CYB::Engine::Block* CYB::Engine::Block::RightBlock(void) {
-	const auto CurrentSize(Size());
-	API::Assert(CurrentSize > 0);
-	return reinterpret_cast<Block*>(static_cast<byte*>(GetData()) + CurrentSize);
+	API::Assert(!IsLargeBlock());
+	return reinterpret_cast<Block*>(static_cast<byte*>(GetData()) + Size());
 }
 void CYB::Engine::Block::SetSize(const int ANewSize) {
 	FSizeAndFreeBit = (ANewSize | 1U << 31);

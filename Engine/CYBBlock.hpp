@@ -23,7 +23,7 @@ namespace CYB {
 			unsigned long long FMagicFooter; //!< @brief A guard against memory corruption
 #endif
 		private:
-			static unsigned int InitializeData(const int ASize, const bool AFree);
+			static unsigned int InitializeData(const unsigned int ASize, const bool AFree);
 
 			unsigned int CalculateOffset(const Block& ABlock);
 		public:
@@ -37,7 +37,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			Block(const int ASpaceAvailable, const Block& ALeftBlock, const bool AFree);
+			Block(const unsigned int ASpaceAvailable, const Block& ALeftBlock, const bool AFree);
 			
 			/*!
 				@brief Get the data portion of the memory owned by this Block

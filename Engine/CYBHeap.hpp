@@ -5,7 +5,16 @@ namespace CYB {
 		//! @brief A memory pool manager and allocator
 		class Heap : public API::Heap {
 		private:
-			void* FReservation; //!< The VirtualMemory mapping owned by the heap
+			void* FReservation; //!< @brief The VirtualMemory mapping owned by the heap, also a pointer to the first block
+			unsigned long long FCommitSize; //!< @brief The amount of memory currently available in the Heap
+			bool FLocked; //!< @brief Whether or not the Heap is currently locked
+
+			Block* FFreeList; //!< @brief The first block in the linked free list
+			LargeBlock* FLargeBlock; //!< @brief The block that extends to the end of the free list
+		private:
+			static unsigned long long CalculateInitialCommitSize(const unsigned long long AInitialCommitSize);
+
+			Block& FirstBlock(void);
 		public:
 			/*!
 				@brief Create a Heap
@@ -67,7 +76,7 @@ namespace CYB {
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
-					This function does not throw exceptions
+					CYB::Exception::Internal::HEAP_CORRUPTION if the integrity of the heap has been compromised
 			*/
 			unsigned long long CurrentNumberOfAllocations(void) const;
 			/*!
@@ -81,9 +90,9 @@ namespace CYB {
 			unsigned long long CurrentAmountOfMemoryCommitted(void) const;
 
 			//! @brief See CYB::API::Heap::Alloc
-			void* Alloc(const unsigned int ASize) final override;
+			void* Alloc(const int ASize) final override;
 			//! @brief See CYB::API::Heap::Relloc
-			void* Realloc(void* const APreviousAllocation, const unsigned int ANewSize) final override;
+			void* Realloc(void* const APreviousAllocation, const int ANewSize) final override;
 			//! @brief See CYB::API::Heap::Free
 			void Free(void* const APreviousAllocation) final override;
 		};

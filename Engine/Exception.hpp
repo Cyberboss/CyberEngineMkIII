@@ -58,7 +58,10 @@ namespace CYB {
 		class Internal : public Base {
 		public:
 			enum ErrorCode : unsigned int {
+				HEAP_CORRUPTION,
 			};
+		private:
+			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
 			Internal(const ErrorCode AErrorCode);
 		};

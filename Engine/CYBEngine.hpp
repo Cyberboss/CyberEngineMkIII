@@ -7,6 +7,7 @@ namespace Engine {};
 #include "CYBEngineParameters.hpp"
 
 #include "CYBBlock.hpp"
+#include "CYBLargeBlock.hpp"
 #include "CYBHeap.hpp"
 
 #include "CYBCore.hpp"

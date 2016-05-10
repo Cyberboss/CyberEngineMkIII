@@ -18,6 +18,7 @@ CYBPosixThread.cpp
 CYBPosixProcess.cpp
 CYBPosixVirtualMemory.cpp
 CYBPosixModule.cpp
+CYBPosixMutex.cpp
 
 #Platform
 CYBThread.cpp

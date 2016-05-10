@@ -15,6 +15,10 @@ CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCod
 		return API::String::Static(u8"Failed to load a requested function from a module.");
 	case MODULE_LOAD_FAILURE:
 		return API::String::Static(u8"Failed to load a requested module.");
+	case MUTEX_INITIALIZATION_FAILURE:
+		return API::String::Static(u8"Failed to initialize a new mutex.");
+	case MUTEX_DESTRUCTION_FAILURE:
+		return API::String::Static(u8"Failed to destroy a mutex.");
 	case THREAD_CREATION_FAILURE:
 		return API::String::Static(u8"OS failed to create requested thread.");
 	default:

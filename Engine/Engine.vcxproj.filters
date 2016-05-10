@@ -324,5 +324,8 @@
     <None Include="Endianess.inl">
       <Filter>API\Declarations</Filter>
     </None>
+    <None Include="Singleton.inl">
+      <Filter>API\Types</Filter>
+    </None>
   </ItemGroup>
 </Project>

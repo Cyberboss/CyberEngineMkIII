@@ -1,5 +1,5 @@
 #include "TestHeader.hpp"
-SCENARIO("VirtualMemory reservations can be made and released", "[Platform][VirtualMemory]") {
+SCENARIO("VirtualMemory reservations can be made and released", "[Platform][VirtualMemory][Unit]") {
 	GIVEN("A sane reservation size") {
 		const auto ReservationSize(1000000);
 		WHEN("A reservation is made") {
@@ -48,7 +48,7 @@ SCENARIO("VirtualMemory reservations can be made and released", "[Platform][Virt
 		}
 	}
 }
-SCENARIO("VirtualMemory reservations handle various sizes", "[Platform][VirtualMemory]") {
+SCENARIO("VirtualMemory reservations handle various sizes", "[Platform][VirtualMemory][Unit]") {
 	GIVEN("Some reservation size") {
 		unsigned long long ReservationSize;
 		WHEN("The size is insanely small") {
@@ -85,7 +85,7 @@ SCENARIO("VirtualMemory reservations handle various sizes", "[Platform][VirtualM
 #endif
 	}
 }
-SCENARIO("VirtualMemory commits work as intended", "[Platform][VirtualMemory]") {
+SCENARIO("VirtualMemory commits work as intended", "[Platform][VirtualMemory][Unit]") {
 	GIVEN("A standard reservation") {
 		auto Reservation(CYB::Platform::VirtualMemory::Reserve(1000000));
 		unsigned long long CommitSize;
@@ -163,7 +163,7 @@ SCENARIO("VirtualMemory commits work as intended", "[Platform][VirtualMemory]") 
 		}
 	}
 }
-SCENARIO("VirtualMemory reservation protection levels can be changed", "[Platform][VirtualMemory]") {
+SCENARIO("VirtualMemory reservation protection levels can be changed", "[Platform][VirtualMemory][Unit]") {
 	GIVEN("A standard reservation and commit which has some data written to it") {
 		auto Reservation(static_cast<unsigned long long*>(CYB::Platform::VirtualMemory::Reserve(1000000)));
 		CYB::Platform::VirtualMemory::Commit(Reservation, 500000);
@@ -249,9 +249,13 @@ SCENARIO("VirtualMemory reservation protection levels can be changed", "[Platfor
 		}
 	}
 }
-#ifndef TARGET_OS_WINDOWS	//dependance on Core
-SCENARIO("VirtualMemory can be discarded and reused","[Platform][VirtualMemory]") {
+SCENARIO("VirtualMemory can be discarded and reused","[Platform][VirtualMemory][Unit]") {
 	GIVEN("A standard reservation and commit which has some data written to it") {
+#ifdef TARGET_OS_WINDOWS
+		//We have to set the core pointer to the correct offset of this extended k32 for discard virtual memory
+		CYB::Platform::ModuleDefinitions::AMKernel32 K32;
+		CYB::Engine::Core::SetTestPointer(static_cast<byte*>(static_cast<void*>(&K32)) - offsetof(CYB::Platform::ModuleManager, FK32Extended) - offsetof(CYB::Engine::Core, FModuleManager));
+#endif
 		auto Reservation(static_cast<unsigned long long*>(CYB::Platform::VirtualMemory::Reserve(1000000)));
 		CYB::Platform::VirtualMemory::Commit(Reservation, 500000);
 		*Reservation = 1234;
@@ -271,4 +275,3 @@ SCENARIO("VirtualMemory can be discarded and reused","[Platform][VirtualMemory]"
 		CYB::Platform::VirtualMemory::Release(Reservation);
 	}
 }
-#endif

@@ -1,6 +1,6 @@
 #include "TestHeader.hpp"
 
-SCENARIO("Test that thread creation works as intended", "[Platform][Threads][Slow]") {
+SCENARIO("Test that thread creation works as intended", "[Platform][Threads][Unit][Slow]") {
 	GIVEN("A valid thread class") {
 		class ThreadBasicTest : public CYB::API::Threadable {
 		public:
@@ -28,7 +28,7 @@ SCENARIO("Test that thread creation works as intended", "[Platform][Threads][Slo
 	};
 };
 
-SCENARIO("Test that thread waiting and deletion works as intended", "[Platform][Threads][Slow]") {
+SCENARIO("Test that thread waiting and deletion works as intended", "[Platform][Threads][Unit][Slow]") {
 	GIVEN("A valid thread") {
 		class ThreadBasicTest : public CYB::API::Threadable {
 		public:
@@ -62,7 +62,7 @@ SCENARIO("Test that thread waiting and deletion works as intended", "[Platform][
 	};
 };
 
-SCENARIO("Test that threaded operations can be cancelled", "[Platform][Threads][Slow]") {
+SCENARIO("Test that threaded operations can be canceled", "[Platform][Threads][Unit][Slow]") {
 	GIVEN("A valid thread that will run forever") {
 		class ThreadCancelTest : public CYB::API::Threadable {
 		private:
@@ -91,4 +91,32 @@ SCENARIO("Test that threaded operations can be cancelled", "[Platform][Threads][
 			}
 		}
 	};
+}
+
+static unsigned int TestGetTime(void) {
+#ifdef TARGET_OS_WINDOWS
+	return CYB::Platform::Implementation::Win32::GetTickCount();
+#else
+	using namespace CYB::Platform::Implementation::Posix;
+	struct timespec now;
+	clock_gettime(CLOCK_MONOTONIC, &now);
+	return (now.tv_sec * 1000) + (now.tv_nsec / 1000000);
+#endif
+}
+
+SCENARIO("Test basic sleep works", "[Platform][Threads][Unit][Slow]") {
+	GIVEN("A long ass computer time and a current time") {
+		const auto Milliseconds(1000);
+		const auto StartTime(TestGetTime());
+		WHEN("We sleep for that long") {
+			CYB::Platform::Thread::Sleep(Milliseconds);
+			THEN("At least that amount of time has passed when we wake up") {
+				REQUIRE((TestGetTime() - StartTime) >= Milliseconds);
+			}
+		}
+	}
+}
+
+TEST_CASE("Test basic yield works", "[Platform][Threads][Unit]") {
+	CYB::Platform::Thread::Yield();	//what do you want from me?
 }

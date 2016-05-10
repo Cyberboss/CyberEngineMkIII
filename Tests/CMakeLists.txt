@@ -14,6 +14,8 @@ set_property(TARGET CyberEngineMkIIITester PROPERTY CXX_STANDARD_REQUIRED ON)
 
 target_link_libraries(CyberEngineMkIIITester EngineBase)
 
+add_catch_tests(CyberEngineMkIIITester)
+
 set_property (SOURCE "TestHeader.cpp" PROPERTY COTIRE_DEPENDENCY "TRUE")
 set_target_properties(CyberEngineMkIIITester PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "TestHeader.hpp")
 cotire(CyberEngineMkIIITester)

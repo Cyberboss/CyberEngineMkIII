@@ -14,7 +14,7 @@ namespace ModifiedSources
         }
         static List<Task> FTasks = new List<Task>();
         static int FCopied = 0;
-        static List<string> extensions = new List<string> { ".exe", ".obj", ".pch", ".pdb", ".dll", ".lib", ".rc", ".vcxproj", ".filters", ".user", ".tlog", ".log", ".idb", ".xml", ".lastbuildstate", ".pchast", ".exp", ".ilk", ".lastcodeanalysissucceeded", ".CYB", ".csproj", ".cs", ".cache", ".ipch" , "unsuccessfulbuild", ".sln", ".sdf", ".opensdf", ".config", ".settings", ".res", ".opendb", ".db", ".asm", ".sbr", ".bsc", ".xaml", ".cache", ".ipdb", ".iobj", ".tmp", ".ps1"};
+        static List<string> extensions = new List<string> { ".exe", ".obj", ".pch", ".pdb", ".dll", ".lib", ".rc", ".vcxproj", ".filters", ".user", ".tlog", ".log", ".idb", ".xml", ".lastbuildstate", ".pchast", ".exp", ".ilk", ".lastcodeanalysissucceeded", ".CYB", ".csproj", ".cs", ".cache", ".ipch" , "unsuccessfulbuild", ".sln", ".sdf", ".opensdf", ".config", ".settings", ".res", ".opendb", ".db", ".asm", ".sbr", ".bsc", ".xaml", ".cache", ".ipdb", ".iobj", ".tmp", ".ps1", ".filters"};
 
        static DateTime from_date = Properties.Settings.Default.LastSync;
         static void ParseDirectory(DirectoryInfo ADir, String CurrentPath)
@@ -23,10 +23,12 @@ namespace ModifiedSources
             foreach (var Dir in ADir.GetDirectories())
                 if (ADir.Name == "SupportLibs" && Dir.Name == "Catch")
                 {
-                    var NewPath = CurrentPath + Path.DirectorySeparatorChar + Dir.Name + Path.DirectorySeparatorChar + "single_include";
+                    var NewPath = CurrentPath + Path.DirectorySeparatorChar + Dir.Name + Path.DirectorySeparatorChar;
                     Directory.CreateDirectory(CurrentPath + Path.DirectorySeparatorChar + Dir.Name);
-                    Directory.CreateDirectory(NewPath);
-                    ParseDirectory(new DirectoryInfo(Dir.FullName + Path.DirectorySeparatorChar + "single_include"), NewPath);
+                    Directory.CreateDirectory(NewPath + "single_include");
+                    Directory.CreateDirectory(NewPath + "include");
+                    ParseDirectory(new DirectoryInfo(Dir.FullName + Path.DirectorySeparatorChar + "single_include"), NewPath + "single_include");
+                    ParseDirectory(new DirectoryInfo(Dir.FullName + Path.DirectorySeparatorChar + "include"), NewPath + "include");
                 }
                 else if (Dir.Name != ".git" && Dir.Name != ".vs" && Dir.Name != "Documentation" && Dir.Name != "GDBSync")
                     ParseDirectory(Dir, CurrentPath + Path.DirectorySeparatorChar + Dir.Name);

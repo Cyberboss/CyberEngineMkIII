@@ -9,6 +9,9 @@
     <ClCompile Include="Modules.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
+    <ClCompile Include="Threads.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />

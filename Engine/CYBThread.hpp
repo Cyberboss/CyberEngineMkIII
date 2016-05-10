@@ -47,7 +47,7 @@ namespace CYB {
 					This function does not throw exceptions
 			*/
 			bool IsFinished(void) const;
-			/*
+			/*!
 				@brief Blocks current thread until the owned thread has terminated
 				@par Thread Safety
 					This function requires no thread safety
@@ -56,7 +56,16 @@ namespace CYB {
 			*/
 			void Wait(void) const;
 
-			/*
+			/*!
+				@brief Put the thread to sleep for at least @p AMilliseconds
+				@param AMilliseconds The minimum number of milliseconds to sleep for
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			static void Sleep(const unsigned int AMilliseconds);
+			/*!
 				@brief Expires the current threads processor time and sumbits it to the OS for rescheduling
 				@par Thread Safety
 					This function requires no thread safety

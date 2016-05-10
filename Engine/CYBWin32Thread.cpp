@@ -36,6 +36,10 @@ void CYB::Platform::Thread::Wait(void) const {
 	Implementation::Win32::WaitForSingleObject(FThread, INFINITE);
 }
 
+void CYB::Platform::Thread::Sleep(const unsigned int AMilliseconds) {
+	Implementation::Win32::Sleep(AMilliseconds);
+}
+
 void CYB::Platform::Thread::Yield(void) {
 	Implementation::Win32::SwitchToThread();
 }

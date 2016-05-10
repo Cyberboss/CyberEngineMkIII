@@ -18,19 +18,17 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			Singleton() {
-				static_assert(std::is_base_of<Singleton<AParent>, AParent>::value, "CYB::API::Singleton may only be used via inheritance");
-				Assert(FSingleton == nullptr);
-				FSingleton = static_cast<AParent*>(this);
-			}
+			Singleton();
 			/*!
-				@brief Destroy a singleton and deinitialize it's pointer
+				@brief Destroy a singleton and nullify it's pointer
 			*/
-			~Singleton() {
-				Assert(FSingleton == static_cast<AParent*>(this));
-				FSingleton = nullptr;
-			}
+			~Singleton();
+#ifdef CYB_BUILDING_TESTS
+		public:
+			static void SetTestPointer(void* const APointer);
+#endif
 		};
 	};
 };
 template <class AParent> AParent* CYB::API::Singleton<AParent>::FSingleton(nullptr);
+#include "Singleton.inl"

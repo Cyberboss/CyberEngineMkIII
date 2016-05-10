@@ -224,6 +224,7 @@
     <None Include="Endianess.inl" />
     <None Include="Exception.inl" />
     <None Include="Expressions.inl" />
+    <None Include="Singleton.inl" />
     <None Include="StaticString.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

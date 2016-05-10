@@ -22,7 +22,7 @@ static const CYB::API::String::Static FakeLibraryFunctions[2]{
 	u8"THEHULLHASBEENBREACHEDANDTHESCIENCEISLEAKINGOOUUUUTT!!!"
 };
 
-SCENARIO("Modules can load a library", "[Platform][Modules]") {
+SCENARIO("Modules can load a library", "[Platform][Modules][Functional]") {
 	GIVEN("An existing library") {
 		auto& Library(ExistingLibrary);
 		WHEN("The library name is used to construct a Module") {
@@ -61,7 +61,7 @@ SCENARIO("Modules can load a library", "[Platform][Modules]") {
 	}
 };
 
-SCENARIO("Functions can be loaded from modules", "[Platform][Modules]") {
+SCENARIO("Functions can be loaded from modules", "[Platform][Modules][Functional]") {
 	GIVEN("A loaded library") {
 		CYB::Platform::Module Mod(ExistingLibrary);
 		WHEN("Legitimate functions are loaded from the library"){
@@ -107,7 +107,7 @@ SCENARIO("Functions can be loaded from modules", "[Platform][Modules]") {
 DEFINE_MODULE(dl, Posix, false, dlopen, dlclose, dlsym)
 #endif
 
-TEST_CASE("AutoModules work as intended", "[Platform][Modules]") {
+TEST_CASE("AutoModules work as intended", "[Platform][Modules][Functional]") {
 #ifdef TARGET_OS_WINDOWS
 	CYB::Platform::ModuleDefinitions::AMKernel32();
 #else

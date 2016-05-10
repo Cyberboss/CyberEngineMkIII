@@ -25,3 +25,4 @@ namespace CYB {
 #include "CYBPosixProcess.hpp"
 #include "CYBPosixVirtualMemory.hpp"
 #include "CYBPosixModule.hpp"
+#include "CYBPosixMutex.hpp"

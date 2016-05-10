@@ -42,13 +42,15 @@ namespace CYB {
 		class SystemData : public Base{
 		public:
 			enum ErrorCode : unsigned int {
-				MEMORY_COMMITAL_FAILURE,
-				MEMORY_PROTECT_FAILURE,
-				MEMORY_RELEASE_FAILURE,
-				MEMORY_RESERVATION_FAILURE,
-				MODULE_FUNCTION_LOAD_FAILURE,
-				MODULE_LOAD_FAILURE,
-				THREAD_CREATION_FAILURE,
+				MEMORY_COMMITAL_FAILURE, //!< @brief Memory could not be commited from a reservation
+				MEMORY_PROTECT_FAILURE, //!< @brief Memory protection could not be set
+				MEMORY_RELEASE_FAILURE, //!< @brief Memory reservation could not be released
+				MEMORY_RESERVATION_FAILURE, //!< @brief Memory could not be reserved
+				MODULE_FUNCTION_LOAD_FAILURE, //!< @brief Specific could not be loaded from given Module
+				MODULE_LOAD_FAILURE, //!< @brief Module could not be loaded
+				MUTEX_DESTRUCTION_FAILURE, //!< @brief Mutex could not be destroyed
+				MUTEX_INITIALIZATION_FAILURE, //!< @brief Mutex could not be created
+				THREAD_CREATION_FAILURE, //!< @brief Thread could not be created
 			};
 		private:
 			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);

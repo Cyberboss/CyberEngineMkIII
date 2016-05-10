@@ -21,3 +21,4 @@ namespace CYB {
 #include "CYBWin32Process.hpp"
 #include "CYBWin32VirtualMemory.hpp"
 #include "CYBWin32Module.hpp"
+#include "CYBWin32Mutex.hpp"

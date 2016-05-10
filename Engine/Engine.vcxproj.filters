@@ -65,6 +65,12 @@
     <ClCompile Include="CYBBlock.cpp">
       <Filter>Engine\Memory</Filter>
     </ClCompile>
+    <ClCompile Include="CYBWin32Mutex.cpp">
+      <Filter>Platform\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="CYBPosixMutex.cpp">
+      <Filter>Platform\Posix</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -282,6 +288,15 @@
     </ClInclude>
     <ClInclude Include="CYBLargeBlock.hpp">
       <Filter>Engine\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBMutex.hpp">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBWin32Mutex.hpp">
+      <Filter>Platform\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBPosixMutex.hpp">
+      <Filter>Platform\Posix</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

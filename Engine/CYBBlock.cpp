@@ -19,12 +19,12 @@ CYB::Engine::Block::Block(const unsigned int ASpaceAvailable, const Block& ALeft
 }
 
 unsigned int CYB::Engine::Block::InitializeData(const unsigned int ASize, const bool AFree) {
-	const long long DataSize(ASize - sizeof(Block));
+	const auto DataSize(static_cast<long long>(ASize - sizeof(Block)));
 	API::Assert(DataSize >= 0 && DataSize <= std::numeric_limits<int>().max());
 	if(AFree)
-		return DataSize | 1U << 31;
+		return static_cast<unsigned int>(DataSize) | 1U << 31;
 	else
-		return DataSize & ~(1U << 31);
+		return static_cast<unsigned int>(DataSize) & ~(1U << 31);
 }
 
 unsigned int CYB::Engine::Block::CalculateOffset(const Block& ABlock) {

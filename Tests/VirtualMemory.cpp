@@ -12,8 +12,8 @@ SCENARIO("VirtualMemory reservations can be made and released", "[Platform][Virt
 				Error = true;
 			}
 			THEN("No errors occur and a valid address is returned") {
-				REQUIRE(Result != nullptr);
-				REQUIRE(!Error);
+				CHECK(Result != nullptr);
+				CHECK(!Error);
 			}
 		}
 	}
@@ -28,7 +28,7 @@ SCENARIO("VirtualMemory reservations can be made and released", "[Platform][Virt
 				Error = true;
 			}
 			THEN("No errors occur") {
-				REQUIRE(!Error);
+				CHECK(!Error);
 			}
 		}
 	}
@@ -62,8 +62,8 @@ SCENARIO("VirtualMemory reservations handle various sizes", "[Platform][VirtualM
 				Error = AException.FErrorCode == CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE;
 			}
 			THEN("The apporpriate error is thrown") {
-				REQUIRE(Error);
-				REQUIRE(Result == nullptr);
+				CHECK(Error);
+				CHECK(Result == nullptr);
 			}
 		}
 #ifndef TARGET_OS_LINUX
@@ -78,8 +78,8 @@ SCENARIO("VirtualMemory reservations handle various sizes", "[Platform][VirtualM
 				Error = AException.FErrorCode == CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE;
 			}
 			THEN("The apporpriate error is thrown") {
-				REQUIRE(Error);
-				REQUIRE(Result == nullptr);
+				CHECK(Error);
+				CHECK(Result == nullptr);
 			}
 		}
 #endif
@@ -189,8 +189,8 @@ SCENARIO("VirtualMemory reservation protection levels can be changed", "[Platfor
 				Error = true;
 			}
 			THEN("No errors occur and pages can be read") {
-				REQUIRE(!Error);
-				REQUIRE(*Reservation == 1234U);
+				CHECK(!Error);
+				CHECK(*Reservation == 1234U);
 			}
 		}
 		WHEN("The access level is set to READ_WRITE") {
@@ -202,8 +202,8 @@ SCENARIO("VirtualMemory reservation protection levels can be changed", "[Platfor
 				Error = true;
 			}
 			THEN("No errors occur and pages can be read and written") {
-				REQUIRE(!Error);
-				REQUIRE(*Reservation == 1234U);
+				CHECK(!Error);
+				CHECK(*Reservation == 1234U);
 				*Reservation = 5678;
 			}
 		}
@@ -268,7 +268,7 @@ SCENARIO("VirtualMemory can be discarded and reused","[Platform][VirtualMemory][
 				Error = true;
 			}
 			THEN("No errors occur and pages can be reused but data may differ") {
-				REQUIRE(!Error);
+				CHECK(!Error);
 				*Reservation = 5678;
 			}
 		}

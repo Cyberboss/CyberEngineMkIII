@@ -14,10 +14,7 @@ SCENARIO("Test that thread creation works as intended", "[Platform][Threads][Uni
 		ThreadBasicTest TestClass;
 		WHEN("The class is used as a parameter to the Thread constructor") {
 			CYB::Platform::Thread* TestThread(nullptr);
-			try {
-				TestThread = new CYB::Platform::Thread(TestClass);
-			}
-			catch (...) {}
+			REQUIRE_NOTHROW(TestThread = new CYB::Platform::Thread(TestClass));
 			THEN("No errors occur and the thread runs separate from this one") {
 				REQUIRE(TestThread != nullptr);
 				CYB::Platform::Thread::Sleep(1000);

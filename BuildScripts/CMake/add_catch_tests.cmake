@@ -169,10 +169,10 @@ function(ms_parse_file SourceFile TestTarget)
       set(HiddenCatchTests ${HiddenCatchTests} ${CTestName})
       set(HiddenCatchTests ${HiddenCatchTests} PARENT_SCOPE)
     else()
-      # Add the test and set its properties
+	  set(TestParams \"${Name}\" --durations yes --warn NoAssertions --name \"${TestTarget} ($<CONFIGURATION> build)\")
+      # Add the test and set its propertiesm
       add_test(NAME "\"${CTestName}\""
-               COMMAND ${TestTarget} ${Name} --durations yes --warn NoAssertions
-                       --name "${TestTarget} ($<CONFIGURATION> build)")
+               COMMAND ${TestTarget} ${TestParams})
 
       #ms_update_test_timeout(Timeout) I actually cant see the reason this is here
       set_tests_properties("\"${CTestName}\"" PROPERTIES

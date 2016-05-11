@@ -9,6 +9,13 @@
 #undef PDP_ENDIAN
 #endif
 #include "../Engine/CYB.hpp"
+
+namespace CYB {
+	namespace Exception {
+		extern thread_local unsigned int FLastInstantiatedExceptionCode;
+	}
+}
+
 #ifdef _MSC_VER
 #pragma warning(disable : 4710)
 #pragma warning(push)

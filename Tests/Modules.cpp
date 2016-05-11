@@ -27,15 +27,8 @@ SCENARIO("Modules can load a library", "[Platform][Modules][Functional]") {
 		auto& Library(ExistingLibrary);
 		WHEN("The library name is used to construct a Module") {
 			CYB::Platform::Module* Result(nullptr);
-			bool Error(false);
-			try {
-				Result = new CYB::Platform::Module(Library);
-			}
-			catch (...) {
-				Error = true;
-			}
+			REQUIRE_NOTHROW(Result = new CYB::Platform::Module(Library));
 			THEN("It is loaded successfully") {
-				REQUIRE(!Error);
 				REQUIRE(Result != nullptr);
 			}
 			delete Result;
@@ -45,16 +38,10 @@ SCENARIO("Modules can load a library", "[Platform][Modules][Functional]") {
 		auto& Library(FakeLibrary);
 		WHEN("The library name is used to construct a Module") {
 			CYB::Platform::Module* Result(nullptr);
-			bool Error(false);
-			try {
-				Result = new CYB::Platform::Module(Library);
-			}
-			catch (...) {
-				Error = true;
-			}
+			CHECK_THROWS_AS(Result = new CYB::Platform::Module(Library), CYB::Exception::SystemData);
 			THEN("It fails to load") {
-				REQUIRE(Error);
-				REQUIRE(Result == nullptr);
+				CHECK(Result == nullptr);
+				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MODULE_LOAD_FAILURE);
 			}
 			delete Result;
 		}
@@ -65,37 +52,27 @@ SCENARIO("Functions can be loaded from modules", "[Platform][Modules][Functional
 	GIVEN("A loaded library") {
 		CYB::Platform::Module Mod(ExistingLibrary);
 		WHEN("Legitimate functions are loaded from the library"){
-			auto F1(Mod.LoadFunction(ExistingLibraryFunctions[0])), F2(Mod.LoadFunction(ExistingLibraryFunctions[1]));
+			void* F1(nullptr),* F2(nullptr);
+			CHECK_NOTHROW(F1 = Mod.LoadFunction(ExistingLibraryFunctions[0]));
+			CHECK_NOTHROW(F2 = Mod.LoadFunction(ExistingLibraryFunctions[1]));
 			THEN("They are not null and valid code locations") {
-				REQUIRE(F1 != nullptr);
-				REQUIRE(F2 != nullptr);
+				CHECK(F1 != nullptr);
+				CHECK(F2 != nullptr);
 #ifdef TARGET_OS_WINDOWS
-				REQUIRE(CYB::Platform::Implementation::Win32::IsBadCodePtr(static_cast<CYB::Platform::Implementation::Win32::FARPROC>(F1)) == FALSE);
-				REQUIRE(CYB::Platform::Implementation::Win32::IsBadCodePtr(static_cast<CYB::Platform::Implementation::Win32::FARPROC>(F2)) == FALSE);
+				CHECK(CYB::Platform::Implementation::Win32::IsBadCodePtr(static_cast<CYB::Platform::Implementation::Win32::FARPROC>(F1)) == FALSE);
+				CHECK(CYB::Platform::Implementation::Win32::IsBadCodePtr(static_cast<CYB::Platform::Implementation::Win32::FARPROC>(F2)) == FALSE);
 #else
 				//Ya just gotta BELIIEEVVVEEEEE
 #endif
 			}
 		}
 		WHEN("Illegitimate functions are loaded from the library") {
-			bool Error1(false), Error2(false);
-			void* F1(nullptr), *F2(nullptr);
-			try {
-				F1 = Mod.LoadFunction(FakeLibraryFunctions[0]);
-			}
-			catch (CYB::Exception::SystemData AException) {
-				Error1 = AException.FErrorCode == CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE;
-			}
-			try {
-				F2 = Mod.LoadFunction(FakeLibraryFunctions[1]);
-			}
-			catch (CYB::Exception::SystemData AException) {
-				Error2 = AException.FErrorCode == CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE;
-			}
-
+			void* F1(nullptr), * F2(nullptr);
+			CHECK_THROWS_AS(F1 = Mod.LoadFunction(FakeLibraryFunctions[0]), CYB::Exception::SystemData);
+			CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE);
+			CHECK_THROWS_AS(F2 = Mod.LoadFunction(FakeLibraryFunctions[1]), CYB::Exception::SystemData);
+			CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE);
 			THEN("The appropriate exception is thrown") {
-				CHECK(Error1);
-				CHECK(Error2);
 				CHECK(F1 == nullptr);
 				CHECK(F2 == nullptr);
 			}
@@ -109,8 +86,8 @@ DEFINE_MODULE(dl, Posix, false, dlopen, dlclose, dlsym)
 
 TEST_CASE("AutoModules work as intended", "[Platform][Modules][Functional]") {
 #ifdef TARGET_OS_WINDOWS
-	CYB::Platform::ModuleDefinitions::AMKernel32();
+	REQUIRE_NOTHROW(CYB::Platform::ModuleDefinitions::AMKernel32());
 #else
-	CYB::Platform::ModuleDefinitions::AMdl();
+	REQUIRE_NOTHROW(CYB::Platform::ModuleDefinitions::AMdl());
 #endif
 }

@@ -59,6 +59,7 @@
       <PreprocessorDefinitions>_UNICODE;UNICODE;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4265;4548;4571;4668;4623;4626;4625;4820;5026;5027</DisableSpecificWarnings>
       <BrowseInformation>true</BrowseInformation>
+      <AdditionalOptions>/experimental:module %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <PostBuildEvent>
       <Command>
@@ -78,6 +79,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>TestHeader.hpp</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4265;4548;4571;4668;4623;4626;4625;4820;5026;5027</DisableSpecificWarnings>
+      <AdditionalOptions>/experimental:module %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

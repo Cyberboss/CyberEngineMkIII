@@ -169,7 +169,7 @@ function(ms_parse_file SourceFile TestTarget)
       set(HiddenCatchTests ${HiddenCatchTests} ${CTestName})
       set(HiddenCatchTests ${HiddenCatchTests} PARENT_SCOPE)
     else()
-	  set(TestParams \"${Name}\" --durations yes --warn NoAssertions --name \"${TestTarget} ($<CONFIGURATION> build)\")
+	  set(TestParams \"${Name}\" --durations yes --warn NoAssertions)
       # Add the test and set its propertiesm
       add_test(NAME "\"${CTestName}\""
                COMMAND ${TestTarget} ${TestParams})

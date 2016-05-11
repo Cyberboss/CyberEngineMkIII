@@ -72,7 +72,6 @@ set(UnitTimeout 10)
 
 # Main function - the only one designed to be called from outside this module.
 function(add_catch_tests TestTarget)
-  target_compile_definitions(${TestTarget} PRIVATE USE_CATCH)
   get_target_property(SourceFiles ${TestTarget} SOURCES)
   message("Parsing ${TestTarget} for Catch unit tests")
   foreach(SourceFile ${SourceFiles})

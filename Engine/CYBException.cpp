@@ -1,6 +1,13 @@
 //! @file CYBExcpetion.cpp Exception constructors of the non-unit kind
 #include "CYB.hpp"
 
+namespace CYB {
+	namespace Exception {
+		//! @brief Used to better verify tests, should be optimized out by the linker. See: http://stackoverflow.com/questions/1229430/how-do-i-prevent-my-unused-global-variables-being-compiled-out
+		thread_local unsigned int FLastInstantiatedExceptionCode;
+	}
+}
+
 CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCode AErrorCode) {
 	switch (AErrorCode) {
 	case MEMORY_RESERVATION_FAILURE:
@@ -28,7 +35,9 @@ CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCod
 
 CYB::Exception::SystemData::SystemData(const ErrorCode AErrorCode) :
 	Base(ErrorMessage(AErrorCode), AErrorCode, Level::SYSTEM_DATA)
-{}
+{
+	FLastInstantiatedExceptionCode = AErrorCode;
+}
 CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode AErrorCode) {
 	switch (AErrorCode) {
 	case ErrorCode::HEAP_CORRUPTION:
@@ -40,4 +49,6 @@ CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode 
 
 CYB::Exception::Internal::Internal(const ErrorCode AErrorCode) :
 	Base(ErrorMessage(AErrorCode), AErrorCode, Level::INTERNAL)
-{}
+{
+	FLastInstantiatedExceptionCode = AErrorCode;
+}

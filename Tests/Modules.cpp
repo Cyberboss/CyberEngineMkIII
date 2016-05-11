@@ -94,10 +94,10 @@ SCENARIO("Functions can be loaded from modules", "[Platform][Modules][Functional
 			}
 
 			THEN("The appropriate exception is thrown") {
-				REQUIRE(Error1);
-				REQUIRE(Error2);
-				REQUIRE(F1 == nullptr);
-				REQUIRE(F2 == nullptr);
+				CHECK(Error1);
+				CHECK(Error2);
+				CHECK(F1 == nullptr);
+				CHECK(F2 == nullptr);
 			}
 		}
 	}

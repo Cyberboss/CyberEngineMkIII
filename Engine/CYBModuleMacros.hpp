@@ -1,6 +1,6 @@
 //! @file CYBModuleMacros.hpp Defines the DEFINE_MODULE macro for easily adding modules
 #pragma once
-#ifndef DOXY
+//! @cond
 #define NARGS_IMPL(x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,N,...) N
 #define EXPAND(X) X
 #define NARGS(...) EXPAND(NARGS_IMPL(__VA_ARGS__,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0))
@@ -72,4 +72,4 @@ template <> inline const CYB::API::String::Static* CYB::Platform::AutoModule<NAR
 template <> constexpr bool CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::OptionalFunctions(void) {\
 	return AOptionalFunctions;\
 }
-#endif
+//! @endcond

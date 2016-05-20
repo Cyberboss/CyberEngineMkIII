@@ -213,3 +213,4 @@ ModelManifest.xml
 *.opendb
 /CyberEngineMkIII.VC.db
 /Documentation/CyberEngineMkIII
+/Engine/vc-fileutils.settings

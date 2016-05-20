@@ -8,19 +8,19 @@
 #include "CYBModuleDefinitions.inl"
 
 #ifdef TARGET_OS_WINDOWS
-#include "CYBWin32RequiredModules.hpp"
+#include "../Win32/CYBWin32RequiredModules.hpp"
 #else
-#include "CYBPosixRequiredModules.hpp"
+#include "../Posix/CYBPosixRequiredModules.hpp"
 #endif
 
 #ifdef TARGET_OS_LINUX
-#include "CYBLinuxModule.hpp"
-#include "CYBLinuxRequiredModules.hpp"
+#include "../Linux/CYBLinuxModule.inl"
+#include "../Linux/CYBLinuxRequiredModules.hpp"
 #endif
 
 #ifdef TARGET_OS_MAC
-#include "CYBOSXModule.hpp"
-#include "CYBOSXRequiredModules.hpp"
+#include "../OSX/CYBOSXModule.inl"
+#include "../OSX/CYBOSXRequiredModules.hpp"
 #endif
 
 #include "CYBModuleManager.hpp"

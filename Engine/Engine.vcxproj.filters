@@ -4,72 +4,72 @@
     <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CYBWin32Process.cpp">
-      <Filter>Platform\Win32</Filter>
-    </ClCompile>
     <ClCompile Include="CYB.cpp" />
-    <ClCompile Include="CYBPosixProcess.cpp">
-      <Filter>Platform\Posix</Filter>
-    </ClCompile>
-    <ClCompile Include="CYBProcess.cpp">
+    <ClCompile Include="Platform\CYBProcess.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
-    <ClCompile Include="CYBThread.cpp">
+    <ClCompile Include="Platform\CYBThread.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
-    <ClCompile Include="CYBWin32Thread.cpp">
+    <ClCompile Include="Platform\Win32\CYBWin32Module.cpp">
       <Filter>Platform\Win32</Filter>
     </ClCompile>
-    <ClCompile Include="CYBPosixThread.cpp">
+    <ClCompile Include="Platform\Win32\CYBWin32Mutex.cpp">
+      <Filter>Platform\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\Win32\CYBWin32Process.cpp">
+      <Filter>Platform\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\Win32\CYBWin32Syscalls.cpp">
+      <Filter>Platform\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\Win32\CYBWin32Thread.cpp">
+      <Filter>Platform\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\Win32\CYBWin32VirtualMemory.cpp">
+      <Filter>Platform\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\Posix\CYBPosixModule.cpp">
       <Filter>Platform\Posix</Filter>
     </ClCompile>
-    <ClCompile Include="CYBOSXThread.cpp">
+    <ClCompile Include="Platform\Posix\CYBPosixMutex.cpp">
+      <Filter>Platform\Posix</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\Posix\CYBPosixProcess.cpp">
+      <Filter>Platform\Posix</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\Posix\CYBPosixSyscalls.cpp">
+      <Filter>Platform\Posix</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\Posix\CYBPosixThread.cpp">
+      <Filter>Platform\Posix</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\Posix\CYBPosixVirtualMemory.cpp">
+      <Filter>Platform\Posix</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\OSX\CYBOSXThread.cpp">
       <Filter>Platform\OSX</Filter>
     </ClCompile>
-    <ClCompile Include="CYBLinuxThread.cpp">
+    <ClCompile Include="Platform\Linux\CYBLinuxThread.cpp">
       <Filter>Platform\Linux</Filter>
     </ClCompile>
-    <ClCompile Include="CYBWin32VirtualMemory.cpp">
-      <Filter>Platform\Win32</Filter>
-    </ClCompile>
-    <ClCompile Include="CYBPosixVirtualMemory.cpp">
-      <Filter>Platform\Posix</Filter>
-    </ClCompile>
-    <ClCompile Include="CYBPosixSyscalls.cpp">
-      <Filter>Platform\Posix</Filter>
-    </ClCompile>
-    <ClCompile Include="CYBWin32Syscalls.cpp">
-      <Filter>Platform\Win32</Filter>
-    </ClCompile>
-    <ClCompile Include="CYBWin32Module.cpp">
-      <Filter>Platform\Win32</Filter>
-    </ClCompile>
-    <ClCompile Include="CYBPosixModule.cpp">
-      <Filter>Platform\Posix</Filter>
-    </ClCompile>
-    <ClCompile Include="CYBModule.cpp">
+    <ClCompile Include="Platform\Modules\CYBModule.cpp">
       <Filter>Platform\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="CYBHeap.cpp">
+    <ClCompile Include="Engine\Memory\CYBBlock.cpp">
       <Filter>Engine\Memory</Filter>
     </ClCompile>
-    <ClCompile Include="CYBException.cpp">
+    <ClCompile Include="Engine\Memory\CYBHeap.cpp">
+      <Filter>Engine\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Memory\CYBLargeBlock.cpp">
+      <Filter>Engine\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Core\CYBException.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="CYBCore.cpp">
+    <ClCompile Include="Engine\Core\CYBCore.cpp">
       <Filter>Engine\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="CYBLargeBlock.cpp">
-      <Filter>Engine\Memory</Filter>
-    </ClCompile>
-    <ClCompile Include="CYBBlock.cpp">
-      <Filter>Engine\Memory</Filter>
-    </ClCompile>
-    <ClCompile Include="CYBWin32Mutex.cpp">
-      <Filter>Platform\Win32</Filter>
-    </ClCompile>
-    <ClCompile Include="CYBPosixMutex.cpp">
-      <Filter>Platform\Posix</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -121,266 +121,233 @@
     <Filter Include="API\Types\Strings">
       <UniqueIdentifier>{e56aa628-ce5a-4a16-b43d-542753279801}</UniqueIdentifier>
     </Filter>
-    <Filter Include="API\Allocatables\Interop">
-      <UniqueIdentifier>{ee1f78cc-6a52-4f2c-b867-03a5853d5f57}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DoxyPages">
       <UniqueIdentifier>{f1241a38-a1a8-4115-9333-dd7d4719c00b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="API\Interop">
+      <UniqueIdentifier>{ee1f78cc-6a52-4f2c-b867-03a5853d5f57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Endianess.hpp">
-      <Filter>API\Declarations</Filter>
-    </ClInclude>
-    <ClInclude Include="SystemChecks.hpp">
-      <Filter>API\Declarations</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBWin32Process.hpp">
-      <Filter>Platform\Win32</Filter>
-    </ClInclude>
     <ClInclude Include="CYB.hpp" />
-    <ClInclude Include="CYBEngine.hpp">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBPlatform.hpp">
+    <ClInclude Include="Platform\CYBFile.hpp">
       <Filter>Platform</Filter>
     </ClInclude>
-    <ClInclude Include="CyberEngine.hpp">
+    <ClInclude Include="Platform\CYBMutex.hpp">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\CYBPlatform.hpp">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\CYBSyscalls.hpp">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\CYBThread.hpp">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\CYBVirtualMemory.hpp">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\CYBProcess.hpp">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Win32\CYBWin32Implementation.hpp">
+      <Filter>Platform\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Win32\CYBWin32Module.hpp">
+      <Filter>Platform\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Win32\CYBWin32Mutex.hpp">
+      <Filter>Platform\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Win32\CYBWin32RequiredModules.hpp">
+      <Filter>Platform\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Win32\CYBWin32Syscalls.hpp">
+      <Filter>Platform\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Win32\CYBWin32Thread.hpp">
+      <Filter>Platform\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Win32\CYBWin32VirtualMemory.hpp">
+      <Filter>Platform\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Win32\CYBWin32Process.hpp">
+      <Filter>Platform\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Posix\CYBPosixImplementation.hpp">
+      <Filter>Platform\Posix</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Posix\CYBPosixModule.hpp">
+      <Filter>Platform\Posix</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Posix\CYBPosixMutex.hpp">
+      <Filter>Platform\Posix</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Posix\CYBPosixProcess.hpp">
+      <Filter>Platform\Posix</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Posix\CYBPosixRequiredModules.hpp">
+      <Filter>Platform\Posix</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Posix\CYBPosixThread.hpp">
+      <Filter>Platform\Posix</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Posix\CYBPosixVirtualMemory.hpp">
+      <Filter>Platform\Posix</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\OSX\CYBOSXImplementation.hpp">
+      <Filter>Platform\OSX</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\OSX\CYBOSXRequiredModules.hpp">
+      <Filter>Platform\OSX</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\OSX\CYBOSXSyscalls.hpp">
+      <Filter>Platform\OSX</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Linux\CYBLinuxImplementation.hpp">
+      <Filter>Platform\Linux</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Linux\CYBLinuxRequiredModules.hpp">
+      <Filter>Platform\Linux</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Linux\CYBLinuxSyscalls.hpp">
+      <Filter>Platform\Linux</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Modules\CYBAutoModule.hpp">
+      <Filter>Platform\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Modules\CYBModuleMacros.hpp">
+      <Filter>Platform\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Modules\CYBModuleManager.hpp">
+      <Filter>Platform\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Modules\CYBModules.hpp">
+      <Filter>Platform\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Modules\CYBModule.hpp">
+      <Filter>Platform\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="API\CyberEngine.hpp">
       <Filter>API</Filter>
     </ClInclude>
-    <ClInclude Include="CYBProcess.hpp">
-      <Filter>Platform</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBWin32Implementation.hpp">
-      <Filter>Platform\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBPosixImplementation.hpp">
-      <Filter>Platform\Posix</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBPosixProcess.hpp">
-      <Filter>Platform\Posix</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBOSXImplementation.hpp">
-      <Filter>Platform\OSX</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBLinuxImplementation.hpp">
-      <Filter>Platform\Linux</Filter>
-    </ClInclude>
-    <ClInclude Include="STL.hpp">
+    <ClInclude Include="API\Declarations\Declarations.hpp">
       <Filter>API\Declarations</Filter>
     </ClInclude>
-    <ClInclude Include="CYBThread.hpp">
-      <Filter>Platform</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBPosixThread.hpp">
-      <Filter>Platform\Posix</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBWin32Thread.hpp">
-      <Filter>Platform\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBVirtualMemory.hpp">
-      <Filter>Platform</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBPosixVirtualMemory.hpp">
-      <Filter>Platform\Posix</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBWin32VirtualMemory.hpp">
-      <Filter>Platform\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBWin32Syscalls.hpp">
-      <Filter>Platform\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBOSXSyscalls.hpp">
-      <Filter>Platform\OSX</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBLinuxSyscalls.hpp">
-      <Filter>Platform\Linux</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBSyscalls.hpp">
-      <Filter>Platform</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.hpp">
-      <Filter>API\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBWin32Module.hpp">
-      <Filter>Platform\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBPosixModule.hpp">
-      <Filter>Platform\Posix</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBAutoModule.hpp">
-      <Filter>Platform\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBModuleMacros.hpp">
-      <Filter>Platform\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBModuleManager.hpp">
-      <Filter>Platform\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBModule.hpp">
-      <Filter>Platform\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBModules.hpp">
-      <Filter>Platform\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBLinuxRequiredModules.hpp">
-      <Filter>Platform\Linux</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBOSXRequiredModules.hpp">
-      <Filter>Platform\OSX</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBPosixRequiredModules.hpp">
-      <Filter>Platform\Posix</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBWin32RequiredModules.hpp">
-      <Filter>Platform\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBFile.hpp">
-      <Filter>Platform</Filter>
-    </ClInclude>
-    <ClInclude Include="Strings.hpp">
-      <Filter>API\Types\Strings</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticString.hpp">
-      <Filter>API\Types\Strings</Filter>
-    </ClInclude>
-    <ClInclude Include="CStyleString.hpp">
-      <Filter>API\Types\Strings</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBLinuxModule.hpp">
-      <Filter>Platform\Linux</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBOSXModule.hpp">
-      <Filter>Platform\OSX</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBHeap.hpp">
-      <Filter>Engine\Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBCore.hpp">
-      <Filter>Engine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBEngineParameters.hpp">
-      <Filter>Engine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Expressions.hpp">
+    <ClInclude Include="API\Declarations\Endianess.hpp">
       <Filter>API\Declarations</Filter>
     </ClInclude>
-    <ClInclude Include="Assert.hpp">
+    <ClInclude Include="API\Declarations\Expressions.hpp">
       <Filter>API\Declarations</Filter>
     </ClInclude>
-    <ClInclude Include="OSDeclaration.hpp">
+    <ClInclude Include="API\Declarations\OSDeclaration.hpp">
       <Filter>API\Declarations</Filter>
     </ClInclude>
-    <ClInclude Include="CYBBlock.hpp">
-      <Filter>Engine\Memory</Filter>
+    <ClInclude Include="API\Declarations\Assert.hpp">
+      <Filter>API\Declarations</Filter>
     </ClInclude>
-    <ClInclude Include="CYBLargeBlock.hpp">
-      <Filter>Engine\Memory</Filter>
+    <ClInclude Include="API\Declarations\STL.hpp">
+      <Filter>API\Declarations</Filter>
     </ClInclude>
-    <ClInclude Include="CYBMutex.hpp">
-      <Filter>Platform</Filter>
+    <ClInclude Include="API\Declarations\SystemChecks.hpp">
+      <Filter>API\Declarations</Filter>
     </ClInclude>
-    <ClInclude Include="CYBWin32Mutex.hpp">
-      <Filter>Platform\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBPosixMutex.hpp">
-      <Filter>Platform\Posix</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.hpp">
-      <Filter>API\Allocatables\Interop</Filter>
-    </ClInclude>
-    <ClInclude Include="Heap.hpp">
+    <ClInclude Include="API\Interfaces\Interfaces.hpp">
       <Filter>API\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Allocatable.hpp">
-      <Filter>API\Allocatables\Interop</Filter>
+    <ClInclude Include="API\Interfaces\Heap.hpp">
+      <Filter>API\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Interop.hpp">
-      <Filter>API\Allocatables\Interop</Filter>
+    <ClInclude Include="API\ExtendedTypes\ExtendedTypes.hpp">
+      <Filter>API\ExtendedTypes</Filter>
     </ClInclude>
-    <ClInclude Include="Mutex.hpp">
+    <ClInclude Include="API\ExtendedTypes\LockGuard.hpp">
+      <Filter>API\ExtendedTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\EngineInformation.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\Exception.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\ParameterPack.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\Singleton.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\Threadable.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\ThreadableTaskset.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\Typename.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\Types.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\Strings\CStyleString.hpp">
+      <Filter>API\Types\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\Strings\StaticString.hpp">
+      <Filter>API\Types\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\Strings\Strings.hpp">
+      <Filter>API\Types\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Allocatables\Mutex.hpp">
       <Filter>API\Allocatables</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedTypes.hpp">
-      <Filter>API\ExtendedTypes</Filter>
+    <ClInclude Include="Engine\CYBEngine.hpp">
+      <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Threadable.hpp">
-      <Filter>API\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="ThreadableTaskset.hpp">
-      <Filter>API\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="Types.hpp">
-      <Filter>API\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="LockGuard.hpp">
-      <Filter>API\ExtendedTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="Declarations.hpp">
-      <Filter>API\Declarations</Filter>
-    </ClInclude>
-    <ClInclude Include="Interfaces.hpp">
-      <Filter>API\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineInformation.hpp">
-      <Filter>API\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="Exception.hpp">
-      <Filter>API\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="Typename.hpp">
-      <Filter>API\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="Allocator.hpp">
-      <Filter>API</Filter>
-    </ClInclude>
-    <ClInclude Include="CYBMemory.hpp">
+    <ClInclude Include="Engine\Memory\CYBBlock.hpp">
       <Filter>Engine\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="Constructor.hpp">
-      <Filter>API\Allocatables\Interop</Filter>
+    <ClInclude Include="Engine\Memory\CYBHeap.hpp">
+      <Filter>Engine\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="ParameterPack.hpp">
-      <Filter>API\Types</Filter>
+    <ClInclude Include="Engine\Memory\CYBLargeBlock.hpp">
+      <Filter>Engine\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Memory\CYBMemory.hpp">
+      <Filter>Engine\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Core\CYBEngineParameters.hpp">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Core\CYBCore.hpp">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Interop\Constructor.hpp">
+      <Filter>API\Interop</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Interop\Allocatable.hpp">
+      <Filter>API\Interop</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Interop\Interop.hpp">
+      <Filter>API\Interop</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Interop\Object.hpp">
+      <Filter>API\Interop</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Interop\Allocator.hpp">
+      <Filter>API\Interop</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Allocatables\Allocatables.hpp">
+      <Filter>API\Allocatables</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Linux\CYBLinuxModule.inl">
+      <Filter>Platform\Linux</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\OSX\CYBOSXModule.inl">
+      <Filter>Platform\OSX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="CYBAutoModule.inl">
-      <Filter>Platform\Modules</Filter>
-    </None>
-    <None Include="CStyleString.inl">
-      <Filter>API\Types\Strings</Filter>
-    </None>
-    <None Include="StaticString.inl">
-      <Filter>API\Types\Strings</Filter>
-    </None>
-    <None Include="Expressions.inl">
-      <Filter>API\Declarations</Filter>
-    </None>
-    <None Include="Assert.inl">
-      <Filter>API\Declarations</Filter>
-    </None>
-    <None Include="Endianess.inl">
-      <Filter>API\Declarations</Filter>
-    </None>
-    <None Include="Singleton.inl">
-      <Filter>API\Types</Filter>
-    </None>
-    <None Include="Object.inl">
-      <Filter>API\Allocatables\Interop</Filter>
-    </None>
-    <None Include="Exception.inl">
-      <Filter>API\Types</Filter>
-    </None>
-    <None Include="Allocator.inl">
-      <Filter>API</Filter>
-    </None>
-    <None Include="ParameterPack.inl">
-      <Filter>API\Types</Filter>
-    </None>
-    <None Include="CYBModuleDefinitions.inl">
-      <Filter>Platform\Modules</Filter>
-    </None>
     <None Include="DoxyPages\Contexts.dox">
       <Filter>DoxyPages</Filter>
     </None>
@@ -404,6 +371,45 @@
     </None>
     <None Include="DoxyPages\Units.dox">
       <Filter>DoxyPages</Filter>
+    </None>
+    <None Include="Platform\Modules\CYBAutoModule.inl">
+      <Filter>Platform\Modules</Filter>
+    </None>
+    <None Include="Platform\Modules\CYBModuleDefinitions.inl">
+      <Filter>Platform\Modules</Filter>
+    </None>
+    <None Include="API\Declarations\Assert.inl">
+      <Filter>API\Declarations</Filter>
+    </None>
+    <None Include="API\Declarations\Endianess.inl">
+      <Filter>API\Declarations</Filter>
+    </None>
+    <None Include="API\Declarations\Expressions.inl">
+      <Filter>API\Declarations</Filter>
+    </None>
+    <None Include="API\Types\Exception.inl">
+      <Filter>API\Types</Filter>
+    </None>
+    <None Include="API\Types\ParameterPack.inl">
+      <Filter>API\Types</Filter>
+    </None>
+    <None Include="API\Types\Singleton.inl">
+      <Filter>API\Types</Filter>
+    </None>
+    <None Include="API\Types\Strings\CStyleString.inl">
+      <Filter>API\Types\Strings</Filter>
+    </None>
+    <None Include="API\Types\Strings\StaticString.inl">
+      <Filter>API\Types\Strings</Filter>
+    </None>
+    <None Include="API\Interop\Object.inl">
+      <Filter>API\Interop</Filter>
+    </None>
+    <None Include="API\Interop\Allocator.inl">
+      <Filter>API\Interop</Filter>
+    </None>
+    <None Include="API\Interop\Interop.inl">
+      <Filter>API\Interop</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

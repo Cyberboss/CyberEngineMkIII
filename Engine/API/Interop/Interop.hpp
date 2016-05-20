@@ -7,12 +7,9 @@ namespace Interop {};
 #include "Allocatable.hpp"
 #include "Constructor.hpp"
 #include "Object.hpp"
+#include "Allocator.hpp"
 
 #define CYB_SET_ALLOCATABLE_ID(AClass)\
 template<> constexpr CYB::API::Interop::Allocatable::ID CYB::API::Interop::Allocatable::GetID<CYB::API::AClass>(void) {\
 	return ID::AClass;\
 }
-
-#include "Mutex.hpp"
-
-#undef CYB_SET_ALLOCATABLE_ID

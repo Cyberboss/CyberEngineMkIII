@@ -6,8 +6,8 @@
 
 #define EXPLICIT_CYB_API_USAGE
 
-#include "CyberEngine.hpp"
+#include "API/CyberEngine.hpp"
 
-#include "CYBPlatform.hpp"
+#include "Platform/CYBPlatform.hpp"
 
-#include "CYBEngine.hpp"
+#include "Engine/CYBEngine.hpp"

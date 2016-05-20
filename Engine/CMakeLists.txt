@@ -5,9 +5,9 @@ include_directories(${CYB_BASE_DIR}/Engine)
 find_package(Threads REQUIRED)
 
 IF(APPLE)
-set(PlatformImplentations "CYBOSXThread.cpp")
+set(PlatformImplentations "Platform/OSX/CYBOSXThread.cpp")
 ELSE()
-set(PlatformImplentations "CYBLinuxThread.cpp")
+set(PlatformImplentations "Platform/Linux/CYBLinuxThread.cpp")
 ENDIF()
 
 add_library(EngineBase STATIC
@@ -15,28 +15,28 @@ add_library(EngineBase STATIC
 ${PlatformImplementations}
 
 #Posix
-CYBPosixSyscalls.cpp
-CYBPosixThread.cpp
-CYBPosixProcess.cpp
-CYBPosixVirtualMemory.cpp
-CYBPosixModule.cpp
-CYBPosixMutex.cpp
+Platform/Posix/CYBPosixSyscalls.cpp
+Platform/Posix/CYBPosixThread.cpp
+Platform/Posix/CYBPosixProcess.cpp
+Platform/Posix/CYBPosixVirtualMemory.cpp
+Platform/Posix/CYBPosixModule.cpp
+Platform/Posix/CYBPosixMutex.cpp
 
 #Platform
-CYBThread.cpp
-CYBProcess.cpp
-CYBModule.cpp
+Platform/CYBThread.cpp
+Platform/CYBProcess.cpp
+Platform/Modules/CYBModule.cpp
 
 #Engine
 
 #Memory
-CYBBlock.cpp
-CYBLargeBlock.cpp
-CYBHeap.cpp
+Engine/Memory/CYBBlock.cpp
+Engine/Memory/CYBLargeBlock.cpp
+Engine/Memory/CYBHeap.cpp
 
 #Core
-CYBException.cpp
-CYBCore.cpp
+Engine/Core/CYBException.cpp
+Engine/Core/CYBCore.cpp
 )
 
 set_property(TARGET EngineBase PROPERTY CXX_STANDARD 14)

@@ -4,8 +4,8 @@
 //! @brief Encapsulates platform agnostic engine functions
 namespace Engine {};
 
-#include "CYBEngineParameters.hpp"
+#include "Core/CYBEngineParameters.hpp"
 
-#include "CYBMemory.hpp"
+#include "Memory/CYBMemory.hpp"
 
-#include "CYBCore.hpp"
+#include "Core/CYBCore.hpp"

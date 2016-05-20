@@ -6,17 +6,17 @@ namespace Platform {};
 
 //! @cond
 #ifdef TARGET_OS_WINDOWS
-#include "CYBWin32Implementation.hpp"
+#include "Win32/CYBWin32Implementation.hpp"
 #else
-#include "CYBPosixImplementation.hpp"
+#include "Posix/CYBPosixImplementation.hpp"
 #endif
 
 #ifdef TARGET_OS_MAC
-#include "CYBOSXImplementation.hpp"
+#include "OSX/CYBOSXImplementation.hpp"
 #endif
 
 #ifdef TARGET_OS_LINUX
-#include "CYBLinuxImplementation.hpp"
+#include "Linux/CYBLinuxImplementation.hpp"
 #endif
 //! @endcond
 
@@ -24,6 +24,6 @@ namespace Platform {};
 #include "CYBVirtualMemory.hpp"
 #include "CYBThread.hpp"
 #include "CYBProcess.hpp"
-#include "CYBModules.hpp"
+#include "Modules/CYBModules.hpp"
 #include "CYBMutex.hpp"
 //#include "CYBFile.hpp"

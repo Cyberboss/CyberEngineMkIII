@@ -10,14 +10,13 @@ namespace CYB {
 #endif
 };
 
-#include "Declarations.hpp"
+#include "Declarations/Declarations.hpp"
 
-#include "Types.hpp"
+#include "Types/Types.hpp"
 
-#include "Interop.hpp"
+#include "Interop/Interop.hpp"
+#include "Interfaces/Interfaces.hpp"
+#include "Allocatables/Allocatables.hpp"
+#include "Interop/Interop.inl"
 
-#include "ExtendedTypes.hpp"
-
-#include "Interfaces.hpp"
-
-#include "Allocator.hpp"
+#include "ExtendedTypes/ExtendedTypes.hpp"

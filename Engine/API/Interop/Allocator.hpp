@@ -2,6 +2,7 @@
 #pragma once
 namespace CYB {
 	namespace API {
+		class Heap;
 		//! @brief Used for allocating objects within and without the engine
 		class Allocator {
 		private:
@@ -76,6 +77,3 @@ namespace CYB {
 	//! @brief See CYB::API::Allocator::GetAllocator
 	API::Allocator& Allocator(void);
 };
-
-#include "Allocator.inl"
-#include "Object.inl"

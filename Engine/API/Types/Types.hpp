@@ -3,7 +3,7 @@
 
 typedef unsigned char byte;	//!< @brief It's a byte, 8 bits, etc...
 
-#include "Strings.hpp"
+#include "Strings/Strings.hpp"
 
 #include "Typename.hpp"
 #include "Singleton.hpp"

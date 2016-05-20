@@ -1,4 +1,3 @@
-//! @file CYBPosixProcess.hpp Defines CYB::Platform::Process for Posix
 #pragma once
 namespace CYB {
 	namespace Platform {

@@ -1,4 +1,4 @@
-//! @file Process.hpp Defines the platform process interface
+//! @file CYBProcess.hpp Defines the platform process interface
 #pragma once
 
 namespace CYB {
@@ -19,12 +19,11 @@ namespace CYB {
 			using Implementation::Process::Process;
 		public:
 			Process(const Process&) = delete;
-			Process(Process&& AMove);
-			Process& operator=(Process&& AMove);
-			/*!
-				@brief Closes the handle to a process
-			*/
+			Process(Process&& AMove);	//!< @brief See @ref structors
+			Process& operator=(Process&& AMove);	//!< @brief See @ref structors
+			//! @brief Closes the handle to a process
 			~Process() = default;
+
 			/*!
 				@brief Get's the Process representing the current execution
 				@return The current Process

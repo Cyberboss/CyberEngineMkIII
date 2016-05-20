@@ -1,5 +1,3 @@
-//! @file CYBWin32Module.cpp Implements CYB::Platform::Module for Win32
-
 #include "CYB.hpp"
 
 CYB::Platform::Implementation::Module::Module(const CYB::API::String::CStyle& AModuleName) :

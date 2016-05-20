@@ -1,4 +1,4 @@
-//! @file CYBExcpetion.cpp Exception constructors of the non-unit kind
+//! @file CYBException.cpp Exception constructors of the non-unit kind
 #include "CYB.hpp"
 
 namespace CYB {

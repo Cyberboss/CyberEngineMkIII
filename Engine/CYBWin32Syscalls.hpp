@@ -1,4 +1,3 @@
-//! @file CYBWin32Syscalls.cpp Dummy definition of Windows Syscalls
 #pragma once
 
 namespace CYB {

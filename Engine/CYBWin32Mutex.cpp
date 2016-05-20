@@ -1,4 +1,3 @@
-//! @file CYBWin32Mutex.cpp Implementation of CYB::Platform::Mutex for Win32
 #include "CYB.hpp"
 
 CYB::Platform::Mutex::Mutex() {

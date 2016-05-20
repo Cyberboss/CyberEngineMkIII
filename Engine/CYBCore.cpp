@@ -1,4 +1,4 @@
-//! @file CYBMain.cpp implements engine initialization functions
+//! @file CYBCore.cpp Implements engine core
 
 #include "CYB.hpp"
 

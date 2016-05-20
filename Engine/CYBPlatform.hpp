@@ -10,14 +10,14 @@ namespace Platform {};
 #else
 #include "CYBPosixImplementation.hpp"
 #endif
-#endif
 
-#if defined(TARGET_OS_MAC) && !defined(DOXY)
+#ifdef TARGET_OS_MAC
 #include "CYBOSXImplementation.hpp"
 #endif
 
-#if defined(TARGET_OS_LINUX) && !defined(DOXY)
+#ifdef TARGET_OS_LINUX
 #include "CYBLinuxImplementation.hpp"
+#endif
 #endif
 
 #include "CYBSyscalls.hpp"

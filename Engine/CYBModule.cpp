@@ -7,6 +7,11 @@ CYB::Platform::Module::Module(const API::String::CStyle& AModuleName):
 CYB::Platform::Module::Module(Module&& AMove):
 	Implementation::Module(std::move(AMove))
 {}
+CYB::Platform::Module& CYB::Platform::Module::operator=(Module&& AMove) {
+	Implementation::Module::operator=(std::move(AMove));
+	return *this;
+}
+//! @cond
 CYB::Platform::Implementation::Module::Module(Module&& AMove) :
 	FModule(AMove.FModule)
 {
@@ -17,7 +22,4 @@ CYB::Platform::Implementation::Module& CYB::Platform::Implementation::Module::op
 	AMove.FModule = nullptr;
 	return *this;
 }
-CYB::Platform::Module& CYB::Platform::Module::operator=(Module&& AMove) {
-	Implementation::Module::operator=(std::move(AMove));
-	return *this;
-}
+//! @endcond

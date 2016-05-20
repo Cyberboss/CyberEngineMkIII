@@ -1,4 +1,4 @@
-//! @file String.hpp Contains the definitions of a basic string
+//! @file StaticString.hpp Contains the definitions of a basic string
 #pragma once
 namespace CYB {
 	namespace API {
@@ -15,11 +15,10 @@ namespace CYB {
 				*/
 				Static(const char* const AData);
 				Static(const Static&) = default;
-				Static(Static&& AMove);
-				Static& operator=(Static&& AMove);
-				/*!
-					@brief Equivalent to CYB::API::String::CStyle::RawLength
-				*/
+				Static(Static&& AMove);	//!< @brief See @ref structors
+				Static& operator=(Static&& AMove);	//!< @brief See @ref structors
+
+				//! @brief Equivalent to CYB::API::String::CStyle::RawLength
 				unsigned int Length(void) const override;
 			};
 		};

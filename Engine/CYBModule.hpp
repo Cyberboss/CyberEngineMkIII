@@ -13,10 +13,10 @@ namespace CYB {
 				@par Exception Safety
 					CYB::Exception::SystemData::MODULE_LOAD_FAILURE if the module is unable to be loaded
 			*/
-			Module(const API::String::CStyle& AModuleName);
+			Module(const API::String::CStyle& AModuleName);	//!< @brief See @ref structors
 			Module(const Module&) = delete;
-			Module(Module&& AMove);
-			Module& operator=(Module&& AMove);
+			Module(Module&& AMove);	//!< @brief See @ref structors
+			Module& operator=(Module&& AMove);	//!< @brief See @ref structors
 			/*!
 				@brief Destroys a module reference. If all references to a module are destroyed, functions loaded from those modules become invalid
 			*/

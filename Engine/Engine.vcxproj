@@ -233,7 +233,15 @@
     <None Include="Assert.inl" />
     <None Include="CStyleString.inl" />
     <None Include="CYBAutoModule.inl" />
-    <None Include="CYBModuleDefinitions.hpp" />
+    <None Include="CYBModuleDefinitions.inl" />
+    <None Include="DoxyPages\Contexts.dox" />
+    <None Include="DoxyPages\Conventions.dox" />
+    <None Include="DoxyPages\IO.dox" />
+    <None Include="DoxyPages\Localization.dox" />
+    <None Include="DoxyPages\Main.dox" />
+    <None Include="DoxyPages\Resources.dox" />
+    <None Include="DoxyPages\Tutorial.dox" />
+    <None Include="DoxyPages\Units.dox" />
     <None Include="Endianess.inl" />
     <None Include="Exception.inl" />
     <None Include="Expressions.inl" />
@@ -241,6 +249,9 @@
     <None Include="ParameterPack.inl" />
     <None Include="Singleton.inl" />
     <None Include="StaticString.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="DoxyPages\DoxygenLayout.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,4 @@
-//! @file ParameterPackIndexer.hpp Defines the template for working with parameter packed template arguments
+//! @file ParameterPack.hpp Defines the template for working with parameter packed template arguments
 #pragma once
 namespace CYB {
 	namespace API {

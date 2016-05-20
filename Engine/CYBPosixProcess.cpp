@@ -1,5 +1,3 @@
-//! @file CYBWin32Process.cpp Implements CYB::Platform::Process for Posix
-
 #include "CYB.hpp"
 
 extern void exit(int AExitCode);

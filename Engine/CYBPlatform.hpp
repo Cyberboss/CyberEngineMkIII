@@ -4,7 +4,7 @@
 //! @brief Namespace containing engine Platform functions
 namespace Platform {};
 
-#ifndef DOXY
+//! @cond
 #ifdef TARGET_OS_WINDOWS
 #include "CYBWin32Implementation.hpp"
 #else
@@ -18,7 +18,7 @@ namespace Platform {};
 #ifdef TARGET_OS_LINUX
 #include "CYBLinuxImplementation.hpp"
 #endif
-#endif
+//! @endcond
 
 #include "CYBSyscalls.hpp"
 #include "CYBVirtualMemory.hpp"

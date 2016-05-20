@@ -1,4 +1,4 @@
-//! @file CYBPosixSyscalls.hpp Defines the System Call interface
+//! @file CYBSyscalls.hpp Defines the System Call interface
 #pragma once
 
 namespace CYB {

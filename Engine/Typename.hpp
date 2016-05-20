@@ -17,5 +17,6 @@ namespace CYB {
 	};
 };
 
-//! @brief Macro for auto-naming types
+//! @cond
 #define ENABLE_TYPENAME(AType, ANamespace) namespace CYB { namespace API { template<> class Typename<ANamespace::AType> { public: constexpr const String::Static Name(void) { return #AType; }};}}
+//! @endcond

@@ -1,4 +1,3 @@
-//! @file CYBPosixThread.cpp Implements CYB::Platform::Thread for Posix
 #include "CYB.hpp"
 
 using namespace CYB::Platform::Implementation::Posix;

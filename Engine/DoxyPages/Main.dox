@@ -1,0 +1,1151 @@
+/*!
+@mainpage CyberEngineMkII Documentation
+
+@section main_intro Introduction
+
+I'll put more here in the future I promise. For now, click any other page
+
+@section Progress November-December
+
+This is a dump of the git log since our meeting november. Remeber the full source code is available and can be git cloned or browsed at https://dev.dimensionalpha.net:8080/tfs/Dimension%20Alpha%20Entertainment/_git/Dimension%20Alpha using the same credentials
+@code
+
+commit 81e395a0b015ff2f7cf4bf42931b716d77e60538
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Nov 12 10:12:44 2015 -0500
+
+    Small todo
+
+commit 6a5d322efffad7720cfd33d56e149140181b2fe3
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Nov 12 10:18:38 2015 -0500
+
+    Fixed UTF-8ness of Strings file for unit template
+
+commit 24cd2a057a377f0abc8ebe94439506002bae2695
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Nov 12 12:17:26 2015 -0500
+
+    Alphebetized and reorganized Exceptions
+
+commit 35291910f52a5fbe754b611d75d30db1e88a7563
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Nov 12 12:23:29 2015 -0500
+
+    Delay in commit caused something i didn't want to be added, reverting now, will add next commit.
+
+commit d9b656e784765a93609fd48fbbf9d6c41ff25dbf
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Nov 12 13:42:28 2015 -0500
+
+    Upgrade to the strongly typed enum classes. Moved some strings to Strings.h
+
+commit 41f4aefa72e680e47c7878195cb4d4b5309663d7
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Nov 13 09:57:02 2015 -0500
+
+    Build fixes.
+
+commit 8f0070cb125b092ddf0264816a45b913d128ea86
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Nov 13 10:30:10 2015 -0500
+
+    Linux PoB fixes
+
+commit 248fa3ed3f4d52a4d8512e5895c4aa96b4026d21
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Nov 13 11:30:52 2015 -0500
+
+    Fixed all linux PoB errors with the exception of Wreorder (theres so many of them)
+
+commit 52f4fc76a60289b0b81a639f5dd8f75a4ce9b038
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Nov 13 12:40:24 2015 -0500
+
+    Added NOP. Enforced semicolons after macros. Changed from writing to nullptr to calling abort for HCF because we catch null writes and that's no good.
+
+commit 09bc9878948b5143a4647bbf9f2df3944e381495
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Nov 13 14:02:46 2015 -0500
+
+    Fixed -Werror=reorders
+
+commit 9c48e283d8e1fac3feea523d06dacc771ed7f905
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Nov 13 14:17:48 2015 -0500
+
+    Missed some FileNode stuff
+
+commit 691243ad6622188aef95f803ae2f0e4b465c23c2
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Nov 13 14:59:42 2015 -0500
+
+    Final touches
+
+commit 73230f1dbf46a79f657a840002ed18686d1e259c
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Nov 20 10:29:10 2015 -0500
+
+    Fix to the mac error failing all the builds
+
+commit 22b8d359cd91fcf86def35b246fa856d8ca3eec1
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Nov 20 14:21:19 2015 -0500
+
+    Proper operating system directory manipulation. Better steam path handling.
+
+commit de2fefae55494aca4edc1145f7aa2481a8d7528e
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Nov 20 14:23:10 2015 -0500
+
+    Documentation cleanup
+
+commit e481f187dfa642caa0967eed1dd58e9ee21cc2aa
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Nov 20 14:30:59 2015 -0500
+
+    Removed a warning that would occur in the PoBs
+
+commit 292ad67fb4ef58c4d6912178f690af9b285abfb5
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Nov 20 17:21:19 2015 -0500
+
+    Wrote Two dimensional arrays using a template instead of the allocator
+
+commit 4086df1d9d61dddb2ce5537fc37119fcca9c4c63
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 23 09:27:29 2015 -0500
+
+    Changed PointerDestructor to just Destructor. Improved it.
+
+commit 77e26348b4a68f87c3203873e226e041280091c2
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 23 09:37:05 2015 -0500
+
+    Fixed a bug in TwoDimensionalArray and Destructor.
+
+commit 828f6d4a8a082f621764e0e597a2245b481561d5
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 23 09:40:54 2015 -0500
+
+    Fixed some bugs in Nix
+
+commit dc5ef4135f0cbccbbff886bf2c6b1526e4d6e03d
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 23 09:51:19 2015 -0500
+
+    Left a WinAPI function in CYBNix
+
+commit f4ae0bf41a22c9dd93e5baaec436717347f419fd
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 23 10:05:24 2015 -0500
+
+    Added verbosity to hunt down why CYBFile's tests are failing
+
+commit 825be203382c13220fc6d5fad9cff3a76720a180
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 23 10:28:31 2015 -0500
+
+    Try again.
+
+commit 5cf1e455d506bf443392fc546b857255b4b378b1
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 23 10:43:22 2015 -0500
+
+    Still trying to fix tests
+
+commit df681a87aa59212ab1d572ddcba1817608ee520a
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 23 10:53:22 2015 -0500
+
+    Write console??
+
+commit a9c5e6e00bae8f1730915a69a1c44027e2ca46b2
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 23 11:54:35 2015 -0500
+
+    Try this.jpg
+
+commit 950d2200738b6d7035ee6263a2ea3e50b7a34750
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 23 12:05:14 2015 -0500
+
+    The possiblity that the programmer may one day find the source of the unit test bug... It fills you with determination.
+
+commit ffe687f4541d2dfbbbfcd647a0588fbaa4b323ab
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 23 12:12:23 2015 -0500
+
+    WRRRYYYY
+
+commit 32d3b3b713abbbaed9b0b657de1682567da1b316
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 23 14:55:54 2015 -0500
+
+    Cleaned up the directory interface. Logging now uses tmp folders.
+
+commit 1be741d25e1ab6239dc7dca791f3e3754b8e4cb7
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 23 16:26:53 2015 -0500
+
+    Much documentation about networking
+
+commit a37c93903f386a5b8d1627372132a3ff17059258
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 23 16:29:10 2015 -0500
+
+    Changed Exceptions from a namespace to a class to stay in line with the rest of the API
+
+commit 56621c3c1efa4d6f99ae02a80c0b81835eb96942
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 23 16:30:24 2015 -0500
+
+    Added verbosity for the test file. Will debug on windows
+
+commit 244cc1c4954403a13447be5cf57e152c81b862fa
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 23 17:06:52 2015 -0500
+
+    The file is corrupt and I don't know why
+
+commit 47ed1f08aa53537cd4b9825a699b86f3f3fb306b
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Nov 24 10:57:01 2015 -0500
+
+    Fixed an error where __rdtsc wouldn't get defined in a release build.
+
+commit a1706c8ed8a9329d5cf486e4e70daaa1af0ff075
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Nov 24 11:04:05 2015 -0500
+
+    More Mac fixes
+
+commit f232f460b3a74c5f763f7e1a00e0c35761e9413c
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Nov 24 11:31:07 2015 -0500
+
+    Added even more verbosity to --full-development-compress. Trimmed down the responsibility of CYBFileManipulator for now.
+
+commit c174dcc667c10ba2fc0837cea114800099c6f7d4
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Nov 24 11:36:52 2015 -0500
+
+    Stupid C standards
+
+commit 9de3860667f77fad0fa40bd0af125f4aba861adc
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Nov 24 12:03:33 2015 -0500
+
+    Added nix precompiled headers
+
+commit e62e97714a7546f4cd2d1f07d3e56f648095ea2e
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Nov 24 12:07:47 2015 -0500
+
+    can't pragma once in a translation unit
+
+commit b76178146deb0e3fc7ea5c1bd00e69ef82b71765
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Nov 24 12:12:48 2015 -0500
+
+    That last error, I dont even know man...
+
+commit bd10731a1997b6e4a3a4afceec80fd3a60719bb5
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Nov 24 12:22:01 2015 -0500
+
+    Compiled as C... Shakes head...
+
+commit c55d86c289976be1ada408757d3baea0a41c2501
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 09:09:26 2015 -0500
+
+    Fix some OSX warnings
+
+commit ed30926b998ce142bc3dade71900c2a0e7a910ac
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 09:10:00 2015 -0500
+
+    Fix the std error in gcc probably
+
+commit 016b04d26293daa8a862933b44903fbc9cf66d5a
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 09:21:34 2015 -0500
+
+    Renamed precompiled headers to *.hpp. Required for clang.
+
+commit ef911bcad421fdeb19556e95d7ab9dfac52aa55d
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 09:26:37 2015 -0500
+
+    Forgot the CMakeLists and TCyberEngineMkII
+
+commit 4c38603d0651346bdca8f5879d00f8b4413c92e5
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 09:31:12 2015 -0500
+
+    I'm just dumb ignore me
+
+commit 79a1414b0f368e8fb3fbc7ca1e1d75b354717a48
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 09:39:50 2015 -0500
+
+    One last header bug
+
+commit 66aeb75d6d88e707d9d1efcd89dde3e67d4bb56f
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 09:50:36 2015 -0500
+
+    If this works, god help me
+
+commit 515b8de7619b93da898f94513599ee47fc6875fc
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 09:58:13 2015 -0500
+
+    Y u do dis
+
+commit 37cd25ceb44df1018153a3b586c4acd4f22b382f
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 10:32:39 2015 -0500
+
+    WHAT DO THE NUMBERS MEAN MASON!??!
+
+commit 08f862f5c793ab4e1c11a4c3295de7ef673badfc
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 10:43:24 2015 -0500
+
+    It's something about the exit code...
+
+commit 3829149ce588086b5b99a1344effd1ffefa42ddb
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 11:02:23 2015 -0500
+
+    Credit to Jordan Kale and Dyon for that
+
+commit 6dd187d3173085aa1049a4f8b4826c2919957a33
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 11:04:54 2015 -0500
+
+    And if it doesn't I will be sad
+
+commit ed2a1a34302cb0b4d9a4f7c1072a6558522d6273
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 11:22:42 2015 -0500
+
+    VERBOSITY
+
+commit 0b0a6d2d0f0abe836962161c62e45523dc0b8817
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 11:30:35 2015 -0500
+
+    idk
+
+commit 0a35d4889c50cb97722ec8c1723eeeecf9ccb0e0
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 12:03:27 2015 -0500
+
+    pls
+
+commit 767379ce9ec3901d05b353423ec423898391de6a
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 12:36:10 2015 -0500
+
+    <censored>.
+
+commit 822a170a7ed77af5981e77f8133a53f994ee2385
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 13:21:32 2015 -0500
+
+    Take that?
+
+commit 32e28f761a67842f012d387270049ffe68364d7e
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 13:31:38 2015 -0500
+
+    Some logger exit console writings
+
+commit a20a835a9ba89229c9e9ffbe48419a71a4ec6db2
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 16:38:40 2015 -0500
+
+    So as it turns out I may just be an idiot
+
+commit c3e52d0c1e12703eb95cc4294ba641575b29651b
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 16:51:07 2015 -0500
+
+    And we're back to the tests failing which is an improvement.
+
+commit 4d7f36f9284bebc8de57ef4e6d01f7b90c6c7546
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 17:00:33 2015 -0500
+
+    Mac fixes
+
+commit f6ed3376c762048f918c62632560fba31530fa10
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Nov 25 17:03:15 2015 -0500
+
+    If this works it's either zlib optimization or xvalues in ASSERTS
+
+commit 415492bc880eb0d76c7ee11078ada4ac74d61562
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Nov 26 10:20:22 2015 -0500
+
+    Still trying to fix the stat erros
+
+commit d6a29af7b61ffbd7d480e9d6fae3f6bbf2bbe709
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Nov 26 11:05:25 2015 -0500
+
+    Removed compression assertions, see if that helps
+
+commit 6397768a6540dbee337ab9a7be6649c3d811dc06
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Nov 26 11:56:03 2015 -0500
+
+    Finish Network API documentation
+
+commit 4ee6738ba38a8215ffa50d2719f8138ce180ca8e
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Nov 26 13:06:21 2015 -0500
+
+    Some Renderer documentation
+
+commit 02a6f525b940be6a82f3ac6d53c92a3fcebacca6
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Nov 26 15:37:38 2015 -0500
+
+    More renderer documentation
+
+commit c288a981e1097a22534e6026d297a3a8a9abfbe6
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 30 11:38:45 2015 -0500
+
+    Finished documenting renderer
+
+commit 61aa679bda15d816b240f72f96ae773ce5a96e41
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 30 11:59:51 2015 -0500
+
+    Documented Window
+
+commit 57526cf8083ce3f28d5160e28032c99de9363fec
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 30 12:29:13 2015 -0500
+
+    BasicTypes and ComplexTypes documented
+
+commit 2719b79c19120b5ab25db6c8ca351bbcb2465b33
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 30 12:35:45 2015 -0500
+
+    Expressions documented
+
+commit 6f2c0cfa445cb4b7c50b735ea80880d363363f99
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 30 12:52:58 2015 -0500
+
+    Documented Templates
+
+commit 010cfffeb183b28d9377612c832ad3889b44a383
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 30 16:06:36 2015 -0500
+
+    Calls to sqlite are now base0, cleaned up blob struct, documented, changed some asserts to proper throws. Enabled sqlite thread safe.
+
+commit 35ba03036b9ab29abbc98b68ec53a4e91ce0c4b4
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Nov 30 16:42:09 2015 -0500
+
+    Some LUA documentation among other things
+
+commit d2ff9a9c4178879c066d07db6eafc9cfed9e9ad6
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 1 12:13:25 2015 -0500
+
+    Documented LUA along with refractoring and optimization and conformance, fixed unit tests
+
+commit 7975ef69fa16910f01a7a33c4e769c44e6b09adc
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 1 12:34:02 2015 -0500
+
+    Fixed a gcc permissive error
+
+commit 7a071048214460bdc6586d8984e93b0a025919f5
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Nov 29 08:32:03 2015 -0500
+
+    Fixed linux hangup
+
+commit 5ac5494ccb13a78c9302d9360b5fadd80144dfab
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 1 16:46:20 2015 -0500
+
+    Tenative division of CyberEngine into a code segment and an executable segment. May continue to books depending on results. Various other cleanups
+
+commit 0e067995076381ae8b1b4d513a53d60d188050a0
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 1 17:09:53 2015 -0500
+
+    Finished CyberEngine library/executable division
+
+commit 2287b1dc2a9708bdefb3287cbe9711d680cb457b
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Dec 2 10:03:25 2015 -0500
+
+    Fix a linux optimization bug
+
+commit fdb032dcdd07c0957dd51442d603a5f1ffaf190b
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Dec 2 10:28:30 2015 -0500
+
+    Logger initialization can now fail without crashing the entire engine. Fixed CyberEngine.rc problem.
+
+commit f2439b9898932cd526d390aa561739a1f4c1dd5a
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Dec 2 10:29:37 2015 -0500
+
+    Fixed CYBNix.obj linker warning
+
+commit 09790d9b5084ae046aa884777abd4ae8a870bd84
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Dec 2 10:37:19 2015 -0500
+
+    Fixed a bad path in the UnitTemplate
+
+commit bb75ebd616596a86c35d88d597b7a904cb89b9fb
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Dec 2 14:11:51 2015 -0500
+
+    Implement GDB debugging. Problems: It copies everything every build, write an application to solve that. By extension it rebuilds every build. Requires CyberEngine to be built before it, not too bad. Haven't tested actual debugging yet.
+    
+    Related Work Items: #4
+
+commit e2b0eaf0ce4ef46bd74a69f6beefac3780c10f57
+Author: CyberbossSecure <>
+Date:   Thu Dec 3 02:28:16 2015 +0500
+
+    Fix the warning caused by unreachable code
+
+commit 7c0ffb8e6179df405968c8166d99e0ed4a7fa00b
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Dec 3 10:33:16 2015 -0500
+
+    Tons of documentation work.
+
+commit 5176c1efb2691a6a68c0e615bec1842ef823ed5e
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Dec 3 10:53:17 2015 -0500
+
+    Removed all API documentation warnings
+
+commit 6ceede95cd985a621d7df7544bc534f6481ae0ef
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Dec 3 11:27:31 2015 -0500
+
+    DOCUMENTATION and a lot of it
+
+commit f6ec4f1ca8eb3cb2340c363b53994f8ac3cc40a4
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Dec 3 11:47:36 2015 -0500
+
+    Add some more skeleton pages
+
+commit ab51ab13a5720ef929c50888818f78b6cfc684a1
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Dec 3 11:48:34 2015 -0500
+
+    Documented LUA::TReturn
+
+commit b6e675fbcc5efa40f38dacfe8ef97b5de4d3c858
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Dec 3 12:35:10 2015 -0500
+
+    Documented Conventions::Exceptions. Added links in exception specifications.
+
+commit 297a77ed3e6c43dd5df3d27ca60d6eb45ac6bc68
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Dec 3 12:57:06 2015 -0500
+
+    Titled pages, fixed excludes
+
+commit ded52aec916103aa114fc1fdcc5b48d5305e6608
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Dec 3 13:16:01 2015 -0500
+
+    Limited unit invocation to the main thread
+
+commit 41e7c8e8023e18dc93b27a9c07078c4d0878c56c
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Dec 3 14:05:45 2015 -0500
+
+    Documented Coding Covention
+
+commit b567be7711adf80e58341df9d07737ed8424976c
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Dec 3 14:13:43 2015 -0500
+
+    Fixed some bugs. Documentation
+
+commit 1f2eee9e48ee2c52f83da121e1d884d5516aab7b
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 4 02:37:50 2015 -0500
+
+    Brought thread management engine side and made it native May fail down the road but whatever
+
+commit d89d5ec456440d83d4c976a1e6e89f156fbdfa7a
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 4 02:46:45 2015 -0500
+
+    Fix pthread_t cast errors
+
+commit 36c38dab9630aa894dedc1d435750849781f8500
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 4 03:14:06 2015 -0500
+
+    Fixed applications not setting up the thread manager pointer
+
+commit 2d59a21b337bddb6513783e58d523df11861937b
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 4 09:02:57 2015 -0500
+
+    Removed AddResourceToFile, never had a use case
+
+commit c13e20590a05b70c6e2f5bf1085a1d8aadf45415
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 4 13:46:29 2015 -0500
+
+    Nearly have debugging working, but the build process is dandy now
+
+commit cf462f680082007f7eeb4778068bede56c7c0407
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sat Dec 5 15:15:59 2015 -0500
+
+    Readded some assertions
+
+commit 4831d3a5bef41b3f4dea37f57c3ed6da7ab54b5e
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sat Dec 5 15:22:39 2015 -0500
+
+    Improved things slightly, but were still stuck on Initializing Debugger
+
+commit 301fc9a96afea23814238192bd6e83366a77171e
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sat Dec 5 15:49:42 2015 -0500
+
+    Nearly there
+
+commit cff93b86ed9879c0924b2dcf821ea78342fd7a85
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sat Dec 5 16:10:16 2015 -0500
+
+    Linux temp directories should now be user specific
+
+commit 173b0f299fdbf0e2cb75f05a18490f6b86c81f65
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 6 18:04:07 2015 -0500
+
+    Moved doxypages around
+
+commit b96152f8a85985991b7b1e5bff52c957fea563f3
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Dec 7 09:39:02 2015 -0500
+
+    Threading documentation. Thread pool is now one larger.
+
+commit 91c07129e292286aaff2f4930a009682ef550733
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Dec 7 10:02:10 2015 -0500
+
+    Simplified thread pool and conventions
+
+commit 30a4fb5e87d75adac0a359dd233c0c56ac0eb59b
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Dec 7 10:03:38 2015 -0500
+
+    Attempting to thread fence the GCC optimization bug
+
+commit d5524e8ab99db7c701eb9c718bde185032449ea3
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sat Dec 12 17:28:24 2015 -0500
+
+    Fixed a thread pool bug
+
+commit d404d9726aad0f6cab296e5454b01bae0453e7d7
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sat Dec 12 17:28:29 2015 -0500
+
+    Added the skeleton AI class as a Context object
+
+commit 6bd021a04718bb9e7f9d26a6668d70f276682f94
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sat Dec 12 19:06:53 2015 -0500
+
+    Work on the AI testing ground
+
+commit 6ebfe7dda66a7892fd854741ec40d26679c5b459
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sat Dec 12 19:07:31 2015 -0500
+
+    Forgot something in the cmake list
+
+commit 7a974694a483d529cefa28de993ef4cbf7643de9
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sat Dec 12 20:53:47 2015 -0500
+
+    A basic platforming... platform for AI tests
+
+commit 435e72a5ff58d64e1f75d368d4352cae362471ab
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 00:12:24 2015 -0500
+
+    Working on the neural net
+
+commit 340498e144216f77fe992016f527406a387eeae1
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 00:59:11 2015 -0500
+
+    Wrote the build network function. It would sem we can retain some semblance of state by not clearing the neurons every iteration
+
+commit bce32d8e4f3adee2437f4603aabe1ec6fa1134a4
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 02:40:28 2015 -0500
+
+    I lied in the last commit, we do clear it out. Also we use some sort of sigmoidal for sum averaging. Also some work on breeding
+
+commit d071f5946f78b7105df50f88d8202387c1955334
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 02:40:53 2015 -0500
+
+    Typo in the last commit
+
+commit a9bc1a4a2eb7ec11548b507f47841234868f086f
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 03:10:39 2015 -0500
+
+    Added the tweakable variables. Work on the mutate function.
+
+commit a6e64890bbbf9666b684f5b3b0fdc57c4beee2ed
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 10:40:36 2015 -0500
+
+    Added power source input. Bias and unbiased gene addition. Fixed some other stuff
+
+commit 8496133dcfa41c5fee847396e0001a01708be35d
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 11:19:08 2015 -0500
+
+    Changed how gene weights are stored in networks
+
+commit b69a1ef1b8dddbf51ee9f8bf6302440386d713b5
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 12:06:33 2015 -0500
+
+    Wrote AddNeuron. Output nuerons are now at the beginning of the array. Inputs are now floats
+
+commit 30a698a1904251d04aae886b8c43669e799a0bec
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 12:17:27 2015 -0500
+
+    Wrote Mutate status
+
+commit da7f581636e3084cbcf9340a901fa004dda909c3
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 12:32:25 2015 -0500
+
+    Wrote DisjointExcessPercent
+
+commit 6e1f4f4f2749db76e7b4a4d763dc99db13385030
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 13:23:37 2015 -0500
+
+    Weights and SameSpecies
+
+commit 2c50f7b03ba4364641304902b3175ee0d0455ea3
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 13:44:14 2015 -0500
+
+    Various Network constructors
+
+commit 64a04439f6c8eec5a232211366617c0bfdf2ca24
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 14:13:47 2015 -0500
+
+    Added AddChild and sudo Network copy constructor cleaned up bugs
+
+commit ef361d4b9330f495a0bc49a2670dddfd1d726e21
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 14:50:06 2015 -0500
+
+    Fixes to networks constructors/destructors. Added available genome list. Network::Finalize must now be called before networks are destroyed. Constified some functions
+
+commit 528d888d7dceef19adb10a5e85afbec0c0df0c4b
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 15:17:11 2015 -0500
+
+    Wrote RemoveStaleSpecies
+
+commit 203812b313b16cdc39ae25e43abc56097b37d0dd
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 15:24:22 2015 -0500
+
+    Wrote RemoveWeakSpecies
+
+commit bec33e11609e188e336aa8ffc2750c1ca40315c5
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 16:21:14 2015 -0500
+
+    Work on AddGeneration
+
+commit f93f072c16ffc3232dddc68deeb0d172f1e2cf61
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 22:06:45 2015 -0500
+
+    Hopefully that's the core functionality down. (NewGeneration)
+
+commit 51f96a70f2107ce004cec630324dd5536c71cf55
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 13 23:18:12 2015 -0500
+
+    Work on the API interfaces as well as set up for threaded breeding.
+
+commit 31092af863d13317f593ae0f1cd0c35221faf7a1
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Dec 14 00:10:44 2015 -0500
+
+    Work on generalizing ContextObjects. Resulted in some semantic restructuring.
+
+commit 4ef52dc9b20ef9d5435a3e31827c5fe3d8d75143
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Dec 14 12:37:50 2015 -0500
+
+    Added names to Contexts
+
+commit 30a9720d9dd1303e3084052c048974e16a96e096
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Mon Dec 14 22:08:30 2015 -0500
+
+    Work on generalizing ContextObject constructors
+
+commit cbd356f1f823ab8adac70b3fe94e327fd9f37bc6
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 15 01:20:05 2015 -0500
+
+    AI::BasicGenome
+
+commit 48188bd2e02f6f205025774caae468336f880d47
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 15 01:42:26 2015 -0500
+
+    Removed FMaxNeurons, we work around it. Constructor work.
+
+commit e215eab6d730861f8065b7d88dde63035ff42d45
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 15 14:30:07 2015 -0500
+
+    Imposing type size restrictions. Reset. work on processing and serialization. Almost ready i think
+
+commit e49cb025127f45a0e4c6fc7a14831d090c40a7da
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 15 15:50:33 2015 -0500
+
+    Finished serialization/deserialization work using some clever lambdas (this bumps us to c++14 again), CYB Sizer.
+
+commit 5e70c1b4f9ff3f10221e12d5cedea53827241cb6
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 15 15:51:50 2015 -0500
+
+    Bugfixes to the previous commit
+
+commit f6f6e0cea5f452167a0715fc3db2392413004b4c
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 15 16:01:05 2015 -0500
+
+    Wrote the Storable constructor for AI
+
+commit 1ecb942bcf373ffa9ad1a900b9a29164f693f3fa
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 15 16:14:05 2015 -0500
+
+    Some bug fixes
+
+commit e7baa95b9b0d01f42ef3d2292974435bb3f7e26b
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 15 16:22:48 2015 -0500
+
+    Workaround for gcc templates
+
+commit 4d87dbb78e153f969413dd17b2d109b14404395e
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 15 16:25:15 2015 -0500
+
+    Fixed some Wreorder errors that slipped through
+
+commit f7e181d19f90074709eb50b0d81f1a274814d5fd
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 15 16:29:21 2015 -0500
+
+    Potential fix for the annoying cast error in CYBHost
+
+commit d5889a8f690f01508659a4d11bdd77537de8d382
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 15 17:17:19 2015 -0500
+
+    Finished the stack for the first truly generic ContextObject in AI
+
+commit ba068adf25f955dc1614e71f9f29afb0f98dcb50
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 15 17:19:46 2015 -0500
+
+    Apparently this will fix the gcc bug
+
+commit f5793a92744815d0d2b171a8dd50796ea9d2c9a8
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 15 19:09:51 2015 -0500
+
+    Half documented AI
+
+commit ac0795b0d6e21f9ac40a2549c1b93cadb3246186
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 15 19:16:57 2015 -0500
+
+    Bug fixes
+
+commit ba6603d3b0afc628a5e5ff76f38e9ed5cbef8128
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Tue Dec 15 20:39:54 2015 -0500
+
+    Finished AI documentation
+
+commit 972327494ec0b68f86de84f50855d71c50471261
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Dec 16 15:26:21 2015 -0500
+
+    Documentation updates
+
+commit 2a97cb86b856c5a0a15dc0224f037132f8f80637
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Dec 16 15:41:19 2015 -0500
+
+    Added processing priority to ContextObjects
+
+commit a3350b7ef57af5d07c61471dd3adad640fbb4816
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Dec 16 16:16:45 2015 -0500
+
+    Was forced to generalize Host after the ContextObject changes so there we go. Scrapped all the code for now. We need our own protocol that we understand
+
+commit c66f25c373c9d74c17f7fb910659d21b0680104d
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Dec 16 16:21:58 2015 -0500
+
+    Adding ContextObjects while the Context is running would break the processing iterator. This fixes that.
+
+commit d76421342cf4e074c54e314bfcf927b6934b6f00
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Dec 16 16:36:13 2015 -0500
+
+    One more typedef problem
+
+commit 8bcbf45fcf4f4be092d9c672c65a7f3f92580392
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Dec 16 16:40:07 2015 -0500
+
+    And a couple more reoder errors
+
+commit 68f5551c6de2822f8440a89e8a21cbbb53772122
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Dec 16 16:43:34 2015 -0500
+
+    OSX fix
+
+commit 5910b171a402b373b0221591658d948bbc8a6a24
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Wed Dec 16 16:44:58 2015 -0500
+
+    And again with the stat shit
+
+commit f97db1abc15985390da5d2543f4e50d2f78dd1f0
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Thu Dec 17 16:02:36 2015 -0500
+
+    Fixed a testing bug
+
+commit c0148ac4f82e7205c7b123879aa17914e605e2d5
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 01:59:14 2015 -0500
+
+    Fixed an OSX bug, renamed Host to Network for consistency
+
+commit 3d926f7b774f1c5c422ea8cc3b936f2376de5296
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 02:08:38 2015 -0500
+
+    Added a skeleton TileMap ContextObject
+
+commit e6f68761b4ad555fcabac8ad896a0b32fe7e22b0
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 02:35:25 2015 -0500
+
+    Made Audio into a proper context object. Removed SFML as a dependancy, will probably use it to write our own OpenAL code and steam for voice recording
+
+commit 623dac5991d7e9dee90d98acb95995474250e294
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 04:51:44 2015 -0500
+
+    Removed the Dispatcher chain and simplified the interaface somewhat. Moved it to the Window header. Made Window a true ContextObject. The renderer relationship is still borky though. Also this has the convienience of pretty much fixing the message queue. Though I don't know if XWindow events are thread local.
+
+commit 47c468ba0cde421ca1c6bd8a711397b06e0affa5
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 12:14:03 2015 -0500
+
+    Small documentation tidbit
+
+commit 37610bfd481a6e91994423f7196f4daca8d0e2f7
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 14:25:43 2015 -0500
+
+    So here's what we do for X, all contexts must synchronize on the call to window::RunMessageQueue. We can disclose this. Wrote Context::InterlockedWindowProcess
+
+commit fcbfc9c562df4a0fccfc1844fe97a2db0624a6a8
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 14:58:01 2015 -0500
+
+    Made glfw tell us about WM_ENDSESSION and stop processing. Cleaned up glfws OSX menu bar to just be a quit. And that quit also posts a quit message.
+
+commit 270ace90c79d02aa2d0955c603df06b1f19ab3f2
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 15:03:44 2015 -0500
+
+    Fixed the -Wmaybe-uninitialized in Context::InterlockedWindowProcess
+
+commit 6babefbcb3790090cef63aa02cfbe144dd8f5444
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 15:04:46 2015 -0500
+
+    Another attempt to fix the Tree balancing issues
+
+commit 9718a4c62e6a1b61f51079acc10e5ba8b68b0c54
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 15:13:51 2015 -0500
+
+    CreateContextObject will now return false and not construct if a quitmessage has been posted to it.
+
+commit 0b463db05a4c890e57c5c26723dd847cca4ea39a
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 15:13:54 2015 -0500
+
+    Renamed CYBWindows to CYBWin32 for clairity
+
+commit 5fccc2e3bc8fb499974e23c59d43bca238754f44
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 15:18:16 2015 -0500
+
+    Cleaned up some unused Context stuff
+
+commit a00576f834a2d742b257862570229ec7d856830a
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 15:19:54 2015 -0500
+
+    InterlockedWindowProcess supressed the wrong warning
+
+commit ca7d98de19033981a7364e4a093ea769c9cbd730
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 15:31:28 2015 -0500
+
+    So I guess we're going back to the O0 solution for Trees
+
+commit c749d91b38681014358306ad3122d55845846934
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 15:36:17 2015 -0500
+
+    Renamed Core
+
+commit 1897d750706cbab0f00316a7f5b6f8ed714acf2d
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 15:47:29 2015 -0500
+
+    Changed the semantics of Renderer commands
+
+commit 8b9faf48fcfa8ff6c633d8af793bacf924f2d911
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 17:01:08 2015 -0500
+
+    Renamed Context::CreateContextObject to just CreateObject
+
+commit 9bd4effda936445647def0383a1d709b1b55d05f
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Fri Dec 18 17:17:17 2015 -0500
+
+    Defined the public interface for Renderer. This breaks things
+
+commit c327674464f2b9215b073619e5cf23c73a12b535
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sat Dec 19 13:48:29 2015 -0500
+
+    Removed Resource in Unit system leftovers. Fixed up compiler errors for CyberEngine Actual. Removed other code rot. Set up renderer to work as CO , needs to . Moved ContextSetupFunction definition to Context. Removed Frame waiting. Changed some exceptions to INVALID_RESOURCE.  SWEEPING CHANGES to Renderer and Window.
+
+commit 913d65a2c54f75d062078cb92f4b9b3ec1502794
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sat Dec 19 14:14:51 2015 -0500
+
+    Fixed some renderer bugs and disabled most programs that use Contexts for now. They need some ground up rewrites
+
+commit f229f773de7ca4160917d4d93b61af3205d6ced4
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 20 14:43:30 2015 -0500
+
+    Fixes to bugs that may occur via bad resources
+
+commit ee8cbfbd889f5e42e5cf09a96916506019706333
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 20 14:46:46 2015 -0500
+
+    Added the potential sqlerror catch to the L10n constructor
+
+commit 6552481cadd66058cfd53901172271d33d7676c8
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 20 14:54:22 2015 -0500
+
+    Fixed up renderer interface again
+
+commit fbe5c7bbdb6ea2bbd7db3897f3d074074fa3328b
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 20 15:14:29 2015 -0500
+
+    Moved NewCommandList back to Dispatcher. I forgot how OGL contexts worked whoops
+
+commit c04e9030eeab118146414cc3100fa9b7be6cc5aa
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 20 15:19:09 2015 -0500
+
+    Better documented ContextObject destruction conditions
+
+commit d367658b480cdedc383e9e00c2a7c6a70b065c57
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 20 15:46:57 2015 -0500
+
+    Resolved all COMPILER errors. Fixed Loadall for textures
+
+commit bab04403a45e52c25b9bbfc4c8c0fd247d00ee5f
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 20 16:34:51 2015 -0500
+
+    Finished the loader and unloader functions for textures at least
+
+commit 31fbe115f2ad1cf087c5444b198ba9de186df9ec
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 20 16:40:41 2015 -0500
+
+    Wrote Renderer::Reserve
+
+commit 5d5d9e1cbf7de5ba8546c511edd02bfce705f3a3
+Author: Cyberboss <cyberboss1994@hotmail.com>
+Date:   Sun Dec 20 16:46:00 2015 -0500
+
+    Wrote the lockfreestack renderer allocator functions. Solution builds cleanly and tests run perfectly. Fixed a potential graphics memory leak/access violation.
+
+	@endcode
+
+*/

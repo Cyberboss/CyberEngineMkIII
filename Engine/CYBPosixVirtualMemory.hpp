@@ -1,4 +1,3 @@
-//! @file CYBPosixVirtualMemory.hpp Defines CYB::Platform::VirtualMemory for Posix
 #pragma once
 namespace CYB {
 	namespace Platform {

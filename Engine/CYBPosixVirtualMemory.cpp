@@ -1,4 +1,3 @@
-//! @file CYBPosixVirtualMemory.cpp Implements CYB::Platform::VirtualMemory for Posix
 #include "CYB.hpp"
 
 //Superblock

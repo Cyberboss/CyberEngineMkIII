@@ -1,4 +1,4 @@
-//! @file CYBSingleton.hpp Defines the engine core interface and static pointer as well as the Engine() access function
+//! @file CYBCore.hpp Defines the engine core interface and static pointer as well as the Engine() access function
 #pragma once
 
 namespace CYB {

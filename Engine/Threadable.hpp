@@ -1,4 +1,4 @@
-//! @file Thread.hpp The multithreading API used by the CyberEngine
+//! @file Threadable.hpp The multithreading API used by the CyberEngine
 #pragma once
 namespace CYB {
 	namespace API {

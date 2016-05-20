@@ -1,4 +1,3 @@
-//! @file CYBWin32Syscalls.cpp Dummy implementation of Windows Syscalls
 #include "CYB.hpp"
 
 //kernel changes every day and isn't documented, we have to use the winapi

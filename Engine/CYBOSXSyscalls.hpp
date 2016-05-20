@@ -1,4 +1,3 @@
-//! @file CYBOSXSyscalls.hpp Defines the Linux kernel Syscall table
 #pragma once
 
 namespace CYB {

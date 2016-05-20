@@ -17,13 +17,13 @@ namespace CYB {
 					@param APointer A pointer to an engine object that can be freed with the current Allocator's Heap
 				*/
 				Object(AInterface* const APointer);
-				Object(Object&& AMove);
-				Object& operator=(Object&& AMove);
-				~Object();
+				Object(Object&& AMove);	//!< @brief See @ref structors
+				Object& operator=(Object&& AMove);	//!< @brief See @ref structors
+				~Object();	//!< @brief See @ref structors
 
-				//!< @brief Implicit conversion to AInterface
+				//! @brief Implicit conversion to AInterface
 				AInterface& operator()(void);
-				//!< @brief Implicit conversion to const AInterface
+				//! @brief Implicit conversion to const AInterface
 				const AInterface& operator()(void) const;
 			};
 		};

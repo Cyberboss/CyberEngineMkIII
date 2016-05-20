@@ -1,0 +1,32 @@
+/*!
+@page localization Localization
+
+@section local_intro Introduction
+
+Translate stuff
+
+@section gen Generating A Localization Database
+You can use the GenerateTranslationDatabase unit to build a translation database from a header containing your unit's strings
+
+@code
+#pragma once
+
+//ensure this file gets saved as UTF-8
+//' ' – — … ? ? ° © ® ™ • ½ ¼ ¾ ? ? † ‡ µ ¢ £ € « » ? ? ? ? ¿ ?.- × ÷ ± ? ?
+
+namespace Strings {
+	const char* const ACCESS_VIOLATION = u8"Some part of this execution has performed an access violation and it must be shut down";
+	const char* const ALLOCATION_FAILURE = u8"Failed to allocate required memory";
+	const char* const NO_UNIT = u8"No unit specified in command line and default_unit.txt does not exist";
+	const char* const UNIT_NOT_FOUND = u8"Unit not found";
+	const char* const UNIT_NOT_SERVER = u8"Unit does not contain a dedicated server";
+	const char* const NOT_A_UNIT = u8"File is not a CyberEngineMkII unit";
+	...
+};
+@endcode
+
+Run CyberEngine with the following commandline "cyberenginemkii -UGenerateTranslationDatabase -h=/path/to/strings/header -o=/path/to/output/Translations.CYB"
+It will create a .CYB format file. This should be name Translations.CYB and placed in your unit's resource folder. It will be loaded when your unit is loaded.
+
+@ref resources
+*/

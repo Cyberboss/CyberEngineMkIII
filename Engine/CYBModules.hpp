@@ -5,7 +5,7 @@
 #include "CYBAutoModule.hpp"
 #include "CYBAutoModule.inl"
 #include "CYBModuleMacros.hpp"
-#include "CYBModuleDefinitions.hpp"
+#include "CYBModuleDefinitions.inl"
 
 #ifdef TARGET_OS_WINDOWS
 #include "CYBWin32RequiredModules.hpp"

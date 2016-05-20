@@ -124,6 +124,9 @@
     <Filter Include="API\Allocatables\Interop">
       <UniqueIdentifier>{ee1f78cc-6a52-4f2c-b867-03a5853d5f57}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DoxyPages">
+      <UniqueIdentifier>{f1241a38-a1a8-4115-9333-dd7d4719c00b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Endianess.hpp">
@@ -345,9 +348,6 @@
     <None Include="CYBAutoModule.inl">
       <Filter>Platform\Modules</Filter>
     </None>
-    <None Include="CYBModuleDefinitions.hpp">
-      <Filter>Platform\Modules</Filter>
-    </None>
     <None Include="CStyleString.inl">
       <Filter>API\Types\Strings</Filter>
     </None>
@@ -378,5 +378,37 @@
     <None Include="ParameterPack.inl">
       <Filter>API\Types</Filter>
     </None>
+    <None Include="CYBModuleDefinitions.inl">
+      <Filter>Platform\Modules</Filter>
+    </None>
+    <None Include="DoxyPages\Contexts.dox">
+      <Filter>DoxyPages</Filter>
+    </None>
+    <None Include="DoxyPages\Conventions.dox">
+      <Filter>DoxyPages</Filter>
+    </None>
+    <None Include="DoxyPages\IO.dox">
+      <Filter>DoxyPages</Filter>
+    </None>
+    <None Include="DoxyPages\Localization.dox">
+      <Filter>DoxyPages</Filter>
+    </None>
+    <None Include="DoxyPages\Main.dox">
+      <Filter>DoxyPages</Filter>
+    </None>
+    <None Include="DoxyPages\Resources.dox">
+      <Filter>DoxyPages</Filter>
+    </None>
+    <None Include="DoxyPages\Tutorial.dox">
+      <Filter>DoxyPages</Filter>
+    </None>
+    <None Include="DoxyPages\Units.dox">
+      <Filter>DoxyPages</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="DoxyPages\DoxygenLayout.xml">
+      <Filter>DoxyPages</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

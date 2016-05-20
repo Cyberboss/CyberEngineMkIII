@@ -5,11 +5,7 @@ namespace CYB {
 		namespace Interop {
 			//! @brief Used as a base class by all constructors
 			class EmptyConstructor {};
-			/*!
-				@brief Template for defining the types of parameters for engine object constructors
-				@tparam AType The first in the series of types
-				@tparam ATypes The rest of the types
-			*/
+			//! @cond
 			template <typename AType, typename... ATypes> class Constructor : public Constructor<ATypes...> {
 			public:
 				AType* const FParam;	//!< @brief The pointer to the parameter
@@ -29,6 +25,7 @@ namespace CYB {
 				{}
 			};
 			/*!
+				@endcond
 				@brief Template for defining the types of parameters for engine object constructors
 				@tparam AType The last in the series of types
 			*/

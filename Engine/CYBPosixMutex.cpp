@@ -1,4 +1,3 @@
-//! @file CYBWin32Mutex.cpp Implementation of CYB::Platform::Mutex for Posix
 #include "CYB.hpp"
 
 using namespace CYB::Platform::Implementation::Posix;

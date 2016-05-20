@@ -1,4 +1,3 @@
-//! @file CYBWin32VirtualMemory.cpp Implements CYB::Platform::VirtualMemory for Win32
 #include "CYB.hpp"
 
 unsigned int CYB::Platform::Implementation::VirtualMemory::SystemPageSize(void) {

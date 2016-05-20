@@ -1,4 +1,4 @@
-//! @file CYBMain.hpp Includes headers for platform agnostic engine functions
+//! @file CYBEngine.hpp Includes headers for platform agnostic engine functions
 #pragma once
 
 //! @brief Encapsulates platform agnostic engine functions

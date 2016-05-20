@@ -1,4 +1,3 @@
-//! @file CYBWin32RequiredModules.hpp Defines modules required from Win32
 #pragma once
 namespace CYB {
 	namespace Platform {

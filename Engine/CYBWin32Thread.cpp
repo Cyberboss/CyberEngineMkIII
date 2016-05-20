@@ -1,4 +1,3 @@
-//! @file CYBWin32Thread.cpp Implements CYB::Platform::Thread for Win32
 #include "CYB.hpp"
 
 CYB::Platform::Implementation::Thread::Thread(API::Threadable& AThreadable) :

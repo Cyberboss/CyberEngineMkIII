@@ -10,26 +10,14 @@ namespace CYB {
 #endif
 };
 
-#include "OSDeclaration.hpp"
-#include "Endianess.hpp"
-#include "SystemChecks.hpp"
-#include "Assert.hpp"
+#include "Declarations.hpp"
 
-#include "STL.hpp"
+#include "Types.hpp"
 
-#include "BasicTypes.hpp"
-#include "Expressions.hpp"
+#include "Interop.hpp"
 
-#include "Strings.hpp"
+#include "ExtendedTypes.hpp"
 
-#include "EngineInformation.hpp"
+#include "Interfaces.hpp"
 
-#include "Exception.hpp"
-
-#include "Singleton.hpp"
-#include "ParameterPackIndexer.hpp"
-#include "Typename.hpp"
-
-#include "Heap.hpp"
-
-#include "Threadable.hpp"
+#include "Allocator.hpp"

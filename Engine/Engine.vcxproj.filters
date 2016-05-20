@@ -97,26 +97,32 @@
     <Filter Include="Engine\Memory">
       <UniqueIdentifier>{30c8468c-f4a2-4737-9f2d-5e1165f77516}</UniqueIdentifier>
     </Filter>
-    <Filter Include="API\Meta">
-      <UniqueIdentifier>{4d92c1de-fa60-4bc8-bde4-afe644e1a639}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="API\Types">
-      <UniqueIdentifier>{2b26b238-b87a-4ee6-85af-25be3af3ff01}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Platform\Modules">
       <UniqueIdentifier>{4d40a415-2774-4307-b316-c3e3960e6c24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="API\Memory">
-      <UniqueIdentifier>{8a6ade50-f358-494d-97ac-5c110f6e5e9b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="API\Strings">
-      <UniqueIdentifier>{e56aa628-ce5a-4a16-b43d-542753279801}</UniqueIdentifier>
     </Filter>
     <Filter Include="API\Declarations">
       <UniqueIdentifier>{feb77a55-d65b-4fdc-8b07-b3f500785485}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Core">
       <UniqueIdentifier>{7d357251-032e-4d44-8752-b9dd099ec944}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\Interfaces">
+      <UniqueIdentifier>{d524abdc-cd8e-43a5-9e7e-c1c4e2664043}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\ExtendedTypes">
+      <UniqueIdentifier>{8465f4df-8436-465f-a010-6e3bcc39231f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\Types">
+      <UniqueIdentifier>{2b26b238-b87a-4ee6-85af-25be3af3ff01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\Allocatables">
+      <UniqueIdentifier>{d4550f5d-5937-4534-b3e7-a603272eefd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\Types\Strings">
+      <UniqueIdentifier>{e56aa628-ce5a-4a16-b43d-542753279801}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\Allocatables\Interop">
+      <UniqueIdentifier>{ee1f78cc-6a52-4f2c-b867-03a5853d5f57}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -169,14 +175,8 @@
     <ClInclude Include="CYBWin32Thread.hpp">
       <Filter>Platform\Win32</Filter>
     </ClInclude>
-    <ClInclude Include="Exception.hpp">
-      <Filter>API\Declarations</Filter>
-    </ClInclude>
     <ClInclude Include="CYBVirtualMemory.hpp">
       <Filter>Platform</Filter>
-    </ClInclude>
-    <ClInclude Include="Threadable.hpp">
-      <Filter>API</Filter>
     </ClInclude>
     <ClInclude Include="CYBPosixVirtualMemory.hpp">
       <Filter>Platform\Posix</Filter>
@@ -196,9 +196,6 @@
     <ClInclude Include="CYBSyscalls.hpp">
       <Filter>Platform</Filter>
     </ClInclude>
-    <ClInclude Include="EngineInformation.hpp">
-      <Filter>API\Meta</Filter>
-    </ClInclude>
     <ClInclude Include="Singleton.hpp">
       <Filter>API\Types</Filter>
     </ClInclude>
@@ -210,12 +207,6 @@
     </ClInclude>
     <ClInclude Include="CYBAutoModule.hpp">
       <Filter>Platform\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ParameterPackIndexer.hpp">
-      <Filter>API\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="Typename.hpp">
-      <Filter>API\Types</Filter>
     </ClInclude>
     <ClInclude Include="CYBModuleMacros.hpp">
       <Filter>Platform\Modules</Filter>
@@ -244,20 +235,14 @@
     <ClInclude Include="CYBFile.hpp">
       <Filter>Platform</Filter>
     </ClInclude>
-    <ClInclude Include="Heap.hpp">
-      <Filter>API\Memory</Filter>
-    </ClInclude>
     <ClInclude Include="Strings.hpp">
-      <Filter>API\Strings</Filter>
+      <Filter>API\Types\Strings</Filter>
     </ClInclude>
     <ClInclude Include="StaticString.hpp">
-      <Filter>API\Strings</Filter>
+      <Filter>API\Types\Strings</Filter>
     </ClInclude>
     <ClInclude Include="CStyleString.hpp">
-      <Filter>API\Strings</Filter>
-    </ClInclude>
-    <ClInclude Include="BasicTypes.hpp">
-      <Filter>API\Types</Filter>
+      <Filter>API\Types\Strings</Filter>
     </ClInclude>
     <ClInclude Include="CYBLinuxModule.hpp">
       <Filter>Platform\Linux</Filter>
@@ -298,6 +283,63 @@
     <ClInclude Include="CYBPosixMutex.hpp">
       <Filter>Platform\Posix</Filter>
     </ClInclude>
+    <ClInclude Include="Object.hpp">
+      <Filter>API\Allocatables\Interop</Filter>
+    </ClInclude>
+    <ClInclude Include="Heap.hpp">
+      <Filter>API\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Allocatable.hpp">
+      <Filter>API\Allocatables\Interop</Filter>
+    </ClInclude>
+    <ClInclude Include="Interop.hpp">
+      <Filter>API\Allocatables\Interop</Filter>
+    </ClInclude>
+    <ClInclude Include="Mutex.hpp">
+      <Filter>API\Allocatables</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedTypes.hpp">
+      <Filter>API\ExtendedTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Threadable.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadableTaskset.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="LockGuard.hpp">
+      <Filter>API\ExtendedTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Declarations.hpp">
+      <Filter>API\Declarations</Filter>
+    </ClInclude>
+    <ClInclude Include="Interfaces.hpp">
+      <Filter>API\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineInformation.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Exception.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Typename.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Allocator.hpp">
+      <Filter>API</Filter>
+    </ClInclude>
+    <ClInclude Include="CYBMemory.hpp">
+      <Filter>Engine\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Constructor.hpp">
+      <Filter>API\Allocatables\Interop</Filter>
+    </ClInclude>
+    <ClInclude Include="ParameterPack.hpp">
+      <Filter>API\Types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="CYBAutoModule.inl">
@@ -307,13 +349,10 @@
       <Filter>Platform\Modules</Filter>
     </None>
     <None Include="CStyleString.inl">
-      <Filter>API\Strings</Filter>
+      <Filter>API\Types\Strings</Filter>
     </None>
     <None Include="StaticString.inl">
-      <Filter>API\Strings</Filter>
-    </None>
-    <None Include="Exception.inl">
-      <Filter>API\Declarations</Filter>
+      <Filter>API\Types\Strings</Filter>
     </None>
     <None Include="Expressions.inl">
       <Filter>API\Declarations</Filter>
@@ -325,6 +364,18 @@
       <Filter>API\Declarations</Filter>
     </None>
     <None Include="Singleton.inl">
+      <Filter>API\Types</Filter>
+    </None>
+    <None Include="Object.inl">
+      <Filter>API\Allocatables\Interop</Filter>
+    </None>
+    <None Include="Exception.inl">
+      <Filter>API\Types</Filter>
+    </None>
+    <None Include="Allocator.inl">
+      <Filter>API</Filter>
+    </None>
+    <None Include="ParameterPack.inl">
       <Filter>API\Types</Filter>
     </None>
   </ItemGroup>

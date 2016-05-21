@@ -1,0 +1,154 @@
+/*!
+
+@page conventions Conventions
+@tableofcontents
+@section conv_intro Introduction
+
+CyberEngineMkII follows a strict set of programming conventions to add convienience to it's use
+
+@section va_names Coding Covention
+
+- The entire CyberEngineMkII API is contained within the CYB namespace. It contains no other namespaces.
+- The C++ standard specifies only a public/private default access difference between structs and classes. However, it will always be made explicit in declarations
+- Top level data structures use class, all others use struct
+- Function arguments will always be prefixed with 'A', the rest of the title will either be descriptive of it's use or the type's distinctive name
+- Data structure fields will always be prefixed with 'F', the rest of the title will either be descriptive of it's use or the type's distinctive name
+- const will be used wherever possible
+- ASSERT and HCF should be used to check impossible pre/post conditions
+- HCF will be optimized as unreachable in release builds 
+- ASSERT -ions must not contain code with consequences
+- enum classes should be preferred to regular enums
+- Functions with bodies in headers will be prefixed with inline
+- Internal translation units and headers are prefixed with CYB
+- Data stuctures must specify inheritance access
+- Data structures will be laid out in the following order
+	- Private/Protected/Public
+		- typedefs
+		- Subtypes
+		- Enums
+	- Fields with varying access for manipulation of type size and CPU caching
+		- Extended Types
+		- References
+		- Pointers
+		- Standard types in descending size
+	- Private/Protected/Public
+		- Static functions
+		- Default Constructor
+		- Parameter Constructors (From least to most parameters)
+		- Copy Constructor
+		- Move Constructor
+		- Move Assignment operator
+		- Destructor
+		- Pure virtual members (Alphabetized)
+		- Virtual members (Alphabetized)
+		- Members (Alphabetized)
+- Deleted functions are not documented
+- Strong typing is used wherever possible
+- C++ friending is not used
+- References to types will use the lowest possible namespace/class membership prefix
+- Virtual inheritance is not used
+- std::unqiue_ptrs of types with virtual destructors will be provided to a unit to manage the lifetime of internal objects
+- Prefer STL or other containers instead of raw new[]
+- Use unique_ptrs to own heap objects
+- Use references (If impossible, use standard pointers) to reference objects
+- Only use C++ new/delete operators to acquire/release heap memory
+- One line if/while/for cases shouldn't use curly braces, with the exception of else(if) abmiguity
+- In a switch statement, all enum based cases should be handled or it must contain a default statement
+- Functions with no parameters must contain void in their parameter list
+- Return types that are not references or pointers must never be const
+- Member functions that do not modify object data should be postfixed as const
+- Use CYB::API::Threadable for multithreading
+
+@section structors Default Constructors and Destructor
+
+The default C++ extended constructors apply. The copy constructor will copy an object verbatim. The move constructor and assignment operator will move the object without affecting it's state. The destructor will clean up an object and may perform other operations as specified
+
+@section raii RAII and Strong Guarantee
+
+All unit control paths should be able to shut down correctly in the event an exception unwinds the stack. This usually means flagging down and waiting for threads, running IO functions to save any data, and cleaning up owned objects. They should also provide the C++ strong guarantee, meaning that if an exception is throw, data will remain in a valid state. All engine functions provide both these guarantees.
+
+@section tspec Thread Specification
+
+A function will always note the thread safety of a function or the thread on which a function will run in the case of a callback. The specification types are as follows
+
+@ref tspec_inline
+<BR>@ref tspec_safe
+<BR>@ref tspec_callback
+
+Note that function specific documentation overrides what is written here
+
+@subsection tspec_safe Thread Safety
+
+This specification is for an engine call that uses an interface class' vtable. It designates which threads can call the function, and at what time
+
+Some common language:
+
+- Can be called from any thread at any time
+	- There is no issue in calling from multiple threads at the same time
+- Can be called from any thread at any time, though return order is not guaranteed
+	- There is no issue in calling from multiple threads at the same time. However, CyberEngine uses fast locks to sychronize access and, if there is enough traffic in the function, some threads may wait for a long time before executing
+- Can only be called from the main thread
+	- The main thread is defined as the thread that an Application's Run, DedicatedServer, or Invoke call is made. No other thread can call this function
+- Access per X instance must be synchronized
+	- This particular function can be called at the same time for one instance of the target object
+- All access must be synchronized for each target instance
+	- This puts a function into the synchronized group for a class. No two functions in this group can be called at the same time for one instance of the target object
+- All access must be synchronized
+	- No two threads may call this function at the same time
+
+	
+@subsection tspec_callback Callback Thread
+
+Functions within this group are usually inlines from the headers or implementations of abstract classes. These document exactly which thread the function will be called from within the engine.
+
+An example from CYB::Dispatcher::Process
+
+@code
+This will be called on the thread that owns the Context that owns the Window that owns the Dispatcher
+@endcode
+
+The thread that owns the Context is the thread that had SetupContext called on it for that context. That thread will call this function
+
+@subsection tspec_inline Shared Inline
+
+All functions within this group have their sources available in the CyberEngineMkII headers. A developer can determine the amount of thread safety possible
+
+@section execp Exceptions
+
+There are three types of Exceptions that a Unit can ever see if they follow proper convention
+
+@ref execp_v
+<BR>@ref execp_sd
+<BR>@ref execp_f
+
+The engine is equipped to handle all these exception types
+
+With the exception of CYB::Exceptions::Fatal, all CyberEngineMkII functions should be considered as exception free if they don't list a CYB::Exceptions::SystemData exception in their documentation. More on that later.
+
+@subsection execp_v Violations
+
+CYB::Exceptions::Violation type exceptions are thrown when a unit fails to meet a precondition of an engine call these types of exceptions are the equivalent of an ASSERT -tion failure in the engine. However, aborting the program would not be beneficial to a developer so the error is described in an exception.
+
+These types of exceptions should not be caught. Instead checks should be added within a unit to ensure an exception of this type does not occure in the first place.
+
+@subsection execp_sd SystemData
+
+CYB::Exceptions::SystemData type execeptions are thrown when circumstances beyond the control of the application and prevent developer goals are met. 
+
+Every call to functions which can throw these types of exceptions should assume that at some point in time they will have an exception generated (Yes, even the SQL errors). The unit should rely on the C++ strong guarantee to unwind stacks and catch the exception with proper error handling.
+
+@subsection execp_f Fatal
+
+CYB::Exceptions::Fatal Can only occur in two cases at the time of this writing. If a unit tries to read or write memory it does not have access to or the unit runs out of preallocated memory. The first case is on the developer to prevent.
+
+CyberEngineMkII's memory module currently can only handle a set amount of memory and reuse it throughout execution. This is a limitation that most likely will be removed in a future with the introduction of a soft cap on top of the hard cap. Until then, a unit must allocate how much memory it needs on startup. If this error is thrown the unit must rely on RAII to handle shutdown as this type of exception should <B>NEVER</B> be caught
+
+@section threads Threads
+
+All multithreading should be done through CYB::Threads. These are a wrapper on top of Windows and pthreads and also do some engine registration and exception handling. They will wait for their owned thread to join when their destructor is called and cannot be detached to encourage proper RAII practices.
+
+Threads should be very careful about exception propagation, exceptions that reach the top of a thread's stack will be stored in the thread object. These will then be returned in an exception_ptr from a call to wait. <B>If a thread object contains an active exception when it's destructor is called std::terminate will be called.</B>
+
+The engine also provides a thread pool which is meant for short, <B>exception safe</B> tasks. If any exception reaches the top of a thread pools std::terminate will be called. This does not include exceptions of the type CYB::Exceptions::Fatal::OUT_OF_MEMORY.
+
+*/

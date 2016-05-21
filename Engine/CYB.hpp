@@ -1,4 +1,4 @@
-//! @file Precompiled header for inter-engine operations
+//! @file CYB.hpp Precompiled header for inter-engine operations
 
 #ifndef CYB_BUILDING_TESTS
 #define CYB_BUILDING_ENGINE
@@ -6,8 +6,8 @@
 
 #define EXPLICIT_CYB_API_USAGE
 
-#include "CyberEngine.hpp"
+#include "API/CyberEngine.hpp"
 
-#include "CYBPlatform.hpp"
+#include "Platform/CYBPlatform.hpp"
 
-#include "CYBEngine.hpp"
+#include "Engine/CYBEngine.hpp"

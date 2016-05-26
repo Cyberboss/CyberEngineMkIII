@@ -4,47 +4,29 @@ SCENARIO("VirtualMemory reservations can be made and released", "[Platform][Virt
 	GIVEN("A sane reservation size") {
 		const auto ReservationSize(1000000);
 		WHEN("A reservation is made") {
-			bool Error(false);
 			void* Result(nullptr);
-			try {
-				Result = CYB::Platform::VirtualMemory::Reserve(ReservationSize);
-			}
-			catch (...) {
-				Error = true;
-			}
+			REQUIRE_NOTHROW(Result = CYB::Platform::VirtualMemory::Reserve(ReservationSize));
 			THEN("No errors occur and a valid address is returned") {
 				CHECK(Result != nullptr);
-				CHECK(!Error);
 			}
 		}
 	}
 	GIVEN("An existing reservation of sane size") {
 		void* const Result(CYB::Platform::VirtualMemory::Reserve(1000000));
 		WHEN("The reservation is released") {
-			bool Error(false);
-			try {
-				CYB::Platform::VirtualMemory::Release(Result);
-			}
-			catch (...) {
-				Error = true;
-			}
-			THEN("No errors occur") {
-				CHECK(!Error);
+			REQUIRE_NOTHROW(CYB::Platform::VirtualMemory::Release(Result));
+			THEN("No errors occur and the address is invalid") {
+				REQUIRE_THROWS_AS(CYB::Platform::VirtualMemory::Commit(Result, 100), CYB::Exception::SystemData);
+				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE);
 			}
 		}
 	}
 	GIVEN("A nonsense reservation") {
-		auto Reservation(nullptr);
+		auto const Reservation(nullptr);
 		WHEN("The reservation is released") {
-			bool Error(false);
-			try {
-				CYB::Platform::VirtualMemory::Release(Reservation);
-			}
-			catch (CYB::Exception::SystemData AExcpetion) {
-				Error = AExcpetion.FErrorCode == CYB::Exception::SystemData::MEMORY_RELEASE_FAILURE;
-			}
+			REQUIRE_THROWS_AS(CYB::Platform::VirtualMemory::Release(Reservation), CYB::Exception::SystemData);
 			THEN("The appropriate error occurs") {
-				REQUIRE(Error);
+				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_RELEASE_FAILURE);
 			}
 		}
 	}
@@ -55,33 +37,17 @@ SCENARIO("VirtualMemory reservations handle various sizes", "[Platform][VirtualM
 		unsigned long long ReservationSize;
 		WHEN("The size is insanely small") {
 			ReservationSize = 12;
-			bool Error(false);
-			void* Result(nullptr);
-			try {
-				Result = CYB::Platform::VirtualMemory::Reserve(ReservationSize);
-			}
-			catch (CYB::Exception::SystemData AException) {
-				Error = AException.FErrorCode == CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE;
-			}
+			REQUIRE_THROWS_AS(CYB::Platform::VirtualMemory::Reserve(ReservationSize), CYB::Exception::SystemData);
 			THEN("The apporpriate error is thrown") {
-				CHECK(Error);
-				CHECK(Result == nullptr);
+				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE);
 			}
 		}
-#ifndef TARGET_OS_LINUX
+#ifndef TARGET_OS_LINUX	//OVERCOMMIIITTTTT!!!!
 		WHEN("The size is insanely large") {
 			ReservationSize = std::numeric_limits<unsigned long long>().max();
-			bool Error(false);
-			void* Result(nullptr);
-			try {
-				Result = CYB::Platform::VirtualMemory::Reserve(ReservationSize);
-			}
-			catch (CYB::Exception::SystemData AException) {
-				Error = AException.FErrorCode == CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE;
-			}
+			REQUIRE_THROWS_AS(CYB::Platform::VirtualMemory::Reserve(ReservationSize), CYB::Exception::SystemData);
 			THEN("The apporpriate error is thrown") {
-				CHECK(Error);
-				CHECK(Result == nullptr);
+				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE);
 			}
 		}
 #endif
@@ -90,78 +56,45 @@ SCENARIO("VirtualMemory reservations handle various sizes", "[Platform][VirtualM
 SCENARIO("VirtualMemory commits work as intended", "[Platform][VirtualMemory][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::ModuleDefinitions::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	GIVEN("A standard reservation") {
-		auto Reservation(CYB::Platform::VirtualMemory::Reserve(1000000));
+		auto const Reservation(CYB::Platform::VirtualMemory::Reserve(1000000));
 		unsigned long long CommitSize;
 		WHEN("The size is normal") {
 			CommitSize = 4096;
-			bool Error(false);
-			try {
-				CYB::Platform::VirtualMemory::Commit(Reservation, CommitSize);
-			}
-			catch (...) {
-				Error = true;
-			}
-			THEN("The commit works as normal") {
-				REQUIRE(!Error);
+			REQUIRE_NOTHROW(CYB::Platform::VirtualMemory::Commit(Reservation, CommitSize));
+			THEN("The commit works as normal and the memory is usable") {
+				CHECK_NOTHROW(*static_cast<int*>(Reservation) = 10);
 			}
 		}
-		WHEN("The size is insanely small") {
+		WHEN("The size is insanely small after a regular commit") {
+			REQUIRE_NOTHROW(CYB::Platform::VirtualMemory::Commit(Reservation, 100));
 			CommitSize = 1;
-			bool Error(false);
-			try {
-				CYB::Platform::VirtualMemory::Commit(Reservation, CommitSize);
-			}
-			catch (...) {
-				Error = true;
-			}
-			THEN("The commit works as normal, but nothing changes") {
-				REQUIRE(!Error);
-			}
+			REQUIRE_NOTHROW(CYB::Platform::VirtualMemory::Commit(Reservation, CommitSize));
+			THEN("The commit works as normal, but nothing changes") {}
 		}
 		WHEN("The size is larger than the reservation") {
 			CommitSize = 2000000;
-			bool Error(false);
-			try {
-				CYB::Platform::VirtualMemory::Commit(Reservation, CommitSize);
-			}
-			catch (CYB::Exception::SystemData AException) {
-				Error = AException.FErrorCode == CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE;
-			}
 			THEN("The commit fails") {
-				REQUIRE(Error);
+				REQUIRE_THROWS_AS(CYB::Platform::VirtualMemory::Commit(Reservation, CommitSize), CYB::Exception::SystemData);
+				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE);
 			}
 		}
 		CYB::Platform::VirtualMemory::Release(Reservation);
 	}
 	GIVEN("A standard reservation and commit") {
-		auto Reservation(CYB::Platform::VirtualMemory::Reserve(1000000));
+		auto const Reservation(CYB::Platform::VirtualMemory::Reserve(1000000));
 		CYB::Platform::VirtualMemory::Commit(Reservation, 500000);
 		WHEN("A smaller commit is made") {
-			bool Error(false);
-			try {
-				CYB::Platform::VirtualMemory::Commit(Reservation, 1000);
-			}
-			catch (...) {
-				Error = true;
-			}
-			THEN("No changes are made but the function succeeds") {
-				REQUIRE(!Error);
-			}
+			REQUIRE_NOTHROW(CYB::Platform::VirtualMemory::Commit(Reservation, 1000));
+			THEN("No changes are made but the function succeeds") {}
 		}
 		CYB::Platform::VirtualMemory::Release(Reservation);
 	}
 	GIVEN("A nonsense reservation") {
-		auto Reservation(nullptr);
+		auto const Reservation(nullptr);
 		WHEN("A commit is attempted"){
-			bool Error(false);
-			try {
-				CYB::Platform::VirtualMemory::Commit(Reservation, 500000);
-			}
-			catch (CYB::Exception::SystemData AExcpetion) {
-				Error = AExcpetion.FErrorCode == CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE;
-			}
+			REQUIRE_THROWS_AS(CYB::Platform::VirtualMemory::Commit(Reservation, 500000), CYB::Exception::SystemData);
 			THEN("The appropriate error occurs") {
-				REQUIRE(Error);
+				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE);
 			}
 		}
 	}
@@ -173,40 +106,18 @@ SCENARIO("VirtualMemory reservation protection levels can be changed", "[Platfor
 		CYB::Platform::VirtualMemory::Commit(Reservation, 500000);
 		*Reservation = 1234;
 		WHEN("The access level is set to NONE") {
-			bool Error(false);
-			try {
-				CYB::Platform::VirtualMemory::Access(Reservation, CYB::Platform::VirtualMemory::AccessLevel::NONE);
-			}
-			catch (...) {
-				Error = true;
-			}
-			THEN("No errors occur and pages cannot be used") {
-				REQUIRE(!Error);
-			}
+			REQUIRE_NOTHROW(CYB::Platform::VirtualMemory::Access(Reservation, CYB::Platform::VirtualMemory::AccessLevel::NONE));
+			THEN("No errors occur and pages cannot be used") {}
 		}
 		WHEN("The access level is set to READ") {
-			bool Error(false);
-			try {
-				CYB::Platform::VirtualMemory::Access(Reservation, CYB::Platform::VirtualMemory::AccessLevel::READ);
-			}
-			catch (...) {
-				Error = true;
-			}
+			REQUIRE_NOTHROW(CYB::Platform::VirtualMemory::Access(Reservation, CYB::Platform::VirtualMemory::AccessLevel::READ));
 			THEN("No errors occur and pages can be read") {
-				CHECK(!Error);
 				CHECK(*Reservation == 1234U);
 			}
 		}
 		WHEN("The access level is set to READ_WRITE") {
-			bool Error(false);
-			try {
-				CYB::Platform::VirtualMemory::Access(Reservation, CYB::Platform::VirtualMemory::AccessLevel::READ_WRITE);
-			}
-			catch (...) {
-				Error = true;
-			}
+			REQUIRE_NOTHROW(CYB::Platform::VirtualMemory::Access(Reservation, CYB::Platform::VirtualMemory::AccessLevel::READ_WRITE));
 			THEN("No errors occur and pages can be read and written") {
-				CHECK(!Error);
 				CHECK(*Reservation == 1234U);
 				*Reservation = 5678;
 			}

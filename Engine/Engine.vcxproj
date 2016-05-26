@@ -114,15 +114,7 @@
     <ClCompile Include="Engine\Memory\CYBLargeBlock.cpp" />
     <ClCompile Include="Platform\CYBProcess.cpp" />
     <ClCompile Include="Platform\CYBThread.cpp" />
-    <ClCompile Include="Platform\Linux\CYBLinuxThread.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Platform\Modules\CYBModule.cpp" />
-    <ClCompile Include="Platform\OSX\CYBOSXThread.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Platform\Posix\CYBPosixModule.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>

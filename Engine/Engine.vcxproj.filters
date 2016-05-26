@@ -47,12 +47,6 @@
     <ClCompile Include="Platform\Posix\CYBPosixVirtualMemory.cpp">
       <Filter>Platform\Posix</Filter>
     </ClCompile>
-    <ClCompile Include="Platform\OSX\CYBOSXThread.cpp">
-      <Filter>Platform\OSX</Filter>
-    </ClCompile>
-    <ClCompile Include="Platform\Linux\CYBLinuxThread.cpp">
-      <Filter>Platform\Linux</Filter>
-    </ClCompile>
     <ClCompile Include="Platform\Modules\CYBModule.cpp">
       <Filter>Platform\Modules</Filter>
     </ClCompile>

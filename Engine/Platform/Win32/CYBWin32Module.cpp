@@ -1,6 +1,7 @@
 #include "CYB.hpp"
 
 CYB::Platform::Implementation::Module::Module(const CYB::API::String::CStyle& AModuleName) :
+	//No FK32 because this can be called without Core
 	FModule(Win32::LoadLibraryA(AModuleName.CString()))
 {
 	if (FModule == nullptr)
@@ -8,6 +9,7 @@ CYB::Platform::Implementation::Module::Module(const CYB::API::String::CStyle& AM
 }
 CYB::Platform::Implementation::Module::~Module() {
 	if (FModule != nullptr)
+		//No FK32 because this can be called without Core
 		Win32::FreeLibrary(FModule);
 }
 

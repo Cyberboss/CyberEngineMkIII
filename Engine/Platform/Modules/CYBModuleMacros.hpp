@@ -51,7 +51,7 @@
 #define STATIC_STRINGIFY(X) API::String::Static(STRINGIFY(X))
 #define DECLTYPE_EXPAND(APlatform, X) decltype(CYB::Platform::Implementation::APlatform::X)
 
-#define DEFINE_MODULE(AModuleName, APlatform, AOptionalFunctions, ...)\
+#define DEFINE_MODULE(AModuleName, ADiskName, APlatform, AOptionalFunctions, ...)\
 namespace CYB {\
 	namespace Platform {\
 		namespace ModuleDefinitions {\
@@ -63,7 +63,7 @@ namespace CYB {\
 	};\
 };\
 template <> constexpr const char* CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::ModuleName(void){\
-	return STRINGIFY(AModuleName); \
+	return ADiskName; \
 }\
 template <> inline const CYB::API::String::Static* CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::FunctionNames(void){\
 	static const CYB::API::String::Static Names[NARGS(__VA_ARGS__)]{ APPLY(STATIC_STRINGIFY,__VA_ARGS__) };\

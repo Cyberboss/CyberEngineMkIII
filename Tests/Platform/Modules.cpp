@@ -80,14 +80,7 @@ SCENARIO("Functions can be loaded from modules", "[Platform][Modules][Functional
 	}
 }
 
-#ifndef TARGET_OS_WINDOWS
-DEFINE_MODULE(dl, Posix, false, dlopen, dlclose, dlsym)
-#endif
-
 TEST_CASE("AutoModules work as intended", "[Platform][Modules][Functional]") {
-#ifdef TARGET_OS_WINDOWS
 	REQUIRE_NOTHROW(CYB::Platform::ModuleDefinitions::AMKernel32());
-#else
-	REQUIRE_NOTHROW(CYB::Platform::ModuleDefinitions::AMdl());
-#endif
+	REQUIRE_NOTHROW(CYB::Platform::ModuleDefinitions::AMPThread());
 }

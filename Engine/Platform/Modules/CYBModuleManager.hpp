@@ -6,8 +6,13 @@ namespace CYB {
 		class ModuleManager {
 		public:
 			//Windows
-			ModuleDefinitions::AMKERNEL32 FK32;	//!< @brief Kernel32.dll Win7
-			ModuleDefinitions::AMKernel32 FK32Extended;	//!< @brief Kernel32.dll Win8.1+, Optional
+			ModuleDefinitions::AMKernel32 FK32;	//!< @brief Kernel32.dll Win7
+			ModuleDefinitions::AMKernel32Extended FK32Extended;	//!< @brief Kernel32.dll Win8.1+, Optional
+
+			//Posix
+			ModuleDefinitions::AMC FC;
+			ModuleDefinitions::AMRT FRT;
+			ModuleDefinitions::AMPThread FPThread;
 		};
 	};
 };

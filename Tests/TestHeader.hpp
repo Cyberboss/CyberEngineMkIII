@@ -10,6 +10,8 @@
 #endif
 #include "../Engine/CYB.hpp"
 
+#include "ModuleDependancy.hpp"
+
 namespace CYB {
 	namespace Exception {
 		extern thread_local unsigned int FLastInstantiatedExceptionCode;

@@ -1,10 +1,16 @@
 cmake_minimum_required (VERSION 3.4.3)
 
+include_directories(${CYB_BASE_DIR}/Tests)
+
 add_executable(CyberEngineMkIIITester
+
 PosixMain.cpp
-VirtualMemory.cpp
-Modules.cpp
-Threads.cpp
+FakeCore.cpp
+
+Platform/VirtualMemory.cpp
+Platform/Modules.cpp
+Platform/Threads.cpp
+
 )
 
 set_property(TARGET CyberEngineMkIIITester PROPERTY CXX_STANDARD 14)

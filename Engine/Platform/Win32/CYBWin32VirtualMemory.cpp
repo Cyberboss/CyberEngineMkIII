@@ -12,7 +12,7 @@ void* CYB::Platform::Implementation::VirtualMemory::PageAlignedUpperBound(void* 
 
 void* CYB::Platform::VirtualMemory::Reserve(const unsigned long long ANumBytes) {
 	if (ANumBytes >= 1024) {
-		void* const Result(Core().FModuleManager.FK32.Call<ModuleDefinitions::KERNEL32::VirtualAlloc>(nullptr, ANumBytes, Implementation::Win32::DWORD(MEM_RESERVE), Implementation::Win32::DWORD(MEM_RESERVE)));
+		void* const Result(Core().FModuleManager.FK32.Call<ModuleDefinitions::KERNEL32::VirtualAlloc>(nullptr, ANumBytes, Implementation::Win32::DWORD(MEM_RESERVE), Implementation::Win32::DWORD(PAGE_NOACCESS)));
 		if (Result != nullptr)
 			return Result;
 	}

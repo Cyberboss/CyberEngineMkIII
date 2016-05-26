@@ -13,6 +13,16 @@ namespace CYB {
 			void* FFunctionPointers[AN];	//!< @brief Pointers to loaded functions
 		private:
 			/*!
+				@brief Shared constructor implementation
+				@param AReplacedFunctions Function pointers to be used in place of the regular module functions. If any are nullptr, they will instead be loaded from the module as normal
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					CYB::Exception::SystemData::MODULE_LOAD_FAILURE if the module is unable to be loaded<BR>
+					CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
+			*/
+			void Construct(void* const (&AReplacedFunctions)[AN]);
+			/*!
 				@brief Get the library name for this auto module. Must be implemented
 				@return The names of the Module associated with this AutoModule
 			*/
@@ -41,8 +51,18 @@ namespace CYB {
 					CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
 			*/
 			AutoModule();
-			AutoModule(AutoModule&& AMove);
-			AutoModule& operator=(AutoModule&& AMove);
+			/*!
+				@brief Construct an AutoModule with specific function pointers. Still loads the owned module
+				@param AReplacedFunctions Function pointers to be used in place of the regular module functions. If any are nullptr, they will instead be loaded from the module as normal
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					CYB::Exception::SystemData::MODULE_LOAD_FAILURE if the module is unable to be loaded<BR>
+					CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
+			*/
+			AutoModule(void* const (&AReplacedFunctions)[AN]);
+			AutoModule(AutoModule&& AMove);	//!< @brief See @ref structors
+			AutoModule& operator=(AutoModule&& AMove);	//!< @brief See @ref structors
 
 			/*!
 				@brief Check if a function is loaded

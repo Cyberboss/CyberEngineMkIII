@@ -4,10 +4,21 @@
 template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::AutoModule<AN, AFunctionTypes...>::AutoModule() :
 	FLibrary(API::String::Static(ModuleName()))
 {
+	void* NoReplacedFunctions[AN];
+	for (unsigned int I(0); I < AN; ++I)
+		NoReplacedFunctions[I] = nullptr;
+	Construct(NoReplacedFunctions);
+}
+template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::AutoModule<AN, AFunctionTypes...>::AutoModule(void* const (&AReplacedFunctions)[AN]) :
+	FLibrary(API::String::Static(ModuleName()))
+{
+	Construct(AReplacedFunctions);
+}
+template <unsigned int AN, typename... AFunctionTypes> void CYB::Platform::AutoModule<AN, AFunctionTypes...>::Construct(void* const (&AReplacedFunctions)[AN]) {
 	auto Names(FunctionNames());
 	for (unsigned int I(0); I < AN; ++I) {
 		try {
-			FFunctionPointers[I] = FLibrary.LoadFunction(Names[I]);
+			FFunctionPointers[I] = AReplacedFunctions[I] != nullptr ? AReplacedFunctions[I] : FLibrary.LoadFunction(Names[I]);
 		}
 		catch (Exception::SystemData AException) {
 			if (OptionalFunctions() && AException.FErrorCode == Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE)

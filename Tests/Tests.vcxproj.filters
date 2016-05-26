@@ -2,20 +2,22 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="TestHeader.cpp" />
-    <ClCompile Include="VirtualMemory.cpp">
+    <ClCompile Include="Platform\Modules.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
-    <ClCompile Include="Modules.cpp">
+    <ClCompile Include="Platform\Threads.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
-    <ClCompile Include="Threads.cpp">
+    <ClCompile Include="Platform\VirtualMemory.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
     <ClCompile Include="Win32Main.cpp" />
     <ClCompile Include="PosixMain.cpp" />
+    <ClCompile Include="FakeCore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />
+    <ClInclude Include="ModuleDependancy.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
@@ -24,5 +26,8 @@
     <Filter Include="Platform">
       <UniqueIdentifier>{908278e1-4fc0-4a66-a6d2-c0f6b7060186}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ModuleDependancy.inl" />
   </ItemGroup>
 </Project>

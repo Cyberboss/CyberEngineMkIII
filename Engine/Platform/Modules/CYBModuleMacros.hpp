@@ -72,4 +72,13 @@ template <> inline const CYB::API::String::Static* CYB::Platform::AutoModule<NAR
 template <> constexpr bool CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::OptionalFunctions(void) {\
 	return AOptionalFunctions;\
 }
+
+#define DEFINE_DUMMY_MODULE(AModuleName)\
+namespace CYB {\
+	namespace Platform {\
+		namespace ModuleDefinitions {\
+			typedef AMFake AM##AModuleName;\
+		};\
+	};\
+};
 //! @endcond

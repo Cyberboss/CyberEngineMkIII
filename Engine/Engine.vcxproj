@@ -205,7 +205,6 @@
     <ClInclude Include="Platform\CYBVirtualMemory.hpp" />
     <ClInclude Include="Platform\Linux\CYBLinuxImplementation.hpp" />
     <ClInclude Include="Platform\Linux\CYBLinuxModule.inl" />
-    <ClInclude Include="Platform\Linux\CYBLinuxRequiredModules.hpp" />
     <ClInclude Include="Platform\Linux\CYBLinuxSyscalls.hpp" />
     <ClInclude Include="Platform\Modules\CYBAutoModule.hpp" />
     <ClInclude Include="Platform\Modules\CYBModule.hpp" />
@@ -214,20 +213,17 @@
     <ClInclude Include="Platform\Modules\CYBModules.hpp" />
     <ClInclude Include="Platform\OSX\CYBOSXImplementation.hpp" />
     <ClInclude Include="Platform\OSX\CYBOSXModule.inl" />
-    <ClInclude Include="Platform\OSX\CYBOSXRequiredModules.hpp" />
     <ClInclude Include="Platform\OSX\CYBOSXSyscalls.hpp" />
     <ClInclude Include="Platform\Posix\CYBPosixImplementation.hpp" />
     <ClInclude Include="Platform\Posix\CYBPosixModule.hpp" />
     <ClInclude Include="Platform\Posix\CYBPosixMutex.hpp" />
     <ClInclude Include="Platform\Posix\CYBPosixProcess.hpp" />
-    <ClInclude Include="Platform\Posix\CYBPosixRequiredModules.hpp" />
     <ClInclude Include="Platform\Posix\CYBPosixThread.hpp" />
     <ClInclude Include="Platform\Posix\CYBPosixVirtualMemory.hpp" />
     <ClInclude Include="Platform\Win32\CYBWin32Implementation.hpp" />
     <ClInclude Include="Platform\Win32\CYBWin32Module.hpp" />
     <ClInclude Include="Platform\Win32\CYBWin32Mutex.hpp" />
     <ClInclude Include="Platform\Win32\CYBWin32Process.hpp" />
-    <ClInclude Include="Platform\Win32\CYBWin32RequiredModules.hpp" />
     <ClInclude Include="Platform\Win32\CYBWin32Syscalls.hpp" />
     <ClInclude Include="Platform\Win32\CYBWin32Thread.hpp" />
     <ClInclude Include="Platform\Win32\CYBWin32VirtualMemory.hpp" />
@@ -236,6 +232,7 @@
     <None Include="API\Declarations\Assert.inl" />
     <None Include="API\Declarations\Endianess.inl" />
     <None Include="API\Declarations\Expressions.inl" />
+    <None Include="API\Declarations\OSDeclaration.inl" />
     <None Include="API\Interop\Allocator.inl" />
     <None Include="API\Interop\Interop.inl" />
     <None Include="API\Interop\Object.inl" />

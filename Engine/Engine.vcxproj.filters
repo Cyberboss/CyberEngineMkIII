@@ -160,9 +160,6 @@
     <ClInclude Include="Platform\Win32\CYBWin32Mutex.hpp">
       <Filter>Platform\Win32</Filter>
     </ClInclude>
-    <ClInclude Include="Platform\Win32\CYBWin32RequiredModules.hpp">
-      <Filter>Platform\Win32</Filter>
-    </ClInclude>
     <ClInclude Include="Platform\Win32\CYBWin32Syscalls.hpp">
       <Filter>Platform\Win32</Filter>
     </ClInclude>
@@ -187,9 +184,6 @@
     <ClInclude Include="Platform\Posix\CYBPosixProcess.hpp">
       <Filter>Platform\Posix</Filter>
     </ClInclude>
-    <ClInclude Include="Platform\Posix\CYBPosixRequiredModules.hpp">
-      <Filter>Platform\Posix</Filter>
-    </ClInclude>
     <ClInclude Include="Platform\Posix\CYBPosixThread.hpp">
       <Filter>Platform\Posix</Filter>
     </ClInclude>
@@ -199,16 +193,10 @@
     <ClInclude Include="Platform\OSX\CYBOSXImplementation.hpp">
       <Filter>Platform\OSX</Filter>
     </ClInclude>
-    <ClInclude Include="Platform\OSX\CYBOSXRequiredModules.hpp">
-      <Filter>Platform\OSX</Filter>
-    </ClInclude>
     <ClInclude Include="Platform\OSX\CYBOSXSyscalls.hpp">
       <Filter>Platform\OSX</Filter>
     </ClInclude>
     <ClInclude Include="Platform\Linux\CYBLinuxImplementation.hpp">
-      <Filter>Platform\Linux</Filter>
-    </ClInclude>
-    <ClInclude Include="Platform\Linux\CYBLinuxRequiredModules.hpp">
       <Filter>Platform\Linux</Filter>
     </ClInclude>
     <ClInclude Include="Platform\Linux\CYBLinuxSyscalls.hpp">
@@ -340,11 +328,11 @@
     <ClInclude Include="API\Allocatables\Allocatables.hpp">
       <Filter>API\Allocatables</Filter>
     </ClInclude>
-    <ClInclude Include="Platform\Linux\CYBLinuxModule.inl">
-      <Filter>Platform\Linux</Filter>
-    </ClInclude>
     <ClInclude Include="Platform\OSX\CYBOSXModule.inl">
       <Filter>Platform\OSX</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Linux\CYBLinuxModule.inl">
+      <Filter>Platform\Linux</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -410,6 +398,9 @@
     </None>
     <None Include="API\Interop\Interop.inl">
       <Filter>API\Interop</Filter>
+    </None>
+    <None Include="API\Declarations\OSDeclaration.inl">
+      <Filter>API\Declarations</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

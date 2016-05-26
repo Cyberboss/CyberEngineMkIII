@@ -322,12 +322,6 @@
     <ClInclude Include="API\Allocatables\Allocatables.hpp">
       <Filter>API\Allocatables</Filter>
     </ClInclude>
-    <ClInclude Include="Platform\OSX\CYBOSXModule.inl">
-      <Filter>Platform\OSX</Filter>
-    </ClInclude>
-    <ClInclude Include="Platform\Linux\CYBLinuxModule.inl">
-      <Filter>Platform\Linux</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DoxyPages\Contexts.dox">

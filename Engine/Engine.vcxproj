@@ -196,7 +196,6 @@
     <ClInclude Include="Platform\CYBThread.hpp" />
     <ClInclude Include="Platform\CYBVirtualMemory.hpp" />
     <ClInclude Include="Platform\Linux\CYBLinuxImplementation.hpp" />
-    <ClInclude Include="Platform\Linux\CYBLinuxModule.inl" />
     <ClInclude Include="Platform\Linux\CYBLinuxSyscalls.hpp" />
     <ClInclude Include="Platform\Modules\CYBAutoModule.hpp" />
     <ClInclude Include="Platform\Modules\CYBModule.hpp" />
@@ -204,7 +203,6 @@
     <ClInclude Include="Platform\Modules\CYBModuleManager.hpp" />
     <ClInclude Include="Platform\Modules\CYBModules.hpp" />
     <ClInclude Include="Platform\OSX\CYBOSXImplementation.hpp" />
-    <ClInclude Include="Platform\OSX\CYBOSXModule.inl" />
     <ClInclude Include="Platform\OSX\CYBOSXSyscalls.hpp" />
     <ClInclude Include="Platform\Posix\CYBPosixImplementation.hpp" />
     <ClInclude Include="Platform\Posix\CYBPosixModule.hpp" />

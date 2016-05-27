@@ -8,6 +8,11 @@
 #error CyberEngineMkII must be compiled on an amd64 architecture CPU
 #endif
 
+#ifdef FAKE_POSIX
+#define __x86_64__
+#define __LP64__
+#endif
+
 #include <cstddef>
 
 static_assert(

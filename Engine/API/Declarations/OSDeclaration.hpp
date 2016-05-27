@@ -6,17 +6,18 @@
 #define DEBUG
 #endif
 
+//#define FAKE_POSIX	
 #define TARGET_OS_WINDOWS //!< @brief Designates a Windows NT based operating system
 #define TARGET_OS_MAC	//!< @brief Designates an OSX based operating system
 #define TARGET_OS_LINUX //!< @brief Designates a Unix based operating system
 
-#ifndef _WIN32
+#if !defined(_WIN32) || defined(FAKE_POSIX)
 #undef TARGET_OS_WINDOWS
 #endif
 #ifndef __APPLE__
 #undef TARGET_OS_MAC
 #endif
-#ifndef __linux__
+#if !defined(__linux__) && !defined(FAKE_POSIX)
 #undef TARGET_OS_LINUX
 #endif
 

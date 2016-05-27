@@ -1,7 +1,5 @@
 #include "CYB.hpp"
 
-extern void exit(int AExitCode);
-
 void CYB::Platform::Process::Terminate(void) {
 	if (FPID == Implementation::Posix::getpid())
 		Sys::Call(Sys::EXIT, 0);

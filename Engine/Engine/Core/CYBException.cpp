@@ -40,8 +40,6 @@ CYB::Exception::SystemData::SystemData(const ErrorCode AErrorCode) :
 }
 CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode AErrorCode) {
 	switch (AErrorCode) {
-	case ErrorCode::HEAP_CORRUPTION:
-		return API::String::Static(u8"The blocks of the heap have been corrupted sometime between now and the last usage of the heap. The heap is now unusable.");
 	default:
 		CYB::API::HCF();
 	}

@@ -10,7 +10,7 @@ namespace CYB {
 			ModuleDefinitions::AMKernel32Extended FK32Extended;	//!< @brief Kernel32.dll Win8.1+, Optional
 
 			//Posix
-			ModuleDefinitions::AMC FC;
+			ModuleDefinitions::AMLibC FC;
 			ModuleDefinitions::AMRT FRT;
 			ModuleDefinitions::AMPThread FPThread;
 		};

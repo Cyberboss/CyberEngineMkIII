@@ -5,7 +5,7 @@ extern void exit(int AExitCode);
 void CYB::Platform::Process::Terminate(void) {
 	if (FPID == Implementation::Posix::getpid())
 		Sys::Call(Sys::EXIT, 0);
-	Implementation::Posix::kill(FPID, SIGKILL);
+	Core().FModuleManager.FC.Call<ModuleDefinitions::LibC::kill>(FPID, SIGKILL);
 }
 
 CYB::Platform::Process CYB::Platform::Process::GetSelf(void) {

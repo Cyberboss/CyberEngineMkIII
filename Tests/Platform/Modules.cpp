@@ -4,7 +4,7 @@ static const CYB::API::String::Static ExistingLibrary(
 #ifdef TARGET_OS_WINDOWS
 	u8"Kernel32"
 #else
-	u8"dl"
+	LIBDL_SO
 #endif
 );
 static const CYB::API::String::Static ExistingLibraryFunctions[2]{

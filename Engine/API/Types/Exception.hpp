@@ -36,6 +36,7 @@ namespace CYB {
 		public:
 			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
+				INVALID_HEAP_BLOCK,	//!< @brief A memory block used by the Heap failed to validate
 			};
 		private:
 			/*!

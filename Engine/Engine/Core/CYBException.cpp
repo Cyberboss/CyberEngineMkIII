@@ -5,7 +5,21 @@ namespace CYB {
 	namespace Exception {
 		//! @brief Used to better verify tests, should be optimized out by the linker. See: http://stackoverflow.com/questions/1229430/how-do-i-prevent-my-unused-global-variables-being-compiled-out
 		thread_local unsigned int FLastInstantiatedExceptionCode;
+	};
+};
+
+CYB::API::String::Static CYB::Exception::Violation::ErrorMessage(const ErrorCode AErrorCode) {
+	switch (AErrorCode)	{
+	case INVALID_HEAP_BLOCK:
+		return API::String::Static(u8"A Block failed to validate during a Heap operation");
+	default:
+		API::HCF();
 	}
+}
+CYB::Exception::Violation::Violation(const ErrorCode AErrorCode) :
+	Base(ErrorMessage(AErrorCode), AErrorCode, Level::VIOLATION)
+{
+	FLastInstantiatedExceptionCode = AErrorCode;
 }
 
 CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCode AErrorCode) {
@@ -29,7 +43,7 @@ CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCod
 	case THREAD_CREATION_FAILURE:
 		return API::String::Static(u8"OS failed to create requested thread.");
 	default:
-		CYB::API::HCF();
+		API::HCF();
 	}
 }
 
@@ -40,7 +54,7 @@ CYB::Exception::SystemData::SystemData(const ErrorCode AErrorCode) :
 }
 CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode AErrorCode) {
 	static_cast<void>(AErrorCode);
-	CYB::API::HCF();
+	API::HCF();
 }
 
 CYB::Exception::Internal::Internal(const ErrorCode AErrorCode) :

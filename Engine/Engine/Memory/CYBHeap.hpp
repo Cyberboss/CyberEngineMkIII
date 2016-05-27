@@ -53,7 +53,8 @@ namespace CYB {
 				@par Thread Safety
 					This function requires that FMutex is locked
 				@par Exception Safety
-					CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the memory could not be committed
+					CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
+					<BR>CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the memory could not be committed
 			*/
 			Block& ReallocImpl(Block& ABlock, const int ANumBytes);
 			/*!
@@ -62,7 +63,7 @@ namespace CYB {
 				@par Thread Safety
 					This function requires that FMutex is locked
 				@par Exception Safety
-					This function does not throw exceptions
+					CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
 			*/
 			void FreeImpl(Block& ABlock);
 		public:

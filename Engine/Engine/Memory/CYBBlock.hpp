@@ -125,6 +125,15 @@ namespace CYB {
 					This function does not throw exceptions
 			*/
 			bool IsLargeBlock(void) const;
+
+			/*!
+				@brief Checks the validity of a Block. Has no effect outside of DEBUG mode
+				@par Thread Safety
+					This function requires that the object is not modified during this function
+				@par Exception Safety
+					CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
+			*/
+			void Validate(void) const;
 		};
 	};
 };

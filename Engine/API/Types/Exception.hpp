@@ -15,7 +15,6 @@ namespace CYB {
 				FATAL,	//!< Fatal error
 			};
 		public:
-			//! @todo Make the error message allocated
 			API::String::Static FMessage;	//!< @brief An english description of the error
 			const unsigned int FErrorCode;	//!< @brief The assigned error code
 			const Level FLevel;	//!< @brief The type of the exception
@@ -32,15 +31,42 @@ namespace CYB {
 			*/
 			Base(API::String::Static&& AMessage, const unsigned int AErrorCode, const Level ALevel);
 		};
+		//! @brief Exceptions indicating an API contract violation. Should not be anticipated
 		class Violation : public Base {
 		public:
+			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
 			};
+		private:
+			/*!
+				@brief Get the associated message for an exception
+				@param AErrorCode The ErrorCode describing the exception
+				@return A description of the exception indicated by @p AErrorCode
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+				@par Note
+					This function is for internal use only
+			*/
+			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
+			/*!
+				@brief Construct a Violation exception
+				@param AErrorCode The ErrorCode describing the exception
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+				@par Note
+					This function is for internal use only
+			*/
 			Violation(const ErrorCode AErrorCode);
 		};
+		//! @brief Exceptions caused by external call failures or invalid external data
 		class SystemData : public Base{
 		public:
+			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
 				MEMORY_COMMITAL_FAILURE, //!< @brief Memory could not be commited from a reservation
 				MEMORY_PROTECT_FAILURE, //!< @brief Memory protection could not be set
@@ -53,25 +79,93 @@ namespace CYB {
 				THREAD_CREATION_FAILURE, //!< @brief Thread could not be created
 			};
 		private:
+			/*!
+				@brief Get the associated message for an exception
+				@param AErrorCode The ErrorCode describing the exception
+				@return A description of the exception indicated by @p AErrorCode
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+				@par Note
+					This function is for internal use only
+			*/
 			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
+			/*!
+				@brief Construct a SystemData exception
+				@param AErrorCode The ErrorCode describing the exception
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+				@par Note
+					This function is for internal use only
+			*/
 			SystemData(const ErrorCode AErrorCode);
 		};
+		//! @brief Exceptions that are thrown internally in the engine that the unit will never see
 		class Internal : public Base {
 		public:
+			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
-				HEAP_CORRUPTION,
 			};
 		private:
+			/*!
+				@brief Get the associated message for an exception
+				@param AErrorCode The ErrorCode describing the exception
+				@return A description of the exception indicated by @p AErrorCode
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+				@par Note
+					This function is for internal use only
+			*/
 			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
+			/*!
+				@brief Construct an Internal exception
+				@param AErrorCode The ErrorCode describing the exception
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+				@par Note
+					This function is for internal use only
+			*/
 			Internal(const ErrorCode AErrorCode);
 		};
+		//! @brief Exceptions that compromise the stability of the engine and it must be promptly shutdown
 		class Fatal : public Base {
 		public:
+			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
 			};
+		private:
+			/*!
+				@brief Get the associated message for an exception
+				@param AErrorCode The ErrorCode describing the exception
+				@return A description of the exception indicated by @p AErrorCode
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+				@par Note
+					This function is for internal use only
+			*/
+			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
+			/*!
+				@brief Construct a Fatal exception
+				@param AErrorCode The ErrorCode describing the exception
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+				@par Note
+					This function is for internal use only
+			*/
 			Fatal(const ErrorCode AErrorCode);
 		};
 	};

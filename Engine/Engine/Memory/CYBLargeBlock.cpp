@@ -27,18 +27,15 @@ CYB::Engine::LargeBlock::LargeBlock(const unsigned long long ASpaceAvailable, La
 	FMagicFooter(MAGIC_FOOTER)
 {}
 
-CYB::Engine::Block* CYB::Engine::LargeBlock::AllocateBlock(LargeBlock*& ALargeBlock, const int ANewBlockSize) {
+CYB::Engine::Block& CYB::Engine::LargeBlock::AllocateBlock(LargeBlock*& ALargeBlock, const int ANewBlockSize) {
 	const auto SizeWithBlock(ANewBlockSize + sizeof(Block));
 	const auto OriginalSize(ALargeBlock->FRemainingSize);
-	if (OriginalSize > SizeWithBlock) {
-		ALargeBlock->SetSize(ANewBlockSize);
-		ALargeBlock->SetFree(false);
-		Block* NewBlock(ALargeBlock);
-		ALargeBlock = new (ALargeBlock->GetData()) LargeBlock(OriginalSize - SizeWithBlock, ALargeBlock->FLargeBlockToTheRight);
-		return NewBlock;
-	}
-	else
-		return nullptr;
+	API::Assert(OriginalSize > SizeWithBlock);
+	ALargeBlock->SetSize(ANewBlockSize);
+	ALargeBlock->SetFree(false);
+	Block& NewBlock(*ALargeBlock);
+	ALargeBlock = new (ALargeBlock->GetData()) LargeBlock(OriginalSize - SizeWithBlock, ALargeBlock->FLargeBlockToTheRight);
+	return NewBlock;
 }
 
 CYB::Engine::Block* CYB::Engine::LargeBlock::RightBlock(void) {

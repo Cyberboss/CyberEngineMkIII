@@ -37,7 +37,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			static Block* AllocateBlock(LargeBlock*& ALargeBlock, const int ANewBlockSize);
+			static Block& AllocateBlock(LargeBlock*& ALargeBlock, const int ANewBlockSize);
 
 			/*!
 				@brief Initialization constructor. Should be used with operator new in a memory location at least @p ASpaceAvailable large that extends to the end of a reservation. The LargeBlock will own this memory

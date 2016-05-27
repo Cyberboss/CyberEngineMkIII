@@ -23,8 +23,27 @@ namespace CYB {
 			unsigned long long FMagicFooter; //!< @brief A guard against memory corruption
 #endif
 		private:
-			static unsigned int InitializeData(const unsigned int ASize, const bool AFree);
+			/*!
+				@brief Returns the Size and Free integer given a size and free state
+				@param ASize The initial Block size
+				@param AFree Whether or not the Block is free
+				@return The correctly set Size and Free integer
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			static unsigned int InitializeData(const unsigned int ASize, const bool AFree);	// <- It's an unsigned int for a reason dude
 
+			/*!
+				@brief Calculate the byte offset to another Block
+				@param ABlock The Block to compare with
+				@return The offset of this Block with @p ABlock
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
 			unsigned int CalculateOffset(const Block& ABlock);
 		public:
 			/*!

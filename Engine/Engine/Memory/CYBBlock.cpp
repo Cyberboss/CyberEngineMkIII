@@ -53,6 +53,12 @@ void* CYB::Engine::Block::GetData(void) {
 	return this + 1;
 }
 
+CYB::Engine::Block& CYB::Engine::Block::FromData(void* const AData) {
+	Block& TheBlock(*static_cast<Block*>(AData));
+	//TheBlock.Validate();
+	return TheBlock;
+}
+
 CYB::Engine::Block* CYB::Engine::Block::LeftBlock(void) {
 	if (FOffsetToPreviousBlock == 0)
 		return nullptr;

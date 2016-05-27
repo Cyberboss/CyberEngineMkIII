@@ -12,7 +12,6 @@ namespace CYB {
 					This function requires no thread safety
 				@par Exception Safety
 					CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the heap does not have the space for the allocation and more system memory cannot be requested
-					<BR>CYB::Exception::Internal::HEAP_CORRUPTION if the integrity of the heap has been compromised
 			*/
 			virtual void* Alloc(const int ASize) = 0;
 			/*!
@@ -23,8 +22,8 @@ namespace CYB {
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
-					CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the heap does not have the space for the allocation and more system memory cannot be requested
-					<BR>CYB::Exception::Internal::HEAP_CORRUPTION if the integrity of the heap has been compromised
+					CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
+					<BR>CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the heap does not have the space for the allocation and more system memory cannot be requested
 			*/
 			virtual void* Realloc(void* const APreviousAllocation, const int ANewSize) = 0;
 			/*!
@@ -33,7 +32,7 @@ namespace CYB {
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
-					<BR>CYB::Exception::Internal::HEAP_CORRUPTION if the integrity of the heap has been compromised
+					CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
 			*/
 			virtual void Free(void* const APreviousAllocation) = 0;
 		};

@@ -55,7 +55,7 @@ void* CYB::Engine::Block::GetData(void) {
 
 CYB::Engine::Block& CYB::Engine::Block::FromData(void* const AData) {
 	Block& TheBlock(*static_cast<Block*>(AData));
-	//TheBlock.Validate();
+	TheBlock.Validate();
 	return TheBlock;
 }
 
@@ -77,4 +77,13 @@ void CYB::Engine::Block::SetFree(const bool ANewFree) {
 		FSizeAndFreeBit |= 1U << 31;
 	else
 		FSizeAndFreeBit &= ~(1U << 31);
+}
+
+void CYB::Engine::Block::Validate(void) const {
+#ifdef DEBUG
+	if (FMagicHeader != MAGIC_HEADER || FMagicFooter != MAGIC_FOOTER)
+		throw CYB::Exception::Violation(CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK);
+#else
+	NOP;
+#endif
 }

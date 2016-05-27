@@ -60,6 +60,9 @@ namespace CYB {
 
 			//! @brief See CYB::Engine::Block::RightBlock. This version must be used when using large blocks
 			Block* RightBlock(void);
+
+			//! @brief See CYB::Engine::Block::Validate. This version must be used when referring to large blocks
+			void Validate(void) const;
 		};
 	};
 }; 

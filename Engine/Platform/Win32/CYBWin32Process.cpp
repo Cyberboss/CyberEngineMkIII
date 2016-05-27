@@ -29,5 +29,5 @@ CYB::Platform::Implementation::Process& CYB::Platform::Implementation::Process::
 
 CYB::Platform::Implementation::Process::~Process() {
 	if(FHandle != nullptr)
-		Core().FModuleManager.FK32.Call<ModuleDefinitions::KERNEL32::CloseHandle>(FHandle);
+		Core().FModuleManager.FK32.Call<ModuleDefinitions::Kernel32::CloseHandle>(FHandle);
 }

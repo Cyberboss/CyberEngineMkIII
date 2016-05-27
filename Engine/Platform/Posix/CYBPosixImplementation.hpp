@@ -1,5 +1,4 @@
 #pragma once
-
 namespace CYB {
 	namespace Platform {
 		namespace Implementation {
@@ -11,7 +10,11 @@ namespace CYB {
 				#include <sys/types.h>
 				#include <sys/mman.h>
 				#include <unistd.h>
+#ifdef _WIN32
+				#include <posix/signal.h>
+#else
 				#include <signal.h>
+#endif
 				#include <sched.h>
 				#include <pthread.h>
 				#include <dlfcn.h> 

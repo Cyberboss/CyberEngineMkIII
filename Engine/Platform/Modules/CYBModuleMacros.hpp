@@ -56,8 +56,11 @@ namespace CYB {\
 	namespace Platform {\
 		namespace ModuleDefinitions {\
 			typedef typename Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)> AM##AModuleName;\
-			enum AModuleName: unsigned int {\
-				__VA_ARGS__\
+			class AModuleName{\
+			public:\
+				enum: unsigned int {\
+					__VA_ARGS__\
+				};\
 			};\
 		};\
 	};\

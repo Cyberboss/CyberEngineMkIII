@@ -42,7 +42,7 @@ Engine/Core/CYBCore.cpp
 set_property(TARGET EngineBase PROPERTY CXX_STANDARD 14)
 set_property(TARGET EngineBase PROPERTY CXX_STANDARD_REQUIRED ON)
 
-target_link_libraries(EngineBase dl ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(EngineBase dl)
 
 set_property (SOURCE "CYB.cpp" PROPERTY COTIRE_DEPENDENCY "TRUE")
 set_target_properties(EngineBase PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "CYB.hpp")

@@ -2,12 +2,18 @@
 
 using namespace CYB::Platform::Implementation::Posix;
 
-class PThreadLockGuard {
-private:
-	pthread_mutex_t* const FMutex;
-public:
-	PThreadLockGuard(pthread_mutex_t* const AMutex, const bool ADoLock) : FMutex(AMutex) { if(ADoLock) pthread_mutex_lock(AMutex); }
-	~PThreadLockGuard() { pthread_mutex_unlock(FMutex); }
+namespace CYB {
+	namespace Platform {
+		namespace Implementation {
+			class PThreadLockGuard {
+			private:
+				pthread_mutex_t* const FMutex;
+			public:
+				PThreadLockGuard(pthread_mutex_t* const AMutex, const bool ADoLock) : FMutex(AMutex) { if (ADoLock) Core().FModuleManager.FPThread.Call<ModuleDefinitions::PThread::pthread_mutex_lock>(AMutex); }
+				~PThreadLockGuard() { Core().FModuleManager.FPThread.Call<ModuleDefinitions::PThread::pthread_mutex_unlock>(FMutex); }
+			};
+		};
+	};
 };
 
 CYB::Platform::Implementation::Thread::Thread(API::Threadable& AThreadable) :
@@ -15,18 +21,19 @@ CYB::Platform::Implementation::Thread::Thread(API::Threadable& AThreadable) :
 	FRunning(false)
 {
 	{
+		auto& PThread(Core().FModuleManager.FPThread);
 		ThreadData Data{ &AThreadable, &FRunningLock, &FRunning };
 
-		if (pthread_mutex_init(&FRunningLock, nullptr) != 0)
+		if (PThread.Call<ModuleDefinitions::PThread::pthread_mutex_init>(&FRunningLock, nullptr) != 0)
 			throw Exception::SystemData(Exception::SystemData::ErrorCode::MUTEX_INITIALIZATION_FAILURE);
 
-		pthread_mutex_lock(&FRunningLock);
+		PThread.Call<ModuleDefinitions::PThread::pthread_mutex_lock>(&FRunningLock);
 
 		std::atomic_thread_fence(std::memory_order_release);
 
-		if (pthread_create(&FThread, nullptr, ThreadProc, &Data) != 0) {
+		if (PThread.Call<ModuleDefinitions::PThread::pthread_create>(&FThread, nullptr, ThreadProc, &Data) != 0) {
 			//! @todo Log error
-			pthread_mutex_unlock(&FRunningLock);
+			PThread.Call<ModuleDefinitions::PThread::pthread_mutex_unlock>(&FRunningLock);
 			DestroyMutex();
 			throw Exception::SystemData(Exception::SystemData::ErrorCode::THREAD_CREATION_FAILURE);
 		}
@@ -70,7 +77,7 @@ void* CYB::Platform::Implementation::Thread::ThreadProc(void* const AThreadData)
 }
 
 void CYB::Platform::Implementation::Thread::DestroyMutex(void) {
-	if (pthread_mutex_destroy(&FRunningLock) != 0)
+	if (Core().FModuleManager.FPThread.Call<ModuleDefinitions::PThread::pthread_mutex_destroy>(&FRunningLock) != 0)
 		throw CYB::Exception::SystemData(CYB::Exception::SystemData::MUTEX_DESTRUCTION_FAILURE);
 }
 
@@ -79,13 +86,13 @@ bool CYB::Platform::Thread::IsFinished(void) const {
 }
 
 void CYB::Platform::Thread::Wait(void) const {
-	pthread_join(FThread, nullptr);
+	Core().FModuleManager.FPThread.Call<ModuleDefinitions::PThread::pthread_join>(FThread, nullptr);
 }
 
 void CYB::Platform::Thread::Sleep(const unsigned int AMilliseconds) {
-	usleep(AMilliseconds * 1000);
+	Core().FModuleManager.FC.Call<ModuleDefinitions::LibC::usleep>(AMilliseconds * 1000);
 }
 
 void CYB::Platform::Thread::Yield(void) {
-	sched_yield();
+	Core().FModuleManager.FRT.Call<ModuleDefinitions::RT::sched_yield>();
 }

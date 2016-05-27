@@ -1,6 +1,7 @@
 #include "TestHeader.hpp"
 SCENARIO("VirtualMemory reservations can be made and released", "[Platform][VirtualMemory][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::ModuleDefinitions::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::ModuleDefinitions::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	GIVEN("A sane reservation size") {
 		const auto ReservationSize(1000000);
 		WHEN("A reservation is made") {
@@ -33,6 +34,7 @@ SCENARIO("VirtualMemory reservations can be made and released", "[Platform][Virt
 }
 SCENARIO("VirtualMemory reservations handle various sizes", "[Platform][VirtualMemory][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::ModuleDefinitions::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::ModuleDefinitions::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	GIVEN("Some reservation size") {
 		unsigned long long ReservationSize;
 		WHEN("The size is insanely small") {
@@ -55,6 +57,7 @@ SCENARIO("VirtualMemory reservations handle various sizes", "[Platform][VirtualM
 }
 SCENARIO("VirtualMemory commits work as intended", "[Platform][VirtualMemory][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::ModuleDefinitions::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::ModuleDefinitions::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	GIVEN("A standard reservation") {
 		auto const Reservation(CYB::Platform::VirtualMemory::Reserve(1000000));
 		unsigned long long CommitSize;
@@ -104,6 +107,7 @@ SCENARIO("VirtualMemory commits work as intended", "[Platform][VirtualMemory][Un
 }
 SCENARIO("VirtualMemory reservation protection levels can be changed", "[Platform][VirtualMemory][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::ModuleDefinitions::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::ModuleDefinitions::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	GIVEN("A standard reservation and commit which has some data written to it") {
 		auto Reservation(static_cast<unsigned long long*>(CYB::Platform::VirtualMemory::Reserve(1000000)));
 		CYB::Platform::VirtualMemory::Commit(Reservation, 500000);
@@ -154,6 +158,7 @@ SCENARIO("VirtualMemory reservation protection levels can be changed", "[Platfor
 SCENARIO("VirtualMemory can be discarded and reused","[Platform][VirtualMemory][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::ModuleDefinitions::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::ModuleDefinitions::AMKernel32Extended> K32E(CYB::Core().FModuleManager.FK32Extended);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::ModuleDefinitions::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	GIVEN("A standard reservation and commit which has some data written to it") {
 		auto Reservation(static_cast<unsigned long long*>(CYB::Platform::VirtualMemory::Reserve(1000000)));
 		CYB::Platform::VirtualMemory::Commit(Reservation, 500000);

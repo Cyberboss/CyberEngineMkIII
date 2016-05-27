@@ -23,12 +23,12 @@ DEFINE_DUMMY_MODULE(Kernel32Extended)
 
 #ifdef TARGET_OS_LINUX
 #include <gnu/lib-names.h>
-DEFINE_MODULE(C, LIBC_SO, Posix, false, kill, getpid, usleep, mmap, mprotect, munmap, madvise)
+DEFINE_MODULE(LibC, LIBC_SO, Posix, false, kill, getpid, usleep, mmap, mprotect, munmap, madvise)
 DEFINE_MODULE(RT, LIBRT_SO, Posix, false, sched_yield)
 DEFINE_MODULE(PThread, LIBPTHREAD_SO, Posix, false, pthread_mutex_init, pthread_mutex_destroy, pthread_mutex_lock, pthread_mutex_trylock, pthread_mutex_unlock, pthread_create, pthread_join)
 #elif defined(TARGET_OS_MAC)
 #else
-DEFINE_DUMMY_MODULE(C)
+DEFINE_DUMMY_MODULE(LibC)
 DEFINE_DUMMY_MODULE(RT)
 DEFINE_DUMMY_MODULE(PThread)
 #endif

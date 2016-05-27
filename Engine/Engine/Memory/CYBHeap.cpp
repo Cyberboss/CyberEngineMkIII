@@ -8,7 +8,8 @@ CYB::Engine::Heap::Heap(const unsigned long long AInitialCommitSize) :
 {
 	Platform::VirtualMemory::Commit(FReservation, FCommitSize);
 
-	new (&FirstBlock()) LargeBlock(FCommitSize);
+	FLargeBlock = new (&FirstBlock()) LargeBlock(FCommitSize);
+	FFreeList = FLargeBlock;
 }
 CYB::Engine::Heap::~Heap() {
 	Platform::VirtualMemory::Release(FReservation);
@@ -23,21 +24,42 @@ CYB::Engine::Block& CYB::Engine::Heap::FirstBlock(void) {
 	return *static_cast<Block*>(FReservation);
 }
 
-void* CYB::Engine::Heap::Alloc(const int ANumBytes) {
-	//! @todo implement
+CYB::Engine::Block& CYB::Engine::Heap::AllocImpl(const int ANumBytes) {
 	static_cast<void>(ANumBytes);
-	return nullptr;
+	return Block::FromData(nullptr);
+}
+CYB::Engine::Block& CYB::Engine::Heap::ReallocImpl(Block& ABlock, const int ANumBytes) {
+	static_cast<void>(ANumBytes);
+	return ABlock;
+}
+void CYB::Engine::Heap::FreeImpl(Block& ABlock) {
+	static_cast<void>(ABlock);
+}
+
+void* CYB::Engine::Heap::Alloc(const int ANumBytes) {
+	if (ANumBytes == 0)
+		return nullptr;
+	API::LockGuard Lock(FMutex);
+	return AllocImpl(ANumBytes).GetData();
 }
 
 void* CYB::Engine::Heap::Realloc(void* const APreviousAllocation, const int ANumBytes) {
-	//! @todo implement
-	static_cast<void>(APreviousAllocation);
-	static_cast<void>(ANumBytes);
-	return nullptr;
+	if (APreviousAllocation == nullptr)
+		return Alloc(ANumBytes);
+	
+	auto& WorkingBlock(Block::FromData(APreviousAllocation));
+	if(WorkingBlock.Size() >= ANumBytes)
+		return APreviousAllocation;
+
+	API::LockGuard Lock(FMutex);
+	return ReallocImpl(WorkingBlock, ANumBytes).GetData();
 }
 
 void CYB::Engine::Heap::Free(void* const APreviousAllocation) {
-	//! @todo implement
-	static_cast<void>(APreviousAllocation);
+	if (APreviousAllocation != nullptr) {
+		auto& WorkingBlock(Block::FromData(APreviousAllocation));
+		API::LockGuard Lock(FMutex);
+		FreeImpl(WorkingBlock);
+	}
 }
 

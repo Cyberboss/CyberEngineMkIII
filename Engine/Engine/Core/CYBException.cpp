@@ -39,10 +39,8 @@ CYB::Exception::SystemData::SystemData(const ErrorCode AErrorCode) :
 	FLastInstantiatedExceptionCode = AErrorCode;
 }
 CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode AErrorCode) {
-	switch (AErrorCode) {
-	default:
-		CYB::API::HCF();
-	}
+	static_cast<void>(AErrorCode);
+	CYB::API::HCF();
 }
 
 CYB::Exception::Internal::Internal(const ErrorCode AErrorCode) :

@@ -28,6 +28,16 @@ namespace CYB {
 			unsigned int CalculateOffset(const Block& ABlock);
 		public:
 			/*!
+				@brief Retrieves a reference to a Block given it's data pointer
+				@param AData The block's data pointer
+				@return A reference to the Block that owns @p AData
+				@par Thread Safety
+					This function requires no thread safet
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			static Block& FromData(void* const AData);
+			/*!
 				@brief Create a Block. Should be used with operator new in a memory location at least @p ASpaceAvailable large. The Block will own this memory
 				@param ASpaceAvailable The amount of memory the block owns
 				@param ALeftBlock A pointer to the block behind this one, specifying nullptr indicates this is the first block

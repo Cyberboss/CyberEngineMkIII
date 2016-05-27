@@ -17,10 +17,15 @@ namespace CYB {
 					This function does not throw exceptions
 			*/
 			LockGuard(Mutex& AMutex);
-			LockGuard(const LockGuard&) = delete;
-			LockGuard(LockGuard&& AMove);
-			LockGuard& operator=(LockGuard&& AMove);
+			LockGuard(const LockGuard&) = delete;	//!< @brief See @ref structors
+			LockGuard(LockGuard&& AMove);	//!< @brief See @ref structors
+			LockGuard& operator=(LockGuard&& AMove);	//!< @brief See @ref structors
+			/*!
+				@brief Destroys the LockGuard and unlocks the Mutex
+			*/
 			~LockGuard();
 		};
 	}
 }
+
+#include "LockGuard.inl"

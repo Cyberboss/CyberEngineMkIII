@@ -390,6 +390,9 @@
     <None Include="API\Declarations\OSDeclaration.inl">
       <Filter>API\Declarations</Filter>
     </None>
+    <None Include="API\ExtendedTypes\LockGuard.inl">
+      <Filter>API\ExtendedTypes</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DoxyPages\DoxygenLayout.xml">

@@ -11,6 +11,8 @@ namespace CYB {
 
 			Block* FFreeList; //!< @brief The first block in the linked free list
 			LargeBlock* FLargeBlock; //!< @brief The block that extends to the end of the free list
+
+			Platform::Mutex FMutex;
 		private:
 			/*!
 				@brief A small max comparison of @p AInitialCommitSize and sizeof(Block) + 1
@@ -32,6 +34,37 @@ namespace CYB {
 					This function does not throw exceptions
 			*/
 			Block& FirstBlock(void);
+
+			/*! 
+				@brief Allocates a Block
+				@param ANumBytes The minimum number of bytes available in the returned Block
+				@return An unused Block that isn't free and is is at least @p ANumBytes in size
+				@par Thread Safety
+					This function requires that FMutex is locked
+				@par Exception Safety
+					CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the memory could not be committed
+			*/
+			Block& AllocImpl(const int ANumBytes);
+			/*! 
+				@brief Reallocates a Block
+				@param ABlock A reference to the Block being worked on
+				@param ANumBytes The minimum number of bytes available in the returned Block
+				@return An unused Block that isn't free, is at least @p ANumBytes in size, and contains all previous data from @p ABlock
+				@par Thread Safety
+					This function requires that FMutex is locked
+				@par Exception Safety
+					CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the memory could not be committed
+			*/
+			Block& ReallocImpl(Block& ABlock, const int ANumBytes);
+			/*!
+				@brief Frees a Block
+				@param ABlock A reference to the Block being worked on
+				@par Thread Safety
+					This function requires that FMutex is locked
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			void FreeImpl(Block& ABlock);
 		public:
 			/*!
 				@brief Create a Heap

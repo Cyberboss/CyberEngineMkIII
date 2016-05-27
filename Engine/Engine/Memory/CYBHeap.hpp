@@ -35,6 +35,37 @@ namespace CYB {
 			*/
 			Block& FirstBlock(void);
 
+			/*!
+				@brief Adds a Block to the free list after @p APreviousEntry while performing all the checks and reassignments
+				@param ABlock The Block to add to the free list
+				@param APreviousEntry The Block that will preceed @p ABlock in the free list
+				@par Thread Safety
+					This function requires that FMutex is locked
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			void AddToFreeList(Block& ABlock, Block* const APreviousEntry);
+			/*!
+				@brief Removes a Block from the free list after @p APreviousEntry while performing all the checks and reassignments
+				@param ABlock The Block to remove from the free list
+				@param APreviousEntry The Block that preceeds @p ABlock in the free list
+				@par Thread Safety
+					This function requires that FMutex is locked
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			void RemoveFromFreeList(Block& ABlock, Block* const APreviousEntry);
+
+			/*!
+				@brief Ensures that FLargeBlock has at least @p ARequiredNumBytes of Size by committing more memory if necessary
+				@param ARequiredNumBytes The required number of bytes from the LargeBlock
+				@par Thread Safety
+					This function requires that FMutex is locked
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			void LargeBlockNeedsAtLeast(const int ARequiredNumBytes);
+
 			/*! 
 				@brief Allocates a Block
 				@param ANumBytes The minimum number of bytes available in the returned Block

@@ -24,6 +24,33 @@ CYB::Engine::Block& CYB::Engine::Heap::FirstBlock(void) {
 	return *static_cast<Block*>(FReservation);
 }
 
+void CYB::Engine::Heap::AddToFreeList(Block& ABlock, Block* const APreviousEntry) {
+	if (APreviousEntry == nullptr) {
+		ABlock.FNextFree = FFreeList;
+		FFreeList = &ABlock;
+	}
+	else {
+		ABlock.FNextFree = APreviousEntry->FNextFree;
+		APreviousEntry->FNextFree = &ABlock;
+	}
+}
+
+void CYB::Engine::Heap::RemoveFromFreeList(Block& ABlock, Block* const APreviousEntry) {
+	if (APreviousEntry == nullptr)
+		FFreeList = FFreeList->FNextFree;
+	else
+		APreviousEntry->FNextFree = ABlock.FNextFree;
+}
+
+void CYB::Engine::Heap::LargeBlockNeedsAtLeast(const int ARequiredNumBytes) {
+	if (FLargeBlock->Size() < ARequiredNumBytes) {
+		const auto SizeDifference(ARequiredNumBytes - FLargeBlock->Size());
+		FCommitSize += SizeDifference;
+		Platform::VirtualMemory::Commit(FReservation, FCommitSize);
+		FLargeBlock->SetSize(FLargeBlock->Size() + SizeDifference);
+	}
+}
+
 CYB::Engine::Block& CYB::Engine::Heap::AllocImpl(const int ANumBytes, API::LockGuard& ALock) {
 	const auto MinimumBlockSize(16);	//Do not splice a block that will have a size smaller than this
 	const auto MinimumBlockFootprint(MinimumBlockSize + sizeof(Block));

@@ -48,18 +48,6 @@ namespace CYB {
 					This function does not throw exceptions
 			*/
 			LargeBlock(const unsigned long long ASpaceAvailable);
-			/*!
-				@brief Expand the capacity of the LargeBlock. If this is not the rightmost block, the Block to the right will be notified to update it's previous offset. If the new Block to the right is another LargeBlock, it will be merged into this one
-				@param AAmountToAdd The size to add to the LargeBlock
-				@par Thread Safety
-					This function requires that the owned memory isn't concurrently accessed during this function
-				@par Exception Safety
-					This function does not throw exceptions
-			*/
-			void Expand(const unsigned long long AAmountToAdd);
-
-			//! @brief See CYB::Engine::Block::RightBlock. This version must be used when using large blocks
-			Block* RightBlock(void);
 
 			//! @brief See CYB::Engine::Block::Validate. This version must be used when referring to large blocks
 			void Validate(void) const;

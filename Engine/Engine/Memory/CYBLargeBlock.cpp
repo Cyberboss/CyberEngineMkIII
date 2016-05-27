@@ -38,10 +38,6 @@ CYB::Engine::Block& CYB::Engine::LargeBlock::AllocateBlock(LargeBlock*& ALargeBl
 	return NewBlock;
 }
 
-CYB::Engine::Block* CYB::Engine::LargeBlock::RightBlock(void) {
-	return reinterpret_cast<Block*>(reinterpret_cast<byte*>(this + 1) + FRemainingSize);
-}
-
 void CYB::Engine::LargeBlock::Validate(void) const {
 #ifdef DEBUG
 	if (FMagicHeader != MAGIC_HEADER || FMagicFooter != MAGIC_FOOTER)

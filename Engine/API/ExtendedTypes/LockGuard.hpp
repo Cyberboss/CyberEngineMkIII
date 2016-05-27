@@ -24,6 +24,15 @@ namespace CYB {
 				@brief Destroys the LockGuard and unlocks the Mutex
 			*/
 			~LockGuard();
+
+			/*!
+				@brief Releases the lock on Mutex, this same LockGuard can never reaquire it
+				@par Thread Safety
+					This function will attempt unlock the owned Mutex
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			void Release(void);
 		};
 	}
 }

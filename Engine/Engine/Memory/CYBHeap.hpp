@@ -44,7 +44,7 @@ namespace CYB {
 				@par Exception Safety
 					CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the memory could not be committed
 			*/
-			Block& AllocImpl(const int ANumBytes);
+			Block& AllocImpl(const int ANumBytes, API::LockGuard& ALock);
 			/*! 
 				@brief Reallocates a Block
 				@param ABlock A reference to the Block being worked on
@@ -56,7 +56,7 @@ namespace CYB {
 					CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
 					<BR>CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the memory could not be committed
 			*/
-			Block& ReallocImpl(Block& ABlock, const int ANumBytes);
+			Block& ReallocImpl(Block& ABlock, const int ANumBytes, API::LockGuard& ALock);
 			/*!
 				@brief Frees a Block
 				@param ABlock A reference to the Block being worked on
@@ -65,7 +65,7 @@ namespace CYB {
 				@par Exception Safety
 					CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
 			*/
-			void FreeImpl(Block& ABlock);
+			void FreeImpl(Block& ABlock, API::LockGuard& ALock);
 		public:
 			/*!
 				@brief Create a Heap

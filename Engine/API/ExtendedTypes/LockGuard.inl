@@ -19,6 +19,12 @@ inline CYB::API::LockGuard& CYB::API::LockGuard::operator=(LockGuard&& AMove) {
 }
 
 inline CYB::API::LockGuard::~LockGuard() {
-	if(FMutex != nullptr)
+	Release();
+}
+
+inline void CYB::API::LockGuard::Release(void) {
+	if (FMutex != nullptr) {
 		FMutex->Unlock();
+		FMutex = nullptr;
+	}
 }

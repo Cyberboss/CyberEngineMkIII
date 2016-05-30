@@ -134,8 +134,9 @@ CYB::Engine::Block& CYB::Engine::Heap::ReallocImpl(Block& ABlock, const int ANum
 	return Block::FromData(NewData);
 }
 void CYB::Engine::Heap::FreeImpl(Block& ABlock, API::LockGuard& ALock) {
-	static_cast<void>(ABlock);
-	static_cast<void>(ALock);
+	AddToFreeList(ABlock, nullptr);
+	ABlock.SetFree(true);
+	ALock.Release();
 }
 
 void* CYB::Engine::Heap::Alloc(const int ANumBytes) {

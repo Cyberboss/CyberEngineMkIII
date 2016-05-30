@@ -66,6 +66,17 @@ namespace CYB {
 			*/
 			void LargeBlockNeedsAtLeast(const int ARequiredNumBytes);
 
+			/*!
+				@brief Coalesces Blocks to the left of @p ABlock and updates the free list
+				@param ABlock A free Block
+				@param ALastFreeListEntry The Block preceeding @p ABlock in the free list
+				@par Thread Safety
+					This function requires that FMutex is locked
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			void MergeBlockIfPossible(Block*& ABlock, Block* ALastFreeListEntry);
+
 			/*! 
 				@brief Allocates a Block
 				@param ANumBytes The minimum number of bytes available in the returned Block

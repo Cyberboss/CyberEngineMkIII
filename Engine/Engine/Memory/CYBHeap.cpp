@@ -51,6 +51,31 @@ void CYB::Engine::Heap::LargeBlockNeedsAtLeast(const int ARequiredNumBytes) {
 	}
 }
 
+void CYB::Engine::Heap::MergeBlockIfPossible(Block*& ABlock, Block* ALastFreeListEntry) {
+
+	API::Assert(ABlock->IsFree());
+
+	unsigned long long NewSize;
+
+	const auto GoodCheck([&]() { 
+		if (ABlock->LeftBlock() != nullptr && ABlock->LeftBlock()->IsFree()) {
+			NewSize = ABlock->Size() + ABlock->LeftBlock()->Size() + sizeof(Block);
+			return NewSize <= static_cast<unsigned long long>(std::numeric_limits<int>::max());
+		}
+		else
+			return false;
+	});
+
+	if (GoodCheck()) {
+		RemoveFromFreeList(*ABlock, ALastFreeListEntry);
+		do {
+			ABlock = ABlock->LeftBlock();
+			ABlock->SetSize(static_cast<int>(NewSize));
+		} while (GoodCheck());
+		AddToFreeList(*ABlock, ALastFreeListEntry);
+	}
+}
+
 CYB::Engine::Block& CYB::Engine::Heap::AllocImpl(const int ANumBytes, API::LockGuard& ALock) {
 	const auto MinimumBlockSize(16);	//Do not splice a block that will have a size smaller than this
 	const auto MinimumBlockFootprint(MinimumBlockSize + sizeof(Block));
@@ -60,26 +85,33 @@ CYB::Engine::Block& CYB::Engine::Heap::AllocImpl(const int ANumBytes, API::LockG
 		Block* CurrentBlock(FFreeList);
 		while (CurrentBlock != FLargeBlock) {
 
-			if (CurrentBlock->Size() >= ANumBytes) {
-				//this is the block we're using
-				RemoveFromFreeList(*CurrentBlock, LastFreeListEntry);
+			if (CurrentBlock->IsFree()) {
 
-				//splice it if it's big enough
-				if ((CurrentBlock->Size() - ANumBytes) >= MinimumBlockFootprint) {
-					auto NewBlock(CurrentBlock->Splice(ANumBytes));
-					//and add it to the free list
-					AddToFreeList(NewBlock, LastFreeListEntry);
+				MergeBlockIfPossible(CurrentBlock, LastFreeListEntry);
 
+				if (CurrentBlock->Size() >= ANumBytes) {
+					//this is the block we're using
+					RemoveFromFreeList(*CurrentBlock, LastFreeListEntry);
+
+					//splice it if it's big enough
+					if ((CurrentBlock->Size() - ANumBytes) >= MinimumBlockFootprint) {
+						auto NewBlock(CurrentBlock->Splice(ANumBytes));
+						//and add it to the free list
+						AddToFreeList(NewBlock, LastFreeListEntry);
+
+						ALock.Release();
+						CurrentBlock->SetSize(ANumBytes);
+					}
 					ALock.Release();
-					CurrentBlock->SetSize(ANumBytes);
+					CurrentBlock->SetFree(false);
+					return *CurrentBlock;
 				}
-				ALock.Release();
-				CurrentBlock->SetFree(false);
-				return *CurrentBlock;
+
 			}
 
 			LastFreeListEntry = CurrentBlock;
 			CurrentBlock = CurrentBlock->FNextFree;
+
 		}
 	}
 

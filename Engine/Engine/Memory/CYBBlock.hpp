@@ -153,6 +153,13 @@ namespace CYB {
 					CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
 			*/
 			void Validate(void) const;
+
+			/*!
+				@brief Separate this block into two
+				@param ASizeToKeep The amount of bytes that should remain in this block
+				@return A reference to the Block that was created by the splicing
+			*/
+			Block& Splice(const int ASizeToKeep);
 		};
 	};
 };

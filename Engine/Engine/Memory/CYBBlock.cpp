@@ -87,3 +87,11 @@ void CYB::Engine::Block::Validate(void) const {
 	NOP;
 #endif
 }
+
+CYB::Engine::Block& CYB::Engine::Block::Splice(const int ASizeToKeep) {
+	API::Assert(ASizeToKeep > 0);
+	const auto NewBlockAmount(Size() - ASizeToKeep);
+	API::Assert(NewBlockAmount > sizeof(Block));
+	SetSize(ASizeToKeep);
+	return *(new (static_cast<byte*>(GetData()) + ASizeToKeep) Block(static_cast<unsigned int>(NewBlockAmount), *this, true));
+}

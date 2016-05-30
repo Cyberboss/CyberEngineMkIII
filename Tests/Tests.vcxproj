@@ -93,6 +93,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Memory\Blocks.cpp" />
     <ClCompile Include="FakeCore.cpp" />
     <ClCompile Include="Platform\Modules.cpp" />
     <ClCompile Include="Platform\Threads.cpp" />

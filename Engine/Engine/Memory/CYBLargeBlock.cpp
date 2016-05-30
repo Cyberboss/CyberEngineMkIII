@@ -13,16 +13,9 @@ static_assert(sizeof(CYB::Engine::LargeBlock) - sizeof(CYB::Engine::Block) ==
 	, "LargeBlock size has changed, check algorithms");
 
 CYB::Engine::LargeBlock::LargeBlock(const unsigned long long ASpaceAvailable) :
-	Block(0, *this, true),
+	Block(sizeof(Block), *this, true),
 	FMagicHeader(MAGIC_HEADER),
 	FLargeBlockToTheRight(nullptr),
-	FRemainingSize(ASpaceAvailable),
-	FMagicFooter(MAGIC_FOOTER)
-{}
-CYB::Engine::LargeBlock::LargeBlock(const unsigned long long ASpaceAvailable, LargeBlock* ALargeBlockToTheRight) :
-	Block(0, *this, true),
-	FMagicHeader(MAGIC_HEADER),
-	FLargeBlockToTheRight(ALargeBlockToTheRight),
 	FRemainingSize(ASpaceAvailable),
 	FMagicFooter(MAGIC_FOOTER)
 {}
@@ -34,7 +27,7 @@ CYB::Engine::Block& CYB::Engine::LargeBlock::AllocateBlock(LargeBlock*& ALargeBl
 	ALargeBlock->SetSize(ANewBlockSize);
 	ALargeBlock->SetFree(false);
 	Block& NewBlock(*ALargeBlock);
-	ALargeBlock = new (ALargeBlock->GetData()) LargeBlock(OriginalSize - SizeWithBlock, ALargeBlock->FLargeBlockToTheRight);
+	ALargeBlock = new (ALargeBlock->GetData()) LargeBlock(OriginalSize - SizeWithBlock);
 	return NewBlock;
 }
 

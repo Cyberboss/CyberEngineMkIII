@@ -127,11 +127,10 @@ CYB::Engine::Block& CYB::Engine::Heap::AllocImpl(const int ANumBytes, API::LockG
 	return AllocatedBlock;
 }
 CYB::Engine::Block& CYB::Engine::Heap::ReallocImpl(Block& ABlock, const int ANumBytes, API::LockGuard& ALock) {
-	ALock.Release();
-	void* NewData(Alloc(ANumBytes));
-	std::copy(static_cast<byte*>(ABlock.GetData()), static_cast<byte*>(ABlock.GetData()) + ABlock.Size(), static_cast<byte*>(NewData));
+	auto NewData(AllocImpl(ANumBytes, ALock));
+	std::copy(static_cast<byte*>(ABlock.GetData()), static_cast<byte*>(ABlock.GetData()) + ABlock.Size(), static_cast<byte*>(NewData.GetData()));
 	Free(ABlock.GetData());
-	return Block::FromData(NewData);
+	return Block::FromData(NewData.GetData());
 }
 void CYB::Engine::Heap::FreeImpl(Block& ABlock, API::LockGuard& ALock) {
 	AddToFreeList(ABlock, nullptr);

@@ -14,6 +14,9 @@
     <ClCompile Include="Win32Main.cpp" />
     <ClCompile Include="PosixMain.cpp" />
     <ClCompile Include="FakeCore.cpp" />
+    <ClCompile Include="Engine\Memory\Blocks.cpp">
+      <Filter>Engine\Memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />
@@ -25,6 +28,12 @@
   <ItemGroup>
     <Filter Include="Platform">
       <UniqueIdentifier>{908278e1-4fc0-4a66-a6d2-c0f6b7060186}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{fa372db8-9a5a-43ae-b02a-e896a00de8c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Memory">
+      <UniqueIdentifier>{425fa603-9991-4a95-8f53-ee4b26a0e984}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

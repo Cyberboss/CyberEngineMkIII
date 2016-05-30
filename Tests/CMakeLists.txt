@@ -11,6 +11,8 @@ Platform/VirtualMemory.cpp
 Platform/Modules.cpp
 Platform/Threads.cpp
 
+Engine/Memory/Blocks.cpp
+
 )
 
 set_property(TARGET CyberEngineMkIIITester PROPERTY CXX_STANDARD 14)

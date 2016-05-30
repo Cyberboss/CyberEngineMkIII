@@ -15,17 +15,6 @@ namespace CYB {
 #ifdef DEBUG
 			unsigned long long FMagicFooter; //!< @brief A guard against memory corruption
 #endif
-		private:
-			/*!
-				@brief Allocation constructor. Should be used with operator new in a memory location at least @p ASpaceAvailable large. The LargeBlock will own this memory
-				@param ASpaceAvailable The amount of space the large block is using
-				@param ALargeBlockToTheRight The allocated LargeBlock's value of FLargeBlockToTheRight
-				@par Thread Safety
-					This function requires that the owned memory isn't concurrently accessed during this function
-				@par Exception Safety
-					This function does not throw exceptions
-			*/
-			LargeBlock(const unsigned long long ASpaceAvailable, LargeBlock* ALargeBlockToTheRight);
 		public:
 			/*!
 				@brief Allocate a portion of the LargeBlock's owned data to create a regular block

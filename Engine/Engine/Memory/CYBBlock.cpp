@@ -15,7 +15,7 @@ CYB::Engine::Block::Block(const unsigned int ASpaceAvailable, const Block& ALeft
 	FOffsetToPreviousBlock(CalculateOffset(ALeftBlock)),
 	FMagicFooter(MAGIC_FOOTER)
 {
-	API::Assert(ASpaceAvailable > sizeof(Block) || ASpaceAvailable == 0);
+	API::Assert(ASpaceAvailable >= sizeof(Block));
 }
 
 unsigned int CYB::Engine::Block::InitializeData(const unsigned int ASize, const bool AFree) {
@@ -54,7 +54,7 @@ void* CYB::Engine::Block::GetData(void) {
 }
 
 CYB::Engine::Block& CYB::Engine::Block::FromData(void* const AData) {
-	Block& TheBlock(*static_cast<Block*>(AData));
+	Block& TheBlock(*reinterpret_cast<Block*>(static_cast<byte*>(AData) - sizeof(Block)));
 	TheBlock.Validate();
 	return TheBlock;
 }

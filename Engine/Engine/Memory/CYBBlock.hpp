@@ -164,6 +164,15 @@ namespace CYB {
 					This function does not throw exceptions
 			*/
 			Block& Splice(const int ASizeToKeep);
+
+			/*!
+				@brief Merge size and header into the size of the Block to the left. Does not modify free lists
+				@par Thread Safety
+					This function requires the left Block not be modified during the operation
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			Block& EatLeftBlock(void);
 		};
 	};
 };

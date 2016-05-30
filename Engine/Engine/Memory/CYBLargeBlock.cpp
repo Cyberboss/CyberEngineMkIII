@@ -45,3 +45,8 @@ void CYB::Engine::LargeBlock::Validate(void) const {
 #endif
 	Block::Validate();
 }
+
+CYB::Engine::LargeBlock& CYB::Engine::LargeBlock::EatLeftBlock(void) {
+	API::Assert(LeftBlock() != nullptr);
+	return *new (LeftBlock()) LargeBlock(FRemainingSize + LeftBlock()->Size() + sizeof(Block));	//Even though we are eating a LargeBlock header, we are are also creating a LargeBlock Header - A block header
+}

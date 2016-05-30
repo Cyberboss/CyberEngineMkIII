@@ -51,6 +51,15 @@ namespace CYB {
 
 			//! @brief See CYB::Engine::Block::Validate. This version must be used when referring to large blocks
 			void Validate(void) const;
+
+			/*!
+				@brief Merge size and header into the size of the Block to the left. Does not modify free lists. Must be used if Block is a LargeBlock
+				@par Thread Safety
+					This function requires the left Block not be modified during the operation
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			LargeBlock& EatLeftBlock(void);
 		};
 	};
 }; 

@@ -95,3 +95,12 @@ CYB::Engine::Block& CYB::Engine::Block::Splice(const int ASizeToKeep) {
 	SetSize(ASizeToKeep);
 	return *(new (static_cast<byte*>(GetData()) + ASizeToKeep) Block(static_cast<unsigned int>(NewBlockAmount), *this, true));
 }
+
+CYB::Engine::Block& CYB::Engine::Block::EatLeftBlock(void) {
+	API::Assert(!IsLargeBlock());
+	API::Assert(LeftBlock() != nullptr);
+	const auto NewSize(LeftBlock()->Size() + Size() + sizeof(Block));
+	API::Assert(NewSize < std::numeric_limits<int>::max());
+	LeftBlock()->SetSize(NewSize);
+	return *LeftBlock();
+}

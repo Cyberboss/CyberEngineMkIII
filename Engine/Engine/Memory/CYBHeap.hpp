@@ -69,6 +69,7 @@ namespace CYB {
 			/*! 
 				@brief Allocates a Block
 				@param ANumBytes The minimum number of bytes available in the returned Block
+				@param ALock A reference to the current lock on FMutex that will be released by the time the function returns
 				@return An unused Block that isn't free and is is at least @p ANumBytes in size
 				@par Thread Safety
 					This function requires that FMutex is locked
@@ -80,6 +81,7 @@ namespace CYB {
 				@brief Reallocates a Block
 				@param ABlock A reference to the Block being worked on
 				@param ANumBytes The minimum number of bytes available in the returned Block
+				@param ALock A reference to the current lock on FMutex that will be released by the time the function returns
 				@return An unused Block that isn't free, is at least @p ANumBytes in size, and contains all previous data from @p ABlock
 				@par Thread Safety
 					This function requires that FMutex is locked
@@ -91,6 +93,7 @@ namespace CYB {
 			/*!
 				@brief Frees a Block
 				@param ABlock A reference to the Block being worked on
+				@param ALock A reference to the current lock on FMutex that will be released by the time the function returns
 				@par Thread Safety
 					This function requires that FMutex is locked
 				@par Exception Safety

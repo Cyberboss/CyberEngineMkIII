@@ -100,7 +100,7 @@ CYB::Engine::Block& CYB::Engine::Block::EatLeftBlock(void) {
 	API::Assert(!IsLargeBlock());
 	API::Assert(LeftBlock() != nullptr);
 	const auto NewSize(LeftBlock()->Size() + Size() + sizeof(Block));
-	API::Assert(NewSize < std::numeric_limits<int>::max());
-	LeftBlock()->SetSize(NewSize);
+	API::Assert(NewSize < static_cast<unsigned long long>(std::numeric_limits<int>::max()));
+	LeftBlock()->SetSize(static_cast<int>(NewSize));
 	return *LeftBlock();
 }

@@ -52,27 +52,24 @@ void CYB::Engine::Heap::LargeBlockNeedsAtLeast(const int ARequiredNumBytes) {
 }
 
 void CYB::Engine::Heap::MergeBlockIfPossible(Block*& ABlock, Block* ALastFreeListEntry) {
-
 	API::Assert(ABlock->IsFree());
 
-	unsigned long long NewSize;
-
-	const auto GoodCheck([&]() { 
-		if (ABlock->LeftBlock() != nullptr && ABlock->LeftBlock()->IsFree()) {
-			NewSize = ABlock->Size() + ABlock->LeftBlock()->Size() + sizeof(Block);
-			return NewSize <= static_cast<unsigned long long>(std::numeric_limits<int>::max());
+	if (ABlock->LeftBlock() != nullptr && ABlock->LeftBlock()->IsFree()) {
+		if (ABlock->IsLargeBlock()) {
+			RemoveFromFreeList(*ABlock, ALastFreeListEntry);
+			FLargeBlock = &static_cast<LargeBlock*>(ABlock)->EatLeftBlock();
+			ABlock = FLargeBlock;
+			AddToFreeList(*ABlock, ALastFreeListEntry);
 		}
-		else
-			return false;
-	});
+		else {
+			const auto NewSize(ABlock->Size() + ABlock->LeftBlock()->Size() + sizeof(Block));
 
-	if (GoodCheck()) {
-		RemoveFromFreeList(*ABlock, ALastFreeListEntry);
-		do {
-			ABlock = ABlock->LeftBlock();
-			ABlock->SetSize(static_cast<int>(NewSize));
-		} while (GoodCheck());
-		AddToFreeList(*ABlock, ALastFreeListEntry);
+			if (NewSize <= static_cast<unsigned long long>(std::numeric_limits<int>::max())) {
+				RemoveFromFreeList(*ABlock, ALastFreeListEntry);
+				ABlock = &ABlock->EatLeftBlock();
+				AddToFreeList(*ABlock, ALastFreeListEntry);
+			}
+		}
 	}
 }
 

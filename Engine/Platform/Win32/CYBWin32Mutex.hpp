@@ -4,7 +4,7 @@ namespace CYB {
 		namespace Implementation {
 			class Mutex {
 			protected:
-				Win32::CRITICAL_SECTION FCriticalSection;
+				mutable Win32::CRITICAL_SECTION FCriticalSection;
 			};
 		};
 	};

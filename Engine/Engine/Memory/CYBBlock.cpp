@@ -68,6 +68,11 @@ CYB::Engine::Block* CYB::Engine::Block::RightBlock(void) {
 	API::Assert(!IsLargeBlock());
 	return reinterpret_cast<Block*>(static_cast<byte*>(GetData()) + Size());
 }
+
+const CYB::Engine::Block* CYB::Engine::Block::RightBlock(void) const {
+	API::Assert(!IsLargeBlock());
+	return reinterpret_cast<const Block*>(reinterpret_cast<const byte*>(this) + sizeof(Block) + Size());
+}
 void CYB::Engine::Block::SetSize(const unsigned int ANewSize) {
 	API::Assert(ANewSize < static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	FSizeAndFreeBit = (ANewSize | 1U << 31);

@@ -17,6 +17,7 @@ CYB::Engine::Heap::Heap(const unsigned long long AInitialCommitSize) :
 	FLargeBlock = new (&FirstBlock()) LargeBlock(FCommitSize, nullptr);
 	FFreeList = FLargeBlock;
 }
+
 CYB::Engine::Heap::~Heap() {
 	Platform::VirtualMemory::Release(FReservation);
 }
@@ -27,6 +28,10 @@ unsigned long long CYB::Engine::Heap::CalculateInitialCommitSize(const unsigned 
 }
 
 CYB::Engine::Block& CYB::Engine::Heap::FirstBlock(void) {
+	return *static_cast<Block*>(FReservation);
+}
+
+const CYB::Engine::Block& CYB::Engine::Heap::FirstBlock(void) const {
 	return *static_cast<Block*>(FReservation);
 }
 
@@ -145,6 +150,13 @@ void CYB::Engine::Heap::FreeImpl(Block& ABlock, API::LockGuard& ALock) {
 	AddToFreeList(ABlock, nullptr);
 	ABlock.SetFree(true);
 	ALock.Release();
+}
+
+void CYB::Engine::Heap::Walk(void) const {
+	API::LockGuard Lock(FMutex);
+	for (auto CurrentBlock(&FirstBlock()); CurrentBlock != FLargeBlock; CurrentBlock = CurrentBlock->RightBlock())
+		CurrentBlock->Validate();
+	FLargeBlock->Validate();
 }
 
 void* CYB::Engine::Heap::Alloc(const int ANumBytes) {

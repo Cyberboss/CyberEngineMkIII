@@ -21,7 +21,7 @@ SCENARIO("Test that Block initialization performs as expected", "[Memory][Unit]"
 			}
 		}
 		WHEN("A LargeBlock is initialized in the memory") {
-			auto& TestBlock(*new (Data) CYB::Engine::LargeBlock(100 - sizeof(LargeBlock)));
+			auto& TestBlock(*new (Data) CYB::Engine::LargeBlock(100 - sizeof(LargeBlock), nullptr));
 			THEN("The methods report as expected") {
 				CHECK_NOTHROW(TestBlock.Validate());
 				CHECK(TestBlock.GetData() == static_cast<byte*>(Data) + sizeof(Block));
@@ -30,7 +30,7 @@ SCENARIO("Test that Block initialization performs as expected", "[Memory][Unit]"
 				CHECK(Address == &TestBlock);
 				CHECK(TestBlock.IsFree());
 				CHECK(TestBlock.IsLargeBlock());
-				CHECK(TestBlock.Size() == 0);
+				CHECK(TestBlock.Size() == 100 - sizeof(LargeBlock));
 				CHECK(TestBlock.LeftBlock() == nullptr);
 				//RightBlock is HCF on LargeBlocks
 			}
@@ -81,7 +81,7 @@ SCENARIO("Test that LargeBlock identification works", "[Memory][Unit]") {
 		}
 	}
 	GIVEN("A valid LargeBlock") {
-		auto& TestBlock(*new (Data) CYB::Engine::LargeBlock(100 - sizeof(LargeBlock)));
+		auto& TestBlock(*new (Data) CYB::Engine::LargeBlock(100 - sizeof(LargeBlock), nullptr));
 		WHEN("It is checked if it is a LargeBlock") {
 			const auto Result(TestBlock.IsLargeBlock());
 			THEN("True is returned") {
@@ -114,7 +114,7 @@ SCENARIO("Test Block Split/Merge functions work", "[Memory][Unit]") {
 		WHEN("It is Spliced and remerged") {
 			auto& Tmp(TestBlock.Splice(20));
 			auto& Result(Tmp.EatLeftBlock());
-			THEN("There are now two Blocks with the appropriate settings") {
+			THEN("There is now one Block with the appropriate settings") {
 				CHECK_NOTHROW(TestBlock.Validate());
 				CHECK(&Result == &TestBlock);
 				CHECK(TestBlock.IsFree());
@@ -124,7 +124,7 @@ SCENARIO("Test Block Split/Merge functions work", "[Memory][Unit]") {
 		}
 	}
 	GIVEN("A valid LargeBlock") {
-		auto TestBlockP(new (Data) CYB::Engine::LargeBlock(500 - sizeof(LargeBlock)));
+		auto TestBlockP(new (Data) CYB::Engine::LargeBlock(500 - sizeof(LargeBlock), nullptr));
 		WHEN("It is Allocated from") {
 			auto& Result(LargeBlock::AllocateBlock(TestBlockP, 20));
 			THEN("There are now two Blocks with the appropriate settings") {
@@ -137,6 +137,17 @@ SCENARIO("Test Block Split/Merge functions work", "[Memory][Unit]") {
 				CHECK_FALSE(Result.IsFree());
 				CHECK_FALSE(Result.IsLargeBlock());
 				CHECK(TestBlockP->IsLargeBlock());
+				CHECK(TestBlockP->Size() == 480 - sizeof(LargeBlock) - sizeof(Block));
+			}
+		}
+		WHEN("It is Spliced and remerged") {
+			auto& Tmp(LargeBlock::AllocateBlock(TestBlockP, 20));
+			auto& Result(TestBlockP->EatLeftBlock());
+			THEN("There is now one LargeBlock with the appropriate settings") {
+				CHECK(&Result == &Tmp);
+				CHECK_NOTHROW(Result.Validate());
+				CHECK(Result.IsLargeBlock());
+				CHECK(Result.Size() == 500 - sizeof(LargeBlock));
 			}
 		}
 	}

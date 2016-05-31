@@ -12,6 +12,7 @@ Platform/Modules.cpp
 Platform/Threads.cpp
 
 Engine/Memory/Blocks.cpp
+Engine/Memory/Heap.cpp
 
 )
 

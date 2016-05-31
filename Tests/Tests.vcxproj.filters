@@ -17,6 +17,9 @@
     <ClCompile Include="Engine\Memory\Blocks.cpp">
       <Filter>Engine\Memory</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Memory\Heap.cpp">
+      <Filter>Engine\Memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />

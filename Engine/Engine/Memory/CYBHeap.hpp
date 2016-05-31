@@ -12,7 +12,7 @@ namespace CYB {
 			Block* FFreeList; //!< @brief The first block in the linked free list
 			LargeBlock* FLargeBlock; //!< @brief The block that extends to the end of the free list
 
-			Platform::Mutex FMutex;
+			Platform::Mutex FMutex;	//!< @brief The lock for the Heap
 		private:
 			/*!
 				@brief A small max comparison of @p AInitialCommitSize and sizeof(Block) + 1
@@ -34,6 +34,15 @@ namespace CYB {
 					This function does not throw exceptions
 			*/
 			Block& FirstBlock(void);
+			/*!
+				@brief Get a reference to the first block in the reservation
+				@return A reference to the first block in the reservation
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			const Block& FirstBlock(void) const;
 
 			/*!
 				@brief Adds a Block to the free list after @p APreviousEntry while performing all the checks and reassignments
@@ -184,6 +193,15 @@ namespace CYB {
 					This function does not throw exceptions
 			*/
 			unsigned long long CurrentAmountOfMemoryCommitted(void) const;
+
+			/*!
+				@brief Walks the heap and throws if an error is detected
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			void Walk(void) const;
 
 			//! @brief See CYB::API::Heap::Alloc
 			void* Alloc(const int ASize) final override;

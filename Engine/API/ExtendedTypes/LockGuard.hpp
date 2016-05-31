@@ -6,7 +6,7 @@ namespace CYB {
 		//! @brief A RAII locking mechanism
 		class LockGuard {
 		private:
-			Mutex* FMutex;	//!< @brief A reference to the owned mutex
+			const Mutex* FMutex;	//!< @brief A reference to the owned mutex
 		public:
 			/*! 
 				@brief Construct a LockGuard that will hold a lock on @p AMutex
@@ -16,7 +16,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			LockGuard(Mutex& AMutex);
+			LockGuard(const Mutex& AMutex);
 			LockGuard(const LockGuard&) = delete;	//!< @brief See @ref structors
 			LockGuard(LockGuard&& AMove);	//!< @brief See @ref structors
 			LockGuard& operator=(LockGuard&& AMove);	//!< @brief See @ref structors

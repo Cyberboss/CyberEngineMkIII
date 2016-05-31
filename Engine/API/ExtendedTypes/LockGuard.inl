@@ -1,6 +1,6 @@
 #pragma once
 
-inline CYB::API::LockGuard::LockGuard(Mutex& AMutex) :
+inline CYB::API::LockGuard::LockGuard(const Mutex& AMutex) :
 	FMutex(&AMutex)
 {
 	FMutex->Lock();

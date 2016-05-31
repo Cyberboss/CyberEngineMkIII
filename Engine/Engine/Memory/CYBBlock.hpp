@@ -88,6 +88,15 @@ namespace CYB {
 			*/
 			Block* RightBlock(void);
 			/*!
+				@brief Get the block to the right of this Block
+				@return The block to the right of this block. May be nullptr if this is the rightmost block
+				@par Thread Safety
+					This function requires that the owned memory isn't concurrently accessed during this function
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			const Block* RightBlock(void) const;
+			/*!
 				@brief Get the block to the left of this Block
 				@return The block to the left of this block. May be nullptr if this is the leftmost block or the block to the left is a LargeBlock
 				@par Thread Safety

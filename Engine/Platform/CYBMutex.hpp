@@ -21,11 +21,11 @@ namespace CYB {
 			virtual ~Mutex();
 
 			//! @brief See CYB::API::Mutex::Lock
-			void Lock(void) final override;
+			void Lock(void) const final override;
 			//! @brief See CYB::API::Mutex::TryLock
-			bool TryLock(void) final override;
+			bool TryLock(void) const final override;
 			//! @brief See CYB::API::Mutex::Unlock
-			void Unlock(void) final override;
+			void Unlock(void) const final override;
 		};
 	};
 };

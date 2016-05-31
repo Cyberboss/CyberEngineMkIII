@@ -16,14 +16,14 @@ CYB::Platform::Mutex::~Mutex() {
 		throw CYB::Exception::SystemData(CYB::Exception::SystemData::MUTEX_DESTRUCTION_FAILURE);
 }
 
-void CYB::Platform::Mutex::Lock(void) {
+void CYB::Platform::Mutex::Lock(void) const {
 	Core().FModuleManager.FPThread.Call<ModuleDefinitions::PThread::pthread_mutex_lock>(&FMutex);
 }
 
-bool CYB::Platform::Mutex::TryLock(void) {
+bool CYB::Platform::Mutex::TryLock(void) const {
 	return Core().FModuleManager.FPThread.Call<ModuleDefinitions::PThread::pthread_mutex_trylock>(&FMutex) == 0;
 }
 
-void CYB::Platform::Mutex::Unlock(void) {
+void CYB::Platform::Mutex::Unlock(void) const {
 	Core().FModuleManager.FPThread.Call<ModuleDefinitions::PThread::pthread_mutex_unlock>(&FMutex);
 }

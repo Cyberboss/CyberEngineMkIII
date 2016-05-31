@@ -4,7 +4,7 @@ namespace CYB {
 		namespace Implementation {
 			class Mutex {
 			protected:
-				Posix::pthread_mutex_t FMutex;
+				mutable Posix::pthread_mutex_t FMutex;
 			protected:
 				Mutex();
 			};

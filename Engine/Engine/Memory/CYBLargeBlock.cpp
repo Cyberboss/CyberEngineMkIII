@@ -20,7 +20,7 @@ CYB::Engine::LargeBlock::LargeBlock(const unsigned long long ASpaceAvailable) :
 	FMagicFooter(MAGIC_FOOTER)
 {}
 
-CYB::Engine::Block& CYB::Engine::LargeBlock::AllocateBlock(LargeBlock*& ALargeBlock, const int ANewBlockSize) {
+CYB::Engine::Block& CYB::Engine::LargeBlock::AllocateBlock(LargeBlock*& ALargeBlock, const unsigned int ANewBlockSize) {
 	const auto SizeWithBlock(ANewBlockSize + sizeof(Block));
 	const auto OriginalSize(ALargeBlock->FRemainingSize);
 	API::Assert(OriginalSize > SizeWithBlock);

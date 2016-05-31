@@ -48,7 +48,8 @@ void CYB::Engine::Heap::RemoveFromFreeList(Block& ABlock, Block* const APrevious
 		APreviousEntry->FNextFree = ABlock.FNextFree;
 }
 
-void CYB::Engine::Heap::LargeBlockNeedsAtLeast(const int ARequiredNumBytes) {
+void CYB::Engine::Heap::LargeBlockNeedsAtLeast(const unsigned int ARequiredNumBytes) {
+	API::Assert(ARequiredNumBytes < static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	if (FLargeBlock->Size() < ARequiredNumBytes) {
 		const auto SizeDifference(ARequiredNumBytes - FLargeBlock->Size());
 		FCommitSize += SizeDifference;
@@ -79,7 +80,8 @@ void CYB::Engine::Heap::MergeBlockIfPossible(Block*& ABlock, Block* ALastFreeLis
 	}
 }
 
-CYB::Engine::Block& CYB::Engine::Heap::AllocImpl(const int ANumBytes, API::LockGuard& ALock) {
+CYB::Engine::Block& CYB::Engine::Heap::AllocImpl(const unsigned int ANumBytes, API::LockGuard& ALock) {
+	API::Assert(ANumBytes < static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	const auto MinimumBlockSize(16);	//Do not splice a block that will have a size smaller than this
 	const auto MinimumBlockFootprint(MinimumBlockSize + sizeof(Block));
 	Block* LastFreeListEntry(nullptr);
@@ -132,7 +134,8 @@ CYB::Engine::Block& CYB::Engine::Heap::AllocImpl(const int ANumBytes, API::LockG
 	AllocatedBlock.SetFree(false);
 	return AllocatedBlock;
 }
-CYB::Engine::Block& CYB::Engine::Heap::ReallocImpl(Block& ABlock, const int ANumBytes, API::LockGuard& ALock) {
+CYB::Engine::Block& CYB::Engine::Heap::ReallocImpl(Block& ABlock, const unsigned int ANumBytes, API::LockGuard& ALock) {
+	API::Assert(ANumBytes < static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	auto NewData(AllocImpl(ANumBytes, ALock));
 	std::copy(static_cast<byte*>(ABlock.GetData()), static_cast<byte*>(ABlock.GetData()) + ABlock.Size(), static_cast<byte*>(NewData.GetData()));
 	Free(ABlock.GetData());
@@ -145,10 +148,10 @@ void CYB::Engine::Heap::FreeImpl(Block& ABlock, API::LockGuard& ALock) {
 }
 
 void* CYB::Engine::Heap::Alloc(const int ANumBytes) {
-	if (ANumBytes == 0)
+	if (ANumBytes <= 0)
 		return nullptr;
 	API::LockGuard Lock(FMutex);
-	return AllocImpl(ANumBytes, Lock).GetData();
+	return AllocImpl(static_cast<unsigned int>(ANumBytes), Lock).GetData();
 }
 
 void* CYB::Engine::Heap::Realloc(void* const APreviousAllocation, const int ANumBytes) {
@@ -156,11 +159,16 @@ void* CYB::Engine::Heap::Realloc(void* const APreviousAllocation, const int ANum
 		return Alloc(ANumBytes);
 	
 	auto& WorkingBlock(Block::FromData(APreviousAllocation));
-	if(WorkingBlock.Size() >= ANumBytes)
+	if (ANumBytes <= 0) {
+		API::LockGuard Lock(FMutex);
+		FreeImpl(WorkingBlock, Lock);
+		return nullptr;
+	}
+	else if(WorkingBlock.Size() >= static_cast<unsigned int>(ANumBytes))
 		return APreviousAllocation;
 
 	API::LockGuard Lock(FMutex);
-	return ReallocImpl(WorkingBlock, ANumBytes, Lock).GetData();
+	return ReallocImpl(WorkingBlock, static_cast<unsigned int>(ANumBytes), Lock).GetData();
 }
 
 void CYB::Engine::Heap::Free(void* const APreviousAllocation) {

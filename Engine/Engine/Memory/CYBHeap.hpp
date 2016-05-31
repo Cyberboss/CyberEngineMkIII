@@ -64,7 +64,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			void LargeBlockNeedsAtLeast(const int ARequiredNumBytes);
+			void LargeBlockNeedsAtLeast(const unsigned int ARequiredNumBytes);
 
 			/*!
 				@brief Coalesces Blocks to the left of @p ABlock and updates the free list
@@ -87,7 +87,7 @@ namespace CYB {
 				@par Exception Safety
 					CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the memory could not be committed
 			*/
-			Block& AllocImpl(const int ANumBytes, API::LockGuard& ALock);
+			Block& AllocImpl(const unsigned int ANumBytes, API::LockGuard& ALock);
 			/*! 
 				@brief Reallocates a Block
 				@param ABlock A reference to the Block being worked on
@@ -100,7 +100,7 @@ namespace CYB {
 					CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
 					<BR>CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the memory could not be committed
 			*/
-			Block& ReallocImpl(Block& ABlock, const int ANumBytes, API::LockGuard& ALock);
+			Block& ReallocImpl(Block& ABlock, const unsigned int ANumBytes, API::LockGuard& ALock);
 			/*!
 				@brief Frees a Block
 				@param ABlock A reference to the Block being worked on

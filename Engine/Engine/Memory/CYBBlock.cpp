@@ -37,8 +37,10 @@ unsigned int CYB::Engine::Block::CalculateOffset(const Block& ABlock) {
 		return 0;
 }
 
-int CYB::Engine::Block::Size(void) const {
-	return static_cast<int>(FSizeAndFreeBit & ~(1U << 31));
+unsigned int CYB::Engine::Block::Size(void) const {
+	const auto Result(FSizeAndFreeBit & ~(1U << 31));
+	API::Assert(Result < static_cast<unsigned int>(std::numeric_limits<int>::max()));
+	return Result;
 }
 
 bool CYB::Engine::Block::IsFree(void) const {
@@ -69,7 +71,8 @@ CYB::Engine::Block* CYB::Engine::Block::RightBlock(void) {
 	API::Assert(!IsLargeBlock());
 	return reinterpret_cast<Block*>(static_cast<byte*>(GetData()) + Size());
 }
-void CYB::Engine::Block::SetSize(const int ANewSize) {
+void CYB::Engine::Block::SetSize(const unsigned int ANewSize) {
+	API::Assert(ANewSize < static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	FSizeAndFreeBit = (ANewSize | 1U << 31);
 }
 void CYB::Engine::Block::SetFree(const bool ANewFree) {
@@ -88,8 +91,8 @@ void CYB::Engine::Block::Validate(void) const {
 #endif
 }
 
-CYB::Engine::Block& CYB::Engine::Block::Splice(const int ASizeToKeep) {
-	API::Assert(ASizeToKeep > 0);
+CYB::Engine::Block& CYB::Engine::Block::Splice(const unsigned int ASizeToKeep) {
+	API::Assert(ASizeToKeep < static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	const auto NewBlockAmount(Size() - ASizeToKeep);
 	API::Assert(NewBlockAmount > sizeof(Block));
 	SetSize(ASizeToKeep);
@@ -101,6 +104,6 @@ CYB::Engine::Block& CYB::Engine::Block::EatLeftBlock(void) {
 	API::Assert(LeftBlock() != nullptr);
 	const auto NewSize(LeftBlock()->Size() + Size() + sizeof(Block));
 	API::Assert(NewSize < static_cast<unsigned long long>(std::numeric_limits<int>::max()));
-	LeftBlock()->SetSize(static_cast<int>(NewSize));
+	LeftBlock()->SetSize(static_cast<unsigned int>(NewSize));
 	return *LeftBlock();
 }

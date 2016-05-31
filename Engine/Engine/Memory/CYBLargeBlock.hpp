@@ -8,8 +8,6 @@ namespace CYB {
 		private:
 			unsigned long long FMagicHeader; //!< @brief A guard against memory corruption
 #endif
-		public:
-			LargeBlock* FLargeBlockToTheRight; //!< @brief Pointer to a large block in a higher memory location in the current reservation
 		private:
 			unsigned long long FRemainingSize; //!< @brief The amount of space the block has available
 #ifdef DEBUG
@@ -20,7 +18,7 @@ namespace CYB {
 				@brief Allocate a portion of the LargeBlock's owned data to create a regular block
 				@param[out] ALargeBlock A reference to the pointer pointing to the LargeBlock from which the new Block will be allocated. Will be changed to the LargeBlock's new location upon return
 				@param ANewBlockSize The size of the Block to be allocated
-				@return A new Block with the correct size and free state if it succeeded. Nullptr will be return in the other case of not having enough space in @p ALargeBlock
+				@return A new Block with the correct size and free state
 				@par Thread Safety
 					This function requires that the owned memory isn't concurrently accessed during this function
 				@par Exception Safety

@@ -6,16 +6,15 @@
 
 static_assert(sizeof(CYB::Engine::LargeBlock) - sizeof(CYB::Engine::Block) ==
 #ifdef DEBUG
-	32
+	24
 #else
-	16
+	8
 #endif
 	, "LargeBlock size has changed, check algorithms");
 
 CYB::Engine::LargeBlock::LargeBlock(const unsigned long long ASpaceAvailable) :
 	Block(sizeof(Block), *this, true),
 	FMagicHeader(MAGIC_HEADER),
-	FLargeBlockToTheRight(nullptr),
 	FRemainingSize(ASpaceAvailable),
 	FMagicFooter(MAGIC_FOOTER)
 {}
@@ -27,7 +26,7 @@ CYB::Engine::Block& CYB::Engine::LargeBlock::AllocateBlock(LargeBlock*& ALargeBl
 	ALargeBlock->SetSize(ANewBlockSize);
 	ALargeBlock->SetFree(false);
 	Block& NewBlock(*ALargeBlock);
-	ALargeBlock = new (ALargeBlock->GetData()) LargeBlock(OriginalSize - SizeWithBlock);
+	ALargeBlock = new (reinterpret_cast<byte*>(ALargeBlock) + SizeWithBlock) LargeBlock(OriginalSize - SizeWithBlock);
 	return NewBlock;
 }
 

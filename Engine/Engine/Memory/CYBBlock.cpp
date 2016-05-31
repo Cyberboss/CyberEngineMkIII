@@ -28,13 +28,10 @@ unsigned int CYB::Engine::Block::InitializeData(const unsigned int ASize, const 
 }
 
 unsigned int CYB::Engine::Block::CalculateOffset(const Block& ABlock) {
-	if (!ABlock.IsLargeBlock()) {
-		const auto Result(static_cast<unsigned long long>(&ABlock > this ? &ABlock - this : this - &ABlock));
-		API::Assert(Result <= std::numeric_limits<unsigned int>().max());
-		return static_cast<unsigned int>(Result);
-	}
-	else
-		return 0;
+	API::Assert(&ABlock <= this);
+	const auto Result(reinterpret_cast<byte*>(this) - reinterpret_cast<const byte*>(&ABlock));
+	API::Assert(Result <= std::numeric_limits<unsigned int>().max());
+	return static_cast<unsigned int>(Result);
 }
 
 unsigned int CYB::Engine::Block::Size(void) const {

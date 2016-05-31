@@ -42,9 +42,6 @@ SCENARIO("Test that Block dword manipulation works", "[Memory][Unit]") {
 	GIVEN("A valid Block") {
 		auto Data(new byte[100]);
 		auto& TestBlock(*new (Data) CYB::Engine::Block(100, *reinterpret_cast<Block*>(Data), true));
-		REQUIRE(TestBlock.Size() == 100 - sizeof(Block));
-		REQUIRE(TestBlock.IsFree());
-		REQUIRE_NOTHROW(TestBlock.Validate());
 		WHEN("The free bit is set to false") {
 			TestBlock.SetFree(false);
 			THEN("The dword works as intended") {
@@ -97,3 +94,36 @@ SCENARIO("Test that LargeBlock identification works", "[Memory][Unit]") {
 	}
 }
 
+SCENARIO("Test Block Split/Merge functions work", "[Memory][Unit]") {
+	GIVEN("A valid Block") {
+		auto Data(new byte[100]);
+		auto& TestBlock(*new (Data) CYB::Engine::Block(100, *reinterpret_cast<Block*>(Data), true));
+		WHEN("It is Spliced") {
+			auto& Result(TestBlock.Splice(20));
+			THEN("There are now two Blocks with the appropriate settings") {
+				CHECK_NOTHROW(Result.Validate());
+				CHECK_NOTHROW(TestBlock.Validate());
+				CHECK(Result.LeftBlock() == &TestBlock);
+				CHECK(TestBlock.RightBlock() == &Result);
+				CHECK(TestBlock.Size() == 20);
+				CHECK(Result.Size() == 80 - (sizeof(Block) * 2));
+				CHECK(TestBlock.IsFree());
+				CHECK(Result.IsFree());
+				CHECK_FALSE(Result.IsLargeBlock());
+				CHECK_FALSE(TestBlock.IsLargeBlock());
+			}
+		}
+		WHEN("It is Spliced and remerged") {
+			auto& Tmp(TestBlock.Splice(20));
+			auto& Result(Tmp.EatLeftBlock());
+			THEN("There are now two Blocks with the appropriate settings") {
+				CHECK_NOTHROW(TestBlock.Validate());
+				CHECK(&Result == &TestBlock);
+				CHECK(TestBlock.IsFree());
+				CHECK(TestBlock.Size() == 100 - sizeof(Block));
+				CHECK_FALSE(TestBlock.IsLargeBlock());
+			}
+		}
+		delete[] Data;
+	}
+}

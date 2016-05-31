@@ -67,7 +67,7 @@ namespace CYB {
 					This function does not throw exceptions
 			*/
 			Block(const unsigned int ASpaceAvailable, const Block& ALeftBlock, const bool AFree);
-			
+			Block(const Block&) = delete;
 			/*!
 				@brief Get the data portion of the memory owned by this Block
 				@return The data portion of the memory owned by this Block

@@ -100,7 +100,7 @@ CYB::Engine::Block& CYB::Engine::Heap::AllocImpl(const unsigned int ANumBytes, A
 
 					//splice it if it's big enough
 					if ((CurrentBlock->Size() - ANumBytes) >= MinimumBlockFootprint) {
-						auto NewBlock(CurrentBlock->Splice(ANumBytes));
+						auto& NewBlock(CurrentBlock->Splice(ANumBytes));
 						//and add it to the free list
 						AddToFreeList(NewBlock, LastFreeListEntry);
 
@@ -136,7 +136,7 @@ CYB::Engine::Block& CYB::Engine::Heap::AllocImpl(const unsigned int ANumBytes, A
 }
 CYB::Engine::Block& CYB::Engine::Heap::ReallocImpl(Block& ABlock, const unsigned int ANumBytes, API::LockGuard& ALock) {
 	API::Assert(ANumBytes < static_cast<unsigned int>(std::numeric_limits<int>::max()));
-	auto NewData(AllocImpl(ANumBytes, ALock));
+	auto& NewData(AllocImpl(ANumBytes, ALock));
 	std::copy(static_cast<byte*>(ABlock.GetData()), static_cast<byte*>(ABlock.GetData()) + ABlock.Size(), static_cast<byte*>(NewData.GetData()));
 	Free(ABlock.GetData());
 	return Block::FromData(NewData.GetData());

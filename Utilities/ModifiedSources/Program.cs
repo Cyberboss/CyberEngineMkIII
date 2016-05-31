@@ -14,7 +14,7 @@ namespace ModifiedSources
         }
         static List<Task> FTasks = new List<Task>();
         static int FCopied = 0;
-        static List<string> extensions = new List<string> { ".exe", ".obj", ".pch", ".pdb", ".dll", ".lib", ".rc", ".vcxproj", ".filters", ".user", ".tlog", ".log", ".idb", ".xml", ".lastbuildstate", ".pchast", ".exp", ".ilk", ".lastcodeanalysissucceeded", ".CYB", ".csproj", ".cs", ".cache", ".ipch" , "unsuccessfulbuild", ".sln", ".sdf", ".opensdf", ".config", ".settings", ".res", ".opendb", ".db", ".asm", ".sbr", ".bsc", ".xaml", ".cache", ".ipdb", ".iobj", ".tmp", ".ps1", ".filters"};
+        static List<string> extensions = new List<string> { ".exe", ".obj", ".pch", ".pdb", ".dll", ".lib", ".rc", ".vcxproj", ".filters", ".user", ".tlog", ".log", ".idb", ".xml", ".lastbuildstate", ".pchast", ".exp", ".ilk", ".lastcodeanalysissucceeded", ".CYB", ".csproj", ".cs", ".cache", ".ipch" , "unsuccessfulbuild", ".sln", ".sdf", ".opensdf", ".config", ".settings", ".res", ".opendb", ".db", ".asm", ".sbr", ".bsc", ".xaml", ".cache", ".ipdb", ".iobj", ".tmp", ".ps1", ".filters", ".dox"};
 
        static DateTime from_date = Properties.Settings.Default.LastSync;
         static void ParseDirectory(DirectoryInfo ADir, String CurrentPath)

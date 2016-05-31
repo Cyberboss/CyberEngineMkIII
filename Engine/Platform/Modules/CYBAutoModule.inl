@@ -51,3 +51,11 @@ template <unsigned int AN, typename... AFunctionTypes> template <unsigned int AP
 	auto Callable(reinterpret_cast<CallableType*>(FFunctionPointers[APointerIndex]));
 	return Callable(std::forward<AArgs>(AArguments)...);
 }
+
+#ifdef CYB_BUILDING_TESTS
+template <unsigned int AN, typename... AFunctionTypes> void* CYB::Platform::AutoModule<AN, AFunctionTypes...>::ReassignFunctionPointer(const unsigned int AIndex, void* const ANewPointer) {
+	auto Old(FFunctionPointers[AIndex]);
+	FFunctionPointers[AIndex] = ANewPointer;
+	return Old;
+}
+#endif

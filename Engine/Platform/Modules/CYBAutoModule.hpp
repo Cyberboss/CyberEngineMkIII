@@ -8,6 +8,8 @@ namespace CYB {
 			@tparam AFunctionTypes The types of the functions being called
 		*/
 		template <unsigned int AN, typename... AFunctionTypes> class AutoModule {
+		public:
+			typedef API::ParameterPack<AFunctionTypes...> FParameterPack;
 		private:
 			Module FLibrary;	//!< @brief The owned module
 			void* FFunctionPointers[AN];	//!< @brief Pointers to loaded functions
@@ -85,6 +87,9 @@ namespace CYB {
 					This function will throw any exception from the called function
 			*/
 			template<unsigned int APointerIndex, typename... AArgs> auto Call(AArgs&&... AArguments) const;
+#ifdef CYB_BUILDING_TESTS
+			void* ReassignFunctionPointer(const unsigned int AIndex, void* ANewPointer);
+#endif
 		};
 	};
 };

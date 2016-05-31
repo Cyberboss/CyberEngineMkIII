@@ -95,7 +95,6 @@
   <ItemGroup>
     <ClCompile Include="Engine\Memory\Blocks.cpp" />
     <ClCompile Include="Engine\Memory\Heap.cpp" />
-    <ClCompile Include="FakeCore.cpp" />
     <ClCompile Include="Platform\Modules.cpp" />
     <ClCompile Include="Platform\Threads.cpp" />
     <ClCompile Include="Platform\VirtualMemory.cpp" />
@@ -107,6 +106,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Utils\FakeCore.cpp" />
     <ClCompile Include="Win32Main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -117,14 +117,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ModuleDependancy.hpp" />
     <ClInclude Include="TestHeader.hpp" />
+    <ClInclude Include="Utils\CallRedirect.hpp" />
+    <ClInclude Include="Utils\ModuleDependancy.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ModuleDependancy.inl" />
+    <None Include="Utils\CallRedirect.inl" />
+    <None Include="Utils\ModuleDependancy.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

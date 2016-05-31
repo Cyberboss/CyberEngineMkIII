@@ -199,7 +199,7 @@ namespace CYB {
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
-					This function does not throw exceptions
+					CYB::Exception::Violation::INVALID_HEAP_BLOCK if a Block's magic numbers failed to verify
 			*/
 			void Walk(void) const;
 

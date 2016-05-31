@@ -13,17 +13,24 @@
     </ClCompile>
     <ClCompile Include="Win32Main.cpp" />
     <ClCompile Include="PosixMain.cpp" />
-    <ClCompile Include="FakeCore.cpp" />
     <ClCompile Include="Engine\Memory\Blocks.cpp">
       <Filter>Engine\Memory</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Memory\Heap.cpp">
       <Filter>Engine\Memory</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\FakeCore.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />
-    <ClInclude Include="ModuleDependancy.hpp" />
+    <ClInclude Include="Utils\ModuleDependancy.hpp">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\CallRedirect.hpp">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
@@ -38,8 +45,16 @@
     <Filter Include="Engine\Memory">
       <UniqueIdentifier>{425fa603-9991-4a95-8f53-ee4b26a0e984}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{a21cea0c-e8c3-4ad7-93b3-c26dd833ab9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ModuleDependancy.inl" />
+    <None Include="Utils\ModuleDependancy.inl">
+      <Filter>Utils</Filter>
+    </None>
+    <None Include="Utils\CallRedirect.inl">
+      <Filter>Utils</Filter>
+    </None>
   </ItemGroup>
 </Project>

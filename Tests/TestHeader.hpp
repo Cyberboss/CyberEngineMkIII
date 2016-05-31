@@ -10,7 +10,8 @@
 #endif
 #include "../Engine/CYB.hpp"
 
-#include "ModuleDependancy.hpp"
+#include "Utils/CallRedirect.hpp"
+#include "Utils/ModuleDependancy.hpp"
 
 namespace CYB {
 	namespace Exception {

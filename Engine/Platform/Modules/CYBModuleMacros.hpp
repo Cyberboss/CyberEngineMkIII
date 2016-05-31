@@ -76,12 +76,38 @@ template <> constexpr bool CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(
 	return AOptionalFunctions;\
 }
 
-#define DEFINE_DUMMY_MODULE(AModuleName)\
+#define DEFINE_DUMMY_MODULE(AModuleName, ADiskName, APlatform, AOptionalFunctions, ...)\
 namespace CYB {\
 	namespace Platform {\
 		namespace ModuleDefinitions {\
 			typedef AMFake AM##AModuleName;\
+			class AModuleName{\
+			public:\
+				enum: unsigned int {\
+					__VA_ARGS__\
+				};\
+			};\
 		};\
 	};\
 };
+
+#ifdef TARGET_OS_WINDOWS
+#define DEFINE_WINDOWS_MODULE DEFINE_MODULE
+#define DEFINE_POSIX_MODULE DEFINE_DUMMY_MODULE
+#else
+#define DEFINE_WINDOWS_MODULE DEFINE_DUMMY_MODULE
+#define DEFINE_POSIX_MODULE DEFINE_MODULE
+#endif
+
+#ifdef TARGET_OS_LINUX
+#define DEFINE_LINUX_MODULE DEFINE_MODULE
+#else
+#define DEFINE_LINUX_MODULE DEFINE_DUMMY_MODULE
+#endif
+
+#ifdef TARGET_OS_MAC
+#define DEFINE_OSX_MODULE DEFINE_MODULE
+#else
+#define DEFINE_OSX_MODULE DEFINE_DUMMY_MODULE
+#endif
 //! @endcond

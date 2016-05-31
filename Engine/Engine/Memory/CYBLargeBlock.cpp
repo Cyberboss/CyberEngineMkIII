@@ -12,8 +12,8 @@ static_assert(sizeof(CYB::Engine::LargeBlock) - sizeof(CYB::Engine::Block) ==
 #endif
 	, "LargeBlock size has changed, check algorithms");
 
-CYB::Engine::LargeBlock::LargeBlock(const unsigned long long ASpaceAvailable) :
-	Block(sizeof(Block), *this, true),
+CYB::Engine::LargeBlock::LargeBlock(const unsigned long long ASpaceAvailable, Block* const ALeftBlock) :
+	Block(sizeof(Block), ALeftBlock == nullptr ? *this : *ALeftBlock, true),
 	FMagicHeader(MAGIC_HEADER),
 	FRemainingSize(ASpaceAvailable),
 	FMagicFooter(MAGIC_FOOTER)
@@ -23,10 +23,10 @@ CYB::Engine::Block& CYB::Engine::LargeBlock::AllocateBlock(LargeBlock*& ALargeBl
 	const auto SizeWithBlock(ANewBlockSize + sizeof(Block));
 	const auto OriginalSize(ALargeBlock->FRemainingSize);
 	API::Assert(OriginalSize > SizeWithBlock);
-	ALargeBlock->SetSize(ANewBlockSize);
-	ALargeBlock->SetFree(false);
 	Block& NewBlock(*ALargeBlock);
-	ALargeBlock = new (reinterpret_cast<byte*>(ALargeBlock) + SizeWithBlock) LargeBlock(OriginalSize - SizeWithBlock);
+	NewBlock.SetSize(ANewBlockSize);
+	NewBlock.SetFree(false);
+	ALargeBlock = new (reinterpret_cast<byte*>(&NewBlock) + SizeWithBlock) LargeBlock(OriginalSize - SizeWithBlock, &NewBlock);
 	return NewBlock;
 }
 
@@ -40,5 +40,13 @@ void CYB::Engine::LargeBlock::Validate(void) const {
 
 CYB::Engine::LargeBlock& CYB::Engine::LargeBlock::EatLeftBlock(void) {
 	API::Assert(LeftBlock() != nullptr);
-	return *new (LeftBlock()) LargeBlock(FRemainingSize + LeftBlock()->Size() + sizeof(Block));	//Even though we are eating a LargeBlock header, we are are also creating a LargeBlock Header - A block header
+	return *new (LeftBlock()) LargeBlock(FRemainingSize + LeftBlock()->Size() + sizeof(Block), LeftBlock()->LeftBlock());	//Even though we are eating a LargeBlock header, we are are also creating a LargeBlock Header - A block header
+}
+
+unsigned long long CYB::Engine::LargeBlock::Size(void) const {
+	return FRemainingSize;
+}
+
+void CYB::Engine::LargeBlock::SetSize(const unsigned long long ANewSize) {
+	FRemainingSize = ANewSize;
 }

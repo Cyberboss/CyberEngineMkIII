@@ -14,7 +14,7 @@ CYB::Engine::Heap::Heap(const unsigned long long AInitialCommitSize) :
 {
 	Platform::VirtualMemory::Commit(FReservation, FCommitSize);
 
-	FLargeBlock = new (&FirstBlock()) LargeBlock(FCommitSize);
+	FLargeBlock = new (&FirstBlock()) LargeBlock(FCommitSize, nullptr);
 	FFreeList = FLargeBlock;
 }
 CYB::Engine::Heap::~Heap() {

@@ -58,7 +58,7 @@ namespace CYB {
 			static Block& FromData(void* const AData);
 			/*!
 				@brief Create a Block. Should be used with operator new in a memory location at least @p ASpaceAvailable large. The Block will own this memory
-				@param ASpaceAvailable The amount of memory the block owns
+				@param ASpaceAvailable The amount of memory the block owns. Includes the header
 				@param ALeftBlock A pointer to the block behind this one, specifying nullptr indicates this is the first block
 				@param AFree Indicates whether or not the Block is free
 				@par Thread Safety

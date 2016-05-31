@@ -70,8 +70,8 @@ SCENARIO("Test that Block dword manipulation works", "[Memory][Unit]") {
 	}
 }
 SCENARIO("Test that LargeBlock identification works", "[Memory][Unit]") {
+	auto Data(new byte[100]);
 	GIVEN("A valid Block") {
-		auto Data(new byte[100]);
 		auto& TestBlock(*new (Data) CYB::Engine::Block(100, *reinterpret_cast<Block*>(Data), true));
 		WHEN("It is checked if it is a LargeBlock") {
 			const auto Result(TestBlock.IsLargeBlock());
@@ -79,10 +79,8 @@ SCENARIO("Test that LargeBlock identification works", "[Memory][Unit]") {
 				CHECK_FALSE(Result);
 			}
 		}
-		delete[] Data;
 	}
 	GIVEN("A valid LargeBlock") {
-		auto Data(new byte[100]);
 		auto& TestBlock(*new (Data) CYB::Engine::LargeBlock(100 - sizeof(LargeBlock)));
 		WHEN("It is checked if it is a LargeBlock") {
 			const auto Result(TestBlock.IsLargeBlock());
@@ -90,13 +88,13 @@ SCENARIO("Test that LargeBlock identification works", "[Memory][Unit]") {
 				CHECK(Result);
 			}
 		}
-		delete[] Data;
 	}
+	delete[] Data;
 }
 
 SCENARIO("Test Block Split/Merge functions work", "[Memory][Unit]") {
+	auto Data(new byte[500]);
 	GIVEN("A valid Block") {
-		auto Data(new byte[100]);
 		auto& TestBlock(*new (Data) CYB::Engine::Block(100, *reinterpret_cast<Block*>(Data), true));
 		WHEN("It is Spliced") {
 			auto& Result(TestBlock.Splice(20));
@@ -124,6 +122,23 @@ SCENARIO("Test Block Split/Merge functions work", "[Memory][Unit]") {
 				CHECK_FALSE(TestBlock.IsLargeBlock());
 			}
 		}
-		delete[] Data;
 	}
+	GIVEN("A valid LargeBlock") {
+		auto TestBlockP(new (Data) CYB::Engine::LargeBlock(500 - sizeof(LargeBlock)));
+		WHEN("It is Allocated from") {
+			auto& Result(LargeBlock::AllocateBlock(TestBlockP, 20));
+			THEN("There are now two Blocks with the appropriate settings") {
+				CHECK_NOTHROW(Result.Validate());
+				CHECK_NOTHROW(TestBlockP->Validate());
+				CHECK(Result.RightBlock() == TestBlockP);
+				CHECK_FALSE(reinterpret_cast<byte*>(TestBlockP) == Data);
+				CHECK(reinterpret_cast<byte*>(&Result) == Data);
+				CHECK(Result.Size() == 20);
+				CHECK_FALSE(Result.IsFree());
+				CHECK_FALSE(Result.IsLargeBlock());
+				CHECK(TestBlockP->IsLargeBlock());
+			}
+		}
+	}
+	delete[] Data;
 }

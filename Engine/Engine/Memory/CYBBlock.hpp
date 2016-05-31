@@ -105,7 +105,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			void SetSize(const int ANewSize);
+			void SetSize(const unsigned int ANewSize);
 			/*!
 				@brief Set the Block's free state
 				@param ANewFree The Block's new free state
@@ -127,13 +127,13 @@ namespace CYB {
 			bool IsFree(void) const;
 			/*!
 				@brief Get the size of the Block
-				@return The size of the Block. This will be positive
+				@return The size of the Block. This will be positive and less than the max of a signed int
 				@par Thread Safety
 					This function requires that the object is not modified during this function
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			int Size(void) const;
+			unsigned int Size(void) const;
 
 			/*!
 				@brief Check if this Block is a LargeBlock			
@@ -163,7 +163,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			Block& Splice(const int ASizeToKeep);
+			Block& Splice(const unsigned int ASizeToKeep);
 
 			/*!
 				@brief Merge size and header into the size of the Block to the left. Does not modify free lists

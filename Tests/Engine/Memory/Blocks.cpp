@@ -16,6 +16,8 @@ SCENARIO("Test that Block initialization performs as expected", "[Memory][Unit]"
 				CHECK(TestBlock.IsFree());
 				CHECK_FALSE(TestBlock.IsLargeBlock());
 				CHECK(static_cast<unsigned long long>(TestBlock.Size()) == 100 - sizeof(Block));
+				CHECK(TestBlock.LeftBlock() == nullptr);
+				CHECK(reinterpret_cast<byte*>(TestBlock.RightBlock()) == static_cast<byte*>(Data) + 100);
 			}
 		}
 		WHEN("A LargeBlock is initialized in the memory") {
@@ -29,8 +31,69 @@ SCENARIO("Test that Block initialization performs as expected", "[Memory][Unit]"
 				CHECK(TestBlock.IsFree());
 				CHECK(TestBlock.IsLargeBlock());
 				CHECK(TestBlock.Size() == 0);
+				CHECK(TestBlock.LeftBlock() == nullptr);
+				//RightBlock is HCF on LargeBlocks
 			}
 		}
 		delete[] static_cast<byte*>(Data);
 	}
 }
+SCENARIO("Test that Block dword manipulation works", "[Memory][Unit]") {
+	GIVEN("A valid Block") {
+		auto Data(new byte[100]);
+		auto& TestBlock(*new (Data) CYB::Engine::Block(100, *reinterpret_cast<Block*>(Data), true));
+		REQUIRE(TestBlock.Size() == 100 - sizeof(Block));
+		REQUIRE(TestBlock.IsFree());
+		REQUIRE_NOTHROW(TestBlock.Validate());
+		WHEN("The free bit is set to false") {
+			TestBlock.SetFree(false);
+			THEN("The dword works as intended") {
+				CHECK_NOTHROW(TestBlock.Validate());
+				CHECK_FALSE(TestBlock.IsFree());
+				CHECK(TestBlock.Size() == 100 - sizeof(Block));
+			}
+		}
+		WHEN("The free bit is set to true") {
+			TestBlock.SetFree(true);
+			THEN("The dword works as intended") {
+				CHECK_NOTHROW(TestBlock.Validate());
+				CHECK(TestBlock.IsFree());
+				CHECK(TestBlock.Size() == 100 - sizeof(Block));
+			}
+		}
+		WHEN("The size is changed") {
+			TestBlock.SetSize(50);
+			THEN("The dword works as intended") {
+				CHECK_NOTHROW(TestBlock.Validate());
+				CHECK(TestBlock.IsFree());
+				CHECK(TestBlock.Size() == 50);
+			}
+		}
+		delete[] Data;
+	}
+}
+SCENARIO("Test that LargeBlock identification works", "[Memory][Unit]") {
+	GIVEN("A valid Block") {
+		auto Data(new byte[100]);
+		auto& TestBlock(*new (Data) CYB::Engine::Block(100, *reinterpret_cast<Block*>(Data), true));
+		WHEN("It is checked if it is a LargeBlock") {
+			const auto Result(TestBlock.IsLargeBlock());
+			THEN("False is returned") {
+				CHECK_FALSE(Result);
+			}
+		}
+		delete[] Data;
+	}
+	GIVEN("A valid LargeBlock") {
+		auto Data(new byte[100]);
+		auto& TestBlock(*new (Data) CYB::Engine::LargeBlock(100 - sizeof(LargeBlock)));
+		WHEN("It is checked if it is a LargeBlock") {
+			const auto Result(TestBlock.IsLargeBlock());
+			THEN("True is returned") {
+				CHECK(Result);
+			}
+		}
+		delete[] Data;
+	}
+}
+

@@ -29,11 +29,11 @@ template <class AAutoModule, typename ACallable, unsigned int AFunctionIndex> te
 	return Callable(std::forward<AArgs>(AArguments)...);
 }
 
-template <unsigned int AFunctionIndex> class CallRedirect<CYB::Platform::ModuleDefinitions::AMFake, AFunctionIndex> {
+template <unsigned int AFunctionIndex> class CallRedirect<CYB::Platform::Modules::AMFake, AFunctionIndex> {
 public:
 	typedef void FCallable;
 public:
-	CallRedirect(CYB::Platform::ModuleDefinitions::AMFake& AReference, FCallable* const ANewFunction) {
+	CallRedirect(CYB::Platform::Modules::AMFake& AReference, FCallable* const ANewFunction) {
 		static_cast<void>(AReference);
 		static_cast<void>(ANewFunction);
 	}

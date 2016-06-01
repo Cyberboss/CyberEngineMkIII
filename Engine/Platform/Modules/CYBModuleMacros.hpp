@@ -49,13 +49,13 @@
 
 #define STRINGIFY(X) #X
 #define STATIC_STRINGIFY(X) API::String::Static(STRINGIFY(X))
-#define DECLTYPE_EXPAND(APlatform, X) decltype(CYB::Platform::Implementation::APlatform::X)
+#define DECLTYPE_EXPAND(APlatform, X) decltype(CYB::Platform::APlatform::X)
 
 #define DEFINE_MODULE(AModuleName, ADiskName, APlatform, AOptionalFunctions, ...)\
 namespace CYB {\
 	namespace Platform {\
-		namespace ModuleDefinitions {\
-			typedef typename Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)> AM##AModuleName;\
+		namespace Modules {\
+			typedef typename Platform::Modules::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)> AM##AModuleName;\
 			class AModuleName{\
 			public:\
 				enum: unsigned int {\
@@ -65,21 +65,21 @@ namespace CYB {\
 		};\
 	};\
 };\
-template <> constexpr const char* CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::ModuleName(void){\
+template <> constexpr const char* CYB::Platform::Modules::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::ModuleName(void){\
 	return ADiskName; \
 }\
-template <> inline const CYB::API::String::Static* CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::FunctionNames(void){\
+template <> inline const CYB::API::String::Static* CYB::Platform::Modules::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::FunctionNames(void){\
 	static const CYB::API::String::Static Names[NARGS(__VA_ARGS__)]{ APPLY(STATIC_STRINGIFY,__VA_ARGS__) };\
 	return Names;\
 };\
-template <> constexpr bool CYB::Platform::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::OptionalFunctions(void) {\
+template <> constexpr bool CYB::Platform::Modules::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::OptionalFunctions(void) {\
 	return AOptionalFunctions;\
 }
 
 #define DEFINE_DUMMY_MODULE(AModuleName, ADiskName, APlatform, AOptionalFunctions, ...)\
 namespace CYB {\
 	namespace Platform {\
-		namespace ModuleDefinitions {\
+		namespace Modules {\
 			typedef AMFake AM##AModuleName;\
 			class AModuleName{\
 			public:\

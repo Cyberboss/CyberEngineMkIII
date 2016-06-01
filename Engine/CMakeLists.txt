@@ -4,28 +4,30 @@ include_directories(${CYB_BASE_DIR}/Engine)
 
 find_package(Threads REQUIRED)
 
-IF(APPLE)
-set(PlatformImplentations "Platform/OSX/CYBOSXThread.cpp")
-ELSE()
-set(PlatformImplentations "Platform/Linux/CYBLinuxThread.cpp")
-ENDIF()
-
 add_library(EngineBase STATIC
 
-${PlatformImplementations}
-
-#Posix
-Platform/Posix/CYBPosixSyscalls.cpp
-Platform/Posix/CYBPosixThread.cpp
-Platform/Posix/CYBPosixProcess.cpp
-Platform/Posix/CYBPosixVirtualMemory.cpp
-Platform/Posix/CYBPosixModule.cpp
-Platform/Posix/CYBPosixMutex.cpp
 
 #Platform
-Platform/CYBThread.cpp
-Platform/CYBProcess.cpp
+
+#System
+Platform/System/CYBThread.cpp
+Platform/System/CYBProcess.cpp
+
+#Posix
+Platform/System/Posix/CYBPosixSyscalls.cpp
+Platform/System/Posix/CYBPosixThread.cpp
+Platform/System/Posix/CYBPosixProcess.cpp
+Platform/System/Posix/CYBPosixVirtualMemory.cpp
+Platform/System/Posix/CYBPosixMutex.cpp
+
+
+#Modules
 Platform/Modules/CYBModule.cpp
+
+#Posix
+Platform/Modules/Posix/CYBPosixModule.cpp
+
+
 
 #Engine
 

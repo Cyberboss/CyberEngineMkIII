@@ -15,7 +15,7 @@ namespace CYB {
 		public:
 			API::EngineInformation FEngineInformation;	//!< Information describing the engine
 
-			Platform::ModuleManager FModuleManager;
+			Platform::Modules::ModuleManager FModuleManager;
 				//User
 				//GDI
 				//Winsock

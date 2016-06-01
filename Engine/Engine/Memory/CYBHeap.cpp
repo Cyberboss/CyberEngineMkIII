@@ -2,7 +2,7 @@
 #include "CYB.hpp"
 
 #ifndef TARGET_OS_WINDOWS
-typedef CYB::Platform::Implementation::Posix::__locale_t __locale_t;
+typedef CYB::Platform::Posix::__locale_t __locale_t;
 #endif
 
 #include <algorithm>

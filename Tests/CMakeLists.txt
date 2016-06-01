@@ -7,9 +7,10 @@ add_executable(CyberEngineMkIIITester
 PosixMain.cpp
 Utils/FakeCore.cpp
 
-Platform/VirtualMemory.cpp
 Platform/Modules.cpp
-Platform/Threads.cpp
+
+Platform/System/VirtualMemory.cpp
+Platform/System/Threads.cpp
 
 Engine/Memory/Blocks.cpp
 Engine/Memory/Heap.cpp

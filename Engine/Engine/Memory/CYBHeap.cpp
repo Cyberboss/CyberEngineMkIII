@@ -7,7 +7,7 @@ typedef CYB::Platform::Posix::__locale_t __locale_t;
 
 #include <algorithm>
 
-CYB::Engine::Heap::Heap(const unsigned long long AInitialCommitSize) :
+CYB::Engine::Memory::Heap::Heap(const unsigned long long AInitialCommitSize) :
 	FReservation(Platform::System::VirtualMemory::Reserve(Parameters::HEAP_RESERVATION_SIZE)),
 	FCommitSize(CalculateInitialCommitSize(AInitialCommitSize)),
 	FLocked(false)
@@ -18,24 +18,24 @@ CYB::Engine::Heap::Heap(const unsigned long long AInitialCommitSize) :
 	FFreeList = FLargeBlock;
 }
 
-CYB::Engine::Heap::~Heap() {
+CYB::Engine::Memory::Heap::~Heap() {
 	Platform::System::VirtualMemory::Release(FReservation);
 }
 
-unsigned long long CYB::Engine::Heap::CalculateInitialCommitSize(const unsigned long long AInitialCommitSize) {
+unsigned long long CYB::Engine::Memory::Heap::CalculateInitialCommitSize(const unsigned long long AInitialCommitSize) {
 	const auto MinimumInitialCommit(sizeof(Block) + 1);
 	return AInitialCommitSize >= MinimumInitialCommit ? AInitialCommitSize : MinimumInitialCommit;
 }
 
-CYB::Engine::Block& CYB::Engine::Heap::FirstBlock(void) {
+CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::FirstBlock(void) {
 	return *static_cast<Block*>(FReservation);
 }
 
-const CYB::Engine::Block& CYB::Engine::Heap::FirstBlock(void) const {
+const CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::FirstBlock(void) const {
 	return *static_cast<Block*>(FReservation);
 }
 
-void CYB::Engine::Heap::AddToFreeList(Block& ABlock, Block* const APreviousEntry) {
+void CYB::Engine::Memory::Heap::AddToFreeList(Block& ABlock, Block* const APreviousEntry) {
 	if (APreviousEntry == nullptr) {
 		ABlock.FNextFree = FFreeList;
 		FFreeList = &ABlock;
@@ -46,14 +46,14 @@ void CYB::Engine::Heap::AddToFreeList(Block& ABlock, Block* const APreviousEntry
 	}
 }
 
-void CYB::Engine::Heap::RemoveFromFreeList(Block& ABlock, Block* const APreviousEntry) {
+void CYB::Engine::Memory::Heap::RemoveFromFreeList(Block& ABlock, Block* const APreviousEntry) {
 	if (APreviousEntry == nullptr)
 		FFreeList = FFreeList->FNextFree;
 	else
 		APreviousEntry->FNextFree = ABlock.FNextFree;
 }
 
-void CYB::Engine::Heap::LargeBlockNeedsAtLeast(const unsigned int ARequiredNumBytes) {
+void CYB::Engine::Memory::Heap::LargeBlockNeedsAtLeast(const unsigned int ARequiredNumBytes) {
 	API::Assert(ARequiredNumBytes < static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	if (FLargeBlock->Size() < ARequiredNumBytes) {
 		const auto SizeDifference(ARequiredNumBytes - FLargeBlock->Size());
@@ -63,7 +63,7 @@ void CYB::Engine::Heap::LargeBlockNeedsAtLeast(const unsigned int ARequiredNumBy
 	}
 }
 
-void CYB::Engine::Heap::MergeBlockIfPossible(Block*& ABlock, Block* ALastFreeListEntry) {
+void CYB::Engine::Memory::Heap::MergeBlockIfPossible(Block*& ABlock, Block* ALastFreeListEntry) {
 	API::Assert(ABlock->IsFree());
 
 	if (ABlock->LeftBlock() != nullptr && ABlock->LeftBlock()->IsFree()) {
@@ -85,7 +85,7 @@ void CYB::Engine::Heap::MergeBlockIfPossible(Block*& ABlock, Block* ALastFreeLis
 	}
 }
 
-CYB::Engine::Block& CYB::Engine::Heap::AllocImpl(const unsigned int ANumBytes, API::LockGuard& ALock) {
+CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::AllocImpl(const unsigned int ANumBytes, API::LockGuard& ALock) {
 	API::Assert(ANumBytes < static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	const auto MinimumBlockSize(16);	//Do not splice a block that will have a size smaller than this
 	const auto MinimumBlockFootprint(MinimumBlockSize + sizeof(Block));
@@ -139,34 +139,34 @@ CYB::Engine::Block& CYB::Engine::Heap::AllocImpl(const unsigned int ANumBytes, A
 	AllocatedBlock.SetFree(false);
 	return AllocatedBlock;
 }
-CYB::Engine::Block& CYB::Engine::Heap::ReallocImpl(Block& ABlock, const unsigned int ANumBytes, API::LockGuard& ALock) {
+CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::ReallocImpl(Block& ABlock, const unsigned int ANumBytes, API::LockGuard& ALock) {
 	API::Assert(ANumBytes < static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	auto& NewData(AllocImpl(ANumBytes, ALock));
 	std::copy(static_cast<byte*>(ABlock.GetData()), static_cast<byte*>(ABlock.GetData()) + ABlock.Size(), static_cast<byte*>(NewData.GetData()));
 	Free(ABlock.GetData());
 	return Block::FromData(NewData.GetData());
 }
-void CYB::Engine::Heap::FreeImpl(Block& ABlock, API::LockGuard& ALock) {
+void CYB::Engine::Memory::Heap::FreeImpl(Block& ABlock, API::LockGuard& ALock) {
 	AddToFreeList(ABlock, nullptr);
 	ABlock.SetFree(true);
 	ALock.Release();
 }
 
-void CYB::Engine::Heap::Walk(void) const {
+void CYB::Engine::Memory::Heap::Walk(void) const {
 	API::LockGuard Lock(FMutex);
 	for (auto CurrentBlock(&FirstBlock()); CurrentBlock != FLargeBlock; CurrentBlock = CurrentBlock->RightBlock())
 		CurrentBlock->Validate();
 	FLargeBlock->Validate();
 }
 
-void* CYB::Engine::Heap::Alloc(const int ANumBytes) {
+void* CYB::Engine::Memory::Heap::Alloc(const int ANumBytes) {
 	if (ANumBytes <= 0)
 		return nullptr;
 	API::LockGuard Lock(FMutex);
 	return AllocImpl(static_cast<unsigned int>(ANumBytes), Lock).GetData();
 }
 
-void* CYB::Engine::Heap::Realloc(void* const APreviousAllocation, const int ANumBytes) {
+void* CYB::Engine::Memory::Heap::Realloc(void* const APreviousAllocation, const int ANumBytes) {
 	if (APreviousAllocation == nullptr)
 		return Alloc(ANumBytes);
 	
@@ -183,7 +183,7 @@ void* CYB::Engine::Heap::Realloc(void* const APreviousAllocation, const int ANum
 	return ReallocImpl(WorkingBlock, static_cast<unsigned int>(ANumBytes), Lock).GetData();
 }
 
-void CYB::Engine::Heap::Free(void* const APreviousAllocation) {
+void CYB::Engine::Memory::Heap::Free(void* const APreviousAllocation) {
 	if (APreviousAllocation != nullptr) {
 		auto& WorkingBlock(Block::FromData(APreviousAllocation));
 		API::LockGuard Lock(FMutex);

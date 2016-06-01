@@ -4,7 +4,7 @@
 #pragma warning(disable : 4355) //this used in initalizer list
 #endif
 
-static_assert(sizeof(CYB::Engine::LargeBlock) - sizeof(CYB::Engine::Block) ==
+static_assert(sizeof(CYB::Engine::Memory::LargeBlock) - sizeof(CYB::Engine::Memory::Block) ==
 #ifdef DEBUG
 	24
 #else
@@ -12,14 +12,14 @@ static_assert(sizeof(CYB::Engine::LargeBlock) - sizeof(CYB::Engine::Block) ==
 #endif
 	, "LargeBlock size has changed, check algorithms");
 
-CYB::Engine::LargeBlock::LargeBlock(const unsigned long long ASpaceAvailable, Block* const ALeftBlock) :
+CYB::Engine::Memory::LargeBlock::LargeBlock(const unsigned long long ASpaceAvailable, Block* const ALeftBlock) :
 	Block(sizeof(Block), ALeftBlock == nullptr ? *this : *ALeftBlock, true),
 	FMagicHeader(MAGIC_HEADER),
 	FRemainingSize(ASpaceAvailable),
 	FMagicFooter(MAGIC_FOOTER)
 {}
 
-CYB::Engine::Block& CYB::Engine::LargeBlock::AllocateBlock(LargeBlock*& ALargeBlock, const unsigned int ANewBlockSize) {
+CYB::Engine::Memory::Block& CYB::Engine::Memory::LargeBlock::AllocateBlock(LargeBlock*& ALargeBlock, const unsigned int ANewBlockSize) {
 	const auto SizeWithBlock(ANewBlockSize + sizeof(Block));
 	const auto OriginalSize(ALargeBlock->FRemainingSize);
 	API::Assert(OriginalSize > SizeWithBlock);
@@ -30,7 +30,7 @@ CYB::Engine::Block& CYB::Engine::LargeBlock::AllocateBlock(LargeBlock*& ALargeBl
 	return NewBlock;
 }
 
-void CYB::Engine::LargeBlock::Validate(void) const {
+void CYB::Engine::Memory::LargeBlock::Validate(void) const {
 #ifdef DEBUG
 	if (FMagicHeader != MAGIC_HEADER || FMagicFooter != MAGIC_FOOTER)
 		throw CYB::Exception::Violation(CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK);
@@ -38,15 +38,15 @@ void CYB::Engine::LargeBlock::Validate(void) const {
 	Block::Validate();
 }
 
-CYB::Engine::LargeBlock& CYB::Engine::LargeBlock::EatLeftBlock(void) {
+CYB::Engine::Memory::LargeBlock& CYB::Engine::Memory::LargeBlock::EatLeftBlock(void) {
 	API::Assert(LeftBlock() != nullptr);
 	return *new (LeftBlock()) LargeBlock(FRemainingSize + LeftBlock()->Size() + sizeof(Block), LeftBlock()->LeftBlock());	//Even though we are eating a LargeBlock header, we are are also creating a LargeBlock Header - A block header
 }
 
-unsigned long long CYB::Engine::LargeBlock::Size(void) const {
+unsigned long long CYB::Engine::Memory::LargeBlock::Size(void) const {
 	return FRemainingSize;
 }
 
-void CYB::Engine::LargeBlock::SetSize(const unsigned long long ANewSize) {
+void CYB::Engine::Memory::LargeBlock::SetSize(const unsigned long long ANewSize) {
 	FRemainingSize = ANewSize;
 }

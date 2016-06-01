@@ -1,5 +1,7 @@
 #include "TestHeader.hpp"
 
+using namespace CYB::Engine::Memory;
+
 static unsigned int* FAllocationFunctionCalled;
 
 REDIRECTED_FUNCTION(VirtualAlloc, void* const AAddress, const unsigned long long ASize, const unsigned long AAllocationType, const unsigned long AProtection) {

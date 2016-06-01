@@ -28,6 +28,7 @@ namespace CYB {
 			/*!
 				@brief Initialization constructor. Should be used with operator new in a memory location at least @p ASpaceAvailable large that extends to the end of a reservation. The LargeBlock will own this memory
 				@param ASpaceAvailable The amount of space the large block is using. Disincludes the header
+				@param ALeftBlock A pointer to the Block to the left of the LargeBlock, or nullptr if the LargeBlock is the only Block
 				@par Thread Safety
 					This function requires that the owned memory isn't concurrently accessed during this function
 				@par Exception Safety

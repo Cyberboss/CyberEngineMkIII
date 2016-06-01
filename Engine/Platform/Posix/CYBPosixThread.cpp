@@ -24,9 +24,14 @@ CYB::Platform::Implementation::Thread::Thread(API::Threadable& AThreadable) :
 		auto& PThread(Core().FModuleManager.FPThread);
 		ThreadData Data{ &AThreadable, &FRunningLock, &FRunning };
 
-		if (PThread.Call<ModuleDefinitions::PThread::pthread_mutex_init>(&FRunningLock, nullptr) != 0)
-			throw Exception::SystemData(Exception::SystemData::ErrorCode::MUTEX_INITIALIZATION_FAILURE);
-
+		try {
+			if (PThread.Call<ModuleDefinitions::PThread::pthread_mutex_init>(&FRunningLock, nullptr) != 0)
+				throw Exception::SystemData(Exception::SystemData::ErrorCode::MUTEX_INITIALIZATION_FAILURE);	//Throw for the specific reason
+		} catch(CYB::Exception::SystemData AException) {	//But always translate
+			if(AException.FErrorCode == Exception::SystemData::ErrorCode::MUTEX_INITIALIZATION_FAILURE)
+				throw Exception::SystemData(Exception::SystemData::ErrorCode::THREAD_CREATION_FAILURE);
+			throw;
+		}
 		PThread.Call<ModuleDefinitions::PThread::pthread_mutex_lock>(&FRunningLock);
 
 		std::atomic_thread_fence(std::memory_order_release);
@@ -55,9 +60,9 @@ CYB::Platform::Implementation::Thread::~Thread() {
 void* CYB::Platform::Implementation::Thread::ThreadProc(void* const AThreadData) {
 	auto& Data(*static_cast<volatile ThreadData*>(AThreadData));
 
-	API::Threadable* const Threadable(Data.FThreadable);
-	std::atomic_bool* const RunningAtomic(Data.FRunning);
-	pthread_mutex_t* const RunningLock(Data.FRunningLock);
+	auto const Threadable(Data.FThreadable);
+	auto const RunningAtomic(Data.FRunning);
+	auto const RunningLock(Data.FRunningLock);
 
 	RunningAtomic->store(true, std::memory_order_release);
 

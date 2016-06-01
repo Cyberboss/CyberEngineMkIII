@@ -1,16 +1,16 @@
 #include "CYB.hpp"
 
-unsigned int CYB::Platform::Implementation::VirtualMemory::SystemPageSize(void) {
+unsigned int CYB::Platform::System::Implementation::VirtualMemory::SystemPageSize(void) {
 	Win32::SYSTEM_INFO Info;
 	Core().FModuleManager.FK32.Call<Modules::Kernel32::GetSystemInfo>(&Info);
 	return Info.dwPageSize;
 }
 
-void* CYB::Platform::Implementation::VirtualMemory::PageAlignedUpperBound(void* AMemory, const unsigned int APageSize) {
+void* CYB::Platform::System::Implementation::VirtualMemory::PageAlignedUpperBound(void* AMemory, const unsigned int APageSize) {
 	return reinterpret_cast<void*>(reinterpret_cast<unsigned long long>(AMemory) + (APageSize - (reinterpret_cast<unsigned long long>(AMemory) % APageSize)));
 }
 
-void* CYB::Platform::VirtualMemory::Reserve(const unsigned long long ANumBytes) {
+void* CYB::Platform::System::VirtualMemory::Reserve(const unsigned long long ANumBytes) {
 	if (ANumBytes >= 1024) {
 		void* const Result(Core().FModuleManager.FK32.Call<Modules::Kernel32::VirtualAlloc>(nullptr, ANumBytes, Win32::DWORD(MEM_RESERVE), Win32::DWORD(PAGE_NOACCESS)));
 		if (Result != nullptr)
@@ -19,7 +19,7 @@ void* CYB::Platform::VirtualMemory::Reserve(const unsigned long long ANumBytes) 
 	throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
 }
 
-void CYB::Platform::VirtualMemory::Commit(void* const AReservation, const unsigned long long ANumBytes) {
+void CYB::Platform::System::VirtualMemory::Commit(void* const AReservation, const unsigned long long ANumBytes) {
 	try {
 		Access(AReservation, AccessLevel::READ_WRITE);
 	}
@@ -33,12 +33,12 @@ void CYB::Platform::VirtualMemory::Commit(void* const AReservation, const unsign
 		throw Exception::SystemData(Exception::SystemData::MEMORY_COMMITAL_FAILURE);
 }
 
-void CYB::Platform::VirtualMemory::Release(void* const AReservation) {
+void CYB::Platform::System::VirtualMemory::Release(void* const AReservation) {
 	if(Core().FModuleManager.FK32.Call<Modules::Kernel32::VirtualFree>(AReservation, 0U, Win32::DWORD(MEM_RELEASE)) == FALSE)
 		throw Exception::SystemData(Exception::SystemData::MEMORY_RELEASE_FAILURE);
 }
 
-void CYB::Platform::VirtualMemory::Access(void* const AReservation, const AccessLevel AAccessLevel) {
+void CYB::Platform::System::VirtualMemory::Access(void* const AReservation, const AccessLevel AAccessLevel) {
 	Win32::MEMORY_BASIC_INFORMATION Info;
 	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::VirtualQuery>(AReservation, &Info, sizeof(Win32::MEMORY_BASIC_INFORMATION)) == 0 || Info.State == MEM_FREE)
 		throw Exception::SystemData(Exception::SystemData::MEMORY_PROTECT_FAILURE);
@@ -56,7 +56,7 @@ void CYB::Platform::VirtualMemory::Access(void* const AReservation, const Access
 	}
 }
 
-void CYB::Platform::VirtualMemory::Discard(void* const AMemory, const unsigned long long ANumBytes) {
+void CYB::Platform::System::VirtualMemory::Discard(void* const AMemory, const unsigned long long ANumBytes) {
 	const auto PageSize(Implementation::VirtualMemory::SystemPageSize());
 	if (ANumBytes >= PageSize) {
 		auto const AlignedMemory(Implementation::VirtualMemory::PageAlignedUpperBound(AMemory, PageSize));

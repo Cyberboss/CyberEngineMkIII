@@ -8,18 +8,18 @@ typedef CYB::Platform::Posix::__locale_t __locale_t;
 #include <algorithm>
 
 CYB::Engine::Heap::Heap(const unsigned long long AInitialCommitSize) :
-	FReservation(Platform::VirtualMemory::Reserve(Parameters::HEAP_RESERVATION_SIZE)),
+	FReservation(Platform::System::VirtualMemory::Reserve(Parameters::HEAP_RESERVATION_SIZE)),
 	FCommitSize(CalculateInitialCommitSize(AInitialCommitSize)),
 	FLocked(false)
 {
-	Platform::VirtualMemory::Commit(FReservation, FCommitSize);
+	Platform::System::VirtualMemory::Commit(FReservation, FCommitSize);
 
 	FLargeBlock = new (&FirstBlock()) LargeBlock(FCommitSize, nullptr);
 	FFreeList = FLargeBlock;
 }
 
 CYB::Engine::Heap::~Heap() {
-	Platform::VirtualMemory::Release(FReservation);
+	Platform::System::VirtualMemory::Release(FReservation);
 }
 
 unsigned long long CYB::Engine::Heap::CalculateInitialCommitSize(const unsigned long long AInitialCommitSize) {
@@ -58,7 +58,7 @@ void CYB::Engine::Heap::LargeBlockNeedsAtLeast(const unsigned int ARequiredNumBy
 	if (FLargeBlock->Size() < ARequiredNumBytes) {
 		const auto SizeDifference(ARequiredNumBytes - FLargeBlock->Size());
 		FCommitSize += SizeDifference;
-		Platform::VirtualMemory::Commit(FReservation, FCommitSize);
+		Platform::System::VirtualMemory::Commit(FReservation, FCommitSize);
 		FLargeBlock->SetSize(FLargeBlock->Size() + SizeDifference);
 	}
 }

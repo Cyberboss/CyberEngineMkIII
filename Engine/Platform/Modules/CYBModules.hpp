@@ -1,6 +1,13 @@
 //! @file CYBModules.hpp Includes Module headers
 #pragma once
 
+namespace CYB {
+	namespace Platform {
+		//! @brief Contains functions for manipulating shared libraries
+		namespace Modules {};
+	};
+};
+
 #ifdef TARGET_OS_WINDOWS
 #include "Win32/CYBWin32ModulesImplementation.hpp"
 #else

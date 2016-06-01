@@ -3,14 +3,8 @@
 
 namespace CYB {
 	namespace Platform {
-		//! @brief Used to hide platform nitty gritty from the rest of the engine
-		namespace Implementation {
-			//! @brief Used in places where a platform namespace is required for a cross platform operation
-			namespace Fake {
-				//! @brief Used in places where a platform implementation function is required for a cross platform operation
-				void FakeImpl(void);
-			};
-		};
+		//! @brief Contain basic OS operations
+		namespace System {};
 	};
 };
 

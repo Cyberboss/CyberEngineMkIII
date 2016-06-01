@@ -10,7 +10,7 @@ public:
 	void CancelThreadedOperation(void) final override {}
 };
 
-SCENARIO("Test that thread creation works as intended", "[Platform][Threads][Unit][Slow]") {
+SCENARIO("Test that thread creation works as intended", "[Platform][System][Threads][Unit][Slow]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
@@ -18,11 +18,11 @@ SCENARIO("Test that thread creation works as intended", "[Platform][Threads][Uni
 	GIVEN("A valid thread class") {
 		ThreadBasicTest TestClass;
 		WHEN("The class is used as a parameter to the Thread constructor") {
-			CYB::Platform::Thread* TestThread(nullptr);
-			REQUIRE_NOTHROW(TestThread = new CYB::Platform::Thread(TestClass));
+			CYB::Platform::System::Thread* TestThread(nullptr);
+			REQUIRE_NOTHROW(TestThread = new CYB::Platform::System::Thread(TestClass));
 			THEN("No errors occur and the thread runs separate from this one") {
 				REQUIRE(TestThread != nullptr);
-				CYB::Platform::Thread::Sleep(1000);
+				CYB::Platform::System::Thread::Sleep(1000);
 				REQUIRE(TestClass.FRan);
 			}
 			delete TestThread;
@@ -30,17 +30,17 @@ SCENARIO("Test that thread creation works as intended", "[Platform][Threads][Uni
 	};
 };
 
-SCENARIO("Test that thread waiting and deletion works as intended", "[Platform][Threads][Unit][Slow]") {
+SCENARIO("Test that thread waiting and deletion works as intended", "[Platform][System][Threads][Unit][Slow]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMRT> RT(CYB::Core().FModuleManager.FRT);
 	GIVEN("A valid thread") {
 		ThreadBasicTest TestClass;
-		auto TestThread(new CYB::Platform::Thread(TestClass));
+		auto TestThread(new CYB::Platform::System::Thread(TestClass));
 
 		//Prevent test from going forever
-		CYB::Platform::Thread::Sleep(1000);
+		CYB::Platform::System::Thread::Sleep(1000);
 		REQUIRE(TestThread->IsFinished());
 
 		WHEN("The thread is waited upon") {
@@ -68,27 +68,27 @@ public:
 	{}
 	void BeginThreadedOperation(void) final override {
 		while (FRunning.load(std::memory_order_relaxed))
-			CYB::Platform::Thread::Yield();
+			CYB::Platform::System::Thread::Yield();
 	}
 	void CancelThreadedOperation(void) final override {
 		FRunning.store(false, std::memory_order_relaxed);
 	}
 };
 
-SCENARIO("Test that threaded operations can be canceled", "[Platform][Threads][Unit][Slow]") {
+SCENARIO("Test that threaded operations can be canceled", "[Platform][System][Threads][Unit][Slow]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMRT> RT(CYB::Core().FModuleManager.FRT);
 	GIVEN("A valid thread that will run forever") {
 		ThreadCancelTest TestClass;
-		CYB::Platform::Thread TestThread(TestClass);
-		CYB::Platform::Thread::Sleep(1000);
+		CYB::Platform::System::Thread TestThread(TestClass);
+		CYB::Platform::System::Thread::Sleep(1000);
 		REQUIRE(!TestThread.IsFinished());
 		WHEN("The thread is cancelled") {
 			TestThread.Cancel();
 			THEN("The thread will terminate") {
-				CYB::Platform::Thread::Sleep(1000);
+				CYB::Platform::System::Thread::Sleep(1000);
 				REQUIRE(TestThread.IsFinished());
 			}
 		}
@@ -106,7 +106,7 @@ static unsigned int TestGetTime(void) {
 #endif
 }
 
-SCENARIO("Test basic sleep works", "[Platform][Threads][Unit][Slow]") {
+SCENARIO("Test basic sleep works", "[Platform][System][Threads][Unit][Slow]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
@@ -115,7 +115,7 @@ SCENARIO("Test basic sleep works", "[Platform][Threads][Unit][Slow]") {
 		const auto Milliseconds(1000);
 		const auto StartTime(TestGetTime());
 		WHEN("We sleep for that long") {
-			CYB::Platform::Thread::Sleep(Milliseconds);
+			CYB::Platform::System::Thread::Sleep(Milliseconds);
 			THEN("At least that amount of time has passed when we wake up") {
 				REQUIRE((TestGetTime() - StartTime) >= Milliseconds);
 			}
@@ -123,10 +123,10 @@ SCENARIO("Test basic sleep works", "[Platform][Threads][Unit][Slow]") {
 	}
 }
 
-SCENARIO("Test basic yield works", "[Platform][Threads][Unit]") {
+SCENARIO("Test basic yield works", "[Platform][System][Threads][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMRT> RT(CYB::Core().FModuleManager.FRT);
-	CYB::Platform::Thread::Yield();	//what do you want from me?
+	CYB::Platform::System::Thread::Yield();	//what do you want from me?
 }
 
 typedef unsigned long(*WindowsThreadStartRoutine)(void* const);
@@ -147,7 +147,7 @@ public:
 	void CancelThreadedOperation(void) final override {}
 };
 
-SCENARIO("Test thread system errors work", "[Platform][Threads][Unit]") {
+SCENARIO("Test thread system errors work", "[Platform][System][Threads][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMRT> RT(CYB::Core().FModuleManager.FRT);
@@ -156,8 +156,8 @@ SCENARIO("Test thread system errors work", "[Platform][Threads][Unit]") {
 		auto BPTC(PThread.Redirect<CYB::Platform::Modules::PThread::pthread_create, BadPThreadCreate>());
 		WHEN("Thread creation is attempted") {
 			ThreadBasicTest Test;
-			CYB::Platform::Thread* Thread(nullptr);
-			REQUIRE_THROWS_AS(Thread = new CYB::Platform::Thread(Test), CYB::Exception::SystemData);
+			CYB::Platform::System::Thread* Thread(nullptr);
+			REQUIRE_THROWS_AS(Thread = new CYB::Platform::System::Thread(Test), CYB::Exception::SystemData);
 			THEN("The appropriate error occurs") {
 				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::THREAD_CREATION_FAILURE);
 				CHECK_FALSE(Test.FRan);

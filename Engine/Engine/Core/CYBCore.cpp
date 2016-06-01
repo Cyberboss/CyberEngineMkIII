@@ -56,7 +56,7 @@ void CYB::Engine::Core::Run[[noreturn]](void) {
 		Core CyberEngineMarkIII;
 		for (; CyberEngineMarkIII.LaunchUnit(););
 	}
-	Platform::Process::Terminate(Platform::Process::GetSelf());
+	Platform::System::Process::Terminate(Platform::System::Process::GetSelf());
 	CYB::API::HCF();
 }
 CYB::Engine::Core& CYB::Core(void) {

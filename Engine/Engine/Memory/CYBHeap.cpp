@@ -163,7 +163,7 @@ void* CYB::Engine::Memory::Heap::Alloc(const int ANumBytes) {
 	if (ANumBytes <= 0)
 		return nullptr;
 	API::LockGuard Lock(FMutex);						//alignment
-	return AllocImpl(static_cast<unsigned int>(ANumBytes + ANumBytes % sizeof(void*)), Lock).GetData();
+	return AllocImpl(static_cast<unsigned int>(ANumBytes + (sizeof(void*) - (ANumBytes % sizeof(void*)))), Lock).GetData();
 }
 
 void* CYB::Engine::Memory::Heap::Realloc(void* const APreviousAllocation, const int ANumBytes) {
@@ -180,7 +180,7 @@ void* CYB::Engine::Memory::Heap::Realloc(void* const APreviousAllocation, const 
 		return APreviousAllocation;
 
 	API::LockGuard Lock(FMutex);								//alignment
-	return ReallocImpl(WorkingBlock, static_cast<unsigned int>(ANumBytes + ANumBytes % sizeof(void*)), Lock).GetData();
+	return ReallocImpl(WorkingBlock, static_cast<unsigned int>(ANumBytes + (sizeof(void*) - (ANumBytes % sizeof(void*)))), Lock).GetData();
 }
 
 void CYB::Engine::Memory::Heap::Free(void* const APreviousAllocation) {

@@ -16,6 +16,23 @@ namespace CYB {
 			bool FCancelSubmitted;	//!< @brief A check to make sure FThreadable.CancelThreadedOperation is not called more than once
 		public:
 			/*!
+				@brief Put the thread to sleep for at least @p AMilliseconds
+				@param AMilliseconds The minimum number of milliseconds to sleep for
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			static void Sleep(const unsigned int AMilliseconds);
+			/*!
+				@brief Expires the current threads processor time and sumbits it to the OS for rescheduling
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			static void Yield(void);
+			/*!
 				@brief Construct a Thread. Once returned, the thread will be scheduled to run and BeginThreadedOperation will soon be called on AThreadable
 				@param AThreadable A reference to the threadable object the Thread will run
 				@par Thread Safety
@@ -55,24 +72,6 @@ namespace CYB {
 					This function does not throw exceptions
 			*/
 			void Wait(void) const;
-
-			/*!
-				@brief Put the thread to sleep for at least @p AMilliseconds
-				@param AMilliseconds The minimum number of milliseconds to sleep for
-				@par Thread Safety
-					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
-			*/
-			static void Sleep(const unsigned int AMilliseconds);
-			/*!
-				@brief Expires the current threads processor time and sumbits it to the OS for rescheduling
-				@par Thread Safety
-					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
-			*/
-			static void Yield(void);
 		};
 	};
 };

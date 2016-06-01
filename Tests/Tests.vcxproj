@@ -96,8 +96,8 @@
     <ClCompile Include="Engine\Memory\Blocks.cpp" />
     <ClCompile Include="Engine\Memory\Heap.cpp" />
     <ClCompile Include="Platform\Modules.cpp" />
-    <ClCompile Include="Platform\Threads.cpp" />
-    <ClCompile Include="Platform\VirtualMemory.cpp" />
+    <ClCompile Include="Platform\System\Threads.cpp" />
+    <ClCompile Include="Platform\System\VirtualMemory.cpp" />
     <ClCompile Include="PosixMain.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>

@@ -2,7 +2,7 @@
 
 namespace CYB {
 	namespace Platform {
-		namespace ModuleDefinitions {
+		namespace Modules {
 			class AMFake {};
 		};
 	};

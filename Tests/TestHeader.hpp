@@ -28,7 +28,7 @@ namespace CYB {
 #pragma warning(disable : 4365)
 #pragma warning(disable : 4371)
 #else
-using namespace CYB::Platform::Implementation::Posix;
+using namespace CYB::Platform::Posix;
 #endif
 #include "../SupportLibs/Catch/single_include/catch.hpp"
 #ifdef _MSC_VER

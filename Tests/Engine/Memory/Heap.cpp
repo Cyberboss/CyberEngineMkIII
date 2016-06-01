@@ -13,11 +13,11 @@ REDIRECTED_FUNCTION(MMap, void* const AAddress, const unsigned long long ASize, 
 }
 
 SCENARIO("Test basic Heap functions", "[Engine][Memory][Functional]") {
-	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::ModuleDefinitions::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::ModuleDefinitions::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	GIVEN("A basic Heap") {
-		auto VA(K32.Redirect<CYB::Platform::ModuleDefinitions::Kernel32::VirtualAlloc, VirtualAlloc>());
-		auto MM(LibC.Redirect<CYB::Platform::ModuleDefinitions::LibC::mmap, MMap>());
+		auto VA(K32.Redirect<CYB::Platform::Modules::Kernel32::VirtualAlloc, VirtualAlloc>());
+		auto MM(LibC.Redirect<CYB::Platform::Modules::LibC::mmap, MMap>());
 		REQUIRE(true);
 	}
 }

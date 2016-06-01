@@ -113,39 +113,39 @@
     <ClCompile Include="Engine\Memory\CYBBlock.cpp" />
     <ClCompile Include="Engine\Memory\CYBHeap.cpp" />
     <ClCompile Include="Engine\Memory\CYBLargeBlock.cpp" />
-    <ClCompile Include="Platform\CYBProcess.cpp" />
-    <ClCompile Include="Platform\CYBThread.cpp" />
     <ClCompile Include="Platform\Modules\CYBModule.cpp" />
-    <ClCompile Include="Platform\Posix\CYBPosixModule.cpp">
+    <ClCompile Include="Platform\Modules\Posix\CYBPosixModule.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Platform\Posix\CYBPosixMutex.cpp">
+    <ClCompile Include="Platform\Modules\Win32\CYBWin32Module.cpp" />
+    <ClCompile Include="Platform\System\CYBProcess.cpp" />
+    <ClCompile Include="Platform\System\CYBThread.cpp" />
+    <ClCompile Include="Platform\System\Posix\CYBPosixMutex.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Platform\Posix\CYBPosixProcess.cpp">
+    <ClCompile Include="Platform\System\Posix\CYBPosixProcess.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Platform\Posix\CYBPosixSyscalls.cpp">
+    <ClCompile Include="Platform\System\Posix\CYBPosixSyscalls.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Platform\Posix\CYBPosixThread.cpp">
+    <ClCompile Include="Platform\System\Posix\CYBPosixThread.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Platform\Posix\CYBPosixVirtualMemory.cpp">
+    <ClCompile Include="Platform\System\Posix\CYBPosixVirtualMemory.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Platform\Win32\CYBWin32Module.cpp" />
-    <ClCompile Include="Platform\Win32\CYBWin32Mutex.cpp" />
-    <ClCompile Include="Platform\Win32\CYBWin32Process.cpp" />
-    <ClCompile Include="Platform\Win32\CYBWin32Syscalls.cpp" />
-    <ClCompile Include="Platform\Win32\CYBWin32Thread.cpp" />
-    <ClCompile Include="Platform\Win32\CYBWin32VirtualMemory.cpp" />
+    <ClCompile Include="Platform\System\Win32\CYBWin32Mutex.cpp" />
+    <ClCompile Include="Platform\System\Win32\CYBWin32Process.cpp" />
+    <ClCompile Include="Platform\System\Win32\CYBWin32Syscalls.cpp" />
+    <ClCompile Include="Platform\System\Win32\CYBWin32Thread.cpp" />
+    <ClCompile Include="Platform\System\Win32\CYBWin32VirtualMemory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
@@ -189,35 +189,43 @@
     <ClInclude Include="Engine\Memory\CYBHeap.hpp" />
     <ClInclude Include="Engine\Memory\CYBLargeBlock.hpp" />
     <ClInclude Include="Engine\Memory\CYBMemory.hpp" />
-    <ClInclude Include="Platform\CYBFile.hpp" />
-    <ClInclude Include="Platform\CYBMutex.hpp" />
     <ClInclude Include="Platform\CYBPlatform.hpp" />
-    <ClInclude Include="Platform\CYBProcess.hpp" />
-    <ClInclude Include="Platform\CYBSyscalls.hpp" />
-    <ClInclude Include="Platform\CYBThread.hpp" />
-    <ClInclude Include="Platform\CYBVirtualMemory.hpp" />
-    <ClInclude Include="Platform\Linux\CYBLinuxImplementation.hpp" />
-    <ClInclude Include="Platform\Linux\CYBLinuxSyscalls.hpp" />
     <ClInclude Include="Platform\Modules\CYBAutoModule.hpp" />
     <ClInclude Include="Platform\Modules\CYBModule.hpp" />
     <ClInclude Include="Platform\Modules\CYBModuleMacros.hpp" />
     <ClInclude Include="Platform\Modules\CYBModuleManager.hpp" />
     <ClInclude Include="Platform\Modules\CYBModules.hpp" />
-    <ClInclude Include="Platform\OSX\CYBOSXImplementation.hpp" />
-    <ClInclude Include="Platform\OSX\CYBOSXSyscalls.hpp" />
-    <ClInclude Include="Platform\Posix\CYBPosixImplementation.hpp" />
-    <ClInclude Include="Platform\Posix\CYBPosixModule.hpp" />
-    <ClInclude Include="Platform\Posix\CYBPosixMutex.hpp" />
-    <ClInclude Include="Platform\Posix\CYBPosixProcess.hpp" />
-    <ClInclude Include="Platform\Posix\CYBPosixThread.hpp" />
-    <ClInclude Include="Platform\Posix\CYBPosixVirtualMemory.hpp" />
-    <ClInclude Include="Platform\Win32\CYBWin32Implementation.hpp" />
-    <ClInclude Include="Platform\Win32\CYBWin32Module.hpp" />
-    <ClInclude Include="Platform\Win32\CYBWin32Mutex.hpp" />
-    <ClInclude Include="Platform\Win32\CYBWin32Process.hpp" />
-    <ClInclude Include="Platform\Win32\CYBWin32Syscalls.hpp" />
-    <ClInclude Include="Platform\Win32\CYBWin32Thread.hpp" />
-    <ClInclude Include="Platform\Win32\CYBWin32VirtualMemory.hpp" />
+    <ClInclude Include="Platform\Modules\Posix\CYBPosixModule.hpp" />
+    <ClInclude Include="Platform\Modules\Posix\CYBPosixModulesImplementation.hpp" />
+    <ClInclude Include="Platform\Modules\Win32\CYBWin32Module.hpp" />
+    <ClInclude Include="Platform\Modules\Win32\CYBWin32ModulesImplementation.hpp" />
+    <ClInclude Include="Platform\SystemHeaders\CYBLinuxHeaders.hpp" />
+    <ClInclude Include="Platform\SystemHeaders\CYBOSXHeaders.hpp" />
+    <ClInclude Include="Platform\SystemHeaders\CYBPosixHeaders.hpp" />
+    <ClInclude Include="Platform\SystemHeaders\CYBSystemHeaders.hpp" />
+    <ClInclude Include="Platform\SystemHeaders\CYBWin32Headers.hpp" />
+    <ClInclude Include="Platform\System\CYBFile.hpp" />
+    <ClInclude Include="Platform\System\CYBMutex.hpp" />
+    <ClInclude Include="Platform\System\CYBProcess.hpp" />
+    <ClInclude Include="Platform\System\CYBSyscalls.hpp" />
+    <ClInclude Include="Platform\System\CYBSystem.hpp" />
+    <ClInclude Include="Platform\System\CYBThread.hpp" />
+    <ClInclude Include="Platform\System\CYBVirtualMemory.hpp" />
+    <ClInclude Include="Platform\System\Linux\CYBLinuxSystemImplementation.hpp" />
+    <ClInclude Include="Platform\System\Linux\CYBLinuxSyscalls.hpp" />
+    <ClInclude Include="Platform\System\OSX\CYBOSXSystemImplementation.hpp" />
+    <ClInclude Include="Platform\System\OSX\CYBOSXSyscalls.hpp" />
+    <ClInclude Include="Platform\System\Posix\CYBPosixSystemImplementation.hpp" />
+    <ClInclude Include="Platform\System\Posix\CYBPosixMutex.hpp" />
+    <ClInclude Include="Platform\System\Posix\CYBPosixProcess.hpp" />
+    <ClInclude Include="Platform\System\Posix\CYBPosixThread.hpp" />
+    <ClInclude Include="Platform\System\Posix\CYBPosixVirtualMemory.hpp" />
+    <ClInclude Include="Platform\System\Win32\CYBWin32SystemImplementation.hpp" />
+    <ClInclude Include="Platform\System\Win32\CYBWin32Mutex.hpp" />
+    <ClInclude Include="Platform\System\Win32\CYBWin32Process.hpp" />
+    <ClInclude Include="Platform\System\Win32\CYBWin32Syscalls.hpp" />
+    <ClInclude Include="Platform\System\Win32\CYBWin32Thread.hpp" />
+    <ClInclude Include="Platform\System\Win32\CYBWin32VirtualMemory.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="API\Declarations\Assert.inl" />
@@ -242,7 +250,7 @@
     <None Include="DoxyPages\Tutorial.dox" />
     <None Include="DoxyPages\Units.dox" />
     <None Include="Platform\Modules\CYBAutoModule.inl" />
-    <None Include="Platform\Modules\CYBModuleDefinitions.inl" />
+    <None Include="Platform\Modules\CYBModuleDefinitions.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DoxyPages\DoxygenLayout.xml" />

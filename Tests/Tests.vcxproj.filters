@@ -2,15 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="TestHeader.cpp" />
-    <ClCompile Include="Platform\Modules.cpp">
-      <Filter>Platform</Filter>
-    </ClCompile>
-    <ClCompile Include="Platform\Threads.cpp">
-      <Filter>Platform</Filter>
-    </ClCompile>
-    <ClCompile Include="Platform\VirtualMemory.cpp">
-      <Filter>Platform</Filter>
-    </ClCompile>
     <ClCompile Include="Win32Main.cpp" />
     <ClCompile Include="PosixMain.cpp" />
     <ClCompile Include="Engine\Memory\Blocks.cpp">
@@ -21,6 +12,15 @@
     </ClCompile>
     <ClCompile Include="Utils\FakeCore.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\System\VirtualMemory.cpp">
+      <Filter>Platform\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\System\Threads.cpp">
+      <Filter>Platform\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\Modules.cpp">
+      <Filter>Platform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +50,9 @@
     </Filter>
     <Filter Include="Utils">
       <UniqueIdentifier>{a21cea0c-e8c3-4ad7-93b3-c26dd833ab9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\System">
+      <UniqueIdentifier>{d9f48e56-d925-4662-a7a3-11f74d450da7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

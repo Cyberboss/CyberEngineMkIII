@@ -120,6 +120,7 @@
     <ClInclude Include="TestHeader.hpp" />
     <ClInclude Include="Utils\CallRedirect.hpp" />
     <ClInclude Include="Utils\ModuleDependancy.hpp" />
+    <ClInclude Include="Utils\RedirectedFunction.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

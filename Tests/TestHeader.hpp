@@ -10,6 +10,7 @@
 #endif
 #include "../Engine/CYB.hpp"
 
+#include "Utils/RedirectedFunction.hpp"
 #include "Utils/CallRedirect.hpp"
 #include "Utils/ModuleDependancy.hpp"
 

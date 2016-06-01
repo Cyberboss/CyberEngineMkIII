@@ -31,6 +31,9 @@
     <ClInclude Include="Utils\CallRedirect.hpp">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\RedirectedFunction.hpp">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

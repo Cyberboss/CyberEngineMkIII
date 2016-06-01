@@ -4,19 +4,19 @@
 //0 - 7: Reservation size
 //8 - 15: Commit size
 
-bool CYB::Platform::Implementation::VirtualMemory::AccessSuperblock(void* const AReservation) {
+bool CYB::Platform::System::Implementation::VirtualMemory::AccessSuperblock(void* const AReservation) {
 	return Core().FModuleManager.FC.Call<Modules::LibC::mprotect>(GetSuperblockFromReservation(AReservation), SUPERBLOCK_SIZE, PROT_READ | PROT_WRITE) == 0;
 }
 
-unsigned long long* CYB::Platform::Implementation::VirtualMemory::GetSuperblockFromReservation(void* const AReservation) {
+unsigned long long* CYB::Platform::System::Implementation::VirtualMemory::GetSuperblockFromReservation(void* const AReservation) {
 	static_assert(SUPERBLOCK_SIZE % sizeof(unsigned long long) == 0, "The Posix VM superblock has changed and the access methods must as well");
 	return static_cast<unsigned long long*>(AReservation) - (SUPERBLOCK_SIZE / sizeof(unsigned long long));
 }
-unsigned long long* CYB::Platform::Implementation::VirtualMemory::GetReservationFromSuperblock(void* const ASuperblock) {
+unsigned long long* CYB::Platform::System::Implementation::VirtualMemory::GetReservationFromSuperblock(void* const ASuperblock) {
 	return static_cast<unsigned long long*>(ASuperblock) + (SUPERBLOCK_SIZE / sizeof(unsigned long long));
 }
 
-void* CYB::Platform::VirtualMemory::Reserve(unsigned long long ANumBytes) {
+void* CYB::Platform::System::VirtualMemory::Reserve(unsigned long long ANumBytes) {
 	if (ANumBytes >= 1024) {
 		using namespace Posix;
 		ANumBytes += SUPERBLOCK_SIZE;
@@ -61,7 +61,7 @@ void* CYB::Platform::VirtualMemory::Reserve(unsigned long long ANumBytes) {
 		throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
 }
 
-void CYB::Platform::VirtualMemory::Commit(void* const AReservation, unsigned long long ANumBytes) {
+void CYB::Platform::System::VirtualMemory::Commit(void* const AReservation, unsigned long long ANumBytes) {
 	using namespace Posix;
 	auto const Superblock(GetSuperblockFromReservation(AReservation));
 	ANumBytes += SUPERBLOCK_SIZE;
@@ -77,20 +77,20 @@ void CYB::Platform::VirtualMemory::Commit(void* const AReservation, unsigned lon
 		throw Exception::SystemData(Exception::SystemData::MEMORY_COMMITAL_FAILURE);
 }
 
-void CYB::Platform::VirtualMemory::Release(void* const AReservation) {
+void CYB::Platform::System::VirtualMemory::Release(void* const AReservation) {
 	auto const Superblock(GetSuperblockFromReservation(AReservation));
 	if(!AccessSuperblock(AReservation) || Core().FModuleManager.FC.Call<Modules::LibC::munmap>(Superblock, *Superblock) != 0)
 		throw Exception::SystemData(Exception::SystemData::MEMORY_RELEASE_FAILURE);
 }
 
-void CYB::Platform::VirtualMemory::Access(void* const AReservation, const AccessLevel AAccessLevel) {
+void CYB::Platform::System::VirtualMemory::Access(void* const AReservation, const AccessLevel AAccessLevel) {
 	using namespace Posix;
 	auto const Superblock(GetSuperblockFromReservation(AReservation));
 	if (!AccessSuperblock(AReservation) || Core().FModuleManager.FC.Call<Modules::LibC::mprotect>(Superblock, Superblock[1], AAccessLevel == AccessLevel::READ_WRITE ? PROT_READ | PROT_WRITE : (AAccessLevel == AccessLevel::READ ? PROT_READ : PROT_NONE)) != 0)
 		throw Exception::SystemData(Exception::SystemData::MEMORY_PROTECT_FAILURE);
 }
 
-void CYB::Platform::VirtualMemory::Discard(void* const AMemory, const unsigned long long ANumBytes) {
+void CYB::Platform::System::VirtualMemory::Discard(void* const AMemory, const unsigned long long ANumBytes) {
 	using namespace Posix;
 	Core().FModuleManager.FC.Call<Modules::LibC::madvise>(AMemory, ANumBytes, MADV_DONTNEED);
 }

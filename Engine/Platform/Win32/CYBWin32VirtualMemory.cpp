@@ -46,12 +46,12 @@ void CYB::Platform::VirtualMemory::Access(void* const AReservation, const Access
 	if (Info.State == MEM_COMMIT) {
 		Implementation::Win32::DWORD Last;
 		//for some reason we can't use the base of the allocation when protecting :/
-		if (Core().FModuleManager.FK32.Call<ModuleDefinitions::Kernel32::VirtualProtect>(static_cast<unsigned long long*>(AReservation) + 1, Info.RegionSize - 1, static_cast<Implementation::Win32::DWORD>(
+		if (Core().FModuleManager.FK32.Call<ModuleDefinitions::Kernel32::VirtualProtect>(AReservation, Info.RegionSize, static_cast<Implementation::Win32::DWORD>(
 			AAccessLevel == AccessLevel::READ_WRITE ? 
 			PAGE_READWRITE : 
 			(AAccessLevel == AccessLevel::NONE ?
 				PAGE_NOACCESS : PAGE_READONLY)),
-			&Last))
+			&Last) == FALSE)
 			throw Exception::SystemData(Exception::SystemData::MEMORY_PROTECT_FAILURE);
 	}
 }

@@ -172,3 +172,70 @@ SCENARIO("VirtualMemory can be discarded and reused","[Platform][VirtualMemory][
 		CYB::Platform::VirtualMemory::Release(Reservation);
 	}
 }
+
+REDIRECTED_FUNCTION(BadVirtualAlloc, void* const, const unsigned long long, const unsigned long, const unsigned long) {
+	return static_cast<void*>(nullptr);
+}
+
+REDIRECTED_FUNCTION(BadVirtualFree, void* const, const unsigned long long, const unsigned long) {
+	return 0;
+}
+
+REDIRECTED_FUNCTION(BadVirtualProtect, void* const, const unsigned long long, const unsigned long, unsigned long*) {
+	return 0;
+}
+
+REDIRECTED_FUNCTION(BadMMap, void* const, const unsigned long long, int, int, int, const unsigned long long) {
+	return static_cast<void*>(nullptr);
+}
+
+REDIRECTED_FUNCTION(BadMUnmap, void* const, const unsigned long long) {
+	return -1;
+}
+REDIRECTED_FUNCTION(BadMProtect, void* const, const unsigned long long, const int) {
+	return -1;
+}
+
+SCENARIO("Test VirtualMemory system errors", "[Platform][VirtualMemory][Unit]") {
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::ModuleDefinitions::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::ModuleDefinitions::AMKernel32Extended> K32E(CYB::Core().FModuleManager.FK32Extended);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::ModuleDefinitions::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	GIVEN("Calls that will result in error and a valid reservation and commit") {
+		auto ValidReservation(CYB::Platform::VirtualMemory::Reserve(1000000));
+		CYB::Platform::VirtualMemory::Commit(ValidReservation, 1000);
+		{
+			auto BVA(K32.Redirect<CYB::Platform::ModuleDefinitions::Kernel32::VirtualAlloc, BadVirtualAlloc>());
+			auto BVF(K32.Redirect<CYB::Platform::ModuleDefinitions::Kernel32::VirtualFree, BadVirtualFree>());
+			auto BMM(LibC.Redirect<CYB::Platform::ModuleDefinitions::LibC::mmap, BadMMap>());
+			auto BMU(LibC.Redirect<CYB::Platform::ModuleDefinitions::LibC::munmap, BadMUnmap>());
+			auto BMP(LibC.Redirect<CYB::Platform::ModuleDefinitions::LibC::mprotect, BadMProtect>());
+			WHEN("A reservation is attempted") {
+				void* Reservation;
+				REQUIRE_THROWS_AS(Reservation = CYB::Platform::VirtualMemory::Reserve(1000), CYB::Exception::SystemData);
+				THEN("The appropriate exception occurs") {
+					CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE);
+				}
+			}
+			WHEN("A commit is attempted on valid memory") {
+				REQUIRE_THROWS_AS(CYB::Platform::VirtualMemory::Commit(ValidReservation, 1000), CYB::Exception::SystemData);
+				THEN("The appropriate exception occurs") {
+					CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE);
+				}
+			}
+			WHEN("An access change is attempted on valid memory") {
+				auto BVP(K32.Redirect<CYB::Platform::ModuleDefinitions::Kernel32::VirtualProtect, BadVirtualProtect>());	//Access is used before commit on windows but it fails in the same way
+				REQUIRE_THROWS_AS(CYB::Platform::VirtualMemory::Access(ValidReservation, CYB::Platform::VirtualMemory::AccessLevel::READ), CYB::Exception::SystemData);
+				THEN("The appropriate exception occurs") {
+					CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE);
+				}
+			}
+			WHEN("A release is attempted on valid memory") {
+				REQUIRE_THROWS_AS(CYB::Platform::VirtualMemory::Release(ValidReservation), CYB::Exception::SystemData);
+				THEN("The appropriate exception occurs") {
+					CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_RELEASE_FAILURE);
+				}
+			}
+		}
+		CYB::Platform::VirtualMemory::Release(ValidReservation);
+	}
+}

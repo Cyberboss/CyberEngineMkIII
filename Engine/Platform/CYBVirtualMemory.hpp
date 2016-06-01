@@ -52,9 +52,9 @@ namespace CYB {
 			*/
 			static void Release(void* AReservation);
 			/*!
-				@brief Set the memory protection on a reservation
+				@brief Set the memory protection on a reservation. Does nothing without a previous commit
 				@param AReservation An address returned from Reserve
-				@param AAccess The access level of the 
+				@param AAccess The access level to set
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety

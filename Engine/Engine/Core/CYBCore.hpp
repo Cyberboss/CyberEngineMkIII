@@ -25,7 +25,7 @@ namespace CYB {
 					//XInput
 			//Logger
 				//Heap
-			Heap FHeap;
+			Memory::Heap FHeap;
 			//ThreadPool
 			//Steam
 			//Command Line

@@ -1,12 +1,12 @@
 #include "TestHeader.hpp"
 
-using namespace CYB::Engine;
+using namespace CYB::Engine::Memory;
 
 SCENARIO("Test that Block initialization performs as expected", "[Engine][Memory][Unit]"){
 	GIVEN("Some valid memory") {
 		void* Data(new byte[100]);
 		WHEN("A Block is initialized in the memory") {
-			auto& TestBlock(*new (Data) CYB::Engine::Block(100, *static_cast<Block*>(Data), true));
+			auto& TestBlock(*new (Data) Block(100, *static_cast<Block*>(Data), true));
 			THEN("The methods report as expected") {
 				CHECK_NOTHROW(TestBlock.Validate());
 				CHECK(TestBlock.GetData() == static_cast<byte*>(Data) + sizeof(Block));
@@ -21,7 +21,7 @@ SCENARIO("Test that Block initialization performs as expected", "[Engine][Memory
 			}
 		}
 		WHEN("A LargeBlock is initialized in the memory") {
-			auto& TestBlock(*new (Data) CYB::Engine::LargeBlock(100 - sizeof(LargeBlock), nullptr));
+			auto& TestBlock(*new (Data) LargeBlock(100 - sizeof(LargeBlock), nullptr));
 			THEN("The methods report as expected") {
 				CHECK_NOTHROW(TestBlock.Validate());
 				CHECK(TestBlock.GetData() == static_cast<byte*>(Data) + sizeof(Block));
@@ -41,7 +41,7 @@ SCENARIO("Test that Block initialization performs as expected", "[Engine][Memory
 SCENARIO("Test that Block dword manipulation works", "[Engine][Memory][Unit]") {
 	GIVEN("A valid Block") {
 		auto Data(new byte[100]);
-		auto& TestBlock(*new (Data) CYB::Engine::Block(100, *reinterpret_cast<Block*>(Data), true));
+		auto& TestBlock(*new (Data) Block(100, *reinterpret_cast<Block*>(Data), true));
 		WHEN("The free bit is set to false") {
 			TestBlock.SetFree(false);
 			THEN("The dword works as intended") {
@@ -72,7 +72,7 @@ SCENARIO("Test that Block dword manipulation works", "[Engine][Memory][Unit]") {
 SCENARIO("Test that LargeBlock identification works", "[Engine][Memory][Unit]") {
 	auto Data(new byte[100]);
 	GIVEN("A valid Block") {
-		auto& TestBlock(*new (Data) CYB::Engine::Block(100, *reinterpret_cast<Block*>(Data), true));
+		auto& TestBlock(*new (Data) Block(100, *reinterpret_cast<Block*>(Data), true));
 		WHEN("It is checked if it is a LargeBlock") {
 			const auto Result(TestBlock.IsLargeBlock());
 			THEN("False is returned") {
@@ -81,7 +81,7 @@ SCENARIO("Test that LargeBlock identification works", "[Engine][Memory][Unit]") 
 		}
 	}
 	GIVEN("A valid LargeBlock") {
-		auto& TestBlock(*new (Data) CYB::Engine::LargeBlock(100 - sizeof(LargeBlock), nullptr));
+		auto& TestBlock(*new (Data) LargeBlock(100 - sizeof(LargeBlock), nullptr));
 		WHEN("It is checked if it is a LargeBlock") {
 			const auto Result(TestBlock.IsLargeBlock());
 			THEN("True is returned") {
@@ -95,7 +95,7 @@ SCENARIO("Test that LargeBlock identification works", "[Engine][Memory][Unit]") 
 SCENARIO("Test Block Split/Merge functions work", "[Engine][Memory][Unit]") {
 	auto Data(new byte[500]);
 	GIVEN("A valid Block") {
-		auto& TestBlock(*new (Data) CYB::Engine::Block(100, *reinterpret_cast<Block*>(Data), true));
+		auto& TestBlock(*new (Data) Block(100, *reinterpret_cast<Block*>(Data), true));
 		WHEN("It is Spliced") {
 			auto& Result(TestBlock.Splice(20));
 			THEN("There are now two Blocks with the appropriate settings") {
@@ -124,7 +124,7 @@ SCENARIO("Test Block Split/Merge functions work", "[Engine][Memory][Unit]") {
 		}
 	}
 	GIVEN("A valid LargeBlock") {
-		auto TestBlockP(new (Data) CYB::Engine::LargeBlock(500 - sizeof(LargeBlock), nullptr));
+		auto TestBlockP(new (Data) LargeBlock(500 - sizeof(LargeBlock), nullptr));
 		WHEN("It is Allocated from") {
 			auto& Result(LargeBlock::AllocateBlock(TestBlockP, 20));
 			THEN("There are now two Blocks with the appropriate settings") {

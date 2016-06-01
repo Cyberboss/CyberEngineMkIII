@@ -12,7 +12,7 @@ REDIRECTED_FUNCTION(MMap, void* const AAddress, const unsigned long long ASize, 
 	return ARedirector::CallOriginal(AAddress, ASize, AProtection, AFlags, AFD, AOffset);
 }
 
-SCENARIO("Test basic Heap functions", "[Memory][Functional]") {
+SCENARIO("Test basic Heap functions", "[Engine][Memory][Functional]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::ModuleDefinitions::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::ModuleDefinitions::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	GIVEN("A basic Heap") {

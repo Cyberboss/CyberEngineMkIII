@@ -2,7 +2,7 @@
 
 using namespace CYB::Engine;
 
-SCENARIO("Test that Block initialization performs as expected", "[Memory][Unit]"){
+SCENARIO("Test that Block initialization performs as expected", "[Engine][Memory][Unit]"){
 	GIVEN("Some valid memory") {
 		void* Data(new byte[100]);
 		WHEN("A Block is initialized in the memory") {
@@ -38,7 +38,7 @@ SCENARIO("Test that Block initialization performs as expected", "[Memory][Unit]"
 		delete[] static_cast<byte*>(Data);
 	}
 }
-SCENARIO("Test that Block dword manipulation works", "[Memory][Unit]") {
+SCENARIO("Test that Block dword manipulation works", "[Engine][Memory][Unit]") {
 	GIVEN("A valid Block") {
 		auto Data(new byte[100]);
 		auto& TestBlock(*new (Data) CYB::Engine::Block(100, *reinterpret_cast<Block*>(Data), true));
@@ -69,7 +69,7 @@ SCENARIO("Test that Block dword manipulation works", "[Memory][Unit]") {
 		delete[] Data;
 	}
 }
-SCENARIO("Test that LargeBlock identification works", "[Memory][Unit]") {
+SCENARIO("Test that LargeBlock identification works", "[Engine][Memory][Unit]") {
 	auto Data(new byte[100]);
 	GIVEN("A valid Block") {
 		auto& TestBlock(*new (Data) CYB::Engine::Block(100, *reinterpret_cast<Block*>(Data), true));
@@ -92,7 +92,7 @@ SCENARIO("Test that LargeBlock identification works", "[Memory][Unit]") {
 	delete[] Data;
 }
 
-SCENARIO("Test Block Split/Merge functions work", "[Memory][Unit]") {
+SCENARIO("Test Block Split/Merge functions work", "[Engine][Memory][Unit]") {
 	auto Data(new byte[500]);
 	GIVEN("A valid Block") {
 		auto& TestBlock(*new (Data) CYB::Engine::Block(100, *reinterpret_cast<Block*>(Data), true));

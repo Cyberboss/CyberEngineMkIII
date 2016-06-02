@@ -20,14 +20,16 @@ void* CYB::Platform::System::VirtualMemory::Reserve(const unsigned long long ANu
 }
 
 void CYB::Platform::System::VirtualMemory::Commit(void* const AReservation, const unsigned long long ANumBytes) {
+	bool ThrowOccurred(false);
 	try {
 		Access(AReservation, AccessLevel::READ_WRITE);
 	}
 	catch (Exception::SystemData AException) {
-		if(AException.FErrorCode == Exception::SystemData::MEMORY_PROTECT_FAILURE)
-			throw Exception::SystemData(Exception::SystemData::MEMORY_COMMITAL_FAILURE);
-		throw;
+		API::Assert(AException.FErrorCode == Exception::SystemData::MEMORY_PROTECT_FAILURE);
+		ThrowOccurred = true;
 	}
+	if(ThrowOccurred)
+		throw Exception::SystemData(Exception::SystemData::MEMORY_COMMITAL_FAILURE);
 	const void* const Result(Core().FModuleManager.FK32.Call<Modules::Kernel32::VirtualAlloc>(AReservation, ANumBytes, Win32::DWORD(MEM_COMMIT), Win32::DWORD(PAGE_READWRITE)));
 	if (Result == nullptr)
 		throw Exception::SystemData(Exception::SystemData::MEMORY_COMMITAL_FAILURE);

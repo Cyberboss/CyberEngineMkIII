@@ -2,7 +2,7 @@
 
 using namespace CYB::Engine::Memory;
 
-SCENARIO("Test that Block initialization performs as expected", "[Engine][Memory][Unit]"){
+SCENARIO("Test that Block initialization performs as expected", "[Engine][Memory][Block][Unit]"){
 	GIVEN("Some valid memory") {
 		void* Data(new byte[100]);
 		WHEN("A Block is initialized in the memory") {
@@ -38,7 +38,7 @@ SCENARIO("Test that Block initialization performs as expected", "[Engine][Memory
 		delete[] static_cast<byte*>(Data);
 	}
 }
-SCENARIO("Test that Block dword manipulation works", "[Engine][Memory][Unit]") {
+SCENARIO("Test that Block dword manipulation works", "[Engine][Memory][Block][Unit]") {
 	GIVEN("A valid Block") {
 		auto Data(new byte[100]);
 		auto& TestBlock(*new (Data) Block(100, *reinterpret_cast<Block*>(Data), true));
@@ -69,7 +69,7 @@ SCENARIO("Test that Block dword manipulation works", "[Engine][Memory][Unit]") {
 		delete[] Data;
 	}
 }
-SCENARIO("Test that LargeBlock identification works", "[Engine][Memory][Unit]") {
+SCENARIO("Test that LargeBlock identification works", "[Engine][Memory][Block][Unit]") {
 	auto Data(new byte[100]);
 	GIVEN("A valid Block") {
 		auto& TestBlock(*new (Data) Block(100, *reinterpret_cast<Block*>(Data), true));
@@ -92,7 +92,7 @@ SCENARIO("Test that LargeBlock identification works", "[Engine][Memory][Unit]") 
 	delete[] Data;
 }
 
-SCENARIO("Test Block Split/Merge functions work", "[Engine][Memory][Unit]") {
+SCENARIO("Test Block Split/Merge functions work", "[Engine][Memory][Block][Unit]") {
 	auto Data(new byte[500]);
 	GIVEN("A valid Block") {
 		auto& TestBlock(*new (Data) Block(100, *reinterpret_cast<Block*>(Data), true));
@@ -153,3 +153,43 @@ SCENARIO("Test Block Split/Merge functions work", "[Engine][Memory][Unit]") {
 	}
 	delete[] Data;
 }
+#ifdef DEBUG
+SCENARIO("Test Block validation functions work", "[Engine][Memory][Block][Unit]") {
+	auto Data(new byte[500]);
+	GIVEN("A valid Block") {
+		auto& TestBlock(*new (Data) Block(100, *reinterpret_cast<Block*>(Data), true));
+		WHEN("It's header is corrupted") {
+			*reinterpret_cast<unsigned long long*>(&TestBlock) = 0;
+			THEN("The validation will fail") {
+				CHECK_THROWS_AS(TestBlock.Validate(), CYB::Exception::Violation);
+				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::Violation::INVALID_HEAP_BLOCK);
+			}
+		}
+		WHEN("It's footer is corrupted") {
+			*(reinterpret_cast<unsigned long long*>(&TestBlock + 1) - 1) = 0;
+			THEN("The validation will fail") {
+				CHECK_THROWS_AS(TestBlock.Validate(), CYB::Exception::Violation);
+				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::Violation::INVALID_HEAP_BLOCK);
+			}
+		}
+	}
+	GIVEN("A valid LargeBlock") {
+		auto& TestBlock(*new (Data) LargeBlock(500 - sizeof(LargeBlock), nullptr));
+		WHEN("It's header is corrupted") {
+			*reinterpret_cast<unsigned long long*>(reinterpret_cast<byte*>(&TestBlock) + sizeof(Block)) = 0;
+			THEN("The validation will fail") {
+				CHECK_THROWS_AS(TestBlock.Validate(), CYB::Exception::Violation);
+				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::Violation::INVALID_HEAP_BLOCK);
+			}
+		}
+		WHEN("It's footer is corrupted") {
+			*(reinterpret_cast<unsigned long long*>(&TestBlock + 1) - 1) = 0;
+			THEN("The validation will fail") {
+				CHECK_THROWS_AS(TestBlock.Validate(), CYB::Exception::Violation);
+				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::Violation::INVALID_HEAP_BLOCK);
+			}
+		}
+	}
+	delete[] Data;
+}
+#endif

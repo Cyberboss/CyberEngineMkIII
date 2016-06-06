@@ -23,9 +23,7 @@ CYB::Engine::Memory::Block& CYB::Engine::Memory::LargeBlock::AllocateBlock(Large
 	const auto SizeWithBlock(ANewBlockSize + sizeof(Block));
 	const auto OriginalSize(ALargeBlock->FRemainingSize);
 	API::Assert(OriginalSize > SizeWithBlock);
-	Block& NewBlock(*ALargeBlock);
-	NewBlock.SetSize(ANewBlockSize);
-	NewBlock.SetFree(false);
+	Block& NewBlock(*new (ALargeBlock) Block(static_cast<unsigned int>(SizeWithBlock), ALargeBlock->LeftBlock() == nullptr ? *ALargeBlock : *ALargeBlock->LeftBlock(), false));
 	ALargeBlock = new (reinterpret_cast<byte*>(&NewBlock) + SizeWithBlock) LargeBlock(OriginalSize - SizeWithBlock, &NewBlock);
 	return NewBlock;
 }

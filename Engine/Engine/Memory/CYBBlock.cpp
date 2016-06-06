@@ -23,8 +23,7 @@ unsigned int CYB::Engine::Memory::Block::InitializeData(const unsigned int ASize
 	API::Assert(DataSize >= 0 && DataSize <= std::numeric_limits<int>().max());
 	if(AFree)
 		return static_cast<unsigned int>(DataSize) | 1U << 31;
-	else
-		return static_cast<unsigned int>(DataSize) & ~(1U << 31);
+	return static_cast<unsigned int>(DataSize) & ~(1U << 31);
 }
 
 unsigned int CYB::Engine::Memory::Block::CalculateOffset(const Block& ABlock) {

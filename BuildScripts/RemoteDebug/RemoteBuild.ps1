@@ -13,7 +13,7 @@ if($LastExitCode -eq 0){
 	& "BuildScripts/RemoteDebug/plink.exe" "$userhost" -i "$key" "mkdir -p $wd"
 	& "BuildScripts/RemoteDebug/pscp.exe" -i "$key" -r GDBSync/* "$paththing"
 	rm -r GDBSync
-	$command = "cd $wd; cd ../..;cmake . -DCMAKE_BUILD_TYPE=DEBUG -DCOTIRE_MINIMUM_NUMBER_OF_TARGET_SOURCES=1;make && make test CTEST_OUTPUT_ON_FAILURE=1"
+	$command = "cd $wd; cd ../..;cmake . -DCMAKE_BUILD_TYPE=DEBUG -DCOTIRE_MINIMUM_NUMBER_OF_TARGET_SOURCES=1;chmod +x Tests/llvm-gcov.sh;make && make test CTEST_OUTPUT_ON_FAILURE=1"
 	& "BuildScripts/RemoteDebug/plink.exe" "$userhost" -i "$key" "$command"
 }
 

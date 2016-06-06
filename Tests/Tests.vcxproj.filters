@@ -63,5 +63,6 @@
       <Filter>Utils</Filter>
     </None>
     <None Include="CoverageExclusions.runsettings" />
+    <None Include="llvm-gcov.sh" />
   </ItemGroup>
 </Project>

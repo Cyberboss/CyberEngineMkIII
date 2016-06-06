@@ -45,6 +45,7 @@
     <OutDir>$(SolutionDir)Output\bin\</OutDir>
     <TargetName>CyberEngineMkIIITester</TargetName>
     <IncludePath>$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)Output\bin\</OutDir>
@@ -62,6 +63,7 @@
       <DisableSpecificWarnings>4265;4548;4571;4668;4623;4626;4625;4820;5026;5027</DisableSpecificWarnings>
       <BrowseInformation>true</BrowseInformation>
       <AdditionalOptions>/experimental:module %(AdditionalOptions)</AdditionalOptions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <PostBuildEvent>
       <Command>
@@ -70,6 +72,9 @@
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
     </Bscmake>
+    <Link>
+      <Profile>true</Profile>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -126,6 +131,7 @@
     <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CoverageExclusions.runsettings" />
     <None Include="Utils\CallRedirect.inl" />
     <None Include="Utils\ModuleDependancy.inl" />
   </ItemGroup>

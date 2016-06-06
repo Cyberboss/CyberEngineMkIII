@@ -62,5 +62,6 @@
     <None Include="Utils\CallRedirect.inl">
       <Filter>Utils</Filter>
     </None>
+    <None Include="CoverageExclusions.runsettings" />
   </ItemGroup>
 </Project>

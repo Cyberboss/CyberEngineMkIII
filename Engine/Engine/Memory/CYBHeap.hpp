@@ -1,4 +1,4 @@
-//! @file CYBHeap.hpp Defines the Heap implentation
+//! @file CYBHeap.hpp Defines the Heap implementation
 #pragma once
 namespace CYB {
 	namespace Engine {

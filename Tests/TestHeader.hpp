@@ -30,7 +30,7 @@ namespace CYB {
 #else
 using namespace CYB::Platform::Posix;
 #endif
-#include "../SupportLibs/Catch/single_include/catch.hpp"
+#include "../SupportLibs/Catch/include/catch.hpp"
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif

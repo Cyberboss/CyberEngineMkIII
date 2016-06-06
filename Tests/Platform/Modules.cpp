@@ -80,7 +80,7 @@ SCENARIO("Functions can be loaded from modules", "[Platform][Modules][Functional
 	}
 }
 
-TEST_CASE("AutoModules work as intended", "[Platform][Modules][Functional]") {
+SCENARIO("AutoModules work as intended", "[Platform][Modules][Functional]") {
 	REQUIRE_NOTHROW(CYB::Platform::Modules::AMKernel32());
 	REQUIRE_NOTHROW(CYB::Platform::Modules::AMPThread());
 }

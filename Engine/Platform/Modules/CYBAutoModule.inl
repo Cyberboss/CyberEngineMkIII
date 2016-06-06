@@ -9,11 +9,18 @@ template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::A
 		NoReplacedFunctions[I] = nullptr;
 	Construct(NoReplacedFunctions);
 }
+
+template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>::~AutoModule() {
+	for (unsigned int I(0); I < AN; ++I)
+		FFunctionPointers[I] = nullptr;
+}
+
 template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>::AutoModule(void* const (&AReplacedFunctions)[AN]) :
 	FLibrary(API::String::Static(ModuleName()))
 {
 	Construct(AReplacedFunctions);
 }
+
 template <unsigned int AN, typename... AFunctionTypes> void CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>::Construct(void* const (&AReplacedFunctions)[AN]) {
 	auto Names(FunctionNames());
 	for (unsigned int I(0); I < AN; ++I) {
@@ -28,10 +35,12 @@ template <unsigned int AN, typename... AFunctionTypes> void CYB::Platform::Modul
 		}
 	}
 }
+
 template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>::AutoModule(AutoModule&& AMove) :
 	FLibrary(std::move(AMove.FLibrary)),
 	FFunctionPointers(AMove.FFunctionPointers)
 {}
+
 template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>& CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>::operator=(AutoModule&& AMove) {
 	FLibrary = std::move(AMove.FLibrary);
 	for(unsigned int I(0); I < AN; ++I)

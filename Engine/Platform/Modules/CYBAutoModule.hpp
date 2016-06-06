@@ -66,6 +66,7 @@ namespace CYB {
 				AutoModule(void* const (&AReplacedFunctions)[AN]);
 				AutoModule(AutoModule&& AMove);	//!< @brief See @ref structors
 				AutoModule& operator=(AutoModule&& AMove);	//!< @brief See @ref structors
+				~AutoModule();	//!< @brief See @ref structors
 
 				/*!
 					@brief Check if a function is loaded

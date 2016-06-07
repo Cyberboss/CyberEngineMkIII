@@ -52,6 +52,7 @@ Included items must then not match any entries in the exclude list to remain inc
                 <Source>.*\\microsoft sdks\\.*</Source>
                 <Source>.*\\windows kits\\.*</Source>
                 <Source>.*\\vc\\include\\.*</Source>
+                <Source>.*Assert.inl</Source>
               </Exclude>
             </Sources>
 

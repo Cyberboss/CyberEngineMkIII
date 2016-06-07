@@ -21,9 +21,10 @@ SCENARIO("Test that thread creation works as intended", "[Platform][System][Thre
 			CYB::Platform::System::Thread* TestThread(nullptr);
 			REQUIRE_NOTHROW(TestThread = new CYB::Platform::System::Thread(TestClass));
 			THEN("No errors occur and the thread runs separate from this one") {
+				CHECK_COOL_AND_CALM;
 				REQUIRE(TestThread != nullptr);
 				CYB::Platform::System::Thread::Sleep(1000);
-				REQUIRE(TestClass.FRan);
+				CHECK(TestClass.FRan);
 			}
 			delete TestThread;
 		}
@@ -46,14 +47,15 @@ SCENARIO("Test that thread waiting and deletion works as intended", "[Platform][
 		WHEN("The thread is waited upon") {
 			TestThread->Wait();
 			THEN("The thread has ran and terminated") {
-				REQUIRE(TestClass.FRan);
+				CHECK_COOL_AND_CALM;
+				CHECK(TestClass.FRan);
 			}
 			delete TestThread;
 		}
 		WHEN("The thread is deleted") {
 			delete TestThread;
 			THEN("The thread is ran and terminated") {
-				REQUIRE(TestClass.FRan);
+				CHECK(TestClass.FRan);
 			}
 		}
 	};
@@ -88,8 +90,9 @@ SCENARIO("Test that threaded operations can be canceled", "[Platform][System][Th
 		WHEN("The thread is cancelled") {
 			TestThread.Cancel();
 			THEN("The thread will terminate") {
+				CHECK_COOL_AND_CALM;
 				CYB::Platform::System::Thread::Sleep(1000);
-				REQUIRE(TestThread.IsFinished());
+				CHECK(TestThread.IsFinished());
 			}
 		}
 	};
@@ -117,16 +120,24 @@ SCENARIO("Test basic sleep works", "[Platform][System][Threads][Unit][Slow]") {
 		WHEN("We sleep for that long") {
 			CYB::Platform::System::Thread::Sleep(Milliseconds);
 			THEN("At least that amount of time has passed when we wake up") {
-				REQUIRE((TestGetTime() - StartTime) >= Milliseconds);
+				CHECK_COOL_AND_CALM;
+				CHECK((TestGetTime() - StartTime) >= Milliseconds);
 			}
 		}
 	}
 }
 
 SCENARIO("Test basic yield works", "[Platform][System][Threads][Unit]") {
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMRT> RT(CYB::Core().FModuleManager.FRT);
-	CYB::Platform::System::Thread::Yield();	//what do you want from me?
+	GIVEN("The correct modules") {
+		ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+		ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMRT> RT(CYB::Core().FModuleManager.FRT);
+		WHEN("Yield is called") {
+			CYB::Platform::System::Thread::Yield();	//what do you want from me?
+			THEN("Nothing bad happens and we can only assume the OS did it's job") {
+				CHECK_COOL_AND_CALM;
+			}
+		}
+	}
 }
 
 typedef unsigned long(*WindowsThreadStartRoutine)(void* const);
@@ -159,6 +170,7 @@ SCENARIO("Test thread system errors work", "[Platform][System][Threads][Unit]") 
 			CYB::Platform::System::Thread* Thread(nullptr);
 			REQUIRE_THROWS_AS(Thread = new CYB::Platform::System::Thread(Test), CYB::Exception::SystemData);
 			THEN("The appropriate error occurs") {
+				CHECK_COOL_AND_CALM;
 				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::THREAD_CREATION_FAILURE);
 				CHECK_FALSE(Test.FRan);
 			}

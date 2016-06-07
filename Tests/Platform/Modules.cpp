@@ -29,6 +29,7 @@ SCENARIO("Modules can load a library", "[Platform][Modules][Functional]") {
 			CYB::Platform::Modules::Module* Result(nullptr);
 			REQUIRE_NOTHROW(Result = new CYB::Platform::Modules::Module(Library));
 			THEN("It is loaded successfully") {
+				CHECK_COOL_AND_CALM;
 				REQUIRE(Result != nullptr);
 			}
 			delete Result;
@@ -40,6 +41,7 @@ SCENARIO("Modules can load a library", "[Platform][Modules][Functional]") {
 			CYB::Platform::Modules::Module* Result(nullptr);
 			CHECK_THROWS_AS(Result = new CYB::Platform::Modules::Module(Library), CYB::Exception::SystemData);
 			THEN("It fails to load") {
+				CHECK_COOL_AND_CALM;
 				CHECK(Result == nullptr);
 				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MODULE_LOAD_FAILURE);
 			}
@@ -56,6 +58,7 @@ SCENARIO("Functions can be loaded from modules", "[Platform][Modules][Functional
 			CHECK_NOTHROW(F1 = Mod.LoadFunction(ExistingLibraryFunctions[0]));
 			CHECK_NOTHROW(F2 = Mod.LoadFunction(ExistingLibraryFunctions[1]));
 			THEN("They are not null and valid code locations") {
+				CHECK_COOL_AND_CALM;
 				CHECK(F1 != nullptr);
 				CHECK(F2 != nullptr);
 #ifdef TARGET_OS_WINDOWS
@@ -73,6 +76,7 @@ SCENARIO("Functions can be loaded from modules", "[Platform][Modules][Functional
 			CHECK_THROWS_AS(F2 = Mod.LoadFunction(FakeLibraryFunctions[1]), CYB::Exception::SystemData);
 			CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE);
 			THEN("The appropriate exception is thrown") {
+				CHECK_COOL_AND_CALM;
 				CHECK(F1 == nullptr);
 				CHECK(F2 == nullptr);
 			}
@@ -81,6 +85,24 @@ SCENARIO("Functions can be loaded from modules", "[Platform][Modules][Functional
 }
 
 SCENARIO("AutoModules work as intended", "[Platform][Modules][Functional]") {
-	REQUIRE_NOTHROW(CYB::Platform::Modules::AMKernel32());
-	REQUIRE_NOTHROW(CYB::Platform::Modules::AMPThread());
+	GIVEN("A valid system AutoModule definition") {
+		CYB::Platform::Modules::AMKernel32* K32(nullptr);
+		WHEN("It is instatiated") {
+			CHECK_NOTHROW(K32 = new CYB::Platform::Modules::AMKernel32());
+			THEN("No exceptions occur") {
+				CHECK_COOL_AND_CALM;
+			}
+			delete K32;
+		}
+	}
+	GIVEN("A valid AutoModule definition not for this system") {
+		CYB::Platform::Modules::AMLibC* LibC(nullptr);
+		WHEN("It is instatiated") {
+			CHECK_NOTHROW(LibC = new CYB::Platform::Modules::AMLibC());
+			THEN("No exceptions occur") {
+				CHECK_COOL_AND_CALM;
+			}
+			delete LibC;
+		}
+	}
 }

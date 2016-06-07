@@ -12,6 +12,7 @@ SCENARIO("Test Heap Alloc", "[Engine][Memory][Functional]") {
 			void* Result(nullptr);
 			REQUIRE_NOTHROW(Result = TestHeap.Alloc(50));
 			THEN("A valid, allocated, aligned memory region is returned") {
+				CHECK_COOL_AND_CALM;
 				CHECK(Result != nullptr);
 				CHECK_FALSE(Block::FromData(Result).IsLargeBlock());
 				CHECK_FALSE(Block::FromData(Result).IsFree());

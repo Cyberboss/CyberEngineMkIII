@@ -34,6 +34,10 @@ namespace CYB {
 using namespace CYB::Platform::Posix;
 #endif
 #include "../SupportLibs/Catch/include/catch.hpp"
+
+#define CHECK_COOL_AND_CALM REQUIRE(CheckHCF() == 0)
+#define REQUIRE_HCF(AN) REQUIRE(CheckHCF() == AN)
+
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif

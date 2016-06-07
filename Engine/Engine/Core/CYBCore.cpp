@@ -51,7 +51,7 @@ bool CYB::Engine::Core::LaunchUnit(void) {
 CYB::Engine::Core& CYB::Engine::Core::GetCore(void) {
 	return *FSingleton;
 }
-void CYB::Engine::Core::Run[[noreturn]](void) {
+void CYB::Engine::Core::Run(void) {
 	{
 		Core CyberEngineMarkIII;
 		for (; CyberEngineMarkIII.LaunchUnit(););

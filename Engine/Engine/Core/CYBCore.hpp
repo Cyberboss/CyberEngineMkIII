@@ -77,7 +77,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			static void Run[[noreturn]](void);
+			static void Run(void);
 		};
 	};
 

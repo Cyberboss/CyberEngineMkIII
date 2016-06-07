@@ -6,8 +6,15 @@ namespace CYB {
 			class Static : public CStyle {
 			public:
 				/*!
+					@brief Construct an empty static string
+					@par Thread Safety
+						This function requires no thread safety
+					@par Exception Safety
+						This function does not throw exceptions
+				*/
+				Static();
+				/*!
 					@brief Construct a static string
-					@param AData The data to populate the string with. Must remaing valid for the lifetime of the object
 					@par Thread Safety
 						This function requires no thread safety
 					@par Exception Safety

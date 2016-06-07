@@ -1,6 +1,10 @@
 //! @file StaticString.inl Implements functions from CYB::API::String::Static
 #pragma once
 
+inline CYB::API::String::Static::Static() :
+	Static("")
+{}
+
 inline CYB::API::String::Static::Static(const char* const AData) :
 	CStyle(const_cast<char*>(AData))	//Bjarne forgive us
 {}

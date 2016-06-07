@@ -15,7 +15,8 @@ CYB::Engine::Memory::Block::Block(const unsigned int ASpaceAvailable, const Bloc
 	FOffsetToPreviousBlock(CalculateOffset(ALeftBlock)),
 	FMagicFooter(MAGIC_FOOTER)
 {
-	API::Assert(ASpaceAvailable >= sizeof(Block));
+	const auto Result(ASpaceAvailable >= sizeof(Block));
+	API::Assert(Result);
 }
 
 unsigned int CYB::Engine::Memory::Block::InitializeData(const unsigned int ASize, const bool AFree) {

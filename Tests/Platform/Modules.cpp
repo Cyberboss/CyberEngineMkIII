@@ -84,7 +84,7 @@ SCENARIO("Functions can be loaded from modules", "[Platform][Modules][Functional
 	}
 }
 
-SCENARIO("AutoModules work as intended", "[Platform][Modules][Functional]") {
+SCENARIO("AutoModules work", "[Platform][Modules][Functional]") {
 	GIVEN("A valid system AutoModule definition") {
 		CYB::Platform::Modules::AMKernel32* K32(nullptr);
 		WHEN("It is instatiated") {

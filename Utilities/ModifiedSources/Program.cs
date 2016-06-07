@@ -30,7 +30,7 @@ namespace ModifiedSources
                     ParseDirectory(new DirectoryInfo(Dir.FullName + Path.DirectorySeparatorChar + "single_include"), NewPath + "single_include");
                     ParseDirectory(new DirectoryInfo(Dir.FullName + Path.DirectorySeparatorChar + "include"), NewPath + "include");
                 }
-                else if (Dir.Name != ".git" && Dir.Name != ".vs" && Dir.Name != "Documentation" && Dir.Name != "GDBSync")
+                else if (Dir.Name != ".git" && Dir.Name != ".vs" && Dir.Name != "Documentation" && Dir.Name != "GDBSync" && Dir.Name != "TestResults")
                     ParseDirectory(Dir, CurrentPath + Path.DirectorySeparatorChar + Dir.Name);
             
             var actualfiles = ADir.GetFiles();

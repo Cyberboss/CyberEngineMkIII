@@ -11,7 +11,7 @@ int main(void) {
 	CYB::Engine::Core::Run();
 }
 
-void CYB::API::HCF[[noreturn]](void){
+void CYB::API::HCF(void){
 #ifdef DEBUG
 	BREAK;
 #endif

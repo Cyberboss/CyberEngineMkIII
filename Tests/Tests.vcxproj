@@ -64,6 +64,7 @@
       <BrowseInformation>true</BrowseInformation>
       <AdditionalOptions>/experimental:module %(AdditionalOptions)</AdditionalOptions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <UseFullPaths>true</UseFullPaths>
     </ClCompile>
     <PostBuildEvent>
       <Command>
@@ -87,6 +88,7 @@
       <PrecompiledHeaderFile>TestHeader.hpp</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4265;4548;4571;4668;4623;4626;4625;4820;5026;5027</DisableSpecificWarnings>
       <AdditionalOptions>/experimental:module %(AdditionalOptions)</AdditionalOptions>
+      <UseFullPaths>true</UseFullPaths>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

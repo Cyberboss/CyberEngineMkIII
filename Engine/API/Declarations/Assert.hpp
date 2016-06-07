@@ -24,7 +24,7 @@ namespace CYB {
 			@par Exception Safety
 				This function does not throw exceptions
 		*/
-		void HCF[[noreturn]](void);
+		void HCF(void);
 		/*!
 			@brief Assertion function. @p AExpression should always be evaluated
 			@param AExpression The expression to check. Will call HCF if false
@@ -36,5 +36,6 @@ namespace CYB {
 		void Assert(const bool AExpression);
 	};
 };
-
+#ifndef ASSERTION_OVERRIDE
 #include "Assert.inl"
+#endif

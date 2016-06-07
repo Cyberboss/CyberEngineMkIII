@@ -22,6 +22,9 @@
     <ClCompile Include="Platform\Modules.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\HCFOverride.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />

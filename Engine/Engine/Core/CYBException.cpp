@@ -14,6 +14,7 @@ CYB::API::String::Static CYB::Exception::Violation::ErrorMessage(const ErrorCode
 		return API::String::Static(u8"A Block failed to validate during a Heap operation");
 	default:
 		API::HCF();
+		return API::String::Static();
 	}
 }
 CYB::Exception::Violation::Violation(const ErrorCode AErrorCode) :
@@ -44,6 +45,7 @@ CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCod
 		return API::String::Static(u8"OS failed to create requested thread.");
 	default:
 		API::HCF();
+		return API::String::Static();
 	}
 }
 
@@ -55,6 +57,7 @@ CYB::Exception::SystemData::SystemData(const ErrorCode AErrorCode) :
 CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode AErrorCode) {
 	static_cast<void>(AErrorCode);
 	API::HCF();
+	return API::String::Static();
 }
 
 CYB::Exception::Internal::Internal(const ErrorCode AErrorCode) :

@@ -5,6 +5,7 @@ include_directories(${CYB_BASE_DIR}/Tests)
 add_executable(CyberEngineMkIIITester
 
 PosixMain.cpp
+Utils/HCFOverride.cpp
 Utils/FakeCore.cpp
 
 Platform/Modules.cpp

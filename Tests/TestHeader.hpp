@@ -8,6 +8,9 @@
 #undef BIG_ENDIAN
 #undef PDP_ENDIAN
 #endif
+
+#define ASSERTION_OVERRIDE
+unsigned int CheckHCF(void);
 #include "../Engine/CYB.hpp"
 
 #include "Utils/RedirectedFunction.hpp"

@@ -37,9 +37,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{364E825E-F224-4853-BD93-58C4AD7D36E4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Executable", "Executable\Executable.vcxproj", "{1F07588E-625E-42BF-A4BD-93D7FD67F082}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C278CE8B-BC54-466E-A4F9-56F07CEB116F} = {C278CE8B-BC54-466E-A4F9-56F07CEB116F}
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{4A2D05F7-6B95-4803-9807-F3E38919B099}"
 EndProject

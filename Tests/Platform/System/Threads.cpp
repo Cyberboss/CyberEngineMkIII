@@ -10,7 +10,7 @@ public:
 	void CancelThreadedOperation(void) final override {}
 };
 
-SCENARIO("Test that thread creation works as intended", "[Platform][System][Threads][Unit][Slow]") {
+SCENARIO("Thread creation works", "[Platform][System][Threads][Unit][Slow]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
@@ -31,7 +31,7 @@ SCENARIO("Test that thread creation works as intended", "[Platform][System][Thre
 	};
 };
 
-SCENARIO("Test that thread waiting and deletion works as intended", "[Platform][System][Threads][Unit][Slow]") {
+SCENARIO("Thread waiting and deletion work", "[Platform][System][Threads][Unit][Slow]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
@@ -77,7 +77,7 @@ public:
 	}
 };
 
-SCENARIO("Test that threaded operations can be canceled", "[Platform][System][Threads][Unit][Slow]") {
+SCENARIO("Threaded operations can be cancelled", "[Platform][System][Threads][Unit][Slow]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
@@ -109,7 +109,7 @@ static unsigned int TestGetTime(void) {
 #endif
 }
 
-SCENARIO("Test basic sleep works", "[Platform][System][Threads][Unit][Slow]") {
+SCENARIO("Basic Sleep works", "[Platform][System][Threads][Unit][Slow]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
@@ -127,7 +127,7 @@ SCENARIO("Test basic sleep works", "[Platform][System][Threads][Unit][Slow]") {
 	}
 }
 
-SCENARIO("Test basic yield works", "[Platform][System][Threads][Unit]") {
+SCENARIO("Basic Yield works", "[Platform][System][Threads][Unit]") {
 	GIVEN("The correct modules") {
 		ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 		ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMRT> RT(CYB::Core().FModuleManager.FRT);
@@ -158,7 +158,7 @@ public:
 	void CancelThreadedOperation(void) final override {}
 };
 
-SCENARIO("Test thread system errors work", "[Platform][System][Threads][Unit]") {
+SCENARIO("Thread system errors work", "[Platform][System][Threads][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMRT> RT(CYB::Core().FModuleManager.FRT);

@@ -252,6 +252,7 @@
     <None Include="DoxyPages\Units.dox" />
     <None Include="Platform\Modules\CYBAutoModule.inl" />
     <None Include="Platform\Modules\CYBModuleDefinitions.hpp" />
+    <None Include="Platform\System\CYBSyscalls.inl" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DoxyPages\DoxygenLayout.xml" />

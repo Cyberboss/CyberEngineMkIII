@@ -75,7 +75,6 @@ namespace CYB {
 				MEMORY_RESERVATION_FAILURE, //!< @brief Memory could not be reserved
 				MODULE_FUNCTION_LOAD_FAILURE, //!< @brief Specific could not be loaded from given Module
 				MODULE_LOAD_FAILURE, //!< @brief Module could not be loaded
-				MUTEX_DESTRUCTION_FAILURE, //!< @brief Mutex could not be destroyed
 				MUTEX_INITIALIZATION_FAILURE, //!< @brief Mutex could not be created
 				THREAD_CREATION_FAILURE, //!< @brief Thread could not be created
 			};

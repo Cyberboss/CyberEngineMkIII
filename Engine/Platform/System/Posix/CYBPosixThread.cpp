@@ -84,8 +84,7 @@ void* CYB::Platform::System::Implementation::Thread::ThreadProc(void* const AThr
 }
 
 void CYB::Platform::System::Implementation::Thread::DestroyMutex(void) {
-	if (Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_destroy>(&FRunningLock) != 0)
-		throw CYB::Exception::SystemData(CYB::Exception::SystemData::MUTEX_DESTRUCTION_FAILURE);
+	API::Assert(Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_destroy>(&FRunningLock) == 0);
 }
 
 bool CYB::Platform::System::Thread::IsFinished(void) const {

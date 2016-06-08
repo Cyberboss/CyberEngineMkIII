@@ -2,11 +2,17 @@
 #pragma once
 namespace CYB {
 	namespace API {
-		//! @brief A fast locking, no order guaranteed, mutex
+		/*!
+			@brief A fast locking, no order guaranteed, mutex
+			@par WARNING
+				Using Mutex's incorrectly results in hard to detect undefined behaviour, proceed with caution
+		*/
 		class Mutex : private Interop::Allocatable {
 		public:
+			//! @brief Destroy a Mutex. Mutex must be unlocked
+			virtual ~Mutex() = default;
 			/*!
-				@brief Acquire a lock on a Mutex. This will block the current thread until the lock is aquired
+				@brief Acquire a lock on a Mutex. This will block the current thread until the lock is aquired. The Mutex must not be owned by the current thread
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
@@ -14,8 +20,8 @@ namespace CYB {
 			*/
 			virtual void Lock(void) const = 0;
 			/*!
-				@brief Attempt to acquire a lock on a Mutex. This will not block the current thread
-				@return true if the mutex was aquired, false otherwise
+				@brief Attempt to acquire a lock on a Mutex. This will not block the current thread. The Mutex must not be owned by the current thread
+				@return true if the mutex was acquired, false otherwise
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
@@ -23,7 +29,7 @@ namespace CYB {
 			*/
 			virtual bool TryLock(void) const = 0;
 			/*!
-				@brief Release a lock on a Mutex. Should only be called after a Lock on the same Mutex was aquired
+				@brief Release a lock on a Mutex. Should only be called after a Lock or TryLock on the same Mutex was aquired in the same thread
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety

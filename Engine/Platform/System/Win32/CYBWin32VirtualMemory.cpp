@@ -25,7 +25,7 @@ void CYB::Platform::System::VirtualMemory::Commit(void* const AReservation, cons
 		Access(AReservation, AccessLevel::READ_WRITE);
 	}
 	catch (Exception::SystemData AException) {
-		API::Assert(AException.FErrorCode == Exception::SystemData::MEMORY_PROTECT_FAILURE);
+		API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::MEMORY_PROTECT_FAILURE);
 		ThrowOccurred = true;
 	}
 	if(ThrowOccurred)

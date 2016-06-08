@@ -3,11 +3,11 @@
 
 template <class AParent> CYB::API::Singleton<AParent>::Singleton() {
 	static_assert(std::is_base_of<Singleton<AParent>, AParent>::value, "CYB::API::Singleton may only be used via inheritance");
-	Assert(FSingleton == nullptr);
+	Assert::Equal<AParent*>(FSingleton, nullptr);
 	FSingleton = static_cast<AParent*>(this);
 }
 template <class AParent> CYB::API::Singleton<AParent>::~Singleton() {
-	Assert(FSingleton == static_cast<AParent*>(this));
+	Assert::Equal(FSingleton, static_cast<AParent*>(this));
 	FSingleton = nullptr;
 }
 #ifdef CYB_BUILDING_TESTS

@@ -1,6 +1,8 @@
 //! @file Assert.inl Implements API assertion functions
 #pragma once
-inline void CYB::API::HCF[[noreturn]](void){
+
+#ifndef ASSERTION_OVERRIDE
+inline void CYB::API::Assert::HCF[[noreturn]](void){
 #ifdef DEBUG
 	BREAK;
 #endif
@@ -10,7 +12,33 @@ inline void CYB::API::HCF[[noreturn]](void){
 	__builtin_unreachable();
 #endif
 }
-inline void CYB::API::Assert(const bool AExpression) {
+#endif
+inline void CYB::API::Assert::True(const bool AExpression) {
 	if (!AExpression)
+		HCF();
+}
+
+inline void CYB::API::Assert::False(const bool AExpression) {
+	if (AExpression)
+		HCF();
+}
+
+template <typename AType> void CYB::API::Assert::Equal(const AType& ALHS, const AType& ARHS) {
+	if (ALHS != ARHS)
+		HCF();
+}
+
+template <typename AType> void CYB::API::Assert::NotEqual(const AType& ALHS, const AType& ARHS) {
+	if (ALHS == ARHS)
+		HCF();
+}
+
+template <typename AType> void CYB::API::Assert::LessThan(const AType& ALHS, const AType& ARHS) {
+	if (ALHS >= ARHS)
+		HCF();
+}
+
+template <typename AType> void CYB::API::Assert::LessThanOrEqual(const AType& ALHS, const AType& ARHS) {
+	if (ALHS > ARHS)
 		HCF();
 }

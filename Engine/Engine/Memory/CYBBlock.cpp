@@ -15,28 +15,28 @@ CYB::Engine::Memory::Block::Block(const unsigned int ASpaceAvailable, const Bloc
 	FOffsetToPreviousBlock(CalculateOffset(ALeftBlock)),
 	FMagicFooter(MAGIC_FOOTER)
 {
-	const auto Result(ASpaceAvailable >= sizeof(Block));
-	API::Assert(Result);
+	API::Assert::LessThanOrEqual<unsigned long long>(sizeof(Block), ASpaceAvailable);
 }
 
 unsigned int CYB::Engine::Memory::Block::InitializeData(const unsigned int ASize, const bool AFree) {
 	const auto DataSize(static_cast<long long>(ASize - sizeof(Block)));
-	API::Assert(DataSize >= 0 && DataSize <= std::numeric_limits<int>().max());
+	API::Assert::LessThanOrEqual<long long>(0, DataSize);
+	API::Assert::LessThanOrEqual<long long>(DataSize, std::numeric_limits<int>().max());
 	if(AFree)
 		return static_cast<unsigned int>(DataSize) | 1U << 31;
 	return static_cast<unsigned int>(DataSize) & ~(1U << 31);
 }
 
 unsigned int CYB::Engine::Memory::Block::CalculateOffset(const Block& ABlock) {
-	API::Assert(&ABlock <= this);
+	API::Assert::LessThanOrEqual<const Block*>(&ABlock, this);
 	const auto Result(reinterpret_cast<byte*>(this) - reinterpret_cast<const byte*>(&ABlock));
-	API::Assert(Result <= std::numeric_limits<unsigned int>().max());
+	API::Assert::LessThanOrEqual<long long>(Result, std::numeric_limits<unsigned int>().max());
 	return static_cast<unsigned int>(Result);
 }
 
 unsigned int CYB::Engine::Memory::Block::Size(void) const {
 	const auto Result(FSizeAndFreeBit & ~(1U << 31));
-	API::Assert(Result < static_cast<unsigned int>(std::numeric_limits<int>::max()));
+	API::Assert::LessThan(Result, static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	return Result;
 }
 
@@ -65,16 +65,16 @@ CYB::Engine::Memory::Block* CYB::Engine::Memory::Block::LeftBlock(void) {
 }
 
 CYB::Engine::Memory::Block* CYB::Engine::Memory::Block::RightBlock(void) {
-	API::Assert(!IsLargeBlock());
+	API::Assert::False(IsLargeBlock());
 	return reinterpret_cast<Block*>(static_cast<byte*>(GetData()) + Size());
 }
 
 const CYB::Engine::Memory::Block* CYB::Engine::Memory::Block::RightBlock(void) const {
-	API::Assert(!IsLargeBlock());
+	API::Assert::False(IsLargeBlock());
 	return reinterpret_cast<const Block*>(reinterpret_cast<const byte*>(this) + sizeof(Block) + Size());
 }
 void CYB::Engine::Memory::Block::SetSize(const unsigned int ANewSize) {
-	API::Assert(ANewSize < static_cast<unsigned int>(std::numeric_limits<int>::max()));
+	API::Assert::LessThan(ANewSize, static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	FSizeAndFreeBit = (ANewSize | 1U << 31);
 }
 void CYB::Engine::Memory::Block::SetFree(const bool ANewFree) {
@@ -94,18 +94,18 @@ void CYB::Engine::Memory::Block::Validate(void) const {
 }
 
 CYB::Engine::Memory::Block& CYB::Engine::Memory::Block::Splice(const unsigned int ASizeToKeep) {
-	API::Assert(ASizeToKeep < static_cast<unsigned int>(std::numeric_limits<int>::max()));
+	API::Assert::LessThan(ASizeToKeep, static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	const auto NewBlockAmount(Size() - ASizeToKeep);
-	API::Assert(NewBlockAmount > sizeof(Block));
+	API::Assert::LessThan<unsigned long long>(sizeof(Block), NewBlockAmount);
 	SetSize(ASizeToKeep);
 	return *(new (static_cast<byte*>(GetData()) + ASizeToKeep) Block(static_cast<unsigned int>(NewBlockAmount), *this, true));
 }
 
 CYB::Engine::Memory::Block& CYB::Engine::Memory::Block::EatLeftBlock(void) {
-	API::Assert(!IsLargeBlock());
-	API::Assert(LeftBlock() != nullptr);
+	API::Assert::False(IsLargeBlock());
+	API::Assert::NotEqual<Block*>(LeftBlock(), nullptr);
 	const auto NewSize(LeftBlock()->Size() + Size() + sizeof(Block));
-	API::Assert(NewSize < static_cast<unsigned long long>(std::numeric_limits<int>::max()));
+	API::Assert::LessThan<unsigned long long>(NewSize, static_cast<unsigned long long>(std::numeric_limits<int>::max()));
 	LeftBlock()->SetSize(static_cast<unsigned int>(NewSize));
 	return *LeftBlock();
 }

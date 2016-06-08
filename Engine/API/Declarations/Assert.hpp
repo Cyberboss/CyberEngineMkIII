@@ -17,25 +17,32 @@
 
 namespace CYB {
 	namespace API {
-		/*!
-			@brief Indicates unreachable code
-			@par Thread Safety
-				This function requires no thread safety
-			@par Exception Safety
-				This function does not throw exceptions
-		*/
-		void HCF(void);
-		/*!
-			@brief Assertion function. @p AExpression should always be evaluated
-			@param AExpression The expression to check. Will call HCF if false
-			@par Thread Safety
-				This function requires no thread safety
-			@par Exception Safety
-				This function does not throw exceptions
-		*/
-		void Assert(const bool AExpression);
+		//! @brief Contains assertion functions
+		class Assert {
+		public:
+			/*!
+				@brief Indicates unreachable code
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			static void HCF[[noreturn]](void);
+			/*!
+				@brief Assertion function. @p AExpression should always be evaluated
+				@param AExpression The expression to check. Will call HCF if false
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			static void True(const bool AExpression);
+			static void False(const bool AExpression);
+			template <typename AType> static void Equal(const AType& ALHS, const AType& ARHS);
+			template <typename AType> static void NotEqual(const AType& ALHS, const AType& ARHS);
+			template <typename AType> static void LessThan(const AType& ALHS, const AType& ARHS);
+			template <typename AType> static void LessThanOrEqual(const AType& ALHS, const AType& ARHS);
+		};
 	};
 };
-#ifndef ASSERTION_OVERRIDE
 #include "Assert.inl"
-#endif

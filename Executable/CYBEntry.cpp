@@ -11,7 +11,7 @@ int main(void) {
 	CYB::Engine::Core::Run();
 }
 
-void CYB::API::HCF(void){
+void CYB::API::Assert::HCF[[noreturn]](void){
 #ifdef DEBUG
 	BREAK;
 #endif
@@ -20,9 +20,4 @@ void CYB::API::HCF(void){
 #else
 	__builtin_unreachable();
 #endif
-}
-
-void CYB::API::Assert(const bool AExpression) {
-	if (!AExpression)
-		HCF();
 }

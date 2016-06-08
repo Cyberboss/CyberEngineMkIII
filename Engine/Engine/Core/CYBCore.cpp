@@ -57,7 +57,7 @@ void CYB::Engine::Core::Run(void) {
 		for (; CyberEngineMarkIII.LaunchUnit(););
 	}
 	Platform::System::Process::Terminate(Platform::System::Process::GetSelf());
-	CYB::API::HCF();
+	CYB::API::Assert::HCF();
 }
 CYB::Engine::Core& CYB::Core(void) {
 	return Engine::Core::GetCore();

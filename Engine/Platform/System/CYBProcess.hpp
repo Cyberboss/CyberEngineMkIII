@@ -5,7 +5,11 @@ namespace CYB {
 	//! @brief Encapsulates platform specific functions
 	namespace Platform {
 		namespace System {
-			//! @brief An object representing an operating system process
+			/*! 
+				@brief An object representing an operating system process
+				@par WARNING
+					Processes with the same PID/Handle will appear equivalent. Ensure that a reference to a Process object does not persist through operating system recycling
+			*/
 			class Process : private Implementation::Process {
 			private:
 				/*!
@@ -19,12 +23,6 @@ namespace CYB {
 			protected:
 				using Implementation::Process::Process;
 			public:
-				Process(const Process&) = delete;
-				Process(Process&& AMove);	//!< @brief See @ref structors
-				Process& operator=(Process&& AMove);	//!< @brief See @ref structors
-				//! @brief Closes the handle to a process
-				~Process() = default;
-
 				/*!
 					@brief Get's the Process representing the current execution
 					@return The current Process
@@ -43,6 +41,28 @@ namespace CYB {
 						This function does not throw exceptions
 				*/
 				static void Terminate(Process&& AProcess);
+
+				Process(const Process&) = delete;
+				Process(Process&& AMove);	//!< @brief See @ref structors
+				Process& operator=(Process&& AMove);	//!< @brief See @ref structors
+				//! @brief Closes the handle to a process
+				~Process() = default;
+
+				/*!
+					@brief Check if the Process is still running
+					@return true if the Process is still running, false otherwise
+					@par Thread Safety
+						This function requires no thread safety
+					@par Exception Safety
+						This function does not throw exceptions
+				*/
+				bool Active(void) const;
+				/*!
+					@brief Check the equivalence of two Process objects
+					@param ARHS Another Process to compare with
+					@return true if the Processes are equivalent, false otherwise
+				*/
+				bool operator==(const Process& ARHS) const;
 			};
 		};
 	};

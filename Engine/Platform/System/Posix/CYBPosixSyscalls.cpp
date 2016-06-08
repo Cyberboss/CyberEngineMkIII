@@ -1,4 +1,4 @@
-#include "CYB.hpp"
+#include "../../../CYB.hpp"
 
 unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber) {
 	unsigned long long Result;

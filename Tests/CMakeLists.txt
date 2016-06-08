@@ -13,6 +13,7 @@ Platform/Modules.cpp
 Platform/System/VirtualMemory.cpp
 Platform/System/Threads.cpp
 Platform/System/Mutex.cpp
+Platform/System/Process.cpp
 
 Engine/Memory/Blocks.cpp
 Engine/Memory/Heap.cpp

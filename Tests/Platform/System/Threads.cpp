@@ -150,15 +150,34 @@ REDIRECTED_FUNCTION(BadPThreadCreate, void* const, void* const, void* const, voi
 	return -1;
 }
 
+namespace CYB {
+	namespace Exception {
+		class ThreadExceptionTester : public Base {
+		public:
+			ThreadExceptionTester() :
+				Base(u8"Nothing to see here", 0, CYB::Exception::Base::Level::UNIT)
+			{}
+		};
+	}
+}
+
 class ThreadErrorTest : public CYB::API::Threadable {
+private:
+	const bool FThrowKnownException;
 public:
+	ThreadErrorTest(const bool AThrowKnownException) :
+		FThrowKnownException(AThrowKnownException)
+	{}
 	void BeginThreadedOperation(void) final override {
-		throw std::exception();
+		if (FThrowKnownException)
+			throw CYB::Exception::ThreadExceptionTester();
+		else
+			throw std::exception();
 	}
 	void CancelThreadedOperation(void) final override {}
 };
 
-SCENARIO("Thread system errors work", "[Platform][System][Threads][Unit]") {
+SCENARIO("Thread errors work", "[Platform][System][Threads][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMRT> RT(CYB::Core().FModuleManager.FRT);
@@ -175,6 +194,24 @@ SCENARIO("Thread system errors work", "[Platform][System][Threads][Unit]") {
 				CHECK_FALSE(Test.FRan);
 			}
 			delete Thread;
+		}
+	}
+	GIVEN("A Threadable that will throw an unknown exception") {
+		ThreadErrorTest Test(false);
+		WHEN("A thread is run created using it") {
+			CYB::Platform::System::Thread TestThread(Test);
+			THEN("Nothing bad happens") {
+				CHECK_COOL_AND_CALM;
+			}
+		}
+	}
+	GIVEN("A Threadable that will throw a known exception") {
+		ThreadErrorTest Test(true);
+		WHEN("A thread is run created using it") {
+			CYB::Platform::System::Thread TestThread(Test);
+			THEN("Nothing bad happens") {
+				CHECK_COOL_AND_CALM;
+			}
 		}
 	}
 }

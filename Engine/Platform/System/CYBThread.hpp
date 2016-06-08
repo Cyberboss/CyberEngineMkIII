@@ -43,9 +43,7 @@ namespace CYB {
 				*/
 				Thread(API::Threadable& AThreadable);
 				Thread(const Thread&) = delete;
-				/*!
-					@brief Destroy a thread. Will block the caller until the owned thread terminates
-				*/
+				//! @brief Destroy a thread. Will block the caller until the owned thread terminates
 				~Thread();
 
 				/*!

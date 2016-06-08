@@ -15,7 +15,7 @@ namespace CYB {
 				*/
 				Mutex();
 				/*!
-					@brief Destroy a Mutex
+					@brief Destroy a Mutex. Mutex MUST be unlocked or program may crash
 					@par WARNING
 						Potential hard crash due to possiblity of thrown exception: CYB::Exception::SystemData::MUTEX_DESTRUCTION_FAILURE
 				*/

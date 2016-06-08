@@ -12,8 +12,8 @@ CYB::Platform::System::Mutex::Mutex() {
 }
 
 CYB::Platform::System::Mutex::~Mutex() {
-	if(Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_destroy>(&FMutex) != 0)
-		throw CYB::Exception::SystemData(CYB::Exception::SystemData::MUTEX_DESTRUCTION_FAILURE);
+	const auto Result(Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_destroy>(&FMutex));
+	API::Assert(Result == 0);
 }
 
 void CYB::Platform::System::Mutex::Lock(void) const {

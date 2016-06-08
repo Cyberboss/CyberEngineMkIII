@@ -6,7 +6,7 @@
     <PrivateKey>$(ProjectDir)../../BuildScripts/RemoteDebug/PrivateKey.ppk</PrivateKey>
     <SecureShellExecutable>$(ProjectDir)../../BuildScripts/RemoteDebug/plink.exe</SecureShellExecutable>
     <RemoteWorkingDirectory>/home/debugbot/CEMKIIIDebug/Output/bin</RemoteWorkingDirectory>
-    <RemoteExecutable>CyberEngineMkIIID</RemoteExecutable>
+    <RemoteExecutable>CyberEngineMkIIITester</RemoteExecutable>
     <DebuggerFlavor>LinuxDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RemoteOSX|x64'">
@@ -15,7 +15,7 @@
     <PrivateKey>$(ProjectDir)../../BuildScripts/RemoteDebug/PrivateKey.ppk</PrivateKey>
     <SecureShellExecutable>$(ProjectDir)../../BuildScripts/RemoteDebug/plink.exe</SecureShellExecutable>
     <RemoteWorkingDirectory>/home/debugbot/CEMKIIIDebug/Output/bin</RemoteWorkingDirectory>
-    <RemoteExecutable>CyberEngineMkIIID</RemoteExecutable>
+    <RemoteExecutable>CyberEngineMkIIITester</RemoteExecutable>
     <DebuggerFlavor>LinuxDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

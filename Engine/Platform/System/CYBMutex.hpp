@@ -14,12 +14,8 @@ namespace CYB {
 						CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE If the Mutex could not be initialized
 				*/
 				Mutex();
-				/*!
-					@brief Destroy a Mutex. Mutex MUST be unlocked or program may crash
-					@par WARNING
-						Potential hard crash due to possiblity of thrown exception: CYB::Exception::SystemData::MUTEX_DESTRUCTION_FAILURE
-				*/
-				virtual ~Mutex();
+				//! @brief See CYB::API::Mutex::~Mutex
+				~Mutex() final override;
 
 				//! @brief See CYB::API::Mutex::Lock
 				void Lock(void) const final override;

@@ -29,11 +29,10 @@ namespace CYB {
 				static unsigned long long DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3, const Union64 AArg4, const Union64 AArg5, const Union64 AArg6);
 				static void VerifyArgumentCount(const CallNumber ACallNumber, const unsigned long long ANumArgs);
 			public:
-				template <typename... Args> static unsigned long long Call(const CallNumber ACallNumber, Args&&... AArgs) {
-					VerifyArgumentCount(ACallNumber, sizeof...(AArgs));
-					return DoCall(ACallNumber, std::forward<Args>(AArgs)...);
-				}
+				template <typename... Args> static unsigned long long Call(const CallNumber ACallNumber, Args&&... AArgs);
 			};
 		};
 	};
 };
+
+#include "CYBSyscalls.inl"

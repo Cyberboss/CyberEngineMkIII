@@ -429,6 +429,9 @@
     <None Include="Platform\Modules\CYBModuleDefinitions.hpp">
       <Filter>Platform\Modules</Filter>
     </None>
+    <None Include="Platform\System\CYBSyscalls.inl">
+      <Filter>Platform\System</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DoxyPages\DoxygenLayout.xml">

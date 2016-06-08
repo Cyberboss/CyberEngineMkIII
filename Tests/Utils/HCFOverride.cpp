@@ -2,13 +2,8 @@
 
 static std::atomic_uint_fast32_t FHCFCalled(0);
 
-void CYB::API::HCF(void) {
-	++FHCFCalled;
-}
-
-void CYB::API::Assert(const bool AExpression) {
-	if (!AExpression)
-		HCF();
+void CYB::API::Assert::HCF(void) {
+	std::terminate();
 }
 
 unsigned int CheckHCF(void) {

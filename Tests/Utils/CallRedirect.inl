@@ -6,7 +6,7 @@ template <class AAutoModule, typename ACallable, unsigned int AFunctionIndex> Ca
 	FReference(AReference),
 	FMoved(false)
 {
-	CYB::API::Assert(FOldFunction == nullptr);
+	CYB::API::Assert::Equal<decltype(FOldFunction)>(FOldFunction, nullptr);
 	FOldFunction = FReference.ReassignFunctionPointer(AFunctionIndex, reinterpret_cast<void*>(ANewFunction));
 }
 

@@ -54,7 +54,7 @@ void CYB::Engine::Memory::Heap::RemoveFromFreeList(Block& ABlock, Block* const A
 }
 
 void CYB::Engine::Memory::Heap::LargeBlockNeedsAtLeast(const unsigned int ARequiredNumBytes) {
-	API::Assert(ARequiredNumBytes < static_cast<unsigned int>(std::numeric_limits<int>::max()));
+	API::Assert::LessThan(ARequiredNumBytes, static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	if (FLargeBlock->Size() < ARequiredNumBytes) {
 		const auto SizeDifference(ARequiredNumBytes - FLargeBlock->Size());
 		FCommitSize += SizeDifference;
@@ -64,7 +64,7 @@ void CYB::Engine::Memory::Heap::LargeBlockNeedsAtLeast(const unsigned int ARequi
 }
 
 void CYB::Engine::Memory::Heap::MergeBlockIfPossible(Block*& ABlock, Block* ALastFreeListEntry) {
-	API::Assert(ABlock->IsFree());
+	API::Assert::True(ABlock->IsFree());
 
 	if (ABlock->LeftBlock() != nullptr && ABlock->LeftBlock()->IsFree()) {
 		if (ABlock->IsLargeBlock()) {
@@ -86,7 +86,7 @@ void CYB::Engine::Memory::Heap::MergeBlockIfPossible(Block*& ABlock, Block* ALas
 }
 
 CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::AllocImpl(const unsigned int ANumBytes, API::LockGuard& ALock) {
-	API::Assert(ANumBytes < static_cast<unsigned int>(std::numeric_limits<int>::max()));
+	API::Assert::LessThan(ANumBytes, static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	const auto MinimumBlockSize(16);	//Do not splice a block that will have a size smaller than this
 	const auto MinimumBlockFootprint(MinimumBlockSize + sizeof(Block));
 	Block* LastFreeListEntry(nullptr);
@@ -140,7 +140,7 @@ CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::AllocImpl(const unsigned 
 	return AllocatedBlock;
 }
 CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::ReallocImpl(Block& ABlock, const unsigned int ANumBytes, API::LockGuard& ALock) {
-	API::Assert(ANumBytes < static_cast<unsigned int>(std::numeric_limits<int>::max()));
+	API::Assert::LessThan(ANumBytes, static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	auto& NewData(AllocImpl(ANumBytes, ALock));
 	std::copy(static_cast<byte*>(ABlock.GetData()), static_cast<byte*>(ABlock.GetData()) + ABlock.Size(), static_cast<byte*>(NewData.GetData()));
 	Free(ABlock.GetData());

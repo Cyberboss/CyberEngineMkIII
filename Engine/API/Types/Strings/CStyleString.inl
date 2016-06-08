@@ -9,7 +9,7 @@ inline CYB::API::String::CStyle::CStyle(char* const AData) :
 inline unsigned int CYB::API::String::CStyle::CalculateByteLength(void) const {
 	unsigned int Length(0);
 	for (; FData[Length] != 0; ++Length)
-		Assert(Length < std::numeric_limits<unsigned int>().max());
+		Assert::LessThan<unsigned int>(Length, std::numeric_limits<unsigned int>().max());
 	return Length;
 }
 

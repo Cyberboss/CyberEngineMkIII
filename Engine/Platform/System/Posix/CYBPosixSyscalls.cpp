@@ -91,10 +91,10 @@ unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumb
 		: "rax", "rdi", "rsi", "rdx", "r10", "r8", "r9");
 	return Result;
 }
-void CYB::Platform::System::Sys::VerifyArgumentCount(const CallNumber ACallNumber, const size_t ANumArgs) {
+void CYB::Platform::System::Sys::VerifyArgumentCount(const CallNumber ACallNumber, const unsigned long long ANumArgs) {
 	switch (ACallNumber) {
 	case EXIT:
-		CYB::API::Assert(ANumArgs == 1);
+		CYB::API::Assert::Equal<unsigned long long>(ANumArgs, 1);
 		break;
 	}
 }

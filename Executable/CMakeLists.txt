@@ -6,7 +6,9 @@ ELSE()
 set(CYB_EXE_NAME "CyberEngineMkIII")
 ENDIF()
 
-add_executable(${CYB_EXE_NAME} CYBEntry.cpp)
+add_executable(${CYB_EXE_NAME} 
+CYBEntry.cpp
+${CYB_BASE_DIR}/Engine/Platform/System/Posix/CYBPosixSyscalls.cpp)
 
 set_property(TARGET ${CYB_EXE_NAME} PROPERTY CXX_STANDARD 14)
 set_property(TARGET ${CYB_EXE_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)

@@ -28,6 +28,9 @@
     <ClCompile Include="Platform\System\Mutex.cpp">
       <Filter>Platform\System</Filter>
     </ClCompile>
+    <ClCompile Include="Platform\System\Process.cpp">
+      <Filter>Platform\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />

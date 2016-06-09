@@ -38,7 +38,7 @@ template <unsigned int AN, typename... AFunctionTypes> void CYB::Platform::Modul
 
 template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>::AutoModule(AutoModule&& AMove) :
 	FLibrary(std::move(AMove.FLibrary)),
-	FFunctionPointers(AMove.FFunctionPointers)
+	FFunctionPointers{ AMove.FFunctionPointers }
 {}
 
 template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>& CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>::operator=(AutoModule&& AMove) {

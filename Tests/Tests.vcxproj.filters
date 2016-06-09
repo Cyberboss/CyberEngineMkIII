@@ -10,9 +10,6 @@
     <ClCompile Include="Engine\Memory\Heap.cpp">
       <Filter>Engine\Memory</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\FakeCore.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="Platform\System\VirtualMemory.cpp">
       <Filter>Platform\System</Filter>
     </ClCompile>
@@ -31,6 +28,9 @@
     <ClCompile Include="Platform\System\Process.cpp">
       <Filter>Platform\System</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\Fakes.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />
@@ -41,6 +41,12 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\RedirectedFunction.hpp">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Fakes.hpp">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Utils.hpp">
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>

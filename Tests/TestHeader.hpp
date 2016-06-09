@@ -10,18 +10,9 @@
 #endif
 
 #define ASSERTION_OVERRIDE
-unsigned int CheckHCF(void);
 #include "../Engine/CYB.hpp"
 
-#include "Utils/RedirectedFunction.hpp"
-#include "Utils/CallRedirect.hpp"
-#include "Utils/ModuleDependancy.hpp"
-
-namespace CYB {
-	namespace Exception {
-		extern thread_local unsigned int FLastInstantiatedExceptionCode;
-	}
-}
+#include "Utils/Utils.hpp"
 
 #ifdef _MSC_VER
 #pragma warning(disable : 4710)
@@ -34,9 +25,6 @@ namespace CYB {
 using namespace CYB::Platform::Posix;
 #endif
 #include "../SupportLibs/Catch/include/catch.hpp"
-
-#define CHECK_COOL_AND_CALM REQUIRE(CheckHCF() == 0)
-#define REQUIRE_HCF(AN) REQUIRE(CheckHCF() == AN)
 
 #ifdef _MSC_VER
 #pragma warning(pop)

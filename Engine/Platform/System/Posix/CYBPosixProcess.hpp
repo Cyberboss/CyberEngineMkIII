@@ -5,11 +5,12 @@ namespace CYB {
 			namespace Implementation {
 				class Process {
 				protected:
-					const Posix::pid_t FPID;
+					Posix::pid_t FPID;
 				protected:
 					Process(const Posix::pid_t APID);
 					Process(const Process&) = delete;
-					Process(Process&& AMove);
+					Process(Process&& AMove) = default;
+					Process& operator=(Process&& AMove) = default;
 				};
 			};
 		};

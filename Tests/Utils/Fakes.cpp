@@ -1,4 +1,8 @@
 #include "TestHeader.hpp"
+#ifndef TARGET_OS_WINDOWS
+#pragma clang diagnostic ignored "-Wdelete-non-virtual-dtor"
+#endif
+
 CYB::API::Interop::Allocator* CYB::API::Interop::Allocator::FAllocator;
 
 Fake::Allocator::Allocator() :

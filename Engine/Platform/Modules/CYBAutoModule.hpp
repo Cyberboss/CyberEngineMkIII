@@ -3,28 +3,59 @@
 namespace CYB {
 	namespace Platform {
 		namespace Modules {
+			/*! 
+				@brief AutoModule external helper construction function. Dummy declaration
+				@tparam AN The number of functions the AutoModule will load
+			*/
+			template <bool AOptionalFunctions, unsigned int AN> class AutoModuleConstructor {};
+			/*!
+				@brief AutoModule external helper construction function with missing function checks
+				@tparam AN The number of functions the AutoModule will load
+			*/
+			template <unsigned int AN> class AutoModuleConstructor<true, AN> {
+			protected:
+				/*!
+				@brief Shared constructor implementation
+				@param AFunctionPointers Function pointer list reference
+				@param AReplacedFunctions Function pointers to be used in place of the regular module functions. If any are nullptr, they will instead be loaded from the module as normal
+				@param AFunctionNames Names of the functions to load from the Module
+				@par Thread Safety
+				This function requires no thread safety
+				@par Exception Safety
+				CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
+				*/
+				static void Construct(Module& AModule, void* (&AFunctionPointers)[AN], void* const (&AReplacedFunctions)[AN], const API::String::Static* const AFunctionNames);
+			};
+			/*!
+				@brief AutoModule external helper construction function without missing function checks
+				@tparam AN The number of functions the AutoModule will load
+			*/
+			template <unsigned int AN> class AutoModuleConstructor<false, AN> {
+			protected:
+				/*!
+					@brief Shared constructor implementation
+					@param AFunctionPointers Function pointer list reference
+					@param AReplacedFunctions Function pointers to be used in place of the regular module functions. If any are nullptr, they will instead be loaded from the module as normal
+					@param AFunctionNames Names of the functions to load from the Module
+					@par Thread Safety
+						This function requires no thread safety
+					@par Exception Safety
+						CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
+				*/
+				static void Construct(Module& AModule, void* (&AFunctionPointers)[AN], void* const (&AReplacedFunctions)[AN], const API::String::Static* const AFunctionNames);
+			};
 			/*!
 				@brief Automated intialization, function loading, and calling of module functions
 				@tparam AN The number of functions the AutoModule will load<BR>
 				@tparam AFunctionTypes The types of the functions being called
 			*/
-			template <unsigned int AN, typename... AFunctionTypes> class AutoModule {
+			template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> class AutoModule : private AutoModuleConstructor<AOptionalFunctions, AN> {
 			public:
 				typedef API::ParameterPack<AFunctionTypes...> FParameterPack;
 			private:
-				Module FLibrary;	//!< @brief The owned module
+				Module FModule;	//!< @brief The owned module
 				void* FFunctionPointers[AN];	//!< @brief Pointers to loaded functions
 			private:
-				/*!
-					@brief Shared constructor implementation
-					@param AReplacedFunctions Function pointers to be used in place of the regular module functions. If any are nullptr, they will instead be loaded from the module as normal
-					@par Thread Safety
-						This function requires no thread safety
-					@par Exception Safety
-						CYB::Exception::SystemData::MODULE_LOAD_FAILURE if the module is unable to be loaded<BR>
-						CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
-				*/
-				void Construct(void* const (&AReplacedFunctions)[AN]);
 				/*!
 					@brief Get the library name for this auto module. Must be implemented
 					@return The names of the Module associated with this AutoModule

@@ -55,7 +55,7 @@
 namespace CYB {\
 	namespace Platform {\
 		namespace Modules {\
-			typedef typename Platform::Modules::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)> AM##AModuleName;\
+			typedef typename Platform::Modules::AutoModule<AOptionalFunctions, NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)> AM##AModuleName;\
 			class AModuleName{\
 			public:\
 				enum: unsigned int {\
@@ -65,16 +65,13 @@ namespace CYB {\
 		};\
 	};\
 };\
-template <> constexpr const char* CYB::Platform::Modules::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::ModuleName(void){\
+template <> constexpr const char* CYB::Platform::Modules::AutoModule<AOptionalFunctions, NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::ModuleName(void){\
 	return ADiskName; \
 }\
-template <> inline const CYB::API::String::Static* CYB::Platform::Modules::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::FunctionNames(void){\
+template <> inline const CYB::API::String::Static* CYB::Platform::Modules::AutoModule<AOptionalFunctions, NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::FunctionNames(void){\
 	static const CYB::API::String::Static Names[NARGS(__VA_ARGS__)]{ APPLY(STATIC_STRINGIFY,__VA_ARGS__) };\
 	return Names;\
-};\
-template <> constexpr bool CYB::Platform::Modules::AutoModule<NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::OptionalFunctions(void) {\
-	return AOptionalFunctions;\
-}
+};
 
 #define DEFINE_DUMMY_MODULE(AModuleName, ADiskName, APlatform, AOptionalFunctions, ...)\
 namespace CYB {\

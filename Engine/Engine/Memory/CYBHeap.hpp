@@ -132,8 +132,8 @@ namespace CYB {
 				*/
 				Heap(const unsigned long long AInitialCommitSize);
 				Heap(const Heap&) = delete;
-				Heap(Heap&& AMove);	//! @brief See @ref structors
-				Heap& operator=(Heap&& AMove);	//! @brief See @ref structors
+				Heap(Heap&& AMove);	//!< @brief See @ref structors
+				Heap& operator=(Heap&& AMove);	//!< @brief See @ref structors
 				/*!
 					@brief Destroys a heap, invalidating any memory allocated from it
 					@par WARNING

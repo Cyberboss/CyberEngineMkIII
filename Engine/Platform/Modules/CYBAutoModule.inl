@@ -1,58 +1,58 @@
 //! @file CYBAutoModule.inl Implements CYB::Engine::AutoModule
 #pragma once
 
-template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>::AutoModule() :
-	FLibrary(API::String::Static(ModuleName()))
+template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::AutoModule() :
+	FModule(CYB::API::String::Static(ModuleName()))
 {
 	void* NoReplacedFunctions[AN];
 	for (unsigned int I(0); I < AN; ++I)
 		NoReplacedFunctions[I] = nullptr;
-	Construct(NoReplacedFunctions);
+	AutoModuleConstructor<AOptionalFunctions, AN>::Construct(FModule, FFunctionPointers, NoReplacedFunctions, FunctionNames());
 }
 
-template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>::~AutoModule() {
+template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::AutoModule(void* const (&AReplacedFunctions)[AN]) :
+	FModule(CYB::API::String::Static(ModuleName()))
+{
+	AutoModuleConstructor<AOptionalFunctions, AN>::Construct(FModule, FFunctionPointers, AReplacedFunctions, FunctionNames());
+}
+
+template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::~AutoModule() {
 	for (unsigned int I(0); I < AN; ++I)
 		FFunctionPointers[I] = nullptr;
 }
-
-template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>::AutoModule(void* const (&AReplacedFunctions)[AN]) :
-	FLibrary(API::String::Static(ModuleName()))
-{
-	Construct(AReplacedFunctions);
-}
-
-template <unsigned int AN, typename... AFunctionTypes> void CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>::Construct(void* const (&AReplacedFunctions)[AN]) {
-	auto Names(FunctionNames());
-	for (unsigned int I(0); I < AN; ++I) {
+template <unsigned int AN> void CYB::Platform::Modules::AutoModuleConstructor<true, AN>::Construct(Module& AModule, void* (&AFunctionPointers)[AN], void* const (&AReplacedFunctions)[AN], const API::String::Static* const AFunctionNames) {
+	for (unsigned int I(0); I < AN; ++I)
 		try {
-			FFunctionPointers[I] = AReplacedFunctions[I] != nullptr ? AReplacedFunctions[I] : FLibrary.LoadFunction(Names[I]);
+			AFunctionPointers[I] = AReplacedFunctions[I] != nullptr ? AReplacedFunctions[I] : AModule.LoadFunction(AFunctionNames[I]);
 		}
 		catch (Exception::SystemData AException) {
-			if (OptionalFunctions() && AException.FErrorCode == Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE)
-				FFunctionPointers[I] = nullptr;
-			else
-				throw;
+			API::Assert::Equal(AException.FErrorCode, static_cast<unsigned int>(Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE));
+			AFunctionPointers[I] = nullptr;
 		}
-	}
 }
 
-template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>::AutoModule(AutoModule&& AMove) :
-	FLibrary(std::move(AMove.FLibrary)),
+template <unsigned int AN> void CYB::Platform::Modules::AutoModuleConstructor<false, AN>::Construct(Module& AModule, void* (&AFunctionPointers)[AN], void* const (&AReplacedFunctions)[AN], const API::String::Static* const AFunctionNames) {
+	for (unsigned int I(0); I < AN; ++I)
+		AFunctionPointers[I] = AReplacedFunctions[I] != nullptr ? AReplacedFunctions[I] : AModule.LoadFunction(AFunctionNames[I]);
+}
+
+template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::AutoModule(AutoModule&& AMove) :
+	FModule(std::move(AMove.FModule)),
 	FFunctionPointers{ AMove.FFunctionPointers }
 {}
 
-template <unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>& CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>::operator=(AutoModule&& AMove) {
-	FLibrary = std::move(AMove.FLibrary);
+template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>& CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::operator=(AutoModule&& AMove) {
+	FModule = std::move(AMove.FModule);
 	for(unsigned int I(0); I < AN; ++I)
 		FFunctionPointers[I] = AMove.FFunctionPointers[I];
 	return *this;
 }
 
-template <unsigned int AN, typename... AFunctionTypes> template <unsigned int APointerIndex> bool CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>::Loaded(void) const {
+template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> template <unsigned int APointerIndex> bool CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::Loaded(void) const {
 	return FFunctionPointers[APointerIndex] != nullptr;
 }
 
-template <unsigned int AN, typename... AFunctionTypes> template <unsigned int APointerIndex, typename... AArgs> auto CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>::Call(AArgs&&... AArguments) const {
+template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> template <unsigned int APointerIndex, typename... AArgs> auto CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::Call(AArgs&&... AArguments) const {
 	typedef typename API::ParameterPack<AFunctionTypes...> AsParameterPack;
 	typedef typename AsParameterPack::template Indexer<APointerIndex> Indexer;
 	typedef typename Indexer::FType CallableType;
@@ -62,7 +62,7 @@ template <unsigned int AN, typename... AFunctionTypes> template <unsigned int AP
 }
 
 #ifdef CYB_BUILDING_TESTS
-template <unsigned int AN, typename... AFunctionTypes> void* CYB::Platform::Modules::AutoModule<AN, AFunctionTypes...>::ReassignFunctionPointer(const unsigned int AIndex, void* const ANewPointer) {
+template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> void* CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::ReassignFunctionPointer(const unsigned int AIndex, void* const ANewPointer) {
 	auto Old(FFunctionPointers[AIndex]);
 	FFunctionPointers[AIndex] = ANewPointer;
 	return Old;

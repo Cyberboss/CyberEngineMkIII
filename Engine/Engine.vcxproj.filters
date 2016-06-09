@@ -133,6 +133,9 @@
     <Filter Include="Platform\SystemHeaders">
       <UniqueIdentifier>{6b809ecb-4166-4752-a9db-f74f1892460b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="API\Types\Containers">
+      <UniqueIdentifier>{92a09865-2e07-4a31-ab45-a56dc02aba0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CYB.hpp" />
@@ -360,6 +363,12 @@
     </ClInclude>
     <ClInclude Include="Platform\System\CYBPath.hpp">
       <Filter>Platform\System</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\Strings\DynamicString.hpp">
+      <Filter>API\Types\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\Containers\Containers.hpp">
+      <Filter>API\Types\Containers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

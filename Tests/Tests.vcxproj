@@ -115,7 +115,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Utils\FakeCore.cpp" />
+    <ClCompile Include="Utils\Fakes.cpp" />
     <ClCompile Include="Utils\HCFOverride.cpp" />
     <ClCompile Include="Win32Main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -129,8 +129,10 @@
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />
     <ClInclude Include="Utils\CallRedirect.hpp" />
+    <ClInclude Include="Utils\Fakes.hpp" />
     <ClInclude Include="Utils\ModuleDependancy.hpp" />
     <ClInclude Include="Utils\RedirectedFunction.hpp" />
+    <ClInclude Include="Utils\Utils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

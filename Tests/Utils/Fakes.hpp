@@ -9,4 +9,8 @@ public:
 	}
 };
 
-FakeCore FFakeCore;
+class FakeHeap {
+public:
+	FakeHeap(const unsigned long long ASize);
+	~FakeHeap();
+};

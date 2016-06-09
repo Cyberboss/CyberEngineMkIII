@@ -2,7 +2,7 @@
 
 static std::atomic_uint_fast32_t FHCFCalled(0);
 
-void CYB::API::Assert::HCF(void) {
+void CYB::API::Assert::HCF[[noreturn]](void) {
 	std::terminate();
 }
 

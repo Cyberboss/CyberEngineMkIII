@@ -39,4 +39,4 @@ add_test(NAME GenerateLcovHtml COMMAND genhtml lcov.dat -o HTMLCodeCoverage WORK
 add_test(NAME DownloadCoberturaConverter COMMAND curl -O https://raw.githubusercontent.com/eriwen/lcov-to-cobertura-xml/master/lcov_cobertura/lcov_cobertura.py WORKING_DIRECTORY ${CYB_BASE_DIR})
 add_test(NAME GenerateCoberturaXML COMMAND ${PYTHON_EXECUTABLE} lcov_cobertura.py lcov.dat -o Code.coveragexml WORKING_DIRECTORY ${CYB_BASE_DIR})
 add_test(NAME RemovePreviousCodeCoverageHTML COMMAND sudo rm -rf /srv/http WORKING_DIRECTORY ${CYB_BASE_DIR})
-add_test(NAME PublishHTMLCodeCoverageResultsToLocalWebServer COMMAND sudo mv HTMLCodeCoverage/ /srv/http WORKING_DIRECTORY ${CYB_BASE_DIR})
+add_test(NAME PublishHTMLCodeCoverageResultsToLocalWebServer COMMAND sudo cp -r HTMLCodeCoverage/ /srv/http WORKING_DIRECTORY ${CYB_BASE_DIR})

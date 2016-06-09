@@ -358,6 +358,9 @@
     <ClInclude Include="Platform\SystemHeaders\CYBSystemHeaders.hpp">
       <Filter>Platform\SystemHeaders</Filter>
     </ClInclude>
+    <ClInclude Include="Platform\System\CYBPath.hpp">
+      <Filter>Platform\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DoxyPages\Contexts.dox">

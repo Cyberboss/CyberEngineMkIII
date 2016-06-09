@@ -207,6 +207,7 @@
     <ClInclude Include="Platform\SystemHeaders\CYBWin32Headers.hpp" />
     <ClInclude Include="Platform\System\CYBFile.hpp" />
     <ClInclude Include="Platform\System\CYBMutex.hpp" />
+    <ClInclude Include="Platform\System\CYBPath.hpp" />
     <ClInclude Include="Platform\System\CYBProcess.hpp" />
     <ClInclude Include="Platform\System\CYBSyscalls.hpp" />
     <ClInclude Include="Platform\System\CYBSystem.hpp" />

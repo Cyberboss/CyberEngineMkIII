@@ -12,6 +12,7 @@ namespace CYB {
 			*/
 			class Process : private Implementation::Process {
 			private:
+				using Implementation::Process::Process;
 				/*!
 					@brief Runs actual termination code on a Process guaranteed to be destroyed afterwards
 					@par Thread Safety
@@ -20,8 +21,6 @@ namespace CYB {
 						This function does not throw exceptions
 				*/
 				void Terminate(void);
-			protected:
-				using Implementation::Process::Process;
 			public:
 				/*!
 					@brief Get's the Process representing the current execution
@@ -43,9 +42,9 @@ namespace CYB {
 				static void Terminate(Process&& AProcess);
 
 				Process(const Process&) = delete;
-				Process(Process&& AMove);	//!< @brief See @ref structors
-				Process& operator=(Process&& AMove);	//!< @brief See @ref structors
-				//! @brief Closes the handle to a process
+				Process(Process&& AMove) = default;	//!< @brief See @ref structors
+				Process& operator=(Process&& AMove) = default;	//!< @brief See @ref structors
+				//! @brief Destroy the Process object without affecting the actual process
 				~Process() = default;
 
 				/*!

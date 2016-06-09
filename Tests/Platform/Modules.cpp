@@ -105,4 +105,46 @@ SCENARIO("AutoModules work", "[Platform][Modules][Functional]") {
 			delete LibC;
 		}
 	}
+	GIVEN("A valid AutoModule") {
+		CYB::Platform::Modules::AMKernel32 K32;
+		CYB::Platform::Modules::AMRT RT;
+		WHEN("It is moved"){
+			{
+				auto K322(std::move(K32));
+				K32 = std::move(K322);
+			}
+			{
+				auto RT2(std::move(RT));
+				RT = std::move(RT2);
+			}
+			THEN("All is well") {
+				CHECK_COOL_AND_CALM;
+			}
+		}
+		WHEN("Call are made into them") {
+#ifdef TARGET_OS_WINDOWS
+			K32.Call<CYB::Platform::Modules::Kernel32::SwitchToThread>();
+#else
+			RT.Call<CYB::Platform::Modules::RT::sched_yield>();
+#endif
+			THEN("All is well") {
+				CHECK_COOL_AND_CALM;
+			}
+		}
+	}
+}
+
+SCENARIO("The Module move constructor and move assignment operator works", "[Platform][Modules][Unit]") {
+	GIVEN("A valid module"){
+		CYB::Platform::Modules::Module Mod(ExistingLibrary);
+		WHEN("The module is moved") {
+			{
+				auto Mod2(std::move(Mod));
+				Mod = std::move(Mod2);
+			}
+			THEN("All is well") {
+				CHECK_COOL_AND_CALM;
+			}
+		}
+	}
 }

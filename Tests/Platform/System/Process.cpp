@@ -11,6 +11,7 @@ void CYB::Platform::System::Sys::VerifyArgumentCount(const CallNumber ACallNumbe
 #endif
 
 SCENARIO("Getting the running process works", "[Platform][System][Process][Unit]") {
+	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	GIVEN("The running process (me!)") {
 		WHEN("Process::GetSelf is called") {
 			auto Result(CYB::Platform::System::Process::GetSelf());

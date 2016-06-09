@@ -171,11 +171,13 @@
     <ClInclude Include="API\Interop\Constructor.hpp" />
     <ClInclude Include="API\Interop\Interop.hpp" />
     <ClInclude Include="API\Interop\Object.hpp" />
+    <ClInclude Include="API\Types\Containers\Containers.hpp" />
     <ClInclude Include="API\Types\EngineInformation.hpp" />
     <ClInclude Include="API\Types\Exception.hpp" />
     <ClInclude Include="API\Types\ParameterPack.hpp" />
     <ClInclude Include="API\Types\Singleton.hpp" />
     <ClInclude Include="API\Types\Strings\CStyleString.hpp" />
+    <ClInclude Include="API\Types\Strings\DynamicString.hpp" />
     <ClInclude Include="API\Types\Strings\StaticString.hpp" />
     <ClInclude Include="API\Types\Strings\Strings.hpp" />
     <ClInclude Include="API\Types\Threadable.hpp" />

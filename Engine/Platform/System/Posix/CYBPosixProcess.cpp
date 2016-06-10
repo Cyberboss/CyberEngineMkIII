@@ -16,10 +16,10 @@ CYB::Platform::System::Implementation::Process::Process(CYB::Platform::Posix::pi
 
 bool CYB::Platform::System::Process::Active(void) const {
 	using namespace Posix;
-	return Core().FModuleManager.FC.Call<Modules::LibC::kill>(FPID, 0) == -1 
-		&& errno == ESRCH;
+	return Core().FModuleManager.FC.Call<Modules::LibC::kill>(FPID, 0) == 0 
+		|| errno == EPERM;
 }
 
 bool CYB::Platform::System::Process::operator==(const Process& ARHS) const {
-	return Active() && (FPID == ARHS.FPID);
+	return (FPID == ARHS.FPID) && Active();
 }

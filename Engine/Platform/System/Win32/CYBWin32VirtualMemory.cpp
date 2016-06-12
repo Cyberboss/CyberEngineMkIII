@@ -67,7 +67,7 @@ void CYB::Platform::System::VirtualMemory::Discard(void* const AMemory, const un
 			const auto BytesAvailableToDiscard(ANumBytes - Difference);
 			const auto TrueDiscardSize(BytesAvailableToDiscard - (BytesAvailableToDiscard % PageSize));
 			if(TrueDiscardSize >= PageSize
-				&& Core().FModuleManager.FK32Extended.Loaded<Modules::Kernel32Extended::DiscardVirtualMemory>())
+				&& Core().FModuleManager.FK32Extended.Loaded(Modules::Kernel32Extended::DiscardVirtualMemory))
 					Core().FModuleManager.FK32Extended.Call<Modules::Kernel32Extended::DiscardVirtualMemory>(AlignedMemory, TrueDiscardSize);
 		}
 	}

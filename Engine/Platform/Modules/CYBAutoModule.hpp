@@ -17,6 +17,7 @@ namespace CYB {
 			protected:
 				/*!
 					@brief Shared constructor implementation
+					@param AModule The Module to construct from
 					@param AFunctionPointers Function pointer list reference
 					@param AReplacedFunctions Function pointers to be used in place of the regular module functions. If any are nullptr, they will instead be loaded from the module as normal
 					@param AFunctionNames Names of the functions to load from the Module
@@ -46,6 +47,7 @@ namespace CYB {
 			protected:
 				/*!
 					@brief Shared constructor implementation
+					@param AModule The Module to construct from
 					@param AFunctionPointers Function pointer list reference
 					@param AReplacedFunctions Function pointers to be used in place of the regular module functions. If any are nullptr, they will instead be loaded from the module as normal
 					@param AFunctionNames Names of the functions to load from the Module

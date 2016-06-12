@@ -148,3 +148,38 @@ SCENARIO("The Module move constructor and move assignment operator works", "[Pla
 		}
 	}
 }
+namespace CYB {
+	namespace Platform {
+		namespace Win32 {
+			void FakeFunctionThatDoesNotExist(void);
+		};
+		namespace Posix {
+			void FakeFunctionThatDoesNotExist(void);
+		};
+	};
+};
+DEFINE_WINDOWS_MODULE(FakeKernel32, "kernel32.dll", Win32, true, SwitchToThread, FakeFunctionThatDoesNotExist)
+DEFINE_POSIX_MODULE(FakeRT, LIBRT_SO, Posix, true, sched_yield, FakeFunctionThatDoesNotExist)
+
+SCENARIO("Test that loading an optional function from a module works", "[Platform][Modules][Unit]") {
+	GIVEN("A valid optional module with some fake functions") {
+		CYB::Platform::Modules::AMFakeKernel32* TestMod1(nullptr);
+		CYB::Platform::Modules::AMFakeRT* TestMod2(nullptr);
+		WHEN("The module is initialized") {
+			REQUIRE_NOTHROW(TestMod1 = new CYB::Platform::Modules::AMFakeKernel32());
+			REQUIRE_NOTHROW(TestMod2 = new CYB::Platform::Modules::AMFakeRT());
+			THEN("Some functions loaded successfully") {
+				CHECK_COOL_AND_CALM;
+#ifdef TARGET_OS_WINDOWS
+				CHECK(TestMod1->Loaded(CYB::Platform::Modules::FakeKernel32::SwitchToThread));
+				CHECK_FALSE(TestMod1->Loaded(CYB::Platform::Modules::FakeKernel32::FakeFunctionThatDoesNotExist));
+#else
+				CHECK(TestMod2->Loaded(CYB::Platform::Modules::FakeRT::sched_yield));
+				CHECK_FALSE(TestMod2->Loaded(CYB::Platform::Modules::FakeRT::FakeFunctionThatDoesNotExist));
+#endif
+			}
+			delete TestMod1;
+			delete TestMod2;
+		}
+	}
+}

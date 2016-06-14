@@ -9,7 +9,7 @@ SCENARIO("VirtualMemory reservations can be made and released", "[Platform][Syst
 			REQUIRE_NOTHROW(Result = CYB::Platform::System::VirtualMemory::Reserve(ReservationSize));
 			THEN("No errors occur and a valid address is returned") {
 				CHECK_COOL_AND_CALM;
-				CHECK(Result != nullptr);
+				CHECK_FALSE(Result == nullptr);
 			}
 		}
 	}
@@ -21,6 +21,18 @@ SCENARIO("VirtualMemory reservations can be made and released", "[Platform][Syst
 				CHECK_COOL_AND_CALM;
 				REQUIRE_THROWS_AS(CYB::Platform::System::VirtualMemory::Commit(Result, 100), CYB::Exception::SystemData);
 				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE);
+			}
+		}
+	}
+	GIVEN("A small reservation size") {
+		const auto ReservationSize(1000);
+		WHEN("A reservation is made") {
+			void* Result(nullptr);
+			REQUIRE_THROWS_AS(Result = CYB::Platform::System::VirtualMemory::Reserve(ReservationSize), CYB::Exception::SystemData);
+			THEN("No errors occur and a valid address is returned") {
+				CHECK_COOL_AND_CALM;
+				CHECK(Result == nullptr);
+				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE);
 			}
 		}
 	}
@@ -202,7 +214,7 @@ REDIRECTED_FUNCTION(BadVirtualProtect, void* const, const unsigned long long, co
 }
 
 REDIRECTED_FUNCTION(BadMMap, void* const, const unsigned long long, int, int, int, const unsigned long long) {
-	return static_cast<void*>(nullptr);
+	return reinterpret_cast<void*>(-1ULL);
 }
 
 REDIRECTED_FUNCTION(BadMUnmap, void* const, const unsigned long long) {
@@ -227,7 +239,7 @@ SCENARIO("VirtualMemory errors work", "[Platform][System][VirtualMemory][Unit]")
 			auto BMP(LibC.Redirect<CYB::Platform::Modules::LibC::mprotect, BadMProtect>());
 			WHEN("A reservation is attempted") {
 				void* Reservation;
-				REQUIRE_THROWS_AS(Reservation = CYB::Platform::System::VirtualMemory::Reserve(1000), CYB::Exception::SystemData);
+				REQUIRE_THROWS_AS(Reservation = CYB::Platform::System::VirtualMemory::Reserve(10000), CYB::Exception::SystemData);
 				THEN("The appropriate exception occurs") {
 					CHECK_COOL_AND_CALM;
 					CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE);

@@ -214,7 +214,7 @@ REDIRECTED_FUNCTION(BadVirtualProtect, void* const, const unsigned long long, co
 }
 
 REDIRECTED_FUNCTION(BadMMap, void* const, const unsigned long long, int, int, int, const unsigned long long) {
-	return reinterpret_cast<void*>(-1ULL);
+	return reinterpret_cast<void*>(-1);
 }
 
 REDIRECTED_FUNCTION(BadMUnmap, void* const, const unsigned long long) {

@@ -38,12 +38,14 @@ namespace CYB {
 		private:
 			/*!
 				@brief Constructs the engine components
+				@param ANumArguments The number of command line arguments
+				@param AArguments The command line arguments
 				@par Thread Safety
 					This function should only be called once
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			Core();
+			Core(const unsigned int ANumArguments, const oschar_t* const AArguments);
 			/*!
 				@brief Cleans up the engine and terminates the process
 			*/
@@ -72,12 +74,14 @@ namespace CYB {
 
 			/*!
 				@brief Runs the engine and self terminates
+				@param ANumArguments The number of command line arguments
+				@param AArguments The command line arguments
 				@par Thread Safety
 					This function should only be called once
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			static void Run(void);
+			static void Run[[noreturn]](const unsigned int ANumArguments, const oschar_t* const AArguments);
 		};
 	};
 

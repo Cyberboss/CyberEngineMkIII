@@ -6,9 +6,18 @@
 #define main wmain	//!< @brief Wide main definition for Windows systems
 #endif
 
-//! @brief Call CYB::Engine::Init::Run and exit
-int main(void) {
-	CYB::Engine::Core::Run();
+/*! 
+	@brief Program entry point. Call CYB::Engine::Init::Run
+	@param ANumArguments The number of command line arguments
+	@param AArguments The command line arguments
+	@par Thread Safety
+		This function may only be called once by the C runtime
+	@par Exception Safety
+		This function does not throw exceptions
+*/
+int main[[noreturn]](const int ANumArguments, const oschar_t* const AArguments) {
+	CYB::API::Assert::LessThanOrEqual(0, ANumArguments);
+	CYB::Engine::Core::Run(static_cast<unsigned int>(ANumArguments), AArguments);
 }
 
 void CYB::API::Assert::HCF[[noreturn]](void){

@@ -21,11 +21,12 @@
 
 */
 
-CYB::Engine::Core::Core():
+CYB::Engine::Core::Core(const unsigned int ANumArguments, const oschar_t* const AArguments):
 	FEngineInformation(CreateEngineInformation()),
 	FHeap(Parameters::ENGINE_HEAP_INITIAL_COMMIT_SIZE)
 {
-
+	static_cast<void>(ANumArguments);
+	static_cast<void>(AArguments);
 }
 CYB::Engine::Core::~Core(void) {
 
@@ -51,9 +52,9 @@ bool CYB::Engine::Core::LaunchUnit(void) {
 CYB::Engine::Core& CYB::Engine::Core::GetCore(void) {
 	return *FSingleton;
 }
-void CYB::Engine::Core::Run(void) {
+void CYB::Engine::Core::Run[[noreturn]](const unsigned int ANumArguments, const oschar_t* const AArguments) {
 	{
-		Core CyberEngineMarkIII;
+		Core CyberEngineMarkIII(ANumArguments, AArguments);
 		for (; CyberEngineMarkIII.LaunchUnit(););
 	}
 	Platform::System::Process::Terminate(Platform::System::Process::GetSelf());

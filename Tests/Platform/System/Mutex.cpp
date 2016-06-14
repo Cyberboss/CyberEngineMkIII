@@ -24,7 +24,7 @@ static bool SpawnMutexTryLockThread(const CYB::Platform::System::Mutex& AMutex) 
 	return Runner.Result();
 }
 
-SCENARIO("Basic Mutex functions work", "[Platform][System][Mutex][Unit]") {
+SCENARIO("Mutex basic functions work", "[Platform][System][Mutex][Unit]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMRT> RT(CYB::Core().FModuleManager.FRT);
@@ -66,3 +66,23 @@ SCENARIO("Basic Mutex functions work", "[Platform][System][Mutex][Unit]") {
 		delete TestMutex;
 	}
 }
+REDIRECTED_FUNCTION(BadPThreadMutexInit, const void* const, const void* const) {
+	return -1;
+}
+#ifndef TARGET_OS_WINDOWS
+SCENARIO("Mutex initialization error works", "[Platform][System][Mutex][Unit]") {
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
+	GIVEN("A Redirected initialization function") {
+		auto BPMC(PThread.Redirect<CYB::Platform::Modules::PThread::pthread_mutex_init, BadPThreadMutexInit>());
+		WHEN("The function is called") {
+			CYB::Platform::System::Mutex* TestMutex(nullptr);
+			REQUIRE_THROWS_AS(TestMutex = new CYB::Platform::System::Mutex(), CYB::Exception::SystemData);
+			THEN("The appropriate error occurs") {
+				CHECK_COOL_AND_CALM;
+				CHECK(TestMutex == nullptr);
+				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);
+			}
+		}
+	}
+}
+#endif

@@ -22,44 +22,44 @@ void* CYB::Platform::System::VirtualMemory::Reserve(unsigned long long ANumBytes
 		ANumBytes += SUPERBLOCK_SIZE;
 		auto const Superblock(reinterpret_cast<unsigned long long*>(Core().FModuleManager.FC.Call<Modules::LibC::mmap>(nullptr, ANumBytes, PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0)));
 		//when coming from the kernel, error values are negative >:(
-		if (Superblock != nullptr && reinterpret_cast<unsigned long long>(Superblock) > static_cast<unsigned long long>(-4096))
-			throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
+		if (reinterpret_cast<unsigned long long>(Superblock) != -1ULL) {
 
-		//we still have to store the size and committal in the actual allocation because mmap thinks it's special
+			//we still have to store the size and committal in the actual allocation because mmap thinks it's special
 
-		auto const Reservation(GetReservationFromSuperblock(Superblock));
-		if (AccessSuperblock(Reservation)) {
-			Superblock[0] = ANumBytes;
-			Superblock[1] = SUPERBLOCK_SIZE;
-			try {
-				Access(Reservation, AccessLevel::NONE);
-			}
-			catch (Exception::SystemData AException) {
-				//this really should never happen, gotta be safe though
-				if (AException.FErrorCode == Exception::SystemData::MEMORY_PROTECT_FAILURE) {
-					try {
-						Release(Reservation);
-						//if this fails, well now we have a useless reservation shitting all over our address space and there's nothing we can do about it
+			auto const Reservation(GetReservationFromSuperblock(Superblock));
+			if (AccessSuperblock(Reservation)) {
+				Superblock[0] = ANumBytes;
+				Superblock[1] = SUPERBLOCK_SIZE;
+				try {
+					Access(Reservation, AccessLevel::NONE);
+				}
+				catch (Exception::SystemData AException) {
+					//this really should never happen, gotta be safe though
+					if (AException.FErrorCode == Exception::SystemData::MEMORY_PROTECT_FAILURE) {
+						try {
+							Release(Reservation);
+							//if this fails, well now we have a useless reservation shitting all over our address space and there's nothing we can do about it
+						}
+						catch (Exception::SystemData ADoubleFault) {
+							static_cast<void>(ADoubleFault);
+							throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
+						}
 					}
-					catch (Exception::SystemData ADoubleFault) {
+					else {
+						API::Assert::Equal(AException.FErrorCode, static_cast<unsigned int>(Exception::SystemData::MEMORY_COMMITAL_FAILURE));
 						throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
 					}
 				}
-				else if (AException.FErrorCode == Exception::SystemData::MEMORY_COMMITAL_FAILURE)
-					throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
-				else
-					throw;
 			}
-		}
-		else {
-			Core().FModuleManager.FC.Call<Modules::LibC::munmap>(Superblock, ANumBytes);
-			throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
-		}
+			else {
+				Core().FModuleManager.FC.Call<Modules::LibC::munmap>(Superblock, ANumBytes);
+				throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
+			}
 
-		return Reservation;
-	}else
-		throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
-}
+			return Reservation;
+		}
+	}
+	throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);}	//gcov bitching
 
 void CYB::Platform::System::VirtualMemory::Commit(void* const AReservation, unsigned long long ANumBytes) {
 	using namespace Posix;

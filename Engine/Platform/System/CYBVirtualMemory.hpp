@@ -15,7 +15,7 @@ namespace CYB {
 			public:
 				/*!
 					@brief Reserve some amount of address space for future allocation
-					@param ANumBytes The number of bytes in the address space to reserve, will be rounded up to the nearest system page
+					@param ANumBytes The number of bytes in the address space to reserve. Must be at least 1024. Will be rounded up to the nearest system page
 					@return The reserved address space
 					@par Thread Safety
 						This function requires no thread safety

@@ -66,10 +66,10 @@ SCENARIO("Mutex basic functions work", "[Platform][System][Mutex][Unit]") {
 		delete TestMutex;
 	}
 }
+#ifndef TARGET_OS_WINDOWS
 REDIRECTED_FUNCTION(BadPThreadMutexInit, const void* const, const void* const) {
 	return -1;
 }
-#ifndef TARGET_OS_WINDOWS
 SCENARIO("Mutex initialization error works", "[Platform][System][Mutex][Unit]") {
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
 	GIVEN("A Redirected initialization function") {

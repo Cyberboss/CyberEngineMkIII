@@ -109,7 +109,7 @@ static unsigned int TestGetTime(void) {
 #endif
 }
 
-SCENARIO("Basic Sleep works", "[Platform][System][Threads][Unit][Slow]") {
+SCENARIO("Thread Sleep works", "[Platform][System][Threads][Unit][Slow]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
@@ -127,7 +127,7 @@ SCENARIO("Basic Sleep works", "[Platform][System][Threads][Unit][Slow]") {
 	}
 }
 
-SCENARIO("Basic Yield works", "[Platform][System][Threads][Unit]") {
+SCENARIO("Thread Yield works", "[Platform][System][Threads][Unit]") {
 	GIVEN("The correct modules") {
 		ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 		ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMRT> RT(CYB::Core().FModuleManager.FRT);
@@ -177,6 +177,10 @@ public:
 	void CancelThreadedOperation(void) final override {}
 };
 
+REDIRECTED_FUNCTION(BadPThreadMutexInit, const void* const, const void* const) {
+	return -1;
+}
+
 SCENARIO("Thread errors work", "[Platform][System][Threads][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
@@ -196,6 +200,22 @@ SCENARIO("Thread errors work", "[Platform][System][Threads][Unit]") {
 			delete Thread;
 		}
 	}
+#ifndef TARGET_OS_WINDOWS
+	GIVEN("An invalid mutex creation call") {
+		auto BPMC(PThread.Redirect<CYB::Platform::Modules::PThread::pthread_mutex_init, BadPThreadMutexInit>());
+		WHEN("Thread creation is attempted") {
+			ThreadBasicTest Test;
+			CYB::Platform::System::Thread* Thread(nullptr);
+			REQUIRE_THROWS_AS(Thread = new CYB::Platform::System::Thread(Test), CYB::Exception::SystemData);
+			THEN("The appropriate error occurs") {
+				CHECK_COOL_AND_CALM;
+				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::THREAD_CREATION_FAILURE);
+				CHECK_FALSE(Test.FRan);
+			}
+			delete Thread;
+		}
+	}
+#endif
 	GIVEN("A Threadable that will throw an unknown exception") {
 		ThreadErrorTest Test(false);
 		WHEN("A thread is run created using it") {

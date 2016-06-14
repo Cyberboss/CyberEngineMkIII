@@ -116,7 +116,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Utils\Fakes.cpp" />
-    <ClCompile Include="Utils\HCFOverride.cpp" />
     <ClCompile Include="Win32Main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -141,6 +140,7 @@
     <None Include="CoverageExclusions.runsettings" />
     <None Include="llvm-gcov.sh" />
     <None Include="Utils\CallRedirect.inl" />
+    <None Include="Utils\HCF.inl" />
     <None Include="Utils\ModuleDependancy.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

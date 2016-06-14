@@ -18,10 +18,8 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			Singleton();
-			/*!
-				@brief Destroy a singleton and nullify it's pointer
-			*/
+			Singleton() noexcept;
+			//! @brief Destroy a singleton and nullify it's pointer
 			~Singleton();
 #ifdef CYB_BUILDING_TESTS
 		public:
@@ -30,5 +28,4 @@ namespace CYB {
 		};
 	};
 };
-template <class AParent> AParent* CYB::API::Singleton<AParent>::FSingleton(nullptr);
 #include "Singleton.inl"

@@ -1,6 +1,6 @@
 #pragma once
 
-inline CYB::API::Interop::Allocator::Allocator(Heap& AHeap):
+inline CYB::API::Interop::Allocator::Allocator(Heap& AHeap) noexcept :
 	FHeap(AHeap)
 {
 	FAllocator = this;
@@ -17,14 +17,10 @@ template <class AType, typename... AArgs> CYB::API::Object<AType> CYB::API::Inte
 	return Object<AType>(NewObject(Interop::Allocatable::GetID<AType>(), Constructor));
 }
 
-template <class AType> CYB::API::Object<AType> CYB::API::Interop::Allocator::CopyObject(const Object<AType>& ACopy) {
-	return Object<AType>(new (FHeap.Alloc(sizeof(AType))) AType(ACopy()));
-}
-
-inline CYB::API::Interop::Allocator& CYB::API::Interop::Allocator::GetAllocator(void) {
+inline CYB::API::Interop::Allocator& CYB::API::Interop::Allocator::GetAllocator(void) noexcept {
 	return *FAllocator;
 }
 
-inline CYB::API::Interop::Allocator& CYB::Allocator(void) {
+inline CYB::API::Interop::Allocator& CYB::Allocator(void) noexcept {
 	return API::Interop::Allocator::GetAllocator();
 }

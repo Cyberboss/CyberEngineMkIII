@@ -5,8 +5,8 @@ namespace CYB {
 			namespace Implementation {
 				class VirtualMemory {
 				protected:
-					static unsigned int SystemPageSize(void);
-					static void* PageAlignedUpperBound(void* const AMemory, const unsigned int APageSize);
+					static unsigned int SystemPageSize(void) noexcept;
+					static void* PageAlignedUpperBound(void* const AMemory, const unsigned int APageSize) noexcept;
 				};
 			};
 		};

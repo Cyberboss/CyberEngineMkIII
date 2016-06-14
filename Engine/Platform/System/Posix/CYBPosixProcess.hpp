@@ -7,10 +7,10 @@ namespace CYB {
 				protected:
 					Posix::pid_t FPID;
 				protected:
-					Process(const Posix::pid_t APID);
+					Process(const Posix::pid_t APID) noexcept;
 					Process(const Process&) = delete;
-					Process(Process&& AMove) = default;
-					Process& operator=(Process&& AMove) = default;
+					Process(Process&& AMove) noexcept = default;
+					Process& operator=(Process&& AMove) noexcept = default;
 				};
 			};
 		};

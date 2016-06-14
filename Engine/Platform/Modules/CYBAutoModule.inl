@@ -48,7 +48,7 @@ template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> 
 	return *this;
 }
 
-template <unsigned int AN> bool CYB::Platform::Modules::AutoModuleOptionalHelpers<true, AN>::Loaded(const void* const AFunction) {
+template <unsigned int AN> bool CYB::Platform::Modules::AutoModuleOptionalHelpers<true, AN>::Loaded(const void* const AFunction) noexcept {
 	return AFunction != nullptr;
 }
 
@@ -57,7 +57,7 @@ template <unsigned int AN> constexpr bool CYB::Platform::Modules::AutoModuleOpti
 	return true;
 }
 
-template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> bool CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::Loaded(const unsigned int AFunctionIndex) const {
+template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> bool CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::Loaded(const unsigned int AFunctionIndex) const noexcept {
 	return AutoModuleOptionalHelpers<AOptionalFunctions, AN>::Loaded(FFunctionPointers[AFunctionIndex]);
 }
 

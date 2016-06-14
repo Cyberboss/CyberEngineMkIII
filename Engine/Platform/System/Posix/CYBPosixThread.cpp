@@ -10,7 +10,7 @@ namespace CYB {
 				private:
 					pthread_mutex_t* const FMutex;
 				public:
-					PThreadLockGuard(pthread_mutex_t* const AMutex, const bool ADoLock) : FMutex(AMutex) { if (ADoLock) Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_lock>(AMutex); }
+					PThreadLockGuard(pthread_mutex_t* const AMutex, const bool ADoLock) noexcept : FMutex(AMutex) { if (ADoLock) Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_lock>(AMutex); }
 					~PThreadLockGuard() { Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_unlock>(FMutex); }
 				};
 			};
@@ -57,7 +57,7 @@ CYB::Platform::System::Implementation::Thread::~Thread() {
 	DestroyMutex();
 }
 
-void* CYB::Platform::System::Implementation::Thread::ThreadProc(void* const AThreadData) {
+void* CYB::Platform::System::Implementation::Thread::ThreadProc(void* const AThreadData) noexcept {
 	auto& Data(*static_cast<volatile ThreadData*>(AThreadData));
 
 	auto const Threadable(Data.FThreadable);
@@ -81,22 +81,22 @@ void* CYB::Platform::System::Implementation::Thread::ThreadProc(void* const AThr
 	return nullptr;
 }
 
-void CYB::Platform::System::Implementation::Thread::DestroyMutex(void) {
+void CYB::Platform::System::Implementation::Thread::DestroyMutex(void) noexcept {
 	API::Assert::Equal(Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_destroy>(&FRunningLock), 0);
 }
 
-bool CYB::Platform::System::Thread::IsFinished(void) const {
+bool CYB::Platform::System::Thread::IsFinished(void) const noexcept {
 	return !FRunning.load(std::memory_order_relaxed);
 }
 
-void CYB::Platform::System::Thread::Wait(void) const {
+void CYB::Platform::System::Thread::Wait(void) const noexcept {
 	Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_join>(FThread, nullptr);
 }
 
-void CYB::Platform::System::Thread::Sleep(const unsigned int AMilliseconds) {
+void CYB::Platform::System::Thread::Sleep(const unsigned int AMilliseconds) noexcept {
 	Core().FModuleManager.FC.Call<Modules::LibC::usleep>(AMilliseconds * 1000);
 }
 
-void CYB::Platform::System::Thread::Yield(void) {
+void CYB::Platform::System::Thread::Yield(void) noexcept {
 	Core().FModuleManager.FRT.Call<Modules::RT::sched_yield>();
 }

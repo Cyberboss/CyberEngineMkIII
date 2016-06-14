@@ -21,7 +21,6 @@ SCENARIO("Thread creation works", "[Platform][System][Threads][Unit][Slow]") {
 			CYB::Platform::System::Thread* TestThread(nullptr);
 			REQUIRE_NOTHROW(TestThread = new CYB::Platform::System::Thread(TestClass));
 			THEN("No errors occur and the thread runs separate from this one") {
-				CHECK_COOL_AND_CALM;
 				REQUIRE(TestThread != nullptr);
 				CYB::Platform::System::Thread::Sleep(1000);
 				CHECK(TestClass.FRan);
@@ -47,7 +46,6 @@ SCENARIO("Thread waiting and deletion work", "[Platform][System][Threads][Unit][
 		WHEN("The thread is waited upon") {
 			TestThread->Wait();
 			THEN("The thread has ran and terminated") {
-				CHECK_COOL_AND_CALM;
 				CHECK(TestClass.FRan);
 			}
 			delete TestThread;
@@ -90,7 +88,6 @@ SCENARIO("Threaded operations can be cancelled", "[Platform][System][Threads][Un
 		WHEN("The thread is cancelled") {
 			TestThread.Cancel();
 			THEN("The thread will terminate") {
-				CHECK_COOL_AND_CALM;
 				CYB::Platform::System::Thread::Sleep(1000);
 				CHECK(TestThread.IsFinished());
 			}
@@ -120,7 +117,6 @@ SCENARIO("Thread Sleep works", "[Platform][System][Threads][Unit][Slow]") {
 		WHEN("We sleep for that long") {
 			CYB::Platform::System::Thread::Sleep(Milliseconds);
 			THEN("At least that amount of time has passed when we wake up") {
-				CHECK_COOL_AND_CALM;
 				CHECK((TestGetTime() - StartTime) >= Milliseconds);
 			}
 		}
@@ -134,7 +130,7 @@ SCENARIO("Thread Yield works", "[Platform][System][Threads][Unit]") {
 		WHEN("Yield is called") {
 			CYB::Platform::System::Thread::Yield();	//what do you want from me?
 			THEN("Nothing bad happens and we can only assume the OS did it's job") {
-				CHECK_COOL_AND_CALM;
+				CHECK(true);
 			}
 		}
 	}
@@ -193,7 +189,6 @@ SCENARIO("Thread errors work", "[Platform][System][Threads][Unit]") {
 			CYB::Platform::System::Thread* Thread(nullptr);
 			REQUIRE_THROWS_AS(Thread = new CYB::Platform::System::Thread(Test), CYB::Exception::SystemData);
 			THEN("The appropriate error occurs") {
-				CHECK_COOL_AND_CALM;
 				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::THREAD_CREATION_FAILURE);
 				CHECK_FALSE(Test.FRan);
 			}
@@ -208,7 +203,6 @@ SCENARIO("Thread errors work", "[Platform][System][Threads][Unit]") {
 			CYB::Platform::System::Thread* Thread(nullptr);
 			REQUIRE_THROWS_AS(Thread = new CYB::Platform::System::Thread(Test), CYB::Exception::SystemData);
 			THEN("The appropriate error occurs") {
-				CHECK_COOL_AND_CALM;
 				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::THREAD_CREATION_FAILURE);
 				CHECK_FALSE(Test.FRan);
 			}
@@ -221,7 +215,7 @@ SCENARIO("Thread errors work", "[Platform][System][Threads][Unit]") {
 		WHEN("A thread is run created using it") {
 			CYB::Platform::System::Thread TestThread(Test);
 			THEN("Nothing bad happens") {
-				CHECK_COOL_AND_CALM;
+				CHECK(true);
 			}
 		}
 	}
@@ -230,7 +224,7 @@ SCENARIO("Thread errors work", "[Platform][System][Threads][Unit]") {
 		WHEN("A thread is run created using it") {
 			CYB::Platform::System::Thread TestThread(Test);
 			THEN("Nothing bad happens") {
-				CHECK_COOL_AND_CALM;
+				CHECK(true);
 			}
 		}
 	}

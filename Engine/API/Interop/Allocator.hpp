@@ -33,7 +33,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				Allocator(Heap& AHeap);
+				Allocator(Heap& AHeap) noexcept;
 			public:
 				/*!
 					@brief Retrieve the Allocator singleton
@@ -43,7 +43,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				static Allocator& GetAllocator(void);
+				static Allocator& GetAllocator(void) noexcept;
 
 				/*!
 					@brief Allocates the object specified by AAllocatable
@@ -71,11 +71,9 @@ namespace CYB {
 						<BR>CYB::Exception::Internal::HEAP_CORRUPTION if the integrity of the heap has been compromised
 				*/
 				template <class AAllocatable> Object<AAllocatable> NewObject(void);
-
-				template <class AType> Object<AType> CopyObject(const Object<AType>& ACopy);
 			};
 		};
 	};
 	//! @brief See CYB::API::Allocator::GetAllocator
-	API::Interop::Allocator& Allocator(void);
+	API::Interop::Allocator& Allocator(void) noexcept;
 };

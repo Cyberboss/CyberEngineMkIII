@@ -2,12 +2,12 @@
 
 #ifndef TARGET_OS_WINDOWS
 static bool FSysExitCalledProperly(false);
-unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber, const Union64 AArg1) {
+unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber, const Union64 AArg1) noexcept {
 	FSysExitCalledProperly = ACallNumber == CallNumber::EXIT && AArg1.FNumber == 0;
 	return 0;
 }
 //don't bother with it
-void CYB::Platform::System::Sys::VerifyArgumentCount(const CallNumber ACallNumber, const unsigned long long ANumArgs) {}
+void CYB::Platform::System::Sys::VerifyArgumentCount(const CallNumber ACallNumber, const unsigned long long ANumArgs) noexcept {}
 #endif
 
 SCENARIO("Getting the running process works", "[Platform][System][Process][Unit]") {
@@ -16,7 +16,7 @@ SCENARIO("Getting the running process works", "[Platform][System][Process][Unit]
 		WHEN("Process::GetSelf is called") {
 			auto Result(CYB::Platform::System::Process::GetSelf());
 			THEN("The process returned is me") {
-				CHECK_COOL_AND_CALM;
+				CHECK(true);
 			}
 		}
 	}
@@ -32,7 +32,7 @@ SCENARIO("The Process move constructor works", "[Platform][System][Process][Unit
 				Proc = std::move(Proc2);
 			}
 			THEN("All is well") {
-				CHECK_COOL_AND_CALM;
+				CHECK(true);
 			}
 		}
 	}
@@ -46,7 +46,6 @@ SCENARIO("Process equivalence works", "[Platform][System][Process][Unit]") {
 		WHEN("The process is compared with itself") {
 			auto Proc2(CYB::Platform::System::Process::GetSelf());
 			THEN("They are the same") {
-				CHECK_COOL_AND_CALM;
 				CHECK(Proc == Proc2);
 			}
 		}

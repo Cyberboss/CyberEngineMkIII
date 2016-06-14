@@ -12,7 +12,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				Static();
+				Static() noexcept;
 				/*!
 					@brief Construct a static string
 					@par Thread Safety
@@ -20,13 +20,13 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				Static(const char* const AData);
-				Static(const Static&) = default;
-				Static(Static&& AMove);	//!< @brief See @ref structors
-				Static& operator=(Static&& AMove);	//!< @brief See @ref structors
+				Static(const char* const AData) noexcept;
+				Static(const Static&) noexcept = default;
+				Static(Static&& AMove) noexcept = default;	//!< @brief See @ref structors
+				Static& operator=(Static&& AMove) noexcept = default;	//!< @brief See @ref structors
 
 				//! @brief Equivalent to CYB::API::String::CStyle::RawLength
-				unsigned int Length(void) const override;
+				unsigned int Length(void) const noexcept override;
 			};
 		};
 	};

@@ -42,7 +42,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				static void Discard(void* const AMemory, const unsigned long long ANumBytes);
+				static void Discard(void* const AMemory, const unsigned long long ANumBytes) noexcept;
 				/*!
 					@brief Undo a reservation, improving performance. All memory that was used in entire reserved address space will be lost
 					@param AReservation An address returned from ReserveMemory

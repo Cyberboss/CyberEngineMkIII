@@ -4,15 +4,15 @@
 //0 - 7: Reservation size
 //8 - 15: Commit size
 
-bool CYB::Platform::System::Implementation::VirtualMemory::AccessSuperblock(void* const AReservation) {
+bool CYB::Platform::System::Implementation::VirtualMemory::AccessSuperblock(void* const AReservation) noexcept {
 	return Core().FModuleManager.FC.Call<Modules::LibC::mprotect>(GetSuperblockFromReservation(AReservation), SUPERBLOCK_SIZE, PROT_READ | PROT_WRITE) == 0;
 }
 
-unsigned long long* CYB::Platform::System::Implementation::VirtualMemory::GetSuperblockFromReservation(void* const AReservation) {
+unsigned long long* CYB::Platform::System::Implementation::VirtualMemory::GetSuperblockFromReservation(void* const AReservation) noexcept {
 	static_assert(SUPERBLOCK_SIZE % sizeof(unsigned long long) == 0, "The Posix VM superblock has changed and the access methods must as well");
 	return static_cast<unsigned long long*>(AReservation) - (SUPERBLOCK_SIZE / sizeof(unsigned long long));
 }
-unsigned long long* CYB::Platform::System::Implementation::VirtualMemory::GetReservationFromSuperblock(void* const ASuperblock) {
+unsigned long long* CYB::Platform::System::Implementation::VirtualMemory::GetReservationFromSuperblock(void* const ASuperblock) noexcept {
 	return static_cast<unsigned long long*>(ASuperblock) + (SUPERBLOCK_SIZE / sizeof(unsigned long long));
 }
 
@@ -90,7 +90,7 @@ void CYB::Platform::System::VirtualMemory::Access(void* const AReservation, cons
 		throw Exception::SystemData(Exception::SystemData::MEMORY_PROTECT_FAILURE);
 }
 
-void CYB::Platform::System::VirtualMemory::Discard(void* const AMemory, const unsigned long long ANumBytes) {
+void CYB::Platform::System::VirtualMemory::Discard(void* const AMemory, const unsigned long long ANumBytes) noexcept {
 	using namespace Posix;
 	Core().FModuleManager.FC.Call<Modules::LibC::madvise>(AMemory, ANumBytes, MADV_DONTNEED);
 }

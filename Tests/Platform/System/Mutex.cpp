@@ -33,7 +33,7 @@ SCENARIO("Mutex basic functions work", "[Platform][System][Mutex][Unit]") {
 		WHEN("The mutex is initialized") {
 			TestMutex = new CYB::Platform::System::Mutex();
 			THEN("All is well with the world") {
-				CHECK_COOL_AND_CALM;
+				CHECK(TestMutex != nullptr);
 			}
 			delete TestMutex;
 		}
@@ -43,13 +43,11 @@ SCENARIO("Mutex basic functions work", "[Platform][System][Mutex][Unit]") {
 		WHEN("The mutex is locked") {
 			TestMutex->Lock();
 			THEN("It can't be locked again") {
-				CHECK_COOL_AND_CALM;
 				CHECK_FALSE(SpawnMutexTryLockThread(*TestMutex));
 			}
 			AND_THEN("It is unlocked") {
 				TestMutex->Unlock();
 				THEN("It can be locked again") {
-					CHECK_COOL_AND_CALM;
 					CHECK(TestMutex->TryLock());
 				}
 			}
@@ -58,7 +56,6 @@ SCENARIO("Mutex basic functions work", "[Platform][System][Mutex][Unit]") {
 		WHEN("The mutex is try locked") {
 			REQUIRE(TestMutex->TryLock());
 			THEN("It can't be locked again") {
-				CHECK_COOL_AND_CALM;
 				CHECK_FALSE(SpawnMutexTryLockThread(*TestMutex));
 			}
 			TestMutex->Unlock();
@@ -78,7 +75,6 @@ SCENARIO("Mutex initialization error works", "[Platform][System][Mutex][Unit]") 
 			CYB::Platform::System::Mutex* TestMutex(nullptr);
 			REQUIRE_THROWS_AS(TestMutex = new CYB::Platform::System::Mutex(), CYB::Exception::SystemData);
 			THEN("The appropriate error occurs") {
-				CHECK_COOL_AND_CALM;
 				CHECK(TestMutex == nullptr);
 				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);
 			}

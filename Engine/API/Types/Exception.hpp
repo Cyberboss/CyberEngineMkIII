@@ -29,7 +29,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			Base(API::String::Static&& AMessage, const unsigned int AErrorCode, const Level ALevel);
+			Base(API::String::Static&& AMessage, const unsigned int AErrorCode, const Level ALevel) noexcept;
 		};
 		//! @brief Exceptions indicating an API contract violation. Should not be anticipated
 		class Violation : public Base {
@@ -47,10 +47,8 @@ namespace CYB {
 					This function requires no thread safety
 				@par Exception Safety
 					This function does not throw exceptions
-				@par Note
-					This function is for internal use only
 			*/
-			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
+			static API::String::Static ErrorMessage(const ErrorCode AErrorCode) noexcept;
 		public:
 			/*!
 				@brief Construct a Violation exception
@@ -62,7 +60,7 @@ namespace CYB {
 				@par Note
 					This function is for internal use only
 			*/
-			Violation(const ErrorCode AErrorCode);
+			Violation(const ErrorCode AErrorCode) noexcept;
 		};
 		//! @brief Exceptions caused by external call failures or invalid external data
 		class SystemData : public Base{
@@ -87,10 +85,8 @@ namespace CYB {
 					This function requires no thread safety
 				@par Exception Safety
 					This function does not throw exceptions
-				@par Note
-					This function is for internal use only
 			*/
-			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
+			static API::String::Static ErrorMessage(const ErrorCode AErrorCode) noexcept;
 		public:
 			/*!
 				@brief Construct a SystemData exception
@@ -102,7 +98,7 @@ namespace CYB {
 				@par Note
 					This function is for internal use only
 			*/
-			SystemData(const ErrorCode AErrorCode);
+			SystemData(const ErrorCode AErrorCode) noexcept;
 		};
 		//! @brief Exceptions that are thrown internally in the engine that the unit will never see
 		class Internal : public Base {
@@ -119,10 +115,8 @@ namespace CYB {
 					This function requires no thread safety
 				@par Exception Safety
 					This function does not throw exceptions
-				@par Note
-					This function is for internal use only
 			*/
-			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
+			static API::String::Static ErrorMessage(const ErrorCode AErrorCode) noexcept;
 		public:
 			/*!
 				@brief Construct an Internal exception
@@ -134,7 +128,7 @@ namespace CYB {
 				@par Note
 					This function is for internal use only
 			*/
-			Internal(const ErrorCode AErrorCode);
+			Internal(const ErrorCode AErrorCode) noexcept;
 		};
 		//! @brief Exceptions that compromise the stability of the engine and it must be promptly shutdown
 		class Fatal : public Base {
@@ -151,8 +145,6 @@ namespace CYB {
 					This function requires no thread safety
 				@par Exception Safety
 					This function does not throw exceptions
-				@par Note
-					This function is for internal use only
 			*/
 			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
@@ -166,7 +158,7 @@ namespace CYB {
 				@par Note
 					This function is for internal use only
 			*/
-			Fatal(const ErrorCode AErrorCode);
+			Fatal(const ErrorCode AErrorCode) noexcept;
 		};
 	};
 };

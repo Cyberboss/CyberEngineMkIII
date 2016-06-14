@@ -18,7 +18,7 @@ CYB::Engine::Memory::Heap::Heap(const unsigned long long AInitialCommitSize) :
 	FFreeList = FLargeBlock;
 }
 
-CYB::Engine::Memory::Heap::Heap(Heap&& AMove) :
+CYB::Engine::Memory::Heap::Heap(Heap&& AMove) noexcept :
 	FReservation(AMove.FReservation),
 	FCommitSize(AMove.FCommitSize),
 	FLocked(AMove.FLocked),
@@ -29,7 +29,7 @@ CYB::Engine::Memory::Heap::Heap(Heap&& AMove) :
 	AMove.FReservation = nullptr;
 }
 
-CYB::Engine::Memory::Heap& CYB::Engine::Memory::Heap::operator=(Heap&& AMove) {
+CYB::Engine::Memory::Heap& CYB::Engine::Memory::Heap::operator=(Heap&& AMove) noexcept {
 	API::Assert::Equal(FLargeBlock->LeftBlock(), static_cast<Block*>(nullptr));
 	API::LockGuard Lock(FMutex);
 	FReservation = AMove.FReservation;
@@ -46,20 +46,20 @@ CYB::Engine::Memory::Heap::~Heap() {
 		Platform::System::VirtualMemory::Release(FReservation);
 }
 
-unsigned long long CYB::Engine::Memory::Heap::CalculateInitialCommitSize(const unsigned long long AInitialCommitSize) {
+unsigned long long CYB::Engine::Memory::Heap::CalculateInitialCommitSize(const unsigned long long AInitialCommitSize) noexcept {
 	const auto MinimumInitialCommit(sizeof(Block) + 1);
 	return AInitialCommitSize >= MinimumInitialCommit ? AInitialCommitSize : MinimumInitialCommit;
 }
 
-CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::FirstBlock(void) {
+CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::FirstBlock(void) noexcept {
 	return *static_cast<Block*>(FReservation);
 }
 
-const CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::FirstBlock(void) const {
+const CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::FirstBlock(void) const noexcept {
 	return *static_cast<Block*>(FReservation);
 }
 
-void CYB::Engine::Memory::Heap::AddToFreeList(Block& ABlock, Block* const APreviousEntry) {
+void CYB::Engine::Memory::Heap::AddToFreeList(Block& ABlock, Block* const APreviousEntry) noexcept {
 	if (APreviousEntry == nullptr) {
 		ABlock.FNextFree = FFreeList;
 		FFreeList = &ABlock;
@@ -70,7 +70,7 @@ void CYB::Engine::Memory::Heap::AddToFreeList(Block& ABlock, Block* const APrevi
 	}
 }
 
-void CYB::Engine::Memory::Heap::RemoveFromFreeList(Block& ABlock, Block* const APreviousEntry) {
+void CYB::Engine::Memory::Heap::RemoveFromFreeList(Block& ABlock, Block* const APreviousEntry) noexcept {
 	if (APreviousEntry == nullptr)
 		FFreeList = FFreeList->FNextFree;
 	else
@@ -87,7 +87,7 @@ void CYB::Engine::Memory::Heap::LargeBlockNeedsAtLeast(const unsigned int ARequi
 	}
 }
 
-void CYB::Engine::Memory::Heap::MergeBlockIfPossible(Block*& ABlock, Block* ALastFreeListEntry) {
+void CYB::Engine::Memory::Heap::MergeBlockIfPossible(Block*& ABlock, Block* ALastFreeListEntry) noexcept {
 	API::Assert::True(ABlock->IsFree());
 
 	if (ABlock->LeftBlock() != nullptr && ABlock->LeftBlock()->IsFree()) {

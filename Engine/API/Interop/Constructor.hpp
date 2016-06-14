@@ -5,7 +5,6 @@ namespace CYB {
 		namespace Interop {
 			//! @brief Used as a base class by all constructors
 			class EmptyConstructor {};
-			//! @cond
 			template <typename AType, typename... ATypes> class Constructor : public Constructor<ATypes...> {
 			public:
 				AType* const FParam;	//!< @brief The pointer to the parameter
@@ -19,13 +18,12 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				Constructor(AType* const AParam, ATypes&&... AParams) :
+				Constructor(AType* const AParam, ATypes&&... AParams) noexcept :
 					Constructor<ATypes...>(std::forward(AParams)...),
 					FParam(AParam)
 				{}
 			};
 			/*!
-				@endcond
 				@brief Template for defining the types of parameters for engine object constructors
 				@tparam AType The last in the series of types
 			*/
@@ -41,7 +39,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				Constructor(AType* const AParam) :
+				Constructor(AType* const AParam) noexcept :
 					FParam(AParam)
 				{}
 			};

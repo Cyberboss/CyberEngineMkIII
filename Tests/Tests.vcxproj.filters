@@ -19,9 +19,6 @@
     <ClCompile Include="Platform\Modules.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\HCFOverride.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="Platform\System\Mutex.cpp">
       <Filter>Platform\System</Filter>
     </ClCompile>
@@ -79,5 +76,8 @@
     </None>
     <None Include="CoverageExclusions.runsettings" />
     <None Include="llvm-gcov.sh" />
+    <None Include="Utils\HCF.inl">
+      <Filter>Utils</Filter>
+    </None>
   </ItemGroup>
 </Project>

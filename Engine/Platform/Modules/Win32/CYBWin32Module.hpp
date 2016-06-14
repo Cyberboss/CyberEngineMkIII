@@ -9,8 +9,8 @@ namespace CYB {
 				protected:
 					Module(const API::String::CStyle& AModuleName);
 					Module(const Module&) = delete;
-					Module(Module&& AMove);
-					Module& operator=(Module&& AMove);
+					Module(Module&& AMove) noexcept;
+					Module& operator=(Module&& AMove) noexcept;
 					~Module();
 				};
 			};

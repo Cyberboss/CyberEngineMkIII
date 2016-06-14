@@ -20,16 +20,16 @@ namespace CYB {
 					{}
 				};
 			private:
-				static unsigned long long DoCall(const CallNumber ACallNumber);
-				static unsigned long long DoCall(const CallNumber ACallNumber, const Union64 AArg1);
-				static unsigned long long DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2);
-				static unsigned long long DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3);
-				static unsigned long long DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3, const Union64 AArg4);
-				static unsigned long long DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3, const Union64 AArg4, const Union64 AArg5);
-				static unsigned long long DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3, const Union64 AArg4, const Union64 AArg5, const Union64 AArg6);
-				static void VerifyArgumentCount(const CallNumber ACallNumber, const unsigned long long ANumArgs);
+				static unsigned long long DoCall(const CallNumber ACallNumber) noexcept;
+				static unsigned long long DoCall(const CallNumber ACallNumber, const Union64 AArg1) noexcept;
+				static unsigned long long DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2) noexcept;
+				static unsigned long long DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3) noexcept;
+				static unsigned long long DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3, const Union64 AArg4) noexcept;
+				static unsigned long long DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3, const Union64 AArg4, const Union64 AArg5) noexcept;
+				static unsigned long long DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3, const Union64 AArg4, const Union64 AArg5, const Union64 AArg6) noexcept;
+				static void VerifyArgumentCount(const CallNumber ACallNumber, const unsigned long long ANumArgs) noexcept;
 			public:
-				template <typename... Args> static unsigned long long Call(const CallNumber ACallNumber, Args&&... AArgs);
+				template <typename... Args> static unsigned long long Call(const CallNumber ACallNumber, Args&&... AArgs) noexcept;
 			};
 		};
 	};

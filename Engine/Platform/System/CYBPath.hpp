@@ -13,8 +13,8 @@ namespace CYB {
 
 				Path(const API::String::CStyle& AString);
 				Path(const Path& ACopy) = default;
-				Path(Path&& AMove) = default;
-				Path& operator=(Path&& AMove) = default;
+				Path(Path&& AMove) noexcept = default;
+				Path& operator=(Path&& AMove) noexcept = default;
 
 				void EmptyContents(void) const;
 				void SetAsWorkingDirectory(void) const;

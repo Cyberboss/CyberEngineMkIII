@@ -20,7 +20,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				void Terminate(void);
+				void Terminate(void) noexcept;
 			public:
 				/*!
 					@brief Get's the Process representing the current execution
@@ -30,7 +30,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				static Process GetSelf(void);
+				static Process GetSelf(void) noexcept;
 				/*!
 					@brief Terminates the Process with exit code zero and ensures destruction of the object
 					@param AProcess An xvalue of the process to terminate
@@ -39,11 +39,11 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				static void Terminate(Process&& AProcess);
+				static void Terminate(Process&& AProcess) noexcept;
 
 				Process(const Process&) = delete;
-				Process(Process&& AMove) = default;	//!< @brief See @ref structors
-				Process& operator=(Process&& AMove) = default;	//!< @brief See @ref structors
+				Process(Process&& AMove) noexcept = default;	//!< @brief See @ref structors
+				Process& operator=(Process&& AMove) noexcept = default;	//!< @brief See @ref structors
 				//! @brief Destroy the Process object without affecting the actual process
 				~Process() = default;
 
@@ -55,13 +55,17 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				bool Active(void) const;
+				bool Active(void) const noexcept;
 				/*!
 					@brief Check the equivalence of two Process objects
 					@param ARHS Another Process to compare with
 					@return true if the Processes are equivalent, false otherwise
+					@par Thread Safety
+						This function requires no thread safety
+					@par Exception Safety
+						This function does not throw exceptions
 				*/
-				bool operator==(const Process& ARHS) const;
+				bool operator==(const Process& ARHS) const noexcept;
 			};
 		};
 	};

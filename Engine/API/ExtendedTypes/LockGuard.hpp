@@ -16,13 +16,11 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			LockGuard(const Mutex& AMutex);
+			LockGuard(const Mutex& AMutex) noexcept;
 			LockGuard(const LockGuard&) = delete;	//!< @brief See @ref structors
-			LockGuard(LockGuard&& AMove);	//!< @brief See @ref structors
-			LockGuard& operator=(LockGuard&& AMove);	//!< @brief See @ref structors
-			/*!
-				@brief Destroys the LockGuard and unlocks the Mutex
-			*/
+			LockGuard(LockGuard&& AMove) noexcept;	//!< @brief See @ref structors
+			LockGuard& operator=(LockGuard&& AMove) noexcept;	//!< @brief See @ref structors
+			//! @brief Destroys the LockGuard and unlocks the Mutex
 			~LockGuard();
 
 			/*!
@@ -32,7 +30,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			void Release(void);
+			void Release(void) noexcept;
 		};
 	}
 }

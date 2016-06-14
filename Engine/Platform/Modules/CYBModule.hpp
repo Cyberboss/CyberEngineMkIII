@@ -16,8 +16,8 @@ namespace CYB {
 				*/
 				Module(const API::String::CStyle& AModuleName);	//!< @brief See @ref structors
 				Module(const Module&) = delete;
-				Module(Module&& AMove) = default;	//!< @brief See @ref structors
-				Module& operator=(Module&& AMove) = default;	//!< @brief See @ref structors
+				Module(Module&& AMove) noexcept = default;	//!< @brief See @ref structors
+				Module& operator=(Module&& AMove) noexcept = default;	//!< @brief See @ref structors
 				/*!
 					@brief Destroys a module reference. If all references to a module are destroyed, functions loaded from those modules become invalid
 				*/

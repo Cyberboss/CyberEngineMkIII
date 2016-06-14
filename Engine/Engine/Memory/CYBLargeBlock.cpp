@@ -12,14 +12,14 @@ static_assert(sizeof(CYB::Engine::Memory::LargeBlock) - sizeof(CYB::Engine::Memo
 #endif
 	, "LargeBlock size has changed, check algorithms");
 
-CYB::Engine::Memory::LargeBlock::LargeBlock(const unsigned long long ASpaceAvailable, Block* const ALeftBlock) :
+CYB::Engine::Memory::LargeBlock::LargeBlock(const unsigned long long ASpaceAvailable, Block* const ALeftBlock) noexcept :
 	Block(sizeof(Block), ALeftBlock == nullptr ? *this : *ALeftBlock, true),
 	FMagicHeader(MAGIC_HEADER),
 	FRemainingSize(ASpaceAvailable),
 	FMagicFooter(MAGIC_FOOTER)
 {}
 
-CYB::Engine::Memory::Block& CYB::Engine::Memory::LargeBlock::AllocateBlock(LargeBlock*& ALargeBlock, const unsigned int ANewBlockSize) {
+CYB::Engine::Memory::Block& CYB::Engine::Memory::LargeBlock::AllocateBlock(LargeBlock*& ALargeBlock, const unsigned int ANewBlockSize) noexcept {
 	const auto SizeWithBlock(ANewBlockSize + sizeof(Block));
 	const auto OriginalSize(ALargeBlock->FRemainingSize);
 	API::Assert::LessThan<unsigned long long>(SizeWithBlock, OriginalSize);
@@ -36,15 +36,15 @@ void CYB::Engine::Memory::LargeBlock::Validate(void) const {
 	Block::Validate();
 }
 
-CYB::Engine::Memory::LargeBlock& CYB::Engine::Memory::LargeBlock::EatLeftBlock(void) {
+CYB::Engine::Memory::LargeBlock& CYB::Engine::Memory::LargeBlock::EatLeftBlock(void) noexcept {
 	API::Assert::NotEqual<Block*>(LeftBlock(), nullptr);
 	return *new (LeftBlock()) LargeBlock(FRemainingSize + LeftBlock()->Size() + sizeof(Block), LeftBlock()->LeftBlock());	//Even though we are eating a LargeBlock header, we are are also creating a LargeBlock Header - A block header
 }
 
-unsigned long long CYB::Engine::Memory::LargeBlock::Size(void) const {
+unsigned long long CYB::Engine::Memory::LargeBlock::Size(void) const noexcept {
 	return FRemainingSize;
 }
 
-void CYB::Engine::Memory::LargeBlock::SetSize(const unsigned long long ANewSize) {
+void CYB::Engine::Memory::LargeBlock::SetSize(const unsigned long long ANewSize) noexcept {
 	FRemainingSize = ANewSize;
 }

@@ -19,7 +19,7 @@ namespace CYB {
 				@brief Get the endianess being compiled
 				@return The Type of endianess being compiled
 			*/
-			static constexpr Type Get();
+			static constexpr Type Get(void);
 		};
 	};
 };

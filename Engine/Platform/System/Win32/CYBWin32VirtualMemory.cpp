@@ -1,12 +1,12 @@
 #include "CYB.hpp"
 
-unsigned int CYB::Platform::System::Implementation::VirtualMemory::SystemPageSize(void) {
+unsigned int CYB::Platform::System::Implementation::VirtualMemory::SystemPageSize(void) noexcept {
 	Win32::SYSTEM_INFO Info;
 	Core().FModuleManager.FK32.Call<Modules::Kernel32::GetSystemInfo>(&Info);
 	return Info.dwPageSize;
 }
 
-void* CYB::Platform::System::Implementation::VirtualMemory::PageAlignedUpperBound(void* AMemory, const unsigned int APageSize) {
+void* CYB::Platform::System::Implementation::VirtualMemory::PageAlignedUpperBound(void* AMemory, const unsigned int APageSize) noexcept {
 	return reinterpret_cast<void*>(reinterpret_cast<unsigned long long>(AMemory) + (APageSize - (reinterpret_cast<unsigned long long>(AMemory) % APageSize)));
 }
 
@@ -58,7 +58,7 @@ void CYB::Platform::System::VirtualMemory::Access(void* const AReservation, cons
 	}
 }
 
-void CYB::Platform::System::VirtualMemory::Discard(void* const AMemory, const unsigned long long ANumBytes) {
+void CYB::Platform::System::VirtualMemory::Discard(void* const AMemory, const unsigned long long ANumBytes) noexcept {
 	const auto PageSize(Implementation::VirtualMemory::SystemPageSize());
 	if (ANumBytes >= PageSize) {
 		auto const AlignedMemory(Implementation::VirtualMemory::PageAlignedUpperBound(AMemory, PageSize));

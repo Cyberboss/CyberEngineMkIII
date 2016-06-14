@@ -8,7 +8,7 @@ namespace CYB {
 	};
 };
 
-CYB::API::String::Static CYB::Exception::Violation::ErrorMessage(const ErrorCode AErrorCode) {
+CYB::API::String::Static CYB::Exception::Violation::ErrorMessage(const ErrorCode AErrorCode) noexcept {
 	switch (AErrorCode)	{
 	case INVALID_HEAP_BLOCK:
 		return API::String::Static(u8"A Block failed to validate during a Heap operation");
@@ -16,13 +16,13 @@ CYB::API::String::Static CYB::Exception::Violation::ErrorMessage(const ErrorCode
 		API::Assert::HCF();
 	}
 }
-CYB::Exception::Violation::Violation(const ErrorCode AErrorCode) :
+CYB::Exception::Violation::Violation(const ErrorCode AErrorCode) noexcept :
 	Base(ErrorMessage(AErrorCode), AErrorCode, Level::VIOLATION)
 {
 	FLastInstantiatedExceptionCode = AErrorCode;
 }
 
-CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCode AErrorCode) {
+CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCode AErrorCode) noexcept {
 	switch (AErrorCode) {
 	case MEMORY_RESERVATION_FAILURE:
 		return API::String::Static(u8"Failed to reserve virtual memory from the OS.");
@@ -45,17 +45,17 @@ CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCod
 	}
 }
 
-CYB::Exception::SystemData::SystemData(const ErrorCode AErrorCode) :
+CYB::Exception::SystemData::SystemData(const ErrorCode AErrorCode) noexcept :
 	Base(ErrorMessage(AErrorCode), AErrorCode, Level::SYSTEM_DATA)
 {
 	FLastInstantiatedExceptionCode = AErrorCode;
 }
-CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode AErrorCode) {
+CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode AErrorCode) noexcept {
 	static_cast<void>(AErrorCode);
 	API::Assert::HCF();
 }
 
-CYB::Exception::Internal::Internal(const ErrorCode AErrorCode) :
+CYB::Exception::Internal::Internal(const ErrorCode AErrorCode) noexcept:
 	Base(ErrorMessage(AErrorCode), AErrorCode, Level::INTERNAL)
 {
 	FLastInstantiatedExceptionCode = AErrorCode;

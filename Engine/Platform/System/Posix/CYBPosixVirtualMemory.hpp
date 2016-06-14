@@ -9,10 +9,10 @@ namespace CYB {
 						SUPERBLOCK_SIZE = 2 * sizeof(unsigned long long),
 					};
 				protected:
-					static bool AccessSuperblock(void* const AReservation);
+					static bool AccessSuperblock(void* const AReservation) noexcept;
 
-					static unsigned long long* GetReservationFromSuperblock(void* const ASuperblock);
-					static unsigned long long* GetSuperblockFromReservation(void* const AReservation);
+					static unsigned long long* GetReservationFromSuperblock(void* const ASuperblock) noexcept;
+					static unsigned long long* GetSuperblockFromReservation(void* const AReservation) noexcept;
 				};
 			};
 		};

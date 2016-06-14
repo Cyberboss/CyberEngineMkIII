@@ -2,7 +2,7 @@
 #pragma once
 
 #ifndef ASSERTION_OVERRIDE
-inline void CYB::API::Assert::HCF[[noreturn]](void){
+inline void CYB::API::Assert::HCF[[noreturn]](void) noexcept {
 #ifdef DEBUG
 	BREAK;
 #endif
@@ -13,32 +13,32 @@ inline void CYB::API::Assert::HCF[[noreturn]](void){
 #endif
 }
 #endif
-inline void CYB::API::Assert::True(const bool AExpression) {
+inline void CYB::API::Assert::True(const bool AExpression) noexcept {
 	if (!AExpression)
 		HCF();
 }
 
-inline void CYB::API::Assert::False(const bool AExpression) {
+inline void CYB::API::Assert::False(const bool AExpression) noexcept {
 	if (AExpression)
 		HCF();
 }
 
-template <typename AType> void CYB::API::Assert::Equal(const AType& ALHS, const AType& ARHS) {
+template <typename AType> void CYB::API::Assert::Equal(const AType& ALHS, const AType& ARHS) noexcept {
 	if (ALHS != ARHS)
 		HCF();
 }
 
-template <typename AType> void CYB::API::Assert::NotEqual(const AType& ALHS, const AType& ARHS) {
+template <typename AType> void CYB::API::Assert::NotEqual(const AType& ALHS, const AType& ARHS) noexcept {
 	if (ALHS == ARHS)
 		HCF();
 }
 
-template <typename AType> void CYB::API::Assert::LessThan(const AType& ALHS, const AType& ARHS) {
+template <typename AType> void CYB::API::Assert::LessThan(const AType& ALHS, const AType& ARHS) noexcept {
 	if (ALHS >= ARHS)
 		HCF();
 }
 
-template <typename AType> void CYB::API::Assert::LessThanOrEqual(const AType& ALHS, const AType& ARHS) {
+template <typename AType> void CYB::API::Assert::LessThanOrEqual(const AType& ALHS, const AType& ARHS) noexcept {
 	if (ALHS > ARHS)
 		HCF();
 }

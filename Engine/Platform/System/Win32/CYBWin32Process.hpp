@@ -7,10 +7,10 @@ namespace CYB {
 				protected:
 					Win32::HANDLE FHandle;
 				protected:
-					Process(Win32::HANDLE AProcess);
+					Process(Win32::HANDLE AProcess) noexcept;
 					Process(const Process&) = delete;
-					Process(Process&& AMove);
-					Process& operator=(Process&& AMove);
+					Process(Process&& AMove) noexcept;
+					Process& operator=(Process&& AMove) noexcept;
 					~Process();
 				};
 			};

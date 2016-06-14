@@ -50,7 +50,7 @@ namespace CYB {
 				@brief Cleans up the engine and terminates the process
 			*/
 			~Core();
-			API::EngineInformation CreateEngineInformation(void);
+			API::EngineInformation CreateEngineInformation(void) noexcept;
 			/*!
 				@brief Run the main unit
 				@return true if the Unit should be launch again, false otherwise
@@ -60,7 +60,7 @@ namespace CYB {
 					This function does not throw exceptions
 			*/
 
-			bool LaunchUnit(void);
+			bool LaunchUnit(void) noexcept;
 		public:
 			/*!
 				@brief Retrieve the Core singleton
@@ -70,7 +70,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			static Core& GetCore(void);
+			static Core& GetCore(void) noexcept;
 
 			/*!
 				@brief Runs the engine and self terminates
@@ -81,10 +81,10 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			static void Run[[noreturn]](const unsigned int ANumArguments, const oschar_t* const* const AArguments);
+			static void Run[[noreturn]](const unsigned int ANumArguments, const oschar_t* const* const AArguments) noexcept;
 		};
 	};
 
 	//! @brief See CYB::Engine::Core::GetCore
-	Engine::Core& Core(void);
+	Engine::Core& Core(void) noexcept;
 };

@@ -24,7 +24,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				static void Sleep(const unsigned int AMilliseconds);
+				static void Sleep(const unsigned int AMilliseconds) noexcept;
 				/*!
 					@brief Expires the current threads processor time and sumbits it to the OS for rescheduling
 					@par Thread Safety
@@ -32,7 +32,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				static void Yield(void);
+				static void Yield(void) noexcept;
 				/*!
 					@brief Construct a Thread. Once returned, the thread will be scheduled to run and BeginThreadedOperation will soon be called on AThreadable
 					@param AThreadable A reference to the threadable object the Thread will run
@@ -62,7 +62,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				bool IsFinished(void) const;
+				bool IsFinished(void) const noexcept;
 				/*!
 					@brief Blocks current thread until the owned thread has terminated
 					@par Thread Safety
@@ -70,7 +70,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				void Wait(void) const;
+				void Wait(void) const noexcept;
 			};
 		};
 	};

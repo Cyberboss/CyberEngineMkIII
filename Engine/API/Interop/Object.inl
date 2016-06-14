@@ -1,16 +1,16 @@
 #pragma once
 
-template <class AInterface> CYB::API::Object<AInterface>::Object(AInterface* const APointer) :
+template <class AInterface> CYB::API::Object<AInterface>::Object(AInterface* const APointer) noexcept :
 	FPointer(APointer)
 {}
 
-template <class AInterface> CYB::API::Object<AInterface>::Object(Object<AInterface>&& AMove) :
+template <class AInterface> CYB::API::Object<AInterface>::Object(Object<AInterface>&& AMove) noexcept :
 	FPointer(AMove.FPointer)
 {
 	AMove.FPointer = nullptr;
 }
 
-template <class AInterface> CYB::API::Object<AInterface>& CYB::API::Object<AInterface>::operator=(Object<AInterface>&& AMove) {
+template <class AInterface> CYB::API::Object<AInterface>& CYB::API::Object<AInterface>::operator=(Object<AInterface>&& AMove) noexcept {
 	FPointer = AMove.FPointer;
 	AMove.FPointer = nullptr;
 	return *this;
@@ -23,10 +23,10 @@ template <class AInterface> CYB::API::Object<AInterface>::~Object() {
 	}
 }
 
-template <class AInterface> AInterface& CYB::API::Object<AInterface>::operator()(void) {
+template <class AInterface> AInterface& CYB::API::Object<AInterface>::operator()(void) noexcept {
 	return *FPointer;
 }
 
-template <class AInterface> const AInterface& CYB::API::Object<AInterface>::operator()(void) const {
+template <class AInterface> const AInterface& CYB::API::Object<AInterface>::operator()(void) const noexcept {
 	return *FPointer;
 }

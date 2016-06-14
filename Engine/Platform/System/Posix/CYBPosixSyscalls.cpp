@@ -1,6 +1,6 @@
 #include "../../../CYB.hpp"
 
-unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber) {
+unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber) noexcept {
 	unsigned long long Result;
 	asm volatile("movq %1, %%rax\n\t"
 		"syscall\n\t"
@@ -10,7 +10,7 @@ unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumb
 		: "rax");
 	return Result;
 }
-unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber, const Union64 AArg1) {
+unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber, const Union64 AArg1) noexcept {
 	unsigned long long Result;
 	asm volatile("movq %1, %%rax\n\t"
 		"movq %2, %%rdi\n\t"
@@ -21,7 +21,7 @@ unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumb
 		: "rax", "rdi");
 	return Result;
 }
-unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2) {
+unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2) noexcept {
 	unsigned long long Result;
 	asm volatile("movq %1, %%rax\n\t"
 		"movq %2, %%rdi\n\t"
@@ -33,7 +33,7 @@ unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumb
 		: "rax", "rdi", "rsi");
 	return Result;
 }
-unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3) {
+unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3) noexcept {
 	unsigned long long Result;
 	asm volatile("movq %1, %%rax\n\t"
 		"movq %2, %%rdi\n\t"
@@ -46,7 +46,7 @@ unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumb
 		: "rax", "rdi", "rsi", "rdx");
 	return Result;
 }
-unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3, const Union64 AArg4) {
+unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3, const Union64 AArg4) noexcept {
 	unsigned long long Result;
 	asm volatile("movq %1, %%rax\n\t"
 		"movq %2, %%rdi\n\t"
@@ -60,7 +60,7 @@ unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumb
 		: "rax", "rdi", "rsi", "rdx", "r10");
 	return Result;
 }
-unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3, const Union64 AArg4, const Union64 AArg5) {
+unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3, const Union64 AArg4, const Union64 AArg5) noexcept {
 	unsigned long long Result;
 	asm volatile("movq %1, %%rax\n\t"
 		"movq %2, %%rdi\n\t"
@@ -75,7 +75,7 @@ unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumb
 		: "rax", "rdi", "rsi", "rdx", "r10", "r8");
 	return Result;
 }
-unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3, const Union64 AArg4, const Union64 AArg5, const Union64 AArg6) {
+unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3, const Union64 AArg4, const Union64 AArg5, const Union64 AArg6) noexcept {
 	unsigned long long Result;
 	asm volatile("movq %1, %%rax\n\t"
 		"movq %2, %%rdi\n\t"
@@ -91,7 +91,7 @@ unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumb
 		: "rax", "rdi", "rsi", "rdx", "r10", "r8", "r9");
 	return Result;
 }
-void CYB::Platform::System::Sys::VerifyArgumentCount(const CallNumber ACallNumber, const unsigned long long ANumArgs) {
+void CYB::Platform::System::Sys::VerifyArgumentCount(const CallNumber ACallNumber, const unsigned long long ANumArgs) noexcept {
 	switch (ACallNumber) {
 	case EXIT:
 		CYB::API::Assert::Equal<unsigned long long>(ANumArgs, 1);

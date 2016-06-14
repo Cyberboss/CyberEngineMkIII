@@ -20,7 +20,7 @@ int main(const int ANumArguments, const oschar_t* const* const AArguments) {
 	CYB::Engine::Core::Run(static_cast<unsigned int>(ANumArguments), AArguments);
 }
 
-void CYB::API::Assert::HCF[[noreturn]](void){
+void CYB::API::Assert::HCF[[noreturn]](void) noexcept {
 #ifdef DEBUG
 	BREAK;
 #endif

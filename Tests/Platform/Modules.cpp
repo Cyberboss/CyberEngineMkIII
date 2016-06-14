@@ -29,8 +29,7 @@ SCENARIO("Modules can load a library", "[Platform][Modules][Functional]") {
 			CYB::Platform::Modules::Module* Result(nullptr);
 			REQUIRE_NOTHROW(Result = new CYB::Platform::Modules::Module(Library));
 			THEN("It is loaded successfully") {
-				CHECK_COOL_AND_CALM;
-				REQUIRE(Result != nullptr);
+				CHECK(Result != nullptr);
 			}
 			delete Result;
 		}
@@ -41,7 +40,6 @@ SCENARIO("Modules can load a library", "[Platform][Modules][Functional]") {
 			CYB::Platform::Modules::Module* Result(nullptr);
 			CHECK_THROWS_AS(Result = new CYB::Platform::Modules::Module(Library), CYB::Exception::SystemData);
 			THEN("It fails to load") {
-				CHECK_COOL_AND_CALM;
 				CHECK(Result == nullptr);
 				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MODULE_LOAD_FAILURE);
 			}
@@ -58,7 +56,6 @@ SCENARIO("Functions can be loaded from modules", "[Platform][Modules][Functional
 			CHECK_NOTHROW(F1 = Mod.LoadFunction(ExistingLibraryFunctions[0]));
 			CHECK_NOTHROW(F2 = Mod.LoadFunction(ExistingLibraryFunctions[1]));
 			THEN("They are not null and valid code locations") {
-				CHECK_COOL_AND_CALM;
 				CHECK(F1 != nullptr);
 				CHECK(F2 != nullptr);
 #ifdef TARGET_OS_WINDOWS
@@ -76,7 +73,6 @@ SCENARIO("Functions can be loaded from modules", "[Platform][Modules][Functional
 			CHECK_THROWS_AS(F2 = Mod.LoadFunction(FakeLibraryFunctions[1]), CYB::Exception::SystemData);
 			CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE);
 			THEN("The appropriate exception is thrown") {
-				CHECK_COOL_AND_CALM;
 				CHECK(F1 == nullptr);
 				CHECK(F2 == nullptr);
 			}
@@ -88,9 +84,9 @@ SCENARIO("AutoModules work", "[Platform][Modules][Functional]") {
 	GIVEN("A valid system AutoModule definition") {
 		CYB::Platform::Modules::AMKernel32* K32(nullptr);
 		WHEN("It is instatiated") {
-			CHECK_NOTHROW(K32 = new CYB::Platform::Modules::AMKernel32());
+			REQUIRE_NOTHROW(K32 = new CYB::Platform::Modules::AMKernel32());
 			THEN("No exceptions occur") {
-				CHECK_COOL_AND_CALM;
+				CHECK(true);
 			}
 			delete K32;
 		}
@@ -98,9 +94,9 @@ SCENARIO("AutoModules work", "[Platform][Modules][Functional]") {
 	GIVEN("A valid AutoModule definition not for this system") {
 		CYB::Platform::Modules::AMLibC* LibC(nullptr);
 		WHEN("It is instatiated") {
-			CHECK_NOTHROW(LibC = new CYB::Platform::Modules::AMLibC());
+			REQUIRE_NOTHROW(LibC = new CYB::Platform::Modules::AMLibC());
 			THEN("No exceptions occur") {
-				CHECK_COOL_AND_CALM;
+				CHECK(true);
 			}
 			delete LibC;
 		}
@@ -118,7 +114,7 @@ SCENARIO("AutoModules work", "[Platform][Modules][Functional]") {
 				RT = std::move(RT2);
 			}
 			THEN("All is well") {
-				CHECK_COOL_AND_CALM;
+				CHECK(true);
 			}
 		}
 		WHEN("Call are made into them") {
@@ -128,7 +124,7 @@ SCENARIO("AutoModules work", "[Platform][Modules][Functional]") {
 			RT.Call<CYB::Platform::Modules::RT::sched_yield>();
 #endif
 			THEN("All is well") {
-				CHECK_COOL_AND_CALM;
+				CHECK(true);
 			}
 		}
 	}
@@ -143,7 +139,7 @@ SCENARIO("The Module move constructor and move assignment operator works", "[Pla
 				Mod = std::move(Mod2);
 			}
 			THEN("All is well") {
-				CHECK_COOL_AND_CALM;
+				CHECK(true);
 			}
 		}
 	}
@@ -169,7 +165,6 @@ SCENARIO("Test that loading an optional function from a module works", "[Platfor
 			REQUIRE_NOTHROW(TestMod1 = new CYB::Platform::Modules::AMFakeKernel32());
 			REQUIRE_NOTHROW(TestMod2 = new CYB::Platform::Modules::AMFakeRT());
 			THEN("Some functions loaded successfully") {
-				CHECK_COOL_AND_CALM;
 #ifdef TARGET_OS_WINDOWS
 				CHECK(TestMod1->Loaded(CYB::Platform::Modules::FakeKernel32::SwitchToThread));
 				CHECK_FALSE(TestMod1->Loaded(CYB::Platform::Modules::FakeKernel32::FakeFunctionThatDoesNotExist));

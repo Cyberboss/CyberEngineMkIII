@@ -32,7 +32,7 @@ CYB::Engine::Core::~Core(void) {
 
 }
 
-CYB::API::EngineInformation CYB::Engine::Core::CreateEngineInformation(void) {
+CYB::API::EngineInformation CYB::Engine::Core::CreateEngineInformation(void) noexcept {
 	return {
 		u8"CyberEngine Mark III",
 		u8"Copyright Dextraspace Entertainment",
@@ -45,21 +45,22 @@ CYB::API::EngineInformation CYB::Engine::Core::CreateEngineInformation(void) {
 	};
 }
 
-bool CYB::Engine::Core::LaunchUnit(void) {
+bool CYB::Engine::Core::LaunchUnit(void) noexcept {
 	return false;
 }
 
-CYB::Engine::Core& CYB::Engine::Core::GetCore(void) {
+CYB::Engine::Core& CYB::Engine::Core::GetCore(void) noexcept {
 	return *FSingleton;
 }
-void CYB::Engine::Core::Run[[noreturn]](const unsigned int ANumArguments, const oschar_t* const* const AArguments) {
-	{
+void CYB::Engine::Core::Run[[noreturn]](const unsigned int ANumArguments, const oschar_t* const* const AArguments) noexcept {
+	try {
 		Core CyberEngineMarkIII(ANumArguments, AArguments);
 		for (; CyberEngineMarkIII.LaunchUnit(););
 	}
+	catch (...) {}
 	Platform::System::Process::Terminate(Platform::System::Process::GetSelf());
 	CYB::API::Assert::HCF();
 }
-CYB::Engine::Core& CYB::Core(void) {
+CYB::Engine::Core& CYB::Core(void) noexcept {
 	return Engine::Core::GetCore();
 }

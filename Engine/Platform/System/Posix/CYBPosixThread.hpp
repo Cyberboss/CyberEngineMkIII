@@ -16,9 +16,9 @@ namespace CYB {
 					Posix::pthread_t FThread;
 					std::atomic_bool FRunning;
 				private:
-					static void* ThreadProc(void* const AThreadData);
+					static void* ThreadProc(void* const AThreadData) noexcept;
 
-					void DestroyMutex(void);
+					void DestroyMutex(void) noexcept;
 				protected:
 					Thread(API::Threadable& AThreadable);
 					~Thread();

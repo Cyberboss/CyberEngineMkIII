@@ -27,7 +27,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			static void HCF[[noreturn]](void);
+			static void HCF[[noreturn]](void) noexcept;
 			/*!
 				@brief Assertion function. @p AExpression should always be evaluated
 				@param AExpression The expression to check. Will call HCF if false
@@ -36,12 +36,60 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			static void True(const bool AExpression);
-			static void False(const bool AExpression);
-			template <typename AType> static void Equal(const AType& ALHS, const AType& ARHS);
-			template <typename AType> static void NotEqual(const AType& ALHS, const AType& ARHS);
-			template <typename AType> static void LessThan(const AType& ALHS, const AType& ARHS);
-			template <typename AType> static void LessThanOrEqual(const AType& ALHS, const AType& ARHS);
+			static void True(const bool AExpression) noexcept;
+			/*!
+				@brief False assertion function. @p AExpression should always be evaluated
+				@param AExpression The expression to check. Will call HCF if true
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			static void False(const bool AExpression) noexcept;
+			/*!
+				@brief Equivalence assertion function. May not be evaluated
+				@param ALHS the left hand side of the equation
+				@param ARHS the left hand side of the equation
+				@tparam AType The type of @p ALHS and @p ARHS
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			template <typename AType> static void Equal(const AType& ALHS, const AType& ARHS) noexcept;
+			/*!
+				@brief Unequivalence assertion function. May not be evaluated
+				@param ALHS the left hand side of the equation
+				@param ARHS the left hand side of the equation
+				@tparam AType The type of @p ALHS and @p ARHS
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			template <typename AType> static void NotEqual(const AType& ALHS, const AType& ARHS) noexcept;
+			/*!
+				@brief Less than assertion function. May not be evaluated
+				@param ALHS the left hand side of the equation
+				@param ARHS the left hand side of the equation
+				@tparam AType The type of @p ALHS and @p ARHS
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			template <typename AType> static void LessThan(const AType& ALHS, const AType& ARHS) noexcept;
+			/*!
+				@brief Less than or equal assertion function. May not be evaluated
+				@param ALHS the left hand side of the equation
+				@param ARHS the left hand side of the equation
+				@tparam AType The type of @p ALHS and @p ARHS
+				@par Thread Safety
+					This function requires no thread safety
+				@par Exception Safety
+					This function does not throw exceptions
+			*/
+			template <typename AType> static void LessThanOrEqual(const AType& ALHS, const AType& ARHS) noexcept;
 		};
 	};
 };

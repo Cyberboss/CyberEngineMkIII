@@ -37,7 +37,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				static bool Loaded(const void* const AFunction);
+				static bool Loaded(const void* const AFunction) noexcept;
 			};
 			/*!
 				@brief AutoModule external helper construction function without missing function checks
@@ -129,7 +129,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				bool Loaded(const unsigned int AFunctionIndex) const;
+				bool Loaded(const unsigned int AFunctionIndex) const noexcept;
 
 				/*!
 					@brief Call a loaded function

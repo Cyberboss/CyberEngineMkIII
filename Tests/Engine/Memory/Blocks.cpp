@@ -8,7 +8,6 @@ SCENARIO("Block initialization performs as expected", "[Engine][Memory][Block][U
 		WHEN("A Block is initialized in the memory") {
 			auto& TestBlock(*new (Data) Block(100, *static_cast<Block*>(Data), true));
 			THEN("The methods report as expected") {
-				CHECK_COOL_AND_CALM;
 				CHECK_NOTHROW(TestBlock.Validate());
 				CHECK(TestBlock.GetData() == static_cast<byte*>(Data) + sizeof(Block));
 				Block* Address;
@@ -24,7 +23,6 @@ SCENARIO("Block initialization performs as expected", "[Engine][Memory][Block][U
 		WHEN("A LargeBlock is initialized in the memory") {
 			auto& TestBlock(*new (Data) LargeBlock(100 - sizeof(LargeBlock), nullptr));
 			THEN("The methods report as expected") {
-				CHECK_COOL_AND_CALM;
 				CHECK_NOTHROW(TestBlock.Validate());
 				CHECK(TestBlock.GetData() == static_cast<byte*>(Data) + sizeof(Block));
 				Block* Address;
@@ -47,7 +45,6 @@ SCENARIO("Block dword manipulation works", "[Engine][Memory][Block][Unit]") {
 		WHEN("The free bit is set to false") {
 			TestBlock.SetFree(false);
 			THEN("The dword works as intended") {
-				CHECK_COOL_AND_CALM;
 				CHECK_NOTHROW(TestBlock.Validate());
 				CHECK_FALSE(TestBlock.IsFree());
 				CHECK(TestBlock.Size() == 100 - sizeof(Block));
@@ -56,7 +53,6 @@ SCENARIO("Block dword manipulation works", "[Engine][Memory][Block][Unit]") {
 		WHEN("The free bit is set to true") {
 			TestBlock.SetFree(true);
 			THEN("The dword works as intended") {
-				CHECK_COOL_AND_CALM;
 				CHECK_NOTHROW(TestBlock.Validate());
 				CHECK(TestBlock.IsFree());
 				CHECK(TestBlock.Size() == 100 - sizeof(Block));
@@ -65,7 +61,6 @@ SCENARIO("Block dword manipulation works", "[Engine][Memory][Block][Unit]") {
 		WHEN("The size is changed") {
 			TestBlock.SetSize(50);
 			THEN("The dword works as intended") {
-				CHECK_COOL_AND_CALM;
 				CHECK_NOTHROW(TestBlock.Validate());
 				CHECK(TestBlock.IsFree());
 				CHECK(TestBlock.Size() == 50);
@@ -81,7 +76,6 @@ SCENARIO("LargeBlock identification works", "[Engine][Memory][Block][Unit]") {
 		WHEN("It is checked if it is a LargeBlock") {
 			const auto Result(TestBlock.IsLargeBlock());
 			THEN("False is returned") {
-				CHECK_COOL_AND_CALM;
 				CHECK_FALSE(Result);
 			}
 		}
@@ -91,7 +85,6 @@ SCENARIO("LargeBlock identification works", "[Engine][Memory][Block][Unit]") {
 		WHEN("It is checked if it is a LargeBlock") {
 			const auto Result(TestBlock.IsLargeBlock());
 			THEN("True is returned") {
-				CHECK_COOL_AND_CALM;
 				CHECK(Result);
 			}
 		}
@@ -106,7 +99,6 @@ SCENARIO("Block Split/Merge functions work", "[Engine][Memory][Block][Unit]") {
 		WHEN("It is Spliced") {
 			auto& Result(TestBlock.Splice(20));
 			THEN("There are now two Blocks with the appropriate settings") {
-				CHECK_COOL_AND_CALM;
 				CHECK_NOTHROW(Result.Validate());
 				CHECK_NOTHROW(TestBlock.Validate());
 				CHECK(Result.LeftBlock() == &TestBlock);
@@ -123,7 +115,6 @@ SCENARIO("Block Split/Merge functions work", "[Engine][Memory][Block][Unit]") {
 			auto& Tmp(TestBlock.Splice(20));
 			auto& Result(Tmp.EatLeftBlock());
 			THEN("There is now one Block with the appropriate settings") {
-				CHECK_COOL_AND_CALM;
 				CHECK_NOTHROW(TestBlock.Validate());
 				CHECK(&Result == &TestBlock);
 				CHECK(TestBlock.IsFree());
@@ -137,7 +128,6 @@ SCENARIO("Block Split/Merge functions work", "[Engine][Memory][Block][Unit]") {
 		WHEN("It is Allocated from") {
 			auto& Result(LargeBlock::AllocateBlock(TestBlockP, 20));
 			THEN("There are now two Blocks with the appropriate settings") {
-				CHECK_COOL_AND_CALM;
 				CHECK_NOTHROW(Result.Validate());
 				CHECK_NOTHROW(TestBlockP->Validate());
 				CHECK(Result.RightBlock() == TestBlockP);
@@ -154,7 +144,6 @@ SCENARIO("Block Split/Merge functions work", "[Engine][Memory][Block][Unit]") {
 			auto& Tmp(LargeBlock::AllocateBlock(TestBlockP, 20));
 			auto& Result(TestBlockP->EatLeftBlock());
 			THEN("There is now one LargeBlock with the appropriate settings") {
-				CHECK_COOL_AND_CALM;
 				CHECK(&Result == &Tmp);
 				CHECK_NOTHROW(Result.Validate());
 				CHECK(Result.IsLargeBlock());
@@ -172,7 +161,6 @@ SCENARIO("Block validation functions work", "[Engine][Memory][Block][Unit]") {
 		WHEN("It's header is corrupted") {
 			*reinterpret_cast<unsigned long long*>(&TestBlock) = 0;
 			THEN("The validation will fail") {
-				CHECK_COOL_AND_CALM;
 				CHECK_THROWS_AS(TestBlock.Validate(), CYB::Exception::Violation);
 				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::Violation::INVALID_HEAP_BLOCK);
 			}
@@ -190,7 +178,6 @@ SCENARIO("Block validation functions work", "[Engine][Memory][Block][Unit]") {
 		WHEN("It's header is corrupted") {
 			*reinterpret_cast<unsigned long long*>(reinterpret_cast<byte*>(&TestBlock) + sizeof(Block)) = 0;
 			THEN("The validation will fail") {
-				CHECK_COOL_AND_CALM;
 				CHECK_THROWS_AS(TestBlock.Validate(), CYB::Exception::Violation);
 				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::Violation::INVALID_HEAP_BLOCK);
 			}
@@ -198,7 +185,6 @@ SCENARIO("Block validation functions work", "[Engine][Memory][Block][Unit]") {
 		WHEN("It's footer is corrupted") {
 			*(reinterpret_cast<unsigned long long*>(&TestBlock + 1) - 1) = 0;
 			THEN("The validation will fail") {
-				CHECK_COOL_AND_CALM;
 				CHECK_THROWS_AS(TestBlock.Validate(), CYB::Exception::Violation);
 				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::Violation::INVALID_HEAP_BLOCK);
 			}

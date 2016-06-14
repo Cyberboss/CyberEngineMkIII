@@ -17,7 +17,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				CStyle(char* const AData);
+				CStyle(char* const AData) noexcept;
 				virtual ~CStyle() = default;
 				/*!
 					@brief Calculate the byte length of the contained CString
@@ -26,7 +26,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				unsigned int CalculateByteLength(void) const;
+				unsigned int CalculateByteLength(void) const noexcept;
 			public:
 				/*!
 					@brief Get the contained const CString
@@ -36,7 +36,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				const char* CString(void) const;
+				const char* CString(void) const noexcept;
 				/*!
 					@brief Get the number of characters in the contained string
 					@return The number of characters in the contained CString
@@ -45,7 +45,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				virtual unsigned int Length(void) const = 0;
+				virtual unsigned int Length(void) const noexcept = 0;
 				/*!
 					@brief Get the byte length of the contained CString
 					@return The byte length of the contained CString
@@ -54,7 +54,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				unsigned int RawLength(void) const;
+				unsigned int RawLength(void) const noexcept;
 			};
 		};
 	};

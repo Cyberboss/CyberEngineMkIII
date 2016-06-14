@@ -34,7 +34,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				static unsigned int InitializeData(const unsigned int ASize, const bool AFree);	// <- It's an unsigned int for a reason dude
+				static unsigned int InitializeData(const unsigned int ASize, const bool AFree) noexcept;	// <- It's an unsigned int for a reason dude
 
 				/*!
 					@brief Calculate the byte offset to another Block
@@ -45,7 +45,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				unsigned int CalculateOffset(const Block& ABlock);
+				unsigned int CalculateOffset(const Block& ABlock) noexcept;
 			public:
 				/*!
 					@brief Retrieves a reference to a Block given it's data pointer
@@ -54,7 +54,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires no thread safet
 					@par Exception Safety
-						This function does not throw exceptions
+						CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
 				*/
 				static Block& FromData(void* const AData);
 				/*!
@@ -67,7 +67,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				Block(const unsigned int ASpaceAvailable, const Block& ALeftBlock, const bool AFree);
+				Block(const unsigned int ASpaceAvailable, const Block& ALeftBlock, const bool AFree) noexcept;
 				Block(const Block&) = delete;
 				/*!
 					@brief Get the data portion of the memory owned by this Block
@@ -77,7 +77,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				void* GetData(void);
+				void* GetData(void) noexcept;
 
 				/*!
 					@brief Get the block to the right of this Block
@@ -87,7 +87,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				Block* RightBlock(void);
+				Block* RightBlock(void) noexcept;
 				/*!
 					@brief Get the block to the right of this Block
 					@return The block to the right of this block. May be nullptr if this is the rightmost block
@@ -96,7 +96,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				const Block* RightBlock(void) const;
+				const Block* RightBlock(void) const noexcept;
 				/*!
 					@brief Get the block to the left of this Block
 					@return The block to the left of this block. May be nullptr if this is the leftmost block or the block to the left is a LargeBlock
@@ -105,7 +105,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				Block* LeftBlock(void);
+				Block* LeftBlock(void) noexcept;
 
 				/*!
 					@brief Set the Block's size
@@ -115,7 +115,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				void SetSize(const unsigned int ANewSize);
+				void SetSize(const unsigned int ANewSize) noexcept;
 				/*!
 					@brief Set the Block's free state
 					@param ANewFree The Block's new free state
@@ -124,7 +124,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				void SetFree(const bool ANewFree);
+				void SetFree(const bool ANewFree) noexcept;
 
 				/*!
 					@brief Check if this Block is free
@@ -134,7 +134,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				bool IsFree(void) const;
+				bool IsFree(void) const noexcept;
 				/*!
 					@brief Get the size of the Block
 					@return The size of the Block. This will be positive and less than the max of a signed int
@@ -143,7 +143,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				unsigned int Size(void) const;
+				unsigned int Size(void) const noexcept;
 
 				/*!
 					@brief Check if this Block is a LargeBlock
@@ -153,7 +153,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				bool IsLargeBlock(void) const;
+				bool IsLargeBlock(void) const noexcept;
 
 				/*!
 					@brief Checks the validity of a Block. Has no effect outside of DEBUG mode
@@ -173,7 +173,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				Block& Splice(const unsigned int ASizeToKeep);
+				Block& Splice(const unsigned int ASizeToKeep) noexcept;
 
 				/*!
 					@brief Merge size and header into the size of the Block to the left. Does not modify free lists
@@ -182,7 +182,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				Block& EatLeftBlock(void);
+				Block& EatLeftBlock(void) noexcept;
 			};
 		};
 	};

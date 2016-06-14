@@ -7,7 +7,7 @@ namespace CYB {
 				protected:
 					Win32::HANDLE FThread;
 				private:
-					static unsigned long __stdcall ThreadProc(void* const AThreadable);
+					static unsigned long __stdcall ThreadProc(void* const AThreadable) noexcept;
 				protected:
 					Thread(API::Threadable& AThreadable);
 					~Thread();

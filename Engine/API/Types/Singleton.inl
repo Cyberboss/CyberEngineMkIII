@@ -1,7 +1,8 @@
 //! @file Singleton.inl Implements functions from CYB::API::Singleton
 #pragma once
+template <class AParent> AParent* CYB::API::Singleton<AParent>::FSingleton(nullptr);
 
-template <class AParent> CYB::API::Singleton<AParent>::Singleton() {
+template <class AParent> CYB::API::Singleton<AParent>::Singleton() noexcept {
 	static_assert(std::is_base_of<Singleton<AParent>, AParent>::value, "CYB::API::Singleton may only be used via inheritance");
 	Assert::Equal<AParent*>(FSingleton, nullptr);
 	FSingleton = static_cast<AParent*>(this);

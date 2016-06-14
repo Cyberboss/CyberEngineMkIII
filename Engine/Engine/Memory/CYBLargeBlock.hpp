@@ -24,7 +24,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				static Block& AllocateBlock(LargeBlock*& ALargeBlock, const unsigned int ANewBlockSize);
+				static Block& AllocateBlock(LargeBlock*& ALargeBlock, const unsigned int ANewBlockSize) noexcept;
 
 				/*!
 					@brief Initialization constructor. Should be used with operator new in a memory location at least @p ASpaceAvailable large that extends to the end of a reservation. The LargeBlock will own this memory
@@ -35,7 +35,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				LargeBlock(const unsigned long long ASpaceAvailable, Block* const ALeftBlock);
+				LargeBlock(const unsigned long long ASpaceAvailable, Block* const ALeftBlock) noexcept;
 
 				//! @brief See CYB::Engine::Block::Validate. This version must be used when referring to large blocks
 				void Validate(void) const;
@@ -47,13 +47,13 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				LargeBlock& EatLeftBlock(void);
+				LargeBlock& EatLeftBlock(void) noexcept;
 
 				//! @brief See CYB::Engine::Block::Size. This version must be used when referring to large blocks
-				unsigned long long Size(void) const;
+				unsigned long long Size(void) const noexcept;
 
 				//! @brief See CYB::Engine::Block::SetSize. This version must be used when referring to large blocks
-				void SetSize(const unsigned long long ANewSize);
+				void SetSize(const unsigned long long ANewSize) noexcept;
 			};
 		};
 	};

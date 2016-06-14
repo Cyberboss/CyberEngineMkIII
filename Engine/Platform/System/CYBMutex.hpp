@@ -18,11 +18,11 @@ namespace CYB {
 				~Mutex() final override;
 
 				//! @brief See CYB::API::Mutex::Lock
-				void Lock(void) const final override;
+				void Lock(void) const noexcept final override;
 				//! @brief See CYB::API::Mutex::TryLock
-				bool TryLock(void) const final override;
+				bool TryLock(void) const noexcept final override;
 				//! @brief See CYB::API::Mutex::Unlock
-				void Unlock(void) const final override;
+				void Unlock(void) const noexcept final override;
 			};
 		};
 	};

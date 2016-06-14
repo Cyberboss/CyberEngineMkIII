@@ -16,14 +16,14 @@ CYB::Platform::System::Mutex::~Mutex() {
 	API::Assert::Equal(Result, 0);
 }
 
-void CYB::Platform::System::Mutex::Lock(void) const {
+void CYB::Platform::System::Mutex::Lock(void) const noexcept {
 	Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_lock>(&FMutex);
 }
 
-bool CYB::Platform::System::Mutex::TryLock(void) const {
+bool CYB::Platform::System::Mutex::TryLock(void) const noexcept {
 	return Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_trylock>(&FMutex) == 0;
 }
 
-void CYB::Platform::System::Mutex::Unlock(void) const {
+void CYB::Platform::System::Mutex::Unlock(void) const noexcept {
 	Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_unlock>(&FMutex);
 }

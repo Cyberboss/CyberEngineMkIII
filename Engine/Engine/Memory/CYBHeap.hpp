@@ -24,7 +24,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				static unsigned long long CalculateInitialCommitSize(const unsigned long long AInitialCommitSize);
+				static unsigned long long CalculateInitialCommitSize(const unsigned long long AInitialCommitSize) noexcept;
 
 				/*!
 					@brief Get a reference to the first block in the reservation
@@ -34,7 +34,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				Block& FirstBlock(void);
+				Block& FirstBlock(void) noexcept;
 				/*!
 					@brief Get a reference to the first block in the reservation
 					@return A reference to the first block in the reservation
@@ -43,7 +43,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				const Block& FirstBlock(void) const;
+				const Block& FirstBlock(void) const noexcept;
 
 				/*!
 					@brief Adds a Block to the free list after @p APreviousEntry while performing all the checks and reassignments
@@ -54,7 +54,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				void AddToFreeList(Block& ABlock, Block* const APreviousEntry);
+				void AddToFreeList(Block& ABlock, Block* const APreviousEntry) noexcept;
 				/*!
 					@brief Removes a Block from the free list after @p APreviousEntry while performing all the checks and reassignments
 					@param ABlock The Block to remove from the free list
@@ -64,7 +64,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				void RemoveFromFreeList(Block& ABlock, Block* const APreviousEntry);
+				void RemoveFromFreeList(Block& ABlock, Block* const APreviousEntry) noexcept;
 
 				/*!
 					@brief Ensures that FLargeBlock has at least @p ARequiredNumBytes of Size by committing more memory if necessary
@@ -72,7 +72,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires that FMutex is locked
 					@par Exception Safety
-						This function does not throw exceptions
+						CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the memory could not be committed
 				*/
 				void LargeBlockNeedsAtLeast(const unsigned int ARequiredNumBytes);
 
@@ -85,7 +85,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				void MergeBlockIfPossible(Block*& ABlock, Block* ALastFreeListEntry);
+				void MergeBlockIfPossible(Block*& ABlock, Block* ALastFreeListEntry) noexcept;
 
 				/*!
 					@brief Allocates a Block
@@ -132,8 +132,8 @@ namespace CYB {
 				*/
 				Heap(const unsigned long long AInitialCommitSize);
 				Heap(const Heap&) = delete;
-				Heap(Heap&& AMove);	//!< @brief See @ref structors
-				Heap& operator=(Heap&& AMove);	//!< @brief See @ref structors
+				Heap(Heap&& AMove) noexcept;	//!< @brief See @ref structors
+				Heap& operator=(Heap&& AMove) noexcept;	//!< @brief See @ref structors
 				/*!
 					@brief Destroys a heap, invalidating any memory allocated from it
 					@par WARNING
@@ -165,7 +165,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				bool Locked(void) const;
+				bool Locked(void) const noexcept;
 
 				/*!
 					@brief Retrieve the number of allocations over the Heap's lifetime
@@ -175,7 +175,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				unsigned long long TotalNumberOfAllocations(void) const;
+				unsigned long long TotalNumberOfAllocations(void) const noexcept;
 				/*!
 					@brief Retrieve the current of allocations in the heap. Implicitly unlocks the Heap for the duration of the function
 					@return The number of current allocations in the heap
@@ -193,7 +193,7 @@ namespace CYB {
 					@par Exception Safety
 						This function does not throw exceptions
 				*/
-				unsigned long long CurrentAmountOfMemoryCommitted(void) const;
+				unsigned long long CurrentAmountOfMemoryCommitted(void) const noexcept;
 
 				/*!
 					@brief Walks the heap and throws if an error is detected

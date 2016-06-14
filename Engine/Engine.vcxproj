@@ -172,6 +172,7 @@
     <ClInclude Include="API\Interop\Interop.hpp" />
     <ClInclude Include="API\Interop\Object.hpp" />
     <ClInclude Include="API\Types\Containers\Containers.hpp" />
+    <ClInclude Include="API\Types\Containers\Vector.hpp" />
     <ClInclude Include="API\Types\EngineInformation.hpp" />
     <ClInclude Include="API\Types\Exception.hpp" />
     <ClInclude Include="API\Types\ParameterPack.hpp" />

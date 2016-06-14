@@ -370,6 +370,9 @@
     <ClInclude Include="API\Types\Containers\Containers.hpp">
       <Filter>API\Types\Containers</Filter>
     </ClInclude>
+    <ClInclude Include="API\Types\Containers\Vector.hpp">
+      <Filter>API\Types\Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DoxyPages\Contexts.dox">

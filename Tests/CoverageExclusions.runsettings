@@ -36,8 +36,9 @@ Included items must then not match any entries in the exclude list to remain inc
             <!-- Match fully qualified names of functions: -->
             <!-- (Use "\." to delimit namespaces in C# or Visual Basic, "::" in C++.)  -->
             <Functions>
-              <Exclude>       
+              <Exclude>
                 <Function>^std::.*</Function>
+                <Function>^CYB::Platform::Modules::AutoModuleOptionalHelper.*</Function>
               </Exclude>
             </Functions>
 

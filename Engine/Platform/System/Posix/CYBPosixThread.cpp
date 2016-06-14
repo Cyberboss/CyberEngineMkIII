@@ -30,16 +30,14 @@ CYB::Platform::System::Implementation::Thread::Thread(API::Threadable& AThreadab
 			if (PThread.Call<Modules::PThread::pthread_mutex_init>(&FRunningLock, nullptr) != 0)
 				throw Exception::SystemData(Exception::SystemData::ErrorCode::MUTEX_INITIALIZATION_FAILURE);	//Throw for the specific reason
 		} catch(CYB::Exception::SystemData AException) {	//But always translate
-			if(AException.FErrorCode == Exception::SystemData::ErrorCode::MUTEX_INITIALIZATION_FAILURE)
-				throw Exception::SystemData(Exception::SystemData::ErrorCode::THREAD_CREATION_FAILURE);
-			throw;
-		}
+			API::Assert::Equal(AException.FErrorCode, static_cast<unsigned int>(Exception::SystemData::ErrorCode::MUTEX_INITIALIZATION_FAILURE));
+			throw Exception::SystemData(Exception::SystemData::ErrorCode::THREAD_CREATION_FAILURE);
+		}	//optimizer should take care of this
 		PThread.Call<Modules::PThread::pthread_mutex_lock>(&FRunningLock);
 
 		std::atomic_thread_fence(std::memory_order_release);
 
 		if (PThread.Call<Modules::PThread::pthread_create>(&FThread, nullptr, ThreadProc, &Data) != 0) {
-			//! @todo Log error
 			PThread.Call<Modules::PThread::pthread_mutex_unlock>(&FRunningLock);
 			DestroyMutex();
 			throw Exception::SystemData(Exception::SystemData::ErrorCode::THREAD_CREATION_FAILURE);

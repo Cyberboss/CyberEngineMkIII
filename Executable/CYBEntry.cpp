@@ -15,7 +15,7 @@
 	@par Exception Safety
 		This function does not throw exceptions
 */
-int main[[noreturn]](const int ANumArguments, const oschar_t* const AArguments) {
+int main(const int ANumArguments, const oschar_t* const* const AArguments) {
 	CYB::API::Assert::LessThanOrEqual(0, ANumArguments);
 	CYB::Engine::Core::Run(static_cast<unsigned int>(ANumArguments), AArguments);
 }

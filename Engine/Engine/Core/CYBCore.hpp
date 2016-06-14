@@ -45,7 +45,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			Core(const unsigned int ANumArguments, const oschar_t* const AArguments);
+			Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments);
 			/*!
 				@brief Cleans up the engine and terminates the process
 			*/
@@ -81,7 +81,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			static void Run[[noreturn]](const unsigned int ANumArguments, const oschar_t* const AArguments);
+			static void Run[[noreturn]](const unsigned int ANumArguments, const oschar_t* const* const AArguments);
 		};
 	};
 

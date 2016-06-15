@@ -63,14 +63,18 @@ SCENARIO("Mutex basic functions work", "[Platform][System][Mutex][Unit]") {
 		delete TestMutex;
 	}
 }
-#ifndef TARGET_OS_WINDOWS
+REDIRECTED_FUNCTION(BadInitializeCriticalSection, void*) {
+	throw CYB::Exception::SystemData(CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);	//fake it on windows since the glorious win32 api can't fail creating a lock
+}
 REDIRECTED_FUNCTION(BadPThreadMutexInit, const void* const, const void* const) {
 	return -1;
 }
 SCENARIO("Mutex initialization error works", "[Platform][System][Mutex][Unit]") {
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
+	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	GIVEN("A Redirected initialization function") {
 		auto BPMC(PThread.Redirect<CYB::Platform::Modules::PThread::pthread_mutex_init, BadPThreadMutexInit>());
+		auto BICS(K32.Redirect<CYB::Platform::Modules::Kernel32::InitializeCriticalSection, BadInitializeCriticalSection>());
 		WHEN("The function is called") {
 			CYB::Platform::System::Mutex* TestMutex(nullptr);
 			REQUIRE_THROWS_AS(TestMutex = new CYB::Platform::System::Mutex(), CYB::Exception::SystemData);
@@ -81,4 +85,3 @@ SCENARIO("Mutex initialization error works", "[Platform][System][Mutex][Unit]") 
 		}
 	}
 }
-#endif

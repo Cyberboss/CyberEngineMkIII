@@ -102,7 +102,7 @@ CYB::Engine::Memory::Block& CYB::Engine::Memory::Block::Splice(const unsigned in
 	const auto NewBlockAmount(Size() - ASizeToKeep);
 	API::Assert::LessThan<unsigned long long>(sizeof(Block), NewBlockAmount);
 	SetSize(ASizeToKeep);
-	return *(new (static_cast<byte*>(GetData()) + ASizeToKeep) Block(static_cast<unsigned int>(NewBlockAmount), *this, true));
+	return *API::Interop::Allocator::InPlaceAllocation<Block>(static_cast<byte*>(GetData()) + ASizeToKeep, static_cast<unsigned int>(NewBlockAmount), *this, true);
 }
 
 CYB::Engine::Memory::Block& CYB::Engine::Memory::Block::EatLeftBlock(void) noexcept {

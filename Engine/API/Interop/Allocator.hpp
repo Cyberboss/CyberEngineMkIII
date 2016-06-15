@@ -46,6 +46,20 @@ namespace CYB {
 				static Allocator& GetAllocator(void) noexcept;
 
 				/*!
+					@brief Drop in replacement for placement new. Used for code coverage
+					@param ALocation An area of memory not nullptr and at least sizof(AType) where AType will be constructed
+					@param AArguments Arguments to AType's constructor
+					@tparam AType The type to be constructed
+					@tparam AArgs The arguments types of AType's constructor
+					@return A pointer to the new AType which will be equivalent to ALocation
+					@par Thread Safety
+						This function requires no thread safety
+					@par Exception Safety
+						Dependant on AType's constructor
+				*/
+				template <typename AType, typename... AArgs> static AType* InPlaceAllocation(void* const ALocation, AArgs&&... AArguments);
+
+				/*!
 					@brief Allocates the object specified by AAllocatable
 					@tparam AAllocatable The type of object to allocate
 					@tparam AArgs The arguments types of AAllocatable's constructor

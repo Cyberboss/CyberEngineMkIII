@@ -18,7 +18,7 @@ SCENARIO("VirtualMemory reservations can be made and released", "[Platform][Syst
 			REQUIRE_NOTHROW(CYB::Platform::System::VirtualMemory::Release(Result));
 			THEN("No errors occur and the address is invalid") {
 				REQUIRE_THROWS_AS(CYB::Platform::System::VirtualMemory::Commit(Result, 100), CYB::Exception::SystemData);
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE);
 			}
 		}
 	}
@@ -29,7 +29,7 @@ SCENARIO("VirtualMemory reservations can be made and released", "[Platform][Syst
 			REQUIRE_THROWS_AS(Result = CYB::Platform::System::VirtualMemory::Reserve(ReservationSize), CYB::Exception::SystemData);
 			THEN("No errors occur and a valid address is returned") {
 				CHECK(Result == nullptr);
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE);
 			}
 		}
 	}
@@ -38,7 +38,7 @@ SCENARIO("VirtualMemory reservations can be made and released", "[Platform][Syst
 		WHEN("The reservation is released") {
 			REQUIRE_THROWS_AS(CYB::Platform::System::VirtualMemory::Release(Reservation), CYB::Exception::SystemData);
 			THEN("The appropriate error occurs") {
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_RELEASE_FAILURE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MEMORY_RELEASE_FAILURE);
 			}
 		}
 	}
@@ -52,7 +52,7 @@ SCENARIO("VirtualMemory reservations handle various sizes", "[Platform][System][
 			ReservationSize = 12;
 			REQUIRE_THROWS_AS(CYB::Platform::System::VirtualMemory::Reserve(ReservationSize), CYB::Exception::SystemData);
 			THEN("The apporpriate error is thrown") {
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE);
 			}
 		}
 #ifndef TARGET_OS_LINUX	//OVERCOMMIIITTTTT!!!!
@@ -60,7 +60,7 @@ SCENARIO("VirtualMemory reservations handle various sizes", "[Platform][System][
 			ReservationSize = std::numeric_limits<unsigned long long>().max();
 			REQUIRE_THROWS_AS(CYB::Platform::System::VirtualMemory::Reserve(ReservationSize), CYB::Exception::SystemData);
 			THEN("The apporpriate error is thrown") {
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE);
 			}
 		}
 #endif
@@ -90,7 +90,7 @@ SCENARIO("VirtualMemory commits work as intended", "[Platform][System][VirtualMe
 			CommitSize = 2000000;
 			THEN("The commit fails") {
 				REQUIRE_THROWS_AS(CYB::Platform::System::VirtualMemory::Commit(Reservation, CommitSize), CYB::Exception::SystemData);
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE);
 			}
 		}
 		CYB::Platform::System::VirtualMemory::Release(Reservation);
@@ -111,7 +111,7 @@ SCENARIO("VirtualMemory commits work as intended", "[Platform][System][VirtualMe
 		WHEN("A commit is attempted"){
 			REQUIRE_THROWS_AS(CYB::Platform::System::VirtualMemory::Commit(Reservation, 500000), CYB::Exception::SystemData);
 			THEN("The appropriate error occurs") {
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE);
 			}
 		}
 	}
@@ -149,19 +149,19 @@ SCENARIO("VirtualMemory reservation protection levels can be changed", "[Platfor
 		WHEN("The access level is set to NONE") {
 			REQUIRE_THROWS_AS(CYB::Platform::System::VirtualMemory::Access(Reservation, CYB::Platform::System::VirtualMemory::AccessLevel::NONE), CYB::Exception::SystemData);
 			THEN("The appropriate error occurs") {
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE);
 			}
 		}
 		WHEN("The access level is set to READ") {
 			REQUIRE_THROWS_AS(CYB::Platform::System::VirtualMemory::Access(Reservation, CYB::Platform::System::VirtualMemory::AccessLevel::READ), CYB::Exception::SystemData);
 			THEN("The appropriate error occurs") {
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE);
 			}
 		}
 		WHEN("The access level is set to READ_WRITE") {
 			REQUIRE_THROWS_AS(CYB::Platform::System::VirtualMemory::Access(Reservation, CYB::Platform::System::VirtualMemory::AccessLevel::READ_WRITE), CYB::Exception::SystemData);
 			THEN("The appropriate error occurs") {
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE);
 			}
 		}
 	}
@@ -224,26 +224,26 @@ SCENARIO("VirtualMemory errors work", "[Platform][System][VirtualMemory][Unit]")
 				void* Reservation;
 				REQUIRE_THROWS_AS(Reservation = CYB::Platform::System::VirtualMemory::Reserve(10000), CYB::Exception::SystemData);
 				THEN("The appropriate exception occurs") {
-					CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE);
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE);
 				}
 			}
 			WHEN("A commit is attempted on valid memory") {
 				REQUIRE_THROWS_AS(CYB::Platform::System::VirtualMemory::Commit(ValidReservation, 1000), CYB::Exception::SystemData);
 				THEN("The appropriate exception occurs") {
-					CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE);
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE);
 				}
 			}
 			WHEN("An access change is attempted on valid memory") {
 				auto BVP(K32.Redirect<CYB::Platform::Modules::Kernel32::VirtualProtect, BadVirtualProtect>());	//Access is used before commit on windows but it fails in the same way
 				REQUIRE_THROWS_AS(CYB::Platform::System::VirtualMemory::Access(ValidReservation, CYB::Platform::System::VirtualMemory::AccessLevel::READ), CYB::Exception::SystemData);
 				THEN("The appropriate exception occurs") {
-					CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE);
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE);
 				}
 			}
 			WHEN("A release is attempted on valid memory") {
 				REQUIRE_THROWS_AS(CYB::Platform::System::VirtualMemory::Release(ValidReservation), CYB::Exception::SystemData);
 				THEN("The appropriate exception occurs") {
-					CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MEMORY_RELEASE_FAILURE);
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MEMORY_RELEASE_FAILURE);
 				}
 			}
 		}

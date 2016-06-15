@@ -30,7 +30,7 @@ SCENARIO("Thread creation works", "[Platform][System][Threads][Unit][Slow]") {
 	};
 };
 
-SCENARIO("Thread waiting and deletion work", "[Platform][System][Threads][Unit][Slow]") {
+SCENARIO("Thread Wait and deletion work", "[Platform][System][Threads][Unit][Slow]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
@@ -189,7 +189,7 @@ SCENARIO("Thread errors work", "[Platform][System][Threads][Unit]") {
 			CYB::Platform::System::Thread* Thread(nullptr);
 			REQUIRE_THROWS_AS(Thread = new CYB::Platform::System::Thread(Test), CYB::Exception::SystemData);
 			THEN("The appropriate error occurs") {
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::THREAD_CREATION_FAILURE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::THREAD_CREATION_FAILURE);
 				CHECK_FALSE(Test.FRan);
 			}
 			delete Thread;
@@ -203,7 +203,7 @@ SCENARIO("Thread errors work", "[Platform][System][Threads][Unit]") {
 			CYB::Platform::System::Thread* Thread(nullptr);
 			REQUIRE_THROWS_AS(Thread = new CYB::Platform::System::Thread(Test), CYB::Exception::SystemData);
 			THEN("The appropriate error occurs") {
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::THREAD_CREATION_FAILURE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::THREAD_CREATION_FAILURE);
 				CHECK_FALSE(Test.FRan);
 			}
 			delete Thread;

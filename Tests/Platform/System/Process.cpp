@@ -22,7 +22,7 @@ SCENARIO("Getting the running process works", "[Platform][System][Process][Unit]
 	}
 }
 
-SCENARIO("The Process move constructor works", "[Platform][System][Process][Unit]") {
+SCENARIO("Process move constructor works", "[Platform][System][Process][Unit]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	GIVEN("A Process") {
 		auto Proc(CYB::Platform::System::Process::GetSelf());

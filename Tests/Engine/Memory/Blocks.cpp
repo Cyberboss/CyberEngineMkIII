@@ -162,14 +162,14 @@ SCENARIO("Block validation functions work", "[Engine][Memory][Block][Unit]") {
 			*reinterpret_cast<unsigned long long*>(&TestBlock) = 0;
 			THEN("The validation will fail") {
 				CHECK_THROWS_AS(TestBlock.Validate(), CYB::Exception::Violation);
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::Violation::INVALID_HEAP_BLOCK);
+				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_HEAP_BLOCK);
 			}
 		}
 		WHEN("It's footer is corrupted") {
 			*(reinterpret_cast<unsigned long long*>(&TestBlock + 1) - 1) = 0;
 			THEN("The validation will fail") {
 				CHECK_THROWS_AS(TestBlock.Validate(), CYB::Exception::Violation);
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::Violation::INVALID_HEAP_BLOCK);
+				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_HEAP_BLOCK);
 			}
 		}
 	}
@@ -179,14 +179,14 @@ SCENARIO("Block validation functions work", "[Engine][Memory][Block][Unit]") {
 			*reinterpret_cast<unsigned long long*>(reinterpret_cast<byte*>(&TestBlock) + sizeof(Block)) = 0;
 			THEN("The validation will fail") {
 				CHECK_THROWS_AS(TestBlock.Validate(), CYB::Exception::Violation);
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::Violation::INVALID_HEAP_BLOCK);
+				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_HEAP_BLOCK);
 			}
 		}
 		WHEN("It's footer is corrupted") {
 			*(reinterpret_cast<unsigned long long*>(&TestBlock + 1) - 1) = 0;
 			THEN("The validation will fail") {
 				CHECK_THROWS_AS(TestBlock.Validate(), CYB::Exception::Violation);
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::Violation::INVALID_HEAP_BLOCK);
+				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_HEAP_BLOCK);
 			}
 		}
 	}

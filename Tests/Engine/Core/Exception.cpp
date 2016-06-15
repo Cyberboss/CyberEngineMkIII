@@ -21,5 +21,18 @@ SCENARIO("Exception error code verification works", "[Exception][Unit]") {
 				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_EXCEPTION_ERROR_CODE);
 			}
 		}
+		WHEN("A Fatal instantiation is attempted") {
+			REQUIRE_THROWS_AS(CYB::Exception::Fatal(static_cast<CYB::Exception::Fatal::ErrorCode>(FakeExceptionCode)), CYB::Exception::Violation);
+			THEN("The correct Violation exception is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_EXCEPTION_ERROR_CODE);
+			}
+		}
 	}
+}
+
+TEST_CASE("REMOVE THIS AFTER YOU MAKE INTERNAL AND FATAL EXCEPTIONS", "[Exception][Unit]") {
+	REQUIRE_THROWS_AS(throw CYB::Exception::Internal(CYB::Exception::Internal::PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE), CYB::Exception::Internal);
+	CHECK_EXCEPTION_CODE(CYB::Exception::Internal::PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE);
+	REQUIRE_THROWS_AS(throw CYB::Exception::Fatal(CYB::Exception::Fatal::PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE), CYB::Exception::Fatal);
+	CHECK_EXCEPTION_CODE(CYB::Exception::Fatal::PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE);
 }

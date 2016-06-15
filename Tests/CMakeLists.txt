@@ -17,6 +17,8 @@ Platform/System/Process.cpp
 Engine/Memory/Blocks.cpp
 Engine/Memory/Heap.cpp
 
+API/String/StaticAndCStyle.cpp
+
 )
 
 set_property(TARGET CyberEngineMkIIITester PROPERTY CXX_STANDARD 14)

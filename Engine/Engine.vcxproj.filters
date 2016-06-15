@@ -97,9 +97,6 @@
     <Filter Include="API\Allocatables">
       <UniqueIdentifier>{d4550f5d-5937-4534-b3e7-a603272eefd9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="API\Types\Strings">
-      <UniqueIdentifier>{e56aa628-ce5a-4a16-b43d-542753279801}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DoxyPages">
       <UniqueIdentifier>{f1241a38-a1a8-4115-9333-dd7d4719c00b}</UniqueIdentifier>
     </Filter>
@@ -135,6 +132,9 @@
     </Filter>
     <Filter Include="API\Types\Containers">
       <UniqueIdentifier>{92a09865-2e07-4a31-ab45-a56dc02aba0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\Types\String">
+      <UniqueIdentifier>{e56aa628-ce5a-4a16-b43d-542753279801}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -198,15 +198,6 @@
     </ClInclude>
     <ClInclude Include="API\Types\Types.hpp">
       <Filter>API\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="API\Types\Strings\CStyleString.hpp">
-      <Filter>API\Types\Strings</Filter>
-    </ClInclude>
-    <ClInclude Include="API\Types\Strings\StaticString.hpp">
-      <Filter>API\Types\Strings</Filter>
-    </ClInclude>
-    <ClInclude Include="API\Types\Strings\Strings.hpp">
-      <Filter>API\Types\Strings</Filter>
     </ClInclude>
     <ClInclude Include="API\Allocatables\Mutex.hpp">
       <Filter>API\Allocatables</Filter>
@@ -364,14 +355,23 @@
     <ClInclude Include="Platform\System\CYBPath.hpp">
       <Filter>Platform\System</Filter>
     </ClInclude>
-    <ClInclude Include="API\Types\Strings\DynamicString.hpp">
-      <Filter>API\Types\Strings</Filter>
-    </ClInclude>
     <ClInclude Include="API\Types\Containers\Containers.hpp">
       <Filter>API\Types\Containers</Filter>
     </ClInclude>
     <ClInclude Include="API\Types\Containers\Vector.hpp">
       <Filter>API\Types\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\String\CStyleString.hpp">
+      <Filter>API\Types\String</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\String\DynamicString.hpp">
+      <Filter>API\Types\String</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\String\StaticString.hpp">
+      <Filter>API\Types\String</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\String\Strings.hpp">
+      <Filter>API\Types\String</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -417,12 +417,6 @@
     <None Include="API\Types\Singleton.inl">
       <Filter>API\Types</Filter>
     </None>
-    <None Include="API\Types\Strings\CStyleString.inl">
-      <Filter>API\Types\Strings</Filter>
-    </None>
-    <None Include="API\Types\Strings\StaticString.inl">
-      <Filter>API\Types\Strings</Filter>
-    </None>
     <None Include="API\Interop\Object.inl">
       <Filter>API\Interop</Filter>
     </None>
@@ -446,6 +440,12 @@
     </None>
     <None Include="Platform\System\CYBSyscalls.inl">
       <Filter>Platform\System</Filter>
+    </None>
+    <None Include="API\Types\String\CStyleString.inl">
+      <Filter>API\Types\String</Filter>
+    </None>
+    <None Include="API\Types\String\StaticString.inl">
+      <Filter>API\Types\String</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

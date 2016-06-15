@@ -12,3 +12,5 @@ namespace CYB {
 };
 
 #include "HCF.inl"
+
+#define CHECK_EXCEPTION_CODE(AExceptionCode) CHECK(CYB::Exception::FLastInstantiatedExceptionCode == static_cast<unsigned int>(AExceptionCode))

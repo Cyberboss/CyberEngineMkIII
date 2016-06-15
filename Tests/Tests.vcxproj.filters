@@ -31,6 +31,9 @@
     <ClCompile Include="API\String\StaticAndCStyle.cpp">
       <Filter>API\String</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Core\Exception.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />
@@ -74,6 +77,9 @@
     </Filter>
     <Filter Include="API\String">
       <UniqueIdentifier>{05252be5-da06-4c86-96ee-1329faf80680}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core">
+      <UniqueIdentifier>{5fcaeb86-f9ff-48ad-aa0b-32d95a8a36ca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

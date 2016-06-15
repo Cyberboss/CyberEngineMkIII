@@ -41,7 +41,7 @@ SCENARIO("Modules can load a library", "[Platform][Modules][Functional]") {
 			CHECK_THROWS_AS(Result = new CYB::Platform::Modules::Module(Library), CYB::Exception::SystemData);
 			THEN("It fails to load") {
 				CHECK(Result == nullptr);
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MODULE_LOAD_FAILURE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MODULE_LOAD_FAILURE);
 			}
 			delete Result;
 		}
@@ -69,9 +69,9 @@ SCENARIO("Functions can be loaded from modules", "[Platform][Modules][Functional
 		WHEN("Illegitimate functions are loaded from the library") {
 			void* F1(nullptr), * F2(nullptr);
 			CHECK_THROWS_AS(F1 = Mod.LoadFunction(FakeLibraryFunctions[0]), CYB::Exception::SystemData);
-			CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE);
+			CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE);
 			CHECK_THROWS_AS(F2 = Mod.LoadFunction(FakeLibraryFunctions[1]), CYB::Exception::SystemData);
-			CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE);
+			CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE);
 			THEN("The appropriate exception is thrown") {
 				CHECK(F1 == nullptr);
 				CHECK(F2 == nullptr);
@@ -130,7 +130,7 @@ SCENARIO("AutoModules work", "[Platform][Modules][Functional]") {
 	}
 }
 
-SCENARIO("The Module move constructor and move assignment operator works", "[Platform][Modules][Unit]") {
+SCENARIO("Module move constructor and move assignment operator works", "[Platform][Modules][Unit]") {
 	GIVEN("A valid module"){
 		CYB::Platform::Modules::Module Mod(ExistingLibrary);
 		WHEN("The module is moved") {

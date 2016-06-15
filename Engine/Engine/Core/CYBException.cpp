@@ -8,21 +8,23 @@ namespace CYB {
 	};
 };
 
-CYB::API::String::Static CYB::Exception::Violation::ErrorMessage(const ErrorCode AErrorCode) noexcept {
+CYB::API::String::Static CYB::Exception::Violation::ErrorMessage(const ErrorCode AErrorCode) {
 	switch (AErrorCode)	{
+	case INVALID_EXCEPTION_ERROR_CODE:
+		return API::String::Static(u8"An exception had instantiation attempted with an invalid error code");
 	case INVALID_HEAP_BLOCK:
 		return API::String::Static(u8"A Block failed to validate during a Heap operation");
 	default:
-		API::Assert::HCF();
+		throw Violation(INVALID_EXCEPTION_ERROR_CODE);
 	}
 }
-CYB::Exception::Violation::Violation(const ErrorCode AErrorCode) noexcept :
+CYB::Exception::Violation::Violation(const ErrorCode AErrorCode) :
 	Base(ErrorMessage(AErrorCode), AErrorCode, Level::VIOLATION)
 {
 	FLastInstantiatedExceptionCode = AErrorCode;
 }
 
-CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCode AErrorCode) noexcept {
+CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCode AErrorCode) {
 	switch (AErrorCode) {
 	case MEMORY_RESERVATION_FAILURE:
 		return API::String::Static(u8"Failed to reserve virtual memory from the OS.");
@@ -41,21 +43,21 @@ CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCod
 	case THREAD_CREATION_FAILURE:
 		return API::String::Static(u8"OS failed to create requested thread.");
 	default:
-		API::Assert::HCF();
+		throw Violation(Violation::INVALID_EXCEPTION_ERROR_CODE);
 	}
 }
 
-CYB::Exception::SystemData::SystemData(const ErrorCode AErrorCode) noexcept :
+CYB::Exception::SystemData::SystemData(const ErrorCode AErrorCode) :
 	Base(ErrorMessage(AErrorCode), AErrorCode, Level::SYSTEM_DATA)
 {
 	FLastInstantiatedExceptionCode = AErrorCode;
 }
-CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode AErrorCode) noexcept {
+CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode AErrorCode) {
 	static_cast<void>(AErrorCode);
-	API::Assert::HCF();
+	throw Violation(Violation::INVALID_EXCEPTION_ERROR_CODE);
 }
 
-CYB::Exception::Internal::Internal(const ErrorCode AErrorCode) noexcept:
+CYB::Exception::Internal::Internal(const ErrorCode AErrorCode) :
 	Base(ErrorMessage(AErrorCode), AErrorCode, Level::INTERNAL)
 {
 	FLastInstantiatedExceptionCode = AErrorCode;

@@ -101,6 +101,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="API\String\StaticAndCStyle.cpp" />
+    <ClCompile Include="Engine\Core\Exception.cpp" />
     <ClCompile Include="Engine\Memory\Blocks.cpp" />
     <ClCompile Include="Engine\Memory\Heap.cpp" />
     <ClCompile Include="Platform\Modules.cpp" />

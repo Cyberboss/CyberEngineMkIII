@@ -36,6 +36,7 @@ namespace CYB {
 		public:
 			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
+				INVALID_EXCEPTION_ERROR_CODE, //!< @brief An exception had instantiation attempted with an invalid AErrorCode
 				INVALID_HEAP_BLOCK,	//!< @brief A memory block used by the Heap failed to validate
 			};
 		private:
@@ -46,9 +47,9 @@ namespace CYB {
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
-					This function does not throw exceptions
+					CYB::Exception::Violation::INVALID_EXCEPTION_CODE if @p AErrorCode is not recognized by the engine
 			*/
-			static API::String::Static ErrorMessage(const ErrorCode AErrorCode) noexcept;
+			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
 			/*!
 				@brief Construct a Violation exception
@@ -56,11 +57,11 @@ namespace CYB {
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
-					This function does not throw exceptions
+					CYB::Exception::Violation::INVALID_EXCEPTION_CODE if @p AErrorCode is not recognized by the engine
 				@par Note
 					This function is for internal use only
 			*/
-			Violation(const ErrorCode AErrorCode) noexcept;
+			Violation(const ErrorCode AErrorCode);
 		};
 		//! @brief Exceptions caused by external call failures or invalid external data
 		class SystemData : public Base{
@@ -84,9 +85,9 @@ namespace CYB {
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
-					This function does not throw exceptions
+					CYB::Exception::Violation::INVALID_EXCEPTION_CODE if @p AErrorCode is not recognized by the engine
 			*/
-			static API::String::Static ErrorMessage(const ErrorCode AErrorCode) noexcept;
+			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
 			/*!
 				@brief Construct a SystemData exception
@@ -94,11 +95,11 @@ namespace CYB {
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
-					This function does not throw exceptions
+					CYB::Exception::Violation::INVALID_EXCEPTION_CODE if @p AErrorCode is not recognized by the engine
 				@par Note
 					This function is for internal use only
 			*/
-			SystemData(const ErrorCode AErrorCode) noexcept;
+			SystemData(const ErrorCode AErrorCode);
 		};
 		//! @brief Exceptions that are thrown internally in the engine that the unit will never see
 		class Internal : public Base {
@@ -116,7 +117,7 @@ namespace CYB {
 				@par Exception Safety
 					This function does not throw exceptions
 			*/
-			static API::String::Static ErrorMessage(const ErrorCode AErrorCode) noexcept;
+			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
 			/*!
 				@brief Construct an Internal exception
@@ -124,11 +125,11 @@ namespace CYB {
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
-					This function does not throw exceptions
+					CYB::Exception::Violation::INVALID_EXCEPTION_CODE if @p AErrorCode is not recognized by the engine
 				@par Note
 					This function is for internal use only
 			*/
-			Internal(const ErrorCode AErrorCode) noexcept;
+			Internal(const ErrorCode AErrorCode);
 		};
 		//! @brief Exceptions that compromise the stability of the engine and it must be promptly shutdown
 		class Fatal : public Base {
@@ -144,7 +145,7 @@ namespace CYB {
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
-					This function does not throw exceptions
+					CYB::Exception::Violation::INVALID_EXCEPTION_CODE if @p AErrorCode is not recognized by the engine
 			*/
 			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
@@ -154,7 +155,7 @@ namespace CYB {
 				@par Thread Safety
 					This function requires no thread safety
 				@par Exception Safety
-					This function does not throw exceptions
+					CYB::Exception::Violation::INVALID_EXCEPTION_CODE if @p AErrorCode is not recognized by the engine
 				@par Note
 					This function is for internal use only
 			*/

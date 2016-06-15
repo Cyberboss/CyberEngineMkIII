@@ -80,7 +80,7 @@ SCENARIO("Mutex initialization error works", "[Platform][System][Mutex][Unit]") 
 			REQUIRE_THROWS_AS(TestMutex = new CYB::Platform::System::Mutex(), CYB::Exception::SystemData);
 			THEN("The appropriate error occurs") {
 				CHECK(TestMutex == nullptr);
-				CHECK(CYB::Exception::FLastInstantiatedExceptionCode == CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);
 			}
 		}
 	}

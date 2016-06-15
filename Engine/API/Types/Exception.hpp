@@ -106,6 +106,7 @@ namespace CYB {
 		public:
 			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
+				PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE, //!< @brief Dummy code, used for code coverage
 			};
 		private:
 			/*!
@@ -136,6 +137,7 @@ namespace CYB {
 		public:
 			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
+				PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE, //!< @brief Dummy code, used for code coverage
 			};
 		private:
 			/*!
@@ -159,7 +161,7 @@ namespace CYB {
 				@par Note
 					This function is for internal use only
 			*/
-			Fatal(const ErrorCode AErrorCode) noexcept;
+			Fatal(const ErrorCode AErrorCode);
 		};
 	};
 };

@@ -1,6 +1,6 @@
 #include "TestHeader.hpp"
 
-SCENARIO("CStyle strings works", "[API][String][CStyle][Unit]") {
+SCENARIO("CStyle strings work", "[API][String][CStyle][Unit]") {
 	GIVEN("A valid CStyle string") {
 		const char* const TestData(u8"asdf");
 		WHEN("It is used to instantiate a Static") {

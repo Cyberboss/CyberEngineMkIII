@@ -153,8 +153,8 @@ SCENARIO("Block Split/Merge functions work", "[Engine][Memory][Block][Unit]") {
 	}
 	delete[] Data;
 }
-#ifdef DEBUG
 SCENARIO("Block validation functions work", "[Engine][Memory][Block][Unit]") {
+#ifdef DEBUG
 	auto Data(new byte[500]);
 	GIVEN("A valid Block") {
 		auto& TestBlock(*new (Data) Block(100, *reinterpret_cast<Block*>(Data), true));
@@ -191,5 +191,7 @@ SCENARIO("Block validation functions work", "[Engine][Memory][Block][Unit]") {
 		}
 	}
 	delete[] Data;
-}
+#else
+	CHECK(true);
 #endif
+}

@@ -70,7 +70,7 @@
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>CYB.hpp</PrecompiledHeaderFile>
-      <DisableSpecificWarnings>4265;4464;4548;4571;4668;4623;4626;4625;4710;4820;5026;5027;26135</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4265;4464;4514;4548;4571;4668;4623;4626;4625;4710;4711;4820;5026;5027;26135</DisableSpecificWarnings>
       <BrowseInformation>true</BrowseInformation>
       <AdditionalOptions>/experimental:module %(AdditionalOptions)</AdditionalOptions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -96,7 +96,7 @@
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>CYB.hpp</PrecompiledHeaderFile>
-      <DisableSpecificWarnings>4265;4464;4548;4571;4668;4623;4626;4625;4710;4820;5026;5027;26135</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4265;4464;4514;4548;4571;4668;4623;4626;4625;4710;4711;4820;5026;5027;26135</DisableSpecificWarnings>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

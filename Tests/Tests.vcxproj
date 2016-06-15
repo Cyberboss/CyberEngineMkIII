@@ -60,7 +60,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>TestHeader.hpp</PrecompiledHeaderFile>
       <PreprocessorDefinitions>_UNICODE;UNICODE;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <DisableSpecificWarnings>4265;4548;4571;4668;4623;4626;4625;4820;5026;5027</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4265;4548;4571;4668;4623;4626;4625;4710;4711;4820;5026;5027</DisableSpecificWarnings>
       <BrowseInformation>true</BrowseInformation>
       <AdditionalOptions>/experimental:module %(AdditionalOptions)</AdditionalOptions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -86,7 +86,7 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>TestHeader.hpp</PrecompiledHeaderFile>
-      <DisableSpecificWarnings>4265;4548;4571;4668;4623;4626;4625;4820;5026;5027</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4265;4548;4571;4668;4623;4626;4625;4710;4711;4820;5026;5027</DisableSpecificWarnings>
       <AdditionalOptions>/experimental:module %(AdditionalOptions)</AdditionalOptions>
       <UseFullPaths>true</UseFullPaths>
     </ClCompile>
@@ -119,6 +119,7 @@
     <ClCompile Include="Utils\Fakes.cpp" />
     <ClCompile Include="Win32Main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

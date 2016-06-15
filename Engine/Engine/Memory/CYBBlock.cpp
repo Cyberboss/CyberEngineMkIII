@@ -10,10 +10,14 @@ static_assert(sizeof(CYB::Engine::Memory::Block) ==
 	, "Block size has changed, check algorithms");
 
 CYB::Engine::Memory::Block::Block(const unsigned int ASpaceAvailable, const Block& ALeftBlock, const bool AFree) noexcept :
+#ifdef DEBUG
 	FMagicHeader(MAGIC_HEADER),
+#endif
 	FSizeAndFreeBit(InitializeData(ASpaceAvailable, AFree)),
-	FOffsetToPreviousBlock(CalculateOffset(ALeftBlock)),
-	FMagicFooter(MAGIC_FOOTER)
+	FOffsetToPreviousBlock(CalculateOffset(ALeftBlock))
+#ifdef DEBUG
+	,FMagicFooter(MAGIC_FOOTER)
+#endif
 {
 	API::Assert::LessThanOrEqual<unsigned long long>(sizeof(Block), ASpaceAvailable);
 }

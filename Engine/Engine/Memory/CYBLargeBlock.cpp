@@ -14,9 +14,13 @@ static_assert(sizeof(CYB::Engine::Memory::LargeBlock) - sizeof(CYB::Engine::Memo
 
 CYB::Engine::Memory::LargeBlock::LargeBlock(const unsigned long long ASpaceAvailable, Block* const ALeftBlock) noexcept :
 	Block(sizeof(Block), ALeftBlock == nullptr ? *this : *ALeftBlock, true),
+#ifdef DEBUG
 	FMagicHeader(MAGIC_HEADER),
-	FRemainingSize(ASpaceAvailable),
-	FMagicFooter(MAGIC_FOOTER)
+#endif
+	FRemainingSize(ASpaceAvailable)
+#ifdef DEBUG
+	,FMagicFooter(MAGIC_FOOTER)
+#endif
 {}
 
 CYB::Engine::Memory::Block& CYB::Engine::Memory::LargeBlock::AllocateBlock(LargeBlock*& ALargeBlock, const unsigned int ANewBlockSize) noexcept {

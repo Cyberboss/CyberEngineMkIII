@@ -28,6 +28,9 @@
     <ClCompile Include="Utils\Fakes.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="API\String\StaticAndCStyle.cpp">
+      <Filter>API\String</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />
@@ -65,6 +68,12 @@
     </Filter>
     <Filter Include="Platform\System">
       <UniqueIdentifier>{d9f48e56-d925-4662-a7a3-11f74d450da7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API">
+      <UniqueIdentifier>{5796917a-7159-452d-b820-cb9d8b1c0a94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\String">
+      <UniqueIdentifier>{05252be5-da06-4c86-96ee-1329faf80680}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

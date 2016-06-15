@@ -177,10 +177,10 @@
     <ClInclude Include="API\Types\Exception.hpp" />
     <ClInclude Include="API\Types\ParameterPack.hpp" />
     <ClInclude Include="API\Types\Singleton.hpp" />
-    <ClInclude Include="API\Types\Strings\CStyleString.hpp" />
-    <ClInclude Include="API\Types\Strings\DynamicString.hpp" />
-    <ClInclude Include="API\Types\Strings\StaticString.hpp" />
-    <ClInclude Include="API\Types\Strings\Strings.hpp" />
+    <ClInclude Include="API\Types\String\CStyleString.hpp" />
+    <ClInclude Include="API\Types\String\DynamicString.hpp" />
+    <ClInclude Include="API\Types\String\StaticString.hpp" />
+    <ClInclude Include="API\Types\String\Strings.hpp" />
     <ClInclude Include="API\Types\Threadable.hpp" />
     <ClInclude Include="API\Types\ThreadableTaskset.hpp" />
     <ClInclude Include="API\Types\Typename.hpp" />
@@ -244,8 +244,8 @@
     <None Include="API\Types\Exception.inl" />
     <None Include="API\Types\ParameterPack.inl" />
     <None Include="API\Types\Singleton.inl" />
-    <None Include="API\Types\Strings\CStyleString.inl" />
-    <None Include="API\Types\Strings\StaticString.inl" />
+    <None Include="API\Types\String\CStyleString.inl" />
+    <None Include="API\Types\String\StaticString.inl" />
     <None Include="DoxyPages\Contexts.dox" />
     <None Include="DoxyPages\Conventions.dox" />
     <None Include="DoxyPages\IO.dox" />

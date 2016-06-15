@@ -1,4 +1,5 @@
 #include "TestHeader.hpp"
+#include <cstring>
 
 SCENARIO("CStyle strings work", "[API][String][CStyle][Unit]") {
 	GIVEN("A valid CStyle string") {

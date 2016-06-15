@@ -39,6 +39,7 @@ Included items must then not match any entries in the exclude list to remain inc
               <Exclude>
                 <Function>^std::.*</Function>
                 <Function>^CYB::Platform::Modules::AutoModuleOptionalHelper.*</Function>
+                <Function>^CYB::API::Interop::Allocator::InPlaceAllocation.*</Function>
               </Exclude>
             </Functions>
 

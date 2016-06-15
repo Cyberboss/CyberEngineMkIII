@@ -14,7 +14,7 @@ CYB::Engine::Memory::Heap::Heap(const unsigned long long AInitialCommitSize) :
 {
 	Platform::System::VirtualMemory::Commit(FReservation, FCommitSize);
 
-	FLargeBlock = new (&FirstBlock()) LargeBlock(FCommitSize, nullptr);
+	FLargeBlock = API::Interop::Allocator::InPlaceAllocation<LargeBlock>(&FirstBlock(), FCommitSize, nullptr);
 	FFreeList = FLargeBlock;
 }
 

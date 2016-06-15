@@ -27,8 +27,8 @@ CYB::Engine::Memory::Block& CYB::Engine::Memory::LargeBlock::AllocateBlock(Large
 	const auto SizeWithBlock(ANewBlockSize + sizeof(Block));
 	const auto OriginalSize(ALargeBlock->FRemainingSize);
 	API::Assert::LessThan<unsigned long long>(SizeWithBlock, OriginalSize);
-	Block& NewBlock(*new (ALargeBlock) Block(static_cast<unsigned int>(SizeWithBlock), ALargeBlock->LeftBlock() == nullptr ? *ALargeBlock : *ALargeBlock->LeftBlock(), false));
-	ALargeBlock = new (reinterpret_cast<byte*>(&NewBlock) + SizeWithBlock) LargeBlock(OriginalSize - SizeWithBlock, &NewBlock);
+	Block& NewBlock(*API::Interop::Allocator::InPlaceAllocation<Block>(ALargeBlock, static_cast<unsigned int>(SizeWithBlock), ALargeBlock->LeftBlock() == nullptr ? *ALargeBlock : *ALargeBlock->LeftBlock(), false));
+	ALargeBlock = API::Interop::Allocator::InPlaceAllocation<LargeBlock>(reinterpret_cast<byte*>(&NewBlock) + SizeWithBlock, OriginalSize - SizeWithBlock, &NewBlock);
 	return NewBlock;
 }
 
@@ -42,7 +42,7 @@ void CYB::Engine::Memory::LargeBlock::Validate(void) const {
 
 CYB::Engine::Memory::LargeBlock& CYB::Engine::Memory::LargeBlock::EatLeftBlock(void) noexcept {
 	API::Assert::NotEqual<Block*>(LeftBlock(), nullptr);
-	return *new (LeftBlock()) LargeBlock(FRemainingSize + LeftBlock()->Size() + sizeof(Block), LeftBlock()->LeftBlock());	//Even though we are eating a LargeBlock header, we are are also creating a LargeBlock Header - A block header
+	return *API::Interop::Allocator::InPlaceAllocation<LargeBlock>(LeftBlock(), FRemainingSize + LeftBlock()->Size() + sizeof(Block), LeftBlock()->LeftBlock());	//Even though we are eating a LargeBlock header, we are are also creating a LargeBlock Header - A block header
 }
 
 unsigned long long CYB::Engine::Memory::LargeBlock::Size(void) const noexcept {

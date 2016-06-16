@@ -26,8 +26,6 @@ namespace CYB {
 				@param ALevel The type of the exception
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			Base(API::String::Static&& AMessage, const unsigned int AErrorCode, const Level ALevel) noexcept;
 		};
@@ -46,8 +44,7 @@ namespace CYB {
 				@return A description of the exception indicated by @p AErrorCode
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					CYB::Exception::Violation::INVALID_EXCEPTION_CODE if @p AErrorCode is not recognized by the engine
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
 			*/
 			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
@@ -56,10 +53,8 @@ namespace CYB {
 				@param AErrorCode The ErrorCode describing the exception
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					CYB::Exception::Violation::INVALID_EXCEPTION_CODE if @p AErrorCode is not recognized by the engine
-				@par Note
-					This function is for internal use only
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
+				@attention This function is for internal use only
 			*/
 			Violation(const ErrorCode AErrorCode);
 		};
@@ -84,8 +79,7 @@ namespace CYB {
 				@return A description of the exception indicated by @p AErrorCode
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					CYB::Exception::Violation::INVALID_EXCEPTION_CODE if @p AErrorCode is not recognized by the engine
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
 			*/
 			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
@@ -94,10 +88,8 @@ namespace CYB {
 				@param AErrorCode The ErrorCode describing the exception
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					CYB::Exception::Violation::INVALID_EXCEPTION_CODE if @p AErrorCode is not recognized by the engine
-				@par Note
-					This function is for internal use only
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
+				@attention This function is for internal use only
 			*/
 			SystemData(const ErrorCode AErrorCode);
 		};
@@ -115,8 +107,6 @@ namespace CYB {
 				@return A description of the exception indicated by @p AErrorCode
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
@@ -125,10 +115,8 @@ namespace CYB {
 				@param AErrorCode The ErrorCode describing the exception
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					CYB::Exception::Violation::INVALID_EXCEPTION_CODE if @p AErrorCode is not recognized by the engine
-				@par Note
-					This function is for internal use only
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
+				@attention This function is for internal use only
 			*/
 			Internal(const ErrorCode AErrorCode);
 		};
@@ -146,8 +134,7 @@ namespace CYB {
 				@return A description of the exception indicated by @p AErrorCode
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					CYB::Exception::Violation::INVALID_EXCEPTION_CODE if @p AErrorCode is not recognized by the engine
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
 			*/
 			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
@@ -156,10 +143,8 @@ namespace CYB {
 				@param AErrorCode The ErrorCode describing the exception
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					CYB::Exception::Violation::INVALID_EXCEPTION_CODE if @p AErrorCode is not recognized by the engine
-				@par Note
-					This function is for internal use only
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
+				@attention This function is for internal use only
 			*/
 			Fatal(const ErrorCode AErrorCode);
 		};

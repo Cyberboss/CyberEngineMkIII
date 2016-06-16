@@ -24,8 +24,6 @@ namespace CYB {
 				@brief Indicates unreachable code
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			static void HCF[[noreturn]](void) noexcept;
 			/*!
@@ -33,8 +31,6 @@ namespace CYB {
 				@param AExpression The expression to check. Will call HCF if false
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			static void True(const bool AExpression) noexcept;
 			/*!
@@ -42,8 +38,6 @@ namespace CYB {
 				@param AExpression The expression to check. Will call HCF if true
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			static void False(const bool AExpression) noexcept;
 			/*!
@@ -53,8 +47,6 @@ namespace CYB {
 				@tparam AType The type of @p ALHS and @p ARHS
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			template <typename AType> static void Equal(const AType& ALHS, const AType& ARHS) noexcept;
 			/*!
@@ -64,8 +56,6 @@ namespace CYB {
 				@tparam AType The type of @p ALHS and @p ARHS
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			template <typename AType> static void NotEqual(const AType& ALHS, const AType& ARHS) noexcept;
 			/*!
@@ -75,8 +65,6 @@ namespace CYB {
 				@tparam AType The type of @p ALHS and @p ARHS
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			template <typename AType> static void LessThan(const AType& ALHS, const AType& ARHS) noexcept;
 			/*!
@@ -86,8 +74,6 @@ namespace CYB {
 				@tparam AType The type of @p ALHS and @p ARHS
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			template <typename AType> static void LessThanOrEqual(const AType& ALHS, const AType& ARHS) noexcept;
 		};

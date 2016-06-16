@@ -19,7 +19,9 @@ unsigned long __stdcall CYB::Platform::System::Implementation::Thread::ThreadPro
 		// TODO Log error
 		static_cast<void>(AException);
 	}
-	catch (...) {}
+	catch (...) {
+		// TODO Log error
+	}
 	return 0;
 }
 bool CYB::Platform::System::Thread::IsFinished(void) const noexcept {

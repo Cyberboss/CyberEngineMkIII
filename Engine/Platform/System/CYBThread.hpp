@@ -20,26 +20,19 @@ namespace CYB {
 					@brief Put the thread to sleep for at least @p AMilliseconds
 					@param AMilliseconds The minimum number of milliseconds to sleep for
 					@par Thread Safety
-						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
-				*/
+						This function requires no thread safety				*/
 				static void Sleep(const unsigned int AMilliseconds) noexcept;
 				/*!
 					@brief Expires the current threads processor time and sumbits it to the OS for rescheduling
 					@par Thread Safety
-						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
-				*/
+						This function requires no thread safety				*/
 				static void Yield(void) noexcept;
 				/*!
 					@brief Construct a Thread. Once returned, the thread will be scheduled to run and BeginThreadedOperation will soon be called on AThreadable
 					@param AThreadable A reference to the threadable object the Thread will run
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						CYB::Exception::SystemData::THREAD_CREATION_FAILURE if the thread is unable to be created
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::THREAD_CREATION_FAILURE. Thrown if the thread is unable to be created
 				*/
 				Thread(API::Threadable& AThreadable);
 				Thread(const Thread&) = delete;
@@ -50,26 +43,18 @@ namespace CYB {
 					@brief Cancel a thread. Calls CancelThreadedOperation on the assigned Threadable in the current thread if IsFinished returns false
 					@par Thread Safety
 						This function requires synchronized access at the object level
-					@par Exception Safety
-						This function may only throw exceptions if they originate from the assigned Threadable
 				*/
-				void Cancel(void);
+				void Cancel(void) noexcept;
 				/*!
 					@brief Check whether or not the owned thread is terminated
 					@return true if a call to Wait will immediately return, false otherwise
 					@par Thread Safety
-						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
-				*/
+						This function requires no thread safety				*/
 				bool IsFinished(void) const noexcept;
 				/*!
 					@brief Blocks current thread until the owned thread has terminated
 					@par Thread Safety
-						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
-				*/
+						This function requires no thread safety				*/
 				void Wait(void) const noexcept;
 			};
 		};

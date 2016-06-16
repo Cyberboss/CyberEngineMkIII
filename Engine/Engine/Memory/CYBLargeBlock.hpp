@@ -21,8 +21,6 @@ namespace CYB {
 					@return A new Block with the correct size and free state
 					@par Thread Safety
 						This function requires that the owned memory isn't concurrently accessed during this function
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				static Block& AllocateBlock(LargeBlock*& ALargeBlock, const unsigned int ANewBlockSize) noexcept;
 
@@ -32,8 +30,6 @@ namespace CYB {
 					@param ALeftBlock A pointer to the Block to the left of the LargeBlock, or nullptr if the LargeBlock is the only Block
 					@par Thread Safety
 						This function requires that the owned memory isn't concurrently accessed during this function
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				LargeBlock(const unsigned long long ASpaceAvailable, Block* const ALeftBlock) noexcept;
 
@@ -44,8 +40,6 @@ namespace CYB {
 					@brief Merge size and header into the size of the Block to the left. Does not modify free lists. Must be used if Block is a LargeBlock
 					@par Thread Safety
 						This function requires the left Block not be modified during the operation
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				LargeBlock& EatLeftBlock(void) noexcept;
 

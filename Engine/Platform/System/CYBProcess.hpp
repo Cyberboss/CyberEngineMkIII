@@ -17,8 +17,6 @@ namespace CYB {
 					@brief Runs actual termination code on a Process guaranteed to be destroyed afterwards
 					@par Thread Safety
 						This function requires synchronized access at the object level
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				void Terminate(void) noexcept;
 			public:
@@ -27,8 +25,6 @@ namespace CYB {
 					@return The current Process
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				static Process GetSelf(void) noexcept;
 				/*!
@@ -36,8 +32,6 @@ namespace CYB {
 					@param AProcess An xvalue of the process to terminate
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				static void Terminate(Process&& AProcess) noexcept;
 
@@ -52,8 +46,6 @@ namespace CYB {
 					@return true if the Process is still running, false otherwise
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				bool Active(void) const noexcept;
 				/*!
@@ -62,8 +54,6 @@ namespace CYB {
 					@return true if the Processes are equivalent, false otherwise
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				bool operator==(const Process& ARHS) const noexcept;
 			};

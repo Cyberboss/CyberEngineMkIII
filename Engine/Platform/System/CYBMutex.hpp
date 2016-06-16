@@ -10,8 +10,7 @@ namespace CYB {
 					@brief Constructs a Mutex
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE If the Mutex could not be initialized
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE. Thrown if the Mutex could not be initialized
 				*/
 				Mutex() noexcept(API::Platform::Current() == API::Platform::WINDOWS && !API::Platform::IsTest());
 				//! @copydoc CYB::API::Mutex::~Mutex

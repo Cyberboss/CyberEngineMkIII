@@ -14,8 +14,6 @@ namespace CYB {
 				@param ANumTasks The number of tasks to run on this taskset
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			ThreadableTaskset(const unsigned int ANumTasks) noexcept:
 				FNumTasks(ANumTasks),
@@ -26,8 +24,7 @@ namespace CYB {
 				@brief Called at the start of a threading operation in a new thread by the internal thread manager. Will call DoTask in the order of 0-(FNumTasks - 1) provided an error does not occur in doing so. On termination the cancel flag will be cleared
 				@par Calling Thread
 					This function will be called by the engine in what should be considered a new thread, however it may be running in the ThreadPool depending on the calling context
-				@par Exception Safety
-					Throwing an exception to this function will cause all remaining tasks to not be run and have the exception propagate to the internal thread manager where they will be logged at the DEV level and then ignored
+				@attention Throwing an exception to this function will cause all remaining tasks to not be run and have the exception propagate to the internal thread manager where they will be logged at the DEV level and then ignored
 			*/
 			void BeginThreadedOperation(void) final override {
 				for (unsigned int I(0); I < FNumTasks && !FCancelFlag.load(std::memory_order_relaxed); ++I) {
@@ -40,18 +37,14 @@ namespace CYB {
 				@brief Called by the internal thread manager to request cancellation of a thread. May also be called by the unit. When called no further tasks will be run after the current one completes
 				@par Calling Thread
 					This function may be called by the engine in any thread at any time during the object's lifetime
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
-			void CancelThreadedOperation(void) final override {
+			void CancelThreadedOperation(void) noexcept final override {
 				FCancelFlag.store(true, std::memory_order_relaxed);
 			}
 			/*!
 				@brief Called by BeginThreadedOperation FNumTasks times with an incrementing @p ATask value. Each time it is called task number @p ATask should be run
 				@par Calling Thread
 					The function will in the thread that the object's BeginThreadedOperation runs on
-				@par Exception Safety
-					This function may throw exceptions which will then be logged and ignored. This will cancel further tasks
 			*/
 			virtual bool DoTask(const unsigned int ATask) = 0;
 		};

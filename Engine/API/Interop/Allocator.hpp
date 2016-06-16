@@ -18,10 +18,8 @@ namespace CYB {
 					@return An allocatable pointer which is the base class of the class indicated by AID
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						Dependant on the object being allocated, as well as
-						<BR>CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the heap does not have the space for the allocation and more system memory cannot be requested
-						<BR>CYB::Exception::Internal::HEAP_CORRUPTION if the integrity of the heap has been compromised
+					@attention Throws dependant on called constructor
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE. Thrown if the heap does not have the space for the allocation and more system memory cannot be requested
 				*/
 				virtual Interop::Allocatable* NewObject(const Interop::Allocatable::ID AID, const Interop::EmptyConstructor& AConstructor) = 0;
 			protected:
@@ -30,8 +28,6 @@ namespace CYB {
 					@param AHeap The Heap the allocator will use
 					@par Thread Safety
 						Function calls should be syncronized
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				Allocator(Heap& AHeap) noexcept;
 			public:
@@ -40,8 +36,6 @@ namespace CYB {
 					@return A reference to the Allocator singleton
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				static Allocator& GetAllocator(void) noexcept;
 
@@ -54,8 +48,7 @@ namespace CYB {
 					@return A pointer to the new AType which will be equivalent to ALocation
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						Dependant on AType's constructor
+					@attention Throws dependant on called constructor
 				*/
 				template <typename AType, typename... AArgs> static AType* InPlaceAllocation(void* const ALocation, AArgs&&... AArguments);
 
@@ -67,10 +60,8 @@ namespace CYB {
 					@return An Object specialized on AAllocatable containing the allocated object
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						Dependant on the object being allocated, as well as
-						<BR>CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the heap does not have the space for the allocation and more system memory cannot be requested
-						<BR>CYB::Exception::Internal::HEAP_CORRUPTION if the integrity of the heap has been compromised
+					@attention Throws dependant on called constructor
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE. Thrown if the heap does not have the space for the allocation and more system memory cannot be requested
 				*/
 				template <class AAllocatable, typename... AArgs> Object<AAllocatable> NewObject(AArgs&&... AArguments);
 				/*!
@@ -79,10 +70,8 @@ namespace CYB {
 					@return An Object specialized on AAllocatable containing the allocated object
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						Dependant on the object being allocated, as well as
-						<BR>CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the heap does not have the space for the allocation and more system memory cannot be requested
-						<BR>CYB::Exception::Internal::HEAP_CORRUPTION if the integrity of the heap has been compromised
+					@attention Throws dependant on called constructor
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE. Thrown if the heap does not have the space for the allocation and more system memory cannot be requested
 				*/
 				template <class AAllocatable> Object<AAllocatable> NewObject(void);
 			};

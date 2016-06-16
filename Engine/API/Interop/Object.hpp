@@ -17,17 +17,23 @@ namespace CYB {
 					@param APointer A pointer to an engine object that can be freed with the current Allocator's Heap
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				Object(AInterface* const APointer) noexcept;
 				Object(Object&& AMove) noexcept;	//!< @brief See @ref structors
 				Object& operator=(Object&& AMove) noexcept;	//!< @brief See @ref structors
 				~Object();	//!< @brief See @ref structors
 
-				//! @brief Implicit conversion to AInterface
+				/*! 
+					@brief Implicit conversion to AInterface
+					@par Thread Safety
+						This function requires no thread safety
+				*/
 				AInterface& operator()(void) noexcept;
-				//! @brief Implicit conversion to const AInterface
+				/*!
+					@brief Implicit conversion to AInterface
+					@par Thread Safety
+						This function requires no thread safety
+				*/
 				const AInterface& operator()(void) const noexcept;
 			};
 		};

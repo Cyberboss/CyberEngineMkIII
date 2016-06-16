@@ -21,8 +21,6 @@ namespace CYB {
 					@return The minimum valid initial commit size
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				static unsigned long long CalculateInitialCommitSize(const unsigned long long AInitialCommitSize) noexcept;
 
@@ -31,8 +29,6 @@ namespace CYB {
 					@return A reference to the first block in the reservation
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				Block& FirstBlock(void) noexcept;
 				/*!
@@ -40,8 +36,6 @@ namespace CYB {
 					@return A reference to the first block in the reservation
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				const Block& FirstBlock(void) const noexcept;
 
@@ -51,8 +45,6 @@ namespace CYB {
 					@param APreviousEntry The Block that will preceed @p ABlock in the free list
 					@par Thread Safety
 						This function requires that FMutex is locked
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				void AddToFreeList(Block& ABlock, Block* const APreviousEntry) noexcept;
 				/*!
@@ -61,8 +53,6 @@ namespace CYB {
 					@param APreviousEntry The Block that preceeds @p ABlock in the free list
 					@par Thread Safety
 						This function requires that FMutex is locked
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				void RemoveFromFreeList(Block& ABlock, Block* const APreviousEntry) noexcept;
 
@@ -71,8 +61,7 @@ namespace CYB {
 					@param ARequiredNumBytes The required number of bytes from the LargeBlock
 					@par Thread Safety
 						This function requires that FMutex is locked
-					@par Exception Safety
-						CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the memory could not be committed
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_COMMITAL_FAILURE. Thrown if the memory could not be committed
 				*/
 				void LargeBlockNeedsAtLeast(const unsigned int ARequiredNumBytes);
 
@@ -82,8 +71,6 @@ namespace CYB {
 					@param ALastFreeListEntry The Block preceeding @p ABlock in the free list
 					@par Thread Safety
 						This function requires that FMutex is locked
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				void MergeBlockIfPossible(Block*& ABlock, Block* ALastFreeListEntry) noexcept;
 
@@ -94,8 +81,7 @@ namespace CYB {
 					@return An unused Block that isn't free and is is at least @p ANumBytes in size
 					@par Thread Safety
 						This function requires that FMutex is locked
-					@par Exception Safety
-						CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the memory could not be committed
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_COMMITAL_FAILURE. Thrown if the memory could not be committed
 				*/
 				Block& AllocImpl(const unsigned int ANumBytes, API::LockGuard& ALock);
 				/*!
@@ -106,9 +92,8 @@ namespace CYB {
 					@return An unused Block that isn't free, is at least @p ANumBytes in size, and contains all previous data from @p ABlock
 					@par Thread Safety
 						This function requires that FMutex is locked
-					@par Exception Safety
-						CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
-						<BR>CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the memory could not be committed
+					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE. Thrown if the memory could not be committed
 				*/
 				Block& ReallocImpl(Block& ABlock, const unsigned int ANumBytes, API::LockGuard& ALock);
 				/*!
@@ -117,8 +102,7 @@ namespace CYB {
 					@param ALock A reference to the current lock on FMutex that will be released by the time the function returns
 					@par Thread Safety
 						This function requires that FMutex is locked
-					@par Exception Safety
-						CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
+					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
 				*/
 				void FreeImpl(Block& ABlock, API::LockGuard& ALock) noexcept(!API::Platform::IsDebug());
 			public:
@@ -127,8 +111,7 @@ namespace CYB {
 					@param AInitialCommitSize The amount of memory to initalize the heap with, must be smaller than @p AReservationSize
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the memory could not be committed
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_COMMITAL_FAILURE. Thrown if the memory could not be committed
 				*/
 				Heap(const unsigned long long AInitialCommitSize);
 				Heap(const Heap&) = delete;
@@ -145,16 +128,14 @@ namespace CYB {
 					@brief Lock the Heap, preventing reads and writes to the owned memory
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE if the memory protections could not be changed
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_PROTECT_FAILURE. Thrown if the memory protections could not be changed
 				*/
 				void Lock(void);
 				/*!
 					@brief Unlock the Heap, allowing reads and writes to the owned memory
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE if the memory protections could not be changed
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_PROTECT_FAILURE. Thrown if the memory protections could not be changed
 				*/
 				void Unlock(void);
 				/*!
@@ -162,8 +143,6 @@ namespace CYB {
 					@return true if the Heap is Locked, false otherwise
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				bool Locked(void) const noexcept;
 
@@ -172,8 +151,6 @@ namespace CYB {
 					@return The number of allocations over the Heap's lifetime
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				unsigned long long TotalNumberOfAllocations(void) const noexcept;
 				/*!
@@ -181,17 +158,13 @@ namespace CYB {
 					@return The number of current allocations in the heap
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						CYB::Exception::Internal::HEAP_CORRUPTION if the integrity of the heap has been compromised
 				*/
-				unsigned long long CurrentNumberOfAllocations(void) const;
+				unsigned long long CurrentNumberOfAllocations(void) const noexcept;
 				/*!
 					@brief Retrieve the amount of memory currently committed by the heap
 					@return The amount of memory currently committed by the heap
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				unsigned long long CurrentAmountOfMemoryCommitted(void) const noexcept;
 
@@ -199,8 +172,7 @@ namespace CYB {
 					@brief Walks the heap and throws if an error is detected
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						CYB::Exception::Violation::INVALID_HEAP_BLOCK if a Block's magic numbers failed to verify
+					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if a Block's magic numbers failed to verify
 				*/
 				void Walk(void) const;
 

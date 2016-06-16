@@ -15,8 +15,6 @@ namespace CYB {
 				@brief Construct a singleton and initialize it's pointer
 				@par Thread Safety
 					Access to this function must be synchronized per template instantiation
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			Singleton() noexcept;
 			//! @brief Destroy a singleton and nullify it's pointer

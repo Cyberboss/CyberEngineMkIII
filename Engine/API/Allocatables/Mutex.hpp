@@ -15,8 +15,6 @@ namespace CYB {
 				@brief Acquire a lock on a Mutex. This will block the current thread until the lock is aquired. The Mutex must not be owned by the current thread
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			virtual void Lock(void) const noexcept = 0;
 			/*!
@@ -24,16 +22,12 @@ namespace CYB {
 				@return true if the mutex was acquired, false otherwise
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			virtual bool TryLock(void) const noexcept = 0;
 			/*!
 				@brief Release a lock on a Mutex. Should only be called after a Lock or TryLock on the same Mutex was aquired in the same thread
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			virtual void Unlock(void) const noexcept = 0;
 		};

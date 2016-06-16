@@ -31,6 +31,5 @@ namespace CYB {
 				const AInterface& operator()(void) const noexcept;
 			};
 		};
-		using Interop::Object;
 	};
 };

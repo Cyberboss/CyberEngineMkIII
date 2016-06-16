@@ -16,7 +16,7 @@ unsigned long __stdcall CYB::Platform::System::Implementation::Thread::ThreadPro
 		static_cast<API::Threadable*>(AThreadable)->BeginThreadedOperation();
 	}
 	catch (CYB::Exception::Base AException) {
-		//! @todo Log error
+		// TODO Log error
 		static_cast<void>(AException);
 	}
 	catch (...) {}

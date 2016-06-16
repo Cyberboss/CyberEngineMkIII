@@ -13,7 +13,9 @@
 #define __LP64__
 #endif
 
+//! @cond
 #include <cstddef>
+//! @endcond
 
 static_assert(
 	sizeof(unsigned char) == 1

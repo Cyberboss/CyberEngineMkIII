@@ -88,6 +88,6 @@ namespace CYB {
 			};
 		};
 	};
-	//! @brief See CYB::API::Allocator::GetAllocator
+	//! @copydoc CYB::API::Interop::Allocator::GetAllocator()
 	API::Interop::Allocator& Allocator(void) noexcept;
 };

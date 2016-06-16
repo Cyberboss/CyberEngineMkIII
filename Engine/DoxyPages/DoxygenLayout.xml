@@ -18,6 +18,5 @@
       <tab type="filelist" visible="yes" title="" intro=""/>
       <tab type="globals" visible="yes" title="" intro=""/>
     </tab>
-    <tab type="user" visible="yes" title="TODO" url="@ref todo"/>
   </navindex>
 </doxygenlayout>

@@ -71,11 +71,11 @@ void* CYB::Platform::System::Implementation::Thread::ThreadProc(void* const AThr
 		Threadable->BeginThreadedOperation();
 	}
 	catch (CYB::Exception::Base AException) {
-		//! @todo Log error
+		// TODO Log error
 		static_cast<void>(AException);
 	}
 	catch (...) {
-		//! @todo Log error
+		// TODO Log error
 	}
 	RunningAtomic->store(false, std::memory_order_release);
 	return nullptr;

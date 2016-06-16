@@ -4,6 +4,7 @@
 #ifdef DOXY
 //! @brief Should be defined or not by user before all inclusions of CyberEngine.hpp. Enables engine debugging layers. Also ensure definition in unit matches CyberEngine executable you launch with(CyberEngine.exe for no debug, CyberEngineD.exe for debug). Must be defined by user
 #define DEBUG
+#undef DEBUG
 #endif
 
 //#define FAKE_POSIX	
@@ -40,6 +41,8 @@ namespace CYB {
 				@return The Identifier for the current Platform
 			*/
 			static constexpr Identifier Current(void);
+			static constexpr bool IsDebug(void);
+			static constexpr bool IsTest(void);
 		};
 	}
 }

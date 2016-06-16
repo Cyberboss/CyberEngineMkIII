@@ -1,5 +1,4 @@
 //! @file CYBFile.hpp Defines the filesystem interface
-//! @todo Document
 namespace CYB {
 	namespace Platform {
 		namespace System {

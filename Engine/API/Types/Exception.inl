@@ -5,4 +5,8 @@ inline CYB::Exception::Base::Base(API::String::Static&& AMessage, const unsigned
 	FMessage(std::move(AMessage)),
 	FErrorCode(AErrorCode),
 	FLevel(ALevel)
-{}
+{
+#ifndef DEBUG
+	API::Assert::NotEqual(FLevel, Level::VIOLATION);
+#endif
+}

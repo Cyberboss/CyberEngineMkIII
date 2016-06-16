@@ -11,7 +11,7 @@
 	@param ANumArguments The number of command line arguments
 	@param AArguments The command line arguments
 	@par Thread Safety
-		This function may only be called once by the C runtime
+		This function may only be called once by the C++ runtime
 	@par Exception Safety
 		This function does not throw exceptions
 */

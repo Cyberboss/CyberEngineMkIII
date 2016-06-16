@@ -2,7 +2,10 @@
 
 namespace CYB {
 	namespace Platform {
+		//! @brief Includes headers for Posix platforms
 		namespace Posix {
+			//! @cond
+#ifndef TARGET_OS_WINDOWS
 			#ifdef CYB_BUILDING_TESTS
 			typedef ::pid_t pid_t;
 			#endif
@@ -10,14 +13,16 @@ namespace CYB {
 			#include <sys/types.h>
 			#include <sys/mman.h>
 			#include <unistd.h>
-			#ifdef _WIN32
+#ifdef _WIN32	//for vs debugging
 			#include <posix/signal.h>
-			#else
+#else
 			#include <signal.h>
-			#endif
+#endif
 			#include <sched.h>
 			#include <pthread.h>
 			#include <dlfcn.h>
+#endif
+			//! @endcond
 		};
 	};
 };

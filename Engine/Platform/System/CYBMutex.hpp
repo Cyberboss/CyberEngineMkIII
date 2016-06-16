@@ -13,15 +13,15 @@ namespace CYB {
 					@par Exception Safety
 						CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE If the Mutex could not be initialized
 				*/
-				Mutex();
-				//! @brief See CYB::API::Mutex::~Mutex
+				Mutex() noexcept(API::Platform::Current() == API::Platform::WINDOWS && !API::Platform::IsTest());
+				//! @copydoc CYB::API::Mutex::~Mutex
 				~Mutex() final override;
 
-				//! @brief See CYB::API::Mutex::Lock
+				//! @copydoc CYB::API::Mutex::Lock
 				void Lock(void) const noexcept final override;
-				//! @brief See CYB::API::Mutex::TryLock
+				//! @copydoc CYB::API::Mutex::TryLock
 				bool TryLock(void) const noexcept final override;
-				//! @brief See CYB::API::Mutex::Unlock
+				//! @copydoc CYB::API::Mutex::Unlock
 				void Unlock(void) const noexcept final override;
 			};
 		};

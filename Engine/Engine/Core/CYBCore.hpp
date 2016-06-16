@@ -85,6 +85,6 @@ namespace CYB {
 		};
 	};
 
-	//! @brief See CYB::Engine::Core::GetCore
+	//! @copydoc CYB::Engine::Core::GetCore
 	Engine::Core& Core(void) noexcept;
 };

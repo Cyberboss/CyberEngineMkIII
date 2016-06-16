@@ -120,7 +120,7 @@ namespace CYB {
 					@par Exception Safety
 						CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
 				*/
-				void FreeImpl(Block& ABlock, API::LockGuard& ALock);
+				void FreeImpl(Block& ABlock, API::LockGuard& ALock) noexcept(!API::Platform::IsDebug());
 			public:
 				/*!
 					@brief Create a Heap
@@ -204,12 +204,12 @@ namespace CYB {
 				*/
 				void Walk(void) const;
 
-				//! @brief See CYB::API::Heap::Alloc
+				//! @copydoc CYB::API::Heap::Alloc()
 				void* Alloc(const int ASize) final override;
-				//! @brief See CYB::API::Heap::Relloc
+				//! @copydoc CYB::API::Heap::Realloc()
 				void* Realloc(void* const APreviousAllocation, const int ANewSize) final override;
-				//! @brief See CYB::API::Heap::Free
-				void Free(void* const APreviousAllocation) final override;
+				//! @copydoc CYB::API::Heap::Free()
+				void Free(void* const APreviousAllocation) noexcept(!API::Platform::IsDebug()) final override;
 			};
 		};
 	};

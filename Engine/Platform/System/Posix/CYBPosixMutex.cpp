@@ -6,7 +6,7 @@ CYB::Platform::System::Implementation::Mutex::Mutex() :
 	FMutex(PTHREAD_MUTEX_INITIALIZER)
 {}
 
-CYB::Platform::System::Mutex::Mutex() {
+CYB::Platform::System::Mutex::Mutex() noexcept(false) {
 	if (Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_init>(&FMutex, nullptr) != 0)
 		throw CYB::Exception::SystemData(CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);
 }

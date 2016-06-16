@@ -28,6 +28,7 @@ CYB::Engine::Core::Core(const unsigned int ANumArguments, const oschar_t* const*
 	static_cast<void>(ANumArguments);
 	static_cast<void>(AArguments);
 }
+
 CYB::Engine::Core::~Core(void) {
 
 }
@@ -54,8 +55,7 @@ CYB::Engine::Core& CYB::Engine::Core::GetCore(void) noexcept {
 }
 void CYB::Engine::Core::Run[[noreturn]](const unsigned int ANumArguments, const oschar_t* const* const AArguments) noexcept {
 	try {
-		Core CyberEngineMarkIII(ANumArguments, AArguments);
-		for (; CyberEngineMarkIII.LaunchUnit(););
+		for (Core CyberEngineMarkIII(ANumArguments, AArguments); CyberEngineMarkIII.LaunchUnit(););
 	}
 	catch (...) {}
 	Platform::System::Process::Terminate(Platform::System::Process::GetSelf());

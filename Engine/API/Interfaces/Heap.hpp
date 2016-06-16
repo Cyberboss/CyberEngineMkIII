@@ -34,7 +34,7 @@ namespace CYB {
 				@par Exception Safety
 					CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
 			*/
-			virtual void Free(void* const APreviousAllocation) = 0;
+			virtual void Free(void* const APreviousAllocation) noexcept(!Platform::IsDebug()) = 0;
 		};
 	};
 };

@@ -37,7 +37,7 @@ namespace CYB {
 				*/
 				LargeBlock(const unsigned long long ASpaceAvailable, Block* const ALeftBlock) noexcept;
 
-				//! @brief See CYB::Engine::Block::Validate. This version must be used when referring to large blocks
+				//! @copydoc CYB::Engine::Memory::Block::Validate() This version must be used when referring to large blocks
 				void Validate(void) const;
 
 				/*!
@@ -49,10 +49,10 @@ namespace CYB {
 				*/
 				LargeBlock& EatLeftBlock(void) noexcept;
 
-				//! @brief See CYB::Engine::Block::Size. This version must be used when referring to large blocks
+				//! @copydoc CYB::Engine::Memory::Block::Size() This version must be used when referring to large blocks
 				unsigned long long Size(void) const noexcept;
 
-				//! @brief See CYB::Engine::Block::SetSize. This version must be used when referring to large blocks
+				//! @copydoc CYB::Engine::Memory::Block::SetSize() This version must be used when referring to large blocks
 				void SetSize(const unsigned long long ANewSize) noexcept;
 			};
 		};

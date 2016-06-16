@@ -10,7 +10,7 @@ CYB::Platform::System::Process CYB::Platform::System::Process::GetSelf(void) noe
 	return Process(Posix::getpid());
 }
 
-CYB::Platform::System::Implementation::Process::Process(CYB::Platform::Posix::pid_t APID) noexcept :
+CYB::Platform::System::Implementation::Process::Process(const Posix::pid_t APID) noexcept :
 	FPID(APID)
 {}
 

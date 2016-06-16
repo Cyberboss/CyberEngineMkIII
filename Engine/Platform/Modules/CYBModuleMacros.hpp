@@ -68,7 +68,7 @@ namespace CYB {\
 template <> constexpr const char* CYB::Platform::Modules::AutoModule<AOptionalFunctions, NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::ModuleName(void){\
 	return ADiskName; \
 }\
-template <> inline const CYB::API::String::Static* CYB::Platform::Modules::AutoModule<AOptionalFunctions, NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::FunctionNames(void){\
+template <> inline const CYB::API::String::Static* CYB::Platform::Modules::AutoModule<AOptionalFunctions, NARGS(__VA_ARGS__), APPLY2(DECLTYPE_EXPAND, APlatform, __VA_ARGS__)>::FunctionNames(void) noexcept {\
 	static const CYB::API::String::Static Names[NARGS(__VA_ARGS__)]{ APPLY(STATIC_STRINGIFY,__VA_ARGS__) };\
 	return Names;\
 };

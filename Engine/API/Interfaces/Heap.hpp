@@ -10,8 +10,7 @@ namespace CYB {
 				@return The beginning of an allocated memory region with size at least @p ASize
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the heap does not have the space for the allocation and more system memory cannot be requested
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_COMMITAL_FAILURE. Thrown if the heap does not have the space for the allocation and more system memory cannot be requested
 			*/
 			virtual void* Alloc(const int ASize) = 0;
 			/*!
@@ -21,9 +20,8 @@ namespace CYB {
 				@return The beginning of an allocated memory region with size at least @p ANewSize and the data from @p APreviousAllocation. Or, if @p ANewSize was less than or equal to zero, nullptr
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
-					<BR>CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the heap does not have the space for the allocation and more system memory cannot be requested
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::Violation::MEMORY_COMMITAL_FAILURE if the heap does not have the space for the allocation and more system memory cannot be requested
 			*/
 			virtual void* Realloc(void* const APreviousAllocation, const int ANewSize) = 0;
 			/*!
@@ -31,8 +29,7 @@ namespace CYB {
 				@param APreviousAllocation A pointer previously returned from a call to Alloc or Realloc of the same Heap object
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
 			*/
 			virtual void Free(void* const APreviousAllocation) noexcept(!Platform::IsDebug()) = 0;
 		};

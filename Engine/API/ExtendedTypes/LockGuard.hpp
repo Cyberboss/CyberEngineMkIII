@@ -13,8 +13,6 @@ namespace CYB {
 				@param AMutex The mutex to lock
 				@par Thread Safety
 					This function will attempt to lock AMutex
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			LockGuard(const Mutex& AMutex) noexcept;
 			LockGuard(const LockGuard&) = delete;	//!< @brief See @ref structors
@@ -27,8 +25,6 @@ namespace CYB {
 				@brief Releases the lock on Mutex, this same LockGuard can never reaquire it
 				@par Thread Safety
 					This function will attempt unlock the owned Mutex
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			void Release(void) noexcept;
 		};

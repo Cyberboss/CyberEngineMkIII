@@ -19,8 +19,7 @@ namespace CYB {
 					@return The reserved address space
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE if the reservation was unable to be made
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_RESERVATION_FAILURE. Thrown if the reservation was unable to be made
 				*/
 				static void* Reserve(unsigned long long ANumBytes);
 				/*!
@@ -29,8 +28,7 @@ namespace CYB {
 					@param ANumBytes The number of bytes in the address space to commit, will be rounded up to the nearest reservable granularity
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE if the commital was unable to be made
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_COMMITAL_FAILURE. Thrown if the commital was unable to be made
 				*/
 				static void Commit(void* const AReservation, unsigned long long ANumBytes);
 				/*!
@@ -39,8 +37,6 @@ namespace CYB {
 					@param ANumBytes The number of bytes to discard, will be rounded down to the nearest discardable granularity. Must be less than reservation size
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				static void Discard(void* const AMemory, const unsigned long long ANumBytes) noexcept;
 				/*!
@@ -48,8 +44,7 @@ namespace CYB {
 					@param AReservation An address returned from ReserveMemory
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						CYB::Exception::SystemData::MEMORY_RELEASE_FAILURE if the commital was unable to be made
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_RELEASE_FAILURE. Thrown if the commital was unable to be made
 				*/
 				static void Release(void* AReservation);
 				/*!
@@ -58,8 +53,7 @@ namespace CYB {
 					@param AAccess The access level to set
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						CYB::Exception::SystemData::MEMORY_PROTECT_FAILURE if the commital was unable to be made
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_PROTECT_FAILURE. Thrown if the commital was unable to be made
 				*/
 				static void Access(void* AReservation, const AccessLevel AAccess);
 			};

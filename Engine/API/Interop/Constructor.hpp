@@ -15,8 +15,6 @@ namespace CYB {
 					@param AParams The remaining pointers
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				Constructor(AType* const AParam, ATypes&&... AParams) noexcept :
 					Constructor<ATypes...>(std::forward(AParams)...),
@@ -36,8 +34,6 @@ namespace CYB {
 					@param AParam A pointer to a valid AType
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				Constructor(AType* const AParam) noexcept :
 					FParam(AParam)

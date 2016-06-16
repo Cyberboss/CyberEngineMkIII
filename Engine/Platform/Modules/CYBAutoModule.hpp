@@ -23,8 +23,7 @@ namespace CYB {
 					@param AFunctionNames Names of the functions to load from the Module
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MODULE_FUNCTION_LOAD_FAILURE. Thrown if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
 				*/
 				static void Construct(Module& AModule, void* (&AFunctionPointers)[AN], void* const (&AReplacedFunctions)[AN], const API::String::Static* const AFunctionNames);
 
@@ -33,10 +32,7 @@ namespace CYB {
 					@param AFunction A pointer to the function
 					@return true if the function was loaded, false otherwise
 					@par Thread Safety
-						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
-				*/
+						This function requires no thread safety				*/
 				static bool Loaded(const void* const AFunction) noexcept;
 			};
 			/*!
@@ -53,8 +49,7 @@ namespace CYB {
 					@param AFunctionNames Names of the functions to load from the Module
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MODULE_FUNCTION_LOAD_FAILURE. Thrown if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
 				*/
 				static void Construct(Module& AModule, void* (&AFunctionPointers)[AN], void* const (&AReplacedFunctions)[AN], const API::String::Static* const AFunctionNames);
 
@@ -86,11 +81,8 @@ namespace CYB {
 					@brief The names of the functions associated with this AutoModule. Must be implemented;
 					@return The names of the functions associated with this AutoModule
 					@par Thread Safety
-						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
-				*/
-				static const API::String::Static* FunctionNames(void);
+						This function requires no thread safety				*/
+				static const API::String::Static* FunctionNames(void) noexcept;
 			public:
 				/*!
 					@brief Checks if functions loaded for this auto module will be optional. If true functions should be checked with Loaded to make sure they exist. Must be implemented
@@ -101,9 +93,8 @@ namespace CYB {
 					@brief Construct an AutoModule
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						CYB::Exception::SystemData::MODULE_LOAD_FAILURE if the module is unable to be loaded<BR>
-						CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MODULE_LOAD_FAILURE. Thrown if the module is unable to be loaded
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE. Thrown if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
 				*/
 				AutoModule();
 				/*!
@@ -111,9 +102,8 @@ namespace CYB {
 					@param AReplacedFunctions Function pointers to be used in place of the regular module functions. If any are nullptr, they will instead be loaded from the module as normal
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						CYB::Exception::SystemData::MODULE_LOAD_FAILURE if the module is unable to be loaded<BR>
-						CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MODULE_LOAD_FAILURE. Thrown if the module is unable to be loaded<BR>
+					@throws CYB::Exception::SystemData Error code:CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE. Thrown if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
 				*/
 				AutoModule(void* const (&AReplacedFunctions)[AN]);
 				AutoModule(AutoModule&& AMove);	//!< @brief See @ref structors
@@ -125,10 +115,7 @@ namespace CYB {
 					@param AFunctionIndex The index of the function to check
 					@return true if the function was loaded or AOptionalFunctions is false, false otherwise
 					@par Thread Safety
-						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
-				*/
+						This function requires no thread safety				*/
 				bool Loaded(const unsigned int AFunctionIndex) const noexcept;
 
 				/*!
@@ -139,8 +126,7 @@ namespace CYB {
 					@return The result from the called function
 					@par Thread Safety
 						This function requires no thread safety. Does not apply to called function
-					@par Exception Safety
-						This function will throw any exception from the called function
+					@attention Throws dependant on called function
 				*/
 				template<unsigned int APointerIndex, typename... AArgs> auto Call(AArgs&&... AArguments) const;
 #ifdef CYB_BUILDING_TESTS

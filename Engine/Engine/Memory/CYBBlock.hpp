@@ -31,8 +31,6 @@ namespace CYB {
 					@return The correctly set Size and Free integer
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				static unsigned int InitializeData(const unsigned int ASize, const bool AFree) noexcept;	// <- It's an unsigned int for a reason dude
 
@@ -42,8 +40,6 @@ namespace CYB {
 					@return The offset of this Block with @p ABlock
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				unsigned int CalculateOffset(const Block& ABlock) noexcept;
 			public:
@@ -53,8 +49,7 @@ namespace CYB {
 					@return A reference to the Block that owns @p AData
 					@par Thread Safety
 						This function requires no thread safet
-					@par Exception Safety
-						CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
+					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
 				*/
 				static Block& FromData(void* const AData);
 				/*!
@@ -64,8 +59,6 @@ namespace CYB {
 					@param AFree Indicates whether or not the Block is free
 					@par Thread Safety
 						This function requires that the owned memory isn't concurrently accessed during this function
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				Block(const unsigned int ASpaceAvailable, const Block& ALeftBlock, const bool AFree) noexcept;
 				Block(const Block&) = delete;
@@ -74,8 +67,6 @@ namespace CYB {
 					@return The data portion of the memory owned by this Block
 					@par Thread Safety
 						This function requires that the object is not modified during this function
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				void* GetData(void) noexcept;
 
@@ -84,8 +75,6 @@ namespace CYB {
 					@return The block to the right of this block. May be nullptr if this is the rightmost block
 					@par Thread Safety
 						This function requires that the owned memory isn't concurrently accessed during this function
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				Block* RightBlock(void) noexcept;
 				/*!
@@ -93,8 +82,6 @@ namespace CYB {
 					@return The block to the right of this block. May be nullptr if this is the rightmost block
 					@par Thread Safety
 						This function requires that the owned memory isn't concurrently accessed during this function
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				const Block* RightBlock(void) const noexcept;
 				/*!
@@ -102,8 +89,6 @@ namespace CYB {
 					@return The block to the left of this block. May be nullptr if this is the leftmost block or the block to the left is a LargeBlock
 					@par Thread Safety
 						This function requires that the owned memory isn't concurrently accessed during this function
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				Block* LeftBlock(void) noexcept;
 
@@ -112,8 +97,6 @@ namespace CYB {
 					@param ANewSize The Block's new size
 					@par Thread Safety
 						This function requires that the owned memory isn't concurrently accessed during this function
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				void SetSize(const unsigned int ANewSize) noexcept;
 				/*!
@@ -121,8 +104,6 @@ namespace CYB {
 					@param ANewFree The Block's new free state
 					@par Thread Safety
 						This function requires that the owned memory isn't concurrently accessed during this function
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				void SetFree(const bool ANewFree) noexcept;
 
@@ -131,8 +112,6 @@ namespace CYB {
 					@return true if this Block is free, false otherwise
 					@par Thread Safety
 						This function requires that the object is not modified during this function
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				bool IsFree(void) const noexcept;
 				/*!
@@ -140,8 +119,6 @@ namespace CYB {
 					@return The size of the Block. This will be positive and less than the max of a signed int
 					@par Thread Safety
 						This function requires that the object is not modified during this function
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				unsigned int Size(void) const noexcept;
 
@@ -150,8 +127,6 @@ namespace CYB {
 					@return true if this Block is a LargeBlock, false otherwise
 					@par Thread Safety
 						This function requires that the object is not modified during this function
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				bool IsLargeBlock(void) const noexcept;
 
@@ -159,8 +134,7 @@ namespace CYB {
 					@brief Checks the validity of a Block. Has no effect outside of DEBUG mode
 					@par Thread Safety
 						This function requires that the object is not modified during this function
-					@par Exception Safety
-						CYB::Exception::Violation::INVALID_HEAP_BLOCK if the Block's magic numbers failed to verify
+					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
 				*/
 				void Validate(void) const;
 
@@ -170,8 +144,6 @@ namespace CYB {
 					@return A reference to the Block that was created by the splicing
 					@par Thread Safety
 						This function requires no thread safety
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				Block& Splice(const unsigned int ASizeToKeep) noexcept;
 
@@ -179,8 +151,6 @@ namespace CYB {
 					@brief Merge size and header into the size of the Block to the left. Does not modify free lists
 					@par Thread Safety
 						This function requires the left Block not be modified during the operation
-					@par Exception Safety
-						This function does not throw exceptions
 				*/
 				Block& EatLeftBlock(void) noexcept;
 			};

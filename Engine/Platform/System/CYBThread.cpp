@@ -10,9 +10,18 @@ CYB::Platform::System::Thread::~Thread() {
 	Wait();
 }
 
-void CYB::Platform::System::Thread::Cancel(void) {
+void CYB::Platform::System::Thread::Cancel(void) noexcept {
 	if (!FCancelSubmitted && !IsFinished()) {
 		FCancelSubmitted = true;
-		FThreadable.CancelThreadedOperation();
+		try {
+			FThreadable.CancelThreadedOperation();
+		}
+		catch (CYB::Exception::Base AException) {
+			static_cast<void>(AException);
+			// TODO Log error
+		}
+		catch (...) {
+			// TODO Log error
+		}
 	}
 }

@@ -42,8 +42,6 @@ namespace CYB {
 				@param AArguments The command line arguments
 				@par Thread Safety
 					This function should only be called once
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments);
 			/*!
@@ -56,8 +54,6 @@ namespace CYB {
 				@return true if the Unit should be launch again, false otherwise
 				@par Thread Safety
 					This function must be synchronized at the object level
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 
 			bool LaunchUnit(void) noexcept;
@@ -67,8 +63,6 @@ namespace CYB {
 				@return A reference to the Core singleton
 				@par Thread Safety
 					This function requires no thread safety
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			static Core& GetCore(void) noexcept;
 
@@ -78,8 +72,6 @@ namespace CYB {
 				@param AArguments The command line arguments
 				@par Thread Safety
 					This function should only be called once
-				@par Exception Safety
-					This function does not throw exceptions
 			*/
 			static void Run[[noreturn]](const unsigned int ANumArguments, const oschar_t* const* const AArguments) noexcept;
 		};

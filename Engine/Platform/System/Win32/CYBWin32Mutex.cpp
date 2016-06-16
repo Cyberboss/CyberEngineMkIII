@@ -1,6 +1,6 @@
 #include "CYB.hpp"
 
-CYB::Platform::System::Mutex::Mutex() noexcept(!API::Platform::IsTest()) {
+CYB::Platform::System::Mutex::Mutex() noexcept {
 	Core().FModuleManager.FK32.Call<Modules::Kernel32::InitializeCriticalSection>(&FCriticalSection);
 }
 

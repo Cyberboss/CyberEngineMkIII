@@ -16,8 +16,12 @@ CYB::API::Interop::Allocatable* Fake::Allocator::NewObject(const CYB::API::Inter
 	CYB::API::Assert::HCF();
 }
 
+template<> template<> void CYB::API::Singleton<CYB::Engine::Core>::Backdoor<void*>(void*& AHooker) {
+	FSingleton = static_cast<CYB::Engine::Core*>(AHooker);
+}
+
 Fake::Core::Core(const unsigned long long ASize) {
-	CYB::Core().SetTestPointer(FBytes);
+	ResetToFakeCorePointer();
 	static_cast<void>(ASize);
 	//K32 dependancy
 //	new (&CYB::Core().FHeap) CYB::Engine::Memory::Heap(ASize);
@@ -28,6 +32,11 @@ Fake::Core::~Core() {
 }
 
 Fake::Core FFakeCore(CYB::API::ByteConverters::Megabytes(50));
+
+void Fake::Core::ResetToFakeCorePointer(void) {
+	auto ref(static_cast<void*>(FFakeCore.FBytes));
+	CYB::API::Singleton<CYB::Engine::Core>::Backdoor<void*>(ref);
+}
 
 void* Fake::Heap::Alloc(const int AAmount) {
 	return malloc(static_cast<size_t>(AAmount));

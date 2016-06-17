@@ -8,6 +8,7 @@ namespace CYB {
 			@tparam AParent The class that will be inheriting from this one to create a singleton
 		*/
 		template <class AParent> class Singleton {
+			ENABLE_TEST_HOOKS
 		protected:
 			static AParent* FSingleton;	//!< @brief The singleton object
 		protected:
@@ -19,10 +20,6 @@ namespace CYB {
 			Singleton() noexcept;
 			//! @brief Destroy a singleton and nullify it's pointer
 			~Singleton();
-#ifdef CYB_BUILDING_TESTS
-		public:
-			static void SetTestPointer(void* const APointer);
-#endif
 		};
 	};
 };

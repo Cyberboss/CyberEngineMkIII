@@ -11,8 +11,3 @@ template <class AParent> CYB::API::Singleton<AParent>::~Singleton() {
 	Assert::Equal(FSingleton, static_cast<AParent*>(this));
 	FSingleton = nullptr;
 }
-#ifdef CYB_BUILDING_TESTS
-template <class AParent> void CYB::API::Singleton<AParent>::SetTestPointer(void* const APointer) {
-	FSingleton = static_cast<AParent*>(APointer);
-}
-#endif

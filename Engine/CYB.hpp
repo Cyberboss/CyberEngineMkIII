@@ -2,6 +2,9 @@
 
 #define EXPLICIT_CYB_API_USAGE
 #define ASSERTION_OVERRIDE
+#ifndef ENABLE_TEST_HOOKS
+#define ENABLE_TEST_HOOKS
+#endif
 
 #include "API/CyberEngine.hpp"
 

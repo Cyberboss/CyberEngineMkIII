@@ -34,6 +34,9 @@
     <ClCompile Include="Engine\Core\Exception.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Core\Core.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />
@@ -50,6 +53,9 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Utils.hpp">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Backdoor.hpp">
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
@@ -92,6 +98,9 @@
     <None Include="CoverageExclusions.runsettings" />
     <None Include="llvm-gcov.sh" />
     <None Include="Utils\HCF.inl">
+      <Filter>Utils</Filter>
+    </None>
+    <None Include="Utils\Backdoor.inl">
       <Filter>Utils</Filter>
     </None>
   </ItemGroup>

@@ -10,6 +10,8 @@
 #endif
 
 #define ASSERTION_OVERRIDE
+#define ENABLE_TEST_HOOKS public: template <typename AHook> static void Backdoor(AHook& AHooker);
+
 #include "../Engine/CYB.hpp"
 
 #include "Utils/Utils.hpp"

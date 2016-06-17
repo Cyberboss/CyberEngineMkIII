@@ -15,6 +15,8 @@ namespace Fake {
 	public:
 		Core(const unsigned long long ASize);
 		~Core();
+
+		static void ResetToFakeCorePointer(void);
 	};
 
 	class Heap : public CYB::API::Heap {

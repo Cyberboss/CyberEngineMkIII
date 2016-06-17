@@ -53,13 +53,12 @@ bool CYB::Engine::Core::LaunchUnit(void) noexcept {
 CYB::Engine::Core& CYB::Engine::Core::GetCore(void) noexcept {
 	return *FSingleton;
 }
-void CYB::Engine::Core::Run[[noreturn]](const unsigned int ANumArguments, const oschar_t* const* const AArguments) noexcept {
+void CYB::Engine::Core::Run(const unsigned int ANumArguments, const oschar_t* const* const AArguments) noexcept {
 	try {
 		for (Core CyberEngineMarkIII(ANumArguments, AArguments); CyberEngineMarkIII.LaunchUnit(););
 	}
 	catch (...) {}
 	Platform::System::Process::Terminate(Platform::System::Process::GetSelf());
-	CYB::API::Assert::HCF();
 }
 CYB::Engine::Core& CYB::Core(void) noexcept {
 	return Engine::Core::GetCore();

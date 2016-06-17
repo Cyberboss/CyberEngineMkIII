@@ -20,6 +20,7 @@ int main(const int ANumArguments, const oschar_t* const* const AArguments) {
 	CYB::Engine::Core::Run(static_cast<unsigned int>(ANumArguments), AArguments);
 }
 
+//placed here for code coverage reasons
 void CYB::API::Assert::HCF[[noreturn]](void) noexcept {
 #ifdef DEBUG
 	BREAK;
@@ -29,4 +30,13 @@ void CYB::API::Assert::HCF[[noreturn]](void) noexcept {
 #else
 	__builtin_unreachable();
 #endif
+}
+
+bool CYB::Platform::System::Sys::CallRedirected(const CallNumber ACallNumber) noexcept {
+	static_cast<void>(ACallNumber);
+	return false;
+}
+
+unsigned long long CYB::Platform::System::Sys::RedirectedCall(const CallNumber, const Union64, const Union64, const Union64, const Union64, const Union64, const Union64) {
+	API::Assert::HCF();
 }

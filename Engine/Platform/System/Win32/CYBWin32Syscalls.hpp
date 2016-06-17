@@ -6,7 +6,12 @@ namespace CYB {
 			namespace Implementation {
 				class Sys {
 				public:
-					enum CallNumber {};
+					enum CallNumber : long long {
+						TERMINATE_PROC = -1,
+						LOAD_LIBRARY = -2,
+						LOAD_SYMBOL = -3,
+						CLOSE_LIBRARY = -4,
+					};
 				};
 			};
 		};

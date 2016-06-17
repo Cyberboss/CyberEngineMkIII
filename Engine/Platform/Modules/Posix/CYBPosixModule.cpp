@@ -6,19 +6,19 @@ using namespace CYB::Platform::Posix;
 
 CYB::Platform::Modules::Implementation::Module::Module(const API::String::CStyle& AModuleName) {
 	//This can be called without Core
-	FModule = Posix::dlopen(AModuleName.CString(), RTLD_LAZY);
+	FModule = reinterpret_cast<void*>(System::Sys::Call(System::Sys::LOAD_LIBRARY, const_cast<char*>(AModuleName.CString()), RTLD_LAZY));
 	if (FModule == nullptr)
 		throw Exception::SystemData(Exception::SystemData::MODULE_LOAD_FAILURE);
 }
 CYB::Platform::Modules::Implementation::Module::~Module() {
 	if (FModule != nullptr)
 		//This can be called without Core
-		Posix::dlclose(FModule);
+		System::Sys::Call(System::Sys::CLOSE_LIBRARY, FModule);
 }
 
 void* CYB::Platform::Modules::Module::LoadFunction(const API::String::CStyle& AFunctionName) {
 	//This can be called without Core
-	auto Result(Posix::dlsym(FModule, AFunctionName.CString()));
+	auto Result(reinterpret_cast<void*>(System::Sys::Call(System::Sys::LOAD_SYMBOL, FModule, const_cast<char*>(AFunctionName.CString()))));
 	if (Result == nullptr)
 		throw Exception::SystemData(Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE);
 	return Result;

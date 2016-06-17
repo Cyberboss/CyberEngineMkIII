@@ -26,4 +26,34 @@ namespace Fake {
 		void* Realloc(void* const AOld, const int ANewSize);
 		void Free(void* const AOld);
 	};
-}
+	class SysCalls {
+	public:
+		struct Args {
+			CYB::Platform::System::Sys::Union64 FArg1,
+				FArg2,
+				FArg3,
+				FArg4,
+				FArg5,
+				FArg6;
+		};
+		typedef unsigned long long(*CallPointer)(Args& AArgs);
+	private:
+		struct MapList {
+			MapList* FNext;
+			CallPointer FFunction;
+			CYB::Platform::System::Sys::CallNumber FCallNumber;
+		};
+	public:
+		static MapList* FMapList;
+	public:
+		static void OverrideCall(const CYB::Platform::System::Sys::CallNumber ACallNumber, CallPointer ACallPointer);
+		static void ResetCall(const CYB::Platform::System::Sys::CallNumber ACallNumber);
+	};
+};
+
+class SysCallOverride {
+private:
+	const CYB::Platform::System::Sys::CallNumber FCallNumber;
+public:
+	SysCallOverride(CYB::Platform::System::Sys::CallNumber ACallNumber, Fake::SysCalls::CallPointer ACallPointer);
+};

@@ -14,7 +14,7 @@ Platform/System/CYBThread.cpp
 Platform/System/CYBProcess.cpp
 
 #Posix
-#Platform/System/Posix/CYBPosixSyscalls.cpp	#excluded from main lib for code coverage reasons
+Platform/System/Posix/CYBPosixSyscalls.cpp
 Platform/System/Posix/CYBPosixThread.cpp
 Platform/System/Posix/CYBPosixProcess.cpp
 Platform/System/Posix/CYBPosixVirtualMemory.cpp

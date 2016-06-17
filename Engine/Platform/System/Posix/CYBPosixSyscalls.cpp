@@ -91,10 +91,45 @@ unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumb
 		: "rax", "rdi", "rsi", "rdx", "r10", "r8", "r9");
 	return Result;
 }
+unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACallNumber) noexcept {
+	API::Assert::Equal(ACallNumber, EXIT_PROC);
+	return Call(EXIT, 0);
+}
+unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACallNumber, const Union64 AArg1) noexcept {
+	API::Assert::Equal(ACallNumber, CLOSE_LIBRARY);
+	return static_cast<unsigned long long>(Posix::dlclose(AArg1.FPointer));
+}
+unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2) noexcept {
+	switch (ACallNumber) {
+	case LOAD_LIBRARY:
+		return reinterpret_cast<unsigned long long>(Posix::dlopen(static_cast<const char*>(AArg1.FPointer), AArg2.FNumber));
+	case LOAD_SYMBOL:
+		return reinterpret_cast<unsigned long long>(Posix::dlsym(AArg1.FPointer, static_cast<const char*>(AArg2.FPointer)));
+	default:
+		API::Assert::HCF();
+	}
+}
+unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber, const Union64, const Union64, const Union64) noexcept {
+	API::Assert::HCF();
+}
+unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber, const Union64, const Union64, const Union64, const Union64) noexcept {
+	API::Assert::HCF();
+}
+unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber, const Union64, const Union64, const Union64, const Union64, const Union64) noexcept {
+	API::Assert::HCF();
+}
+unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber, const Union64, const Union64, const Union64, const Union64, const Union64, const Union64) noexcept {
+	API::Assert::HCF();
+}
 void CYB::Platform::System::Sys::VerifyArgumentCount(const CallNumber ACallNumber, const unsigned long long ANumArgs) noexcept {
 	switch (ACallNumber) {
 	case EXIT:
-		CYB::API::Assert::Equal<unsigned long long>(ANumArgs, 1);
+		API::Assert::Equal<unsigned long long>(ANumArgs, 1);
 		break;
+	case EXIT_PROC:
+	case CLOSE_LIBRARY:
+	case LOAD_LIBRARY:
+	case LOAD_SYMBOL:
+		API::Assert::HCF();
 	}
 }

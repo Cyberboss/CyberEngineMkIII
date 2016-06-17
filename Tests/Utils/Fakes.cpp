@@ -52,3 +52,40 @@ void* Fake::Heap::Realloc(void* const AOld, const int ANewSize) {
 void Fake::Heap::Free(void* const AOld) {
 	free(AOld);
 }
+
+static bool _CallRedirected(const CYB::Platform::System::Sys::CallNumber ACallNumber) noexcept {
+	for (auto Current(Fake::SysCalls::FMapList); Current != nullptr; Current = Current->FNext)
+		if (Current->FCallNumber == ACallNumber)
+			return true;
+	return false;
+}
+
+bool CYB::Platform::System::Sys::CallRedirected(const CallNumber ACallNumber) noexcept {
+	return _CallRedirected(ACallNumber);
+}
+
+Fake::SysCalls::MapList* Fake::SysCalls::FMapList(nullptr);
+
+unsigned long long CYB::Platform::System::Sys::RedirectedCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2, const Union64 AArg3, const Union64 AArg4, const Union64 AArg5, const Union64 AArg6) {
+	Fake::SysCalls::Args Args{ AArg1, AArg2, AArg3, AArg4, AArg5, AArg6 };
+	for (auto Current(Fake::SysCalls::FMapList); Current != nullptr; Current = Current->FNext)
+		if (Current->FCallNumber == ACallNumber)
+			return Current->FFunction(Args);
+	API::Assert::HCF();
+}
+
+void Fake::SysCalls::OverrideCall(const CYB::Platform::System::Sys::CallNumber ACallNumber, CallPointer ANewFunction) {
+	CYB::API::Assert::False(_CallRedirected(ACallNumber));
+	FMapList = new MapList{ FMapList, ANewFunction, ACallNumber };
+}
+void Fake::SysCalls::ResetCall(const CYB::Platform::System::Sys::CallNumber ACallNumber) {
+	CYB::API::Assert::True(_CallRedirected(ACallNumber));
+	for (MapList* Current(FMapList), *Previous(nullptr); Current != nullptr; Previous = Current, Current = Current->FNext)
+		if (Current->FCallNumber == ACallNumber) {
+			if (Previous == nullptr)
+				FMapList = Current->FNext;
+			else
+				Previous->FNext = Current->FNext;
+			delete Current;
+		}
+}

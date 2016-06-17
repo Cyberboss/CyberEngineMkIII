@@ -18,6 +18,7 @@ Engine/Memory/Blocks.cpp
 Engine/Memory/Heap.cpp
 
 Engine/Core/Exception.cpp
+Engine/Core/Core.cpp
 
 API/String/StaticAndCStyle.cpp
 

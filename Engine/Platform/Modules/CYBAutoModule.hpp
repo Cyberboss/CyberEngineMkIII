@@ -32,7 +32,8 @@ namespace CYB {
 					@param AFunction A pointer to the function
 					@return true if the function was loaded, false otherwise
 					@par Thread Safety
-						This function requires no thread safety				*/
+						This function requires no thread safety
+				*/
 				static bool Loaded(const void* const AFunction) noexcept;
 			};
 			/*!
@@ -66,6 +67,7 @@ namespace CYB {
 				@tparam AFunctionTypes The types of the functions being called
 			*/
 			template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> class AutoModule : private AutoModuleOptionalHelpers<AOptionalFunctions, AN> {
+				ENABLE_TEST_HOOKS
 			public:
 				typedef API::ParameterPack<AFunctionTypes...> FParameterPack;
 			private:
@@ -81,7 +83,8 @@ namespace CYB {
 					@brief The names of the functions associated with this AutoModule. Must be implemented;
 					@return The names of the functions associated with this AutoModule
 					@par Thread Safety
-						This function requires no thread safety				*/
+						This function requires no thread safety
+				*/
 				static const API::String::Static* FunctionNames(void) noexcept;
 			public:
 				/*!
@@ -115,7 +118,8 @@ namespace CYB {
 					@param AFunctionIndex The index of the function to check
 					@return true if the function was loaded or AOptionalFunctions is false, false otherwise
 					@par Thread Safety
-						This function requires no thread safety				*/
+						This function requires no thread safety
+				*/
 				bool Loaded(const unsigned int AFunctionIndex) const noexcept;
 
 				/*!
@@ -129,9 +133,6 @@ namespace CYB {
 					@attention Throws dependant on called function
 				*/
 				template<unsigned int APointerIndex, typename... AArgs> auto Call(AArgs&&... AArguments) const;
-#ifdef CYB_BUILDING_TESTS
-				void* ReassignFunctionPointer(const unsigned int AIndex, void* ANewPointer);
-#endif
 			};
 		};
 	};

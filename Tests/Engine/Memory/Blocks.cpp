@@ -150,6 +150,26 @@ SCENARIO("Block Split/Merge functions work", "[Engine][Memory][Block][Unit]") {
 				CHECK_FALSE(Result.IsLargeBlock());
 				CHECK(TestBlockP->IsLargeBlock());
 				CHECK(TestBlockP->Size() == 480 - sizeof(LargeBlock) - sizeof(Block));
+				AND_THEN("When it is allocated from again") {
+					auto& Result2(LargeBlock::AllocateBlock(TestBlockP, 20));
+					THEN("There are now three Blocks with the appropriate settings") {
+						CHECK_NOTHROW(Result.Validate());
+						CHECK_NOTHROW(TestBlockP->Validate());
+						CHECK(&Result.RightBlock() == &Result2);
+						CHECK_FALSE(reinterpret_cast<byte*>(TestBlockP) == Data);
+						CHECK(reinterpret_cast<byte*>(&Result) == Data);
+						CHECK(Result.Size() == 20);
+						CHECK_FALSE(Result.IsFree());
+						CHECK_FALSE(Result.IsLargeBlock());
+						CHECK(TestBlockP->IsLargeBlock());
+						CHECK(TestBlockP->Size() == 460 - sizeof(LargeBlock) - (sizeof(Block) * 2));
+						CHECK(Result2.LeftBlock() == &Result);
+						CHECK(&Result2.RightBlock() == TestBlockP);
+						CHECK_FALSE(Result2.IsLargeBlock());
+						CHECK_FALSE(Result2.IsFree());
+						CHECK(Result2.Size() == 20);
+					}
+				}
 			}
 		}
 		WHEN("It is Spliced and remerged") {

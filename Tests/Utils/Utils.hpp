@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Backdoor.hpp"
 #include "Fakes.hpp"
 #include "RedirectedFunction.hpp"
 #include "CallRedirect.hpp"

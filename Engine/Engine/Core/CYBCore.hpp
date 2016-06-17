@@ -4,7 +4,8 @@
 namespace CYB {
 	namespace Engine {
 		//! @brief An instance of this object is the entirety of the engine
-		class Core : public API::Singleton<Core>{
+		class Core : public API::Singleton<Core> {
+			ENABLE_TEST_HOOKS
 		private:
 			enum {
 				VERSION_MAJOR = 3,

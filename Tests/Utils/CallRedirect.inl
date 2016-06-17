@@ -7,7 +7,7 @@ template <class AAutoModule, typename ACallable, unsigned int AFunctionIndex> Ca
 	FMoved(false)
 {
 	CYB::API::Assert::Equal<decltype(FOldFunction)>(FOldFunction, nullptr);
-	FOldFunction = FReference.ReassignFunctionPointer(AFunctionIndex, reinterpret_cast<void*>(ANewFunction));
+	FOldFunction = ReassignAutoModuleFunctionPointer<AAutoModule>(FReference, AFunctionIndex, reinterpret_cast<void*>(ANewFunction));
 }
 
 template <class AAutoModule, typename ACallable, unsigned int AFunctionIndex> CallRedirectBase<AAutoModule, ACallable, AFunctionIndex>::CallRedirectBase(CallRedirectBase&& AMove) :
@@ -18,7 +18,7 @@ template <class AAutoModule, typename ACallable, unsigned int AFunctionIndex> Ca
 
 template <class AAutoModule, typename ACallable, unsigned int AFunctionIndex> CallRedirectBase<AAutoModule, ACallable, AFunctionIndex>::~CallRedirectBase() {
 	if (!FMoved) {
-		FReference.ReassignFunctionPointer(AFunctionIndex, FOldFunction);
+		ReassignAutoModuleFunctionPointer<AAutoModule>(FReference ,AFunctionIndex, FOldFunction);
 		FOldFunction = nullptr;
 	}
 }

@@ -101,6 +101,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="API\String\StaticAndCStyle.cpp" />
+    <ClCompile Include="Engine\Core\Core.cpp" />
     <ClCompile Include="Engine\Core\Exception.cpp" />
     <ClCompile Include="Engine\Memory\Blocks.cpp" />
     <ClCompile Include="Engine\Memory\Heap.cpp" />
@@ -130,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />
+    <ClInclude Include="Utils\Backdoor.hpp" />
     <ClInclude Include="Utils\CallRedirect.hpp" />
     <ClInclude Include="Utils\Fakes.hpp" />
     <ClInclude Include="Utils\ModuleDependancy.hpp" />
@@ -142,6 +144,7 @@
   <ItemGroup>
     <None Include="CoverageExclusions.runsettings" />
     <None Include="llvm-gcov.sh" />
+    <None Include="Utils\Backdoor.inl" />
     <None Include="Utils\CallRedirect.inl" />
     <None Include="Utils\HCF.inl" />
     <None Include="Utils\ModuleDependancy.inl" />

@@ -68,14 +68,14 @@ CYB::Engine::Memory::Block* CYB::Engine::Memory::Block::LeftBlock(void) noexcept
 	return reinterpret_cast<Block*>(reinterpret_cast<byte*>(this) - FOffsetToPreviousBlock);
 }
 
-CYB::Engine::Memory::Block* CYB::Engine::Memory::Block::RightBlock(void) noexcept {
+CYB::Engine::Memory::Block& CYB::Engine::Memory::Block::RightBlock(void) noexcept {
 	API::Assert::False(IsLargeBlock());
-	return reinterpret_cast<Block*>(static_cast<byte*>(GetData()) + Size());
+	return *reinterpret_cast<Block*>(static_cast<byte*>(GetData()) + Size());
 }
 
-const CYB::Engine::Memory::Block* CYB::Engine::Memory::Block::RightBlock(void) const noexcept {
+const CYB::Engine::Memory::Block& CYB::Engine::Memory::Block::RightBlock(void) const noexcept {
 	API::Assert::False(IsLargeBlock());
-	return reinterpret_cast<const Block*>(reinterpret_cast<const byte*>(this) + sizeof(Block) + Size());
+	return *reinterpret_cast<const Block*>(reinterpret_cast<const byte*>(this) + sizeof(Block) + Size());
 }
 void CYB::Engine::Memory::Block::SetSize(const unsigned int ANewSize) noexcept {
 	API::Assert::LessThan(ANewSize, static_cast<unsigned int>(std::numeric_limits<int>::max()));

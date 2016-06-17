@@ -3,6 +3,7 @@
 namespace CYB {
 	namespace API {
 		namespace String {
+			//! @brief A string pointing to unchanging data in the stack above it or the data segment. Must have UTF-8 encoding
 			class Static : public CStyle {
 			public:
 				/*!

@@ -17,6 +17,7 @@ namespace Fake {
 		~Core();
 
 		static void ResetToFakeCorePointer(void);
+		static void NullifySingleton(void);
 	};
 
 	class Heap : public CYB::API::Heap {

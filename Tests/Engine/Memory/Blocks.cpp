@@ -17,7 +17,8 @@ SCENARIO("Block initialization performs as expected", "[Engine][Memory][Block][U
 				CHECK_FALSE(TestBlock.IsLargeBlock());
 				CHECK(static_cast<unsigned long long>(TestBlock.Size()) == 100 - sizeof(Block));
 				CHECK(TestBlock.LeftBlock() == nullptr);
-				CHECK(reinterpret_cast<byte*>(TestBlock.RightBlock()) == static_cast<byte*>(Data) + 100);
+				CHECK(reinterpret_cast<byte*>(&TestBlock.RightBlock()) == static_cast<byte*>(Data) + 100);
+				CHECK(reinterpret_cast<const byte*>(&static_cast<const Block&>(TestBlock).RightBlock()) == static_cast<byte*>(Data) + 100);
 			}
 		}
 		WHEN("A LargeBlock is initialized in the memory") {
@@ -39,8 +40,8 @@ SCENARIO("Block initialization performs as expected", "[Engine][Memory][Block][U
 	}
 }
 SCENARIO("Block dword manipulation works", "[Engine][Memory][Block][Unit]") {
+	auto Data(new byte[100]);
 	GIVEN("A valid Block") {
-		auto Data(new byte[100]);
 		auto& TestBlock(*new (Data) Block(100, *reinterpret_cast<Block*>(Data), true));
 		WHEN("The free bit is set to false") {
 			TestBlock.SetFree(false);
@@ -66,8 +67,19 @@ SCENARIO("Block dword manipulation works", "[Engine][Memory][Block][Unit]") {
 				CHECK(TestBlock.Size() == 50);
 			}
 		}
-		delete[] Data;
 	}
+	GIVEN("A valid LargeBlock") {
+		auto& TestBlock(*new (Data) LargeBlock(100 - sizeof(LargeBlock), nullptr));
+		WHEN("The size is changed") {
+			TestBlock.SetSize(50);
+			THEN("The size works as intended") {
+				CHECK_NOTHROW(TestBlock.Validate());
+				CHECK(TestBlock.IsFree());
+				CHECK(TestBlock.Size() == 50ULL);
+			}
+		}
+	}
+	delete[] Data;
 }
 SCENARIO("LargeBlock identification works", "[Engine][Memory][Block][Unit]") {
 	auto Data(new byte[100]);
@@ -102,7 +114,7 @@ SCENARIO("Block Split/Merge functions work", "[Engine][Memory][Block][Unit]") {
 				CHECK_NOTHROW(Result.Validate());
 				CHECK_NOTHROW(TestBlock.Validate());
 				CHECK(Result.LeftBlock() == &TestBlock);
-				CHECK(TestBlock.RightBlock() == &Result);
+				CHECK(&TestBlock.RightBlock() == &Result);
 				CHECK(TestBlock.Size() == 20);
 				CHECK(Result.Size() == 80 - (sizeof(Block) * 2));
 				CHECK(TestBlock.IsFree());
@@ -130,7 +142,7 @@ SCENARIO("Block Split/Merge functions work", "[Engine][Memory][Block][Unit]") {
 			THEN("There are now two Blocks with the appropriate settings") {
 				CHECK_NOTHROW(Result.Validate());
 				CHECK_NOTHROW(TestBlockP->Validate());
-				CHECK(Result.RightBlock() == TestBlockP);
+				CHECK(&Result.RightBlock() == TestBlockP);
 				CHECK_FALSE(reinterpret_cast<byte*>(TestBlockP) == Data);
 				CHECK(reinterpret_cast<byte*>(&Result) == Data);
 				CHECK(Result.Size() == 20);

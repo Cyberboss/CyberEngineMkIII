@@ -178,7 +178,7 @@ void CYB::Engine::Memory::Heap::FreeImpl(Block& ABlock, API::LockGuard& ALock) {
 
 void CYB::Engine::Memory::Heap::Walk(void) const {
 	API::LockGuard Lock(FMutex);
-	for (auto CurrentBlock(&FirstBlock()); CurrentBlock != FLargeBlock; CurrentBlock = CurrentBlock->RightBlock())
+	for (auto CurrentBlock(&FirstBlock()); CurrentBlock != FLargeBlock; CurrentBlock = &CurrentBlock->RightBlock())
 		CurrentBlock->Validate();
 	FLargeBlock->Validate();
 }

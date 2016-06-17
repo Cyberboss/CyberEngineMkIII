@@ -72,18 +72,18 @@ namespace CYB {
 
 				/*!
 					@brief Get the block to the right of this Block
-					@return The block to the right of this block. May be nullptr if this is the rightmost block
+					@return A reference to the block to the right of this block. May be nullptr if this is the rightmost block
 					@par Thread Safety
 						This function requires that the owned memory isn't concurrently accessed during this function
 				*/
-				Block* RightBlock(void) noexcept;
+				Block& RightBlock(void) noexcept;
 				/*!
 					@brief Get the block to the right of this Block
-					@return The block to the right of this block. May be nullptr if this is the rightmost block
+					@return A reference to the block to the right of this block. May be nullptr if this is the rightmost block
 					@par Thread Safety
 						This function requires that the owned memory isn't concurrently accessed during this function
 				*/
-				const Block* RightBlock(void) const noexcept;
+				const Block& RightBlock(void) const noexcept;
 				/*!
 					@brief Get the block to the left of this Block
 					@return The block to the left of this block. May be nullptr if this is the leftmost block or the block to the left is a LargeBlock

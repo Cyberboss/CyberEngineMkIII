@@ -6,8 +6,13 @@ namespace CYB {
 			namespace Implementation {
 				class Sys {
 				public:
-					enum CallNumber : unsigned long long {
+					enum CallNumber : long long {
 						EXIT = 0x2000000 + 1,
+						KILL = 0x2000000 + 37,
+						EXIT_PROC = -1,
+						LOAD_LIBRARY = -2,
+						LOAD_SYMBOL = -3,
+						CLOSE_LIBRARY = -4,
 					};
 				};
 			};

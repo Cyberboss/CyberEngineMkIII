@@ -1,15 +1,5 @@
 #include "TestHeader.hpp"
 
-#ifndef TARGET_OS_WINDOWS
-static bool FSysExitCalledProperly(false);
-unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber, const Union64 AArg1) noexcept {
-	FSysExitCalledProperly = ACallNumber == CallNumber::EXIT && AArg1.FNumber == 0;
-	return 0;
-}
-//don't bother with it
-void CYB::Platform::System::Sys::VerifyArgumentCount(const CallNumber ACallNumber, const unsigned long long ANumArgs) noexcept {}
-#endif
-
 SCENARIO("Getting the running process works", "[Platform][System][Process][Unit]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	GIVEN("The running process (me!)") {

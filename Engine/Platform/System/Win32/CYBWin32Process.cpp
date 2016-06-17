@@ -3,7 +3,7 @@
 void CYB::Platform::System::Process::Terminate(void) noexcept {
 	//Self terminating is actually safer than exiting due to locks and shit, also allows for us to kill ourselves and other processes in one line
 	//No FK32 because this can be called without Core
-	Win32::TerminateProcess(FHandle, 0);
+	Sys::Call(Sys::TERMINATE_PROC, FHandle);
 }
 
 CYB::Platform::System::Process CYB::Platform::System::Process::GetSelf(void) noexcept {

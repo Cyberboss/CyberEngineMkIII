@@ -39,7 +39,7 @@ find_package(PythonInterp 3.2 REQUIRED)
 
 IF(CMAKE_BUILD_TYPE MATCHES DEBUG)
 add_test(NAME GenerateLcovData COMMAND lcov --directory . --base-directory . --gcov-tool Tests/llvm-gcov.sh --no-external --capture -o lcovwip.dat WORKING_DIRECTORY ${CYB_BASE_DIR})
-add_test(NAME RemovingExcludedLcovData COMMAND lcov -r lcovwip.dat \*Assert.inl -o lcov.dat WORKING_DIRECTORY ${CYB_BASE_DIR})
+add_test(NAME RemovingExcludedLcovData COMMAND lcov -r lcovwip.dat \*Assert.inl \*CYBPosixSyscalls.cpp \*CYBSyscalls.inl -o lcov.dat WORKING_DIRECTORY ${CYB_BASE_DIR})
 add_test(NAME GenerateLcovHtml COMMAND genhtml lcov.dat -o HTMLCodeCoverage WORKING_DIRECTORY ${CYB_BASE_DIR})
 add_test(NAME DownloadCoberturaConverter COMMAND curl -O https://raw.githubusercontent.com/eriwen/lcov-to-cobertura-xml/master/lcov_cobertura/lcov_cobertura.py WORKING_DIRECTORY ${CYB_BASE_DIR})
 add_test(NAME GenerateCoberturaXML COMMAND ${PYTHON_EXECUTABLE} lcov_cobertura.py lcov.dat -o Code.coveragexml WORKING_DIRECTORY ${CYB_BASE_DIR})

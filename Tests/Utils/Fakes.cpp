@@ -35,7 +35,12 @@ Fake::Core FFakeCore(CYB::API::ByteConverters::Megabytes(50));
 
 void Fake::Core::ResetToFakeCorePointer(void) {
 	auto ref(static_cast<void*>(FFakeCore.FBytes));
-	CYB::API::Singleton<CYB::Engine::Core>::Backdoor<void*>(ref);
+	CYB::API::Singleton<CYB::Engine::Core>::Backdoor(ref);
+}
+
+void Fake::Core::NullifySingleton(void) {
+	void* Null(nullptr);
+	CYB::API::Singleton<CYB::Engine::Core>::Backdoor(Null);
 }
 
 void* Fake::Heap::Alloc(const int AAmount) {

@@ -74,7 +74,7 @@ namespace CYB {
 				@par Thread Safety
 					This function should only be called once
 			*/
-			static void Run[[noreturn]](const unsigned int ANumArguments, const oschar_t* const* const AArguments) noexcept;
+			static void Run(const unsigned int ANumArguments, const oschar_t* const* const AArguments) noexcept;
 		};
 	};
 

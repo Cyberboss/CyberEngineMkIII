@@ -56,4 +56,5 @@ private:
 	const CYB::Platform::System::Sys::CallNumber FCallNumber;
 public:
 	SysCallOverride(CYB::Platform::System::Sys::CallNumber ACallNumber, Fake::SysCalls::CallPointer ACallPointer);
+	~SysCallOverride();
 };

@@ -46,3 +46,32 @@ SCENARIO("Core instantiation", "[Engine][Core][Functional]") {
 	}
 	Fake::Core::ResetToFakeCorePointer();
 }
+
+static bool FFakeProcExitRan(false);
+unsigned long long FakeProcExit(Fake::SysCalls::Args&) {
+	FFakeProcExitRan = true;
+	Fake::Core::ResetToFakeCorePointer();	//do this here before we call closehandle in Process' destructor
+	return 0;
+}
+
+
+SCENARIO("Basic engine dry run", "[Engine][Core][Behavioural]") {
+	GIVEN("A clean execution environment (With a redirected termination call of course)") {
+		ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+		Fake::Core::NullifySingleton();
+		SysCallOverride Exit(
+#ifdef TARGET_OS_WINDOWS
+			CYB::Platform::System::Sys::TERMINATE_PROC
+#else
+			CYB::Platform::System::Sys::EXIT_PROC
+#endif
+			, FakeProcExit);
+		WHEN("The engine is run") {
+			CYB::Engine::Core::Run(0, nullptr);
+			THEN("Certain things happened") {
+				CHECK(FFakeProcExitRan);
+			}
+		}
+		Fake::Core::ResetToFakeCorePointer();
+	}
+}

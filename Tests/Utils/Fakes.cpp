@@ -78,6 +78,7 @@ void Fake::SysCalls::OverrideCall(const CYB::Platform::System::Sys::CallNumber A
 	CYB::API::Assert::False(_CallRedirected(ACallNumber));
 	FMapList = new MapList{ FMapList, ANewFunction, ACallNumber };
 }
+
 void Fake::SysCalls::ResetCall(const CYB::Platform::System::Sys::CallNumber ACallNumber) {
 	CYB::API::Assert::True(_CallRedirected(ACallNumber));
 	for (MapList* Current(FMapList), *Previous(nullptr); Current != nullptr; Previous = Current, Current = Current->FNext)
@@ -87,5 +88,15 @@ void Fake::SysCalls::ResetCall(const CYB::Platform::System::Sys::CallNumber ACal
 			else
 				Previous->FNext = Current->FNext;
 			delete Current;
+			break;
 		}
+}
+
+SysCallOverride::SysCallOverride(const CYB::Platform::System::Sys::CallNumber ACallNumber, Fake::SysCalls::CallPointer ANewFunction):
+	FCallNumber(ACallNumber)
+{
+	Fake::SysCalls::OverrideCall(ACallNumber, ANewFunction);
+}
+SysCallOverride::~SysCallOverride() {
+	Fake::SysCalls::ResetCall(FCallNumber);
 }

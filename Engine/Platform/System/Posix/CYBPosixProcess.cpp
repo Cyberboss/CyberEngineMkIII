@@ -3,7 +3,8 @@
 void CYB::Platform::System::Process::Terminate(void) noexcept {
 	if (FPID == Posix::getpid())
 		Sys::Call(Sys::EXIT_PROC);
-	Core().FModuleManager.FC.Call<Modules::LibC::kill>(FPID, SIGKILL);
+	else
+		Core().FModuleManager.FC.Call<Modules::LibC::kill>(FPID, SIGKILL);
 }
 
 CYB::Platform::System::Process CYB::Platform::System::Process::GetSelf(void) noexcept {

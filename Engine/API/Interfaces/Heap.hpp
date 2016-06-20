@@ -31,7 +31,7 @@ namespace CYB {
 					This function requires no thread safety
 				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
 			*/
-			virtual void Free(void* const APreviousAllocation) noexcept(!Platform::IsDebug()) = 0;
+			virtual void Free(void* const APreviousAllocation) RELEASE_NOEXCEPT = 0;
 		};
 	};
 };

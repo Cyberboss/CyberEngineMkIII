@@ -3,9 +3,10 @@ namespace CYB {
 	namespace Platform {
 		namespace System {
 			namespace Implementation {
+				using namespace Posix;
 				class Mutex {
 				protected:
-					mutable Posix::pthread_mutex_t FMutex;
+					mutable pthread_mutex_t FMutex;
 				protected:
 					Mutex();
 				};

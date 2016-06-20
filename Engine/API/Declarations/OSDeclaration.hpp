@@ -22,6 +22,19 @@
 #undef TARGET_OS_LINUX
 #endif
 
+//! @cond
+//This is an alternative to noexcept(!CYB::API::Platform::IsDebug()) because at some points this can fuck up the compiler
+#ifdef _WIN32	//TODO remove this once the VS team fixes the compiler https://connect.microsoft.com/VisualStudio/feedback/details/2838537/ice-when-calling-pure-virtual-function-with-constexpr-noexcept-specifier-with-at-least-1-parameter
+#ifndef DEBUG
+#define RELEASE_NOEXCEPT noexcept
+#else
+#define RELEASE_NOEXCEPT
+#endif
+#else
+#define RELEASE_NOEXCEPT noexcept(!CYB::API::Platform::IsDebug())
+#endif
+//! @endcond
+
 namespace CYB {
 	namespace API {
 		//! @brief Strong typing for Platform::Identifier

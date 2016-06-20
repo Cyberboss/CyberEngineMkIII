@@ -3,8 +3,6 @@
 #pragma clang diagnostic ignored "-Wdelete-non-virtual-dtor"
 #endif
 
-CYB::API::Interop::Allocator* CYB::API::Interop::Allocator::FAllocator;
-
 Fake::Allocator::Allocator() :
 	CYB::API::Interop::Allocator(*new Heap())
 {}

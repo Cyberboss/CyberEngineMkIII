@@ -22,8 +22,8 @@ namespace CYB {
 				Static(Static&& AMove) noexcept = default;	//!< @brief See @ref structors
 				Static& operator=(Static&& AMove) noexcept = default;	//!< @brief See @ref structors
 
-				//! @copydoc CYB::API::String::CStyle::RawLength()
-				unsigned int Length(void) const noexcept override;
+				//! @copydoc CYB::API::String::CStyle::Length()
+				int Length(void) const noexcept override;
 			};
 		};
 	};

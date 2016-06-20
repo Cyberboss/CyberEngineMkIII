@@ -7,7 +7,7 @@ namespace CYB {
 			class CStyle {
 			protected:
 				char* FData;	//!< @brief String data. May be const, do not modify from this class
-				unsigned int FLength;	//!< @brief Number of bytes before null terminator in FData
+				int FLength;	//!< @brief Number of bytes before null terminator in FData
 			protected:
 				/*!
 					@brief Construct a CStyle string
@@ -22,7 +22,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires synchronization at the object level
 				*/
-				unsigned int CalculateByteLength(void) const noexcept;
+				int CalculateByteLength(void) const noexcept;
 			public:
 				/*!
 					@brief Get the contained const CString
@@ -37,14 +37,14 @@ namespace CYB {
 					@par Thread Safety
 						This function requires synchronization at the object level
 				*/
-				virtual unsigned int Length(void) const noexcept = 0;
+				virtual int Length(void) const noexcept = 0;
 				/*!
 					@brief Get the byte length of the contained CString
 					@return The byte length of the contained CString
 					@par Thread Safety
 						This function requires synchronization at the object level
 				*/
-				unsigned int RawLength(void) const noexcept;
+				int RawLength(void) const noexcept;
 			};
 		};
 	};

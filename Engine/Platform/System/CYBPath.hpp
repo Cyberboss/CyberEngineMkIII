@@ -5,11 +5,16 @@ namespace CYB {
 		namespace System {
 			//! @brief Used for manipulating Paths
 			class Path {
+			private:
+				API::String::UTF8 FPath;
 			public:
 				static Path GetExecutableDirectory(void);
 				static Path GetResourceDirectory(void);
 				static Path GetTemporaryDirectory(void);
 				static Path GetUserDataDirectory(void);
+
+				static Path WorkingDirectory(void);
+				static void SetWorkingDirectory(const Path& APath);
 
 				Path(const API::String::CStyle& AString);
 				Path(const Path& ACopy) = default;
@@ -17,7 +22,6 @@ namespace CYB {
 				Path& operator=(Path&& AMove) noexcept = default;
 
 				void EmptyContents(void) const;
-				void SetAsWorkingDirectory(void) const;
 
 				void CreateAsDirectory(void) const;
 

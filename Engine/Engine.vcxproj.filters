@@ -373,6 +373,9 @@
     <ClInclude Include="API\Types\String\Strings.hpp">
       <Filter>API\Types\String</Filter>
     </ClInclude>
+    <ClInclude Include="API\Types\String\UTF8String.hpp">
+      <Filter>API\Types\String</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DoxyPages\Contexts.dox">

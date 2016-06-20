@@ -11,3 +11,4 @@ namespace CYB {
 #include "CStyleString.hpp"
 #include "StaticString.hpp"
 #include "DynamicString.hpp"
+#include "UTF8String.hpp"

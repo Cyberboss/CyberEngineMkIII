@@ -1,3 +1,4 @@
+//! @file UTF8String.hpp Defines CYB::API::String::Dynamic
 #pragma once
 namespace CYB {
 	namespace API {

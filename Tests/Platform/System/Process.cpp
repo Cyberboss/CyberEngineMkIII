@@ -39,5 +39,13 @@ SCENARIO("Process equivalence works", "[Platform][System][Process][Unit]") {
 				CHECK(Proc == Proc2);
 			}
 		}
+		WHEN("The process is compared with baloney") {
+			auto Proc2(CYB::Platform::System::Process::GetSelf());
+			//TODO fix this test when reforking is implemented
+			*reinterpret_cast<unsigned int*>(&Proc2) = static_cast<unsigned int>(-2);
+			THEN("They are not the same") {
+				CHECK(Proc != Proc2);
+			}
+		}
 	}
 }

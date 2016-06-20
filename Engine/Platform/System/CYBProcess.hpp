@@ -56,6 +56,14 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				bool operator==(const Process& ARHS) const noexcept;
+				/*!
+					@brief Check the unequivalence of two Process objects
+					@param ARHS Another Process to compare with
+					@return false if the Processes are equivalent, true otherwise
+					@par Thread Safety
+						This function requires no thread safety
+				*/
+				bool operator!=(const Process& ARHS) const noexcept;
 			};
 		};
 	};

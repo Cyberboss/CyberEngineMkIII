@@ -181,6 +181,7 @@
     <ClInclude Include="API\Types\String\DynamicString.hpp" />
     <ClInclude Include="API\Types\String\StaticString.hpp" />
     <ClInclude Include="API\Types\String\Strings.hpp" />
+    <ClInclude Include="API\Types\String\UTF8String.hpp" />
     <ClInclude Include="API\Types\Threadable.hpp" />
     <ClInclude Include="API\Types\ThreadableTaskset.hpp" />
     <ClInclude Include="API\Types\Typename.hpp" />

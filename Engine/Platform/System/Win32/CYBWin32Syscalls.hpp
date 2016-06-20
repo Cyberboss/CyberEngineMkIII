@@ -11,6 +11,7 @@ namespace CYB {
 						LOAD_LIBRARY = -2,
 						LOAD_SYMBOL = -3,
 						CLOSE_LIBRARY = -4,
+						GET_CURRENT_PROCESS = -5,
 					};
 				};
 			};

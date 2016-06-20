@@ -8,7 +8,7 @@ void CYB::Platform::System::Process::Terminate(void) noexcept {
 
 CYB::Platform::System::Process CYB::Platform::System::Process::GetSelf(void) noexcept {
 	//No FK32 because this can be called without Core
-	return Process(Win32::GetCurrentProcess());
+	return Process(reinterpret_cast<Win32::HANDLE>(Sys::Call(Sys::GET_CURRENT_PROCESS)));
 }
 
 CYB::Platform::System::Implementation::Process::Process(Win32::HANDLE AHandle) noexcept :

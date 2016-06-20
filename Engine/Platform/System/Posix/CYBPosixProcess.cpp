@@ -1,14 +1,16 @@
 #include "CYB.hpp"
 
+using namespace CYB::Platform::Posix;
+
 void CYB::Platform::System::Process::Terminate(void) noexcept {
-	if (FPID == Posix::getpid())
+	if (FPID == static_cast<pid_t>(Sys::Call(Sys::GET_CURRENT_PROCESS)))
 		Sys::Call(Sys::EXIT_PROC);
 	else
 		Core().FModuleManager.FC.Call<Modules::LibC::kill>(FPID, SIGKILL);
 }
 
 CYB::Platform::System::Process CYB::Platform::System::Process::GetSelf(void) noexcept {
-	return Process(Posix::getpid());
+	return Process(static_cast<pid_t>(Sys::Call(Sys::GET_CURRENT_PROCESS)));
 }
 
 CYB::Platform::System::Implementation::Process::Process(const Posix::pid_t APID) noexcept :

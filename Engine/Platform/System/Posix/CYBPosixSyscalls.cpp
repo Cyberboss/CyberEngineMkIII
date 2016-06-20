@@ -92,8 +92,14 @@ unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumb
 	return Result;
 }
 unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACallNumber) noexcept {
-	API::Assert::Equal(ACallNumber, EXIT_PROC);
-	return Call(EXIT, 0);
+	switch (ACallNumber) {
+	case EXIT_PROC:
+		return Call(EXIT, 0);
+	case GET_CURRENT_PROCESS:
+		return static_cast<unsigned long long>(Posix::getpid());
+	default:
+		API::Assert::HCF();
+	}
 }
 unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACallNumber, const Union64 AArg1) noexcept {
 	API::Assert::Equal(ACallNumber, CLOSE_LIBRARY);
@@ -130,6 +136,7 @@ void CYB::Platform::System::Sys::VerifyArgumentCount(const CallNumber ACallNumbe
 	case CLOSE_LIBRARY:
 	case LOAD_LIBRARY:
 	case LOAD_SYMBOL:
+	case GET_CURRENT_PROCESS:
 		API::Assert::HCF();
 	}
 }

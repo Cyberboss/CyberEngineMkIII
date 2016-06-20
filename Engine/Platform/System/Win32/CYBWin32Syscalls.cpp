@@ -23,8 +23,9 @@ unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber, const Un
 unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber, const Union64, const Union64, const Union64, const Union64, const Union64, const Union64) noexcept {
 	API::Assert::HCF();
 }
-unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber) noexcept {
-	API::Assert::HCF();
+unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACallNumber) noexcept {
+	API::Assert::Equal(ACallNumber, GET_CURRENT_PROCESS);
+	return reinterpret_cast<unsigned long long>(Win32::GetCurrentProcess());
 }
 unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACallNumber, const Union64 AArg1) noexcept {
 	switch (ACallNumber) {
@@ -45,6 +46,7 @@ unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACall
 		return reinterpret_cast<unsigned long long>(Win32::LoadLibraryW(Unicode));
 	}
 	case LOAD_SYMBOL:
+	case GET_CURRENT_PROCESS:
 	default:
 		API::Assert::HCF();
 	}
@@ -57,6 +59,7 @@ unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACall
 	case TERMINATE_PROC:
 	case CLOSE_LIBRARY:
 	case LOAD_LIBRARY:
+	case GET_CURRENT_PROCESS:
 	default:
 		API::Assert::HCF();
 	}

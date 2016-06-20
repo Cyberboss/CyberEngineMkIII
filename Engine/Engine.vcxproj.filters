@@ -450,6 +450,9 @@
     <None Include="API\Types\String\StaticString.inl">
       <Filter>API\Types\String</Filter>
     </None>
+    <None Include="API\Types\String\DynamicString.inl">
+      <Filter>API\Types\String</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DoxyPages\DoxygenLayout.xml">

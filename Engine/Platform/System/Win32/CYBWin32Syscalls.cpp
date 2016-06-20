@@ -39,7 +39,6 @@ unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACall
 	{
 		CYB::API::String::Static String(static_cast<const char* const>(AArg1.FPointer));
 		wchar_t Unicode[MAX_PATH];
-		API::Assert::LessThan(String.RawLength(), static_cast<unsigned int>(std::numeric_limits<int>::max()));
 		//+1 for the \0
 		if (Win32::MultiByteToWideChar(CP_UTF8, 0, String.CString(), static_cast<int>(String.RawLength() + 1), Unicode, MAX_PATH) > MAX_PATH)
 			return 0;

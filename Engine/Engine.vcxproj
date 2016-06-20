@@ -246,6 +246,7 @@
     <None Include="API\Types\ParameterPack.inl" />
     <None Include="API\Types\Singleton.inl" />
     <None Include="API\Types\String\CStyleString.inl" />
+    <None Include="API\Types\String\DynamicString.inl" />
     <None Include="API\Types\String\StaticString.inl" />
     <None Include="DoxyPages\Contexts.dox" />
     <None Include="DoxyPages\Conventions.dox" />

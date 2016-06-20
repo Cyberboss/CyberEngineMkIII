@@ -13,12 +13,11 @@ CYB::Platform::System::Process CYB::Platform::System::Process::GetSelf(void) noe
 	return Process(static_cast<pid_t>(Sys::Call(Sys::GET_CURRENT_PROCESS)));
 }
 
-CYB::Platform::System::Implementation::Process::Process(const Posix::pid_t APID) noexcept :
+CYB::Platform::System::Implementation::Process::Process(const pid_t APID) noexcept :
 	FPID(APID)
 {}
 
 bool CYB::Platform::System::Process::Active(void) const noexcept {
-	using namespace Posix;
 	return Core().FModuleManager.FC.Call<Modules::LibC::kill>(FPID, 0) == 0 
 		|| errno == EPERM;
 }

@@ -7,4 +7,5 @@
 #include <type_traits>
 #include <limits>
 #include <new>
+#include <algorithm>
 //! @endcond

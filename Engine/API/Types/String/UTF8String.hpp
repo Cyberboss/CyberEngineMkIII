@@ -6,7 +6,8 @@ namespace CYB {
 		namespace String {
 			//! @brief A variable length UTF-8 string
 			class UTF8 : public Dynamic {
-
+			public:
+				UTF8(UTF8&& AMove) noexcept; //!< @brief See @ref structors
 			};
 		};
 	};

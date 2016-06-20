@@ -21,6 +21,9 @@
 
 */
 
+//Implement the allocator here
+CYB::API::Interop::Allocator* CYB::API::Interop::Allocator::FAllocator(nullptr);
+
 CYB::Engine::Core::Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments):
 	FEngineInformation(CreateEngineInformation()),
 	FHeap(Parameters::ENGINE_HEAP_INITIAL_COMMIT_SIZE)

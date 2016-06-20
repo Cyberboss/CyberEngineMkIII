@@ -9,6 +9,6 @@ inline CYB::API::String::Static::Static(const char* const AData) noexcept :
 	CStyle(const_cast<char*>(AData))	//Bjarne forgive us
 {}
 
-inline unsigned int CYB::API::String::Static::Length(void) const noexcept {
+inline int CYB::API::String::Static::Length(void) const noexcept {
 	return RawLength();
 }

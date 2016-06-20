@@ -1,12 +1,6 @@
 //! @file CYBHeap.cpp Implements functions from CYB::Engine::Heap
 #include "CYB.hpp"
 
-#ifndef TARGET_OS_WINDOWS
-typedef CYB::Platform::Posix::__locale_t __locale_t;
-#endif
-
-#include <algorithm>
-
 CYB::Engine::Memory::Heap::Heap(const unsigned long long AInitialCommitSize) :
 	FReservation(Platform::System::VirtualMemory::Reserve(Parameters::HEAP_RESERVATION_SIZE)),
 	FCommitSize(CalculateInitialCommitSize(AInitialCommitSize)),

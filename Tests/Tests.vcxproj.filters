@@ -28,14 +28,17 @@
     <ClCompile Include="Utils\Fakes.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="API\String\StaticAndCStyle.cpp">
-      <Filter>API\String</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Core\Exception.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Core\Core.cpp">
       <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="API\String\StaticAndCStyleString.cpp">
+      <Filter>API\String</Filter>
+    </ClCompile>
+    <ClCompile Include="API\String\DynamicString.cpp">
+      <Filter>API\String</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

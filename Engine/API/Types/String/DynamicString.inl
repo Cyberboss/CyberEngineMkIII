@@ -8,6 +8,10 @@ inline CYB::API::String::Dynamic::Dynamic(char* const AData) noexcept :
 	CStyle(AData)
 {}
 
+inline CYB::API::String::Dynamic::Dynamic(const char* const AData) :
+	CStyle(CopyCStyle(Static(AData)))
+{}
+
 inline CYB::API::String::Dynamic::Dynamic(const CStyle& AData) :
 	CStyle(CopyCStyle(AData))
 {}

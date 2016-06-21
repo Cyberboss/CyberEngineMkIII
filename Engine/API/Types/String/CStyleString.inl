@@ -8,9 +8,10 @@ inline CYB::API::String::CStyle::CStyle(char* const AData) noexcept :
 
 inline int CYB::API::String::CStyle::CalculateByteLength(void) const noexcept {
 	unsigned long long Length(0);
-	if (FData != nullptr)
+	if (FData != nullptr) {
 		for (; FData[Length] != 0; ++Length);
-	Assert::LessThan(Length, static_cast<unsigned long long>(std::numeric_limits<int>().max()));
+		Assert::LessThan(Length, static_cast<unsigned long long>(std::numeric_limits<int>().max()));
+	}
 	return static_cast<int>(Length);
 }
 

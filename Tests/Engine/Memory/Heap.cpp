@@ -27,7 +27,7 @@ SCENARIO("Heap Alloc works", "[Engine][Memory][Heap][Functional]") {
 				CHECK(Result == nullptr);
 			}
 		}
-		WHEN("An allocation of unsigned size is made") {
+		WHEN("An allocation of unsigned/negative size is made") {
 			void* Result(nullptr);
 			REQUIRE_THROWS_AS(Result = TestHeap.Alloc(-5), CYB::Exception::Violation);
 			THEN("The appropriate exception is thrown") {
@@ -44,16 +44,74 @@ SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
 	GIVEN("A basic heap") {
 		Heap TestHeap(10000);
-		WHEN("A sane allocation is made over null") {
-			void* Result(nullptr);
-			REQUIRE_NOTHROW(Result = TestHeap.Alloc(50));
-			THEN("A valid, allocated, aligned memory region is returned") {
-				CHECK(Result != nullptr);
-				CHECK_FALSE(Block::FromData(Result).IsLargeBlock());
-				CHECK_FALSE(Block::FromData(Result).IsFree());
-				CHECK(Block::FromData(Result).Size() >= 50);
-				CHECK(Block::FromData(Result).Size() % sizeof(void*) == 0U);
-				CHECK(reinterpret_cast<unsigned long long>(Result) % sizeof(void*) == 0U);
+		GIVEN("A nullptr start") {
+			auto Base(nullptr);
+			WHEN("A sane reallocation is made") {
+				void* Result(nullptr);
+				REQUIRE_NOTHROW(Result = TestHeap.Realloc(Base, 50));
+				THEN("The result is the same as a call to Alloc") {
+					CHECK(Result != nullptr);
+					CHECK_FALSE(Block::FromData(Result).IsLargeBlock());
+					CHECK_FALSE(Block::FromData(Result).IsFree());
+					CHECK(Block::FromData(Result).Size() >= 50);
+					CHECK(Block::FromData(Result).Size() % sizeof(void*) == 0U);
+					CHECK(reinterpret_cast<unsigned long long>(Result) % sizeof(void*) == 0U);
+				}
+			}
+			WHEN("An zero reallocation is made") {
+				void* Result(nullptr);
+				REQUIRE_NOTHROW(Result = TestHeap.Realloc(Base, 0));
+				THEN("nullptr is returned") {
+					CHECK(Result == nullptr);
+				}
+			}
+			WHEN("An allocation of unsigned/negative size is made") {
+				void* Result(nullptr);
+				REQUIRE_THROWS_AS(Result = TestHeap.Realloc(Base, -5), CYB::Exception::Violation);
+				THEN("The appropriate exception is thrown") {
+					CHECK_EXCEPTION_CODE(CYB::Exception::Violation::NEGATIVE_HEAP_ALLOCATION);
+					CHECK(Result == nullptr);
+				}
+			}
+		}
+		GIVEN("A basic allocation start") {
+			auto Base(TestHeap.Alloc(50));
+			WHEN("A sane reallocation is made") {
+				void* Result(nullptr);
+				REQUIRE_NOTHROW(Result = TestHeap.Realloc(Base, 60));
+				THEN("The result is correct") {
+					CHECK(Result != nullptr);
+					CHECK_FALSE(Block::FromData(Result).IsLargeBlock());
+					CHECK_FALSE(Block::FromData(Result).IsFree());
+					CHECK(Block::FromData(Result).Size() >= 60);
+					CHECK(Block::FromData(Result).Size() % sizeof(void*) == 0U);
+					CHECK(reinterpret_cast<unsigned long long>(Result) % sizeof(void*) == 0U);
+					//TODO Reenable this test
+					//AND_THEN("Since the heap was empty, the result should be equivalent to the base") {
+					//	CHECK(Result == Base);
+					//}
+				}
+			}
+			WHEN("An lesser reallocation is made") {
+				void* Result(nullptr);
+				REQUIRE_NOTHROW(Result = TestHeap.Realloc(Base, 30));
+				THEN("The same block is returned, unmodified") {
+					CHECK(Result != nullptr);
+					CHECK(Result == Base);
+					CHECK_FALSE(Block::FromData(Result).IsLargeBlock());
+					CHECK_FALSE(Block::FromData(Result).IsFree());
+					CHECK(Block::FromData(Result).Size() >= 50);
+					CHECK(Block::FromData(Result).Size() % sizeof(void*) == 0U);
+					CHECK(reinterpret_cast<unsigned long long>(Result) % sizeof(void*) == 0U);
+				}
+			}
+			WHEN("An allocation of unsigned/negative size is made") {
+				void* Result(nullptr);
+				REQUIRE_THROWS_AS(Result = TestHeap.Realloc(Base, -5), CYB::Exception::Violation);
+				THEN("The appropriate exception is thrown") {
+					CHECK_EXCEPTION_CODE(CYB::Exception::Violation::NEGATIVE_HEAP_ALLOCATION);
+					CHECK(Result == nullptr);
+				}
 			}
 		}
 	}

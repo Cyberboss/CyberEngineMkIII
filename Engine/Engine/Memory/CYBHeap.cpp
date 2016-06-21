@@ -12,29 +12,6 @@ CYB::Engine::Memory::Heap::Heap(const unsigned long long AInitialCommitSize) :
 	FFreeList = FLargeBlock;
 }
 
-CYB::Engine::Memory::Heap::Heap(Heap&& AMove) noexcept :
-	FReservation(AMove.FReservation),
-	FCommitSize(AMove.FCommitSize),
-	FLocked(AMove.FLocked),
-	FFreeList(AMove.FFreeList),
-	FLargeBlock(AMove.FLargeBlock),
-	FMutex(std::move(AMove.FMutex))
-{
-	AMove.FReservation = nullptr;
-}
-
-CYB::Engine::Memory::Heap& CYB::Engine::Memory::Heap::operator=(Heap&& AMove) noexcept {
-	API::Assert::Equal(FLargeBlock->LeftBlock(), static_cast<Block*>(nullptr));
-	API::LockGuard Lock(FMutex);
-	FReservation = AMove.FReservation;
-	AMove.FReservation = nullptr;
-	FCommitSize = AMove.FCommitSize;
-	FLocked = AMove.FLocked;
-	FFreeList = AMove.FFreeList;
-	FLargeBlock = AMove.FLargeBlock;
-	return *this;
-}
-
 CYB::Engine::Memory::Heap::~Heap() {
 	if(FReservation != nullptr)
 		Platform::System::VirtualMemory::Release(FReservation);

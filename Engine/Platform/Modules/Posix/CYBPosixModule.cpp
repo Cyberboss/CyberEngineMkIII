@@ -21,5 +21,4 @@ void* CYB::Platform::Modules::Module::LoadFunction(const API::String::CStyle& AF
 	auto Result(reinterpret_cast<void*>(System::Sys::Call(System::Sys::LOAD_SYMBOL, FModule, const_cast<char*>(AFunctionName.CString()))));
 	if (Result == nullptr)
 		throw Exception::SystemData(Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE);
-	return Result;
-}
+	return Result; }

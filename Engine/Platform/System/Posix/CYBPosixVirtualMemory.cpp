@@ -35,20 +35,13 @@ void* CYB::Platform::System::VirtualMemory::Reserve(unsigned long long ANumBytes
 				}
 				catch (Exception::SystemData AException) {
 					//this really should never happen, gotta be safe though
-					if (AException.FErrorCode == Exception::SystemData::MEMORY_PROTECT_FAILURE) {
-						try {
-							Release(Reservation);
-							//if this fails, well now we have a useless reservation shitting all over our address space and there's nothing we can do about it
-						}
-						catch (Exception::SystemData ADoubleFault) {
-							static_cast<void>(ADoubleFault);
-							throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
-						}
+					API::Assert::Equal(AException.FErrorCode, static_cast<unsigned int>(Exception::SystemData::MEMORY_PROTECT_FAILURE));
+					try {
+						Release(Reservation);
+						//if this fails, well now we have a useless reservation shitting all over our address space and there's nothing we can do about it
 					}
-					else {
-						API::Assert::Equal(AException.FErrorCode, static_cast<unsigned int>(Exception::SystemData::MEMORY_COMMITAL_FAILURE));
-						throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
-					}
+					catch (Exception::SystemData) {	}
+					throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
 				}
 			}
 			else {

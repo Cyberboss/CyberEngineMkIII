@@ -234,13 +234,15 @@
     <ClInclude Include="Platform\System\Win32\CYBWin32VirtualMemory.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="API\CyberEngine.inl">
+      <FileType>Document</FileType>
+    </None>
     <None Include="API\Declarations\Assert.inl" />
     <None Include="API\Declarations\Endianess.inl" />
     <None Include="API\Declarations\Expressions.inl" />
     <None Include="API\Declarations\OSDeclaration.inl" />
     <None Include="API\ExtendedTypes\LockGuard.inl" />
     <None Include="API\Interop\Allocator.inl" />
-    <None Include="API\Interop\Interop.inl" />
     <None Include="API\Interop\Object.inl" />
     <None Include="API\Types\Exception.inl" />
     <None Include="API\Types\ParameterPack.inl" />

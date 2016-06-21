@@ -155,8 +155,10 @@ void CYB::Engine::Memory::Heap::Walk(void) const {
 }
 
 void* CYB::Engine::Memory::Heap::Alloc(const int ANumBytes) {
-	if (ANumBytes <= 0)
+	if (ANumBytes == 0)
 		return nullptr;
+	else if (ANumBytes < 0)
+		throw CYB::Exception::Violation(CYB::Exception::Violation::NEGATIVE_HEAP_ALLOCATION);
 	API::LockGuard Lock(FMutex);						//alignment
 	return AllocImpl(static_cast<unsigned int>(ANumBytes + (sizeof(void*) - (ANumBytes % sizeof(void*)))), Lock).GetData();
 }
@@ -166,11 +168,13 @@ void* CYB::Engine::Memory::Heap::Realloc(void* const APreviousAllocation, const 
 		return Alloc(ANumBytes);
 	
 	auto& WorkingBlock(Block::FromData(APreviousAllocation));
-	if (ANumBytes <= 0) {
+	if (ANumBytes == 0) {
 		API::LockGuard Lock(FMutex);
 		FreeImpl(WorkingBlock, Lock);
 		return nullptr;
 	}
+	else if (ANumBytes < 0)
+		throw CYB::Exception::Violation(CYB::Exception::Violation::NEGATIVE_HEAP_ALLOCATION);
 	else if(WorkingBlock.Size() >= static_cast<unsigned int>(ANumBytes))
 		return APreviousAllocation;
 

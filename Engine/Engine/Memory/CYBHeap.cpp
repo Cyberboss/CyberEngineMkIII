@@ -127,6 +127,7 @@ CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::AllocImpl(const unsigned 
 	auto& AllocatedBlock(LargeBlock::AllocateBlock(FLargeBlock, ANumBytes));
 
 	AddToFreeList(AllocatedBlock, LastFreeListEntry);
+	AddToFreeList(*FLargeBlock, &AllocatedBlock);
 
 	ALock.Release();
 
@@ -137,6 +138,7 @@ CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::AllocImpl(const unsigned 
 CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::ReallocImpl(Block& ABlock, const unsigned int ANumBytes, API::LockGuard& ALock) {
 	API::Assert::LessThan(ANumBytes, static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	auto& NewData(AllocImpl(ANumBytes, ALock));
+	//TODO IMPROVE THIS
 	std::copy(static_cast<byte*>(ABlock.GetData()), static_cast<byte*>(ABlock.GetData()) + ABlock.Size(), static_cast<byte*>(NewData.GetData()));
 	Free(ABlock.GetData());
 	return Block::FromData(NewData.GetData());

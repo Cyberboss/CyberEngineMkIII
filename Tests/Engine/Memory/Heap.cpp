@@ -76,7 +76,7 @@ SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 		}
 		GIVEN("A basic allocation start") {
 			auto Base(TestHeap.Alloc(50));
-			WHEN("A sane reallocation is made") {
+			WHEN("A greater reallocation is made") {
 				void* Result(nullptr);
 				REQUIRE_NOTHROW(Result = TestHeap.Realloc(Base, 60));
 				THEN("The result is correct") {
@@ -110,6 +110,13 @@ SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 				REQUIRE_THROWS_AS(Result = TestHeap.Realloc(Base, -5), CYB::Exception::Violation);
 				THEN("The appropriate exception is thrown") {
 					CHECK_EXCEPTION_CODE(CYB::Exception::Violation::NEGATIVE_HEAP_ALLOCATION);
+					CHECK(Result == nullptr);
+				}
+			}
+			WHEN("A zero allocation is made") {
+				void* Result(nullptr);
+				REQUIRE_NOTHROW(Result = TestHeap.Realloc(Base, 0));
+				THEN("The block has been freed") {
 					CHECK(Result == nullptr);
 				}
 			}

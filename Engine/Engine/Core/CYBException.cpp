@@ -14,6 +14,8 @@ CYB::API::String::Static CYB::Exception::Violation::ErrorMessage(const ErrorCode
 		return API::String::Static(u8"An exception had instantiation attempted with an invalid error code");
 	case INVALID_HEAP_BLOCK:
 		return API::String::Static(u8"A Block failed to validate during a Heap operation");
+	case NEGATIVE_HEAP_ALLOCATION:
+		return API::String::Static(u8"Alloc or Realloc called with a negative size value");
 	default:
 		throw Violation(INVALID_EXCEPTION_ERROR_CODE);
 	}

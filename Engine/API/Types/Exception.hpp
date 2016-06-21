@@ -36,6 +36,7 @@ namespace CYB {
 			enum ErrorCode : unsigned int {
 				INVALID_EXCEPTION_ERROR_CODE, //!< @brief An exception had instantiation attempted with an invalid AErrorCode
 				INVALID_HEAP_BLOCK,	//!< @brief A memory block used by the Heap failed to validate
+				NEGATIVE_HEAP_ALLOCATION, //!< @brief An allocation was attempted with a negative size value
 			};
 		private:
 			/*!

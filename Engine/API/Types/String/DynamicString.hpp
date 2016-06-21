@@ -18,7 +18,7 @@ namespace CYB {
 
 				/*!
 					@brief Construct a Dynamic string from a pre-allocated char array
-					@param AData The pre-allocated char array
+					@param AData The pre-allocated char array, will be deallocated along with the Dynamic
 					@par Thread Safety
 						This function requires no thread safety
 				*/
@@ -38,6 +38,14 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				Dynamic() noexcept;
+				/*!
+					@brief Construct a Dynamic string from a char array
+					@param AData The char array
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE. Thrown if the current heap runs out of memory
+				*/
+				Dynamic(const char* const AData);
 				/*!
 					@brief Construct a Dynamic string. This will allocate enough data to copy the contents of @p AData
 					@param AData The data to populate the char array with. Must be at least a pointer to a null terminating character

@@ -2,7 +2,7 @@
 #pragma once
 
 inline CYB::API::String::Static::Static() noexcept :
-	Static("")
+	Static(nullptr)
 {}
 
 inline CYB::API::String::Static::Static(const char* const AData) noexcept :

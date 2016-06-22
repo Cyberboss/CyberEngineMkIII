@@ -159,18 +159,33 @@ namespace CYB {
 
 class ThreadErrorTest : public CYB::API::Threadable {
 private:
-	const bool FThrowKnownException;
+	const bool FThrowKnownException, FThrowOnCancellation;
+	std::atomic_bool FCancelled;
 public:
-	ThreadErrorTest(const bool AThrowKnownException) :
-		FThrowKnownException(AThrowKnownException)
+	ThreadErrorTest(const bool AThrowKnownException, const bool AThrowOnCancellation) :
+		FThrowKnownException(AThrowKnownException),
+		FThrowOnCancellation(AThrowOnCancellation),
+		FCancelled(false)
 	{}
 	void BeginThreadedOperation(void) final override {
-		if (FThrowKnownException)
-			throw CYB::Exception::ThreadExceptionTester();
-		else
-			throw std::exception();
+		if (!FThrowOnCancellation) {
+			if (FThrowKnownException)
+				throw CYB::Exception::ThreadExceptionTester();
+			else
+				throw std::exception();
+		}
+		while (!FCancelled.load(std::memory_order_relaxed))
+			CYB::Platform::System::Thread::Yield();
 	}
-	void CancelThreadedOperation(void) final override {}
+	void CancelThreadedOperation(void) final override {
+		FCancelled.store(true, std::memory_order_relaxed);
+		if (FThrowOnCancellation) {
+			if (FThrowKnownException)
+				throw CYB::Exception::ThreadExceptionTester();
+			else
+				throw std::exception();
+		}
+	}
 };
 
 REDIRECTED_FUNCTION(BadPThreadMutexInit, const void* const, const void* const) {
@@ -210,8 +225,8 @@ SCENARIO("Thread errors work", "[Platform][System][Threads][Unit]") {
 		}
 	}
 #endif
-	GIVEN("A Threadable that will throw an unknown exception") {
-		ThreadErrorTest Test(false);
+	GIVEN("A Threadable that will throw an unknown exception on start") {
+		ThreadErrorTest Test(false, false);
 		WHEN("A thread is run created using it") {
 			CYB::Platform::System::Thread TestThread(Test);
 			THEN("Nothing bad happens") {
@@ -219,10 +234,30 @@ SCENARIO("Thread errors work", "[Platform][System][Threads][Unit]") {
 			}
 		}
 	}
-	GIVEN("A Threadable that will throw a known exception") {
-		ThreadErrorTest Test(true);
+	GIVEN("A Threadable that will throw a known exception on start") {
+		ThreadErrorTest Test(true, false);
 		WHEN("A thread is run created using it") {
 			CYB::Platform::System::Thread TestThread(Test);
+			THEN("Nothing bad happens") {
+				CHECK(true);
+			}
+		}
+	}
+	GIVEN("A Threadable that will throw an unknown exception on cancel") {
+		ThreadErrorTest Test(false, true);
+		CYB::Platform::System::Thread TestThread(Test);
+		WHEN("A thread is cancelled created using it") {
+			TestThread.Cancel();
+			THEN("Nothing bad happens") {
+				CHECK(true);
+			}
+		}
+	}
+	GIVEN("A Threadable that will throw a known exception on cancel") {
+		ThreadErrorTest Test(true, true);
+		CYB::Platform::System::Thread TestThread(Test);
+		WHEN("A thread is cancelled created using it") {
+			TestThread.Cancel();
 			THEN("Nothing bad happens") {
 				CHECK(true);
 			}

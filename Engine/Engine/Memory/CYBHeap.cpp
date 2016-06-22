@@ -90,28 +90,26 @@ CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::AllocImpl(const unsigned 
 		Block* CurrentBlock(FFreeList);
 		while (CurrentBlock != FLargeBlock) {
 
-			if (CurrentBlock->IsFree()) {
+			API::Assert::True(CurrentBlock->IsFree());
 
-				MergeBlockIfPossible(CurrentBlock, LastFreeListEntry);
+			MergeBlockIfPossible(CurrentBlock, LastFreeListEntry);
 
-				if (CurrentBlock->Size() >= ANumBytes) {
-					//this is the block we're using
-					RemoveFromFreeList(*CurrentBlock, LastFreeListEntry);
+			if (CurrentBlock->Size() >= ANumBytes) {
+				//this is the block we're using
+				RemoveFromFreeList(*CurrentBlock, LastFreeListEntry);
 
-					//splice it if it's big enough
-					if ((CurrentBlock->Size() - ANumBytes) >= MinimumBlockFootprint) {
-						auto& NewBlock(CurrentBlock->Splice(ANumBytes));
-						//and add it to the free list
-						AddToFreeList(NewBlock, LastFreeListEntry);
+				//splice it if it's big enough
+				if ((CurrentBlock->Size() - ANumBytes) >= MinimumBlockFootprint) {
+					auto& NewBlock(CurrentBlock->Splice(ANumBytes));
+					//and add it to the free list
+					AddToFreeList(NewBlock, LastFreeListEntry);
 
-						ALock.Release();
-						CurrentBlock->SetSize(ANumBytes);
-					}
 					ALock.Release();
-					CurrentBlock->SetFree(false);
-					return *CurrentBlock;
+					CurrentBlock->SetSize(ANumBytes);
 				}
-
+				ALock.Release();
+				CurrentBlock->SetFree(false);
+				return *CurrentBlock;
 			}
 
 			LastFreeListEntry = CurrentBlock;

@@ -86,10 +86,9 @@ SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 					CHECK(Block::FromData(Result).Size() >= 60);
 					CHECK(Block::FromData(Result).Size() % sizeof(void*) == 0U);
 					CHECK(reinterpret_cast<unsigned long long>(Result) % sizeof(void*) == 0U);
-					//TODO Reenable this test
-					//AND_THEN("Since the heap was empty, the result should be equivalent to the base") {
-					//	CHECK(Result == Base);
-					//}
+					AND_THEN("Since the heap was empty, the result should be equivalent to the base") {
+						CHECK(Result == Base);
+					}
 				}
 			}
 			WHEN("An lesser reallocation is made") {

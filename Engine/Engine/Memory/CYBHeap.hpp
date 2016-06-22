@@ -8,12 +8,13 @@ namespace CYB {
 			private:
 				void* FReservation; //!< @brief The VirtualMemory mapping owned by the heap, also a pointer to the first block
 				unsigned long long FCommitSize; //!< @brief The amount of memory currently available in the Heap
-				bool FLocked; //!< @brief Whether or not the Heap is currently locked
 
 				Block* FFreeList; //!< @brief The first block in the linked free list
 				LargeBlock* FLargeBlock; //!< @brief The block that extends to the end of the free list
 
 				Platform::System::Mutex FMutex;	//!< @brief The lock for the Heap
+
+				bool FLocked; //!< @brief Whether or not the Heap is currently locked
 			private:
 				/*!
 					@brief A small max comparison of @p AInitialCommitSize and sizeof(Block) + 1

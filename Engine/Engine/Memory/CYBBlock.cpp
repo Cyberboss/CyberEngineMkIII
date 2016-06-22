@@ -79,7 +79,7 @@ const CYB::Engine::Memory::Block& CYB::Engine::Memory::Block::RightBlock(void) c
 }
 void CYB::Engine::Memory::Block::SetSize(const unsigned int ANewSize) noexcept {
 	API::Assert::LessThan(ANewSize, static_cast<unsigned int>(std::numeric_limits<int>::max()));
-	FSizeAndFreeBit = (ANewSize | 1U << 31);
+	FSizeAndFreeBit = FSizeAndFreeBit - Size() + ANewSize;
 }
 void CYB::Engine::Memory::Block::SetFree(const bool ANewFree) noexcept {
 	if(ANewFree)
@@ -108,8 +108,9 @@ CYB::Engine::Memory::Block& CYB::Engine::Memory::Block::Splice(const unsigned in
 CYB::Engine::Memory::Block& CYB::Engine::Memory::Block::EatLeftBlock(void) noexcept {
 	API::Assert::False(IsLargeBlock());
 	API::Assert::NotEqual<Block*>(LeftBlock(), nullptr);
-	const auto NewSize(LeftBlock()->Size() + Size() + sizeof(Block));
+	auto& LBlock(*LeftBlock());
+	const auto NewSize(LBlock.Size() + Size() + sizeof(Block));
 	API::Assert::LessThan<unsigned long long>(NewSize, static_cast<unsigned long long>(std::numeric_limits<int>::max()));
-	LeftBlock()->SetSize(static_cast<unsigned int>(NewSize));
-	return *LeftBlock();
+	LBlock.SetSize(static_cast<unsigned int>(NewSize));
+	return LBlock;
 }

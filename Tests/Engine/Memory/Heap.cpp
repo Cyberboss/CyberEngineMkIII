@@ -1,5 +1,8 @@
 #include "TestHeader.hpp"
 
+#include <deque>
+#include <random>
+
 using namespace CYB::Engine::Memory;
 
 SCENARIO("Heap Alloc works", "[Engine][Memory][Heap][Functional]") {
@@ -153,6 +156,59 @@ SCENARIO("Heap Free works", "[Engine][Memory][Heap][Unit]") {
 			REQUIRE_THROWS_AS(TestHeap.Free(Data), CYB::Exception::Violation);
 			THEN("The appropriate error is thrown") {
 				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_HEAP_BLOCK);
+			}
+		}
+	}
+}
+
+SCENARIO("Heap seeded random stress test", "[Engine][Memory][Heap][Functional][Stress]") {
+	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
+	GIVEN("A basic heap and rng seed") {
+		Heap TestHeap(1000);
+		std::mt19937 RNG(3);
+
+		WHEN("We execute 10000 de/re/allocations") {
+
+			enum AllocType : unsigned int{
+				ALLOC1,
+				ALLOC2,
+				ALLOC3,
+				REALLOC1,
+				REALLOC2,
+				FREE,
+			};
+			std::deque<void*> Allocations;
+			for (unsigned int I(0); I < 10000; ++I) 
+				switch (static_cast<AllocType>(Allocations.empty() ? ALLOC1 : RNG() % 6)) {
+				case ALLOC1:
+				case ALLOC2:
+				case ALLOC3:
+					Allocations.emplace_back(TestHeap.Alloc(static_cast<int>(RNG() % 1000) + 1));
+					break;
+				case FREE:
+				{
+					auto Pos(RNG() % Allocations.size());
+					TestHeap.Free(Allocations[Pos]);
+					Allocations.erase(Allocations.begin() + static_cast<long long>(Pos));
+					break;
+				}
+				case REALLOC1:
+				case REALLOC2:
+				{
+					auto Pos(RNG() % Allocations.size());
+					auto& B(Block::FromData(Allocations[Pos]));
+					Allocations[Pos] = TestHeap.Realloc(Allocations[Pos], std::max(static_cast<int>(B.Size()), static_cast<int>(RNG() % 1000)) + 1);
+					break;
+				}
+				}
+			
+			for (auto Alloc : Allocations)
+				TestHeap.Free(Alloc);
+
+			THEN("All is well") {
+				CHECK(true);
 			}
 		}
 	}

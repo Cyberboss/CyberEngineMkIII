@@ -64,7 +64,7 @@ namespace CYB {
 						This function requires that FMutex is locked
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_COMMITAL_FAILURE. Thrown if the memory could not be committed
 				*/
-				void LargeBlockNeedsAtLeast(const unsigned int ARequiredNumBytes);
+				void LargeBlockNeedsAtLeast(unsigned int ARequiredNumBytes);
 
 				/*!
 					@brief Coalesces Blocks to the left of @p ABlock and updates the free list

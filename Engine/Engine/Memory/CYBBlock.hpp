@@ -149,6 +149,7 @@ namespace CYB {
 
 				/*!
 					@brief Merge size and header into the size of the Block to the left. Does not modify free lists
+					@return A reference to the current Block's new location
 					@par Thread Safety
 						This function requires the left Block not be modified during the operation
 				*/

@@ -48,13 +48,14 @@ void CYB::Engine::Memory::Heap::RemoveFromFreeList(Block& ABlock, Block* const A
 		APreviousEntry->FNextFree = ABlock.FNextFree;
 }
 
-void CYB::Engine::Memory::Heap::LargeBlockNeedsAtLeast(const unsigned int ARequiredNumBytes) {
+void CYB::Engine::Memory::Heap::LargeBlockNeedsAtLeast(unsigned int ARequiredNumBytes) {
+	ARequiredNumBytes += sizeof(Block);
 	API::Assert::LessThan(ARequiredNumBytes, static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	if (FLargeBlock->Size() < ARequiredNumBytes) {
 		const auto SizeDifference(ARequiredNumBytes - FLargeBlock->Size());
-		FCommitSize += SizeDifference;
+		FCommitSize += ARequiredNumBytes + 1000 - SizeDifference;
 		Platform::System::VirtualMemory::Commit(FReservation, FCommitSize);
-		FLargeBlock->SetSize(FLargeBlock->Size() + SizeDifference);
+		FLargeBlock->SetSize(FLargeBlock->Size() + SizeDifference + 1000);
 	}
 }
 
@@ -147,6 +148,7 @@ CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::ReallocImpl(Block& ABlock
 	}
 	else {
 		//still pretty decent
+		API::Assert::Equal<Block*>(&RightBlock, FLargeBlock);
 		const auto Required(ANumBytes - ABlock.Size());
 		LargeBlockNeedsAtLeast(Required);
 

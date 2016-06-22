@@ -48,17 +48,12 @@ CYB::API::EngineInformation CYB::Engine::Core::CreateEngineInformation(void) noe
 		__TIME__ " EST",
 	};
 }
-
-bool CYB::Engine::Core::LaunchUnit(void) noexcept {
-	return false;
-}
-
 CYB::Engine::Core& CYB::Engine::Core::GetCore(void) noexcept {
 	return *FSingleton;
 }
 void CYB::Engine::Core::Run(const unsigned int ANumArguments, const oschar_t* const* const AArguments) noexcept {
 	try {
-		for (Core CyberEngineMarkIII(ANumArguments, AArguments); CyberEngineMarkIII.LaunchUnit(););
+		Core CyberEngineMarkIII(ANumArguments, AArguments);
 	}
 	catch (...) {}
 	Platform::System::Process::Terminate(Platform::System::Process::GetSelf());

@@ -122,3 +122,38 @@ SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 		}
 	}
 }
+
+SCENARIO("Heap Free works", "[Engine][Memory][Heap][Unit]") {
+	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
+	GIVEN("A basic heap") {
+		Heap TestHeap(10000);
+		WHEN("nullptr is freed") {
+			TestHeap.Free(nullptr);
+			THEN("Nothing happens") {
+				CHECK(true);
+			}
+		}
+		WHEN("A basic allocation is freed") {
+			TestHeap.Free(TestHeap.Alloc(50));
+			THEN("Nothing happens") {
+				CHECK(true);
+			}
+		}
+		WHEN("A reallocation is freed") {
+			TestHeap.Free(TestHeap.Realloc(TestHeap.Alloc(50), 60));
+			THEN("Nothing happens") {
+				CHECK(true);
+			}
+		}
+		WHEN("A corrupted block is freed") {
+			auto Data(TestHeap.Alloc(50));
+			*reinterpret_cast<int*>(&Block::FromData(Data)) = 6;
+			REQUIRE_THROWS_AS(TestHeap.Free(Data), CYB::Exception::Violation);
+			THEN("The appropriate error is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_HEAP_BLOCK);
+			}
+		}
+	}
+}

@@ -6,6 +6,7 @@
 //! @brief Breaks code execution at line used if DEBUG is defined. Must be defined by user otherwise.
 #define BREAK NOP
 
+#ifdef DEBUG
 #undef BREAK
 #ifdef TARGET_OS_WINDOWS
 #define BREAK __debugbreak()
@@ -13,6 +14,7 @@
 #define BREAK __builtin_trap()
 #else
 #define BREAK __asm__("int3")
+#endif
 #endif
 
 namespace CYB {

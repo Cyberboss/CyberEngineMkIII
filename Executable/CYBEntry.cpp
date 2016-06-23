@@ -23,9 +23,7 @@ int main(const int ANumArguments, const oschar_t* const* const AArguments) {
 
 //placed here for code coverage reasons
 void CYB::API::Assert::HCF[[noreturn]](void) noexcept {
-#ifdef DEBUG
 	BREAK;
-#endif
 #ifdef TARGET_OS_WINDOWS
 	__assume(false);
 #else

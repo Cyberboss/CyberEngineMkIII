@@ -163,7 +163,7 @@ CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::ReallocImpl(Block& ABlock
 		return ABlock;
 	}
 }
-void CYB::Engine::Memory::Heap::FreeImpl(Block& ABlock, API::LockGuard& ALock) {
+void CYB::Engine::Memory::Heap::FreeImpl(Block& ABlock, API::LockGuard& ALock) RELEASE_NOEXCEPT {
 	AddToFreeList(ABlock, nullptr);
 	ABlock.SetFree(true);
 	ALock.Release();
@@ -219,7 +219,7 @@ void* CYB::Engine::Memory::Heap::Realloc(void* const APreviousAllocation, const 
 	return ReallocImpl(WorkingBlock, static_cast<unsigned int>(ANumBytes + (sizeof(void*) - (ANumBytes % sizeof(void*)))), Lock).GetData();
 }
 
-void CYB::Engine::Memory::Heap::Free(void* const APreviousAllocation) {
+void CYB::Engine::Memory::Heap::Free(void* const APreviousAllocation) RELEASE_NOEXCEPT {
 	if (APreviousAllocation != nullptr) {
 		auto& WorkingBlock(Block::FromData(APreviousAllocation));
 		API::LockGuard Lock(FMutex);

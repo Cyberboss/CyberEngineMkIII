@@ -182,7 +182,7 @@ namespace CYB {
 				//! @copydoc CYB::API::Heap::Realloc()
 				void* Realloc(void* const APreviousAllocation, const int ANewSize) final override;
 				//! @copydoc CYB::API::Heap::Free()
-				void Free(void* const APreviousAllocation) noexcept(!API::Platform::IsDebug()) final override;
+				void Free(void* const APreviousAllocation) RELEASE_NOEXCEPT final override;
 			};
 		};
 	};

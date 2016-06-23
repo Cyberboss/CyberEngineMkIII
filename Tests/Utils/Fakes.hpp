@@ -22,9 +22,9 @@ namespace Fake {
 
 	class Heap : public CYB::API::Heap {
 	public:
-		void* Alloc(const int AAmount);
-		void* Realloc(void* const AOld, const int ANewSize);
-		void Free(void* const AOld);
+		void* Alloc(const int AAmount) final override;
+		void* Realloc(void* const AOld, const int ANewSize) final override;
+		void Free(void* const AOld) RELEASE_NOEXCEPT final override;
 	};
 	class SysCalls {
 	public:

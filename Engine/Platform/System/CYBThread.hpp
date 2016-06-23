@@ -20,12 +20,14 @@ namespace CYB {
 					@brief Put the thread to sleep for at least @p AMilliseconds
 					@param AMilliseconds The minimum number of milliseconds to sleep for
 					@par Thread Safety
-						This function requires no thread safety				*/
+						This function requires no thread safety
+				*/
 				static void Sleep(const unsigned int AMilliseconds) noexcept;
 				/*!
 					@brief Expires the current threads processor time and sumbits it to the OS for rescheduling
 					@par Thread Safety
-						This function requires no thread safety				*/
+						This function requires no thread safety
+				*/
 				static void Yield(void) noexcept;
 				/*!
 					@brief Construct a Thread. Once returned, the thread will be scheduled to run and BeginThreadedOperation will soon be called on AThreadable
@@ -49,12 +51,14 @@ namespace CYB {
 					@brief Check whether or not the owned thread is terminated
 					@return true if a call to Wait will immediately return, false otherwise
 					@par Thread Safety
-						This function requires no thread safety				*/
+						This function requires no thread safety
+				*/
 				bool IsFinished(void) const noexcept;
 				/*!
 					@brief Blocks current thread until the owned thread has terminated
 					@par Thread Safety
-						This function requires no thread safety				*/
+						This function requires no thread safety
+				*/
 				void Wait(void) const noexcept;
 			};
 		};

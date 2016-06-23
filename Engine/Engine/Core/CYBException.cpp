@@ -16,6 +16,8 @@ CYB::API::String::Static CYB::Exception::Violation::ErrorMessage(const ErrorCode
 		return API::String::Static(u8"A Block failed to validate during a Heap operation");
 	case NEGATIVE_HEAP_ALLOCATION:
 		return API::String::Static(u8"Alloc or Realloc called with a negative size value");
+	case UNSUPPORTED_ALLOCATION_AMOUNT:
+		return API::String::Static(u8"An allocation was attempted with a size greater than 2047MB");
 	default:
 		throw Violation(INVALID_EXCEPTION_ERROR_CODE);
 	}
@@ -56,8 +58,8 @@ CYB::Exception::SystemData::SystemData(const ErrorCode AErrorCode) :
 }
 CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode AErrorCode) {
 	switch (AErrorCode) {
-	case PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE:
-		return API::String::Static(u8"Seriously, do it");
+	case INVALID_HEAP_FREE_LIST:
+		return API::String::Static(u8"A Heap's free list is incorrect");
 	default:
 		throw Violation(Violation::INVALID_EXCEPTION_ERROR_CODE);
 	}

@@ -12,6 +12,7 @@ namespace CYB {
 					This function requires no thread safety
 				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::NEGATIVE_HEAP_ALLOCATION. Thrown if an allocation was attempted with a negative size value
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_COMMITAL_FAILURE. Thrown if the heap does not have the space for the allocation and more system memory cannot be requested
+				@attention Allocations above 2047MB are unsupported
 			*/
 			virtual void* Alloc(const int ASize) = 0;
 			/*!
@@ -24,6 +25,7 @@ namespace CYB {
 				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
 				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::NEGATIVE_HEAP_ALLOCATION. Thrown if an allocation was attempted with a negative size value
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::Violation::MEMORY_COMMITAL_FAILURE if the heap does not have the space for the allocation and more system memory cannot be requested
+				@attention Allocations above 2047MB are unsupported
 			*/
 			virtual void* Realloc(void* const APreviousAllocation, const int ANewSize) = 0;
 			/*!

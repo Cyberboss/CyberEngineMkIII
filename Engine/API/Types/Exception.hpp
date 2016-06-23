@@ -37,6 +37,7 @@ namespace CYB {
 				INVALID_EXCEPTION_ERROR_CODE, //!< @brief An exception had instantiation attempted with an invalid AErrorCode
 				INVALID_HEAP_BLOCK,	//!< @brief A memory block used by the Heap failed to validate
 				NEGATIVE_HEAP_ALLOCATION, //!< @brief An allocation was attempted with a negative size value
+				UNSUPPORTED_ALLOCATION_AMOUNT, //!< @brief An allocation was attempted with a size above 2047MB
 			};
 		private:
 			/*!
@@ -99,7 +100,7 @@ namespace CYB {
 		public:
 			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
-				PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE, //!< @brief Dummy code, used for code coverage
+				INVALID_HEAP_FREE_LIST, //!< @brief A heap's free list is incorrect
 			};
 		private:
 			/*!

@@ -65,9 +65,6 @@
     <ClCompile Include="Platform\Modules\Win32\CYBWin32Module.cpp">
       <Filter>Platform\Modules\Win32</Filter>
     </ClCompile>
-    <ClCompile Include="API\CyberEngine.inl">
-      <Filter>API</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -136,7 +133,7 @@
     <Filter Include="API\Types\String">
       <UniqueIdentifier>{e56aa628-ce5a-4a16-b43d-542753279801}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Interfaces">
+    <Filter Include="API\Interfaces">
       <UniqueIdentifier>{d524abdc-cd8e-43a5-9e7e-c1c4e2664043}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -167,10 +164,10 @@
       <Filter>API\Declarations</Filter>
     </ClInclude>
     <ClInclude Include="API\Interfaces\Interfaces.hpp">
-      <Filter>Interfaces</Filter>
+      <Filter>API\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="API\Interfaces\Heap.hpp">
-      <Filter>Interfaces</Filter>
+      <Filter>API\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="API\ExtendedTypes\ExtendedTypes.hpp">
       <Filter>API\ExtendedTypes</Filter>
@@ -453,6 +450,7 @@
     <None Include="API\Types\String\DynamicString.inl">
       <Filter>API\Types\String</Filter>
     </None>
+    <None Include="API\CyberEngine.inl" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DoxyPages\DoxygenLayout.xml">

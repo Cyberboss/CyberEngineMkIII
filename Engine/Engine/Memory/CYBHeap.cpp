@@ -59,7 +59,7 @@ void CYB::Engine::Memory::Heap::LargeBlockNeedsAtLeast(unsigned int ARequiredNum
 	}
 }
 
-void CYB::Engine::Memory::Heap::MergeBlockIfPossible(Block*& ABlock, Block* ALastFreeListEntry) noexcept {
+void CYB::Engine::Memory::Heap::MergeBlockIfPossible(Block*& ABlock, Block* const ALastFreeListEntry) noexcept {
 	API::Assert::True(ABlock->IsFree());
 
 	if (ABlock->LeftBlock() != nullptr && ABlock->LeftBlock()->IsFree()) {
@@ -74,7 +74,7 @@ void CYB::Engine::Memory::Heap::MergeBlockIfPossible(Block*& ABlock, Block* ALas
 			if (NewSize <= static_cast<unsigned long long>(std::numeric_limits<int>::max())) {
 				RemoveFromFreeList(*ABlock, ALastFreeListEntry);
 				ABlock = &ABlock->EatLeftBlock();
-				AddToFreeList(*ABlock, ALastFreeListEntry);
+				//don't add it to the free list, we're already IN the free list
 			}
 		}
 	}
@@ -90,10 +90,9 @@ CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::AllocImpl(const unsigned 
 
 		API::Assert::True(CurrentBlock->IsFree());
 
-		MergeBlockIfPossible(CurrentBlock, LastFreeListEntry);
-
 		if (CurrentBlock->Size() >= ANumBytes) {
 			//this is the block we're using
+
 			RemoveFromFreeList(*CurrentBlock, LastFreeListEntry);
 
 			//splice it if it's big enough
@@ -108,7 +107,9 @@ CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::AllocImpl(const unsigned 
 			ALock.Release();
 			CurrentBlock->SetFree(false);
 			return *CurrentBlock;
-		}
+		}else
+			//we can't actually remove it from the free list since we don't know the previous entry which changes if this succeeds, so only do this here
+			MergeBlockIfPossible(CurrentBlock, LastFreeListEntry);
 
 		LastFreeListEntry = CurrentBlock;
 	}
@@ -170,9 +171,20 @@ void CYB::Engine::Memory::Heap::FreeImpl(Block& ABlock, API::LockGuard& ALock) {
 
 void CYB::Engine::Memory::Heap::Walk(void) const {
 	API::LockGuard Lock(FMutex);
-	for (auto CurrentBlock(&FirstBlock()); CurrentBlock != FLargeBlock; CurrentBlock = &CurrentBlock->RightBlock())
+	long long ExpectedFreeListSize(0);
+	for (auto CurrentBlock(&FirstBlock()); !CurrentBlock->IsLargeBlock(); CurrentBlock = &CurrentBlock->RightBlock()) {
 		CurrentBlock->Validate();
+		if (CurrentBlock->IsFree())
+			++ExpectedFreeListSize;
+	}
 	FLargeBlock->Validate();
+
+	for (auto CurrentBlock(FFreeList); CurrentBlock != nullptr; CurrentBlock = CurrentBlock->FNextFree, --ExpectedFreeListSize)
+		if (!CurrentBlock->IsFree())
+			throw CYB::Exception::Internal(CYB::Exception::Internal::INVALID_HEAP_FREE_LIST);
+
+	if(ExpectedFreeListSize != 0)
+		throw CYB::Exception::Internal(CYB::Exception::Internal::INVALID_HEAP_FREE_LIST);
 }
 
 void* CYB::Engine::Memory::Heap::Alloc(const int ANumBytes) {
@@ -180,6 +192,8 @@ void* CYB::Engine::Memory::Heap::Alloc(const int ANumBytes) {
 		return nullptr;
 	else if (ANumBytes < 0)
 		throw CYB::Exception::Violation(CYB::Exception::Violation::NEGATIVE_HEAP_ALLOCATION);
+	else if (static_cast<unsigned int>(ANumBytes) > API::ByteConverters::Megabytes(2047))
+		throw CYB::Exception::Violation(CYB::Exception::Violation::UNSUPPORTED_ALLOCATION_AMOUNT);
 	API::LockGuard Lock(FMutex);						//alignment
 	return AllocImpl(static_cast<unsigned int>(ANumBytes + (sizeof(void*) - (ANumBytes % sizeof(void*)))), Lock).GetData();
 }
@@ -196,6 +210,8 @@ void* CYB::Engine::Memory::Heap::Realloc(void* const APreviousAllocation, const 
 	}
 	else if (ANumBytes < 0)
 		throw CYB::Exception::Violation(CYB::Exception::Violation::NEGATIVE_HEAP_ALLOCATION);
+	else if (static_cast<unsigned int>(ANumBytes) > API::ByteConverters::Megabytes(2047))
+		throw CYB::Exception::Violation(CYB::Exception::Violation::UNSUPPORTED_ALLOCATION_AMOUNT);
 	else if(WorkingBlock.Size() >= static_cast<unsigned int>(ANumBytes))
 		return APreviousAllocation;
 

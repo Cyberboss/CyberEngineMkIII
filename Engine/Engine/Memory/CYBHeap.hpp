@@ -73,7 +73,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires that FMutex is locked
 				*/
-				void MergeBlockIfPossible(Block*& ABlock, Block* ALastFreeListEntry) noexcept;
+				void MergeBlockIfPossible(Block*& ABlock, Block* const ALastFreeListEntry) noexcept;
 
 				/*!
 					@brief Allocates a Block
@@ -169,10 +169,11 @@ namespace CYB {
 				unsigned long long CurrentAmountOfMemoryCommitted(void) const noexcept;
 
 				/*!
-					@brief Walks the heap and throws if an error is detected
+					@brief Walks the heap blocks and free list and throws if an error is detected
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if a Block's magic numbers failed to verify
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::INVALID_HEAP_FREE_LIST. Thrown if an unfree Block is in the Free list or a free Block is not
 				*/
 				void Walk(void) const;
 

@@ -41,6 +41,32 @@ SCENARIO("Heap Alloc works", "[Engine][Memory][Heap][Functional]") {
 	}
 }
 
+SCENARIO("Heap walk works", "[Engine][Memory][Heap][Unit]") {
+	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
+	GIVEN("A basic heap and allocation") {
+		Heap TestHeap(10000);
+		auto Allocation(TestHeap.Alloc(50));
+		WHEN("The heap is walked") {
+			REQUIRE_NOTHROW(TestHeap.Walk());
+			THEN("All is well") {
+				CHECK(true);
+			}
+		}
+		WHEN("The allocation is corrupted") {
+			*reinterpret_cast<int*>(&Block::FromData(Allocation)) = 0;
+			AND_THEN("The heap is walked") {
+				REQUIRE_THROWS_AS(TestHeap.Walk(), CYB::Exception::Violation);
+				THEN("The appropriate error is thrown") {
+					CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_HEAP_BLOCK);
+				}
+			}
+		}
+	}
+
+}
+
 SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
@@ -180,8 +206,11 @@ SCENARIO("Heap seeded random stress test", "[Engine][Memory][Heap][Functional][S
 				FREE,
 			};
 			std::deque<void*> Allocations;
-			for (unsigned int I(0); I < 10000; ++I) 
-				switch (static_cast<AllocType>(Allocations.empty() ? ALLOC1 : RNG() % 6)) {
+			for (unsigned int I(0); I < 10000; ++I) {
+				if (I == 0x12)
+					BREAK;
+				const auto Type(static_cast<AllocType>(Allocations.empty() ? ALLOC1 : RNG() % 6));
+				switch (Type) {
 				case ALLOC1:
 				case ALLOC2:
 				case ALLOC3:
@@ -203,7 +232,8 @@ SCENARIO("Heap seeded random stress test", "[Engine][Memory][Heap][Functional][S
 					break;
 				}
 				}
-			
+				REQUIRE_NOTHROW(TestHeap.Walk());
+			}
 			for (auto Alloc : Allocations)
 				TestHeap.Free(Alloc);
 

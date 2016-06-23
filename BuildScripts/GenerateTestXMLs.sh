@@ -12,10 +12,12 @@ lcov --directory . --base-directory . --gcov-tool Tests/llvm-gcov.sh --no-extern
 lcov -r lcovrun.dat *Assert.inl *CYBSyscalls.inl *.hpp -o lcov.dat
 python lcov_cobertura.py lcov.dat -o Code.coveragexml
 
+echo "Generating html..."
+genhtml lcov.dat -o HTMLCodeCoverage
+
 if [ $# -eq 1 ]
 then
-	echo "Generating html..."
-	genhtml lcov.dat -o HTMLCodeCoverage
+	echo "Publishing html to local web server"
 	sudo rm -rf /srv/http
 	sudo cp -r HTMLCodeCoverage/ /srv/http
 fi

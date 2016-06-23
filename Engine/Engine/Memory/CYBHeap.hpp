@@ -112,6 +112,7 @@ namespace CYB {
 					@param AInitialCommitSize The amount of memory to initalize the heap with, must be smaller than @p AReservationSize
 					@par Thread Safety
 						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_RESERVATION_FAILURE. Thrown if the memory could not be reserved
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_COMMITAL_FAILURE. Thrown if the memory could not be committed
 				*/
 				Heap(const unsigned long long AInitialCommitSize);

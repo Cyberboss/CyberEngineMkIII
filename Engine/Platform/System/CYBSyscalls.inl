@@ -2,7 +2,7 @@
 
 template <typename... Args> unsigned long long CYB::Platform::System::Sys::Call(const CallNumber ACallNumber, Args&&... AArgs) noexcept {
 #ifdef DEBUG
-	if (CallRedirected(ACallNumber)
+	if (CallRedirected(ACallNumber))
 		return RedirectedCall(ACallNumber, std::forward<Args>(AArgs)...);
 #endif
 #ifndef TARGET_OS_WINDOWS

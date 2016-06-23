@@ -25,9 +25,7 @@ inline CYB::API::Interop::Allocator& CYB::Allocator(void) noexcept {
 	return API::Interop::Allocator::GetAllocator();
 }
 
-template <typename AType, typename... AArgs> AType* CYB::API::Interop::Allocator::InPlaceAllocation(void* const ALocation, AArgs&&...) {
+template <typename AType, typename... AArgs> AType* CYB::API::Interop::Allocator::InPlaceAllocation(void* const ALocation, AArgs&&... AArguments) {
 	Assert::NotEqual<void*>(ALocation, nullptr);
-
-	return nullptr;
-	//return new (ALocation) AType(std::forward<AArgs>(AArguments)...);
+	return new (ALocation) AType(std::forward<AArgs>(AArguments)...);
 }

@@ -9,7 +9,7 @@ CYB::Engine::Memory::Heap::Heap(const unsigned long long AInitialCommitSize) :
 {
 	Platform::System::VirtualMemory::Commit(FReservation, FCommitSize);
 
-	FLargeBlock = API::Interop::Allocator::InPlaceAllocation<LargeBlock>(&FirstBlock(), FCommitSize, nullptr);
+	FLargeBlock = API::Interop::Allocator::InPlaceAllocation<LargeBlock>(&FirstBlock(), FCommitSize - sizeof(LargeBlock), nullptr);
 }
 
 CYB::Engine::Memory::Heap::~Heap() {
@@ -122,22 +122,12 @@ CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::ReallocImpl(Block& ABlock
 	API::Assert::LessThan(ANumBytes, static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	auto& RightBlock(ABlock.RightBlock());
 	if (!RightBlock.IsLargeBlock()) {
-		const auto CombinedSize(ABlock.Size() + RightBlock.Size() + sizeof(Block));				//can't splice it, we don't have the previous free list entry
-		if (RightBlock.IsFree() && &RightBlock == ABlock.FNextFree && CombinedSize >= ANumBytes && CombinedSize <= static_cast<unsigned int>(std::numeric_limits<int>::max())) {
-			//jackpot
-			ABlock.FNextFree = RightBlock.FNextFree;
-			API::Assert::Equal(&ABlock, &RightBlock.EatLeftBlock());
-
-			return ABlock;
-		}
-		else {
-			//only thing we can do without reverse pointers
-			auto& NewData(AllocImpl(ANumBytes, ALock));
-			ALock.Release();
-			std::copy(static_cast<byte*>(ABlock.GetData()), static_cast<byte*>(ABlock.GetData()) + ABlock.Size(), static_cast<byte*>(NewData.GetData()));
-			Free(ABlock.GetData());
-			return Block::FromData(NewData.GetData());
-		}
+		//only thing we can do without reverse pointers
+		auto& NewData(AllocImpl(ANumBytes, ALock));
+		ALock.Release();
+		std::copy(static_cast<byte*>(ABlock.GetData()), static_cast<byte*>(ABlock.GetData()) + ABlock.Size(), static_cast<byte*>(NewData.GetData()));
+		Free(ABlock.GetData());
+		return Block::FromData(NewData.GetData());
 	}
 	else {
 		//still pretty decent
@@ -155,9 +145,14 @@ CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::ReallocImpl(Block& ABlock
 }
 void CYB::Engine::Memory::Heap::FreeImpl(Block& ABlock, API::LockGuard& ALock) noexcept(!API::Platform::IsDebug()) {
 	static_cast<void>(ALock);
-	AddToFreeList(ABlock, nullptr);
-	ABlock.SetFree(true);
-	ABlock.Validate();
+	if (ABlock.LeftBlock() != nullptr && ABlock.LeftBlock()->IsFree()) {
+		ABlock.EatLeftBlock().Validate();
+	}
+	else {
+		AddToFreeList(ABlock, nullptr);
+		ABlock.SetFree(true);
+		ABlock.Validate();
+	}
 }
 
 void CYB::Engine::Memory::Heap::WalkImpl(API::LockGuard& ALock) const {

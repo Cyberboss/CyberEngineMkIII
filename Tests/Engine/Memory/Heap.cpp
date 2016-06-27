@@ -110,14 +110,6 @@ SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 					CHECK(Result == nullptr);
 				}
 			}
-			WHEN("An allocation that is too large is made") {
-				void* Result(nullptr);
-				REQUIRE_THROWS_AS(Result = TestHeap.Realloc(Base, std::numeric_limits<int>::max()), CYB::Exception::Violation);
-				THEN("The appropriate exception is thrown") {
-					CHECK_EXCEPTION_CODE(CYB::Exception::Violation::UNSUPPORTED_ALLOCATION_AMOUNT);
-					CHECK(Result == nullptr);
-				}
-			}
 		}
 		GIVEN("A basic allocation start") {
 			auto Base(TestHeap.Alloc(50));
@@ -161,6 +153,14 @@ SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 				void* Result(nullptr);
 				REQUIRE_NOTHROW(Result = TestHeap.Realloc(Base, 0));
 				THEN("The block has been freed") {
+					CHECK(Result == nullptr);
+				}
+			}
+			WHEN("An allocation that is too large is made") {
+				void* Result(nullptr);
+				REQUIRE_THROWS_AS(Result = TestHeap.Realloc(Base, std::numeric_limits<int>::max()), CYB::Exception::Violation);
+				THEN("The appropriate exception is thrown") {
+					CHECK_EXCEPTION_CODE(CYB::Exception::Violation::UNSUPPORTED_ALLOCATION_AMOUNT);
 					CHECK(Result == nullptr);
 				}
 			}

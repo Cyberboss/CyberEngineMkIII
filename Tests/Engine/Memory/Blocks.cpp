@@ -110,6 +110,8 @@ SCENARIO("Block Split/Merge functions work", "[Engine][Memory][Block][LargeBlock
 		auto& TestBlock(*new (Data) Block(100, *reinterpret_cast<Block*>(Data), true));
 		WHEN("It is Spliced") {
 			auto& Result(TestBlock.Splice(20));
+			REQUIRE(Result.LeftBlock() == &TestBlock);
+			REQUIRE(&TestBlock.RightBlock() == &Result);
 			THEN("There are now two Blocks with the appropriate settings") {
 				CHECK_NOTHROW(Result.Validate());
 				CHECK_NOTHROW(TestBlock.Validate());
@@ -125,6 +127,8 @@ SCENARIO("Block Split/Merge functions work", "[Engine][Memory][Block][LargeBlock
 		}
 		WHEN("It is Spliced and remerged") {
 			auto& Tmp(TestBlock.Splice(20));
+			REQUIRE(Tmp.LeftBlock() == &TestBlock);
+			REQUIRE(&TestBlock.RightBlock() == &Tmp);
 			auto& Result(Tmp.EatLeftBlock());
 			THEN("There is now one Block with the appropriate settings") {
 				CHECK_NOTHROW(TestBlock.Validate());

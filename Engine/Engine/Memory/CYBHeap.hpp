@@ -78,34 +78,44 @@ namespace CYB {
 				/*!
 					@brief Allocates a Block
 					@param ANumBytes The minimum number of bytes available in the returned Block
-					@param ALock A reference to the current lock on FMutex that will be released by the time the function returns
+					@param ALock A reference to the current lock on FMutex
 					@return An unused Block that isn't free and is is at least @p ANumBytes in size
 					@par Thread Safety
 						This function requires that FMutex is locked
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_COMMITAL_FAILURE. Thrown if the memory could not be committed
 				*/
-				Block& AllocImpl(const unsigned int ANumBytes, API::LockGuard& ALock);
+				Block& AllocImpl(unsigned int ANumBytes, API::LockGuard& ALock);
 				/*!
 					@brief Reallocates a Block
 					@param ABlock A reference to the Block being worked on
 					@param ANumBytes The minimum number of bytes available in the returned Block
-					@param ALock A reference to the current lock on FMutex that will be released by the time the function returns
+					@param ALock A reference to the current lock on FMutex
 					@return An unused Block that isn't free, is at least @p ANumBytes in size, and contains all previous data from @p ABlock
 					@par Thread Safety
 						This function requires that FMutex is locked
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE. Thrown if the memory could not be committed
 				*/
-				Block& ReallocImpl(Block& ABlock, const unsigned int ANumBytes, API::LockGuard& ALock);
+				Block& ReallocImpl(Block& ABlock, unsigned int ANumBytes, API::LockGuard& ALock);
 				/*!
 					@brief Frees a Block
 					@param ABlock A reference to the Block being worked on
-					@param ALock A reference to the current lock on FMutex that will be released by the time the function returns
+					@param ALock A reference to the current lock on FMutex
 					@par Thread Safety
 						This function requires that FMutex is locked
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
 				*/
-				void FreeImpl(Block& ABlock, API::LockGuard& ALock) noexcept(!API::Platform::IsDebug());
+				void FreeImpl(Block& ABlock, API::LockGuard& ALock)  noexcept(!API::Platform::IsDebug());
+
+				/*!
+					@brief Walks the heap blocks and free list and throws if an error is detected
+					@param ALock A reference to the current lock on FMutex
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if a Block's magic numbers failed to verify
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::INVALID_HEAP_FREE_LIST. Thrown if an unfree Block is in the Free list or a free Block is not
+				*/
+				void WalkImpl(API::LockGuard& ALock) const;
 			public:
 				/*!
 					@brief Create a Heap

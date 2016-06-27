@@ -141,7 +141,7 @@ namespace CYB {
 				/*!
 					@brief Separate this block into two
 					@param ASizeToKeep The amount of bytes that should remain in this block
-					@return A reference to the Block that was created by the splicing
+					@return A reference to the right Block that was created by the splicing
 					@par Thread Safety
 						This function requires no thread safety
 				*/

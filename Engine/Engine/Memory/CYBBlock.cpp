@@ -98,19 +98,24 @@ void CYB::Engine::Memory::Block::Validate(void) const {
 }
 
 CYB::Engine::Memory::Block& CYB::Engine::Memory::Block::Splice(const unsigned int ASizeToKeep) noexcept {
+	API::Assert::False(IsLargeBlock());
 	API::Assert::LessThan(ASizeToKeep, static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	const auto NewBlockAmount(Size() - ASizeToKeep);
 	API::Assert::LessThan<unsigned long long>(sizeof(Block), NewBlockAmount);
 	SetSize(ASizeToKeep);
-	return *API::Interop::Allocator::InPlaceAllocation<Block>(static_cast<byte*>(GetData()) + ASizeToKeep, static_cast<unsigned int>(NewBlockAmount), *this, true);
+	auto& Result(*API::Interop::Allocator::InPlaceAllocation<Block>(static_cast<byte*>(GetData()) + ASizeToKeep, static_cast<unsigned int>(NewBlockAmount), *this, true));
+	Result.RightBlock().FOffsetToPreviousBlock = Result.RightBlock().CalculateOffset(Result);
+	return Result;
 }
 
 CYB::Engine::Memory::Block& CYB::Engine::Memory::Block::EatLeftBlock(void) noexcept {
 	API::Assert::False(IsLargeBlock());
 	API::Assert::NotEqual<Block*>(LeftBlock(), nullptr);
+	API::Assert::Equal(&LeftBlock()->RightBlock(), this);
 	auto& LBlock(*LeftBlock());
 	const auto NewSize(LBlock.Size() + Size() + sizeof(Block));
 	API::Assert::LessThan<unsigned long long>(NewSize, static_cast<unsigned long long>(std::numeric_limits<int>::max()));
 	LBlock.SetSize(static_cast<unsigned int>(NewSize));
+	LBlock.RightBlock().FOffsetToPreviousBlock = LBlock.RightBlock().CalculateOffset(LBlock);
 	return LBlock;
 }

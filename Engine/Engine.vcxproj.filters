@@ -65,6 +65,12 @@
     <ClCompile Include="Platform\Modules\Win32\CYBWin32Module.cpp">
       <Filter>Platform\Modules\Win32</Filter>
     </ClCompile>
+    <ClCompile Include="Platform\System\Win32\CYBWin32Path.cpp">
+      <Filter>Platform\System\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\System\Posix\CYBPosixPath.cpp">
+      <Filter>Platform\System\Posix</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">

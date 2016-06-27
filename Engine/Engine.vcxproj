@@ -126,6 +126,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Platform\System\Posix\CYBPosixPath.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Platform\System\Posix\CYBPosixProcess.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -143,6 +146,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Platform\System\Win32\CYBWin32Mutex.cpp" />
+    <ClCompile Include="Platform\System\Win32\CYBWin32Path.cpp" />
     <ClCompile Include="Platform\System\Win32\CYBWin32Process.cpp" />
     <ClCompile Include="Platform\System\Win32\CYBWin32Syscalls.cpp" />
     <ClCompile Include="Platform\System\Win32\CYBWin32Thread.cpp" />

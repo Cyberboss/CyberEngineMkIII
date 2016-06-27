@@ -21,9 +21,9 @@ namespace CYB {
 				File(File&& AMove);
 				File& operator=(File&& AMove);
 
-				unsigned long long Size(void);
+				unsigned long long Size(void) noexcept;
 
-				unsigned long long CursorPosition(void) const;
+				unsigned long long CursorPosition(void) const noexcept;
 				unsigned long long Seek(void) const;
 
 				unsigned long long Read(void* const ABuffer, const unsigned long long AAmount) const;

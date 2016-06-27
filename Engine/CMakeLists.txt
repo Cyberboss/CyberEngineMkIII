@@ -19,6 +19,7 @@ Platform/System/Posix/CYBPosixThread.cpp
 Platform/System/Posix/CYBPosixProcess.cpp
 Platform/System/Posix/CYBPosixVirtualMemory.cpp
 Platform/System/Posix/CYBPosixMutex.cpp
+Platform/System/Posix/CYBPosixPath.cpp
 
 
 #Modules

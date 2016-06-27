@@ -100,7 +100,7 @@ namespace CYB {
 		public:
 			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
-				INVALID_HEAP_FREE_LIST, //!< @brief A heap's free list is incorrect
+				PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE, //!< @brief Dummy
 			};
 		private:
 			/*!

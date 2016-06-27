@@ -58,8 +58,8 @@ CYB::Exception::SystemData::SystemData(const ErrorCode AErrorCode) :
 }
 CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode AErrorCode) {
 	switch (AErrorCode) {
-	case INVALID_HEAP_FREE_LIST:
-		return API::String::Static(u8"A Heap's free list is incorrect");
+	case PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE:
+		return API::String::Static(u8"Do something aboot it");
 	default:
 		throw Violation(Violation::INVALID_EXCEPTION_ERROR_CODE);
 	}

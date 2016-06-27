@@ -10,7 +10,7 @@ SCENARIO("Heap Alloc works", "[Engine][Memory][Heap][Functional]") {
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
 	GIVEN("A basic heap") {
-		Heap TestHeap(10000);
+		Heap TestHeap(5);
 		WHEN("A sane allocation is made") {
 			void* Result(nullptr);
 			REQUIRE_NOTHROW(Result = TestHeap.Alloc(50));
@@ -35,6 +35,14 @@ SCENARIO("Heap Alloc works", "[Engine][Memory][Heap][Functional]") {
 			REQUIRE_THROWS_AS(Result = TestHeap.Alloc(-5), CYB::Exception::Violation);
 			THEN("The appropriate exception is thrown") {
 				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::NEGATIVE_HEAP_ALLOCATION);
+				CHECK(Result == nullptr);
+			}
+		}
+		WHEN("An allocation that is too large is made") {
+			void* Result(nullptr);
+			REQUIRE_THROWS_AS(Result = TestHeap.Alloc(std::numeric_limits<int>::max()), CYB::Exception::Violation);
+			THEN("The appropriate exception is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::UNSUPPORTED_ALLOCATION_AMOUNT);
 				CHECK(Result == nullptr);
 			}
 		}
@@ -99,6 +107,14 @@ SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 				REQUIRE_THROWS_AS(Result = TestHeap.Realloc(Base, -5), CYB::Exception::Violation);
 				THEN("The appropriate exception is thrown") {
 					CHECK_EXCEPTION_CODE(CYB::Exception::Violation::NEGATIVE_HEAP_ALLOCATION);
+					CHECK(Result == nullptr);
+				}
+			}
+			WHEN("An allocation that is too large is made") {
+				void* Result(nullptr);
+				REQUIRE_THROWS_AS(Result = TestHeap.Realloc(Base, std::numeric_limits<int>::max()), CYB::Exception::Violation);
+				THEN("The appropriate exception is thrown") {
+					CHECK_EXCEPTION_CODE(CYB::Exception::Violation::UNSUPPORTED_ALLOCATION_AMOUNT);
 					CHECK(Result == nullptr);
 				}
 			}
@@ -198,44 +214,48 @@ SCENARIO("Heap seeded random stress test", "[Engine][Memory][Heap][Functional][S
 		WHEN("We execute 10000 de/re/allocations") {
 
 			enum AllocType : unsigned int{
-				ALLOC1,
+				ALLOC,
 				ALLOC2,
 				ALLOC3,
-				REALLOC1,
+				REALLOC,
 				REALLOC2,
 				FREE,
 			};
-			std::deque<void*> Allocations;
+			struct Allocation {
+				void* FData;
+				unsigned int FTimesRealloced;
+			};
+
+			std::deque<Allocation> Allocations;
 			for (unsigned int I(0); I < 10000; ++I) {
-				if (I == 0x12)
-					BREAK;
-				const auto Type(static_cast<AllocType>(Allocations.empty() ? ALLOC1 : RNG() % 6));
+				const auto Type(static_cast<AllocType>(Allocations.empty() ? ALLOC : RNG() % 6));
 				switch (Type) {
-				case ALLOC1:
+				case ALLOC:
 				case ALLOC2:
 				case ALLOC3:
-					Allocations.emplace_back(TestHeap.Alloc(static_cast<int>(RNG() % 1000) + 1));
+					Allocations.push_back({ TestHeap.Alloc(static_cast<int>(RNG() % 1000) + 1), 0 });
 					break;
 				case FREE:
 				{
 					auto Pos(RNG() % Allocations.size());
-					TestHeap.Free(Allocations[Pos]);
+					TestHeap.Free(Allocations[Pos].FData);
 					Allocations.erase(Allocations.begin() + static_cast<long long>(Pos));
 					break;
 				}
-				case REALLOC1:
+				case REALLOC:
 				case REALLOC2:
 				{
 					auto Pos(RNG() % Allocations.size());
-					auto& B(Block::FromData(Allocations[Pos]));
-					Allocations[Pos] = TestHeap.Realloc(Allocations[Pos], std::max(static_cast<int>(B.Size()), static_cast<int>(RNG() % 1000)) + 1);
+					auto& B(Block::FromData(Allocations[Pos].FData));
+					Allocations[Pos].FData = TestHeap.Realloc(Allocations[Pos].FData, std::max(static_cast<int>(B.Size()), static_cast<int>(RNG() % 1000)) + 1);
+					++Allocations[Pos].FTimesRealloced;
 					break;
 				}
 				}
 				REQUIRE_NOTHROW(TestHeap.Walk());
 			}
 			for (auto Alloc : Allocations)
-				TestHeap.Free(Alloc);
+				TestHeap.Free(Alloc.FData);
 
 			THEN("All is well") {
 				CHECK(true);

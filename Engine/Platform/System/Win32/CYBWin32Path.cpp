@@ -29,10 +29,10 @@ namespace CYB {
 				const wchar_t* WString(void) const noexcept {
 					return reinterpret_cast<const wchar_t*>(FData);
 				}
-				UTF8 ToUTF8(void) const {
-					const auto BufferSize(Core().FModuleManager.FK32.Call<CYB::Platform::Modules::Kernel32::WideCharToMultiByte>(UINT(CP_UTF8), DWORD(0), WString(), -1, nullptr, 0, nullptr, nullptr));
+				static UTF8 ToUTF8(const wchar_t* AWString) {
+					const auto BufferSize(Core().FModuleManager.FK32.Call<CYB::Platform::Modules::Kernel32::WideCharToMultiByte>(UINT(CP_UTF8), DWORD(0), AWString, -1, nullptr, 0, nullptr, nullptr));
 					auto NewData(static_cast<char*>(Allocator().FHeap.Alloc(BufferSize)));
-					if (Core().FModuleManager.FK32.Call<CYB::Platform::Modules::Kernel32::WideCharToMultiByte>(UINT(CP_UTF8), DWORD(0), WString(), -1, NewData, BufferSize, nullptr, nullptr) == 0)
+					if (Core().FModuleManager.FK32.Call<CYB::Platform::Modules::Kernel32::WideCharToMultiByte>(UINT(CP_UTF8), DWORD(0), AWString, -1, NewData, BufferSize, nullptr, nullptr) == 0)
 						throw CYB::Exception::Internal(CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING);
 					return UTF8(NewData);
 				}
@@ -40,3 +40,28 @@ namespace CYB {
 		};
 	};
 };
+
+CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const SystemDirectory ADirectory) {
+	auto& MM(Core().FModuleManager);
+	switch (ADirectory) {
+	case SystemDirectory::EXECUTABLE: {
+		auto Module(MM.FK32.Call<Modules::Kernel32::GetModuleHandleW>(nullptr));
+		if (Module != nullptr) {
+			wchar_t Buffer[MAX_PATH];
+			if (MM.FK32.Call<Modules::Kernel32::GetModuleFileNameW>(Module, Buffer, DWORD(MAX_PATH)) != 0
+				&& MM.FShellAPI.Call<Modules::ShellAPI::PathRemoveFileSpecW>(Buffer) != 0) {
+				auto WithoutDelimiter(API::String::UTF16::ToUTF8(Buffer));
+				WithoutDelimiter += CYB::API::String::UTF8(CYB::API::String::Static(u8"/"));
+				return WithoutDelimiter;
+			}
+		}
+		throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+	}
+	case SystemDirectory::RESOURCE:
+	case SystemDirectory::TEMPORARY:
+	case SystemDirectory::USER:
+	case SystemDirectory::WORKING:
+	default:
+		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
+	}
+}

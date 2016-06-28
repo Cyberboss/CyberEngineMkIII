@@ -120,6 +120,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Platform\Modules\Win32\CYBWin32Module.cpp" />
+    <ClCompile Include="Platform\System\CYBPath.cpp" />
     <ClCompile Include="Platform\System\CYBProcess.cpp" />
     <ClCompile Include="Platform\System\CYBThread.cpp" />
     <ClCompile Include="Platform\System\Posix\CYBPosixMutex.cpp">

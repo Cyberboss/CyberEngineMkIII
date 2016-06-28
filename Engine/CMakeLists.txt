@@ -11,6 +11,7 @@ add_library(EngineBase STATIC
 
 #System
 Platform/System/CYBThread.cpp
+Platform/System/CYBPath.cpp
 Platform/System/CYBProcess.cpp
 
 #Posix

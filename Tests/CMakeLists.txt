@@ -12,6 +12,7 @@ Platform/Modules.cpp
 Platform/System/VirtualMemory.cpp
 Platform/System/Threads.cpp
 Platform/System/Mutex.cpp
+Platform/System/Path.cpp
 Platform/System/Process.cpp
 
 Engine/Memory/Blocks.cpp
@@ -22,6 +23,7 @@ Engine/Core/Core.cpp
 
 API/String/StaticAndCStyleString.cpp
 API/String/DynamicString.cpp
+API/String/UTF8String.cpp
 
 )
 

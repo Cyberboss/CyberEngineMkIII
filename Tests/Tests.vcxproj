@@ -110,6 +110,7 @@
     <ClCompile Include="Engine\Memory\Heap.cpp" />
     <ClCompile Include="Platform\Modules.cpp" />
     <ClCompile Include="Platform\System\Mutex.cpp" />
+    <ClCompile Include="Platform\System\Path.cpp" />
     <ClCompile Include="Platform\System\Process.cpp" />
     <ClCompile Include="Platform\System\Threads.cpp" />
     <ClCompile Include="Platform\System\VirtualMemory.cpp" />

@@ -71,6 +71,9 @@
     <ClCompile Include="Platform\System\Posix\CYBPosixPath.cpp">
       <Filter>Platform\System\Posix</Filter>
     </ClCompile>
+    <ClCompile Include="Platform\System\CYBPath.cpp">
+      <Filter>Platform\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">

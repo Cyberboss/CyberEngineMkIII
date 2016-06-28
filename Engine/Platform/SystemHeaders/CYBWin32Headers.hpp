@@ -9,6 +9,7 @@ namespace CYB {
 			#define WINBLUE_KBSPRING14	//updated APIs
 			#define WIN32_LEAN_AND_MEAN	//kiss
 			#include <Windows.h>
+			#include <Shlwapi.h>
 			#undef WIN32_LEAN_AND_MEAN
 			#undef Yield
 			#undef min

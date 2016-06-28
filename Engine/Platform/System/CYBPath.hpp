@@ -19,7 +19,7 @@ namespace CYB {
 				Path(const API::String::CStyle& AString);
 				Path(const Path& ACopy) = default;
 				Path(Path&& AMove) noexcept = default;
-				Path& operator=(Path&& AMove) noexcept = default;
+				Path& operator=(Path&& AMove) RELEASE_NOEXCEPT = default;
 
 				void EmptyContents(void) const;
 

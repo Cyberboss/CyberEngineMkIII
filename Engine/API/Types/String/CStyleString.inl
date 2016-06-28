@@ -22,3 +22,13 @@ inline const char* CYB::API::String::CStyle::CString(void) const noexcept {
 inline int CYB::API::String::CStyle::RawLength(void) const noexcept {
 	return FLength;
 }
+
+inline bool CYB::API::String::CStyle::operator==(const CStyle& ARHS) const noexcept {
+	if (FLength == ARHS.FLength) {
+		for (int I(0); I < FLength; ++I)
+			if (FData[I] != ARHS.FData[I])
+				return false;
+		return true;
+	}
+	return false;
+}

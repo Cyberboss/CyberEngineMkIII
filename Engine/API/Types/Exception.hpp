@@ -72,6 +72,7 @@ namespace CYB {
 				MODULE_FUNCTION_LOAD_FAILURE, //!< @brief Specific could not be loaded from given Module
 				MODULE_LOAD_FAILURE, //!< @brief Module could not be loaded
 				MUTEX_INITIALIZATION_FAILURE, //!< @brief Mutex could not be created
+				STRING_VALIDATION_FAILURE, //!< @brief A string could not be validated
 				THREAD_CREATION_FAILURE, //!< @brief Thread could not be created
 			};
 		private:
@@ -100,7 +101,7 @@ namespace CYB {
 		public:
 			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
-				PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE, //!< @brief Dummy
+				FAILED_TO_CONVERT_UTF16_STRING, //!< @brief A string conversion call failed
 			};
 		private:
 			/*!

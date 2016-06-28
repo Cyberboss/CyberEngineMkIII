@@ -94,7 +94,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires that FMutex is locked
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE. Thrown if the memory could not be committed
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the memory could not be committed
 				*/
 				Block& ReallocImpl(Block& ABlock, unsigned int ANumBytes, API::LockGuard& ALock);
 				/*!

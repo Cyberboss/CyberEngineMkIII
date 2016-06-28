@@ -103,6 +103,7 @@
   <ItemGroup>
     <ClCompile Include="API\String\DynamicString.cpp" />
     <ClCompile Include="API\String\StaticAndCStyleString.cpp" />
+    <ClCompile Include="API\String\UTF8String.cpp" />
     <ClCompile Include="Engine\Core\Core.cpp" />
     <ClCompile Include="Engine\Core\Exception.cpp" />
     <ClCompile Include="Engine\Memory\Blocks.cpp" />

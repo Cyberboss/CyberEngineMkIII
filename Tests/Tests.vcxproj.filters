@@ -40,6 +40,9 @@
     <ClCompile Include="API\String\DynamicString.cpp">
       <Filter>API\String</Filter>
     </ClCompile>
+    <ClCompile Include="API\String\UTF8String.cpp">
+      <Filter>API\String</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />

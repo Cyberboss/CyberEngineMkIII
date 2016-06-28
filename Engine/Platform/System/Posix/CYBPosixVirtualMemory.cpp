@@ -33,26 +33,26 @@ void* CYB::Platform::System::VirtualMemory::Reserve(unsigned long long ANumBytes
 				try {
 					Access(Reservation, AccessLevel::NONE);
 				}
-				catch (Exception::SystemData AException) {
+				catch (Exception::Internal AException) {
 					//this really should never happen, gotta be safe though
-					API::Assert::Equal(AException.FErrorCode, static_cast<unsigned int>(Exception::SystemData::MEMORY_PROTECT_FAILURE));
+					API::Assert::Equal(AException.FErrorCode, static_cast<unsigned int>(Exception::Internal::MEMORY_PROTECT_FAILURE));
 					try {
 						Release(Reservation);
 						//if this fails, well now we have a useless reservation shitting all over our address space and there's nothing we can do about it
 					}
 					catch (Exception::SystemData) {	}
-					throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
+					throw Exception::Internal(Exception::Internal::MEMORY_RESERVATION_FAILURE);
 				}
 			}
 			else {
 				Core().FModuleManager.FC.Call<Modules::LibC::munmap>(Superblock, ANumBytes);
-				throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
+				throw Exception::Internal(Exception::Internal::MEMORY_RESERVATION_FAILURE);
 			}
 
 			return Reservation;
 		}
 	}
-	throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);}	//gcov bitching
+	throw Exception::Internal(Exception::Internal::MEMORY_RESERVATION_FAILURE);}	//gcov bitching
 
 void CYB::Platform::System::VirtualMemory::Commit(void* const AReservation, unsigned long long ANumBytes) {
 	using namespace Posix;
@@ -63,24 +63,24 @@ void CYB::Platform::System::VirtualMemory::Commit(void* const AReservation, unsi
 			if (ANumBytes <= Superblock[0] && Core().FModuleManager.FC.Call<Modules::LibC::mprotect>(Superblock, ANumBytes, PROT_READ | PROT_WRITE) == 0)
 				Superblock[1] = ANumBytes;
 			else
-				throw Exception::SystemData(Exception::SystemData::MEMORY_COMMITAL_FAILURE);
+				throw Exception::Internal(Exception::Internal::MEMORY_COMMITAL_FAILURE);
 		}
 	}
 	else
-		throw Exception::SystemData(Exception::SystemData::MEMORY_COMMITAL_FAILURE);
+		throw Exception::Internal(Exception::Internal::MEMORY_COMMITAL_FAILURE);
 }
 
 void CYB::Platform::System::VirtualMemory::Release(void* const AReservation) {
 	auto const Superblock(GetSuperblockFromReservation(AReservation));
 	if(!AccessSuperblock(AReservation) || Core().FModuleManager.FC.Call<Modules::LibC::munmap>(Superblock, *Superblock) != 0)
-		throw Exception::SystemData(Exception::SystemData::MEMORY_RELEASE_FAILURE);
+		throw Exception::Internal(Exception::Internal::MEMORY_RELEASE_FAILURE);
 }
 
 void CYB::Platform::System::VirtualMemory::Access(void* const AReservation, const AccessLevel AAccessLevel) {
 	using namespace Posix;
 	auto const Superblock(GetSuperblockFromReservation(AReservation));
 	if (!AccessSuperblock(AReservation) || Core().FModuleManager.FC.Call<Modules::LibC::mprotect>(Superblock, Superblock[1], AAccessLevel == AccessLevel::READ_WRITE ? PROT_READ | PROT_WRITE : (AAccessLevel == AccessLevel::READ ? PROT_READ : PROT_NONE)) != 0)
-		throw Exception::SystemData(Exception::SystemData::MEMORY_PROTECT_FAILURE);
+		throw Exception::Internal(Exception::Internal::MEMORY_PROTECT_FAILURE);
 }
 
 void CYB::Platform::System::VirtualMemory::Discard(void* const AMemory, const unsigned long long ANumBytes) noexcept {

@@ -8,7 +8,7 @@ CYB::Platform::Modules::Implementation::Module::Module(const API::String::CStyle
 	//This can be called without Core
 	FModule = reinterpret_cast<void*>(System::Sys::Call(System::Sys::LOAD_LIBRARY, const_cast<char*>(AModuleName.CString()), RTLD_LAZY));
 	if (FModule == nullptr)
-		throw Exception::SystemData(Exception::SystemData::MODULE_LOAD_FAILURE);
+		throw Exception::Internal(Exception::Internal::MODULE_LOAD_FAILURE);
 }
 CYB::Platform::Modules::Implementation::Module::~Module() {
 	if (FModule != nullptr)
@@ -20,5 +20,5 @@ void* CYB::Platform::Modules::Module::LoadFunction(const API::String::CStyle& AF
 	//This can be called without Core
 	auto Result(reinterpret_cast<void*>(System::Sys::Call(System::Sys::LOAD_SYMBOL, FModule, const_cast<char*>(AFunctionName.CString()))));
 	if (Result == nullptr)
-		throw Exception::SystemData(Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE);
+		throw Exception::Internal(Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE);
 	return Result; }

@@ -103,7 +103,7 @@ SCENARIO("Basic engine dry run", "[Engine][Core][Behavioural]") {
 				CYB::Engine::Core::Run(0, nullptr);
 				THEN("Certain things happened") {
 					CHECK(FFakeProcExitRan);
-					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MEMORY_RESERVATION_FAILURE);
+					CHECK_EXCEPTION_CODE(CYB::Exception::Internal::MEMORY_RESERVATION_FAILURE);
 				}
 			}
 		}

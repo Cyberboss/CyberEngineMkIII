@@ -25,8 +25,8 @@ template <unsigned int AN> void CYB::Platform::Modules::AutoModuleOptionalHelper
 		try {
 			AFunctionPointers[I] = AReplacedFunctions[I] != nullptr ? AReplacedFunctions[I] : AModule.LoadFunction(AFunctionNames[I]);
 		}
-		catch (Exception::SystemData AException) {
-			API::Assert::Equal(AException.FErrorCode, static_cast<unsigned int>(Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE));
+		catch (Exception::Internal AException) {
+			API::Assert::Equal(AException.FErrorCode, static_cast<unsigned int>(Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE));
 			AFunctionPointers[I] = nullptr;
 		}
 }

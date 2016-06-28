@@ -30,18 +30,8 @@ CYB::Exception::Violation::Violation(const ErrorCode AErrorCode) :
 
 CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCode AErrorCode) {
 	switch (AErrorCode) {
-	case MEMORY_RESERVATION_FAILURE:
-		return API::String::Static(u8"Failed to reserve virtual memory from the OS.");
-	case MEMORY_COMMITAL_FAILURE:
-		return API::String::Static(u8"Failed to commit virtual memory from the OS.");
-	case MEMORY_PROTECT_FAILURE:
-		return API::String::Static(u8"Failed to implement requested virtual memory protection level.");
-	case MEMORY_RELEASE_FAILURE:
-		return API::String::Static(u8"Failed to return virtual memory to the OS.");
-	case MODULE_FUNCTION_LOAD_FAILURE:
-		return API::String::Static(u8"Failed to load a requested function from a module.");
-	case MODULE_LOAD_FAILURE:
-		return API::String::Static(u8"Failed to load a requested module.");
+	case HEAP_ALLOCATION_FAILURE:
+		return API::String::Static(u8"Current heap has no block large enough for a requested allocation and expansion failed");
 	case MUTEX_INITIALIZATION_FAILURE:
 		return API::String::Static(u8"Failed to initialize a new mutex.");
 	case STRING_VALIDATION_FAILURE:
@@ -62,6 +52,18 @@ CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode 
 	switch (AErrorCode) {
 	case FAILED_TO_CONVERT_UTF16_STRING:
 		return API::String::Static(u8"Failed to convert between a UTF-8 and UTF-16 string.");
+	case MEMORY_COMMITAL_FAILURE:
+		return API::String::Static(u8"Failed to commit virtual memory from the OS.");
+	case MEMORY_PROTECT_FAILURE:
+		return API::String::Static(u8"Failed to implement requested virtual memory protection level.");
+	case MEMORY_RESERVATION_FAILURE:
+		return API::String::Static(u8"Failed to reserve virtual memory from the OS.");
+	case MEMORY_RELEASE_FAILURE:
+		return API::String::Static(u8"Failed to return virtual memory to the OS.");
+	case MODULE_FUNCTION_LOAD_FAILURE:
+		return API::String::Static(u8"Failed to load a requested function from a module.");
+	case MODULE_LOAD_FAILURE:
+		return API::String::Static(u8"Failed to load a requested module.");
 	default:
 		throw Violation(Violation::INVALID_EXCEPTION_ERROR_CODE);
 	}

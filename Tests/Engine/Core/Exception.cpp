@@ -30,7 +30,7 @@ SCENARIO("Exception error code verification works", "[Exception][Unit]") {
 	}
 }
 
-TEST_CASE("REMOVE THIS AFTER YOU MAKE INTERNAL AND FATAL EXCEPTIONS", "[Exception][Unit]") {
+TEST_CASE("REMOVE THIS AFTER YOU MAKE FATAL EXCEPTIONS", "[Exception][Unit]") {
 	try {
 		throw CYB::Exception::Fatal(CYB::Exception::Fatal::PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE);
 	}

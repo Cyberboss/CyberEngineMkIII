@@ -38,10 +38,10 @@ SCENARIO("Modules can load a library", "[Platform][Modules][Functional]") {
 		auto& Library(FakeLibrary);
 		WHEN("The library name is used to construct a Module") {
 			CYB::Platform::Modules::Module* Result(nullptr);
-			CHECK_THROWS_AS(Result = new CYB::Platform::Modules::Module(Library), CYB::Exception::SystemData);
+			CHECK_THROWS_AS(Result = new CYB::Platform::Modules::Module(Library), CYB::Exception::Internal);
 			THEN("It fails to load") {
 				CHECK(Result == nullptr);
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MODULE_LOAD_FAILURE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::Internal::MODULE_LOAD_FAILURE);
 			}
 			delete Result;
 		}
@@ -68,10 +68,10 @@ SCENARIO("Functions can be loaded from modules", "[Platform][Modules][Functional
 		}
 		WHEN("Illegitimate functions are loaded from the library") {
 			void* F1(nullptr), * F2(nullptr);
-			CHECK_THROWS_AS(F1 = Mod.LoadFunction(FakeLibraryFunctions[0]), CYB::Exception::SystemData);
-			CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE);
-			CHECK_THROWS_AS(F2 = Mod.LoadFunction(FakeLibraryFunctions[1]), CYB::Exception::SystemData);
-			CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::MODULE_FUNCTION_LOAD_FAILURE);
+			CHECK_THROWS_AS(F1 = Mod.LoadFunction(FakeLibraryFunctions[0]), CYB::Exception::Internal);
+			CHECK_EXCEPTION_CODE(CYB::Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE);
+			CHECK_THROWS_AS(F2 = Mod.LoadFunction(FakeLibraryFunctions[1]), CYB::Exception::Internal);
+			CHECK_EXCEPTION_CODE(CYB::Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE);
 			THEN("The appropriate exception is thrown") {
 				CHECK(F1 == nullptr);
 				CHECK(F2 == nullptr);

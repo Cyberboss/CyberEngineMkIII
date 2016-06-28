@@ -9,8 +9,8 @@ REDIRECTED_FUNCTION(BadVirtualAlloc, void* const, const unsigned long long, cons
 	return static_cast<void*>(nullptr);
 }
 
-REDIRECTED_FUNCTION(BadMMap, void* const, const unsigned long long, int, int, int, const unsigned long long) {
-	return reinterpret_cast<void*>(-1);
+REDIRECTED_FUNCTION(BadMProtect, void* const, const unsigned long long, const int) {
+	return -1;
 }
 
 SCENARIO("Heap Alloc works", "[Engine][Memory][Heap][Functional]") {
@@ -56,7 +56,7 @@ SCENARIO("Heap Alloc works", "[Engine][Memory][Heap][Functional]") {
 		}
 		GIVEN("A failing Reserve call") {
 			auto BVA(K32.Redirect<CYB::Platform::Modules::Kernel32::VirtualAlloc, BadVirtualAlloc>());
-			auto BMM(LibC.Redirect<CYB::Platform::Modules::LibC::mmap, BadMMap>());
+			auto BMP(LibC.Redirect<CYB::Platform::Modules::LibC::mprotect, BadMProtect>());
 			WHEN("Heap expansion is attempted") {
 				void* Result(nullptr);
 				REQUIRE_THROWS_AS(Result = TestHeap.Alloc(1000), CYB::Exception::SystemData);

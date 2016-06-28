@@ -8,6 +8,8 @@
     <RemoteWorkingDirectory>/home/debugbot/CEMKIIIDebug/Output/bin</RemoteWorkingDirectory>
     <RemoteExecutable>CyberEngineMkIIITester</RemoteExecutable>
     <DebuggerFlavor>LinuxDebugger</DebuggerFlavor>
+    <RemoteExecutableArguments>
+    </RemoteExecutableArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RemoteOSX|x64'">
     <RemoteHostName>osx.localdebugmachines.net</RemoteHostName>

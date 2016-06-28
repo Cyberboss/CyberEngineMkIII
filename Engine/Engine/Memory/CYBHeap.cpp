@@ -53,8 +53,14 @@ void CYB::Engine::Memory::Heap::LargeBlockNeedsAtLeast(unsigned int ARequiredNum
 	API::Assert::LessThan(ARequiredNumBytes, static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	if (FLargeBlock->Size() <= ARequiredNumBytes) {
 		const auto SizeDifference(ARequiredNumBytes - FLargeBlock->Size());
-		FCommitSize += SizeDifference + 1000;
-		Platform::System::VirtualMemory::Commit(FReservation, FCommitSize);
+		const auto NewCommitSize(FCommitSize + SizeDifference + 1000);
+		try {
+			Platform::System::VirtualMemory::Commit(FReservation, FCommitSize);
+		}catch(CYB::Exception::Internal AException){
+			API::Assert::Equal<unsigned int>(AException.FErrorCode, CYB::Exception::Internal::MEMORY_COMMITAL_FAILURE);
+			throw CYB::Exception::SystemData(CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE);
+		}
+		FCommitSize = NewCommitSize;
 		FLargeBlock->SetSize(FLargeBlock->Size() + SizeDifference + 1000);
 	}
 }

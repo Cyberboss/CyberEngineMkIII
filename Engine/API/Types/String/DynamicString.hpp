@@ -12,7 +12,7 @@ namespace CYB {
 					@return An allocated char array that contains the contents of AData
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE. Thrown if the current hep runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current hep runs out of memory
 				*/
 				static char* CopyCStyle(const CStyle& AData);
 
@@ -44,7 +44,7 @@ namespace CYB {
 					@param AData The char array
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
 				Dynamic(const char* const AData);
 				/*!
@@ -52,12 +52,12 @@ namespace CYB {
 					@param AData The data to populate the char array with. Must be at least a pointer to a null terminating character
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
 				Dynamic(const CStyle& AData);
 				/*!
 					@brief See @ref structors
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
 				Dynamic(const Dynamic& ACopy);
 				Dynamic(Dynamic&& AMove) noexcept;	//!< @brief See @ref structors
@@ -78,7 +78,7 @@ namespace CYB {
 					@return The new string
 					@par Thread Safety
 						This function requires synchronization at the object level
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
 				Dynamic operator+(const CStyle& ARHS) const;
 				/*!
@@ -87,7 +87,7 @@ namespace CYB {
 					@return A self reference
 					@par Thread Safety
 						This function requires synchronization at the object level
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MEMORY_COMMITAL_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
 				Dynamic& operator+=(const CStyle& ARHS);
 

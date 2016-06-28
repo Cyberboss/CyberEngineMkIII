@@ -19,7 +19,7 @@ namespace CYB {
 					@return The reserved address space
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_RESERVATION_FAILURE. Thrown if the reservation was unable to be made
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MEMORY_RESERVATION_FAILURE. Thrown if the reservation was unable to be made
 				*/
 				static void* Reserve(unsigned long long ANumBytes);
 				/*!
@@ -28,7 +28,7 @@ namespace CYB {
 					@param ANumBytes The number of bytes in the address space to commit, will be rounded up to the nearest reservable granularity
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_COMMITAL_FAILURE. Thrown if the commital was unable to be made
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MEMORY_COMMITAL_FAILURE. Thrown if the commital was unable to be made
 				*/
 				static void Commit(void* const AReservation, unsigned long long ANumBytes);
 				/*!
@@ -44,7 +44,7 @@ namespace CYB {
 					@param AReservation An address returned from ReserveMemory
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_RELEASE_FAILURE. Thrown if the commital was unable to be made
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MEMORY_RELEASE_FAILURE. Thrown if the commital was unable to be made
 				*/
 				static void Release(void* AReservation);
 				/*!
@@ -53,7 +53,7 @@ namespace CYB {
 					@param AAccess The access level to set
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::MEMORY_PROTECT_FAILURE. Thrown if the commital was unable to be made
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MEMORY_PROTECT_FAILURE. Thrown if the commital was unable to be made
 				*/
 				static void Access(void* AReservation, const AccessLevel AAccess);
 			};

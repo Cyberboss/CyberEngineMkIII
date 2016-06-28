@@ -7,8 +7,7 @@ namespace CYB {
 		namespace System {
 			/*! 
 				@brief An object representing an operating system process
-				@par WARNING
-					Processes with the same PID/Handle will appear equivalent. Ensure that a reference to a Process object does not persist through operating system recycling
+				@attention Processes with the same PID/Handle will appear equivalent. Ensure that a reference to a Process object does not persist through operating system recycling
 			*/
 			class Process : private Implementation::Process {
 			private:

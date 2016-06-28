@@ -6,7 +6,7 @@ namespace CYB {
 			//! @brief Used for manipulating Paths
 			class Path {
 			private:
-				API::String::UTF8 FPath;	//! @brief The underlying string
+				API::String::UTF8 FPath;	//!< @brief The underlying string
 			public:
 				static Path GetExecutableDirectory(void);
 				static Path GetResourceDirectory(void);

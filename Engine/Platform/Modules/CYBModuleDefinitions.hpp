@@ -13,7 +13,8 @@ DEFINE_WINDOWS_MODULE(Kernel32, "kernel32.dll", Win32, false,
 	WaitForSingleObject, Sleep, SwitchToThread, GetSystemInfo,
 	CloseHandle,
 	InitializeCriticalSection, DeleteCriticalSection, EnterCriticalSection, TryEnterCriticalSection, LeaveCriticalSection,
-	VirtualAlloc, VirtualFree, VirtualProtect, VirtualQuery, GetProcessId)
+	VirtualAlloc, VirtualFree, VirtualProtect, VirtualQuery, GetProcessId,
+	MultiByteToWideChar, WideCharToMultiByte)
 DEFINE_WINDOWS_MODULE(Kernel32Extended, "kernel32.dll", Win32, true, DiscardVirtualMemory)
 
 #ifdef TARGET_OS_LINUX

@@ -44,6 +44,8 @@ CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCod
 		return API::String::Static(u8"Failed to load a requested module.");
 	case MUTEX_INITIALIZATION_FAILURE:
 		return API::String::Static(u8"Failed to initialize a new mutex.");
+	case STRING_VALIDATION_FAILURE:
+		return API::String::Static(u8"A string could not be validated");
 	case THREAD_CREATION_FAILURE:
 		return API::String::Static(u8"OS failed to create requested thread.");
 	default:
@@ -58,8 +60,8 @@ CYB::Exception::SystemData::SystemData(const ErrorCode AErrorCode) :
 }
 CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode AErrorCode) {
 	switch (AErrorCode) {
-	case PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE:
-		return API::String::Static(u8"Do something aboot it");
+	case FAILED_TO_CONVERT_UTF16_STRING:
+		return API::String::Static(u8"Failed to convert between a UTF-8 and UTF-16 string.");
 	default:
 		throw Violation(Violation::INVALID_EXCEPTION_ERROR_CODE);
 	}

@@ -45,6 +45,15 @@ namespace CYB {
 						This function requires synchronization at the object level
 				*/
 				int RawLength(void) const noexcept;
+
+				/*!
+					@brief String equivalence check
+					@param ARHS The string to compare against
+					@return true if two strings contain the same data, false otherwise
+					@par Thread Safety
+						This function requires synchronization at the object level
+				*/
+				bool operator==(const CStyle& ARHS) const noexcept;
 			};
 		};
 	};

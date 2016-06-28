@@ -17,20 +17,21 @@ namespace CYB {
 				static char* CopyCStyle(const CStyle& AData);
 
 				/*!
-					@brief Construct a Dynamic string from a pre-allocated char array
-					@param AData The pre-allocated char array, will be deallocated along with the Dynamic
-					@par Thread Safety
-						This function requires no thread safety
-				*/
-				Dynamic(char* const AData) noexcept;
-
-				/*!
 					@brief Frees the data of the current string
 					@par Thread Safety
 						This function requires synchronization at the object level
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_HEAP_BLOCK. Thrown if heap memory has been corrupted
 				*/
 				void DeallocateData(void);
+
+			protected:
+				/*!
+					@brief Construct a Dynamic string from a pre-allocated char array
+					@param AData The pre-allocated char array, will be deallocated along with the Dynamic
+					@par Thread Safety
+						This function requires no thread safety
+				*/
+				Dynamic(char* const AData) noexcept;
 			public:
 				/*!
 					@brief Construct an empty Dynamic string
@@ -64,7 +65,7 @@ namespace CYB {
 					@brief See @ref structors
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_HEAP_BLOCK. Thrown if heap memory has been corrupted
 				*/
-				Dynamic& operator=(Dynamic&& AMove) noexcept(!Platform::IsDebug());
+				Dynamic& operator=(Dynamic&& AMove) RELEASE_NOEXCEPT;
 				/*!
 					@brief Frees allocated string
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_HEAP_BLOCK. Thrown if heap memory has been corrupted

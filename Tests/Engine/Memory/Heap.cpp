@@ -5,6 +5,14 @@
 
 using namespace CYB::Engine::Memory;
 
+REDIRECTED_FUNCTION(BadVirtualAlloc, void* const, const unsigned long long, const unsigned long, const unsigned long) {
+	return static_cast<void*>(nullptr);
+}
+
+REDIRECTED_FUNCTION(BadMMap, void* const, const unsigned long long, int, int, int, const unsigned long long) {
+	return reinterpret_cast<void*>(-1);
+}
+
 SCENARIO("Heap Alloc works", "[Engine][Memory][Heap][Functional]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
@@ -44,6 +52,18 @@ SCENARIO("Heap Alloc works", "[Engine][Memory][Heap][Functional]") {
 			THEN("The appropriate exception is thrown") {
 				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::UNSUPPORTED_ALLOCATION_AMOUNT);
 				CHECK(Result == nullptr);
+			}
+		}
+		GIVEN("A failing Reserve call") {
+			auto BVA(K32.Redirect<CYB::Platform::Modules::Kernel32::VirtualAlloc, BadVirtualAlloc>());
+			auto BMM(LibC.Redirect<CYB::Platform::Modules::LibC::mmap, BadMMap>());
+			WHEN("Heap expansion is attempted") {
+				void* Result(nullptr);
+				REQUIRE_THROWS_AS(Result = TestHeap.Alloc(1000), CYB::Exception::SystemData);
+				THEN("The appropriate exception is thrown") {
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE);
+					CHECK(Result == nullptr);
+				}
 			}
 		}
 	}

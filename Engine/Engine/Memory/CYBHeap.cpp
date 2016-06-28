@@ -18,7 +18,7 @@ CYB::Engine::Memory::Heap::~Heap() {
 }
 
 unsigned long long CYB::Engine::Memory::Heap::CalculateInitialCommitSize(const unsigned long long AInitialCommitSize) noexcept {
-	const auto MinimumInitialCommit(sizeof(Block) + 1);
+	const auto MinimumInitialCommit(sizeof(LargeBlock) + 1);
 	return AInitialCommitSize >= MinimumInitialCommit ? AInitialCommitSize : MinimumInitialCommit;
 }
 
@@ -54,12 +54,15 @@ void CYB::Engine::Memory::Heap::LargeBlockNeedsAtLeast(unsigned int ARequiredNum
 	if (FLargeBlock->Size() <= ARequiredNumBytes) {
 		const auto SizeDifference(ARequiredNumBytes - FLargeBlock->Size());
 		const auto NewCommitSize(FCommitSize + SizeDifference + 1000);
+		bool Throw(false);
 		try {
 			Platform::System::VirtualMemory::Commit(FReservation, NewCommitSize);
 		}catch(CYB::Exception::Internal AException){
 			API::Assert::Equal<unsigned int>(AException.FErrorCode, CYB::Exception::Internal::MEMORY_COMMITAL_FAILURE);
-			throw CYB::Exception::SystemData(CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE);
+			Throw = true;
 		}
+		if(Throw)
+			throw CYB::Exception::SystemData(CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE);
 		FCommitSize = NewCommitSize;
 		FLargeBlock->SetSize(FLargeBlock->Size() + SizeDifference + 1000);
 	}

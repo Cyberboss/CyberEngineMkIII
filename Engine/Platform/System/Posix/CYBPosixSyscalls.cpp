@@ -1,5 +1,6 @@
-#include "../../../CYB.hpp"
+#include "CYB.hpp"
 
+using namespace CYB::Platform::Posix;
 unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber ACallNumber) noexcept {
 	unsigned long long Result;
 	asm volatile("movq %1, %%rax\n\t"
@@ -96,21 +97,21 @@ unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACall
 	case EXIT_PROC:
 		return Call(EXIT, 0);
 	case GET_CURRENT_PROCESS:
-		return static_cast<unsigned long long>(Posix::getpid());
+		return static_cast<unsigned long long>(getpid());
 	default:
 		API::Assert::HCF();
 	}
 }
 unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACallNumber, const Union64 AArg1) noexcept {
 	API::Assert::Equal(ACallNumber, CLOSE_LIBRARY);
-	return static_cast<unsigned long long>(Posix::dlclose(AArg1.FPointer));
+	return static_cast<unsigned long long>(dlclose(AArg1.FPointer));
 }
 unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2) noexcept {
 	switch (ACallNumber) {
 	case LOAD_LIBRARY:
-		return reinterpret_cast<unsigned long long>(Posix::dlopen(static_cast<const char*>(AArg1.FPointer), AArg2.FNumber));
+		return reinterpret_cast<unsigned long long>(dlopen(static_cast<const char*>(AArg1.FPointer), AArg2.FNumber));
 	case LOAD_SYMBOL:
-		return reinterpret_cast<unsigned long long>(Posix::dlsym(AArg1.FPointer, static_cast<const char*>(AArg2.FPointer)));
+		return reinterpret_cast<unsigned long long>(dlsym(AArg1.FPointer, static_cast<const char*>(AArg2.FPointer)));
 	default:
 		API::Assert::HCF();
 	}

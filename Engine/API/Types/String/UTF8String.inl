@@ -55,6 +55,44 @@ inline CYB::API::String::UTF8& CYB::API::String::UTF8::operator+=(const UTF8& AR
 	return *this;
 }
 
+inline int CYB::API::String::UTF8::ByteIndexOfChar(const int ACharIndex) const noexcept {
+	Assert::LessThan(ACharIndex, Length());
+	auto I(0);
+	for (auto Count(0); I < RawLength() && Count <= ACharIndex; ++I)
+		if ((FData[I] & 0xC0) != 0x80)
+			++Count;
+	return I - 1;
+}
+
+template <typename ALambda> void CYB::API::String::UTF8::IterateCodepoints(const ALambda AIterator) const noexcept(noexcept(AIterator(0,0))) {
+	auto ContinuationCount(0U);
+	for (auto I(0), Index(0); I < RawLength(); ++I) {
+		if ((FData[I] & 0xC0) != 0x80) {
+			unsigned int Codepoint(0);
+			for (;; --ContinuationCount) {
+				reinterpret_cast<char*>(&Codepoint)[ContinuationCount] = FData[I - ContinuationCount];
+				if (ContinuationCount == 0)
+					break;
+			}
+			if (!AIterator(Codepoint, Index))
+				break;
+			++Index;
+		}
+		else
+			++ContinuationCount;
+	}
+}
+
+inline const char& CYB::API::String::UTF8::operator[](const int AIndex) const noexcept {
+	return FData[ByteIndexOfChar(AIndex)];
+}
+
+inline void CYB::API::String::UTF8::Shrink(const int AMaxChars) noexcept {
+	if (Length() > AMaxChars + 1)
+		FData[ByteIndexOfChar(AMaxChars)] = 0;
+	API::Assert::True(Validate(*this));
+}
+
 inline int CYB::API::String::UTF8::Length(void) const noexcept {
 	auto Length(0);
 	for (auto Current(CString()); *Current != 0; Length += (*Current++ & 0xC0) != 0x80 ? 1 : 0);

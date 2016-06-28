@@ -23,7 +23,6 @@ namespace CYB {
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_HEAP_BLOCK. Thrown if heap memory has been corrupted
 				*/
 				void DeallocateData(void);
-
 			protected:
 				/*!
 					@brief Construct a Dynamic string from a pre-allocated char array
@@ -33,6 +32,19 @@ namespace CYB {
 				*/
 				Dynamic(char* const AData) noexcept;
 			public:
+				/*!
+					@brief Allocate a char array that is @p ASize bytes in length. Call @p APopulateData with the char array as a parameter and then calculate the length
+					@param ASize The amount of bytes to preallocate
+					@param APopulateData The data population function, takes a void* as an argument and has a length of @p ASize and returns a bool
+					@tparam ALambda The type of @p APopulateData
+					@param ADynamic The Dynamic to instantiate
+					@return The return value of @p APopulateData
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory. ADynamic will not be modified
+				*/
+				template <typename ALambda> static bool BuildAndPopulateBuffer(const int ASize, const ALambda APopulateData, Dynamic& ADynamic);
+
 				/*!
 					@brief Construct an empty Dynamic string
 					@par Thread Safety
@@ -90,6 +102,14 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
 				Dynamic& operator+=(const CStyle& ARHS);
+
+				/*!
+					@brief Move the null terminator of the string so that the readable length is @p AMaxBytes
+					@param AMaxBytes The maximum index of the new null terminator
+					@par Thread Safety
+						This function requires synchronization at the object level
+				*/
+				virtual void Shrink(const int AMaxBytes) noexcept;
 
 				//! @copydoc CYB::API::String::CStyle::Length()
 				int Length(void) const noexcept override;

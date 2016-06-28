@@ -1,5 +1,7 @@
 ﻿#include "TestHeader.hpp"
 
+#include <cstring>
+
 SCENARIO("UTF8 string constructors work","[API][String][UTF8][Unit]") {
 	GIVEN("Two static strings") {
 		CYB::API::String::Static S1(u8"asdf"), S2(u8"qwerty"), S3;
@@ -61,6 +63,13 @@ SCENARIO("UTF8 string Length and validation works", "[API][String][Dynamic][Unit
 			THEN("It is correct") {
 				CHECK(Result == 14);
 				CHECK(Raw == 42);
+			}
+		}
+		WHEN("The nth character is checked") {
+			const auto Result(&D7[1]);
+			THEN("It matches") {
+				auto Data2(u8"は自分のベストを尽くします");
+				CHECK(strcmp(Data2, Result) == 0);
 			}
 		}
 	}

@@ -3,20 +3,41 @@
 namespace CYB {
 	namespace Platform {
 		namespace System {
-			//! @brief Used for manipulating Paths
+			/*!
+				@brief Used for manipulating Paths
+				@attention Only UTF-8 encodedable paths are supported
+			*/
 			class Path {
+			public:
+				enum class SystemDirectory {
+					EXECUTABLE,	//!< @brief The directory from which the engine was launched
+					RESOURCE,	//!< @brief The directory where read only resources
+					TEMPORARY,	//!< @brief The directory for storing data relevant only to this execution
+					USER,	//!< @brief The directory for storing permanent data associated with the OS' current user
+					WORKING,	//!< @brief The current application working directory
+				};
 			private:
 				API::String::UTF8 FPath;	//!< @brief The underlying string
+			private:
+				/*!
+					@brief Get the string path of a SystemDirectory
+					@param ADirectory The type of SystemDirectory to look up
+					@return The string path of @p ADirectory
+					@par Thread Safety
+						Use of SystemDirectory::WORKING must be synchronized with SetAsWorkingDirectory. Otherwise, this function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the specified path could not be retrieved
+				*/
+				static API::String::UTF8 LocateDirectory(const SystemDirectory ADirectory);
 			public:
-				static Path GetExecutableDirectory(void);
-				static Path GetResourceDirectory(void);
-				static Path GetTemporaryDirectory(void);
-				static Path GetUserDataDirectory(void);
-				static Path GetWorkingDirectory(void);
-
-				static void SetWorkingDirectory(const Path& APath);
-
-				Path(const API::String::CStyle& AString);
+				/*!
+					@brief Get the Path of a SystemDirectory
+					@param ADirectory The type of SystemDirectory to look up
+					@par Thread Safety
+						Use of SystemDirectory::WORKING must be synchronized with SetAsWorkingDirectory. Otherwise, this function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the specified path could not be retrieved
+				*/
+				Path(const SystemDirectory ADirectory);
+				Path(API::String::UTF8&& AString);
 				Path(const Path& ACopy) = default;
 				Path(Path&& AMove) noexcept = default;
 				Path& operator=(Path&& AMove) RELEASE_NOEXCEPT = default;
@@ -31,7 +52,10 @@ namespace CYB {
 				bool CanRead(void) const;
 				bool CanWrite(void) const;
 
-				bool Valid(void) const;
+				bool Valid(void) const; 
+				void SetAsWorkingDirectory(void) const;
+
+				void Evaluate(void);
 
 				Path operator+(const Path& AOtherPath) const;
 			};

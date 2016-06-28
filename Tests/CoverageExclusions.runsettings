@@ -41,6 +41,7 @@ Included items must then not match any entries in the exclude list to remain inc
                 <Function>^CYB::Platform::Modules::AutoModuleOptionalHelper.*</Function>
                 <Function>^CYB::API::Interop::Allocator::InPlaceAllocation.*</Function>
                 <Function>^CYB::Platform::System::Sys.*</Function>
+                <Function>^CYB::API::String::UTF8::Validate.*</Function>
               </Exclude>
             </Functions>
 

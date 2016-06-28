@@ -43,6 +43,9 @@
     <ClCompile Include="API\String\UTF8String.cpp">
       <Filter>API\String</Filter>
     </ClCompile>
+    <ClCompile Include="Platform\System\Path.cpp">
+      <Filter>Platform\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />

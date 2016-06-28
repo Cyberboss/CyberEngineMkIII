@@ -34,7 +34,7 @@ namespace CYB {
 		public:
 			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
-				INVALID_EXCEPTION_ERROR_CODE, //!< @brief An exception had instantiation attempted with an invalid AErrorCode
+				INVALID_ENUM, //!< @brief An operation was attempted with an invalid enum code
 				INVALID_HEAP_BLOCK,	//!< @brief A memory block used by the Heap failed to validate
 				NEGATIVE_HEAP_ALLOCATION, //!< @brief An allocation was attempted with a negative size value
 				UNSUPPORTED_ALLOCATION_AMOUNT, //!< @brief An allocation was attempted with a size above 2047MB
@@ -68,6 +68,7 @@ namespace CYB {
 				HEAP_ALLOCATION_FAILURE,	//!< @brief A heap has no block large enough for a requested allocation and expansion failed
 				MUTEX_INITIALIZATION_FAILURE, //!< @brief Mutex could not be created
 				STRING_VALIDATION_FAILURE, //!< @brief A string could not be validated
+				SYSTEM_PATH_RETRIEVAL_FAILURE, //!< @brief A system path could not be retrieved
 				THREAD_CREATION_FAILURE, //!< @brief Thread could not be created
 			};
 		private:

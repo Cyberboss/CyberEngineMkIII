@@ -48,6 +48,16 @@ inline char* CYB::API::String::Dynamic::CopyCStyle(const CStyle& AData) {
 	return nullptr;
 }
 
+template <typename ALambda> bool CYB::API::String::Dynamic::BuildAndPopulateBuffer(const int ASize, const ALambda APopulateData, Dynamic& ADynamic) {
+	auto Data(static_cast<char*>(Allocator().FHeap.Alloc(ASize + 1)));
+	if (APopulateData(Data)) {
+		Data[ASize] = 0;
+		ADynamic = Dynamic(Data);
+		return true;
+	}
+	return false;
+}
+
 inline void CYB::API::String::Dynamic::DeallocateData(void) {
 	Allocator().FHeap.Free(FData);
 }
@@ -66,12 +76,17 @@ inline CYB::API::String::Dynamic CYB::API::String::Dynamic::operator+(const CSty
 
 inline CYB::API::String::Dynamic& CYB::API::String::Dynamic::operator+=(const CStyle& ARHS) {
 	if (ARHS.RawLength() > 0) {
-		const auto TotalSize(static_cast<unsigned long long>(ARHS.RawLength() + ARHS.RawLength() + 1));
+		const auto TotalSize(static_cast<unsigned long long>(RawLength() + ARHS.RawLength() + 1));
 		Assert::LessThanOrEqual(TotalSize, static_cast<unsigned long long>(std::numeric_limits<int>::max()));
 		FData = static_cast<char*>(Allocator().FHeap.Realloc(FData, static_cast<int>(TotalSize)));
 		std::copy(ARHS.CString(), ARHS.CString() + ARHS.RawLength() + 1, FData + RawLength());
 	}
 	return *this;
+}
+
+inline void CYB::API::String::Dynamic::Shrink(const int AMaxBytes) noexcept {
+	if (RawLength() > AMaxBytes + 1)
+		FData[AMaxBytes] = 0;
 }
 
 inline int CYB::API::String::Dynamic::Length(void) const noexcept {

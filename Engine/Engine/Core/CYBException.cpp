@@ -1,4 +1,4 @@
-//! @file CYBException.cpp Exception constructors of the non-unit kind
+﻿//! @file CYBException.cpp Exception constructors of the non-unit kind
 #include "CYB.hpp"
 
 namespace CYB {
@@ -10,8 +10,8 @@ namespace CYB {
 
 CYB::API::String::Static CYB::Exception::Violation::ErrorMessage(const ErrorCode AErrorCode) {
 	switch (AErrorCode)	{
-	case INVALID_EXCEPTION_ERROR_CODE:
-		return API::String::Static(u8"An exception had instantiation attempted with an invalid error code");
+	case INVALID_ENUM:
+		return API::String::Static(u8"An operation was attempted with an invalid enum code");
 	case INVALID_HEAP_BLOCK:
 		return API::String::Static(u8"A Block failed to validate during a Heap operation");
 	case NEGATIVE_HEAP_ALLOCATION:
@@ -19,7 +19,7 @@ CYB::API::String::Static CYB::Exception::Violation::ErrorMessage(const ErrorCode
 	case UNSUPPORTED_ALLOCATION_AMOUNT:
 		return API::String::Static(u8"An allocation was attempted with a size greater than 2047MB");
 	default:
-		throw Violation(INVALID_EXCEPTION_ERROR_CODE);
+		throw Violation(INVALID_ENUM);
 	}
 }
 CYB::Exception::Violation::Violation(const ErrorCode AErrorCode) :
@@ -36,10 +36,12 @@ CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCod
 		return API::String::Static(u8"Failed to initialize a new mutex.");
 	case STRING_VALIDATION_FAILURE:
 		return API::String::Static(u8"A string could not be validated");
+	case SYSTEM_PATH_RETRIEVAL_FAILURE:
+		return API::String::Static(u8"A system path could not be retrieved");
 	case THREAD_CREATION_FAILURE:
 		return API::String::Static(u8"OS failed to create requested thread.");
 	default:
-		throw Violation(Violation::INVALID_EXCEPTION_ERROR_CODE);
+		throw Violation(Violation::INVALID_ENUM);
 	}
 }
 
@@ -65,7 +67,7 @@ CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode 
 	case MODULE_LOAD_FAILURE:
 		return API::String::Static(u8"Failed to load a requested module.");
 	default:
-		throw Violation(Violation::INVALID_EXCEPTION_ERROR_CODE);
+		throw Violation(Violation::INVALID_ENUM);
 	}
 }
 
@@ -80,7 +82,7 @@ CYB::API::String::Static CYB::Exception::Fatal::ErrorMessage(const ErrorCode AEr
 	case PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE:
 		return API::String::Static(u8"Seriously, do it");
 	default:
-		throw Violation(Violation::INVALID_EXCEPTION_ERROR_CODE);
+		throw Violation(Violation::INVALID_ENUM);
 	}
 }
 

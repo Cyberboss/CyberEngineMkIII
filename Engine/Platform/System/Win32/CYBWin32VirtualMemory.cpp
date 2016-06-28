@@ -16,7 +16,7 @@ void* CYB::Platform::System::VirtualMemory::Reserve(const unsigned long long ANu
 		if (Result != nullptr)
 			return Result;
 	}
-	throw Exception::SystemData(Exception::SystemData::MEMORY_RESERVATION_FAILURE);
+	throw Exception::Internal(Exception::Internal::MEMORY_RESERVATION_FAILURE);
 }
 
 void CYB::Platform::System::VirtualMemory::Commit(void* const AReservation, const unsigned long long ANumBytes) {
@@ -24,26 +24,26 @@ void CYB::Platform::System::VirtualMemory::Commit(void* const AReservation, cons
 	try {
 		Access(AReservation, AccessLevel::READ_WRITE);
 	}
-	catch (Exception::SystemData AException) {
-		API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::MEMORY_PROTECT_FAILURE);
+	catch (Exception::Internal AException) {
+		API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::MEMORY_PROTECT_FAILURE);
 		ThrowOccurred = true;
 	}
 	if(ThrowOccurred)
-		throw Exception::SystemData(Exception::SystemData::MEMORY_COMMITAL_FAILURE);
+		throw Exception::Internal(Exception::Internal::MEMORY_COMMITAL_FAILURE);
 	const void* const Result(Core().FModuleManager.FK32.Call<Modules::Kernel32::VirtualAlloc>(AReservation, ANumBytes, Win32::DWORD(MEM_COMMIT), Win32::DWORD(PAGE_READWRITE)));
 	if (Result == nullptr)
-		throw Exception::SystemData(Exception::SystemData::MEMORY_COMMITAL_FAILURE);
+		throw Exception::Internal(Exception::Internal::MEMORY_COMMITAL_FAILURE);
 }
 
 void CYB::Platform::System::VirtualMemory::Release(void* const AReservation) {
 	if(Core().FModuleManager.FK32.Call<Modules::Kernel32::VirtualFree>(AReservation, 0U, Win32::DWORD(MEM_RELEASE)) == FALSE)
-		throw Exception::SystemData(Exception::SystemData::MEMORY_RELEASE_FAILURE);
+		throw Exception::Internal(Exception::Internal::MEMORY_RELEASE_FAILURE);
 }
 
 void CYB::Platform::System::VirtualMemory::Access(void* const AReservation, const AccessLevel AAccessLevel) {
 	Win32::MEMORY_BASIC_INFORMATION Info;
 	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::VirtualQuery>(AReservation, &Info, sizeof(Win32::MEMORY_BASIC_INFORMATION)) == 0 || Info.State == MEM_FREE)
-		throw Exception::SystemData(Exception::SystemData::MEMORY_PROTECT_FAILURE);
+		throw Exception::Internal(Exception::Internal::MEMORY_PROTECT_FAILURE);
 
 	if (Info.State == MEM_COMMIT) {
 		Win32::DWORD Last;
@@ -54,7 +54,7 @@ void CYB::Platform::System::VirtualMemory::Access(void* const AReservation, cons
 			(AAccessLevel == AccessLevel::NONE ?
 				PAGE_NOACCESS : PAGE_READONLY)),
 			&Last) == FALSE)
-			throw Exception::SystemData(Exception::SystemData::MEMORY_PROTECT_FAILURE);
+			throw Exception::Internal(Exception::Internal::MEMORY_PROTECT_FAILURE);
 	}
 }
 

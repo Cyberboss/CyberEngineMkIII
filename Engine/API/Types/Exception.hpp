@@ -15,7 +15,7 @@ namespace CYB {
 				FATAL,	//!< Fatal error
 			};
 		public:
-			API::String::Static FMessage;	//!< @brief An english description of the error
+			API::String::Static FMessage;	//!< @brief An english description of the error, guaranteed to be compatible with CYB::API::String::UTF8
 			const unsigned int FErrorCode;	//!< @brief The assigned error code
 			const Level FLevel;	//!< @brief The type of the exception
 		protected:
@@ -60,17 +60,12 @@ namespace CYB {
 			*/
 			Violation(const ErrorCode AErrorCode);
 		};
-		//! @brief Exceptions caused by external call failures or invalid external data
+		//! @brief Exceptions caused by external call failures or invalid external data. Only classifies ones that can pass through the ABI
 		class SystemData : public Base{
 		public:
 			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
-				MEMORY_COMMITAL_FAILURE, //!< @brief Memory could not be commited from a reservation
-				MEMORY_PROTECT_FAILURE, //!< @brief Memory protection could not be set
-				MEMORY_RELEASE_FAILURE, //!< @brief Memory reservation could not be released
-				MEMORY_RESERVATION_FAILURE, //!< @brief Memory could not be reserved
-				MODULE_FUNCTION_LOAD_FAILURE, //!< @brief Specific could not be loaded from given Module
-				MODULE_LOAD_FAILURE, //!< @brief Module could not be loaded
+				HEAP_ALLOCATION_FAILURE,	//!< @brief A heap has no block large enough for a requested allocation and expansion failed
 				MUTEX_INITIALIZATION_FAILURE, //!< @brief Mutex could not be created
 				STRING_VALIDATION_FAILURE, //!< @brief A string could not be validated
 				THREAD_CREATION_FAILURE, //!< @brief Thread could not be created
@@ -96,12 +91,18 @@ namespace CYB {
 			*/
 			SystemData(const ErrorCode AErrorCode);
 		};
-		//! @brief Exceptions that are thrown internally in the engine that the unit will never see
+		//! @brief Exceptions that are thrown internally in the engine that the should never see, these are a superset of SystemData type exceptions. If one of these exceptions appear in a unit, please contant the engine development team
 		class Internal : public Base {
 		public:
 			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
 				FAILED_TO_CONVERT_UTF16_STRING, //!< @brief A string conversion call failed
+				MEMORY_COMMITAL_FAILURE, //!< @brief Memory could not be commited from a reservation
+				MEMORY_PROTECT_FAILURE, //!< @brief Memory protection could not be set
+				MEMORY_RELEASE_FAILURE, //!< @brief Memory reservation could not be released
+				MEMORY_RESERVATION_FAILURE, //!< @brief Memory could not be reserved
+				MODULE_FUNCTION_LOAD_FAILURE, //!< @brief Specific could not be loaded from given Module
+				MODULE_LOAD_FAILURE, //!< @brief Module could not be loaded
 			};
 		private:
 			/*!

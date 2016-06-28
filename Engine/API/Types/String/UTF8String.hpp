@@ -15,7 +15,15 @@ namespace CYB {
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the string does not validate
 				*/
-				UTF8(char* const AData) noexcept;
+				UTF8(Dynamic&& AData);
+				/*!
+					@brief Construct from a preallocated array
+					@param AData The char array to inherit
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the string does not validate
+				*/
+				UTF8(char* const AData);
 			public:
 				/*!
 					@brief Validates if a given string is UTF8.

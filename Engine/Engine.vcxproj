@@ -238,9 +238,6 @@
     <ClInclude Include="Platform\System\Win32\CYBWin32VirtualMemory.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="API\CyberEngine.inl">
-      <FileType>Document</FileType>
-    </None>
     <None Include="API\Declarations\Assert.inl" />
     <None Include="API\Declarations\Endianess.inl" />
     <None Include="API\Declarations\Expressions.inl" />
@@ -254,6 +251,7 @@
     <None Include="API\Types\String\CStyleString.inl" />
     <None Include="API\Types\String\DynamicString.inl" />
     <None Include="API\Types\String\StaticString.inl" />
+    <None Include="API\Types\String\UTF8String.inl" />
     <None Include="DoxyPages\Contexts.dox" />
     <None Include="DoxyPages\Conventions.dox" />
     <None Include="DoxyPages\IO.dox" />

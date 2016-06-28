@@ -456,7 +456,9 @@
     <None Include="API\Types\String\DynamicString.inl">
       <Filter>API\Types\String</Filter>
     </None>
-    <None Include="API\CyberEngine.inl" />
+    <None Include="API\Types\String\UTF8String.inl">
+      <Filter>API\Types\String</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DoxyPages\DoxygenLayout.xml">

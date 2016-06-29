@@ -65,6 +65,9 @@ namespace CYB {
 		public:
 			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
+				FILE_NOT_FOUND,	//!< @brief A required file was not found in the filesystem
+				FILE_NOT_READABLE,	//!< @brief Tried to read/execute a file or enumerate a directory that the current user does not have permissions for
+				FILE_NOT_WRITABLE,	//!< @brief Tried to write/delete a file or create/modify/delete a directory that the current user does not have permissions for
 				HEAP_ALLOCATION_FAILURE,	//!< @brief A heap has no block large enough for a requested allocation and expansion failed
 				MUTEX_INITIALIZATION_FAILURE, //!< @brief Mutex could not be created
 				STRING_VALIDATION_FAILURE, //!< @brief A string could not be validated
@@ -98,12 +101,14 @@ namespace CYB {
 			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
 				FAILED_TO_CONVERT_UTF16_STRING, //!< @brief A string conversion call failed
+				FILE_NOT_EXECUTABLE,	//!< @brief Tried to create a process with a non-executable image
 				MEMORY_COMMITAL_FAILURE, //!< @brief Memory could not be commited from a reservation
 				MEMORY_PROTECT_FAILURE, //!< @brief Memory protection could not be set
 				MEMORY_RELEASE_FAILURE, //!< @brief Memory reservation could not be released
 				MEMORY_RESERVATION_FAILURE, //!< @brief Memory could not be reserved
 				MODULE_FUNCTION_LOAD_FAILURE, //!< @brief Specific could not be loaded from given Module
 				MODULE_LOAD_FAILURE, //!< @brief Module could not be loaded
+				PROCESS_CREATION_ERROR,	//!< @brief Process could not be created for unknown reasons
 			};
 		private:
 			/*!

@@ -10,14 +10,16 @@ namespace CYB {
 
 DEFINE_WINDOWS_MODULE(Kernel32, "kernel32.dll", Win32, false,
 	CreateThread,
-	WaitForSingleObject, Sleep, SwitchToThread, GetSystemInfo,
+	WaitForSingleObject, Sleep, SwitchToThread, GetSystemInfo, GetLastError,
 	CloseHandle,
 	InitializeCriticalSection, DeleteCriticalSection, EnterCriticalSection, TryEnterCriticalSection, LeaveCriticalSection,
 	VirtualAlloc, VirtualFree, VirtualProtect, VirtualQuery, GetProcessId,
 	MultiByteToWideChar, WideCharToMultiByte,
+	CreateProcessW,
 	GetModuleHandleW, GetModuleFileNameW)
 DEFINE_WINDOWS_MODULE(Kernel32Extended, "kernel32.dll", Win32, true, DiscardVirtualMemory)
 
+DEFINE_WINDOWS_MODULE(Shell, "shell32.dll", Win32, false, ShellExecuteExW)
 DEFINE_WINDOWS_MODULE(ShellAPI, "shlwapi.dll", Win32, false, PathRemoveFileSpecW)
 
 #ifdef TARGET_OS_LINUX

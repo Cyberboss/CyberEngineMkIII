@@ -462,6 +462,9 @@
     <None Include="API\Types\String\UTF8String.inl">
       <Filter>API\Types\String</Filter>
     </None>
+    <None Include="Platform\CYBUTF16.inl">
+      <Filter>Platform</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DoxyPages\DoxygenLayout.xml">

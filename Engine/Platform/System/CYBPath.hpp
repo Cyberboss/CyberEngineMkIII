@@ -59,6 +59,13 @@ namespace CYB {
 				void Evaluate(void);
 
 				Path operator+(const Path& AOtherPath) const;
+				/*!
+					@brief Public access to the underlying string
+					@return The UTF8 string representing the Path
+					@par Thread Safety
+						This function requires synchronization at the object level
+				*/
+				const API::String::UTF8& operator()(void) const noexcept;
 			};
 		};
 	};

@@ -7,9 +7,10 @@ namespace CYB {
 			class ModuleManager {
 			public:
 				//Windows
-				AMKernel32 FK32;	//!< @brief Kernel32.dll Win7
+				AMKernel32 FK32;	//!< @brief Kernel32.dll Win7+
 				AMKernel32Extended FK32Extended;	//!< @brief Kernel32.dll Win8.1+, Optional
-				AMShellAPI FShellAPI;
+				AMShell FShell;	//!< @brief shell32.dll Win7+
+				AMShellAPI FShellAPI;	//!< @brief shlwapi.dll Win7+
 
 				//Posix
 				AMLibC FC;	//!< @brief libc

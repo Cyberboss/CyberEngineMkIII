@@ -261,6 +261,7 @@
     <None Include="DoxyPages\Resources.dox" />
     <None Include="DoxyPages\Tutorial.dox" />
     <None Include="DoxyPages\Units.dox" />
+    <None Include="Platform\CYBUTF16.inl" />
     <None Include="Platform\Modules\CYBAutoModule.inl" />
     <None Include="Platform\Modules\CYBModuleDefinitions.hpp" />
     <None Include="Platform\System\CYBSyscalls.inl" />

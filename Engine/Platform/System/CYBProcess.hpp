@@ -34,14 +34,6 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				static void Terminate(Process&& AProcess) noexcept;
-				/*!
-					@brief Relaunches the current process with a new command line
-					@param ACommandLine The command line for the new instance
-					@par Thread Safety
-						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the specified path could not be retrieved
-				*/
-				static void Refork(const API::String::UTF8& ACommandLine);
 
 				/*!
 					@brief Launches a Process with a command line
@@ -55,6 +47,18 @@ namespace CYB {
 					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::PROCESS_CREATION_ERROR if the process could not be created
 				*/
 				Process(const Path& APath, const API::String::UTF8& ACommandLine);
+				/*!
+					@brief Relaunches the current process with a new command line. Current process continues execution
+					@param ACommandLine The command line for the new instance
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_FOUND if @p APath does not exist in the filesystem
+					@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_READABLE if @p APath isn't accessible by the current user
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the path of the executable could not be retrieved
+					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::FILE_NOT_EXECUTABLE if @p APath does not indicate a process image
+					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::PROCESS_CREATION_ERROR if the process could not be created
+				*/
+				Process(const API::String::UTF8& ACommandLine);
 				Process(const Process&) = delete;
 				Process(Process&& AMove) noexcept = default;	//!< @brief See @ref structors
 				Process& operator=(Process&& AMove) noexcept = default;	//!< @brief See @ref structors

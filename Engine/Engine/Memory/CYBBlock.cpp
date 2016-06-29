@@ -89,12 +89,8 @@ void CYB::Engine::Memory::Block::SetFree(const bool ANewFree) noexcept {
 }
 
 void CYB::Engine::Memory::Block::Validate(void) const {
-#ifdef DEBUG
-	if (FMagicHeader != MAGIC_HEADER || FMagicFooter != MAGIC_FOOTER)
-		throw CYB::Exception::Violation(CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK);
-#else
-	NOP;
-#endif
+	API::Assert::Equal<unsigned long long>(FMagicHeader, MAGIC_HEADER);
+	API::Assert::Equal<unsigned long long>(FMagicFooter, MAGIC_FOOTER);
 }
 
 CYB::Engine::Memory::Block& CYB::Engine::Memory::Block::Splice(const unsigned int ASizeToKeep) noexcept {

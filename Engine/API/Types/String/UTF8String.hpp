@@ -53,7 +53,7 @@ namespace CYB {
 				UTF8(const CStyle& AData);
 				UTF8(const UTF8& ACopy) = default;	//!< @brief See @ref structors
 				UTF8(UTF8&& AMove) noexcept = default;	//!< @brief See @ref structors
-				UTF8& operator=(UTF8&& AMove) RELEASE_NOEXCEPT = default;	//!< @brief See @ref structors
+				UTF8& operator=(UTF8&& AMove) noexcept = default;	//!< @brief See @ref structors
 				
 				/*!
 					@brief Appends to a Dynamic string and returns a new one

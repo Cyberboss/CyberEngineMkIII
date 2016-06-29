@@ -93,7 +93,6 @@ namespace CYB {
 					@return An unused Block that isn't free, is at least @p ANumBytes in size, and contains all previous data from @p ABlock
 					@par Thread Safety
 						This function requires that FMutex is locked
-					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the memory could not be committed
 				*/
 				Block& ReallocImpl(Block& ABlock, unsigned int ANumBytes, API::LockGuard& ALock);
@@ -103,7 +102,6 @@ namespace CYB {
 					@param ALock A reference to the current lock on FMutex
 					@par Thread Safety
 						This function requires that FMutex is locked
-					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
 				*/
 				void FreeImpl(Block& ABlock, API::LockGuard& ALock)  noexcept(!API::Platform::IsDebug());
 
@@ -112,8 +110,6 @@ namespace CYB {
 					@param ALock A reference to the current lock on FMutex
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if a Block's magic numbers failed to verify
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::INVALID_HEAP_FREE_LIST. Thrown if an unfree Block is in the Free list or a free Block is not
 				*/
 				void WalkImpl(API::LockGuard& ALock) const;
 			public:
@@ -178,10 +174,9 @@ namespace CYB {
 				unsigned long long CurrentAmountOfMemoryCommitted(void) const noexcept;
 
 				/*!
-					@brief Walks the heap blocks and free list and throws if an error is detected
+					@brief Walks the heap blocks and free list and HCFs if an error is detected
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if a Block's magic numbers failed to verify
 				*/
 				void Walk(void) const;
 
@@ -190,7 +185,7 @@ namespace CYB {
 				//! @copydoc CYB::API::Heap::Realloc()
 				void* Realloc(void* const APreviousAllocation, const int ANewSize) final override;
 				//! @copydoc CYB::API::Heap::Free()
-				void Free(void* const APreviousAllocation) RELEASE_NOEXCEPT final override;
+				void Free(void* const APreviousAllocation) noexcept final override;
 			};
 		};
 	};

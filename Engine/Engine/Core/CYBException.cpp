@@ -12,8 +12,6 @@ CYB::API::String::Static CYB::Exception::Violation::ErrorMessage(const ErrorCode
 	switch (AErrorCode)	{
 	case INVALID_ENUM:
 		return API::String::Static(u8"An operation was attempted with an invalid enum code");
-	case INVALID_HEAP_BLOCK:
-		return API::String::Static(u8"A Block failed to validate during a Heap operation");
 	case NEGATIVE_HEAP_ALLOCATION:
 		return API::String::Static(u8"Alloc or Realloc called with a negative size value");
 	case UNSUPPORTED_ALLOCATION_AMOUNT:

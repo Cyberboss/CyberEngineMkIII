@@ -20,7 +20,6 @@ namespace CYB {
 					@brief Frees the data of the current string
 					@par Thread Safety
 						This function requires synchronization at the object level
-					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_HEAP_BLOCK. Thrown if heap memory has been corrupted
 				*/
 				void DeallocateData(void);
 			protected:
@@ -73,16 +72,8 @@ namespace CYB {
 				*/
 				Dynamic(const Dynamic& ACopy);
 				Dynamic(Dynamic&& AMove) noexcept;	//!< @brief See @ref structors
-				/*!
-					@brief See @ref structors
-					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_HEAP_BLOCK. Thrown if heap memory has been corrupted
-				*/
-				Dynamic& operator=(Dynamic&& AMove) RELEASE_NOEXCEPT;
-				/*!
-					@brief Frees allocated string
-					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_HEAP_BLOCK. Thrown if heap memory has been corrupted
-				*/
-				~Dynamic();
+				Dynamic& operator=(Dynamic&& AMove) noexcept;	//!< @brief See @ref structors
+				~Dynamic();	//!< @brief Frees allocated string
 
 				/*!
 					@brief Appends to a Dynamic string and returns a new one

@@ -26,7 +26,7 @@ inline CYB::API::String::Dynamic::Dynamic(Dynamic&& AMove) noexcept :
 	AMove.FData = nullptr;
 }
 
-inline CYB::API::String::Dynamic& CYB::API::String::Dynamic::operator=(Dynamic&& AMove) noexcept(!Platform::IsDebug()) {
+inline CYB::API::String::Dynamic& CYB::API::String::Dynamic::operator=(Dynamic&& AMove) noexcept {
 	DeallocateData();
 	FData = AMove.FData;
 	FLength = AMove.FLength;

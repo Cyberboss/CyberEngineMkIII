@@ -48,8 +48,7 @@ namespace CYB {
 					@param AData The block's data pointer
 					@return A reference to the Block that owns @p AData
 					@par Thread Safety
-						This function requires no thread safet
-					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
+						This function requires no thread safety
 				*/
 				static Block& FromData(void* const AData);
 				/*!
@@ -131,10 +130,9 @@ namespace CYB {
 				bool IsLargeBlock(void) const noexcept;
 
 				/*!
-					@brief Checks the validity of a Block. Has no effect outside of DEBUG mode
+					@brief Checks the validity of a Block HCFs if invalid. Has no effect outside of DEBUG mode
 					@par Thread Safety
 						This function requires that the object is not modified during this function
-					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
 				*/
 				void Validate(void) const;
 

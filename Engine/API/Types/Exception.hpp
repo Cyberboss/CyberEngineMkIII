@@ -35,7 +35,6 @@ namespace CYB {
 			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
 				INVALID_ENUM, //!< @brief An operation was attempted with an invalid enum code
-				INVALID_HEAP_BLOCK,	//!< @brief A memory block used by the Heap failed to validate
 				NEGATIVE_HEAP_ALLOCATION, //!< @brief An allocation was attempted with a negative size value
 				UNSUPPORTED_ALLOCATION_AMOUNT, //!< @brief An allocation was attempted with a size above 2047MB
 			};

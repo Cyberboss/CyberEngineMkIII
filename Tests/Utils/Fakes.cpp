@@ -47,7 +47,7 @@ void* Fake::Heap::Alloc(const int AAmount) {
 void* Fake::Heap::Realloc(void* const AOld, const int ANewSize) {
 	return realloc(AOld, static_cast<size_t>(ANewSize));
 }
-void Fake::Heap::Free(void* const AOld) RELEASE_NOEXCEPT {
+void Fake::Heap::Free(void* const AOld) noexcept {
 	free(AOld);
 }
 

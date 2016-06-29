@@ -225,7 +225,7 @@ void* CYB::Engine::Memory::Heap::Realloc(void* const APreviousAllocation, const 
 	return Alloc(ANumBytes);
 }
 
-void CYB::Engine::Memory::Heap::Free(void* const APreviousAllocation) RELEASE_NOEXCEPT {
+void CYB::Engine::Memory::Heap::Free(void* const APreviousAllocation) noexcept {
 	if (APreviousAllocation != nullptr) {
 		auto& WorkingBlock(Block::FromData(APreviousAllocation));
 		API::LockGuard Lock(FMutex);

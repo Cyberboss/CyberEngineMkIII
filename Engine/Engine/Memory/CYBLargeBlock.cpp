@@ -33,10 +33,8 @@ CYB::Engine::Memory::Block& CYB::Engine::Memory::LargeBlock::AllocateBlock(Large
 }
 
 void CYB::Engine::Memory::LargeBlock::Validate(void) const {
-#ifdef DEBUG
-	if (FMagicHeader != MAGIC_HEADER || FMagicFooter != MAGIC_FOOTER)
-		throw CYB::Exception::Violation(CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK);
-#endif
+	API::Assert::Equal<unsigned long long>(FMagicHeader, MAGIC_HEADER);
+	API::Assert::Equal<unsigned long long>(FMagicFooter, MAGIC_FOOTER);
 	Block::Validate();
 }
 

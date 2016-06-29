@@ -22,7 +22,6 @@ namespace CYB {
 				@return The beginning of an allocated memory region with size at least @p ANewSize and the data from @p APreviousAllocation. Or, if @p ANewSize was less than or equal to zero, nullptr
 				@par Thread Safety
 					This function requires no thread safety
-				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
 				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::NEGATIVE_HEAP_ALLOCATION. Thrown if an allocation was attempted with a negative size value
 				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::UNSUPPORTED_ALLOCATION_AMOUNT if ANewSize is greater than or equal to 2047MB
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE if the heap does not have the space for the allocation and more system memory cannot be requested
@@ -33,9 +32,8 @@ namespace CYB {
 				@param APreviousAllocation A pointer previously returned from a call to Alloc or Realloc of the same Heap object
 				@par Thread Safety
 					This function requires no thread safety
-				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_HEAP_BLOCK. Thrown if the Block's magic numbers failed to verify
 			*/
-			virtual void Free(void* const APreviousAllocation) RELEASE_NOEXCEPT = 0;
+			virtual void Free(void* const APreviousAllocation) noexcept = 0;
 		};
 	};
 };

@@ -24,7 +24,7 @@ namespace Fake {
 	public:
 		void* Alloc(const int AAmount) final override;
 		void* Realloc(void* const AOld, const int ANewSize) final override;
-		void Free(void* const AOld) RELEASE_NOEXCEPT final override;
+		void Free(void* const AOld) noexcept final override;
 	};
 	class SysCalls {
 	public:

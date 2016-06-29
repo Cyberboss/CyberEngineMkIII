@@ -30,6 +30,12 @@ CYB::Exception::Violation::Violation(const ErrorCode AErrorCode) :
 
 CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCode AErrorCode) {
 	switch (AErrorCode) {
+	case FILE_NOT_FOUND:
+		return API::String::Static(u8"A required file was not found.");
+	case FILE_NOT_READABLE:
+		return API::String::Static(u8"The requested file/directory cannot be read/executed.");
+	case FILE_NOT_WRITABLE:
+		return API::String::Static(u8"The requested file/directory cannot be written to/deleted/created.");
 	case HEAP_ALLOCATION_FAILURE:
 		return API::String::Static(u8"Current heap has no block large enough for a requested allocation and expansion failed");
 	case MUTEX_INITIALIZATION_FAILURE:
@@ -54,6 +60,8 @@ CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode 
 	switch (AErrorCode) {
 	case FAILED_TO_CONVERT_UTF16_STRING:
 		return API::String::Static(u8"Failed to convert between a UTF-8 and UTF-16 string.");
+	case FILE_NOT_EXECUTABLE:
+		return API::String::Static(u8"Tried to execute a non-executable file.");
 	case MEMORY_COMMITAL_FAILURE:
 		return API::String::Static(u8"Failed to commit virtual memory from the OS.");
 	case MEMORY_PROTECT_FAILURE:
@@ -66,6 +74,8 @@ CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode 
 		return API::String::Static(u8"Failed to load a requested function from a module.");
 	case MODULE_LOAD_FAILURE:
 		return API::String::Static(u8"Failed to load a requested module.");
+	case PROCESS_CREATION_ERROR:
+		return API::String::Static(u8"Failed to create Process for unknown reasons.");
 	default:
 		throw Violation(Violation::INVALID_ENUM);
 	}

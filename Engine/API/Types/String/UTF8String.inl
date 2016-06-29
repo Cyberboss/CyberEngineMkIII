@@ -5,6 +5,7 @@ inline CYB::API::String::UTF8::UTF8(Dynamic&& AData) :
 {
 	if (!Validate(*this))
 		throw CYB::Exception::SystemData(CYB::Exception::SystemData::STRING_VALIDATION_FAILURE);
+	CalculateLength();
 }
 
 inline CYB::API::String::UTF8::UTF8(char* const AData) :
@@ -12,6 +13,7 @@ inline CYB::API::String::UTF8::UTF8(char* const AData) :
 {
 	if (!Validate(*this))
 		throw CYB::Exception::SystemData(CYB::Exception::SystemData::STRING_VALIDATION_FAILURE);
+	CalculateLength();
 }
 
 inline CYB::API::String::UTF8::UTF8(const CStyle& AData) :
@@ -19,6 +21,7 @@ inline CYB::API::String::UTF8::UTF8(const CStyle& AData) :
 {
 	if (!Validate(*this))
 		throw CYB::Exception::SystemData(CYB::Exception::SystemData::STRING_VALIDATION_FAILURE);
+	CalculateLength();
 }
 
 inline bool CYB::API::String::UTF8::Validate(const CStyle& AString) noexcept {
@@ -52,6 +55,7 @@ inline CYB::API::String::UTF8 CYB::API::String::UTF8::operator+(const UTF8& ARHS
 
 inline CYB::API::String::UTF8& CYB::API::String::UTF8::operator+=(const UTF8& ARHS) {
 	Dynamic::operator+=(ARHS);
+	CalculateLength();
 	return *this;
 }
 
@@ -84,17 +88,27 @@ template <typename ALambda> void CYB::API::String::UTF8::IterateCodepoints(const
 }
 
 inline const char& CYB::API::String::UTF8::operator[](const int AIndex) const noexcept {
-	return FData[ByteIndexOfChar(AIndex)];
+	return FData[];
 }
 
 inline void CYB::API::String::UTF8::Shrink(const int AMaxChars) noexcept {
 	if (Length() > AMaxChars + 1)
 		FData[ByteIndexOfChar(AMaxChars)] = 0;
+	CalculateLength();
 	API::Assert::True(Validate(*this));
 }
 
 inline int CYB::API::String::UTF8::Length(void) const noexcept {
-	auto Length(0);
-	for (auto Current(CString()); *Current != 0; Length += (*Current++ & 0xC0) != 0x80 ? 1 : 0);
-	return Length;
+	return FLength;
+}
+
+inline void CYB::API::String::UTF8::CalculateLength(void) noexcept {
+	FLength = 0;
+	for (auto Current(CString()); *Current != 0; FLength += (*Current++ & 0xC0) != 0x80 ? 1 : 0);
+}
+
+inline CYB::API::String::UTF8 CYB::API::String::UTF8::SubString(const int AIndex, const int ALength) const {
+	Assert::LessThan(AIndex, Length());
+	Assert::LessThan(AIndex + ALength, Length());
+	return UTF8(Dynamic::SubString(ByteIndexOfChar(AIndex), ByteIndexOfChar(AIndex + ALength)));
 }

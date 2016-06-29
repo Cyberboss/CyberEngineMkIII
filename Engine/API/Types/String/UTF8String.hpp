@@ -8,6 +8,8 @@ namespace CYB {
 			class UTF8 : public Dynamic {
 				friend class UTF16;
 			private:
+				int FLength;	//!< @brief Length cache
+			private:
 				/*!
 					@brief Construct from a preallocated array
 					@param AData The char array to inherit
@@ -25,6 +27,13 @@ namespace CYB {
 						This function requires synchronization at the object level
 				*/
 				int ByteIndexOfChar(const int ACharIndex) const noexcept;
+
+				/*!
+					@brief Sets up the length cache variable. Assumes the string is validated
+					@par Thread Safety
+						This function requires synchronization at the object level
+				*/
+				void CalculateLength(void) noexcept;
 			public:
 				/*!
 					@brief Validates if a given string is UTF8.
@@ -73,6 +82,8 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
 				UTF8& operator+=(const UTF8& ARHS);
+				//! @copydoc CYB::API::String::Dynamic::SubString() This version must be used with UTF8 strings
+				UTF8 SubString(const int AIndex, const int ALength) const;
 
 				/*!
 					@brief Iterate over the code points

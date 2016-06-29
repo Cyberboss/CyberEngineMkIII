@@ -8,12 +8,12 @@ inline CYB::API::String::Dynamic::Dynamic(char* const AData) noexcept :
 	CStyle(AData)
 {}
 
-inline CYB::API::String::Dynamic::Dynamic(const char* const AData) :
-	CStyle(CopyCStyle(Static(AData)))
+inline CYB::API::String::Dynamic::Dynamic(const char* const AData, const int ALength) :
+	CStyle(CopyCStyle(Static(AData), ALength))
 {}
 
-inline CYB::API::String::Dynamic::Dynamic(const CStyle& AData) :
-	CStyle(CopyCStyle(AData))
+inline CYB::API::String::Dynamic::Dynamic(const CStyle& AData, const int ALength) :
+	CStyle(CopyCStyle(AData, ALength))
 {}
 
 inline CYB::API::String::Dynamic::Dynamic(const Dynamic& ACopy) :
@@ -38,11 +38,14 @@ inline CYB::API::String::Dynamic::~Dynamic() {
 	DeallocateData();
 }
 
-inline char* CYB::API::String::Dynamic::CopyCStyle(const CStyle& AData) {
+inline char* CYB::API::String::Dynamic::CopyCStyle(const CStyle& AData, int ALength) {
+	Assert::LessThanOrEqual(ALength, AData.RawLength());
+	if (ALength == -1)
+		ALength = AData.RawLength();
 	if (AData.RawLength() > 0) {
 		Assert::LessThan(AData.RawLength(), std::numeric_limits<int>::max());
-		auto Data(static_cast<char*>(Allocator().FHeap.Alloc(static_cast<int>(AData.RawLength() + 1))));
-		std::copy(AData.CString(), AData.CString() + AData.RawLength() + 1, Data);
+		auto Data(static_cast<char*>(Allocator().FHeap.Alloc(static_cast<int>(ALength + 1))));
+		std::copy(AData.CString(), AData.CString() + ALength + 1, Data);
 		return Data;
 	}
 	return nullptr;
@@ -82,6 +85,10 @@ inline CYB::API::String::Dynamic& CYB::API::String::Dynamic::operator+=(const CS
 		std::copy(ARHS.CString(), ARHS.CString() + ARHS.RawLength() + 1, FData + RawLength());
 	}
 	return *this;
+}
+
+inline CYB::API::String::Dynamic CYB::API::String::Dynamic::SubString(const int AIndex, const int ALength) const {
+	return Dynamic(CString() + AIndex, ALength);
 }
 
 inline void CYB::API::String::Dynamic::Shrink(const int AMaxBytes) noexcept {

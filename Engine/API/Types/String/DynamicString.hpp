@@ -9,12 +9,13 @@ namespace CYB {
 				/*!
 					@brief Allocates data for and initializes a copy of a CStyle string
 					@param AData The data to copy
+					@param ALength The length of AData to copy. Looks instead for '\0' if set to -1
 					@return An allocated char array that contains the contents of AData
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current hep runs out of memory
 				*/
-				static char* CopyCStyle(const CStyle& AData);
+				static char* CopyCStyle(const CStyle& AData, int ALength);
 
 				/*!
 					@brief Frees the data of the current string
@@ -53,11 +54,12 @@ namespace CYB {
 				/*!
 					@brief Construct a Dynamic string from a char array
 					@param AData The char array
+					@param ALength The length of AData to copy. Looks instead for '\0' if set to -1
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
-				Dynamic(const char* const AData);
+				Dynamic(const char* const AData, const int ALength = -1);
 				/*!
 					@brief Construct a Dynamic string. This will allocate enough data to copy the contents of @p AData
 					@param AData The data to populate the char array with. Must be at least a pointer to a null terminating character
@@ -65,7 +67,7 @@ namespace CYB {
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
-				Dynamic(const CStyle& AData);
+				Dynamic(const CStyle& AData, const int ALength = -1);
 				/*!
 					@brief See @ref structors
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
@@ -93,6 +95,15 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
 				Dynamic& operator+=(const CStyle& ARHS);
+				/*!
+					@brief Get a substring of the contained string
+					@param AStart the starting index. Must be less than Length
+					@param ALength The number of bytes to user. This plus @p AStart must be less than or equal to Length
+					@par Thread Safety
+						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+				*/
+				Dynamic SubString(const int AIndex, const int ALength) const;
 
 				/*!
 					@brief Move the null terminator of the string so that the readable length is @p AMaxBytes

@@ -9,7 +9,8 @@ namespace CYB {
 			*/
 			class Path {
 			public:
-				enum class SystemDirectory {
+				enum class SystemPath {
+					EXECUTABLE_IMAGE,	//!< @brief The path from which the engine was launched
 					EXECUTABLE,	//!< @brief The directory from which the engine was launched
 					RESOURCE,	//!< @brief The directory where read only resources
 					TEMPORARY,	//!< @brief The directory for storing data relevant only to this execution
@@ -27,7 +28,7 @@ namespace CYB {
 						Use of SystemDirectory::WORKING must be synchronized with SetAsWorkingDirectory. Otherwise, this function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the specified path could not be retrieved
 				*/
-				static API::String::UTF8 LocateDirectory(const SystemDirectory ADirectory);
+				static API::String::UTF8 LocateDirectory(const SystemPath ADirectory);
 			public:
 				/*!
 					@brief Get the Path of a SystemDirectory
@@ -36,7 +37,7 @@ namespace CYB {
 						Use of SystemDirectory::WORKING must be synchronized with SetAsWorkingDirectory. Otherwise, this function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the specified path could not be retrieved
 				*/
-				Path(const SystemDirectory ADirectory);
+				Path(const SystemPath ADirectory);
 				Path(API::String::UTF8&& AString);
 				Path(const Path& ACopy) = default;
 				Path(Path&& AMove) noexcept = default;

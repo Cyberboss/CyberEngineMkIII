@@ -88,7 +88,7 @@ template <typename ALambda> void CYB::API::String::UTF8::IterateCodepoints(const
 }
 
 inline const char& CYB::API::String::UTF8::operator[](const int AIndex) const noexcept {
-	return FData[];
+	return FData[ByteIndexOfChar(AIndex)];
 }
 
 inline void CYB::API::String::UTF8::Shrink(const int AMaxChars) noexcept {

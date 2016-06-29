@@ -9,7 +9,7 @@ SCENARIO("Paths can be created by the system", "[Platform][System][Path][Unit") 
 	GIVEN("That paths can be constructed with a system directory") {
 		Path* TestPath(nullptr);
 		WHEN("The executable directory is retrieved") {
-			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemDirectory::EXECUTABLE));
+			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::EXECUTABLE));
 			THEN("All is well") {
 				CHECK(TestPath != nullptr);
 			}

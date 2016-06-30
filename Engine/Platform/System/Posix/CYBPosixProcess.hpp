@@ -7,6 +7,8 @@ namespace CYB {
 				class Process {
 				protected:
 					pid_t FPID;
+					int FExitCode;
+					bool FExitCodeReady;
 				protected:
 					Process(const pid_t APID) noexcept;
 					Process(const Process&) = delete;

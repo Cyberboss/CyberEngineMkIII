@@ -15,7 +15,8 @@ CYB::Platform::System::Process CYB::Platform::System::Process::GetSelf(void) noe
 }
 
 CYB::Platform::System::Implementation::Process::Process(const pid_t APID) noexcept :
-	FPID(APID)
+	FPID(APID),
+	FExitCodeReady(false)
 {}
 
 static pid_t SpawnProcess(const CYB::Platform::System::Path& APath, const CYB::API::String::UTF8& ACommandLine) {
@@ -110,4 +111,60 @@ bool CYB::Platform::System::Process::Active(void) const noexcept {
 
 bool CYB::Platform::System::Process::operator==(const Process& ARHS) const noexcept {
 	return (FPID == ARHS.FPID) && Active();
+}
+
+bool CYB::Platform::System::Process::Wait(const unsigned int AMilliseconds) {
+	for (auto I(0U); I < AMilliseconds && FExitCodeReady; Thread::Sleep(1), ++I) {
+		const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::waitpid>(FPID, &FExitCode, 0));
+		if (Result == -1)
+			throw Exception::Internal(Exception::Internal::PROCESS_EXIT_CODE_UNCHECKABLE);
+		FExitCodeReady = Result == FPID;
+	}
+	return FExitCodeReady;
+	//Wonky supposedly thread safe implementation
+	/*
+	auto& LibC(Core().FModuleManager.FC);
+	const auto WaitRequired(FReapStatus.fetch_add(1, std::memory_order_acquire));
+	if (-255 <= WaitRequired && WaitRequired <= 0) {
+		if (WaitRequired == 1) {
+			if (AMilliseconds == 0) {
+				if (LibC.Call<Modules::LibC::waitpid>(FPID, &FExitCode, 0) == -1) {
+					FReapStatus.store(1, std::memory_order_relaxed);
+					throw Exception::Internal(Exception::Internal::PROCESS_EXIT_CODE_UNCHECKABLE);
+				}
+				FReapStatus.store(-255, std::memory_order_release);
+			}
+			else {
+				for (auto I(0U); I < AMilliseconds; Thread::Sleep(1), ++I) {
+					if (LibC.Call<Modules::LibC::waitpid>(FPID, &FExitCode, 0) == -1) {
+						FReapStatus.store(1, std::memory_order_relaxed);
+						throw Exception::Internal(Exception::Internal::PROCESS_EXIT_CODE_UNCHECKABLE);
+					}
+					FReapStatus.store(-255, std::memory_order_release);
+					break;
+				}
+			}
+		}
+		else if (AMilliseconds == 0)
+			long long LastResult(2);
+		for (; LastResult > 1; Thread::Sleep(1), LastResult = FReapStatus.fetch_add(1, std::memory_order_relaxed));
+		if (LastResult == 1)
+			return Wait();
+		else {
+			long long LastResult(2);
+			auto I(0U);
+			for (; I < AMilliseconds && LastResult > 1; Thread::Sleep(1), ++I, LastResult = FReapStatus.fetch_add(1, std::memory_order_relaxed));
+			if (LastResult == 1)
+				return Wait(AMilliseconds - I);
+		}
+		const auto Result(FReapStatus.load(std::memory_order_relaxed));
+		return -255 <= Result && Result <= 0;
+	}
+	return true;
+	*/
+}
+
+int CYB::Platform::System::Process::GetExitCode(void) {
+	Wait();
+	return FExitCode;
 }

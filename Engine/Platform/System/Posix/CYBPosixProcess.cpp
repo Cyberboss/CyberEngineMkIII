@@ -2,11 +2,12 @@
 
 using namespace CYB::Platform::Posix;
 
-void CYB::Platform::System::Process::Terminate(void) noexcept {
-	if (FPID == static_cast<pid_t>(Sys::Call(Sys::GET_CURRENT_PROCESS)))
+void CYB::Platform::System::Process::Terminate(void) {
+	if (FPID == static_cast<pid_t>(Sys::Call(Sys::GET_CURRENT_PROCESS))) {
 		Sys::Call(Sys::EXIT_PROC);
-	else
-		Core().FModuleManager.FC.Call<Modules::LibC::kill>(FPID, SIGKILL);
+	}
+	else if (Core().FModuleManager.FC.Call<Modules::LibC::kill>(FPID, SIGKILL) == -1)
+		throw Exception::Internal(Exception::Internal::PROCESS_TERMINATION_ERROR);
 }
 
 CYB::Platform::System::Process CYB::Platform::System::Process::GetSelf(void) noexcept {
@@ -95,6 +96,12 @@ static pid_t SpawnProcess(const CYB::Platform::System::Path& APath, const CYB::A
 CYB::Platform::System::Process::Process(const Path& APath, const API::String::UTF8& ACommandLine) :
 	Implementation::Process(SpawnProcess(APath, ACommandLine))
 {}
+
+CYB::Platform::System::Process::~Process() {
+	//try to reap
+	int ExitCode;
+	Core().FModuleManager.FC.Call<Modules::LibC::waitpid>(FPID, &ExitCode, WNOHANG);
+}
 
 bool CYB::Platform::System::Process::Active(void) const noexcept {
 	return Core().FModuleManager.FC.Call<Modules::LibC::kill>(FPID, 0) == 0 

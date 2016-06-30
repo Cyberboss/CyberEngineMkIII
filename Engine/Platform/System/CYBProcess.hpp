@@ -13,12 +13,6 @@ namespace CYB {
 			class Process : private Implementation::Process {
 			private:
 				using Implementation::Process::Process;
-				/*!
-					@brief Runs actual termination code on a Process guaranteed to be destroyed afterwards
-					@par Thread Safety
-						This function requires synchronized access at the object level
-				*/
-				void Terminate(void) noexcept;
 			public:
 				/*!
 					@brief Get's the Process representing the current execution
@@ -27,13 +21,6 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				static Process GetSelf(void) noexcept;
-				/*!
-					@brief Terminates the Process with exit code zero and ensures destruction of the object
-					@param AProcess An xvalue of the process to terminate
-					@par Thread Safety
-						This function requires no thread safety
-				*/
-				static void Terminate(Process&& AProcess) noexcept;
 
 				/*!
 					@brief Launches a Process with a command line
@@ -65,7 +52,7 @@ namespace CYB {
 				Process(Process&& AMove) noexcept = default;	//!< @brief See @ref structors
 				Process& operator=(Process&& AMove) noexcept = default;	//!< @brief See @ref structors
 				//! @brief Destroy the Process object without affecting the actual process
-				~Process() = default;
+				~Process();
 
 				/*!
 					@brief Check if the Process is still running
@@ -90,6 +77,13 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				bool operator!=(const Process& ARHS) const noexcept;
+				/*!
+					@brief Terminates the Process with exit code 0
+					@par Thread Safety
+						This function should only be called once per object instance
+					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::PROCESS_TERMINATION_ERROR if the process could not be terminated. Will not happen if called on current process
+				*/
+				void Terminate(void);
 			};
 		};
 	};

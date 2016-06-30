@@ -4,10 +4,11 @@
 
 using namespace CYB::Platform::Win32;
 
-void CYB::Platform::System::Process::Terminate(void) noexcept {
+void CYB::Platform::System::Process::Terminate(void) {
 	//Self terminating is actually safer than exiting due to locks and shit, also allows for us to kill ourselves and other processes in one line
 	//No FK32 because this can be called without Core
-	Sys::Call(Sys::TERMINATE_PROC, FHandle);
+	if(Sys::Call(Sys::TERMINATE_PROC, FHandle) == 0)
+		throw Exception::Internal(Exception::Internal::PROCESS_TERMINATION_ERROR);
 }
 
 CYB::Platform::System::Process CYB::Platform::System::Process::GetSelf(void) noexcept {
@@ -31,7 +32,7 @@ CYB::Platform::System::Implementation::Process& CYB::Platform::System::Implement
 	return *this;
 }
 
-CYB::Platform::System::Implementation::Process::~Process() {
+CYB::Platform::System::Process::~Process() {
 	if(FHandle != nullptr)
 		Core().FModuleManager.FK32.Call<Modules::Kernel32::CloseHandle>(FHandle);
 }

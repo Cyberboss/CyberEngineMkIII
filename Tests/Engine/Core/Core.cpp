@@ -82,6 +82,7 @@ SCENARIO("Basic engine dry run", "[Engine][Core][Behavioural]") {
 	GIVEN("A clean execution environment (With a redirected termination call of course)") {
 		FFakeProcExitRan = false;
 		ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+		ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 		Fake::Core::NullifySingleton();
 		SysCallOverride Exit(
 #ifdef TARGET_OS_WINDOWS

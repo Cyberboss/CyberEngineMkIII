@@ -108,6 +108,7 @@ namespace CYB {
 				MODULE_FUNCTION_LOAD_FAILURE, //!< @brief Specific could not be loaded from given Module
 				MODULE_LOAD_FAILURE, //!< @brief Module could not be loaded
 				PROCESS_CREATION_ERROR,	//!< @brief Process could not be created for unknown reasons
+				PROCESS_TERMINATION_ERROR, //!< @brief Process could not be terminated, most likely due to insufficient priviledges
 			};
 		private:
 			/*!

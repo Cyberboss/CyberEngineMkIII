@@ -12,6 +12,7 @@ namespace CYB {
 			#include <errno.h>
 			#include <sys/types.h>
 			#include <sys/mman.h>
+			#include <sys/wait.h>
 			#include <linux/limits.h>
 			#include <unistd.h>
 #ifdef _WIN32	//for vs debugging

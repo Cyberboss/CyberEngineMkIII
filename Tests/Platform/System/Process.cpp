@@ -1,10 +1,12 @@
 #include "TestHeader.hpp"
 
+using namespace CYB::Platform::System;
+
 SCENARIO("Getting the running process works", "[Platform][System][Process][Unit]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	GIVEN("The running process (me!)") {
 		WHEN("Process::GetSelf is called") {
-			auto Result(CYB::Platform::System::Process::GetSelf());
+			auto Result(Process::GetSelf());
 			THEN("The process returned is me") {
 				CHECK(true);
 			}
@@ -12,10 +14,10 @@ SCENARIO("Getting the running process works", "[Platform][System][Process][Unit]
 	}
 }
 
-SCENARIO("Process move constructor works", "[Platform][System][Process][Unit]") {
+SCENARIO("Process constructors work", "[Platform][System][Process][Unit]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	GIVEN("A Process") {
-		auto Proc(CYB::Platform::System::Process::GetSelf());
+		auto Proc(Process::GetSelf());
 		WHEN("The process is moved and move assigned") {
 			{
 				auto Proc2(std::move(Proc));
@@ -24,6 +26,19 @@ SCENARIO("Process move constructor works", "[Platform][System][Process][Unit]") 
 			THEN("All is well") {
 				CHECK(true);
 			}
+		}
+	}
+	const CYB::API::String::UTF8 CommandLine(CYB::API::String::Static(u8"--refork --loop"));
+	GIVEN("The Path of a process image") {
+		Path ThePath(Path::SystemPath::EXECUTABLE_IMAGE);
+		WHEN("The process is constructed from that name") {
+			CYB::Platform::System::Process* Proc(nullptr);
+			REQUIRE_NOTHROW(Proc = new CYB::Platform::System::Process(ThePath, CommandLine));
+			THEN("All is well") {
+				CHECK(Proc->Active());
+				Process::Terminate(std::move(*Proc));
+			}
+			delete Proc;
 		}
 	}
 }

@@ -112,5 +112,6 @@
     <None Include="Utils\Backdoor.inl">
       <Filter>Utils</Filter>
     </None>
+    <None Include="Main.inl" />
   </ItemGroup>
 </Project>

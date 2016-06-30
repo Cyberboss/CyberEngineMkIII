@@ -62,7 +62,8 @@ namespace CYB {
 				Dynamic(const char* const AData, const int ALength = -1);
 				/*!
 					@brief Construct a Dynamic string. This will allocate enough data to copy the contents of @p AData
-					@param AData The data to populate the char array with. Must be at least a pointer to a null terminating character
+					@param AData The data to populate the char array with
+					@param ALength The length of AData to copy. Looks instead for '\0' if set to -1
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory

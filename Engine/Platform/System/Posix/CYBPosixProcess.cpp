@@ -10,16 +10,17 @@ void CYB::Platform::System::Process::Terminate(void) {
 		throw Exception::Internal(Exception::Internal::PROCESS_TERMINATION_ERROR);
 }
 
-CYB::Platform::System::Process CYB::Platform::System::Process::GetSelf(void) noexcept {
-	return Process(static_cast<pid_t>(Sys::Call(Sys::GET_CURRENT_PROCESS)));
-}
-
-CYB::Platform::System::Implementation::Process::Process(const pid_t APID) noexcept :
-	FPID(APID),
+CYB::Platform::System::Implementation::Process::Process() noexcept :
+	FPID(static_cast<pid_t>(System::Sys::Call(Sys::GET_CURRENT_PROCESS))),
 	FExitCodeReady(false)
 {}
 
-static pid_t SpawnProcess(const CYB::Platform::System::Path& APath, const CYB::API::String::UTF8& ACommandLine) {
+
+CYB::Platform::System::Implementation::Process::Process(const Path& APath, const API::String::UTF8& ACommandLine) :
+	FPID(SpawnProcess(APath, ACommandLine))
+{}
+
+pid_t CYB::Platform::System::Implementation::Process::SpawnProcess(const CYB::Platform::System::Path& APath, const CYB::API::String::UTF8& ACommandLine) {
 
 	//Parse ACommandLine for spaces
 	const char** Argv(nullptr);
@@ -93,10 +94,6 @@ static pid_t SpawnProcess(const CYB::Platform::System::Path& APath, const CYB::A
 
 	return PID;
 }
-
-CYB::Platform::System::Process::Process(const Path& APath, const API::String::UTF8& ACommandLine) :
-	Implementation::Process(SpawnProcess(APath, ACommandLine))
-{}
 
 CYB::Platform::System::Process::~Process() {
 	//try to reap

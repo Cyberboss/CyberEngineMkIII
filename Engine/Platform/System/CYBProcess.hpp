@@ -11,8 +11,13 @@ namespace CYB {
 				@attention Processes with the same PID/Handle will appear equivalent. Ensure that a reference to a Process object does not persist through operating system recycling
 			*/
 			class Process : private Implementation::Process {
-			private:
-				using Implementation::Process::Process;
+			protected:
+				/*!
+					@brief Constructor for self process. Use GetSelf()
+					@par Thread Safety
+						This function requires no thread safety
+				*/
+				Process() = default;
 			public:
 				/*!
 					@brief Get's the Process representing the current execution

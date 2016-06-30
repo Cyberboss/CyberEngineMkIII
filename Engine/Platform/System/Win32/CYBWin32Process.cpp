@@ -11,13 +11,9 @@ void CYB::Platform::System::Process::Terminate(void) {
 		throw Exception::Internal(Exception::Internal::PROCESS_TERMINATION_ERROR);
 }
 
-CYB::Platform::System::Process CYB::Platform::System::Process::GetSelf(void) noexcept {
-	//No FK32 because this can be called without Core
-	return Process(reinterpret_cast<Win32::HANDLE>(Sys::Call(Sys::GET_CURRENT_PROCESS)));
-}
-
-CYB::Platform::System::Implementation::Process::Process(Win32::HANDLE AHandle) noexcept :
-	FHandle(AHandle)
+//No FK32 because this can be called without Core
+CYB::Platform::System::Implementation::Process::Process() noexcept :
+	FHandle(reinterpret_cast<Win32::HANDLE>(System::Sys::Call(Sys::GET_CURRENT_PROCESS)))
 {}
 
 CYB::Platform::System::Implementation::Process::Process(Process&& AMove) noexcept :
@@ -37,7 +33,7 @@ CYB::Platform::System::Process::~Process() {
 		Core().FModuleManager.FK32.Call<Modules::Kernel32::CloseHandle>(FHandle);
 }
 
-static HANDLE CreateProcess(const CYB::Platform::System::Path& APath, const CYB::API::String::UTF8& ACommandLine) {
+HANDLE CYB::Platform::System::Implementation::Process::CreateProcess(const CYB::Platform::System::Path& APath, const CYB::API::String::UTF8& ACommandLine) {
 
 	CYB::API::String::UTF16 ExeAs16(APath()), CmdlAs16(ACommandLine);
 	STARTUPINFO StartupInfo{ sizeof(STARTUPINFO), nullptr, nullptr, nullptr, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, nullptr, 0, 0, 0};
@@ -80,8 +76,8 @@ static HANDLE CreateProcess(const CYB::Platform::System::Path& APath, const CYB:
 	return ProcessInformation.hProcess;
 }
 
-CYB::Platform::System::Process::Process(const Path& APath, const API::String::UTF8& ACommandLine):
-	Implementation::Process(CreateProcess(APath, ACommandLine))
+CYB::Platform::System::Implementation::Process::Process(const Path& APath, const API::String::UTF8& ACommandLine):
+	FHandle(CreateProcess(APath, ACommandLine))
 {}
 
 bool CYB::Platform::System::Process::Active(void) const noexcept {

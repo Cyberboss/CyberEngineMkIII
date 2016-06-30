@@ -97,7 +97,7 @@ namespace CYB {
 				Dynamic& operator+=(const CStyle& ARHS);
 				/*!
 					@brief Get a substring of the contained string
-					@param AStart the starting index. Must be less than Length
+					@param AIndex the starting index. Must be less than Length
 					@param ALength The number of bytes to user. This plus @p AStart must be less than or equal to Length
 					@par Thread Safety
 						This function requires synchronization at the object level

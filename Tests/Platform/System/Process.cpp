@@ -4,6 +4,7 @@ using namespace CYB::Platform::System;
 
 SCENARIO("Getting the running process works", "[Platform][System][Process][Unit]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	GIVEN("The running process (me!)") {
 		WHEN("Process::GetSelf is called") {
 			auto Result(Process::GetSelf());
@@ -16,6 +17,7 @@ SCENARIO("Getting the running process works", "[Platform][System][Process][Unit]
 
 SCENARIO("Process constructors work", "[Platform][System][Process][Unit]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	GIVEN("A Process") {
 		auto Proc(Process::GetSelf());
 		WHEN("The process is moved and move assigned") {
@@ -36,7 +38,7 @@ SCENARIO("Process constructors work", "[Platform][System][Process][Unit]") {
 			REQUIRE_NOTHROW(Proc = new CYB::Platform::System::Process(ThePath, CommandLine));
 			THEN("All is well") {
 				CHECK(Proc->Active());
-				Process::Terminate(std::move(*Proc));
+				Proc->Terminate();
 			}
 			delete Proc;
 		}

@@ -11,7 +11,6 @@ namespace CYB {
 					Process(const Process&) = delete;
 					Process(Process&& AMove) noexcept;
 					Process& operator=(Process&& AMove) noexcept;
-					~Process();
 				};
 			};
 		};

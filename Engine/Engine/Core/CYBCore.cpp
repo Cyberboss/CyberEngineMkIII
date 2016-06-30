@@ -56,7 +56,7 @@ void CYB::Engine::Core::Run(const unsigned int ANumArguments, const oschar_t* co
 		Core CyberEngineMarkIII(ANumArguments, AArguments);
 	}
 	catch (...) {}
-	Platform::System::Process::Terminate(Platform::System::Process::GetSelf());
+	Platform::System::Process::GetSelf().Terminate();
 }
 CYB::Engine::Core& CYB::Core(void) noexcept {
 	return Engine::Core::GetCore();

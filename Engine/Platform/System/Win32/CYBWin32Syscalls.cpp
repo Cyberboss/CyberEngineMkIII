@@ -30,8 +30,7 @@ unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACall
 unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACallNumber, const Union64 AArg1) noexcept {
 	switch (ACallNumber) {
 	case TERMINATE_PROC:
-		Win32::TerminateProcess(AArg1.FPointer, 0);
-		return 0;
+		return static_cast<unsigned long long>(Win32::TerminateProcess(AArg1.FPointer, 0));
 	case CLOSE_LIBRARY:
 		Win32::FreeLibrary(static_cast<Win32::HMODULE>(AArg1.FPointer));
 		return 0;

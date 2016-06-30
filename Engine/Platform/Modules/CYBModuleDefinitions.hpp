@@ -26,7 +26,7 @@ DEFINE_WINDOWS_MODULE(ShellAPI, "shlwapi.dll", Win32, false, PathRemoveFileSpecW
 #include <gnu/lib-names.h>
 #endif
 DEFINE_POSIX_MODULE(LibC, LIBC_SO, Posix, false,
-	kill, getpid, usleep,
+	kill, getpid, waitpid, usleep,
 	mmap, mprotect, munmap, madvise,
 	readlink,
 	posix_spawn)

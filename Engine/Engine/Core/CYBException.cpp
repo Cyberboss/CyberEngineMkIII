@@ -74,6 +74,8 @@ CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode 
 		return API::String::Static(u8"Failed to load a requested module.");
 	case PROCESS_CREATION_ERROR:
 		return API::String::Static(u8"Failed to create Process for unknown reasons.");
+	case PROCESS_TERMINATION_ERROR:
+		return API::String::Static(u8"Failed to terminate process, most likely due to insufficient permissions.");
 	default:
 		throw Violation(Violation::INVALID_ENUM);
 	}

@@ -96,3 +96,21 @@ bool CYB::Platform::System::Process::operator==(const Process& ARHS) const noexc
 	}
 	return false;
 }
+
+bool CYB::Platform::System::Process::Wait(const unsigned int AMilliseconds) {
+	const auto Result(Core().FModuleManager.FK32.Call<Modules::Kernel32::WaitForSingleObject>(FHandle, AMilliseconds == 0 ? INFINITE : AMilliseconds));
+	API::Assert::NotEqual<decltype(Result)>(Result, WAIT_FAILED);
+	return Result == WAIT_OBJECT_0;
+}
+
+int CYB::Platform::System::Process::GetExitCode(void) {
+	Wait();
+	DWORD Result;
+	auto& K32(Core().FModuleManager.FK32);
+	if (K32.Call<Modules::Kernel32::GetExitCodeProcess>(FHandle, &Result) == 0) {
+		const auto ErrorCode(K32.Call<Modules::Kernel32::GetLastError>());
+		API::Assert::NotEqual<decltype(ErrorCode)>(ErrorCode, ERROR_INVALID_HANDLE);
+		throw Exception::Internal(Exception::Internal::PROCESS_EXIT_CODE_UNCHECKABLE);
+	}
+	return static_cast<int>(Result);
+}

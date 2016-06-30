@@ -84,6 +84,23 @@ namespace CYB {
 					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::PROCESS_TERMINATION_ERROR if the process could not be terminated. Will not happen if called on current process
 				*/
 				void Terminate(void);
+
+				/*!
+					@brief Blocks execution until the associated Process is terminated or a timer expires
+					@param AMilliseconds The number of milliseconds to wait before returning. Will wait indefinitely if set to zero
+					@return true if the process has exited, false otherwise
+					@par Thread Safety
+						This function requires sychronization at the object level
+				*/
+				bool Wait(const unsigned int AMilliseconds = 0U);
+				/*!
+					@brief Blocks execution until the associated Process is terminated and returns it's exit code
+					@return The Process' exit code
+					@par Thread Safety
+						If Active() is true, This function requires sychronization at the object level
+					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::PROCESS_EXIT_CODE_UNCHECKABLE Thrown if the OS would not allow the error code to be checked, usually due to a different user running the target process
+				*/
+				int GetExitCode(void);
 			};
 		};
 	};

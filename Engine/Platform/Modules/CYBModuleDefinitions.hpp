@@ -15,7 +15,7 @@ DEFINE_WINDOWS_MODULE(Kernel32, "kernel32.dll", Win32, false,
 	InitializeCriticalSection, DeleteCriticalSection, EnterCriticalSection, TryEnterCriticalSection, LeaveCriticalSection,
 	VirtualAlloc, VirtualFree, VirtualProtect, VirtualQuery, GetProcessId,
 	MultiByteToWideChar, WideCharToMultiByte,
-	CreateProcessW,
+	CreateProcessW, GetExitCodeProcess,
 	GetModuleHandleW, GetModuleFileNameW)
 DEFINE_WINDOWS_MODULE(Kernel32Extended, "kernel32.dll", Win32, true, DiscardVirtualMemory)
 

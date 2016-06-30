@@ -43,6 +43,7 @@ namespace CYB {
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_FOUND if @p APath does not exist in the filesystem
 					@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_READABLE if @p APath isn't accessible by the current user
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap ran out of memory
 					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::FILE_NOT_EXECUTABLE if @p APath does not indicate a process image
 					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::PROCESS_CREATION_ERROR if the process could not be created
 				*/
@@ -55,6 +56,7 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_FOUND if @p APath does not exist in the filesystem
 					@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_READABLE if @p APath isn't accessible by the current user
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the path of the executable could not be retrieved
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap ran out of memory
 					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::FILE_NOT_EXECUTABLE if @p APath does not indicate a process image
 					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::PROCESS_CREATION_ERROR if the process could not be created
 				*/

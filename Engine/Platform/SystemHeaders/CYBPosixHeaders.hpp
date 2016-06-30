@@ -19,6 +19,7 @@ namespace CYB {
 #else
 			#include <signal.h>
 #endif
+			#include <spawn.h>
 			#include <sched.h>
 			#include <pthread.h>
 			#include <dlfcn.h>

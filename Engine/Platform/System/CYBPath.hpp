@@ -41,7 +41,7 @@ namespace CYB {
 				Path(API::String::UTF8&& AString);
 				Path(const Path& ACopy) = default;
 				Path(Path&& AMove) noexcept = default;
-				Path& operator=(Path&& AMove) RELEASE_NOEXCEPT = default;
+				Path& operator=(Path&& AMove) noexcept = default;
 
 				void EmptyContents(void) const;
 

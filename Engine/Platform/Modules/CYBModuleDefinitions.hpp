@@ -28,7 +28,8 @@ DEFINE_WINDOWS_MODULE(ShellAPI, "shlwapi.dll", Win32, false, PathRemoveFileSpecW
 DEFINE_POSIX_MODULE(LibC, LIBC_SO, Posix, false,
 	kill, getpid, usleep,
 	mmap, mprotect, munmap, madvise,
-	readlink)
+	readlink,
+	posix_spawn)
 DEFINE_POSIX_MODULE(RT, LIBRT_SO, Posix, false, sched_yield)
 DEFINE_POSIX_MODULE(PThread, LIBPTHREAD_SO, Posix, false, 
 	pthread_mutex_init, pthread_mutex_destroy, pthread_mutex_lock, pthread_mutex_trylock, pthread_mutex_unlock,

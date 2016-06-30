@@ -104,7 +104,8 @@ inline int CYB::API::String::UTF8::Length(void) const noexcept {
 
 inline void CYB::API::String::UTF8::CalculateLength(void) noexcept {
 	FLength = 0;
-	for (auto Current(CString()); *Current != 0; FLength += (*Current++ & 0xC0) != 0x80 ? 1 : 0);
+	if (RawLength() > 0)
+		for (auto Current(CString()); *Current != 0; FLength += (*Current++ & 0xC0) != 0x80 ? 1 : 0);
 }
 
 inline CYB::API::String::UTF8 CYB::API::String::UTF8::SubString(const int AIndex, const int ALength) const {

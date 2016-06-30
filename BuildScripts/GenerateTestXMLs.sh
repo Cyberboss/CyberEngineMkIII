@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "Removing old reports"
+rm -rf HTMLCodeCoverage
+
 echo "Downloading scripts..."
 curl -O https://dimensionalpha.net/PostTestScripts.zip
 unzip PostTestScripts.zip
@@ -29,5 +32,6 @@ then
 		echo "Publishing html to local web server"
 		sudo rm -rf /srv/http
 		sudo cp -r HTMLCodeCoverage/ /srv/http
+		sudo cp -r HTMLStaticAnalysis /srv/http/analysis
 	fi
 fi

@@ -2,12 +2,16 @@
 namespace CYB {
 	namespace Platform {
 		namespace System{
+			class Path;
 			namespace Implementation {
 				class Process {
 				protected:
 					Win32::HANDLE FHandle;
+				private:
+					static Win32::HANDLE CreateProcess(const Path& APath, const API::String::UTF8& ACommandLine);
 				protected:
-					Process(Win32::HANDLE AProcess) noexcept;
+					Process() noexcept;
+					Process(const Path& APath, const API::String::UTF8& ACommandLine);
 					Process(const Process&) = delete;
 					Process(Process&& AMove) noexcept;
 					Process& operator=(Process&& AMove) noexcept;

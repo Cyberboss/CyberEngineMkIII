@@ -53,7 +53,7 @@ static bool FFakeProcExitRan;
 static unsigned long long FakeProcExit(Fake::SysCalls::Args&) {
 	FFakeProcExitRan = true;
 	Fake::Core::ResetToFakeCorePointer();	//do this here before we call closehandle in Process' destructor
-	return 0;
+	return 1;
 }
 
 

@@ -11,7 +11,14 @@ if [ $# -ne 2 ]
 then
 	echo "Gathering code coverage data..."
 	lcov --directory . --base-directory . --gcov-tool Tests/llvm-gcov.sh --no-external --capture -o lcovrun.dat
-	lcov -r lcovrun.dat *Assert.inl *CYBSyscalls.inl *.hpp -o lcov.dat
+	lcov -r lcovrun.dat *Assert.inl *CYBSyscalls.inl *.hpp -o lcovstripped.dat
+	
+	if [ "$(uname)" == "Darwin" ]; then
+		lcov -e lcovstripped.dat *CYBPosix* *CYBLinux* -o lcov.dat
+	else
+		lcov -e lcovstripped.dat *CYBPosix* *CYBOSX* -o lcov.dat
+	fi
+
 	python lcov_cobertura.py lcov.dat -o Code.coveragexml
 
 	echo "Generating html..."

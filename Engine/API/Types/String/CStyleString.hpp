@@ -54,6 +54,14 @@ namespace CYB {
 						This function requires synchronization at the object level
 				*/
 				bool operator==(const CStyle& ARHS) const noexcept;
+				/*!
+					@brief String unequivalence check
+					@param ARHS The string to compare against
+					@return false if two strings contain the same data, true otherwise
+					@par Thread Safety
+						This function requires synchronization at the object level
+				*/
+				bool operator!=(const CStyle& ARHS) const noexcept;
 			};
 		};
 	};

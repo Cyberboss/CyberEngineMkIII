@@ -63,6 +63,7 @@ template <typename ALambda> bool CYB::API::String::Dynamic::BuildAndPopulateBuff
 
 inline void CYB::API::String::Dynamic::DeallocateData(void) {
 	Allocator().FHeap.Free(FData);
+	FData = nullptr;
 }
 
 inline CYB::API::String::Dynamic CYB::API::String::Dynamic::operator+(const CStyle& ARHS) const {
@@ -92,8 +93,12 @@ inline CYB::API::String::Dynamic CYB::API::String::Dynamic::SubString(const int 
 }
 
 inline void CYB::API::String::Dynamic::Shrink(const int AMaxBytes) noexcept {
-	if (RawLength() > AMaxBytes + 1)
+	Assert::LessThan(-1, AMaxBytes);
+	if (AMaxBytes == 0)
+		DeallocateData();
+	else if (RawLength() > AMaxBytes + 1) 
 		FData[AMaxBytes] = 0;
+	FLength = CalculateByteLength();
 }
 
 inline int CYB::API::String::Dynamic::Length(void) const noexcept {

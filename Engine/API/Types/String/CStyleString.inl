@@ -32,3 +32,7 @@ inline bool CYB::API::String::CStyle::operator==(const CStyle& ARHS) const noexc
 	}
 	return false;
 }
+
+inline bool CYB::API::String::CStyle::operator!=(const CStyle& ARHS) const noexcept {
+	return !(*this == ARHS);
+}

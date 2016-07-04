@@ -13,6 +13,7 @@ add_library(EngineBase STATIC
 Platform/System/CYBThread.cpp
 Platform/System/CYBPath.cpp
 Platform/System/CYBProcess.cpp
+Platform/System/CYBVirtualMemory.cpp
 
 #Posix
 Platform/System/Posix/CYBPosixSyscalls.cpp

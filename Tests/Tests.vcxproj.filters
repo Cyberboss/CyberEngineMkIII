@@ -106,12 +106,12 @@
     </None>
     <None Include="CoverageExclusions.runsettings" />
     <None Include="llvm-gcov.sh" />
-    <None Include="Utils\HCF.inl">
-      <Filter>Utils</Filter>
-    </None>
     <None Include="Utils\Backdoor.inl">
       <Filter>Utils</Filter>
     </None>
     <None Include="Main.inl" />
+    <None Include="Utils\HCF.inl">
+      <Filter>Utils</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -32,6 +32,7 @@ namespace CYB {
 					@brief Sets up the length cache variable. Assumes the string is validated
 					@par Thread Safety
 						This function requires synchronization at the object level
+					@attention This requires FLength be set correctly
 				*/
 				void CalculateLength(void) noexcept;
 			public:

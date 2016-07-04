@@ -74,6 +74,9 @@
     <ClCompile Include="Platform\System\CYBPath.cpp">
       <Filter>Platform\System</Filter>
     </ClCompile>
+    <ClCompile Include="Platform\System\CYBVirtualMemory.cpp">
+      <Filter>Platform\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">

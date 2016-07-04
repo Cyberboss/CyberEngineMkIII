@@ -66,8 +66,6 @@ CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode 
 		return API::String::Static(u8"Failed to implement requested virtual memory protection level.");
 	case MEMORY_RESERVATION_FAILURE:
 		return API::String::Static(u8"Failed to reserve virtual memory from the OS.");
-	case MEMORY_RELEASE_FAILURE:
-		return API::String::Static(u8"Failed to return virtual memory to the OS.");
 	case MODULE_FUNCTION_LOAD_FAILURE:
 		return API::String::Static(u8"Failed to load a requested function from a module.");
 	case MODULE_LOAD_FAILURE:

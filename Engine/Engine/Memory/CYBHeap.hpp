@@ -6,8 +6,7 @@ namespace CYB {
 			//! @brief A memory pool manager and allocator
 			class Heap : public API::Heap {
 			private:
-				void* FReservation; //!< @brief The VirtualMemory mapping owned by the heap, also a pointer to the first block
-				unsigned long long FCommitSize; //!< @brief The amount of memory currently available in the Heap
+				Platform::System::VirtualMemory FReservation;	//!< @brief The VirtualMemory mapping owned by the heap, also a pointer to the first block
 
 				Block* FFreeList; //!< @brief The first block in the linked free list
 				LargeBlock* FLargeBlock; //!< @brief The block that extends to the end of the free list
@@ -123,11 +122,8 @@ namespace CYB {
 				*/
 				Heap(const unsigned long long AInitialCommitSize);
 				Heap(const Heap&) = delete;
-				/*!
-					@brief Destroys a heap, invalidating any memory allocated from it
-					@attention Potential hard crash due to possiblity of uncaught exception: CYB::Exception::SystemData::ErrorCode::MEMORY_RELEASE_FAILURE
-				*/
-				~Heap();
+				//! @brief Destroys a heap, invalidating any memory allocated from it
+				~Heap() = default;
 
 				/*!
 					@brief Lock the Heap, preventing reads and writes to the owned memory

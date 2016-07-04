@@ -103,7 +103,6 @@ namespace CYB {
 				FILE_NOT_EXECUTABLE,	//!< @brief Tried to create a process with a non-executable image
 				MEMORY_COMMITAL_FAILURE, //!< @brief Memory could not be commited from a reservation
 				MEMORY_PROTECT_FAILURE, //!< @brief Memory protection could not be set
-				MEMORY_RELEASE_FAILURE, //!< @brief Memory reservation could not be released
 				MEMORY_RESERVATION_FAILURE, //!< @brief Memory could not be reserved
 				MODULE_FUNCTION_LOAD_FAILURE, //!< @brief Specific could not be loaded from given Module
 				MODULE_LOAD_FAILURE, //!< @brief Module could not be loaded

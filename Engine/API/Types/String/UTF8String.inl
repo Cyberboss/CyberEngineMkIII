@@ -29,17 +29,17 @@ inline bool CYB::API::String::UTF8::Validate(const CStyle& AString) noexcept {
 	{
 		auto Char(static_cast<unsigned char>(AString.CString()[I]));
 		int OneLessNumberOfChars;
-		if (0x00 <= Char && Char <= 0x7F) 
+		if (0x00 <= Char && Char <= 0x7F)
 			OneLessNumberOfChars = 0; // 0bbbbbbb
-		else if ((Char & 0xE0) == 0xC0) 
+		else if ((Char & 0xE0) == 0xC0)
 			OneLessNumberOfChars = 1; // 110bbbbb
 		else if (Char == 0xED && I<(IX - 1) && (static_cast<unsigned char>(AString.CString()[I + 1]) & 0xA0) == 0xA0)
 			return false; //U+d800 to U+dfff
-		else if ((Char & 0xF0) == 0xE0) 
+		else if ((Char & 0xF0) == 0xE0)
 			OneLessNumberOfChars = 2; // 1110bbbb
-		else if ((Char & 0xF8) == 0xF0) 
+		else if ((Char & 0xF8) == 0xF0)
 			OneLessNumberOfChars = 3; // 11110bbb
-		else 
+		else
 			return false;
 
 		for (auto J(0); J < OneLessNumberOfChars && I < IX; ++J) // n bytes matching 10bbbbbb follow ?
@@ -92,10 +92,16 @@ inline const char& CYB::API::String::UTF8::operator[](const int AIndex) const no
 }
 
 inline void CYB::API::String::UTF8::Shrink(const int AMaxChars) noexcept {
-	if (Length() > AMaxChars + 1)
-		FData[ByteIndexOfChar(AMaxChars)] = 0;
-	CalculateLength();
-	API::Assert::True(Validate(*this));
+	if (AMaxChars == 0) {
+		*this = UTF8();
+	}
+	else if (Length() > AMaxChars + 1) {
+		const auto Index(ByteIndexOfChar(AMaxChars));
+		FData[Index] = 0;
+		CStyle::FLength = Index;
+		FLength = AMaxChars;
+		API::Assert::True(Validate(*this));
+	}
 }
 
 inline int CYB::API::String::UTF8::Length(void) const noexcept {

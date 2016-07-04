@@ -2,19 +2,13 @@
 #include "CYB.hpp"
 
 CYB::Engine::Memory::Heap::Heap(const unsigned long long AInitialCommitSize) :
-	FReservation(Platform::System::VirtualMemory::Reserve(Parameters::HEAP_RESERVATION_SIZE)),
-	FCommitSize(CalculateInitialCommitSize(AInitialCommitSize)),
+	FReservation(Parameters::HEAP_RESERVATION_SIZE),
 	FFreeList(nullptr),
 	FLocked(false)
 {
-	Platform::System::VirtualMemory::Commit(FReservation, FCommitSize);
+	FReservation.Commit(CalculateInitialCommitSize(AInitialCommitSize));
 
-	FLargeBlock = API::Interop::Allocator::InPlaceAllocation<LargeBlock>(&FirstBlock(), FCommitSize - sizeof(LargeBlock), nullptr);
-}
-
-CYB::Engine::Memory::Heap::~Heap() {
-	if(FReservation != nullptr)
-		Platform::System::VirtualMemory::Release(FReservation);
+	FLargeBlock = API::Interop::Allocator::InPlaceAllocation<LargeBlock>(&FirstBlock(), FReservation.CommitSize() - sizeof(LargeBlock), nullptr);
 }
 
 unsigned long long CYB::Engine::Memory::Heap::CalculateInitialCommitSize(const unsigned long long AInitialCommitSize) noexcept {
@@ -23,11 +17,11 @@ unsigned long long CYB::Engine::Memory::Heap::CalculateInitialCommitSize(const u
 }
 
 CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::FirstBlock(void) noexcept {
-	return *static_cast<Block*>(FReservation);
+	return *static_cast<Block*>(FReservation());
 }
 
 const CYB::Engine::Memory::Block& CYB::Engine::Memory::Heap::FirstBlock(void) const noexcept {
-	return *static_cast<Block*>(FReservation);
+	return *static_cast<Block*>(FReservation());
 }
 
 void CYB::Engine::Memory::Heap::AddToFreeList(Block& ABlock, Block* const APreviousEntry) noexcept {
@@ -53,17 +47,16 @@ void CYB::Engine::Memory::Heap::LargeBlockNeedsAtLeast(unsigned int ARequiredNum
 	API::Assert::LessThan(ARequiredNumBytes, static_cast<unsigned int>(std::numeric_limits<int>::max()));
 	if (FLargeBlock->Size() <= ARequiredNumBytes) {
 		const auto SizeDifference(ARequiredNumBytes - FLargeBlock->Size());
-		const auto NewCommitSize(FCommitSize + SizeDifference + 1000);
+		const auto NewCommitSize(FReservation.CommitSize() + SizeDifference + 1000);
 		bool Throw(false);
 		try {
-			Platform::System::VirtualMemory::Commit(FReservation, NewCommitSize);
+			FReservation.Commit(NewCommitSize);
 		}catch(CYB::Exception::Internal AException){
 			API::Assert::Equal<unsigned int>(AException.FErrorCode, CYB::Exception::Internal::MEMORY_COMMITAL_FAILURE);
 			Throw = true;
 		}
 		if(Throw)
 			throw CYB::Exception::SystemData(CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE);
-		FCommitSize = NewCommitSize;
 		FLargeBlock->SetSize(FLargeBlock->Size() + SizeDifference + 1000);
 	}
 }

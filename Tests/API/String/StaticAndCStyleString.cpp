@@ -63,7 +63,7 @@ SCENARIO("Static strings work", "[API][String][Static][Unit]") {
 
 SCENARIO("String Equivalance works", "[API][String][CStyle][Unit]") {
 	GIVEN("Two valid Static strings") {
-		CYB::API::String::Static S1("asdf"), S2("asdf"), S3("1234");
+		CYB::API::String::Static S1("asdf"), S2("asdf"), S3("1234"), S4("12345");
 		WHEN("S1 and S2 are compared") {
 			THEN("They are equal") {
 				CHECK(S1 == S2);
@@ -82,6 +82,11 @@ SCENARIO("String Equivalance works", "[API][String][CStyle][Unit]") {
 		WHEN("S1 and S3 are compared") {
 			THEN("They are unequal") {
 				CHECK(S1 != S3);
+			}
+		}
+		WHEN("S3 and S4 are compared") {
+			THEN("They are not equal") {
+				CHECK_FALSE(S3 == S4);
 			}
 		}
 	}

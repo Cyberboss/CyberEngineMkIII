@@ -92,3 +92,20 @@ SCENARIO("UTF8 string Length and validation works", "[API][String][Dynamic][Unit
 		}
 	}
 }
+SCENARIO("UTF8 Shrink works", "[API][String][Dynamic][Unit]") {
+	GIVEN("A valid UTF8 String"){
+		CYB::API::String::UTF8 Data(CYB::API::String::Static(u8"私は自分のベストを尽くします")), Expected(CYB::API::String::Static(u8"私は自分の")), Backup(Data);
+		WHEN("It is overshrunk") {
+			Data.Shrink(10);
+			THEN("Nothing changes") {
+				CHECK(Data == Backup);
+			}
+		}
+		WHEN("It is shrunk") {
+			Data.Shrink(5);
+			THEN("Nothing changes") {
+				CHECK(Data == Expected);
+			}
+		}
+	}
+}

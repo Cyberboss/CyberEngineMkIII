@@ -90,6 +90,14 @@ SCENARIO("UTF8 string Length and validation works", "[API][String][Dynamic][Unit
 				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STRING_VALIDATION_FAILURE);
 			}
 		}
+		WHEN("A UTF8 is attempted construction from a Dynamic of it") {
+			CYB::API::String::Dynamic Dyn(S4);
+			CYB::API::String::UTF8 D7;
+			CHECK_THROWS_AS(D7 = CYB::API::String::UTF8(std::move(Dyn)), CYB::Exception::SystemData);
+			THEN("The correct error is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STRING_VALIDATION_FAILURE);
+			}
+		}
 	}
 }
 SCENARIO("UTF8 Shrink works", "[API][String][Dynamic][Unit]") {

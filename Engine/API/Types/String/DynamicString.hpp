@@ -27,6 +27,15 @@ namespace CYB {
 				/*!
 					@brief Construct a Dynamic string from a pre-allocated char array
 					@param AData The pre-allocated char array, will be deallocated along with the Dynamic
+					@return The new Dynamic
+					@par Thread Safety
+						This function requires no thread safety
+				*/
+				static Dynamic FromData(char* const AData) noexcept;
+
+				/*!
+					@brief Construct a Dynamic string from a pre-allocated char array
+					@param AData The pre-allocated char array, will be deallocated along with the Dynamic
 					@par Thread Safety
 						This function requires no thread safety
 				*/

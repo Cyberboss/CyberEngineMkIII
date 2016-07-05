@@ -8,14 +8,6 @@ inline CYB::API::String::UTF8::UTF8(Dynamic&& AData) :
 	CalculateLength();
 }
 
-inline CYB::API::String::UTF8::UTF8(char* const AData) :
-	Dynamic(AData)
-{
-	if (!Validate(*this))
-		throw CYB::Exception::SystemData(CYB::Exception::SystemData::STRING_VALIDATION_FAILURE);
-	CalculateLength();
-}
-
 inline CYB::API::String::UTF8::UTF8(const CStyle& AData) :
 	Dynamic(AData)
 {

@@ -14,13 +14,9 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 			API::String::UTF8 Work(AsStatic);
 			if (ADirectory == SystemPath::EXECUTABLE) {
 				auto Last(0);
-				Work.IterateCodepoints(
-					[&](const unsigned int ACodepoint, const int AIndex) {
-					if (ACodepoint == '/')
-						Last = AIndex;
-					return true;
-				}
-				);
+				for(auto I(0U); I < Work.RawLength(); ++I)
+					if (Work.CString()[I] == '/')
+						Last = I;
 				Work.Shrink(Last + 1);
 			}
 			return Work;

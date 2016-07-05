@@ -9,6 +9,9 @@ namespace CYB {
 			*/
 			class Path {
 			public:
+				enum : int {
+					MAX_PATH_BYTES = 256,
+				};
 				enum class SystemPath {
 					EXECUTABLE_IMAGE,	//!< @brief The path from which the engine was launched
 					EXECUTABLE,	//!< @brief The directory from which the engine was launched
@@ -29,9 +32,12 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the specified path could not be retrieved
 				*/
 				static API::String::UTF8 LocateDirectory(const SystemPath ADirectory);
+				
+				static bool CreateDirectory(const API::String::UTF8& APath);
 
-				bool Verify(void) const;
-				void Evaluate(void);
+				static void Evaluate(API::String::UTF8& APath);
+
+				static bool Verify(const API::String::UTF8& APath);
 			public:
 				/*!
 					@brief Get the Path of a SystemDirectory
@@ -52,14 +58,17 @@ namespace CYB {
 					@param ACreateIfNonExistant Create the path as a directory if it does not exist
 					@param ACreateRecursive Ignored if @p ACreateIfNonExistant is false
 					@return true if navigation succeeded, false otherwise
+					@attention This function will always fail if the current path is a file
 					@par Thread Safety
 						This function requires synchronization at the object level
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE If some part of the new path is not readable. This does NOT include the final file
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE If the new path could not be created. Filesystem state will be reverted even while doing recursive creation
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_TOO_LONG If the new path would exceed the limitation
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the new path would exceed the limitation
 				*/
 				bool Append(const API::String::UTF8& AAppendage, const bool ACreateIfNonExistant, const bool ACreateRecursive);
+				void NavigateUp(void);
 				void Delete(const bool ARecursive) const;
 
 				bool IsDirectory(void) const;
@@ -79,6 +88,10 @@ namespace CYB {
 						This function requires synchronization at the object level
 				*/
 				const API::String::UTF8& operator()(void) const noexcept;
+
+				API::String::UTF8 FullFileName(void) const;
+				API::String::UTF8 FileName(void) const;
+				API::String::UTF8 Extension(void) const;
 
 				int ByteLength(void) const;
 			};

@@ -48,7 +48,7 @@ void CYB::Platform::System::VirtualMemory::Commit(const unsigned long long ANumB
 
 void CYB::Platform::System::VirtualMemory::Access(const AccessLevel AAccessLevel) {
 	Win32::MEMORY_BASIC_INFORMATION Info;
-	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::VirtualQuery>(FReservation, &Info, sizeof(Win32::MEMORY_BASIC_INFORMATION)) == 0 || Info.State == MEM_FREE)
+	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::VirtualQuery>(FReservation, &Info, sizeof(Win32::MEMORY_BASIC_INFORMATION)) == 0)
 		throw Exception::Internal(Exception::Internal::MEMORY_PROTECT_FAILURE);
 
 	if (Info.State == MEM_COMMIT) {

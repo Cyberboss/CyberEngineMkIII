@@ -1,7 +1,7 @@
 //! @file CYBWin32Path.cpp Implements CYB::Platform::System::Path for Win32
 #include "CYB.hpp"
 
-#include "../../CYBUTF16.inl"
+#include "../../CYBUTF16String.inl"
 
 using namespace CYB::Platform::Win32;
 

@@ -109,6 +109,7 @@ namespace CYB {
 					@brief Get a substring of the contained string
 					@param AIndex the starting index. Must be less than Length
 					@param ALength The number of bytes to user. This plus @p AStart must be less than or equal to Length
+					@return The substring @p AIndex, @p ALength of the original string
 					@par Thread Safety
 						This function requires synchronization at the object level
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory

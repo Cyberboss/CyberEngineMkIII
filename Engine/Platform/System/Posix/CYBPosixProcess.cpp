@@ -40,8 +40,8 @@ pid_t CYB::Platform::System::Implementation::Process::SpawnProcess(const CYB::Pl
 	if (ACommandLine.RawLength() > 0) {
 		unsigned int Count(0), Last(0);
 		try {
-			ACommandLine.IterateCodepoints([&](const unsigned int ACodepoint, const int AIndex) {
-				if (ACodepoint == ' ') {
+			for(unsigned int I(0); I < ACommandLine.RawLength(); ++I)
+				if (ACommandLine.CString()[I] == ' ') {
 					Argv = static_cast<const char**>(CYB::Allocator().FHeap.Realloc(Argv, Count + 1));
 
 					if (Work == nullptr) {
@@ -52,13 +52,12 @@ pid_t CYB::Platform::System::Implementation::Process::SpawnProcess(const CYB::Pl
 						Work = static_cast<UTF8Link*>(CYB::Allocator().FHeap.Alloc(sizeof(UTF8Link)));
 
 					Work->FNext = nullptr;
-					CYB::Allocator().InPlaceAllocation<CYB::API::String::UTF8>(&Work->FString, ACommandLine.SubString(Last, AIndex));
-					Last = AIndex + 1;
+					CYB::Allocator().InPlaceAllocation<CYB::API::String::UTF8>(&Work->FString, ACommandLine.SubString(Last, I));
+					Last = I + 1;
 
 					++Count;
 				}
-				return true;
-			});
+
 			Argv = static_cast<const char**>(CYB::Allocator().FHeap.Alloc(Count * sizeof(const char*)));
 
 			Work = Base;

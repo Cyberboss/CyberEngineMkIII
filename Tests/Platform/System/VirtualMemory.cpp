@@ -117,7 +117,7 @@ REDIRECTED_FUNCTION(BadVirtualFree, void* const, const unsigned long long, const
 	return 0;
 }
 
-REDIRECTED_FUNCTION(BadVirtualQuery, void* const, CYB::Platform::Win32::MEMORY_BASIC_INFORMATION* const, const CYB::Platform::Win32::SIZE_T) {
+REDIRECTED_FUNCTION(BadVirtualQuery, void* const, void* const, const unsigned long long) {
 	return 0ULL;
 }
 

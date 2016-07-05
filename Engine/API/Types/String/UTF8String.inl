@@ -60,25 +60,6 @@ inline int CYB::API::String::UTF8::ByteIndexOfChar(const int ACharIndex) const n
 	return I - 1;
 }
 
-template <typename ALambda> void CYB::API::String::UTF8::IterateCodepoints(const ALambda AIterator) const noexcept(noexcept(AIterator(0,0))) {
-	auto ContinuationCount(0U);
-	for (auto I(0), Index(0); I < RawLength(); ++I) {
-		if ((FData[I] & 0xC0) != 0x80) {
-			unsigned int Codepoint(0);
-			for (;; --ContinuationCount) {
-				reinterpret_cast<char*>(&Codepoint)[ContinuationCount] = FData[I - ContinuationCount];
-				if (ContinuationCount == 0)
-					break;
-			}
-			if (!AIterator(Codepoint, Index))
-				break;
-			++Index;
-		}
-		else
-			++ContinuationCount;
-	}
-}
-
 inline const char& CYB::API::String::UTF8::operator[](const int AIndex) const noexcept {
 	return FData[ByteIndexOfChar(AIndex)];
 }

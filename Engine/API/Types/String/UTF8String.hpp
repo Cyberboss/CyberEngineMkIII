@@ -80,11 +80,12 @@ namespace CYB {
 				/*!
 					@brief Iterate over the code points
 					@param AIterator The function called on each codepoint. Takes an unsigned integer denoting the code point and an integer denoting the character index. Returns a bool indicating whether or not to continue the loop
+					@param AReverse Will iterate backwards over the string if true
 					@tparam ALambda The type of @p AIterator
 					@par Thread Safety
 						This function requires synchronization at the object level
 				*/
-				template <typename ALambda> void IterateCodepoints(const ALambda AIterator) const noexcept(noexcept(AIterator(0,0)));
+				template <typename ALambda> void IterateCodepoints(const ALambda AIterator, const bool AReverse) const noexcept(noexcept(AIterator(0U,0)));
 				
 				/*!
 					@brief Get the char at index @p APosition

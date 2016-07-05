@@ -117,6 +117,10 @@ REDIRECTED_FUNCTION(BadVirtualFree, void* const, const unsigned long long, const
 	return 0;
 }
 
+REDIRECTED_FUNCTION(BadVirtualQuery, void* const, CYB::Platform::Win32::MEMORY_BASIC_INFORMATION* const, const CYB::Platform::Win32::SIZE_T) {
+	return 0ULL;
+}
+
 REDIRECTED_FUNCTION(BadVirtualProtect, void* const, const unsigned long long, const unsigned long, unsigned long*) {
 	return 0;
 }
@@ -140,11 +144,11 @@ SCENARIO("VirtualMemory errors work", "[Platform][System][VirtualMemory][Unit]")
 		CYB::Platform::System::VirtualMemory ValidReservation(1000000);
 		ValidReservation.Commit(1000);
 		{
-			auto BVA(K32.Redirect<CYB::Platform::Modules::Kernel32::VirtualAlloc, BadVirtualAlloc>());
-			auto BVF(K32.Redirect<CYB::Platform::Modules::Kernel32::VirtualFree, BadVirtualFree>());
-			auto BMM(LibC.Redirect<CYB::Platform::Modules::LibC::mmap, BadMMap>());
-			auto BMU(LibC.Redirect<CYB::Platform::Modules::LibC::munmap, BadMUnmap>());
-			auto BMP(LibC.Redirect<CYB::Platform::Modules::LibC::mprotect, BadMProtect>());
+			const auto BVA(K32.Redirect<CYB::Platform::Modules::Kernel32::VirtualAlloc, BadVirtualAlloc>());
+			const auto BVF(K32.Redirect<CYB::Platform::Modules::Kernel32::VirtualFree, BadVirtualFree>());
+			const auto BMM(LibC.Redirect<CYB::Platform::Modules::LibC::mmap, BadMMap>());
+			const auto BMU(LibC.Redirect<CYB::Platform::Modules::LibC::munmap, BadMUnmap>());
+			const auto BMP(LibC.Redirect<CYB::Platform::Modules::LibC::mprotect, BadMProtect>());
 			WHEN("A reservation is attempted") {
 				CYB::Platform::System::VirtualMemory* Reservation(nullptr);
 				REQUIRE_THROWS_AS(Reservation = new CYB::Platform::System::VirtualMemory(10000), CYB::Exception::Internal);
@@ -165,6 +169,40 @@ SCENARIO("VirtualMemory errors work", "[Platform][System][VirtualMemory][Unit]")
 				THEN("The appropriate exception occurs") {
 					CHECK_EXCEPTION_CODE(CYB::Exception::Internal::MEMORY_PROTECT_FAILURE);
 				}
+			}
+			WHEN("An access change is attempted on valid memory with a bad query") {
+				const auto BVQ(K32.Redirect<CYB::Platform::Modules::Kernel32::VirtualQuery, BadVirtualQuery>());
+				REQUIRE_THROWS_AS(ValidReservation.Access(CYB::Platform::System::VirtualMemory::AccessLevel::READ), CYB::Exception::Internal);
+				THEN("The appropriate exception occurs") {
+					CHECK_EXCEPTION_CODE(CYB::Exception::Internal::MEMORY_PROTECT_FAILURE);
+				}
+			}
+			WHEN("A commit is attempted on valid memory with a bad accessor") {
+				auto BVP(K32.Redirect<CYB::Platform::Modules::Kernel32::VirtualProtect, BadVirtualProtect>());
+				REQUIRE_THROWS_AS(ValidReservation.Commit(10000), CYB::Exception::Internal);
+				THEN("The appropriate exception occurs") {
+					CHECK_EXCEPTION_CODE(CYB::Exception::Internal::MEMORY_COMMITAL_FAILURE);
+				}
+			}
+		}
+	}
+}
+SCENARIO("Virtual Memory sizes work", "[Platform][System][VirtualMemory][Unit]") {
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	GIVEN("A valid reservation and commit") {
+		CYB::Platform::System::VirtualMemory VM(10000);
+		VM.Commit(1000);
+		WHEN("The reservation size is checked") {
+			const auto Result(VM.ReservationSize());
+			THEN("The result is as expected") {
+				CHECK(Result == 10000ULL);
+			}
+		}
+		WHEN("The commit size is checked") {
+			const auto Result(VM.CommitSize());
+			THEN("The result is as expected") {
+				CHECK(Result == 1000ULL);
 			}
 		}
 	}

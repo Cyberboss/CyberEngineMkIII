@@ -22,8 +22,7 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 					}
 					throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 				}
-				else
-					return CYB::API::String::UTF16::ToUTF8(Buffer);
+				return CYB::API::String::UTF16::ToUTF8(Buffer);
 		}
 		throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 	}

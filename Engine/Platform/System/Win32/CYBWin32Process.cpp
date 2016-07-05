@@ -1,6 +1,6 @@
 #include "CYB.hpp"
 
-#include "../../CYBUTF16.inl"
+#include "../../CYBUTF16String.inl"
 
 using namespace CYB::Platform::Win32;
 

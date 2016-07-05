@@ -465,7 +465,7 @@
     <None Include="API\Types\String\UTF8String.inl">
       <Filter>API\Types\String</Filter>
     </None>
-    <None Include="Platform\CYBUTF16.inl">
+    <None Include="Platform\CYBUTF16String.inl">
       <Filter>Platform</Filter>
     </None>
   </ItemGroup>

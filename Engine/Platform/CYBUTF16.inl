@@ -31,7 +31,7 @@ namespace CYB {
 					auto NewData(static_cast<char*>(Allocator().FHeap.Alloc(BufferSize)));
 					if (Core().FModuleManager.FK32.Call<CYB::Platform::Modules::Kernel32::WideCharToMultiByte>(CYB::Platform::Win32::UINT(CP_UTF8), CYB::Platform::Win32::DWORD(0), AWString, -1, NewData, BufferSize, nullptr, nullptr) == 0)
 						throw Exception::Internal(Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING);
-					return UTF8(NewData);
+					return UTF8(FromData(NewData));
 				}
 			};
 		};

@@ -6,19 +6,9 @@ namespace CYB {
 		namespace String {
 			//! @brief A variable length UTF-8 string
 			class UTF8 : public Dynamic {
-				friend class UTF16;
 			private:
 				int FLength;	//!< @brief Length cache
 			private:
-				/*!
-					@brief Construct from a preallocated array
-					@param AData The char array to inherit
-					@par Thread Safety
-						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the string does not validate
-				*/
-				UTF8(char* const AData);
-
 				/*!
 					@brief Gets the byte index of a given character index
 					@param ACharIndex The character index

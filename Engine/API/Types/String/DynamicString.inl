@@ -104,3 +104,7 @@ inline void CYB::API::String::Dynamic::Shrink(const int AMaxBytes) noexcept {
 inline int CYB::API::String::Dynamic::Length(void) const noexcept {
 	return RawLength();
 }
+
+inline CYB::API::String::Dynamic CYB::API::String::Dynamic::FromData(char* const AData) noexcept {
+	return Dynamic(AData);
+}

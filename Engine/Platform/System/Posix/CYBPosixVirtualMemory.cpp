@@ -18,7 +18,8 @@ CYB::Platform::System::VirtualMemory::~VirtualMemory() {
 
 void CYB::Platform::System::VirtualMemory::Commit(const unsigned long long ANumBytes) {
 	if (ANumBytes > FCommitSize) {
-		if(Core().FModuleManager.FC.Call<Modules::LibC::mprotect>(FReservation, ANumBytes, PROT_READ | PROT_WRITE) != 0)
+		if(ANumBytes > FReservationSize || 
+			Core().FModuleManager.FC.Call<Modules::LibC::mprotect>(FReservation, ANumBytes, PROT_READ | PROT_WRITE) != 0)
 			throw Exception::Internal(Exception::Internal::MEMORY_COMMITAL_FAILURE);
 		FCommitSize = ANumBytes;
 	}

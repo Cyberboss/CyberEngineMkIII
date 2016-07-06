@@ -9,8 +9,7 @@ void* CYB::Platform::System::VirtualMemory::InitReservation(const unsigned long 
 
 	if (Reservation == MAP_FAILED) 
 		throw Exception::Internal(Exception::Internal::MEMORY_RESERVATION_FAILURE);
-	return Reservation;
-}
+	return Reservation;}
 
 CYB::Platform::System::VirtualMemory::~VirtualMemory() {
 	API::Assert::Equal(Core().FModuleManager.FC.Call<Modules::LibC::munmap>(FReservation, FReservationSize), 0);

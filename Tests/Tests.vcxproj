@@ -139,6 +139,7 @@
     <ClInclude Include="Utils\Backdoor.hpp" />
     <ClInclude Include="Utils\CallRedirect.hpp" />
     <ClInclude Include="Utils\Fakes.hpp" />
+    <ClInclude Include="Utils\ForkRegistry.hpp" />
     <ClInclude Include="Utils\ModuleDependancy.hpp" />
     <ClInclude Include="Utils\RedirectedFunction.hpp" />
     <ClInclude Include="Utils\Utils.hpp" />

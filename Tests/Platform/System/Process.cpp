@@ -15,6 +15,12 @@ SCENARIO("Getting the running process works", "[Platform][System][Process][Unit]
 	}
 }
 
+FORKED_FUNCTION(InfiniteLoop) {
+	static_cast<void>(AArgumentCount);
+	static_cast<void>(AArguments);
+	for (;;);
+}
+
 SCENARIO("Process constructors work", "[Platform][System][Process][Unit]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
@@ -30,12 +36,13 @@ SCENARIO("Process constructors work", "[Platform][System][Process][Unit]") {
 			}
 		}
 	}
-	const CYB::API::String::UTF8 CommandLine(CYB::API::String::Static(u8"--refork --loop"));
+	const CYB::API::String::UTF8 CommandLine(CYB::API::String::Static(u8"--refork InfiniteLoop"));
 	GIVEN("The Path of a process image") {
 		Path ThePath(Path::SystemPath::EXECUTABLE_IMAGE);
 		WHEN("The process is constructed from that name") {
 			CYB::Platform::System::Process* Proc(nullptr);
 			REQUIRE_NOTHROW(Proc = new CYB::Platform::System::Process(ThePath, CommandLine));
+			CYB::Platform::System::Thread::Sleep(5000);
 			THEN("All is well") {
 				CHECK(Proc->Active());
 				Proc->Terminate();

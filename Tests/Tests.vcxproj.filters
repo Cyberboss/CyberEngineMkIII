@@ -70,6 +70,9 @@
     <ClInclude Include="Utils\Backdoor.hpp">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\ForkRegistry.hpp">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

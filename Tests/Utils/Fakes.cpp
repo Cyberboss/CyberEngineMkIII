@@ -3,6 +3,10 @@
 #pragma clang diagnostic ignored "-Wdelete-non-virtual-dtor"
 #endif
 
+bool BasicCmp(const char* const A, const char* const B) {
+	return CYB::API::String::Static(A) == CYB::API::String::Static(B);
+}
+
 Fake::Allocator::Allocator() :
 	CYB::API::Interop::Allocator(*new Heap())
 {}

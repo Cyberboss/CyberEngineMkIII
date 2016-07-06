@@ -5,6 +5,7 @@
 #include "RedirectedFunction.hpp"
 #include "CallRedirect.hpp"
 #include "ModuleDependancy.hpp"
+#include "ForkRegistry.hpp"
 
 namespace CYB {
 	namespace Exception {

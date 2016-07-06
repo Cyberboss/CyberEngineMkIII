@@ -89,8 +89,10 @@ void CYB::Engine::Memory::Block::SetFree(const bool ANewFree) noexcept {
 }
 
 void CYB::Engine::Memory::Block::Validate(void) const {
+#ifdef DEBUG
 	API::Assert::Equal<unsigned long long>(FMagicHeader, MAGIC_HEADER);
 	API::Assert::Equal<unsigned long long>(FMagicFooter, MAGIC_FOOTER);
+#endif
 }
 
 CYB::Engine::Memory::Block& CYB::Engine::Memory::Block::Splice(const unsigned int ASizeToKeep) noexcept {

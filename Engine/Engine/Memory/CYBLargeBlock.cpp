@@ -33,8 +33,10 @@ CYB::Engine::Memory::Block& CYB::Engine::Memory::LargeBlock::AllocateBlock(Large
 }
 
 void CYB::Engine::Memory::LargeBlock::Validate(void) const {
+#ifdef DEBUG
 	API::Assert::Equal<unsigned long long>(FMagicHeader, MAGIC_HEADER);
 	API::Assert::Equal<unsigned long long>(FMagicFooter, MAGIC_FOOTER);
+#endif
 	Block::Validate();
 }
 

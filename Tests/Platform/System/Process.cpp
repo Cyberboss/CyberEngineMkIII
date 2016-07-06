@@ -42,7 +42,6 @@ SCENARIO("Process constructors work", "[Platform][System][Process][Unit]") {
 		WHEN("The process is constructed from that name") {
 			CYB::Platform::System::Process* Proc(nullptr);
 			REQUIRE_NOTHROW(Proc = new CYB::Platform::System::Process(ThePath, CommandLine));
-			CYB::Platform::System::Thread::Sleep(5000);
 			THEN("All is well") {
 				CHECK(Proc->Active());
 				Proc->Terminate();

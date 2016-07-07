@@ -11,7 +11,7 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 		char ThePath[PATH_MAX];
 		if (MM.FC.Call<Modules::LibC::readlink>("/proc/self/exe", ThePath, PATH_MAX) > 0) {
 			API::String::Static AsStatic(ThePath);
-			API::String::UTF8 Work(AsStatic);
+			API::String::Dynamic Work(AsStatic);
 			if (ADirectory == SystemPath::EXECUTABLE) {
 				auto Last(0);
 				for(auto I(0U); I < Work.RawLength(); ++I)
@@ -21,8 +21,7 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 			}
 			return Work;
 		}
-		throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
-	}
+		throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);}
 	case SystemPath::RESOURCE:
 	case SystemPath::TEMPORARY:
 	case SystemPath::USER:

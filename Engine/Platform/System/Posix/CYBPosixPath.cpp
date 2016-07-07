@@ -34,11 +34,11 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 
 void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
 	//In order to follow the policy of not evaluating symlinks we simply readlink the '.' operator
-	APath += CYB::API::String::UTF8(CYB::API::String::Static(u8"/."));
+	auto NewPath(APath + CYB::API::String::UTF8(CYB::API::String::Static(u8"/.")));
 	char ThePath[PATH_MAX];
-	if (Core().FModuleManager.FC.Call<Modules::LibC::readlink>(APath.CString(), ThePath, PATH_MAX) <= 0)
+	if (Core().FModuleManager.FC.Call<Modules::LibC::readlink>(NewPath.CString(), ThePath, PATH_MAX) <= 0)
 		throw Exception::Internal(Exception::Internal::PATH_EVALUATION_FAILURE);
-	APath = CYB::API::String::UTF8(CYB::API::String::Static(ThePath)) + CYB::API::String::UTF8(CYB::API::String::Static(u8"/."));
+	APath = CYB::API::String::UTF8(CYB::API::String::Static(ThePath));
 }
 
 bool CYB::Platform::System::Path::Verify(const API::String::UTF8& APath) {

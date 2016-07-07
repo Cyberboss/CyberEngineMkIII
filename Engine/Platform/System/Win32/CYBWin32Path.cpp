@@ -41,7 +41,7 @@ void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
 	wchar_t OutputBuffer[MAX_PATH];
 	if (Core().FModuleManager.FShellAPI.Call<Modules::ShellAPI::PathCanonicalizeW>(OutputBuffer, As16.WString()) == FALSE)
 		throw Exception::Internal(Exception::Internal::PATH_EVALUATION_FAILURE);
-	APath = API::String::UTF16::ToUTF8(OutputBuffer) + CYB::API::String::UTF8(CYB::API::String::Static(u8"/"));
+	APath = API::String::UTF16::ToUTF8(OutputBuffer);
 }
 
 bool CYB::Platform::System::Path::Verify(const API::String::UTF8& APath) {

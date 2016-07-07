@@ -45,7 +45,8 @@ inline char* CYB::API::String::Dynamic::CopyCStyle(const CStyle& AData, int ALen
 	if (AData.RawLength() > 0) {
 		Assert::LessThan(AData.RawLength(), std::numeric_limits<int>::max());
 		auto Data(static_cast<char*>(Allocator().FHeap.Alloc(static_cast<int>(ALength + 1))));
-		std::copy(AData.CString(), AData.CString() + ALength + 1, Data);
+		std::copy(AData.CString(), AData.CString() + ALength, Data);
+		Data[ALength] = 0;
 		return Data;
 	}
 	return nullptr;

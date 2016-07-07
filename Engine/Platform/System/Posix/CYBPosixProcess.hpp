@@ -11,7 +11,7 @@ namespace CYB {
 					int FExitCode;
 					bool FExitCodeReady;
 				private:
-					static pid_t SpawnProcess(const Path& APath, const API::String::UTF8& ACommandLine);
+					static pid_t SpawnProcess(const Path& APath, const API::String::Dynamic& ACommandLine);
 				protected:
 					Process() noexcept;
 					Process(const Path& APath, const API::String::UTF8& ACommandLine);

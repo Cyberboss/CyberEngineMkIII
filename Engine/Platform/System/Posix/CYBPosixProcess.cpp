@@ -17,10 +17,11 @@ CYB::Platform::System::Implementation::Process::Process() noexcept :
 
 
 CYB::Platform::System::Implementation::Process::Process(const Path& APath, const API::String::UTF8& ACommandLine) :
-	FPID(SpawnProcess(APath, ACommandLine))
+	FPID(SpawnProcess(APath, ACommandLine)),
+	FExitCodeReady(false)
 {}
 
-pid_t CYB::Platform::System::Implementation::Process::SpawnProcess(const CYB::Platform::System::Path& APath, const CYB::API::String::UTF8& ACommandLine) {
+pid_t CYB::Platform::System::Implementation::Process::SpawnProcess(const CYB::Platform::System::Path& APath, const CYB::API::String::Dynamic& ACommandLine) {
 
 	//Parse ACommandLine for spaces
 	const char** Argv(nullptr);
@@ -37,42 +38,51 @@ pid_t CYB::Platform::System::Implementation::Process::SpawnProcess(const CYB::Pl
 		for (auto Current(Base); Current != nullptr; Current = Base->FNext, CYB::Allocator().FHeap.Free(Base), Base = Current);
 		CYB::Allocator().FHeap.Free(Argv);
 	});
+	struct AutoCleanup {
+	private:
+		const decltype(Cleanup) FCleanup;
+	public:
+		AutoCleanup(const decltype(Cleanup)& ACleanup) :
+			FCleanup(ACleanup)
+		{}
+		~AutoCleanup() {
+			FCleanup();
+		}
+	};
+
+	AutoCleanup AC(Cleanup);
+
 	if (ACommandLine.RawLength() > 0) {
 		unsigned int Count(0), Last(0);
-		try {
-			for(unsigned int I(0); I < ACommandLine.RawLength(); ++I)
-				if (ACommandLine.CString()[I] == ' ') {
-					Argv = static_cast<const char**>(CYB::Allocator().FHeap.Realloc(Argv, Count + 1));
+		const auto AddRange([&](const unsigned int AStart, const unsigned int AEnd) {
+			if (Work == nullptr) {
+				Base = static_cast<UTF8Link*>(CYB::Allocator().FHeap.Alloc(sizeof(UTF8Link)));
+				Work = Base;
+			}
+			else {
+				Work->FNext = static_cast<UTF8Link*>(CYB::Allocator().FHeap.Alloc(sizeof(UTF8Link)));
+				Work = Work->FNext;
+			}
+			Work->FNext = nullptr;
+			CYB::Allocator().InPlaceAllocation<CYB::API::String::Dynamic>(&Work->FString, ACommandLine.SubString(AStart, AEnd - Last));
+			Last = AEnd + 1;
 
-					if (Work == nullptr) {
-						Base = static_cast<UTF8Link*>(CYB::Allocator().FHeap.Alloc(sizeof(UTF8Link)));
-						Work = Base;
-					}
-					else
-						Work = static_cast<UTF8Link*>(CYB::Allocator().FHeap.Alloc(sizeof(UTF8Link)));
+			++Count;
+		});
+		for (unsigned int I(0); I < ACommandLine.RawLength(); ++I)
+			if (ACommandLine.CString()[I] == ' ')
+				AddRange(Last, I);
+		AddRange(Last, ACommandLine.RawLength());
 
-					Work->FNext = nullptr;
-					CYB::Allocator().InPlaceAllocation<CYB::API::String::UTF8>(&Work->FString, ACommandLine.SubString(Last, I));
-					Last = I + 1;
+		Argv = static_cast<const char**>(CYB::Allocator().FHeap.Alloc(Count * sizeof(const char*)));
 
-					++Count;
-				}
-
-			Argv = static_cast<const char**>(CYB::Allocator().FHeap.Alloc(Count * sizeof(const char*)));
-
-			Work = Base;
-			for (auto I(0U); Work != nullptr; Work = Work->FNext, ++I)
-				Argv[I] = Work->FString.CString();
-		}
-		catch (...) {
-			Cleanup();
-			throw;
-		}
+		Work = Base;
+		for (auto I(0U); Work != nullptr; Work = Work->FNext, ++I)
+			Argv[I] = Work->FString.CString();
 	}
 
 	pid_t PID;
 	const auto Result(CYB::Core().FModuleManager.FC.Call<CYB::Platform::Modules::LibC::posix_spawn>(&PID, APath().CString(), nullptr, nullptr, const_cast<char**>(Argv), environ));
-	Cleanup();
 
 	if (Result != 0)
 		switch (errno) {
@@ -83,7 +93,6 @@ pid_t CYB::Platform::System::Implementation::Process::SpawnProcess(const CYB::Pl
 		case ENOEXEC:
 		case ELIBBAD:
 		case EINVAL:
-			throw CYB::Exception::Internal(CYB::Exception::Internal::FILE_NOT_EXECUTABLE);
 		case EACCES:
 		case ETXTBSY:
 			throw CYB::Exception::SystemData(CYB::Exception::SystemData::FILE_NOT_READABLE);
@@ -110,55 +119,25 @@ bool CYB::Platform::System::Process::operator==(const Process& ARHS) const noexc
 }
 
 bool CYB::Platform::System::Process::Wait(const unsigned int AMilliseconds) {
-	for (auto I(0U); I < AMilliseconds && FExitCodeReady; Thread::Sleep(1), ++I) {
-		const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::waitpid>(FPID, &FExitCode, 0));
+	if (!FExitCodeReady) {
+		const auto WaitForever(AMilliseconds == 0);
+		pid_t Result(0);
+		if (WaitForever)
+			Result = Core().FModuleManager.FC.Call<Modules::LibC::waitpid>(FPID, &FExitCode, 0);
+		else
+			for (auto I(0U); I < AMilliseconds && Result == 0; Thread::Sleep(1), ++I)
+				Result = Core().FModuleManager.FC.Call<Modules::LibC::waitpid>(FPID, &FExitCode, WNOHANG);
+
 		if (Result == -1)
 			throw Exception::Internal(Exception::Internal::PROCESS_EXIT_CODE_UNCHECKABLE);
-		FExitCodeReady = Result == FPID;
-	}
-	return FExitCodeReady;
-	//Wonky supposedly thread safe implementation
-	/*
-	auto& LibC(Core().FModuleManager.FC);
-	const auto WaitRequired(FReapStatus.fetch_add(1, std::memory_order_acquire));
-	if (-255 <= WaitRequired && WaitRequired <= 0) {
-		if (WaitRequired == 1) {
-			if (AMilliseconds == 0) {
-				if (LibC.Call<Modules::LibC::waitpid>(FPID, &FExitCode, 0) == -1) {
-					FReapStatus.store(1, std::memory_order_relaxed);
-					throw Exception::Internal(Exception::Internal::PROCESS_EXIT_CODE_UNCHECKABLE);
-				}
-				FReapStatus.store(-255, std::memory_order_release);
-			}
-			else {
-				for (auto I(0U); I < AMilliseconds; Thread::Sleep(1), ++I) {
-					if (LibC.Call<Modules::LibC::waitpid>(FPID, &FExitCode, 0) == -1) {
-						FReapStatus.store(1, std::memory_order_relaxed);
-						throw Exception::Internal(Exception::Internal::PROCESS_EXIT_CODE_UNCHECKABLE);
-					}
-					FReapStatus.store(-255, std::memory_order_release);
-					break;
-				}
-			}
+
+		if (Result != 0) {
+			API::Assert::Equal(FPID, Result);
+			FExitCode = WEXITSTATUS(FExitCode);
+			FExitCodeReady = true;
 		}
-		else if (AMilliseconds == 0)
-			long long LastResult(2);
-		for (; LastResult > 1; Thread::Sleep(1), LastResult = FReapStatus.fetch_add(1, std::memory_order_relaxed));
-		if (LastResult == 1)
-			return Wait();
-		else {
-			long long LastResult(2);
-			auto I(0U);
-			for (; I < AMilliseconds && LastResult > 1; Thread::Sleep(1), ++I, LastResult = FReapStatus.fetch_add(1, std::memory_order_relaxed));
-			if (LastResult == 1)
-				return Wait(AMilliseconds - I);
-		}
-		const auto Result(FReapStatus.load(std::memory_order_relaxed));
-		return -255 <= Result && Result <= 0;
 	}
-	return true;
-	*/
-}
+	return FExitCodeReady;}
 
 int CYB::Platform::System::Process::GetExitCode(void) {
 	Wait();

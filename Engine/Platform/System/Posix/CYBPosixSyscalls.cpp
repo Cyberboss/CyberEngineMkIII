@@ -112,6 +112,8 @@ unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACall
 		return reinterpret_cast<unsigned long long>(dlopen(static_cast<const char*>(AArg1.FPointer), AArg2.FNumber));
 	case LOAD_SYMBOL:
 		return reinterpret_cast<unsigned long long>(dlsym(AArg1.FPointer, static_cast<const char*>(AArg2.FPointer)));
+	case STAT:
+		return static_cast<unsigned long long>(stat(static_cast<const char*>(AArg1.FPointer), static_cast<StatStruct*>(AArg2.FPointer)));
 	default:
 		API::Assert::HCF();
 	}
@@ -138,6 +140,7 @@ void CYB::Platform::System::Sys::VerifyArgumentCount(const CallNumber ACallNumbe
 	case LOAD_LIBRARY:
 	case LOAD_SYMBOL:
 	case GET_CURRENT_PROCESS:
+	case STAT:
 		API::Assert::HCF();
 	}
 }

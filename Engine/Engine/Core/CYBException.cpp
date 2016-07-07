@@ -72,6 +72,8 @@ CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode 
 		return API::String::Static(u8"Failed to load a requested function from a module.");
 	case MODULE_LOAD_FAILURE:
 		return API::String::Static(u8"Failed to load a requested module.");
+	case PATH_EVALUATION_FAILURE:
+		return API::String::Static(u8"Failed to evaluate a Path.");
 	case PROCESS_CREATION_ERROR:
 		return API::String::Static(u8"Failed to create Process for unknown reasons.");
 	case PROCESS_EXIT_CODE_UNCHECKABLE:

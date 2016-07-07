@@ -107,6 +107,7 @@ namespace CYB {
 				MEMORY_RESERVATION_FAILURE, //!< @brief Memory could not be reserved
 				MODULE_FUNCTION_LOAD_FAILURE, //!< @brief Specific could not be loaded from given Module
 				MODULE_LOAD_FAILURE, //!< @brief Module could not be loaded
+				PATH_EVALUATION_FAILURE, //!< @brief Failed to evaluate a Path
 				PROCESS_CREATION_ERROR,	//!< @brief Process could not be created for unknown reasons
 				PROCESS_EXIT_CODE_UNCHECKABLE, //!< @brief Tried to check the error code of a Process the OS would not allow
 				PROCESS_TERMINATION_ERROR, //!< @brief Process could not be terminated, most likely due to insufficient priviledges

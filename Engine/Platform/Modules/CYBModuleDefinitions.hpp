@@ -20,7 +20,7 @@ DEFINE_WINDOWS_MODULE(Kernel32, "kernel32.dll", Win32, false,
 DEFINE_WINDOWS_MODULE(Kernel32Extended, "kernel32.dll", Win32, true, DiscardVirtualMemory)
 
 DEFINE_WINDOWS_MODULE(Shell, "shell32.dll", Win32, false, ShellExecuteExW)
-DEFINE_WINDOWS_MODULE(ShellAPI, "shlwapi.dll", Win32, false, PathRemoveFileSpecW)
+DEFINE_WINDOWS_MODULE(ShellAPI, "shlwapi.dll", Win32, false, PathRemoveFileSpecW, PathCanonicalizeW, PathFileExistsW)
 
 #ifdef TARGET_OS_LINUX
 #include <gnu/lib-names.h>

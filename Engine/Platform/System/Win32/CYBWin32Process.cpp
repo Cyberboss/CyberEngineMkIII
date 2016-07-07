@@ -84,7 +84,7 @@ bool CYB::Platform::System::Process::Active(void) const noexcept {
 }
 
 bool CYB::Platform::System::Process::operator==(const Process& ARHS) const noexcept {
-	if (Active()) {
+	if (Active() && ARHS.Active()) {
 		const auto Result(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetProcessId>(FHandle));
 		if (Result != 0)
 			return Result == Core().FModuleManager.FK32.Call<Modules::Kernel32::GetProcessId>(ARHS.FHandle);

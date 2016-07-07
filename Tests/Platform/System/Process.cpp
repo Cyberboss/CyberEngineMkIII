@@ -66,6 +66,9 @@ SCENARIO("Process equivalence works", "[Platform][System][Process][Unit]") {
 			auto Proc2(CYB::Platform::System::Process::GetSelf());
 			THEN("They are the same") {
 				CHECK(Proc == Proc2);
+				CHECK(Proc2 == Proc);
+				CHECK_FALSE(Proc != Proc2);
+				CHECK_FALSE(Proc2 != Proc);
 			}
 		}
 		WHEN("The process is compared with baloney") {
@@ -74,13 +77,19 @@ SCENARIO("Process equivalence works", "[Platform][System][Process][Unit]") {
 			*reinterpret_cast<unsigned int*>(&Proc2) = static_cast<unsigned int>(-2);
 			THEN("They are not the same") {
 				CHECK(Proc != Proc2);
+				CHECK(Proc2 != Proc);
+				CHECK_FALSE(Proc == Proc2);
+				CHECK_FALSE(Proc2 == Proc);
 			}
 		}
 		WHEN("The process is compared with a dead process") {
 			Process Proc3(CYB::API::String::UTF8(CYB::API::String::Static(u8"--refork Nothing")));
 			Proc3.Terminate();
 			THEN("They are not the same") {
+				CHECK_FALSE(Proc == Proc3);
+				CHECK_FALSE(Proc3 == Proc);
 				CHECK(Proc != Proc3);
+				CHECK(Proc3 != Proc);
 			}
 		}
 	}

@@ -34,6 +34,7 @@ namespace CYB {
 				static API::String::UTF8 LocateDirectory(const SystemPath ADirectory);
 				
 				static bool CreateDirectory(const API::String::UTF8& APath);
+				static bool RecursiveTryCreateDirectory(const API::String::UTF8& APath, const bool ACreateLast);
 
 				static void Evaluate(API::String::UTF8& APath);
 
@@ -54,7 +55,7 @@ namespace CYB {
 
 				/*!
 					@brief Append a directory/file to the path
-					@param AAppendage The string to append to the path. This may contain '/'s and ".."s as required
+					@param AAppendage The string to append to the path. This may contain '/'s and ".."s as required. If the last file in the path does not exist, the function will still succeed, however, further calls on the object will generate a CYB::Exception::SystemData::PATH_LOST error
 					@param ACreateIfNonExistant Create the path as a directory if it does not exist
 					@param ACreateRecursive Ignored if @p ACreateIfNonExistant is false
 					@return true if navigation succeeded, false otherwise
@@ -68,7 +69,7 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the new path would exceed the limitation
 				*/
 				bool Append(const API::String::UTF8& AAppendage, const bool ACreateIfNonExistant, const bool ACreateRecursive);
-				void NavigateUp(void);
+				void NavigateToParentDirectory(void);
 				void Delete(const bool ARecursive) const;
 
 				bool IsDirectory(void) const;
@@ -80,9 +81,8 @@ namespace CYB {
 
 				void SetAsWorkingDirectory(void) const;
 
-				Path operator+(const Path& AOtherPath) const;
 				/*!
-					@brief Public access to the underlying string
+					@brief Public access to the underlying string. Does not verify the path
 					@return The UTF8 string representing the Path. Will always be fully evaluated
 					@par Thread Safety
 						This function requires synchronization at the object level

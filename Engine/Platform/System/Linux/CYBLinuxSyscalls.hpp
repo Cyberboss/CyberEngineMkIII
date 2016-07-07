@@ -13,6 +13,7 @@ namespace CYB {
 						LOAD_SYMBOL = -3,
 						CLOSE_LIBRARY = -4,
 						GET_CURRENT_PROCESS = -5,
+						STAT = -6,
 					};
 				};
 			};

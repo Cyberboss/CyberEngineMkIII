@@ -28,6 +28,11 @@ template <typename AType> void CYB::API::Assert::Equal(const AType& ALHS, const 
 		HCF();
 }
 
+template <typename AType, typename... AOtherTypes> void CYB::API::Assert::Equal(const AType& ALHS, const AType& ARHS, AOtherTypes&&... ARHSs) noexcept {
+	if (ALHS != ARHS)
+		Equal(ALHS, std::forward<AOtherTypes>(ARHS)...);
+}
+
 template <typename AType> void CYB::API::Assert::NotEqual(const AType& ALHS, const AType& ARHS) noexcept {
 	if (ALHS == ARHS)
 		HCF();

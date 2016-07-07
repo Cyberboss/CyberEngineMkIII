@@ -27,10 +27,23 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 		throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 	}
 	case SystemPath::RESOURCE:
+		return GetResourceDirectory();
 	case SystemPath::TEMPORARY:
 	case SystemPath::USER:
 	case SystemPath::WORKING:
 	default:
 		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
 	}
+}
+
+void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
+	API::String::UTF16 As16(APath);
+	wchar_t OutputBuffer[MAX_PATH];
+	if (Core().FModuleManager.FShellAPI.Call<Modules::ShellAPI::PathCanonicalizeW>(OutputBuffer, As16.WString()) == FALSE)
+		throw Exception::Internal(Exception::Internal::PATH_EVALUATION_FAILURE);
+	APath = API::String::UTF16::ToUTF8(OutputBuffer) + CYB::API::String::UTF8(CYB::API::String::Static(u8"/"));
+}
+
+bool CYB::Platform::System::Path::Verify(const API::String::UTF8& APath) {
+	return Core().FModuleManager.FShellAPI.Call<Modules::ShellAPI::PathFileExistsW>(API::String::UTF16(APath).WString()) == TRUE;
 }

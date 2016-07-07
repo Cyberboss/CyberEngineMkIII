@@ -45,16 +45,27 @@ namespace CYB {
 			/*!
 				@brief Equivalence assertion function. May not be evaluated
 				@param ALHS the left hand side of the equation
-				@param ARHS the left hand side of the equation
+				@param ARHS the right hand side of the equation
 				@tparam AType The type of @p ALHS and @p ARHS
 				@par Thread Safety
 					This function requires no thread safety
 			*/
 			template <typename AType> static void Equal(const AType& ALHS, const AType& ARHS) noexcept;
 			/*!
+				@brief Equal against one or more things assertion function. May not be evaluated
+				@param ALHS the left hand side of the equations
+				@param ARHS the right hand side of the current equations
+				@param ARHSs the right hand sides of the remaining equations
+				@tparam AType The type of @p ALHS
+				@tparam AOtherTypes The types of @p ARHSs must be comparable with AType
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			template <typename AType, typename... AOtherTypes> static void Equal(const AType& ALHS, const AType& ARHS, AOtherTypes&&... ARHSs) noexcept;
+			/*!
 				@brief Unequivalence assertion function. May not be evaluated
 				@param ALHS the left hand side of the equation
-				@param ARHS the left hand side of the equation
+				@param ARHS the right hand side of the equation
 				@tparam AType The type of @p ALHS and @p ARHS
 				@par Thread Safety
 					This function requires no thread safety
@@ -63,7 +74,7 @@ namespace CYB {
 			/*!
 				@brief Less than assertion function. May not be evaluated
 				@param ALHS the left hand side of the equation
-				@param ARHS the left hand side of the equation
+				@param ARHS the right hand side of the equation
 				@tparam AType The type of @p ALHS and @p ARHS
 				@par Thread Safety
 					This function requires no thread safety
@@ -72,7 +83,7 @@ namespace CYB {
 			/*!
 				@brief Less than or equal assertion function. May not be evaluated
 				@param ALHS the left hand side of the equation
-				@param ARHS the left hand side of the equation
+				@param ARHS the right hand side of the equation
 				@tparam AType The type of @p ALHS and @p ARHS
 				@par Thread Safety
 					This function requires no thread safety

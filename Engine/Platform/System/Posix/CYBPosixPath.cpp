@@ -23,10 +23,25 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 		}
 		throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);}
 	case SystemPath::RESOURCE:
+		return GetResourceDirectory();
 	case SystemPath::TEMPORARY:
 	case SystemPath::USER:
 	case SystemPath::WORKING:
 	default:
 		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
 	}
+}
+
+void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
+	//In order to follow the policy of not evaluating symlinks we simply readlink the '.' operator
+	APath += CYB::API::String::UTF8(CYB::API::String::Static(u8"/."));
+	char ThePath[PATH_MAX];
+	if (Core().FModuleManager.FC.Call<Modules::LibC::readlink>(APath.CString(), ThePath, PATH_MAX) <= 0)
+		throw Exception::Internal(Exception::Internal::PATH_EVALUATION_FAILURE);
+	APath = CYB::API::String::UTF8(CYB::API::String::Static(ThePath)) + CYB::API::String::UTF8(CYB::API::String::Static(u8"/."));
+}
+
+bool CYB::Platform::System::Path::Verify(const API::String::UTF8& APath) {
+	StatStruct ST;
+	return Sys::Call(Sys::STAT, const_cast<char*>(APath.CString()), &ST) == 0;
 }

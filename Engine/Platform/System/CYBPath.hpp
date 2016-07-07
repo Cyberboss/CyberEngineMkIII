@@ -5,7 +5,7 @@ namespace CYB {
 		namespace System {
 			/*!
 				@brief Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are '/' delimited when forming though may not be while retrieving. File names ".." will ascend a directory and '.' represents a no-op
-				@attention Only UTF-8 encodedable paths are supported, paths lengths may not exceed 256 BYTES, and directory names may not exceed 248 characters
+				@attention Only UTF-8 encodedable paths are supported, paths lengths may not exceed 256 BYTES, and directory names may not exceed 248 characters. Symlinks, for all intents and purposes, act as hardlinks that can be broken
 			*/
 			class Path {
 			public:
@@ -29,15 +29,24 @@ namespace CYB {
 					@return The string path of @p ADirectory
 					@par Thread Safety
 						Use of SystemDirectory::WORKING must be synchronized with SetAsWorkingDirectory. Otherwise, this function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the specified path could not be retrieved
 				*/
 				static API::String::UTF8 LocateDirectory(const SystemPath ADirectory);
+				/*!
+					@brief Get the string path of SystemDirectory::RESOURCE
+					@return The string path of SystemDirectory::RESOURCE
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the specified path could not be retrieved
+				*/
+				static API::String::UTF8 GetResourceDirectory(void);
 				
 				static bool CreateDirectory(const API::String::UTF8& APath);
-				static bool RecursiveTryCreateDirectory(const API::String::UTF8& APath, const bool ACreateLast);
+				static bool RecursiveTryCreateDirectories(const API::String::UTF8& APath, const bool ACreateLast);
 
 				static void Evaluate(API::String::UTF8& APath);
-
 				static bool Verify(const API::String::UTF8& APath);
 			public:
 				/*!
@@ -45,6 +54,7 @@ namespace CYB {
 					@param ADirectory The type of SystemDirectory to look up
 					@par Thread Safety
 						Use of CYB::Platform::Path::SystemDirectory::WORKING must be synchronized with SetAsWorkingDirectory. Otherwise, this function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the specified path could not be retrieved
 				*/
 				Path(const SystemPath ADirectory);
@@ -66,9 +76,13 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE If some part of the new path is not readable. This does NOT include the final file
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE If the new path could not be created. Filesystem state will be reverted even while doing recursive creation
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_TOO_LONG If the new path would exceed the limitation
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the new path would exceed the limitation
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify
 				*/
 				bool Append(const API::String::UTF8& AAppendage, const bool ACreateIfNonExistant, const bool ACreateRecursive);
+				/*!
+					@brief Navigate the path to the parent directory
+					@attention On POSIX systems, symlinks in path names are resolved upon path evaluation. This could lead to strange behaviour, though the onus is on the user for changing their file system
+				*/
 				void NavigateToParentDirectory(void);
 				void Delete(const bool ARecursive) const;
 

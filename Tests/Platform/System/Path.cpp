@@ -1,6 +1,7 @@
 #include "TestHeader.hpp"
 
 using namespace CYB::Platform::System;
+using namespace CYB::API::String;
 
 SCENARIO("Paths can be created by the system", "[Platform][System][Path][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
@@ -13,7 +14,32 @@ SCENARIO("Paths can be created by the system", "[Platform][System][Path][Unit]")
 			THEN("All is well") {
 				CHECK(TestPath != nullptr);
 			}
-			delete TestPath;
+		}
+		WHEN("The executable image path is retrieved") {
+			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::EXECUTABLE_IMAGE));
+			THEN("All is well") {
+				CHECK(TestPath != nullptr);
+			}
+		}
+		WHEN("The resource directory is retrieved") {
+			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::RESOURCE));
+			THEN("All is well") {
+				CHECK(TestPath != nullptr);
+			}
+		}
+		delete TestPath;
+	}
+}
+
+SCENARIO("Path string retrieval operator works", "[Platform][System][Path][Unit]") {
+	GIVEN("A UTF8 string interpreted as a Path") {
+		UTF8 Fake(Static(u8"asdf"));
+		const Path& Ref(*reinterpret_cast<Path*>(&Fake));
+		WHEN("The string is retrieved") {
+			auto Cop(Ref());
+			THEN("They are equal") {
+				CHECK(Cop == Fake);
+			}
 		}
 	}
 }

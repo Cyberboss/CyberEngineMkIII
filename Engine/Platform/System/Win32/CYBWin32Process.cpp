@@ -42,34 +42,29 @@ HANDLE CYB::Platform::System::Implementation::Process::CreateProcess(const CYB::
 
 	const auto Result(MM.FK32.Call<CYB::Platform::Modules::Kernel32::CreateProcessW>(ExeAs16.WString(), CmdlAs16.WideData(), nullptr, nullptr, FALSE, DWORD(0), nullptr, nullptr, &StartupInfo, &ProcessInformation));
 
-	if (Result == 0) {
-		for (;;) {
-			const auto Error(MM.FK32.Call<CYB::Platform::Modules::Kernel32::GetLastError>());
-			switch (Error) {
-			case ERROR_ACCESS_DENIED:
-				throw CYB::Exception::SystemData(CYB::Exception::SystemData::FILE_NOT_READABLE);
-			case ERROR_FILE_NOT_FOUND:
-				throw CYB::Exception::SystemData(CYB::Exception::SystemData::FILE_NOT_FOUND);
-			case ERROR_ELEVATION_REQUIRED:
-				//try again with elevation by using shell execute
-			{
-				SHELLEXECUTEINFO ShellExecuteInfo{ sizeof(SHELLEXECUTEINFO), SEE_MASK_NOASYNC | SEE_MASK_NOCLOSEPROCESS, nullptr, L"runas", ExeAs16.WString(), CmdlAs16.WString(), nullptr, SW_SHOWNORMAL, 0, nullptr, nullptr, 0 };
-				ShellExecuteInfo.hIcon = 0;
-				ShellExecuteInfo.hMonitor = 0;
-				ShellExecuteInfo.hProcess = 0;
-				const auto Result2(MM.FShell.Call<CYB::Platform::Modules::Shell::ShellExecuteExW>(&ShellExecuteInfo));
-				if (Result2 == TRUE) {
-					CYB::API::Assert::LessThan(reinterpret_cast<HINSTANCE>(32), ShellExecuteInfo.hInstApp);
-					CYB::API::Assert::NotEqual(ShellExecuteInfo.hProcess, static_cast<HANDLE>(nullptr));
-					return ShellExecuteInfo.hProcess;
-				}
-				continue;	//re-reun error handling
-			}
-			default:
-				throw CYB::Exception::Internal(CYB::Exception::Internal::PROCESS_CREATION_ERROR);
+	if (Result == 0)
+		switch (MM.FK32.Call<CYB::Platform::Modules::Kernel32::GetLastError>()) {
+		case ERROR_ACCESS_DENIED:
+			throw CYB::Exception::SystemData(CYB::Exception::SystemData::FILE_NOT_READABLE);
+		case ERROR_FILE_NOT_FOUND:
+			throw CYB::Exception::SystemData(CYB::Exception::SystemData::FILE_NOT_FOUND);
+		case ERROR_ELEVATION_REQUIRED:
+			//try again with elevation by using shell execute
+		{
+			SHELLEXECUTEINFO ShellExecuteInfo{ sizeof(SHELLEXECUTEINFO), SEE_MASK_NOASYNC | SEE_MASK_NOCLOSEPROCESS, nullptr, L"runas", ExeAs16.WString(), CmdlAs16.WString(), nullptr, SW_SHOWNORMAL, 0, nullptr, nullptr, 0 };
+			ShellExecuteInfo.hIcon = 0;
+			ShellExecuteInfo.hMonitor = 0;
+			ShellExecuteInfo.hProcess = 0;
+			const auto Result2(MM.FShell.Call<CYB::Platform::Modules::Shell::ShellExecuteExW>(&ShellExecuteInfo));
+			if (Result2 == TRUE) {
+				CYB::API::Assert::LessThan(reinterpret_cast<HINSTANCE>(32), ShellExecuteInfo.hInstApp);
+				CYB::API::Assert::NotEqual(ShellExecuteInfo.hProcess, static_cast<HANDLE>(nullptr));
+				return ShellExecuteInfo.hProcess;
 			}
 		}
-	}
+		default:
+			throw CYB::Exception::Internal(CYB::Exception::Internal::PROCESS_CREATION_ERROR);
+		}
 
 	MM.FK32.Call<CYB::Platform::Modules::Kernel32::CloseHandle>(ProcessInformation.hThread);
 	return ProcessInformation.hProcess;

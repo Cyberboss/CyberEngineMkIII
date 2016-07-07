@@ -165,6 +165,7 @@ SCENARIO("Process exiting works", "[Platform][System][Process][Unit][Slow]") {
 }
 
 unsigned int CurrentLastError;
+bool SetBadSecond(false);
 
 REDIRECTED_FUNCTION(GetLastErrorHook) {
 	return CurrentLastError;
@@ -174,10 +175,15 @@ bool ShellExecuteHooked(false);
 
 #ifdef TARGET_OS_WINDOWS
 REDIRECTED_FUNCTION(ShellExecuteHook, CYB::Platform::Win32::SHELLEXECUTEINFOW* AData) {
-	ShellExecuteHooked = true;
-	AData->hInstApp = (decltype(AData->hInstApp))(64);
-	AData->hProcess = (decltype(AData->hProcess))(64);
-	return TRUE;
+	if (!SetBadSecond) {
+		ShellExecuteHooked = true;
+		AData->hInstApp = (decltype(AData->hInstApp))(64);
+		AData->hProcess = (decltype(AData->hProcess))(64);
+		return TRUE;
+	}
+	SetBadSecond = false;
+	CurrentLastError = 0;
+	return FALSE;
 }
 #endif
 
@@ -209,9 +215,18 @@ SCENARIO("Process errors work", "[Platform][System][Process][Unit]") {
 			const auto BSE(Shell.Redirect<CYB::Platform::Modules::Shell::ShellExecuteExW, ShellExecuteHook>());
 			const auto BCH(K32.Redirect<CYB::Platform::Modules::Kernel32::CloseHandle, CloseHandleHook>());
 			CurrentLastError = ERROR_ELEVATION_REQUIRED;
-			REQUIRE_NOTHROW(InitProcess());
-			THEN("All is well"){
-				CHECK(ShellExecuteHooked);
+			AND_THEN("We run normally") {
+				REQUIRE_NOTHROW(InitProcess());
+				THEN("All is well") {
+					CHECK(ShellExecuteHooked);
+				}
+			}
+			AND_THEN("We re-error") {
+				SetBadSecond = true;
+				REQUIRE_THROWS_AS(InitProcess(), CYB::Exception::Internal);
+				THEN("The apporopriate error occurs") {
+					CHECK_EXCEPTION_CODE(CYB::Exception::Internal::PROCESS_CREATION_ERROR);
+				}
 			}
 		}
 #endif

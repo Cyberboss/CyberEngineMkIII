@@ -38,6 +38,7 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap ran out of memory
 					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::FILE_NOT_EXECUTABLE if @p APath does not indicate a process image
 					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::PROCESS_CREATION_ERROR if the process could not be created
+					@attention Launching processes which require administrator elevation on Windows will block the current thread until the authorization dialog is closed
 				*/
 				Process(const Path& APath, const API::String::UTF8& ACommandLine);
 				/*!
@@ -51,6 +52,7 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap ran out of memory
 					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::FILE_NOT_EXECUTABLE if @p APath does not indicate a process image
 					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::PROCESS_CREATION_ERROR if the process could not be created
+					@attention Launching processes which require administrator elevation on Windows will block the current thread until the authorization dialog is closed
 				*/
 				Process(const API::String::UTF8& ACommandLine);
 				Process(const Process&) = delete;
@@ -103,7 +105,7 @@ namespace CYB {
 					@return The Process' exit code
 					@par Thread Safety
 						If Active() is true, This function requires sychronization at the object level
-					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::PROCESS_EXIT_CODE_UNCHECKABLE Thrown if the OS would not allow the error code to be checked, usually due to a different user running the target process
+					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::PROCESS_EXIT_CODE_UNCHECKABLE Thrown if the OS would not allow the error code to be checked, usually due to a different user running the target process in the case of Windows elevation
 				*/
 				int GetExitCode(void);
 			};

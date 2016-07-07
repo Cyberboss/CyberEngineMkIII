@@ -66,7 +66,6 @@ HANDLE CYB::Platform::System::Implementation::Process::CreateProcess(const CYB::
 				continue;	//re-reun error handling
 			}
 			default:
-				BREAK;	//TODO: Remove this eventually
 				throw CYB::Exception::Internal(CYB::Exception::Internal::PROCESS_CREATION_ERROR);
 			}
 		}

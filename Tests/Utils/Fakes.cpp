@@ -22,18 +22,15 @@ template<> template<> void CYB::API::Singleton<CYB::Engine::Core>::Backdoor<void
 	FSingleton = static_cast<CYB::Engine::Core*>(AHooker);
 }
 
-Fake::Core::Core(const unsigned long long ASize) {
+Fake::Core::Core() {
 	ResetToFakeCorePointer();
-	static_cast<void>(ASize);
-	//K32 dependancy
-//	new (&CYB::Core().FHeap) CYB::Engine::Memory::Heap(ASize);
 	FAllocator = new Allocator();
 }
 Fake::Core::~Core() {
 	delete FAllocator;
 }
 
-Fake::Core FFakeCore(CYB::API::ByteConverters::Megabytes(50));
+Fake::Core FFakeCore;
 
 void Fake::Core::ResetToFakeCorePointer(void) {
 	auto ref(static_cast<void*>(FFakeCore.FBytes));

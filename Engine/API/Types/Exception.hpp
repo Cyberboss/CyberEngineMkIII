@@ -102,7 +102,6 @@ namespace CYB {
 			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
 				FAILED_TO_CONVERT_UTF16_STRING, //!< @brief A string conversion call failed
-				FILE_NOT_EXECUTABLE,	//!< @brief Tried to create a process with a non-executable image
 				MEMORY_COMMITAL_FAILURE, //!< @brief Memory could not be commited from a reservation
 				MEMORY_PROTECT_FAILURE, //!< @brief Memory protection could not be set
 				MEMORY_RESERVATION_FAILURE, //!< @brief Memory could not be reserved

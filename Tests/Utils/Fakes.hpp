@@ -13,7 +13,7 @@ namespace Fake {
 		byte FBytes[sizeof(CYB::Engine::Core)];
 		Allocator* FAllocator;
 	public:
-		Core(const unsigned long long ASize);
+		Core();
 		~Core();
 
 		static void ResetToFakeCorePointer(void);

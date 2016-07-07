@@ -74,7 +74,6 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the specified path could not be retrieved
 				*/
 				Path(const SystemPath ADirectory);
-				Path(API::String::UTF8&& AString, const bool ACreateIfNonExistant, const bool ACreateRecursive);
 				Path(const Path& ACopy) = default;
 				Path(Path&& AMove) noexcept = default;
 				Path& operator=(Path&& AMove) noexcept = default;

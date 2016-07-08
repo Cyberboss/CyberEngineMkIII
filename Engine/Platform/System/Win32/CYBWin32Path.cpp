@@ -46,6 +46,28 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 		return API::String::UTF16::ToUTF8(Buffer);
 	}
 	case SystemPath::USER:
+	{
+		struct AutoFreeBuffer {
+		private:
+			wchar_t* const FBuffer;
+		public:
+			AutoFreeBuffer(wchar_t* const ABuffer) :
+				FBuffer(ABuffer)
+			{}
+			~AutoFreeBuffer() {
+				Core().FModuleManager.FOLE.Call<Modules::Ole32::CoTaskMemFree>(FBuffer);
+			}
+		};
+		wchar_t* Buffer;
+		//https://msdn.microsoft.com/en-us/library/windows/desktop/dd378457(v=vs.85).aspx
+		//GUID for roaming app data
+		if (MM.FShell.Call<Modules::Shell::SHGetKnownFolderPath>(GUID{ 0xF1B32785, 0x6FBA, 0x4FCF, 0x9D, 0x55, 0x7B, 0x8E, 0x7F, 0x15, 0x70, 0x91 }, DWORD(0), nullptr, &Buffer) == S_OK) {
+			AutoFreeBuffer AFB(Buffer);
+			auto Result(API::String::UTF16::ToUTF8(Buffer));
+			return Result;
+		}
+		throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+	}
 	default:
 		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
 	}

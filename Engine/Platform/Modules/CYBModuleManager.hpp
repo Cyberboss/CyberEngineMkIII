@@ -10,6 +10,7 @@ namespace CYB {
 				AMKernel32 FK32;	//!< @brief Kernel32.dll Win7+
 				AMKernel32Extended FK32Extended;	//!< @brief Kernel32.dll Win8.1+, Optional
 				AMShell FShell;	//!< @brief shell32.dll Win7+
+				AMOle32 FOLE;	//!< @brief Ole32.dll Win2K+
 				AMShellAPI FShellAPI;	//!< @brief shlwapi.dll Win7+
 
 				//Posix

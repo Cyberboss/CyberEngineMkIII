@@ -19,8 +19,8 @@ DEFINE_WINDOWS_MODULE(Kernel32, "kernel32.dll", Win32, false,
 	GetModuleHandleW, GetModuleFileNameW,
 	GetTempPathW, CreateDirectoryW, GetCurrentDirectoryW)
 DEFINE_WINDOWS_MODULE(Kernel32Extended, "kernel32.dll", Win32, true, DiscardVirtualMemory)
-
-DEFINE_WINDOWS_MODULE(Shell, "shell32.dll", Win32, false, ShellExecuteExW)
+DEFINE_WINDOWS_MODULE(Shell, "shell32.dll", Win32, false, ShellExecuteExW, SHGetKnownFolderPath)
+DEFINE_WINDOWS_MODULE(Ole32, "Ole32.dll", Win32, false, CoTaskMemFree)
 DEFINE_WINDOWS_MODULE(ShellAPI, "shlwapi.dll", Win32, false, PathRemoveFileSpecW, PathCanonicalizeW, PathFileExistsW)
 
 #ifdef TARGET_OS_LINUX

@@ -31,8 +31,21 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 			throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 		return Result;
 	}
+	case SystemPath::WORKING: {
+		API::String::UTF8 CurrentDir(API::String::Static(u8"."));
+		bool Throw(false);
+		try {
+			Evaluate(CurrentDir);
+		}
+		catch (Exception::Internal AException) {
+			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::PATH_EVALUATION_FAILURE);
+			Throw = true;
+		}
+		if(Throw)
+			throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+		return CurrentDir;
+	}
 	case SystemPath::USER:
-	case SystemPath::WORKING:
 	default:
 		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
 	}

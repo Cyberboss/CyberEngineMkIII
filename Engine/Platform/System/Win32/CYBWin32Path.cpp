@@ -32,14 +32,20 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 		API::String::UTF8 Result;
 		{
 			wchar_t Buffer[MAX_PATH];
-			if (MM.FK32.Call<CYB::Platform::Modules::Kernel32::GetTempPathW>(Win32::DWORD(MAX_PATH), Buffer) == 0)
+			if (MM.FK32.Call<Modules::Kernel32::GetTempPathW>(Win32::DWORD(MAX_PATH), Buffer) == 0)
 				throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 			Result = API::String::UTF16::ToUTF8(Buffer);
 		}
 		Result += API::String::UTF8(API::String::Static(Engine::Parameters::FTempPathName));
 	}
-	case SystemPath::USER:
 	case SystemPath::WORKING:
+	{
+		wchar_t Buffer[MAX_PATH];
+		if (MM.FK32.Call<Modules::Kernel32::GetCurrentDirectoryW>(Win32::DWORD(MAX_PATH), Buffer) == 0)
+			throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+		return API::String::UTF16::ToUTF8(Buffer);
+	}
+	case SystemPath::USER:
 	default:
 		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
 	}

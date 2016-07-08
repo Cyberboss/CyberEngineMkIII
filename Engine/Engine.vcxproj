@@ -110,6 +110,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Engine\Core\CYBCore.cpp" />
+    <ClCompile Include="Engine\Core\CYBEngineParameters.cpp" />
     <ClCompile Include="Engine\Core\CYBException.cpp" />
     <ClCompile Include="Engine\Memory\CYBBlock.cpp" />
     <ClCompile Include="Engine\Memory\CYBHeap.cpp" />

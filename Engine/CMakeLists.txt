@@ -40,6 +40,7 @@ Engine/Memory/CYBLargeBlock.cpp
 Engine/Memory/CYBHeap.cpp
 
 #Core
+Engine/Core/CYBEngineParameters.cpp
 Engine/Core/CYBException.cpp
 Engine/Core/CYBCore.cpp
 )

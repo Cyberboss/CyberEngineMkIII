@@ -25,32 +25,17 @@
 CYB::API::Interop::Allocator* CYB::API::Interop::Allocator::FAllocator(nullptr);
 
 CYB::Engine::Core::Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments):
-	FEngineInformation(CreateEngineInformation()),
+	FEngineInformation(Parameters::CreateEngineInformation()),
 	FHeap(Parameters::ENGINE_HEAP_INITIAL_COMMIT_SIZE)
 {
 	static_cast<void>(ANumArguments);
 	static_cast<void>(AArguments);
 }
 
-CYB::Engine::Core::~Core(void) {
-
-}
-
-CYB::API::EngineInformation CYB::Engine::Core::CreateEngineInformation(void) noexcept {
-	return {
-		u8"CyberEngine Mark III",
-		u8"Copyright Dextraspace Entertainment",
-		COPYRIGHT_YEAR,
-		VERSION_MAJOR,
-		VERSION_MINOR,
-		VERSION_REVISION,
-		__DATE__,
-		__TIME__ " EST",
-	};
-}
 CYB::Engine::Core& CYB::Engine::Core::GetCore(void) noexcept {
 	return *FSingleton;
 }
+
 void CYB::Engine::Core::Run(const unsigned int ANumArguments, const oschar_t* const* const AArguments) noexcept {
 	try {
 		Core CyberEngineMarkIII(ANumArguments, AArguments);

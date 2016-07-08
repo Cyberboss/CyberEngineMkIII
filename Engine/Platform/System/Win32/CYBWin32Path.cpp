@@ -29,16 +29,25 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 	case SystemPath::RESOURCE:
 		return GetResourceDirectory();
 	case SystemPath::TEMPORARY: {
-		wchar_t Buffer[MAX_PATH];
-		if(MM.FK32.Call<CYB::Platform::Modules::Kernel32::GetTempPathW>(MAX_PATH, Buffer) == 0)
-			throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
-		return API::String::UTF16::ToUTF8(Buffer);
+		API::String::UTF8 Result;
+		{
+			wchar_t Buffer[MAX_PATH];
+			if (MM.FK32.Call<CYB::Platform::Modules::Kernel32::GetTempPathW>(Win32::DWORD(MAX_PATH), Buffer) == 0)
+				throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+			Result = API::String::UTF16::ToUTF8(Buffer);
+		}
+		Result += API::String::UTF8(API::String::Static(Engine::Parameters::FTempPathName));
 	}
 	case SystemPath::USER:
 	case SystemPath::WORKING:
 	default:
 		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
 	}
+}
+
+bool CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath) {
+	API::String::UTF16 As16(APath);
+	return Core().FModuleManager.FK32.Call<Modules::Kernel32::CreateDirectoryW>(As16.WString(), nullptr) != 0;
 }
 
 void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {

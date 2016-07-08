@@ -27,6 +27,24 @@ SCENARIO("Paths can be created by the system", "[Platform][System][Path][Unit]")
 				CHECK(TestPath != nullptr);
 			}
 		}
+		WHEN("The temporary directory is retrieved") {
+			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::TEMPORARY));
+			THEN("All is well") {
+				CHECK(TestPath != nullptr);
+			}
+		}
+		WHEN("The user directory is retrieved") {
+			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::USER));
+			THEN("All is well") {
+				CHECK(TestPath != nullptr);
+			}
+		}
+		WHEN("The working directory is retrieved") {
+			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::WORKING));
+			THEN("All is well") {
+				CHECK(TestPath != nullptr);
+			}
+		}
 		delete TestPath;
 	}
 }

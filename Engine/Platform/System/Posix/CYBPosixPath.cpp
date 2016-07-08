@@ -77,16 +77,7 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 
 bool CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath) {
 	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::mkdir>(APath.CString(), 0777));
-	if (Result != 0) 
-		switch (errno) {
-		case EEXIST:
-			return true;
-		case ENOTDIR:
-			throw Exception::SystemData(Exception::SystemData::PATH_LOST);
-		default:
-			return false;
-		}
-	return true;
+	return Result == 0 || errno == EEXIST;
 }
 
 void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
@@ -98,7 +89,7 @@ void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
 	APath = CYB::API::String::UTF8(CYB::API::String::Static(ThePath));
 }
 
-bool CYB::Platform::System::Path::Verify(const API::String::UTF8& APath) {
-	StatStruct ST;
-	return Sys::Call(Sys::STAT, const_cast<char*>(APath.CString()), &ST) == 0;
-}
+//bool CYB::Platform::System::Path::Verify(const API::String::UTF8& APath) {
+//	StatStruct ST;
+//	return Sys::Call(Sys::STAT, const_cast<char*>(APath.CString()), &ST) == 0;
+//}

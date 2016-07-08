@@ -1,3 +1,4 @@
+//! @file CYBWin32Headers.hpp Includes headers for Windows platforms
 #pragma once
 
 namespace CYB {

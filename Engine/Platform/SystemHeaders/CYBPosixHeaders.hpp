@@ -1,3 +1,4 @@
+//! @file CYBWin32Headers.hpp Includes headers for Posix platforms
 #pragma once
 
 namespace CYB {
@@ -15,7 +16,6 @@ namespace CYB {
 			#include <sys/wait.h>
 			#include <sys/stat.h>
 			typedef struct stat StatStruct;
-			#include <linux/limits.h>
 			#include <unistd.h>
 #ifdef _WIN32	//for vs debugging
 			#include <posix/signal.h>

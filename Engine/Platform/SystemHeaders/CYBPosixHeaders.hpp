@@ -1,4 +1,4 @@
-//! @file CYBWin32Headers.hpp Includes headers for Posix platforms
+//! @file CYBPosixHeaders.hpp Includes headers for Posix platforms
 #pragma once
 
 namespace CYB {

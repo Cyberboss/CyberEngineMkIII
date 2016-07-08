@@ -37,6 +37,9 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 			Result = API::String::UTF16::ToUTF8(Buffer);
 		}
 		Result += API::String::UTF8(API::String::Static(Engine::Parameters::FTempPathName));
+		if (!CreateDirectory(Result))
+			throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+		return Result;
 	}
 	case SystemPath::WORKING:
 	{

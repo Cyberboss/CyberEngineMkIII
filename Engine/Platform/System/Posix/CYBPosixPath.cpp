@@ -66,7 +66,6 @@ bool CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath
 }
 
 void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
-	//In order to follow the policy of not evaluating symlinks we simply readlink the '.' operator
 	auto NewPath(APath + CYB::API::String::UTF8(CYB::API::String::Static(u8"/.")));
 	char ThePath[PATH_MAX];
 	auto const Result(Core().FModuleManager.FC.Call<Modules::LibC::realpath>(NewPath.CString(), ThePath));

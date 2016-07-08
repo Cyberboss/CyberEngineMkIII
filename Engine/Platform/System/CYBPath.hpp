@@ -5,7 +5,7 @@ namespace CYB {
 		namespace System {
 			/*!
 				@brief Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are '/' delimited when forming though may not be while retrieving. File names ".." will ascend a directory and '.' represents a no-op
-				@attention Only UTF-8 encodedable paths are supported, paths lengths may not exceed 256 BYTES, and directory names may not exceed 248 characters. Symlinks, for all intents and purposes, act as hardlinks that can be broken
+				@attention Only UTF-8 encodedable paths are supported, paths lengths may not exceed 256 BYTES, and directory names may not exceed 248 characters. Symlinks are always resolved on posix systems, but never on Windows systems. This is a user problem
 			*/
 			class Path {
 			public:
@@ -43,6 +43,15 @@ namespace CYB {
 				*/
 				static API::String::UTF8 GetResourceDirectory(void);
 				
+				/*!
+					@brief Create a single directory. Path's before it must exist
+					@param APath The path to the directory that will be created
+					@return true if APath exists and is readable/writable, false otherwise
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the prequel paths don't exist
+				*/
 				static bool CreateDirectory(const API::String::UTF8& APath);
 				static bool RecursiveTryCreateDirectories(const API::String::UTF8& APath, const bool ACreateLast);
 

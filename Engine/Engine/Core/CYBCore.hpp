@@ -6,13 +6,6 @@ namespace CYB {
 		//! @brief An instance of this object is the entirety of the engine
 		class Core : public API::Singleton<Core> {
 			ENABLE_TEST_HOOKS
-		private:
-			enum {
-				VERSION_MAJOR = 3,
-				VERSION_MINOR = 0,
-				VERSION_REVISION = 0,
-				COPYRIGHT_YEAR = 2016,
-			};
 		public:
 			API::EngineInformation FEngineInformation;	//!< Information describing the engine
 
@@ -47,18 +40,15 @@ namespace CYB {
 				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MEMORY_COMMITAL_FAILURE. Thrown if a heap's memory could not be committed
 			*/
 			Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments);
-			/*!
-				@brief Cleans up the engine and terminates the process
-			*/
-			~Core();
-			API::EngineInformation CreateEngineInformation(void) noexcept;
+			//! @brief Cleans up the engine and terminates the process
+			~Core() = default;
+
 			/*!
 				@brief Run the main unit
 				@return true if the Unit should be launch again, false otherwise
 				@par Thread Safety
 					This function must be synchronized at the object level
 			*/
-
 			bool LaunchUnit(void) noexcept;
 		public:
 			/*!

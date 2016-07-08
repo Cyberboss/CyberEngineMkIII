@@ -17,7 +17,7 @@ DEFINE_WINDOWS_MODULE(Kernel32, "kernel32.dll", Win32, false,
 	MultiByteToWideChar, WideCharToMultiByte,
 	CreateProcessW, GetExitCodeProcess,
 	GetModuleHandleW, GetModuleFileNameW,
-	GetTempPath)
+	GetTempPathW, CreateDirectoryW)
 DEFINE_WINDOWS_MODULE(Kernel32Extended, "kernel32.dll", Win32, true, DiscardVirtualMemory)
 
 DEFINE_WINDOWS_MODULE(Shell, "shell32.dll", Win32, false, ShellExecuteExW)
@@ -29,7 +29,7 @@ DEFINE_WINDOWS_MODULE(ShellAPI, "shlwapi.dll", Win32, false, PathRemoveFileSpecW
 DEFINE_POSIX_MODULE(LibC, LIBC_SO, Posix, false,
 	kill, getpid, waitpid, usleep,
 	mmap, mprotect, munmap, madvise,
-	readlink,
+	readlink, mkdir,
 	posix_spawn)
 DEFINE_POSIX_MODULE(RT, LIBRT_SO, Posix, false, sched_yield)
 DEFINE_POSIX_MODULE(PThread, LIBPTHREAD_SO, Posix, false, 

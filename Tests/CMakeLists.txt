@@ -37,3 +37,4 @@ set_target_properties(CyberEngineMkIIITester PROPERTIES COTIRE_CXX_PREFIX_HEADER
 cotire(CyberEngineMkIIITester)
 
 add_catch_tests(CyberEngineMkIIITester)
+file(MAKE_DIRECTORY ${CYB_BASE_DIR}/Output/Resources)

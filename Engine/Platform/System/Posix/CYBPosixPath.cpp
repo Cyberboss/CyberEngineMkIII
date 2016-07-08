@@ -24,13 +24,32 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 		throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);}
 	case SystemPath::RESOURCE:
 		return GetResourceDirectory();
-	case SystemPath::TEMPORARY:
-		return API::String::UTF8(API::String::Static(u8"/tmp/CyberEngineMkIII"));
+	case SystemPath::TEMPORARY: {
+		API::String::UTF8 Result(API::String::Static(u8"/tmp/"));
+		Result += API::String::UTF8(API::String::Static(Engine::Parameters::FTempPathName));
+		if(!CreateDirectory(Result))
+			throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+		return Result;
+	}
 	case SystemPath::USER:
 	case SystemPath::WORKING:
 	default:
 		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
 	}
+}
+
+bool CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath) {
+	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::mkdir>(APath.CString(), 0777));
+	if (Result != 0) 
+		switch (errno) {
+		case EEXIST:
+			return true;
+		case ENOTDIR:
+			throw Exception::SystemData(Exception::SystemData::PATH_LOST);
+		default:
+			return false;
+		}
+	return true;
 }
 
 void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {

@@ -1,4 +1,4 @@
-//! @file CYBWin32Headers.hpp Includes headers for Linux platforms
+//! @file CYBLinuxHeaders.hpp Includes headers for Linux platforms
 #pragma once
 namespace CYB {
 	namespace Platform {

@@ -26,6 +26,21 @@ namespace CYB {
 			#include <sched.h>
 			#include <pthread.h>
 			#include <dlfcn.h>
+
+			//pwd.h
+			struct passwd
+			{
+				char *pw_name;		/* Username.  */
+				char *pw_passwd;		/* Password.  */
+				uid_t pw_uid;		/* User ID.  */
+				gid_t pw_gid;		/* Group ID.  */
+				char *pw_gecos;		/* Real name.  */
+				char *pw_dir;			/* Home directory.  */
+				char *pw_shell;		/* Shell program.  */
+			};
+			int getpwuid_r(uid_t uid, struct passwd *pwd,
+				char *buf, size_t buflen, struct passwd **result);
+			typedef struct passwd PasswdStruct;
 #endif
 			//! @endcond
 		};

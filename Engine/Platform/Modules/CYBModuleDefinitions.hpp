@@ -30,6 +30,7 @@ DEFINE_POSIX_MODULE(LibC, LIBC_SO, Posix, false,
 	kill, getpid, waitpid, usleep,
 	mmap, mprotect, munmap, madvise,
 	readlink, mkdir, realpath,
+	getuid, getpwuid_r, getenv, sysconf,
 	posix_spawn)
 DEFINE_POSIX_MODULE(RT, LIBRT_SO, Posix, false, sched_yield)
 DEFINE_POSIX_MODULE(PThread, LIBPTHREAD_SO, Posix, false, 

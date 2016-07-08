@@ -45,7 +45,31 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 			throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 		return CurrentDir;
 	}
-	case SystemPath::USER:
+	case SystemPath::USER: {
+		const API::String::Static XDGDir(MM.FC.Call<Modules::LibC::getenv>("XDG_CONFIG_HOME")),
+			HOMEDir(MM.FC.Call<Modules::LibC::getenv>("HOME"));
+		if (XDGDir.RawLength() > 0)
+			return API::String::UTF8(XDGDir);
+		else if (HOMEDir.RawLength() > 0)
+			return API::String::UTF8(HOMEDir);
+		else {
+			const auto BufferSize(MM.FC.Call<Modules::LibC::sysconf>(_SC_GETPW_R_SIZE_MAX));
+			if (BufferSize != -1) {
+				const auto UID(MM.FC.Call<Modules::LibC::getuid>());	//they say this can't fail
+				PasswdStruct PS, *Out;
+				API::String::UTF8 FinalPath;
+				auto Buffer(static_cast<char*>(Allocator().FHeap.Alloc(BufferSize)));
+				const auto Result(MM.FC.Call<Modules::LibC::getpwuid_r>(UID, &PS, Buffer, BufferSize, &Out));
+				const auto Succeeded(Result == 0 && Out == &PS);
+				if(Succeeded)
+					FinalPath = API::String::UTF8(API::String::Static(PS.pw_dir));
+				Allocator().FHeap.Free(Buffer);
+				if (Succeeded)
+					return FinalPath;
+			}
+			throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+		}
+	}
 	default:
 		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
 	}

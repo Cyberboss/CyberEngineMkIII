@@ -78,7 +78,8 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 
 bool CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath) {
 	API::String::UTF16 As16(APath);
-	return Core().FModuleManager.FK32.Call<Modules::Kernel32::CreateDirectoryW>(As16.WString(), nullptr) != 0;
+	const auto Result(Core().FModuleManager.FK32.Call<Modules::Kernel32::CreateDirectoryW>(As16.WString(), nullptr) != 0);
+	return Result || Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>() == ERROR_ALREADY_EXISTS;
 }
 
 void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
@@ -89,6 +90,6 @@ void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
 	APath = API::String::UTF16::ToUTF8(OutputBuffer);
 }
 
-bool CYB::Platform::System::Path::Verify(const API::String::UTF8& APath) {
-	return Core().FModuleManager.FShellAPI.Call<Modules::ShellAPI::PathFileExistsW>(API::String::UTF16(APath).WString()) == TRUE;
-}
+//bool CYB::Platform::System::Path::Verify(const API::String::UTF8& APath) {
+//	return Core().FModuleManager.FShellAPI.Call<Modules::ShellAPI::PathFileExistsW>(API::String::UTF16(APath).WString()) == TRUE;
+//}

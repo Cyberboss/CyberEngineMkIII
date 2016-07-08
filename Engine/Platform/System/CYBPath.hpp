@@ -13,12 +13,12 @@ namespace CYB {
 					MAX_PATH_BYTES = 256,
 				};
 				enum class SystemPath {
-					EXECUTABLE_IMAGE,	//!< @brief The path from which the engine was launched
-					EXECUTABLE,	//!< @brief The directory from which the engine was launched
-					RESOURCE,	//!< @brief The directory where read only resources
+					EXECUTABLE_IMAGE,	//!< @brief The path from which the engine was launched, read only
+					EXECUTABLE,	//!< @brief The directory from which the engine was launched, read only
+					RESOURCE,	//!< @brief The directory where program resources are stored, read only
 					TEMPORARY,	//!< @brief The directory for storing data relevant only to this execution
-					USER,	//!< @brief The directory for storing permanent data associated with the OS' current user
-					WORKING,	//!< @brief The current application working directory
+					USER,	//!< @brief The directory for storing permanent data associated with the OS' current user, read write
+					WORKING,	//!< @brief The current application working directory, permissions indeterminate
 				};
 			private:
 				API::String::UTF8 FPath;	//!< @brief The underlying string
@@ -50,7 +50,6 @@ namespace CYB {
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the prequel paths don't exist
 				*/
 				static bool CreateDirectory(const API::String::UTF8& APath);
 				static bool RecursiveTryCreateDirectories(const API::String::UTF8& APath, const bool ACreateLast);

@@ -25,6 +25,7 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 	case SystemPath::RESOURCE:
 		return GetResourceDirectory();
 	case SystemPath::TEMPORARY:
+		return API::String::UTF8(API::String::Static(u8"/tmp/CyberEngineMkIII"));
 	case SystemPath::USER:
 	case SystemPath::WORKING:
 	default:

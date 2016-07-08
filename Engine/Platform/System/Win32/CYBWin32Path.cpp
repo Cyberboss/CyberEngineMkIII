@@ -28,7 +28,12 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 	}
 	case SystemPath::RESOURCE:
 		return GetResourceDirectory();
-	case SystemPath::TEMPORARY:
+	case SystemPath::TEMPORARY: {
+		wchar_t Buffer[MAX_PATH];
+		if(MM.FK32.Call<CYB::Platform::Modules::Kernel32::GetTempPathW>(MAX_PATH, Buffer) == 0)
+			throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+		return API::String::UTF16::ToUTF8(Buffer);
+	}
 	case SystemPath::USER:
 	case SystemPath::WORKING:
 	default:

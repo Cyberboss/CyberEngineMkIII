@@ -16,7 +16,8 @@ DEFINE_WINDOWS_MODULE(Kernel32, "kernel32.dll", Win32, false,
 	VirtualAlloc, VirtualFree, VirtualProtect, VirtualQuery, GetProcessId,
 	MultiByteToWideChar, WideCharToMultiByte,
 	CreateProcessW, GetExitCodeProcess,
-	GetModuleHandleW, GetModuleFileNameW)
+	GetModuleHandleW, GetModuleFileNameW,
+	GetTempPath)
 DEFINE_WINDOWS_MODULE(Kernel32Extended, "kernel32.dll", Win32, true, DiscardVirtualMemory)
 
 DEFINE_WINDOWS_MODULE(Shell, "shell32.dll", Win32, false, ShellExecuteExW)

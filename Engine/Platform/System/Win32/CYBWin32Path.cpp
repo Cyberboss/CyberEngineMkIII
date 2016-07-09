@@ -17,14 +17,14 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 				if (ADirectory == SystemPath::EXECUTABLE) {
 					if (MM.FShellAPI.Call<Modules::ShellAPI::PathRemoveFileSpecW>(Buffer) != 0) {
 						auto WithoutDelimiter(API::String::UTF16::ToUTF8(Buffer));
-						WithoutDelimiter += CYB::API::String::UTF8(CYB::API::String::Static(u8"/"));
+						WithoutDelimiter += API::String::UTF8(API::String::Static(u8"/"));
 						return WithoutDelimiter;
 					}
-					throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+					throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 				}
-				return CYB::API::String::UTF16::ToUTF8(Buffer);
+				return API::String::UTF16::ToUTF8(Buffer);
 		}
-		throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+		throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 	}
 	case SystemPath::RESOURCE:
 		return GetResourceDirectory();
@@ -33,19 +33,19 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 		{
 			wchar_t Buffer[MAX_PATH];
 			if (MM.FK32.Call<Modules::Kernel32::GetTempPathW>(Win32::DWORD(MAX_PATH), Buffer) == 0)
-				throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+				throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 			Result = API::String::UTF16::ToUTF8(Buffer);
 		}
 		Result += API::String::UTF8(API::String::Static(Engine::Parameters::FTempPathName));
 		if (!CreateDirectory(Result))
-			throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+			throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 		return Result;
 	}
 	case SystemPath::WORKING:
 	{
 		wchar_t Buffer[MAX_PATH];
 		if (MM.FK32.Call<Modules::Kernel32::GetCurrentDirectoryW>(Win32::DWORD(MAX_PATH), Buffer) == 0)
-			throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+			throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 		return API::String::UTF16::ToUTF8(Buffer);
 	}
 	case SystemPath::USER:
@@ -69,10 +69,10 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 			auto Result(API::String::UTF16::ToUTF8(Buffer));
 			return Result;
 		}
-		throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+		throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 	}
 	default:
-		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
+		throw Exception::Violation(Exception::Violation::INVALID_ENUM);
 	}
 }
 

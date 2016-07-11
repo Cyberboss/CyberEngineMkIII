@@ -71,12 +71,12 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 		wchar_t* Buffer;
 		//https://msdn.microsoft.com/en-us/library/windows/desktop/dd378457(v=vs.85).aspx
 		//GUID for roaming app data
-		if (MM.FShell.Call<Modules::Shell::SHGetKnownFolderPath>(GUID{ 0xF1B32785, 0x6FBA, 0x4FCF, 0x9D, 0x55, 0x7B, 0x8E, 0x7F, 0x15, 0x70, 0x91 }, DWORD(0), nullptr, &Buffer) == S_OK) {
-			AutoFreeBuffer AFB(Buffer);
-			auto Result(API::String::UTF16::ToUTF8(Buffer));
-			return Result;
-		}
-		throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+		if (MM.FShell.Call<Modules::Shell::SHGetKnownFolderPath>(GUID{ 0xF1B32785, 0x6FBA, 0x4FCF, 0x9D, 0x55, 0x7B, 0x8E, 0x7F, 0x15, 0x70, 0x91 }, DWORD(0), nullptr, &Buffer) != S_OK)
+			throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+
+		AutoFreeBuffer AFB(Buffer);
+		auto Result(API::String::UTF16::ToUTF8(Buffer));
+		return Result;
 	}
 	default:
 		__assume(false);
@@ -85,8 +85,13 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 
 bool CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath) {
 	API::String::UTF16 As16(APath);
-	const auto Result(Core().FModuleManager.FK32.Call<Modules::Kernel32::CreateDirectoryW>(As16.WString(), nullptr) != 0);
-	return Result || Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>() == ERROR_ALREADY_EXISTS;
+	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::CreateDirectoryW>(As16.WString(), nullptr) != 0)
+		return true;
+	
+	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>() == ERROR_ALREADY_EXISTS)
+		return true;
+
+	return false;
 }
 
 void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {

@@ -12,6 +12,15 @@ const CYB::API::String::UTF8& CYB::Platform::System::Path::operator()(void) cons
 CYB::API::String::UTF8 CYB::Platform::System::Path::GetResourceDirectory(void) {
 	auto FirstPath(LocateDirectory(SystemPath::EXECUTABLE));
 	FirstPath += CYB::API::String::UTF8(CYB::API::String::Static(u8"../Resources"));
-	Evaluate(FirstPath);
+	bool Throw(false);
+	try {
+		Evaluate(FirstPath);
+	}
+	catch (Exception::Internal AException) {
+		API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::PATH_EVALUATION_FAILURE);
+		Throw = true;
+	}
+	if(Throw)
+		throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 	return FirstPath;
 }

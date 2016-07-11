@@ -190,12 +190,14 @@ SCENARIO("Path errors work", "[Platform][System][Path][Unit]") {
 				}
 			}
 		}
+#ifdef DEBUG
 		WHEN("An invalid enum is used") {
 			REQUIRE_THROWS_AS(Path((Path::SystemPath) - 1), CYB::Exception::Violation);
 			THEN("The correct error is thrown") {
 				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
 			}
 		}
+#endif
 		WHEN("The working directory is corrupted") {
 			const auto BGCD(K32.Redirect<CYB::Platform::Modules::Kernel32::GetCurrentDirectoryW, BadGetCurrentDirectory>());
 			const auto BRP(LibC.Redirect<CYB::Platform::Modules::LibC::realpath, BadRealPath>());

@@ -38,6 +38,7 @@ SCENARIO("Heap Alloc works", "[Engine][Memory][Heap][Functional]") {
 				CHECK(Result == nullptr);
 			}
 		}
+#ifdef DEBUG
 		WHEN("An allocation of unsigned/negative size is made") {
 			void* Result(nullptr);
 			REQUIRE_THROWS_AS(Result = TestHeap.Alloc(-5), CYB::Exception::Violation);
@@ -54,6 +55,7 @@ SCENARIO("Heap Alloc works", "[Engine][Memory][Heap][Functional]") {
 				CHECK(Result == nullptr);
 			}
 		}
+#endif
 		GIVEN("A failing Reserve call") {
 			auto BVA(K32.Redirect<CYB::Platform::Modules::Kernel32::VirtualAlloc, BadVirtualAlloc>());
 			auto BMP(LibC.Redirect<CYB::Platform::Modules::LibC::mprotect, BadMProtect>());
@@ -113,6 +115,7 @@ SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 					CHECK(Result == nullptr);
 				}
 			}
+#ifdef DEBUG
 			WHEN("An allocation of unsigned/negative size is made") {
 				void* Result(nullptr);
 				REQUIRE_THROWS_AS(Result = TestHeap.Realloc(Base, -5), CYB::Exception::Violation);
@@ -121,6 +124,7 @@ SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 					CHECK(Result == nullptr);
 				}
 			}
+#endif
 		}
 		GIVEN("A basic allocation start") {
 			auto Base(TestHeap.Alloc(50));
@@ -152,6 +156,7 @@ SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 					CHECK(reinterpret_cast<unsigned long long>(Result) % sizeof(void*) == 0U);
 				}
 			}
+#ifdef DEBUG
 			WHEN("An allocation of unsigned/negative size is made") {
 				void* Result(nullptr);
 				REQUIRE_THROWS_AS(Result = TestHeap.Realloc(Base, -5), CYB::Exception::Violation);
@@ -160,6 +165,7 @@ SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 					CHECK(Result == nullptr);
 				}
 			}
+#endif
 			WHEN("A zero allocation is made") {
 				void* Result(nullptr);
 				REQUIRE_NOTHROW(Result = TestHeap.Realloc(Base, 0));
@@ -167,6 +173,7 @@ SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 					CHECK(Result == nullptr);
 				}
 			}
+#ifdef DEBUG
 			WHEN("An allocation that is too large is made") {
 				void* Result(nullptr);
 				REQUIRE_THROWS_AS(Result = TestHeap.Realloc(Base, std::numeric_limits<int>::max()), CYB::Exception::Violation);
@@ -175,6 +182,7 @@ SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 					CHECK(Result == nullptr);
 				}
 			}
+#endif
 		}
 	}
 }

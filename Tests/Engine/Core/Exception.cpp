@@ -3,6 +3,7 @@
 SCENARIO("Exception error code verification works", "[Engine][Exception][Unit]") {
 	GIVEN("A fake exception code") {
 		const auto FakeExceptionCode(static_cast<unsigned int>(-1));
+#ifdef DEBUG
 		WHEN("A Violation instantiation is attempted") {
 			REQUIRE_THROWS_AS(CYB::Exception::Violation(static_cast<CYB::Exception::Violation::ErrorCode>(FakeExceptionCode)), CYB::Exception::Violation);
 			THEN("The correct Violation exception is thrown") {
@@ -27,6 +28,9 @@ SCENARIO("Exception error code verification works", "[Engine][Exception][Unit]")
 				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
 			}
 		}
+#else
+		CHECK(true);
+#endif
 	}
 }
 

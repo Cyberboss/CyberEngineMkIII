@@ -155,9 +155,3 @@ SCENARIO("Path errors work", "[Platform][System][Path][Unit]") {
 		}
 	}
 }
-SCENARIO("FUCK YOU", "[Platform][System][Path][Unit]"){
-	REQUIRE_THROWS_AS(Path((Path::SystemPath) - 1), CYB::Exception::Violation);
-	THEN("The correct error is thrown") {
-		CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
-	}
-}

@@ -179,7 +179,7 @@ SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 	}
 }
 
-SCENARIO("Heap Free works", "[Engine][Memory][Heap][Unit]") {
+SCENARIO("Heap Free works", "[Engine][Memory][Heap][Functional]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);

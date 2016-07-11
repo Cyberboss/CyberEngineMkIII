@@ -1,6 +1,6 @@
 #include "TestHeader.hpp"
 
-SCENARIO("Exception error code verification works", "[Exception][Unit]") {
+SCENARIO("Exception error code verification works", "[Engine][Exception][Unit]") {
 	GIVEN("A fake exception code") {
 		const auto FakeExceptionCode(static_cast<unsigned int>(-1));
 		WHEN("A Violation instantiation is attempted") {
@@ -30,7 +30,7 @@ SCENARIO("Exception error code verification works", "[Exception][Unit]") {
 	}
 }
 
-TEST_CASE("REMOVE THIS AFTER YOU MAKE FATAL EXCEPTIONS", "[Exception][Unit]") {
+SCENARIO("REMOVE THIS AFTER YOU MAKE FATAL EXCEPTIONS", "[Engine][Exception][Unit]") {
 	try {
 		throw CYB::Exception::Fatal(CYB::Exception::Fatal::PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE);
 	}

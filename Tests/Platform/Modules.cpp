@@ -80,7 +80,7 @@ SCENARIO("Modules can load functions", "[Platform][Modules][Functional]") {
 	}
 }
 
-SCENARIO("AutoModules work", "[Platform][Modules][Functional]") {
+SCENARIO("Modules of the automatic variety work", "[Platform][Modules][Functional]") {
 	GIVEN("A valid system AutoModule definition") {
 		CYB::Platform::Modules::AMKernel32* K32(nullptr);
 		WHEN("It is instatiated") {
@@ -157,7 +157,7 @@ namespace CYB {
 DEFINE_WINDOWS_MODULE(FakeKernel32, "kernel32.dll", Win32, true, SwitchToThread, FakeFunctionThatDoesNotExist)
 DEFINE_POSIX_MODULE(FakeRT, LIBRT_SO, Posix, true, sched_yield, FakeFunctionThatDoesNotExist)
 
-SCENARIO("Test that loading an optional function from a module works", "[Platform][Modules][Unit]") {
+SCENARIO("Module optional functions work", "[Platform][Modules][Unit]") {
 	GIVEN("A valid optional module with some fake functions") {
 		CYB::Platform::Modules::AMFakeKernel32* TestMod1(nullptr);
 		CYB::Platform::Modules::AMFakeRT* TestMod2(nullptr);

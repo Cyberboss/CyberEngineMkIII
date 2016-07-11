@@ -24,3 +24,14 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::GetResourceDirectory(void) {
 		throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 	return FirstPath;
 }
+
+bool CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, const bool ACreateIfNonExistant, const bool ACreateRecursive) {
+	static_cast<void>(AAppendage);
+	static_cast<void>(ACreateIfNonExistant);
+	static_cast<void>(ACreateRecursive);
+	return false;
+}
+
+void CYB::Platform::System::Path::Delete(const bool ARecursive) const {
+	static_cast<void>(ARecursive);
+}

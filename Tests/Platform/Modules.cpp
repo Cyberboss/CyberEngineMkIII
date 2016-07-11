@@ -48,7 +48,7 @@ SCENARIO("Modules can load a library", "[Platform][Modules][Functional]") {
 	}
 };
 
-SCENARIO("Functions can be loaded from modules", "[Platform][Modules][Functional]") {
+SCENARIO("Modules can load functions", "[Platform][Modules][Functional]") {
 	GIVEN("A loaded library") {
 		CYB::Platform::Modules::Module Mod(ExistingLibrary);
 		WHEN("Legitimate functions are loaded from the library"){

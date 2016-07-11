@@ -6,6 +6,13 @@
 using namespace CYB::Platform::Win32;
 
 CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const SystemPath ADirectory) {
+	if (ADirectory != SystemPath::EXECUTABLE_IMAGE
+		&& ADirectory != SystemPath::EXECUTABLE
+		&& ADirectory != SystemPath::RESOURCE
+		&& ADirectory != SystemPath::TEMPORARY
+		&& ADirectory != SystemPath::USER
+		&& ADirectory != SystemPath::WORKING)
+		throw Exception::Violation(Exception::Violation::INVALID_ENUM);
 	auto& MM(Core().FModuleManager);
 	switch (ADirectory) {
 	case SystemPath::EXECUTABLE_IMAGE:
@@ -22,7 +29,7 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 					}
 					throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 				}
-				return API::String::UTF16::ToUTF8(Buffer);
+			return API::String::UTF16::ToUTF8(Buffer);
 		}
 		throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 	}
@@ -72,7 +79,7 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 		throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 	}
 	default:
-		throw Exception::Violation(Exception::Violation::INVALID_ENUM);
+		__assume(false);
 	}
 }
 

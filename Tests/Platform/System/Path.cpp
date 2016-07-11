@@ -1,8 +1,10 @@
 #include "TestHeader.hpp"
+#include "../Engine/Platform/CYBUTF16String.inl"
 
 using namespace CYB::Platform::System;
 using namespace CYB::API::String;
 
+bool SpecialReforkCase(true);
 SCENARIO("Paths can be created by the system", "[Platform][System][Path][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
@@ -147,10 +149,16 @@ SCENARIO("Path errors work", "[Platform][System][Path][Unit]") {
 			}
 		}
 		WHEN("An invalid enum is used") {
-			REQUIRE_THROWS_AS(Path TestPath((Path::SystemPath) - 1), CYB::Exception::Violation);
+			REQUIRE_THROWS_AS(Path((Path::SystemPath) - 1), CYB::Exception::Violation);
 			THEN("The correct error is thrown") {
 				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
 			}
 		}
+	}
+}
+SCENARIO("FUCK YOU", "[Platform][System][Path][Unit]"){
+	REQUIRE_THROWS_AS(Path((Path::SystemPath) - 1), CYB::Exception::Violation);
+	THEN("The correct error is thrown") {
+		CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
 	}
 }

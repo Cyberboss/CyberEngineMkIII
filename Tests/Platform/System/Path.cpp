@@ -57,6 +57,70 @@ SCENARIO("Paths can be created by the system", "[Platform][System][Path][Unit]")
 	}
 }
 
+SCENARIO("Path Append works", "[Platform][System][Path][Unit]") {
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	{
+		Path Setup(Path::SystemPath::TEMPORARY);
+		if (Setup.Append(UTF8(Static(u8"TestPath")), false, false))
+			REQUIRE_NOTHROW(Setup.Delete(true));
+		REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"ExistingPath")), true, false));
+		REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"Recurse")), true, false));
+	}
+	GIVEN("A valid Path") {
+		Path TestPath(Path::SystemPath::TEMPORARY);
+		WHEN("A folder is appended onto it that doesn't exist") {
+			const auto Result(TestPath.Append(UTF8(Static(u8"TestPath")), false, false));
+			THEN("It will have failed") {
+				CHECK_FALSE(Result);
+			}
+		}
+		WHEN("A recursive folder is appended onto it that doesn't exist") {
+			const auto Result(TestPath.Append(UTF8(Static(u8"TestPath2/Recurse")), false, false));
+			THEN("It will have failed") {
+				CHECK_FALSE(Result);
+			}
+		}
+		WHEN("A recursive folder is appended onto it that doesn't exist and is created, but not recursively") {
+			const auto Result(TestPath.Append(UTF8(Static(u8"TestPath2/Recurse")), true, false));
+			THEN("It will have failed") {
+				CHECK_FALSE(Result);
+			}
+		}
+		WHEN("A folder is appended onto it that does exist") {
+			const auto Result(TestPath.Append(UTF8(Static(u8"ExistingPath")), false, false));
+			THEN("It will have succeeded") {
+				CHECK(Result);
+			}
+		}
+		WHEN("A recursive folder is appended onto it that does exist") {
+			const auto Result(TestPath.Append(UTF8(Static(u8"ExistingPath/Recurse")), false, false));
+			THEN("It will have succeeded") {
+				CHECK(Result);
+			}
+		}
+		WHEN("A folder is appended onto it that doesn't exist and is created") {
+			const auto Result(TestPath.Append(UTF8(Static(u8"TestPath")), true, false));
+			THEN("It will have succeeded") {
+				CHECK(Result);
+			}
+		}
+		WHEN("A recursive folder is appended onto it that doesn't exist and is created recursively") {
+			const auto Result(TestPath.Append(UTF8(Static(u8"TestPath2/Recurse")), true, true));
+			THEN("It will have succeeded") {
+				CHECK(Result);
+			}
+		}
+	}
+	try {
+		Path(Path::SystemPath::TEMPORARY).Delete(true);
+	}
+	catch (...) {}
+}
+
 SCENARIO("Path string retrieval operator works", "[Platform][System][Path][Unit]") {
 	GIVEN("A UTF8 string interpreted as a Path") {
 		UTF8 Fake(Static(u8"asdf"));

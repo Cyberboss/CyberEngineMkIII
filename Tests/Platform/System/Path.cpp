@@ -1,5 +1,4 @@
 #include "TestHeader.hpp"
-#include "../Engine/Platform/CYBUTF16String.inl"
 
 using namespace CYB::Platform::System;
 using namespace CYB::API::String;

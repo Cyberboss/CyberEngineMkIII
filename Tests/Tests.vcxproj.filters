@@ -11,19 +11,19 @@
       <Filter>Engine\Memory</Filter>
     </ClCompile>
     <ClCompile Include="Platform\System\VirtualMemory.cpp">
-      <Filter>Engine\Memory\Platform\System</Filter>
+      <Filter>Platform\System</Filter>
     </ClCompile>
     <ClCompile Include="Platform\System\Threads.cpp">
-      <Filter>Engine\Memory\Platform\System</Filter>
+      <Filter>Platform\System</Filter>
     </ClCompile>
     <ClCompile Include="Platform\Modules.cpp">
-      <Filter>Engine\Memory\Platform</Filter>
+      <Filter>Platform</Filter>
     </ClCompile>
     <ClCompile Include="Platform\System\Mutex.cpp">
-      <Filter>Engine\Memory\Platform\System</Filter>
+      <Filter>Platform\System</Filter>
     </ClCompile>
     <ClCompile Include="Platform\System\Process.cpp">
-      <Filter>Engine\Memory\Platform\System</Filter>
+      <Filter>Platform\System</Filter>
     </ClCompile>
     <ClCompile Include="Utils\Fakes.cpp">
       <Filter>Utils</Filter>
@@ -44,7 +44,7 @@
       <Filter>API\String</Filter>
     </ClCompile>
     <ClCompile Include="Platform\System\Path.cpp">
-      <Filter>Engine\Memory\Platform\System</Filter>
+      <Filter>Platform\System</Filter>
     </ClCompile>
     <ClCompile Include="API\String\UTF16String.cpp">
       <Filter>API\String</Filter>
@@ -96,10 +96,10 @@
     <Filter Include="Engine\Core">
       <UniqueIdentifier>{5fcaeb86-f9ff-48ad-aa0b-32d95a8a36ca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Memory\Platform">
+    <Filter Include="Platform">
       <UniqueIdentifier>{908278e1-4fc0-4a66-a6d2-c0f6b7060186}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Memory\Platform\System">
+    <Filter Include="Platform\System">
       <UniqueIdentifier>{d9f48e56-d925-4662-a7a3-11f74d450da7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

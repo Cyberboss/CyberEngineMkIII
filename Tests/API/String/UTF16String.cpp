@@ -1,6 +1,8 @@
 ﻿#include "TestHeader.hpp"
 
+#ifdef TARGET_OS_WINDOWS
 #include "../Engine/Platform/CYBUTF16String.inl"
+#endif
 
 #include <cstring>
 
@@ -37,6 +39,7 @@ SCENARIO("UTF16 - UTF8 Conversions work", "[Platform][String][UTF16][Unit]") {
 #endif
 }
 
+#ifdef TARGET_OS_WINDOWS
 static unsigned int FCallCount(0);
 
 REDIRECTED_FUNCTION(BadMBTWC, UINT AArg1, DWORD AArg2, LPCCH AArg3, int AArg4, LPWSTR AArg5, int AArg6) {
@@ -56,6 +59,7 @@ REDIRECTED_FUNCTION(BadWCTMB, UINT AArg1, DWORD AArg2, LPCWCH AArg3, int AArg4, 
 	}
 	return WideCharToMultiByte(AArg1, AArg2, AArg3, AArg4, AArg5, AArg6, AArg7, AArg8);
 }
+#endif
 
 SCENARIO("UTF16 errors work", "[Platform][String][UTF16][Unit]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);

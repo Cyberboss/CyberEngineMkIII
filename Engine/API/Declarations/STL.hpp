@@ -12,4 +12,5 @@
 
 //containers
 #include <deque>
+#include <vector>
 //! @endcond

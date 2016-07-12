@@ -82,3 +82,36 @@ SCENARIO("Dynamic string Shrink works", "[API][String][Dynamic][Unit]") {
 		}
 	}
 }
+
+SCENARIO("Dynamic string Tokenize works", "[API][String][Dynamic][Unit]") {
+	Dynamic Work;
+	GIVEN("A valid string") {
+		Work = Dynamic("I/am/a/delimited/string");
+		Static Comparison[5]{ "I", "am", "a", "delimited", "string" };
+		WHEN("The string is tokenized") {
+			const auto Result(Work.Tokenize('/'));
+			THEN("The result it correct") {
+				REQUIRE(Result.size() == 5U);
+				for (auto I(0U); I < 5; ++I)
+					CHECK(Comparison[I] == Result[I]);
+			}
+		}
+	}
+	GIVEN("A non delimited string") {
+		Work = Dynamic("Iamnotdelimited");
+		WHEN("The string is tokenized") {
+			const auto Result(Work.Tokenize('/'));
+			THEN("The result is equal to the previous string") {
+				CHECK(Result.front() == Work);
+			}
+		}
+	}
+	GIVEN("An empty string") {
+		WHEN("The string is tokenized") {
+			const auto Result(Work.Tokenize('/'));
+			THEN("The result is equal to the previous string") {
+				CHECK(Result.front() == Work);
+			}
+		}
+	}
+}

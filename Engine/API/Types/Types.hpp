@@ -9,6 +9,7 @@ typedef wchar_t oschar_t;
 typedef char oschar_t;
 #endif
 
+#include "Containers.hpp"
 #include "String/Strings.hpp"
 
 #include "Typename.hpp"

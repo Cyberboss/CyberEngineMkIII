@@ -24,19 +24,13 @@ CYB::Platform::System::Implementation::Process::Process(const Path& APath, const
 pid_t CYB::Platform::System::Implementation::Process::SpawnProcess(const CYB::Platform::System::Path& APath, const CYB::API::String::Dynamic& ACommandLine) {
 
 	//Parse ACommandLine for spaces
-	API::Container::Deque<CYB::API::String::Dynamic> Work(nullptr);
-	API::Container::Vector<const char*> Argv(nullptr);
+	API::Container::Deque<CYB::API::String::Dynamic> Work;
+	API::Container::Vector<const char*> Argv;
 
-	if (ACommandLine.RawLength() > 0) {
-		unsigned int Last(0);
-		const auto AddRange([&](const unsigned int AStart, const unsigned int AEnd) {
-			Work.emplace_back(ACommandLine.SubString(AStart, AEnd - Last));
-			Last = AEnd + 1;
-		});
-		for (unsigned int I(0); I < ACommandLine.RawLength(); ++I)
-			if (ACommandLine.CString()[I] == ' ')
-				AddRange(Last, I);
-		AddRange(Last, ACommandLine.RawLength());
+	const auto HasArguments(ACommandLine.RawLength() > 0);
+	if (HasArguments) {
+
+		Work = ACommandLine.Tokenize(' ');
 
 		Argv.reserve(Work.size());
 
@@ -45,7 +39,7 @@ pid_t CYB::Platform::System::Implementation::Process::SpawnProcess(const CYB::Pl
 	}
 
 	pid_t PID;
-	const auto Result(CYB::Core().FModuleManager.FC.Call<CYB::Platform::Modules::LibC::posix_spawn>(&PID, APath().CString(), nullptr, nullptr, const_cast<char**>(&Argv[0]), environ));
+	const auto Result(CYB::Core().FModuleManager.FC.Call<CYB::Platform::Modules::LibC::posix_spawn>(&PID, APath().CString(), nullptr, nullptr, HasArguments ? const_cast<char**>(&Argv[0]) : nullptr, environ));
 
 	if (Result != 0)
 		switch (errno) {

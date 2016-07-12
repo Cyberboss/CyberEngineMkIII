@@ -169,7 +169,6 @@
     <ClInclude Include="API\Declarations\OSDeclaration.hpp" />
     <ClInclude Include="API\Declarations\STL.hpp" />
     <ClInclude Include="API\Declarations\SystemChecks.hpp" />
-    <ClInclude Include="API\ExtendedTypes\Containers.hpp" />
     <ClInclude Include="API\ExtendedTypes\ExtendedTypes.hpp" />
     <ClInclude Include="API\ExtendedTypes\LockGuard.hpp" />
     <ClInclude Include="API\Interfaces\Heap.hpp" />
@@ -180,6 +179,7 @@
     <ClInclude Include="API\Interop\Interop.hpp" />
     <ClInclude Include="API\Interop\Object.hpp" />
     <ClInclude Include="API\Interop\STLAllocator.hpp" />
+    <ClInclude Include="API\Types\Containers.hpp" />
     <ClInclude Include="API\Types\EngineInformation.hpp" />
     <ClInclude Include="API\Types\Exception.hpp" />
     <ClInclude Include="API\Types\ParameterPack.hpp" />

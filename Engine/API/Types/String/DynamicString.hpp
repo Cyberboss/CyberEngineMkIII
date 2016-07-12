@@ -108,13 +108,22 @@ namespace CYB {
 				/*!
 					@brief Get a substring of the contained string
 					@param AIndex the starting index. Must be less than Length
-					@param ALength The number of bytes to user. This plus @p AStart must be less than or equal to Length
+					@param ALength The number of bytes to use. This plus @p AStart must be less than or equal to Length
 					@return The substring @p AIndex, @p ALength of the original string
 					@par Thread Safety
 						This function requires synchronization at the object level
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
 				Dynamic SubString(const int AIndex, const int ALength) const;
+				/*!
+					@brief Split the string into a Deque of other strings based on a seperator
+					@param ASeparator The seperator for the strings
+					@return A Deque of the split strings
+					@par Thread Safety
+						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+				*/
+				Container::Deque<Dynamic> Tokenize(const char ASeparator) const;
 
 				/*!
 					@brief Move the null terminator of the string so that the readable length is @p AMaxBytes

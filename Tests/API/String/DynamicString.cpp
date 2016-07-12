@@ -115,3 +115,36 @@ SCENARIO("Dynamic string Tokenize works", "[API][String][Dynamic][Unit]") {
 		}
 	}
 }
+
+SCENARIO("Dynamic string addition works", "[API][String][Dynamic][Unit]") {
+	GIVEN("Two empty strings") {
+		Dynamic A, B;
+		WHEN("The are added") {
+			const auto Result(A + B);
+			THEN("The Result is empty") {
+				CHECK(Result.RawLength() == 0);
+			}
+		}
+		WHEN("The are plus added") {
+			A += B;
+			THEN("The result is empty") {
+				CHECK(A.RawLength() == 0);
+			}
+		}
+	}
+	GIVEN("Two strings") {
+		Dynamic A("asdf"), B("qwer");
+		WHEN("The are added") {
+			const auto Result(A + B);
+			THEN("The Result is correct") {
+				CHECK(Result == Static("asdfqwer"));
+			}
+		}
+		WHEN("The are plus added") {
+			A += B;
+			THEN("The result is correct") {
+				CHECK(A == Static("asdfqwer"));
+			}
+		}
+	}
+}

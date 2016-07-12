@@ -85,6 +85,7 @@ inline CYB::API::String::Dynamic& CYB::API::String::Dynamic::operator+=(const CS
 		Assert::LessThanOrEqual(TotalSize, static_cast<unsigned long long>(std::numeric_limits<int>::max()));
 		FData = static_cast<char*>(Allocator().FHeap.Realloc(FData, static_cast<int>(TotalSize)));
 		std::copy(ARHS.CString(), ARHS.CString() + ARHS.RawLength() + 1, FData + RawLength());
+		FLength = static_cast<int>(TotalSize) - 1;
 	}
 	return *this;
 }

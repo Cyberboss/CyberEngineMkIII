@@ -38,10 +38,10 @@ CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCod
 		return API::String::Static(u8"Current heap has no block large enough for a requested allocation and expansion failed");
 	case MUTEX_INITIALIZATION_FAILURE:
 		return API::String::Static(u8"Failed to initialize a new mutex.");
-	//case PATH_LOST:
-		//return API::String::Static(u8"Path has become invalidated, most likely due to deletion");
-	//case PATH_TOO_LONG:
-		//return API::String::Static(u8"Attempted to use a path greater than the maximum allowed byte value");
+	case PATH_LOST:
+		return API::String::Static(u8"Path has become invalidated, most likely due to deletion");
+	case PATH_TOO_LONG:
+		return API::String::Static(u8"Attempted to use a path greater than the maximum allowed byte value");
 	case STRING_VALIDATION_FAILURE:
 		return API::String::Static(u8"A string could not be validated");
 	case SYSTEM_PATH_RETRIEVAL_FAILURE:

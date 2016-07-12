@@ -5,7 +5,7 @@ namespace CYB {
 		namespace System {
 			/*!
 				@brief Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are '/' delimited when forming though may not be while retrieving. File names ".." will ascend a directory and '.' represents a no-op
-				@attention Only UTF-8 encodedable paths are supported, paths lengths may not exceed 256 BYTES, and directory names may not exceed 248 characters. Symlinks are always resolved on posix systems, but never on Windows systems. This is a user problem and should cause no errors so long as they do not reoganize the installation files
+				@attention Only UTF-8 encodedable paths are supported, paths lengths may not exceed 256 BYTES, and directory names may not exceed 248 characters. Symlinks are always resolved on posix systems, but never on Windows systems. This is a user problem and should cause no errors so long as they do not reoganize the installation files. Note that the recursive folder creation and deletion options attempt to fully adhere to the strong guarantee. But, due to the nature of filesystem race conditions, this is impossible.
 			*/
 			class Path : public Implementation::Path {	//has to be public due to File using the wondows wide string cache
 			public:
@@ -48,24 +48,36 @@ namespace CYB {
 				
 				/*!
 					@brief Create a single directory. Path's before it must exist
-					@param APath The path to the directory that will be created
-					@return true if APath exists and is readable/writable, false otherwise
+					@param APath The path to the directory that will be created. Last token must not be ".."
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the directory could not be created
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
 				*/
-				static bool CreateDirectory(const API::String::UTF8& APath);
+				static void CreateDirectory(const API::String::UTF8& APath);
 				/*!
 					@brief Try and create a set of directories
 					@param AExistingPath The path to create the first directory in
-					@param APaths Names of directories to recusively create. None of these should exist
-					@return true if succeeded, false otherwise
+					@param APaths Names of directories to recusively create. None of these should exist. None of them should be ".."
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the directories could not be created
 					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
 				*/
-				static bool TryCreateDirectories(const API::String::UTF8& AExistingPath, const API::Container::Deque<API::String::UTF8>& APaths);
+				static void CreateDirectories(const API::String::UTF8& AExistingPath, const API::Container::Deque<API::String::UTF8>& APaths);
+				/*!
+					@brief Delete a single directory. Path's before it must exist. Directory must be empty
+					@param APath The path to the directory that will be created. Last token must not be ".."
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the directory could not be deleted
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::DIRECTORY_NOT_EMPTY. Thrown if the directory is not empty
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
+				*/
+				static void DeleteDirectory(const API::String::UTF8& APath);
 
 				/*!
 					@brief Evaluates '..' and '.' references within the path
@@ -74,6 +86,7 @@ namespace CYB {
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::PATH_EVALUATION_FAILURE. If the path could not be evaluated
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
 				*/
 				static void Evaluate(API::String::UTF8& APath);
 
@@ -84,6 +97,7 @@ namespace CYB {
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE If some part of the new path is not readable with the current permissions
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
 				*/
 				bool Verify(const API::String::UTF8& APath) const;
 
@@ -115,8 +129,8 @@ namespace CYB {
 				/*!
 					@brief Append a directory/file to the path
 					@param AAppendage The string to append to the path. This may contain '/'s and ".."s as required, though they should never start with '/'. If the last file in the path does not exist, the function will still succeed, however, further calls on the object will generate a CYB::Exception::SystemData::PATH_LOST error. This is to enable creation of new files
-					@param ACreateIfNonExistant Create the end of path as a directory if it does not exist
-					@param ACreateRecursive Create the path recursively. Ignored if @p ACreateIfNonExistant is false
+					@param ACreateIfNonExistant Create the end of path as a directory if it does not exist. If this is true then the last path token in @p AAppendage must not be ".."
+					@param ACreateRecursive Create the path recursively. If this is true none of the path tokens in @p AAppendage should be "..". Ignored if @p ACreateIfNonExistant is false
 					@return true if navigation succeeded, false otherwise
 					@attention This function will always fail if the current path is a file. If the function is inexplicably returning false, it may be due to windows UTF16 conversion errors, try simplifying @p AAppendage
 					@par Thread Safety

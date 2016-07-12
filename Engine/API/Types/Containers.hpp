@@ -8,6 +8,7 @@ namespace CYB {
 		namespace Container {
 			template <typename AType> using Deque = std::deque<AType, Interop::STLAllocator<AType>>;
 			template <typename AType> using Vector = std::vector<AType, Interop::STLAllocator<AType>>;
+			template <typename AType, typename AContainer = Deque<AType>> using Stack = std::stack<AType, AContainer>;
 		};
 	};
 };

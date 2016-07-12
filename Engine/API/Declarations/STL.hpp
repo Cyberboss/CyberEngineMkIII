@@ -13,4 +13,5 @@
 //containers
 #include <deque>
 #include <vector>
+#include <stack>
 //! @endcond

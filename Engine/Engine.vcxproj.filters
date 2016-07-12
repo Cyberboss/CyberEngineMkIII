@@ -82,23 +82,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Engine">
-      <UniqueIdentifier>{bb1df916-5885-4f0f-abe2-150f831aa0a2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="API">
       <UniqueIdentifier>{fa07e106-577a-4426-847a-cfacb07f8457}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{fdb152be-6add-4659-81d1-d81b75bd3684}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Memory">
-      <UniqueIdentifier>{30c8468c-f4a2-4737-9f2d-5e1165f77516}</UniqueIdentifier>
-    </Filter>
     <Filter Include="API\Declarations">
       <UniqueIdentifier>{feb77a55-d65b-4fdc-8b07-b3f500785485}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Core">
-      <UniqueIdentifier>{7d357251-032e-4d44-8752-b9dd099ec944}</UniqueIdentifier>
     </Filter>
     <Filter Include="API\ExtendedTypes">
       <UniqueIdentifier>{8465f4df-8436-465f-a010-6e3bcc39231f}</UniqueIdentifier>
@@ -142,14 +133,20 @@
     <Filter Include="Platform\SystemHeaders">
       <UniqueIdentifier>{6b809ecb-4166-4752-a9db-f74f1892460b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="API\Types\Containers">
-      <UniqueIdentifier>{92a09865-2e07-4a31-ab45-a56dc02aba0b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="API\Types\String">
       <UniqueIdentifier>{e56aa628-ce5a-4a16-b43d-542753279801}</UniqueIdentifier>
     </Filter>
     <Filter Include="API\Interfaces">
       <UniqueIdentifier>{d524abdc-cd8e-43a5-9e7e-c1c4e2664043}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{bb1df916-5885-4f0f-abe2-150f831aa0a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Memory">
+      <UniqueIdentifier>{30c8468c-f4a2-4737-9f2d-5e1165f77516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core">
+      <UniqueIdentifier>{7d357251-032e-4d44-8752-b9dd099ec944}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -370,12 +367,6 @@
     <ClInclude Include="Platform\System\CYBPath.hpp">
       <Filter>Platform\System</Filter>
     </ClInclude>
-    <ClInclude Include="API\Types\Containers\Containers.hpp">
-      <Filter>API\Types\Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="API\Types\Containers\Vector.hpp">
-      <Filter>API\Types\Containers</Filter>
-    </ClInclude>
     <ClInclude Include="API\Types\String\CStyleString.hpp">
       <Filter>API\Types\String</Filter>
     </ClInclude>
@@ -390,6 +381,12 @@
     </ClInclude>
     <ClInclude Include="API\Types\String\UTF8String.hpp">
       <Filter>API\Types\String</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Interop\STLAllocator.hpp">
+      <Filter>API\Interop</Filter>
+    </ClInclude>
+    <ClInclude Include="API\ExtendedTypes\Containers.hpp">
+      <Filter>API\ExtendedTypes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -470,6 +467,9 @@
     </None>
     <None Include="Platform\CYBUTF16String.inl">
       <Filter>Platform</Filter>
+    </None>
+    <None Include="API\Interop\STLAllocator.inl">
+      <Filter>API\Interop</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

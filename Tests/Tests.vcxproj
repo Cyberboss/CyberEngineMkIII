@@ -103,6 +103,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="API\Interop\STLAllocator.cpp" />
     <ClCompile Include="API\String\DynamicString.cpp" />
     <ClCompile Include="API\String\StaticAndCStyleString.cpp" />
     <ClCompile Include="API\String\UTF16String.cpp" />

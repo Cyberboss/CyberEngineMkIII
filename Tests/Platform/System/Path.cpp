@@ -15,37 +15,44 @@ SCENARIO("Path Append works", "[Platform][System][Path][Unit]") {
 		Path Setup(Path::SystemPath::TEMPORARY);
 		if (Setup.Append(UTF8(Static(u8"TestPath")), false, false))
 			REQUIRE_NOTHROW(Setup.Delete(true));
-		REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"ExistingPath")), true, false));
-		REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"Recurse")), true, false));
+		REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"ExistingPath/Recurse/Recurse")), true, true));
 	}
 	GIVEN("A valid Path") {
 		Path TestPath(Path::SystemPath::TEMPORARY);
-		WHEN("A folder is appended onto it that doesn't exist") {
-			const auto Result(TestPath.Append(UTF8(Static(u8"TestPath")), false, false));
-			THEN("It will have failed") {
+		WHEN("Something too long is appended onto it") {
+			bool Result(false);
+			REQUIRE_THROWS_AS(Result = TestPath.Append(UTF8(Static(u8"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")), false, false), CYB::Exception::SystemData);
+			THEN("The correct error is thrown") {
 				CHECK_FALSE(Result);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::PATH_TOO_LONG);
 			}
 		}
-		WHEN("A recursive folder is appended onto it that doesn't exist") {
-			const auto Result(TestPath.Append(UTF8(Static(u8"TestPath2/Recurse")), false, false));
+		WHEN("A file is appended onto it that doesn't exist") {
+			const auto Result(TestPath.Append(UTF8(Static(u8"TestPath")), false, false));
+			THEN("It will have succeeded") {
+				CHECK(Result);
+			}
+		}
+		WHEN("A folder is appended onto it that doesn't exist") {
+			const auto Result(TestPath.Append(UTF8(Static(u8"TestPath/Recurse")), false, false));
 			THEN("It will have failed") {
 				CHECK_FALSE(Result);
 			}
 		}
 		WHEN("A recursive folder is appended onto it that doesn't exist and is created, but not recursively") {
-			const auto Result(TestPath.Append(UTF8(Static(u8"TestPath2/Recurse")), true, false));
+			const auto Result(TestPath.Append(UTF8(Static(u8"TestPath2/Recurse/Recurse")), true, false));
 			THEN("It will have failed") {
 				CHECK_FALSE(Result);
 			}
 		}
 		WHEN("A folder is appended onto it that does exist") {
-			const auto Result(TestPath.Append(UTF8(Static(u8"ExistingPath")), false, false));
+			const auto Result(TestPath.Append(UTF8(Static(u8"ExistingPath/Recurse")), false, false));
 			THEN("It will have succeeded") {
 				CHECK(Result);
 			}
 		}
 		WHEN("A recursive folder is appended onto it that does exist") {
-			const auto Result(TestPath.Append(UTF8(Static(u8"ExistingPath/Recurse")), false, false));
+			const auto Result(TestPath.Append(UTF8(Static(u8"ExistingPath/Recurse/Recurse")), false, false));
 			THEN("It will have succeeded") {
 				CHECK(Result);
 			}
@@ -95,20 +102,22 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 				AND_THEN("The evaluation fails") {
 					const auto BPC(ShellAPI.Redirect<CYB::Platform::Modules::ShellAPI::PathCanonicalizeW, BadCreateDirectory>());
 					const auto BRP(LibC.Redirect<CYB::Platform::Modules::LibC::realpath, BadRealPath>());
-
-					const auto Result(TestPath.Append(Appendage, false, false));
+					bool Result(false);
+					REQUIRE_NOTHROW(Result = TestPath.Append(Appendage, false, false));
 					THEN("It fails") {
 						CHECK_FALSE(Result);
 					}
 				}
-				AND_THEN("The verification fails") {
+				AND_THEN("The pre-verification fails") {
 					const auto BPFE(ShellAPI.Redirect<CYB::Platform::Modules::ShellAPI::PathFileExistsW, BadPathFileExists>());
 #ifndef TARGET_OS_WINDOWS
 					SysCallOverride BS(Sys::CallNumber::STAT, FakeStat);
 #endif
-					const auto Result(TestPath.Append(Appendage, false, false));
-					THEN("It fails") {
+					bool Result(false);
+					REQUIRE_THROWS_AS(Result = TestPath.Append(Appendage, false, false), CYB::Exception::SystemData);
+					THEN("The correct exception is thrown") {
 						CHECK_FALSE(Result);
+						CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::PATH_LOST);
 					}
 				}
 			}

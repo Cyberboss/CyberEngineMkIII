@@ -32,6 +32,14 @@ bool CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 	static_cast<void>(ACreateIfNonExistant);
 	static_cast<void>(ACreateRecursive);
 
+	//first ensure we aren't breaking the rules
+	if (FPath.RawLength() + AAppendage.RawLength() + 1 > MAX_PATH_BYTES)
+		throw Exception::SystemData(Exception::SystemData::PATH_TOO_LONG);
+
+	//verify, file system could have changed and such
+	if (!Verify(FPath))
+		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
+
 	if (!ACreateIfNonExistant) {
 		//try a simple cd
 		auto NewPath(FPath + UTF8(Static(u8"/")) + AAppendage);
@@ -45,6 +53,21 @@ bool CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 		if (Verify(NewPath)) {
 			FPath = std::move(NewPath);
 			return true;
+		}
+		else {
+			//Okay, we may be trying to create a new file
+			UTF8 Work;
+			auto I(NewPath.RawLength() - 1);
+			for (; I >= 0; --I)
+				if (NewPath.CString()[I] == '/') {
+					Work = UTF8(static_cast<const Dynamic&>(NewPath).SubString(I + 1, NewPath.RawLength() - 1 - I));
+					break;
+				}
+			API::Assert::LessThan(-1, I);
+			if(Verify(Work)){
+				FPath = std::move(NewPath);
+				return true;
+			}
 		}
 	}
 

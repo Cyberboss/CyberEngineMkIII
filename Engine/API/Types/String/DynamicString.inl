@@ -93,6 +93,20 @@ inline CYB::API::String::Dynamic CYB::API::String::Dynamic::SubString(const int 
 	return Dynamic(CString() + AIndex, ALength);
 }
 
+inline CYB::API::Container::Deque<CYB::API::String::Dynamic> CYB::API::String::Dynamic::Tokenize(const char ASeparator) const {
+	Container::Deque<Dynamic> Work;
+	auto Last(0);
+	const auto AddRange([&](const int AStart, const int AEnd) {
+		Work.emplace_back(SubString(AStart, AEnd - Last));
+		Last = AEnd + 1;
+	});
+	for (auto I(0); I < RawLength(); ++I)
+		if (CString()[I] == ASeparator)
+			AddRange(Last, I);
+	AddRange(Last, RawLength());
+	return Work;
+}
+
 inline void CYB::API::String::Dynamic::Shrink(const int AMaxBytes) noexcept {
 	Assert::LessThan(-1, AMaxBytes);
 	if (AMaxBytes == 0)

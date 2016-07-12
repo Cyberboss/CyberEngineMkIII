@@ -3,6 +3,7 @@
 
 namespace CYB {
 	namespace API {
+		namespace Interop { template <class AType> class STLAllocator; };
 		//! @brief Contains usings of STL contianer types
 		namespace Container {
 			template <typename AType> using Deque = std::deque<AType, Interop::STLAllocator<AType>>;

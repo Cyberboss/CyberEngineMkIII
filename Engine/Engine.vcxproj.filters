@@ -385,8 +385,8 @@
     <ClInclude Include="API\Interop\STLAllocator.hpp">
       <Filter>API\Interop</Filter>
     </ClInclude>
-    <ClInclude Include="API\ExtendedTypes\Containers.hpp">
-      <Filter>API\ExtendedTypes</Filter>
+    <ClInclude Include="API\Types\Containers.hpp">
+      <Filter>API\Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

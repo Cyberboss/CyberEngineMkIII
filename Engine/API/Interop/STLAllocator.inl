@@ -17,9 +17,11 @@ template <class AType> template <class AOtherType> CYB::API::Interop::STLAllocat
 }
 
 template <class AType> template<class ARType> constexpr bool CYB::API::Interop::STLAllocator<AType>::operator==(const STLAllocator<ARType>& ARHS) const noexcept {
+	static_cast<void>(ARHS);
 	return true;
 }
 
 template <class AType> template<class ARType> constexpr bool CYB::API::Interop::STLAllocator<AType>::operator!=(const STLAllocator<ARType>& ARHS) const noexcept {
+	static_cast<void>(ARHS);
 	return false;
 }

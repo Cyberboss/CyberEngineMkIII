@@ -55,7 +55,17 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
 				static bool CreateDirectory(const API::String::UTF8& APath);
-				static bool RecursiveTryCreateDirectories(const API::String::UTF8& APath, const bool ACreateLast);
+				/*!
+					@brief Try and create a set of directories
+					@param AExistingPath The path to create the first directory in
+					@param APaths Names of directories to recusively create. None of these should exist
+					@return true if succeeded, false otherwise
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
+				*/
+				static bool TryCreateDirectories(const API::String::UTF8& AExistingPath, const API::Container::Deque<API::String::UTF8>& APaths);
 
 				/*!
 					@brief Evaluates '..' and '.' references within the path
@@ -87,6 +97,7 @@ namespace CYB {
 				*/
 				void SetPath(API::String::UTF8&& APath);
 			public:
+				static API::String::Static DirectorySeparatorChar(void) noexcept;
 				/*!
 					@brief Get the Path of a SystemDirectory
 					@param ADirectory The type of SystemDirectory to look up
@@ -111,8 +122,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires synchronization at the object level
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE If some part of the new path is not readable with the current permissions. This does NOT include the final file
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE If the new path could not be created. Filesystem state will be reverted even while doing recursive creation
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE If a new path could not be created. Filesystem state will be reverted even while doing recursive creation
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_TOO_LONG If the new path would exceed the limitation
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify
 				*/

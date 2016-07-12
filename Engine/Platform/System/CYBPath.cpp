@@ -49,7 +49,7 @@ bool CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 
 		if (!ACreateIfNonExistant) {
 			//try a simple cd
-			auto NewPath(FPath + UTF8(Static(u8"/")) + AAppendage);
+			auto NewPath(FPath + DirectorySeparatorChar() + AAppendage);
 			try {
 				Evaluate(NewPath);
 			}
@@ -65,19 +65,67 @@ bool CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 				//Okay, we may be trying to create a new file
 				UTF8 Work;
 				auto I(NewPath.RawLength() - 1);
-				for (; I >= 0; --I)
+				for (; I > 0; --I)
 					if (NewPath.CString()[I] == '/') {
-						Work = UTF8(static_cast<const Dynamic&>(NewPath).SubString(I + 1, NewPath.RawLength() - 1 - I));
+						Work = UTF8(static_cast<const Dynamic&>(NewPath).SubString(0, I));
 						break;
 					}
-				API::Assert::LessThan(-1, I);
+				API::Assert::LessThan(0, I);
 				if (Verify(Work)) {
 					SetPath(std::move(NewPath));
 					return true;
 				}
 			}
 		}
-	}catch(Exception::Internal AException){
+		else {
+			//create tokens of directories to create
+			API::Container::Deque<UTF8> Tokens;
+			UTF8 WorkingPath;
+			if (ACreateRecursive) {
+				//TODO: Change this to UTF-8 tokenize, once implemented
+				//Tokens = AAppendage.Tokenize(DirectorySeparatorChar());
+				auto DynTokens(AAppendage.Tokenize('/'));
+				for (auto& Tok : DynTokens)
+					Tokens.emplace_back(std::move(Tok));
+				WorkingPath = UTF8(FPath);
+			}
+			else {
+				auto I(AAppendage.RawLength() - 1);
+				for (; I > 0; --I)
+					if (AAppendage.CString()[I] == '/') {
+						Tokens.emplace_back(UTF8(static_cast<const Dynamic&>(AAppendage).SubString(I + 1, AAppendage.RawLength() - I - 1)));
+						WorkingPath = UTF8(static_cast<const Dynamic&>(AAppendage).SubString(0, AAppendage.RawLength()));
+						break;
+					}
+				if (I == 0) {
+					Tokens.emplace_back(UTF8(AAppendage));
+					WorkingPath = UTF8(FPath);
+				}
+				else if(!Verify(WorkingPath)) {
+					return false;
+				}
+			}
+			//and try to create them
+			if (TryCreateDirectories(WorkingPath, Tokens)) {
+				try {
+					SetPath(FPath + DirectorySeparatorChar() + AAppendage);
+					return true;
+				}
+				catch (Exception::Internal AException) {
+					API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING);
+					try {
+						Path Working(*this);
+						Working.Append(WorkingPath + DirectorySeparatorChar() + Tokens.front(), false, false);
+						Delete(true);
+					}
+					catch (CYB::Exception::Base) {}	//grumble grumble
+				}
+			}
+			else
+				throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+		}
+	}
+	catch (Exception::Internal AException) {
 		API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING);
 	}
 	return false;
@@ -85,4 +133,8 @@ bool CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 
 void CYB::Platform::System::Path::Delete(const bool ARecursive) const {
 	static_cast<void>(ARecursive);
+}
+
+CYB::API::String::Static CYB::Platform::System::Path::DirectorySeparatorChar(void) noexcept {
+	return Static(u8"/");
 }

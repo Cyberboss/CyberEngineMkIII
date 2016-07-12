@@ -24,65 +24,28 @@ CYB::Platform::System::Implementation::Process::Process(const Path& APath, const
 pid_t CYB::Platform::System::Implementation::Process::SpawnProcess(const CYB::Platform::System::Path& APath, const CYB::API::String::Dynamic& ACommandLine) {
 
 	//Parse ACommandLine for spaces
-	const char** Argv(nullptr);
-
-	//TODO: replace this shit once you make a real vector/deque
-	struct UTF8Link {
-		CYB::API::String::UTF8 FString;
-		UTF8Link* FNext;
-	};
-
-	UTF8Link* Base(nullptr), *Work(Base);
-
-	const auto Cleanup([&]() {
-		for (auto Current(Base); Current != nullptr; Current = Base->FNext, CYB::Allocator().FHeap.Free(Base), Base = Current);
-		CYB::Allocator().FHeap.Free(Argv);
-	});
-	struct AutoCleanup {
-	private:
-		const decltype(Cleanup) FCleanup;
-	public:
-		AutoCleanup(const decltype(Cleanup)& ACleanup) :
-			FCleanup(ACleanup)
-		{}
-		~AutoCleanup() {
-			FCleanup();
-		}
-	};
-
-	AutoCleanup AC(Cleanup);
+	API::Container::Deque<CYB::API::String::Dynamic> Work(nullptr);
+	API::Container::Vector<const char*> Argv(nullptr);
 
 	if (ACommandLine.RawLength() > 0) {
-		unsigned int Count(0), Last(0);
+		unsigned int Last(0);
 		const auto AddRange([&](const unsigned int AStart, const unsigned int AEnd) {
-			if (Work == nullptr) {
-				Base = static_cast<UTF8Link*>(CYB::Allocator().FHeap.Alloc(sizeof(UTF8Link)));
-				Work = Base;
-			}
-			else {
-				Work->FNext = static_cast<UTF8Link*>(CYB::Allocator().FHeap.Alloc(sizeof(UTF8Link)));
-				Work = Work->FNext;
-			}
-			Work->FNext = nullptr;
-			CYB::Allocator().InPlaceAllocation<CYB::API::String::Dynamic>(&Work->FString, ACommandLine.SubString(AStart, AEnd - Last));
+			Work.emplace_back(ACommandLine.SubString(AStart, AEnd - Last));
 			Last = AEnd + 1;
-
-			++Count;
 		});
 		for (unsigned int I(0); I < ACommandLine.RawLength(); ++I)
 			if (ACommandLine.CString()[I] == ' ')
 				AddRange(Last, I);
 		AddRange(Last, ACommandLine.RawLength());
 
-		Argv = static_cast<const char**>(CYB::Allocator().FHeap.Alloc(Count * sizeof(const char*)));
+		Argv.reserve(Work.size());
 
-		Work = Base;
-		for (auto I(0U); Work != nullptr; Work = Work->FNext, ++I)
-			Argv[I] = Work->FString.CString();
+		for (auto& Word : Work)
+			Argv.emplace_back(Word.CString());
 	}
 
 	pid_t PID;
-	const auto Result(CYB::Core().FModuleManager.FC.Call<CYB::Platform::Modules::LibC::posix_spawn>(&PID, APath().CString(), nullptr, nullptr, const_cast<char**>(Argv), environ));
+	const auto Result(CYB::Core().FModuleManager.FC.Call<CYB::Platform::Modules::LibC::posix_spawn>(&PID, APath().CString(), nullptr, nullptr, const_cast<char**>(&Argv[0]), environ));
 
 	if (Result != 0)
 		switch (errno) {

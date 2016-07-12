@@ -27,9 +27,19 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 		return GetResourceDirectory();
 	case SystemPath::TEMPORARY: {
 		API::String::UTF8 Result(API::String::Static(u8"/tmp/"));
-		Result += API::String::UTF8(API::String::Static(Engine::Parameters::FTempPathName));
-		if(!CreateDirectory(Result))
-			throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+		Result += API::String::UTF8(API::String::Static(Engine::Parameters::FTempPathName)); 
+		bool Throw(false);
+		try {
+			CreateDirectory(Result);
+		}
+		catch (Exception::SystemData AException) {
+			if (AException.FErrorCode == Exception::SystemData::HEAP_ALLOCATION_FAILURE)
+				throw;
+			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::FILE_NOT_WRITABLE);
+			Throw = true;
+		}
+		if (Throw)
+			throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 		return Result;
 	}
 	case SystemPath::WORKING: {
@@ -76,13 +86,15 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 	}
 }
 
-bool CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath) {
+void CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath) {
 	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::mkdir>(APath.CString(), 0777));
-	return Result == 0 || errno == EEXIST;
+	if (!(Result == 0 || errno == EEXIST))
+		throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
 }
 
-bool CYB::Platform::System::Path::TryCreateDirectories(const UTF8& ABasePath, const API::Container::Deque<UTF8>& APaths) {
-	return false;
+void CYB::Platform::System::Path::DeleteDirectory(const API::String::UTF8& APath) {
+	static_cast<void>(APath);
+	throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
 }
 
 void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {

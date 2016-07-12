@@ -23,11 +23,8 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 			wchar_t Buffer[MAX_PATH];
 			if (MM.FK32.Call<Modules::Kernel32::GetModuleFileNameW>(Module, Buffer, DWORD(MAX_PATH)) != 0)
 				if (ADirectory == SystemPath::EXECUTABLE) {
-					if (MM.FShellAPI.Call<Modules::ShellAPI::PathRemoveFileSpecW>(Buffer) != 0) {
-						auto WithoutDelimiter(API::String::UTF16::ToUTF8(Buffer));
-						WithoutDelimiter += API::String::UTF8(API::String::Static(u8"/"));
-						return WithoutDelimiter;
-					}
+					if (MM.FShellAPI.Call<Modules::ShellAPI::PathRemoveFileSpecW>(Buffer) != 0) 
+						return API::String::UTF16::ToUTF8(Buffer);
 					throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
 				}
 			return API::String::UTF16::ToUTF8(Buffer);
@@ -45,8 +42,22 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 			Result = API::String::UTF16::ToUTF8(Buffer);
 		}
 		Result += API::String::UTF8(API::String::Static(Engine::Parameters::FTempPathName));
-		if (!CreateDirectory(Result))
-			throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+		bool Throw(false);
+		Exception::SystemData::ErrorCode ThrowCode(Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);
+		try {
+			CreateDirectory(Result);
+		}
+		catch (Exception::SystemData AException) {
+			Throw = true;
+			if (AException.FErrorCode == Exception::SystemData::HEAP_ALLOCATION_FAILURE)
+				ThrowCode = Exception::SystemData::HEAP_ALLOCATION_FAILURE;
+			else {
+				API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::FILE_NOT_WRITABLE);
+				ThrowCode = Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE;
+			}
+		}
+		if(Throw)
+			throw Exception::SystemData(ThrowCode);
 		return Result;
 	}
 	case SystemPath::WORKING:
@@ -84,21 +95,16 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 	}
 }
 
-bool CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath) {
+void CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath) {
 	API::String::UTF16 As16(APath);
-	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::CreateDirectoryW>(As16.WString(), nullptr) != 0)
-		return true;
-	
-	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>() == ERROR_ALREADY_EXISTS)
-		return true;
-
-	return false;
+	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::CreateDirectoryW>(As16.WString(), nullptr) == 0
+		&& Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>() != ERROR_ALREADY_EXISTS)
+		throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
 }
 
-bool CYB::Platform::System::Path::TryCreateDirectories(const UTF8& ABasePath, const API::Container::Deque<UTF8>& APaths) {
-	static_cast<void>(ABasePath);
-	static_cast<void>(APaths);
-	return false;
+void CYB::Platform::System::Path::DeleteDirectory(const API::String::UTF8& APath) {
+	static_cast<void>(APath);
+	throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
 }
 
 void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {

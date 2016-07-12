@@ -66,7 +66,7 @@ namespace CYB {
 			enum ErrorCode : unsigned int {
 				FILE_NOT_FOUND,	//!< @brief A required file was not found in the filesystem
 				FILE_NOT_READABLE,	//!< @brief Tried to read/execute a file or enumerate a directory that the current user does not have permissions for
-				//FILE_NOT_WRITABLE,	//!< @brief Tried to write/delete a file or create/modify/delete a directory that the current user does not have permissions for
+				FILE_NOT_WRITABLE,	//!< @brief Tried to write/delete a file or create/modify/delete a directory that the current user does not have permissions for
 				HEAP_ALLOCATION_FAILURE,	//!< @brief A heap has no block large enough for a requested allocation and expansion failed
 				MUTEX_INITIALIZATION_FAILURE, //!< @brief Mutex could not be created
 				PATH_LOST,	//!< @brief A previously valid path has become invalidated, most likely due to deletion

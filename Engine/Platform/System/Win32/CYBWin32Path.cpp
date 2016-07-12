@@ -4,6 +4,7 @@
 #include "../../SystemHeaders/CYBUTF16String.inl"
 
 using namespace CYB::Platform::Win32;
+using namespace CYB::API::String;
 
 CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const SystemPath ADirectory) {
 	if (ADirectory != SystemPath::EXECUTABLE_IMAGE
@@ -91,6 +92,12 @@ bool CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath
 	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>() == ERROR_ALREADY_EXISTS)
 		return true;
 
+	return false;
+}
+
+bool CYB::Platform::System::Path::TryCreateDirectories(const UTF8& ABasePath, const API::Container::Deque<UTF8>& APaths) {
+	static_cast<void>(ABasePath);
+	static_cast<void>(APaths);
 	return false;
 }
 

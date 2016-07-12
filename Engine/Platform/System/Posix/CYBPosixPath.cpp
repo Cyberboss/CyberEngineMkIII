@@ -2,6 +2,7 @@
 #include "CYB.hpp"
 
 using namespace CYB::Platform::Posix;
+using namespace CYB::API::String;
 
 CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const SystemPath ADirectory) {
 	auto& MM(Core().FModuleManager);
@@ -78,6 +79,10 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 bool CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath) {
 	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::mkdir>(APath.CString(), 0777));
 	return Result == 0 || errno == EEXIST;
+}
+
+bool CYB::Platform::System::Path::TryCreateDirectories(const UTF8& ABasePath, const API::Container::Deque<UTF8>& APaths) {
+	return false;
 }
 
 void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {

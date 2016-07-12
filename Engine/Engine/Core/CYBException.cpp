@@ -32,8 +32,8 @@ CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCod
 		return API::String::Static(u8"A required file was not found.");
 	case FILE_NOT_READABLE:
 		return API::String::Static(u8"The requested file/directory cannot be read/executed.");
-	//case FILE_NOT_WRITABLE:
-		//return API::String::Static(u8"The requested file/directory cannot be written to/deleted/created.");
+	case FILE_NOT_WRITABLE:
+		return API::String::Static(u8"The requested file/directory cannot be written to/deleted/created.");
 	case HEAP_ALLOCATION_FAILURE:
 		return API::String::Static(u8"Current heap has no block large enough for a requested allocation and expansion failed");
 	case MUTEX_INITIALIZATION_FAILURE:

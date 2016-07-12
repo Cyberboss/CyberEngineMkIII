@@ -1,6 +1,8 @@
 //! @file CYBPath.cpp Implements CYB::Platform::System::Path shared functions
 #include "CYB.hpp"
 
+using namespace CYB::API::String;
+
 CYB::Platform::System::Path::Path(const SystemPath ADirectory) :
 	FPath(LocateDirectory(ADirectory))
 {}
@@ -29,6 +31,23 @@ bool CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 	static_cast<void>(AAppendage);
 	static_cast<void>(ACreateIfNonExistant);
 	static_cast<void>(ACreateRecursive);
+
+	if (!ACreateIfNonExistant) {
+		//try a simple cd
+		auto NewPath(FPath + UTF8(Static(u8"/")) + AAppendage);
+		try {
+			Evaluate(NewPath);
+		}
+		catch (Exception::Internal AException) {
+			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::PATH_EVALUATION_FAILURE);
+			return false;
+		}
+		if (Verify(NewPath)) {
+			FPath = std::move(NewPath);
+			return true;
+		}
+	}
+
 	return false;
 }
 

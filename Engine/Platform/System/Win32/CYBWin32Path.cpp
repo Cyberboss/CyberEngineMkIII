@@ -102,6 +102,6 @@ void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
 	APath = API::String::UTF16::ToUTF8(OutputBuffer);
 }
 
-//bool CYB::Platform::System::Path::Verify(const API::String::UTF8& APath) {
-//	return Core().FModuleManager.FShellAPI.Call<Modules::ShellAPI::PathFileExistsW>(API::String::UTF16(APath).WString()) == TRUE;
-//}
+bool CYB::Platform::System::Path::Verify(const API::String::UTF8& APath) {
+	return Core().FModuleManager.FShellAPI.Call<Modules::ShellAPI::PathFileExistsW>(API::String::UTF16(APath).WString()) == TRUE;
+}

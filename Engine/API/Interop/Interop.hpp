@@ -12,6 +12,7 @@ namespace CYB {
 #include "Constructor.hpp"
 #include "Object.hpp"
 #include "Allocator.hpp"
+#include "STLAllocator.hpp"
 
 #define CYB_SET_ALLOCATABLE_ID(AClass)\
 template<> constexpr CYB::API::Interop::Allocatable::ID CYB::API::Interop::Allocatable::GetID<CYB::API::AClass>(void) {\

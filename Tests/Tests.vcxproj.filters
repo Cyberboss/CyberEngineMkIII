@@ -49,6 +49,9 @@
     <ClCompile Include="API\String\UTF16String.cpp">
       <Filter>API\String</Filter>
     </ClCompile>
+    <ClCompile Include="API\Interop\STLAllocator.cpp">
+      <Filter>API\Interop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />
@@ -101,6 +104,9 @@
     </Filter>
     <Filter Include="Platform\System">
       <UniqueIdentifier>{d9f48e56-d925-4662-a7a3-11f74d450da7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\Interop">
+      <UniqueIdentifier>{95737c7a-da0f-40d3-bc58-871a28cf5bfa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

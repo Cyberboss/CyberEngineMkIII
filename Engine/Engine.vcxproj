@@ -169,6 +169,7 @@
     <ClInclude Include="API\Declarations\OSDeclaration.hpp" />
     <ClInclude Include="API\Declarations\STL.hpp" />
     <ClInclude Include="API\Declarations\SystemChecks.hpp" />
+    <ClInclude Include="API\ExtendedTypes\Containers.hpp" />
     <ClInclude Include="API\ExtendedTypes\ExtendedTypes.hpp" />
     <ClInclude Include="API\ExtendedTypes\LockGuard.hpp" />
     <ClInclude Include="API\Interfaces\Heap.hpp" />
@@ -178,8 +179,7 @@
     <ClInclude Include="API\Interop\Constructor.hpp" />
     <ClInclude Include="API\Interop\Interop.hpp" />
     <ClInclude Include="API\Interop\Object.hpp" />
-    <ClInclude Include="API\Types\Containers\Containers.hpp" />
-    <ClInclude Include="API\Types\Containers\Vector.hpp" />
+    <ClInclude Include="API\Interop\STLAllocator.hpp" />
     <ClInclude Include="API\Types\EngineInformation.hpp" />
     <ClInclude Include="API\Types\Exception.hpp" />
     <ClInclude Include="API\Types\ParameterPack.hpp" />
@@ -248,6 +248,7 @@
     <None Include="API\ExtendedTypes\LockGuard.inl" />
     <None Include="API\Interop\Allocator.inl" />
     <None Include="API\Interop\Object.inl" />
+    <None Include="API\Interop\STLAllocator.inl" />
     <None Include="API\Types\Exception.inl" />
     <None Include="API\Types\ParameterPack.inl" />
     <None Include="API\Types\Singleton.inl" />

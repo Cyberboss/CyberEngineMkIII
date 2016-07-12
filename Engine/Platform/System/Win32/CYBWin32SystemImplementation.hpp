@@ -5,3 +5,4 @@
 #include "CYBWin32Process.hpp"
 #include "CYBWin32VirtualMemory.hpp"
 #include "CYBWin32Mutex.hpp"
+#include "CYBWin32Path.hpp"

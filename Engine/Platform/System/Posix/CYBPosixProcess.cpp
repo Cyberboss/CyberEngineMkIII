@@ -16,12 +16,12 @@ CYB::Platform::System::Implementation::Process::Process() noexcept :
 {}
 
 
-CYB::Platform::System::Implementation::Process::Process(const Path& APath, const API::String::UTF8& ACommandLine) :
+CYB::Platform::System::Implementation::Process::Process(const System::Path& APath, const API::String::UTF8& ACommandLine) :
 	FPID(SpawnProcess(APath, ACommandLine)),
 	FExitCodeReady(false)
 {}
 
-pid_t CYB::Platform::System::Implementation::Process::SpawnProcess(const CYB::Platform::System::Path& APath, const CYB::API::String::Dynamic& ACommandLine) {
+pid_t CYB::Platform::System::Implementation::Process::SpawnProcess(const System::Path& APath, const CYB::API::String::Dynamic& ACommandLine) {
 
 	//Parse ACommandLine for spaces
 	API::Container::Deque<CYB::API::String::Dynamic> Work;

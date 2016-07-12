@@ -7,7 +7,7 @@ namespace CYB {
 				@brief Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are '/' delimited when forming though may not be while retrieving. File names ".." will ascend a directory and '.' represents a no-op
 				@attention Only UTF-8 encodedable paths are supported, paths lengths may not exceed 256 BYTES, and directory names may not exceed 248 characters. Symlinks are always resolved on posix systems, but never on Windows systems. This is a user problem and should cause no errors so long as they do not reoganize the installation files
 			*/
-			class Path {
+			class Path : public Implementation::Path {	//has to be public due to File using the wondows wide string cache
 			public:
 				enum : int {
 					MAX_PATH_BYTES = 256,
@@ -31,6 +31,7 @@ namespace CYB {
 						Use of SystemDirectory::WORKING must be synchronized with SetAsWorkingDirectory. Otherwise, this function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the specified path could not be retrieved
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
 				*/
 				static API::String::UTF8 LocateDirectory(const SystemPath ADirectory);
 				/*!
@@ -41,6 +42,7 @@ namespace CYB {
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. If an invalid value for @p ADirectory is given
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the specified path could not be retrieved
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
 				*/
 				static API::String::UTF8 GetResourceDirectory(void);
 				
@@ -64,6 +66,7 @@ namespace CYB {
 					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::PATH_EVALUATION_FAILURE. If the path could not be evaluated
 				*/
 				static void Evaluate(API::String::UTF8& APath);
+
 				/*!
 					@brief Verifys the path pointed to exists
 					@param APath The path to check
@@ -72,7 +75,17 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE If some part of the new path is not readable with the current permissions
 				*/
-				static bool Verify(const API::String::UTF8& APath);
+				bool Verify(const API::String::UTF8& APath) const;
+
+				/*!
+					@brief Sets the current Path string
+					@param APath The string to set the path to
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
+				*/
+				void SetPath(API::String::UTF8&& APath);
 			public:
 				/*!
 					@brief Get the Path of a SystemDirectory
@@ -94,7 +107,7 @@ namespace CYB {
 					@param ACreateIfNonExistant Create the end of path as a directory if it does not exist
 					@param ACreateRecursive Create the path recursively. Ignored if @p ACreateIfNonExistant is false
 					@return true if navigation succeeded, false otherwise
-					@attention This function will always fail if the current path is a file
+					@attention This function will always fail if the current path is a file. If the function is inexplicably returning false, it may be due to windows UTF16 conversion errors, try simplifying @p AAppendage
 					@par Thread Safety
 						This function requires synchronization at the object level
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory

@@ -11,10 +11,10 @@ namespace CYB {
 					int FExitCode;
 					bool FExitCodeReady;
 				private:
-					static pid_t SpawnProcess(const Path& APath, const API::String::Dynamic& ACommandLine);
+					static pid_t SpawnProcess(const System::Path& APath, const API::String::Dynamic& ACommandLine);
 				protected:
 					Process() noexcept;
-					Process(const Path& APath, const API::String::UTF8& ACommandLine);
+					Process(const System::Path& APath, const API::String::UTF8& ACommandLine);
 					Process(const Process&) = delete;
 					Process(Process&& AMove) noexcept = default;
 					Process& operator=(Process&& AMove) noexcept = default;

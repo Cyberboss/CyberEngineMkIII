@@ -33,3 +33,5 @@ namespace CYB {
 		};
 	};
 };
+
+#include "CYBUTF16String.hpp"

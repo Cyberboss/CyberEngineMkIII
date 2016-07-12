@@ -1,6 +1,6 @@
 #include "CYB.hpp"
 
-#include "../../CYBUTF16String.inl"
+#include "../../SystemHeaders/CYBUTF16String.inl"
 
 using namespace CYB::Platform::Win32;
 
@@ -70,7 +70,7 @@ HANDLE CYB::Platform::System::Implementation::Process::CreateProcess(const CYB::
 	return ProcessInformation.hProcess;
 }
 
-CYB::Platform::System::Implementation::Process::Process(const Path& APath, const API::String::UTF8& ACommandLine):
+CYB::Platform::System::Implementation::Process::Process(const System::Path& APath, const API::String::UTF8& ACommandLine):
 	FHandle(CreateProcess(APath, ACommandLine))
 {}
 

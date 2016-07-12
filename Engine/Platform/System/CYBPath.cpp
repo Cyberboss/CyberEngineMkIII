@@ -3,9 +3,18 @@
 
 using namespace CYB::API::String;
 
-CYB::Platform::System::Path::Path(const SystemPath ADirectory) :
-	FPath(LocateDirectory(ADirectory))
-{}
+CYB::Platform::System::Path::Path(const SystemPath ADirectory) {
+	bool Throw(false);
+	try {
+		SetPath(LocateDirectory(ADirectory));
+	}
+	catch (Exception::Internal AException) {
+		API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING);
+		Throw = true;
+	}
+	if (Throw)
+		throw Exception::SystemData(Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);
+}
 
 const CYB::API::String::UTF8& CYB::Platform::System::Path::operator()(void) const noexcept {
 	return FPath;
@@ -28,49 +37,49 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::GetResourceDirectory(void) {
 }
 
 bool CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, const bool ACreateIfNonExistant, const bool ACreateRecursive) {
-	static_cast<void>(AAppendage);
-	static_cast<void>(ACreateIfNonExistant);
 	static_cast<void>(ACreateRecursive);
+	try {
+		//first ensure we aren't breaking the rules
+		if (FPath.RawLength() + AAppendage.RawLength() + 1 > MAX_PATH_BYTES)
+			throw Exception::SystemData(Exception::SystemData::PATH_TOO_LONG);
 
-	//first ensure we aren't breaking the rules
-	if (FPath.RawLength() + AAppendage.RawLength() + 1 > MAX_PATH_BYTES)
-		throw Exception::SystemData(Exception::SystemData::PATH_TOO_LONG);
+		//verify, file system could have changed and such
+		if (!Verify(FPath))
+			throw Exception::SystemData(Exception::SystemData::PATH_LOST);
 
-	//verify, file system could have changed and such
-	if (!Verify(FPath))
-		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
-
-	if (!ACreateIfNonExistant) {
-		//try a simple cd
-		auto NewPath(FPath + UTF8(Static(u8"/")) + AAppendage);
-		try {
-			Evaluate(NewPath);
-		}
-		catch (Exception::Internal AException) {
-			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::PATH_EVALUATION_FAILURE);
-			return false;
-		}
-		if (Verify(NewPath)) {
-			FPath = std::move(NewPath);
-			return true;
-		}
-		else {
-			//Okay, we may be trying to create a new file
-			UTF8 Work;
-			auto I(NewPath.RawLength() - 1);
-			for (; I >= 0; --I)
-				if (NewPath.CString()[I] == '/') {
-					Work = UTF8(static_cast<const Dynamic&>(NewPath).SubString(I + 1, NewPath.RawLength() - 1 - I));
-					break;
-				}
-			API::Assert::LessThan(-1, I);
-			if(Verify(Work)){
-				FPath = std::move(NewPath);
+		if (!ACreateIfNonExistant) {
+			//try a simple cd
+			auto NewPath(FPath + UTF8(Static(u8"/")) + AAppendage);
+			try {
+				Evaluate(NewPath);
+			}
+			catch (Exception::Internal AException) {
+				API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::PATH_EVALUATION_FAILURE);
+				return false;
+			}
+			if (Verify(NewPath)) {
+				SetPath(std::move(NewPath));
 				return true;
 			}
+			else {
+				//Okay, we may be trying to create a new file
+				UTF8 Work;
+				auto I(NewPath.RawLength() - 1);
+				for (; I >= 0; --I)
+					if (NewPath.CString()[I] == '/') {
+						Work = UTF8(static_cast<const Dynamic&>(NewPath).SubString(I + 1, NewPath.RawLength() - 1 - I));
+						break;
+					}
+				API::Assert::LessThan(-1, I);
+				if (Verify(Work)) {
+					SetPath(std::move(NewPath));
+					return true;
+				}
+			}
 		}
+	}catch(Exception::Internal AException){
+		API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING);
 	}
-
 	return false;
 }
 

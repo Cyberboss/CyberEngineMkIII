@@ -8,10 +8,10 @@ namespace CYB {
 				protected:
 					Win32::HANDLE FHandle;
 				private:
-					static Win32::HANDLE CreateProcess(const Path& APath, const API::String::UTF8& ACommandLine);
+					static Win32::HANDLE CreateProcess(const System::Path& APath, const API::String::UTF8& ACommandLine);
 				protected:
 					Process() noexcept;
-					Process(const Path& APath, const API::String::UTF8& ACommandLine);
+					Process(const System::Path& APath, const API::String::UTF8& ACommandLine);
 					Process(const Process&) = delete;
 					Process(Process&& AMove) noexcept;
 					Process& operator=(Process&& AMove) noexcept;

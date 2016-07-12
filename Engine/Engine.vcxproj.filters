@@ -388,6 +388,15 @@
     <ClInclude Include="API\Types\Containers.hpp">
       <Filter>API\Types</Filter>
     </ClInclude>
+    <ClInclude Include="Platform\System\Win32\CYBWin32Path.hpp">
+      <Filter>Platform\System\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\SystemHeaders\CYBUTF16String.hpp">
+      <Filter>Platform\SystemHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\System\Posix\CYBPosixPath.hpp">
+      <Filter>Platform\System\Posix</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DoxyPages\Contexts.dox">
@@ -465,11 +474,11 @@
     <None Include="API\Types\String\UTF8String.inl">
       <Filter>API\Types\String</Filter>
     </None>
-    <None Include="Platform\CYBUTF16String.inl">
-      <Filter>Platform</Filter>
-    </None>
     <None Include="API\Interop\STLAllocator.inl">
       <Filter>API\Interop</Filter>
+    </None>
+    <None Include="Platform\SystemHeaders\CYBUTF16String.inl">
+      <Filter>Platform\SystemHeaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -215,6 +215,7 @@
     <ClInclude Include="Platform\SystemHeaders\CYBOSXHeaders.hpp" />
     <ClInclude Include="Platform\SystemHeaders\CYBPosixHeaders.hpp" />
     <ClInclude Include="Platform\SystemHeaders\CYBSystemHeaders.hpp" />
+    <ClInclude Include="Platform\SystemHeaders\CYBUTF16String.hpp" />
     <ClInclude Include="Platform\SystemHeaders\CYBWin32Headers.hpp" />
     <ClInclude Include="Platform\System\CYBFile.hpp" />
     <ClInclude Include="Platform\System\CYBMutex.hpp" />
@@ -228,11 +229,13 @@
     <ClInclude Include="Platform\System\Linux\CYBLinuxSyscalls.hpp" />
     <ClInclude Include="Platform\System\OSX\CYBOSXSystemImplementation.hpp" />
     <ClInclude Include="Platform\System\OSX\CYBOSXSyscalls.hpp" />
+    <ClInclude Include="Platform\System\Posix\CYBPosixPath.hpp" />
     <ClInclude Include="Platform\System\Posix\CYBPosixSystemImplementation.hpp" />
     <ClInclude Include="Platform\System\Posix\CYBPosixMutex.hpp" />
     <ClInclude Include="Platform\System\Posix\CYBPosixProcess.hpp" />
     <ClInclude Include="Platform\System\Posix\CYBPosixThread.hpp" />
     <ClInclude Include="Platform\System\Posix\CYBPosixVirtualMemory.hpp" />
+    <ClInclude Include="Platform\System\Win32\CYBWin32Path.hpp" />
     <ClInclude Include="Platform\System\Win32\CYBWin32SystemImplementation.hpp" />
     <ClInclude Include="Platform\System\Win32\CYBWin32Mutex.hpp" />
     <ClInclude Include="Platform\System\Win32\CYBWin32Process.hpp" />
@@ -264,9 +267,9 @@
     <None Include="DoxyPages\Resources.dox" />
     <None Include="DoxyPages\Tutorial.dox" />
     <None Include="DoxyPages\Units.dox" />
-    <None Include="Platform\CYBUTF16String.inl" />
     <None Include="Platform\Modules\CYBAutoModule.inl" />
     <None Include="Platform\Modules\CYBModuleDefinitions.hpp" />
+    <None Include="Platform\SystemHeaders\CYBUTF16String.inl" />
     <None Include="Platform\System\CYBSyscalls.inl" />
   </ItemGroup>
   <ItemGroup>

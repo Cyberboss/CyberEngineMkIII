@@ -1,7 +1,7 @@
 //! @file CYBWin32Path.cpp Implements CYB::Platform::System::Path for Win32
 #include "CYB.hpp"
 
-#include "../../CYBUTF16String.inl"
+#include "../../SystemHeaders/CYBUTF16String.inl"
 
 using namespace CYB::Platform::Win32;
 
@@ -102,6 +102,17 @@ void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
 	APath = API::String::UTF16::ToUTF8(OutputBuffer);
 }
 
-bool CYB::Platform::System::Path::Verify(const API::String::UTF8& APath) {
-	return Core().FModuleManager.FShellAPI.Call<Modules::ShellAPI::PathFileExistsW>(API::String::UTF16(APath).WString()) == TRUE;
+bool CYB::Platform::System::Path::Verify(const API::String::UTF8& APath) const {
+	API::String::UTF16 As16;
+	const bool Local(&APath == &FPath);
+	if (!Local)
+		As16 = API::String::UTF16(APath);
+	const API::String::UTF16& Ref(Local ? FWidePath : As16);
+
+	return Core().FModuleManager.FShellAPI.Call<Modules::ShellAPI::PathFileExistsW>(Ref.WString()) == TRUE;
+}
+
+void CYB::Platform::System::Path::SetPath(API::String::UTF8&& APath) {
+	FWidePath = API::String::UTF16(APath);
+	FPath = std::move(APath);
 }

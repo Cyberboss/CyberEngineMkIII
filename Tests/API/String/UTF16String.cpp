@@ -1,9 +1,5 @@
 ﻿#include "TestHeader.hpp"
 
-#ifdef TARGET_OS_WINDOWS
-#include "../Engine/Platform/CYBUTF16String.inl"
-#endif
-
 #include <cstring>
 
 using namespace CYB::API::String;

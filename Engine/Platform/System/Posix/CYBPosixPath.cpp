@@ -89,7 +89,7 @@ void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
 	APath = CYB::API::String::UTF8(CYB::API::String::Static(ThePath));
 }
 
-//bool CYB::Platform::System::Path::Verify(const API::String::UTF8& APath) {
-//	StatStruct ST;
-//	return Sys::Call(Sys::STAT, const_cast<char*>(APath.CString()), &ST) == 0;
-//}
+bool CYB::Platform::System::Path::Verify(const API::String::UTF8& APath) {
+	StatStruct ST;
+	return Sys::Call(Sys::STAT, const_cast<char*>(APath.CString()), &ST) == 0;
+}

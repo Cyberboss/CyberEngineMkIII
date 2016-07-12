@@ -3,59 +3,7 @@
 using namespace CYB::Platform::System;
 using namespace CYB::API::String;
 
-bool SpecialReforkCase(true);
-REDIRECTED_FUNCTION(GoodCreateDirectory, const void* const, const void* const) {
-	return 1;
-}
-SCENARIO("Paths can be created by the system", "[Platform][System][Path][Unit]") {
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	GIVEN("That paths can be constructed with a system directory") {
-		Path* TestPath(nullptr);
-		WHEN("The executable directory is retrieved") {
-			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::EXECUTABLE));
-			THEN("All is well") {
-				CHECK(TestPath != nullptr);
-			}
-		}
-		WHEN("The executable image path is retrieved") {
-			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::EXECUTABLE_IMAGE));
-			THEN("All is well") {
-				CHECK(TestPath != nullptr);
-			}
-		}
-		WHEN("The resource directory is retrieved") {
-			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::RESOURCE));
-			THEN("All is well") {
-				CHECK(TestPath != nullptr);
-			}
-		}
-		WHEN("The temporary directory is retrieved") {
-			//for code coverage purposes, fake the directory creation
-			const auto GCD(K32.Redirect<CYB::Platform::Modules::Kernel32::CreateDirectoryW, GoodCreateDirectory>());
-			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::TEMPORARY));
-			THEN("All is well") {
-				CHECK(TestPath != nullptr);
-			}
-		}
-		WHEN("The user directory is retrieved") {
-			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::USER));
-			THEN("All is well") {
-				CHECK(TestPath != nullptr);
-			}
-		}
-		WHEN("The working directory is retrieved") {
-			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::WORKING));
-			THEN("All is well") {
-				CHECK(TestPath != nullptr);
-			}
-		}
-		delete TestPath;
-	}
-}
+
 
 SCENARIO("Path Append works", "[Platform][System][Path][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
@@ -119,6 +67,132 @@ SCENARIO("Path Append works", "[Platform][System][Path][Unit]") {
 		Path(Path::SystemPath::TEMPORARY).Delete(true);
 	}
 	catch (...) {}
+}
+
+template <class ARedirector> class BadCreateDirectory;
+template <class ARedirector> class BadRealPath;
+template <class ARedirector> class BadPathFileExists;
+unsigned long long FakeStat(Fake::SysCalls::Args&);
+
+SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	{
+		Path Setup(Path::SystemPath::TEMPORARY);
+		if (Setup.Append(UTF8(Static(u8"TestPath")), false, false))
+			REQUIRE_NOTHROW(Setup.Delete(true));
+		REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"ExistingPath")), true, false));
+		REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"Recurse")), true, false));
+	}
+	GIVEN("A valid path") {
+		Path TestPath(Path::SystemPath::TEMPORARY);
+		WHEN("We whitebox Append") {
+			WHEN("We do a basic cd Append") {
+				const UTF8 Appendage(Static(u8"ExistingPath"));
+				AND_THEN("The evaluation fails") {
+					const auto BPC(ShellAPI.Redirect<CYB::Platform::Modules::ShellAPI::PathCanonicalizeW, BadCreateDirectory>());
+					const auto BRP(LibC.Redirect<CYB::Platform::Modules::LibC::realpath, BadRealPath>());
+
+					const auto Result(TestPath.Append(Appendage, false, false));
+					THEN("It fails") {
+						CHECK_FALSE(Result);
+					}
+				}
+				AND_THEN("The verification fails") {
+					const auto BPFE(ShellAPI.Redirect<CYB::Platform::Modules::ShellAPI::PathFileExistsW, BadPathFileExists>());
+#ifndef TARGET_OS_WINDOWS
+					SysCallOverride BS(Sys::CallNumber::STAT, FakeStat);
+#endif
+					const auto Result(TestPath.Append(Appendage, false, false));
+					THEN("It fails") {
+						CHECK_FALSE(Result);
+					}
+				}
+			}
+		}
+	}
+	try {
+		Path(Path::SystemPath::TEMPORARY).Delete(true);
+	}
+	catch (...) {}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// old stuff
+
+unsigned long long FakeStat(Fake::SysCalls::Args&) {
+	return 1;
+}
+
+REDIRECTED_FUNCTION(BadPathFileExists, const void* const) {
+	return 0;
+}
+
+bool SpecialReforkCase(true);
+REDIRECTED_FUNCTION(GoodCreateDirectory, const void* const, const void* const) {
+	return 1;
+}
+SCENARIO("Paths can be created by the system", "[Platform][System][Path][Unit]") {
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	GIVEN("That paths can be constructed with a system directory") {
+		Path* TestPath(nullptr);
+		WHEN("The executable directory is retrieved") {
+			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::EXECUTABLE));
+			THEN("All is well") {
+				CHECK(TestPath != nullptr);
+			}
+		}
+		WHEN("The executable image path is retrieved") {
+			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::EXECUTABLE_IMAGE));
+			THEN("All is well") {
+				CHECK(TestPath != nullptr);
+			}
+		}
+		WHEN("The resource directory is retrieved") {
+			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::RESOURCE));
+			THEN("All is well") {
+				CHECK(TestPath != nullptr);
+			}
+		}
+		WHEN("The temporary directory is retrieved") {
+			//for code coverage purposes, fake the directory creation
+			const auto GCD(K32.Redirect<CYB::Platform::Modules::Kernel32::CreateDirectoryW, GoodCreateDirectory>());
+			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::TEMPORARY));
+			THEN("All is well") {
+				CHECK(TestPath != nullptr);
+			}
+		}
+		WHEN("The user directory is retrieved") {
+			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::USER));
+			THEN("All is well") {
+				CHECK(TestPath != nullptr);
+			}
+		}
+		WHEN("The working directory is retrieved") {
+			REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::WORKING));
+			THEN("All is well") {
+				CHECK(TestPath != nullptr);
+			}
+		}
+		delete TestPath;
+	}
 }
 
 SCENARIO("Path string retrieval operator works", "[Platform][System][Path][Unit]") {

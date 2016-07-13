@@ -7,25 +7,13 @@ namespace CYB {
 				@brief Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are '/' delimited when forming though may not be while retrieving. File names ".." will ascend a directory and '.' represents a no-op
 				@attention Only UTF-8 encodedable paths are supported, paths lengths may not exceed 256 BYTES, and directory names may not exceed 248 characters. Symlinks are always resolved on posix systems, but never on Windows systems. This is a user problem and should cause no errors so long as they do not reoganize the installation files. Note that the recursive folder creation and deletion options attempt to fully adhere to the strong guarantee. But, due to the nature of filesystem race conditions, this is impossible.
 			*/
-			class Path : public Implementation::Path {	//has to be public due to File using the wondows wide string cache
-			public:
-				enum : int {
-					MAX_PATH_BYTES = 256,
-				};
-				enum class SystemPath {
-					EXECUTABLE_IMAGE,	//!< @brief The path from which the engine was launched, read only
-					EXECUTABLE,	//!< @brief The directory from which the engine was launched, read only
-					RESOURCE,	//!< @brief The directory where program resources are stored, read only
-					TEMPORARY,	//!< @brief The directory for storing data relevant only to this execution
-					USER,	//!< @brief The directory for storing permanent data associated with the OS' current user, read write
-					WORKING,	//!< @brief The current application working directory, permissions indeterminate
-				};
+			class Path : public Implementation::Path, public API::Path {	//impl has to be public due to File using the wondows wide string cache
 			private:
 				API::String::UTF8 FPath;	//!< @brief The underlying string
 			private:
 				/*!
-					@brief Get the string path of a SystemDirectory
-					@param ADirectory The type of SystemDirectory to look up
+					@brief Get the string path of a SystemPath
+					@param ADirectory The type of SystemPath to look up
 					@return The string path of @p ADirectory
 					@par Thread Safety
 						Use of SystemDirectory::WORKING must be synchronized with SetAsWorkingDirectory. Otherwise, this function requires no thread safety
@@ -122,10 +110,9 @@ namespace CYB {
 				*/
 				void SetPath(API::String::UTF8&& APath);
 			public:
-				static API::String::Static DirectorySeparatorChar(void) noexcept;
 				/*!
-					@brief Get the Path of a SystemDirectory
-					@param ADirectory The type of SystemDirectory to look up
+					@brief Get the Path of a given SystemPath
+					@param ADirectory The type of SystemPath to look up
 					@par Thread Safety
 						Use of CYB::Platform::Path::SystemDirectory::WORKING must be synchronized with SetAsWorkingDirectory. Otherwise, this function requires no thread safety
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. If an invalid value for @p ADirectory is given
@@ -137,62 +124,35 @@ namespace CYB {
 				Path(Path&& AMove) noexcept = default;
 				Path& operator=(Path&& AMove) noexcept = default;
 
-				/*!
-					@brief Append a directory/file to the path
-					@param AAppendage The string to append to the path. This may contain '/'s and ".."s as required, though they should never start with '/'. If the last file in the path does not exist, the function will still succeed, however, further calls on the object will generate a CYB::Exception::SystemData::PATH_LOST error. This is to enable creation of new files
-					@param ACreateIfNonExistant Create the end of path as a directory if it does not exist. If this is true then the last path token in @p AAppendage must not be ".."
-					@param ACreateRecursive Create the path recursively. If this is true none of the path tokens in @p AAppendage should be "..". Ignored if @p ACreateIfNonExistant is false
-					@return true if navigation succeeded, false otherwise
-					@attention This function will always fail if the current path is a file. If the function is inexplicably returning false, it may be due to windows UTF16 conversion errors, try simplifying @p AAppendage
-					@par Thread Safety
-						This function requires synchronization at the object level
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE If a new path could not be created. Filesystem state will be reverted even while doing recursive creation
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_TOO_LONG If the new path would exceed the limitation
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify
-				*/
-				bool Append(const API::String::UTF8& AAppendage, const bool ACreateIfNonExistant, const bool ACreateRecursive);
-				/*!
-					@brief Navigate the path to the parent directory. Does NOT work on invalidated paths
-					@attention On POSIX systems, symlinks in path names are resolved upon path evaluation. This could lead to strange behaviour, though the onus is on the user for changing their file system
-					@par Thread Safety
-						This function requires synchronization at the object level
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify
-				*/
-				void NavigateToParentDirectory(void);
+				//! @copydoc CYB::API::Path::Append()
+				bool Append(const API::String::UTF8& AAppendage, const bool ACreateIfNonExistant, const bool ACreateRecursive) final override;
+				//! @copydoc CYB::API::Path::NavigateToParentDirectory()
+				void NavigateToParentDirectory(void) final override;
 				
-				/*!
-					@brief Ensures the current Path doesn't exist. This will invalidate the path
-					@param ARecursive If true and IsDirectory() returns true, all files in the directory represented by this path will be deleted along with the directory
-					@par Thread Safety
-						This function requires synchronization at the object level
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::DIRECTORY_NOT_EMPTY. Thrown if the directory is not empty
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the file/directory could not be deleted
-				*/
-				void Delete(const bool ARecursive) const;
+				//! @copydoc CYB::API::Path::Delete()
+				void Delete(const bool ARecursive) const final override;
 
-				/*!
-					@brief Check if the current path is a directory
-					@return true if the current path is a directory, false otherwise
-					@par Thread Safety
-						This function requires synchronization at the object level
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify
-				*/
-				bool IsDirectory(void) const;
-				/*!
-					@brief Check if the current path is a file
-					@return true if the current path is a directory, false otherwise
-					@par Thread Safety
-						This function requires synchronization at the object level
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify
-				*/
-				bool IsFile(void) const;
+				//! @copydoc CYB::API::Path::IsDirectory()
+				bool IsDirectory(void) const final override;
+				//! @copydoc CYB::API::Path::IsFile()
+				bool IsFile(void) const final override;
 
-				bool CanRead(void) const;
-				bool CanWrite(void) const;
-				bool CanExecute(void) const;
+				//! @copydoc CYB::API::Path::CanRead()
+				bool CanRead(void) const final override;
+				//! @copydoc CYB::API::Path::CanWrite()
+				bool CanWrite(void) const final override;
+				//! @copydoc CYB::API::Path::CanExecute()
+				bool CanExecute(void) const final override;
+
+				//! @copydoc CYB::API::Path::FullFileName()
+				API::String::UTF8 FullFileName(void) const final override;
+				//! @copydoc CYB::API::Path::FileName()
+				API::String::UTF8 FileName(void) const final override;
+				//! @copydoc CYB::API::Path::Extension()
+				API::String::UTF8 Extension(void) const final override;
+
+				//! @copydoc CYB::API::Path::ByteLength()
+				int ByteLength(void) const noexcept final override;
 
 				void SetAsWorkingDirectory(void) const;
 
@@ -203,12 +163,6 @@ namespace CYB {
 						This function requires synchronization at the object level
 				*/
 				const API::String::UTF8& operator()(void) const noexcept;
-
-				API::String::UTF8 FullFileName(void) const;
-				API::String::UTF8 FileName(void) const;
-				API::String::UTF8 Extension(void) const;
-
-				int ByteLength(void) const noexcept;
 			};
 		};
 	};

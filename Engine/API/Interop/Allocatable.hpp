@@ -9,6 +9,7 @@ namespace CYB {
 				//! @brief Defines the IDs of allocatable engine objects
 				enum class ID {
 					Mutex,	//!< @brief CYB::API::Mutex
+					Path,	//!< @brief CYB::API::Path
 				};
 			public:
 				/*!

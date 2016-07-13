@@ -397,6 +397,9 @@
     <ClInclude Include="Platform\System\Posix\CYBPosixPath.hpp">
       <Filter>Platform\System\Posix</Filter>
     </ClInclude>
+    <ClInclude Include="API\Allocatables\Path.hpp">
+      <Filter>API\Allocatables</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DoxyPages\Contexts.dox">

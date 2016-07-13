@@ -202,14 +202,22 @@ void CYB::Platform::System::Path::Delete(const bool ARecursive) const {
 	}
 }
 
-CYB::API::String::Static CYB::Platform::System::Path::DirectorySeparatorChar(void) noexcept {
-	return Static(u8"/");
-}
-
 bool CYB::Platform::System::Path::IsFile(void) const {
 	return !IsDirectory();
 }
 
 int CYB::Platform::System::Path::ByteLength(void) const noexcept {
 	return FPath.RawLength();
+}
+
+CYB::API::String::UTF8 CYB::Platform::System::Path::FullFileName(void) const {
+	return UTF8();
+}
+
+CYB::API::String::UTF8 CYB::Platform::System::Path::FileName(void) const {
+	return UTF8();
+}
+
+CYB::API::String::UTF8 CYB::Platform::System::Path::Extension(void) const {
+	return UTF8();
 }

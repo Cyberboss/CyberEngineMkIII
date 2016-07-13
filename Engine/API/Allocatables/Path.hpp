@@ -1,0 +1,108 @@
+//! @file Path.hpp Defines the Path allocatable
+#pragma once
+namespace CYB {
+	namespace API {
+			/*!
+				@brief Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are '/' delimited when forming though may not be while retrieving. File names ".." will ascend a directory and '.' represents a no-op
+				@attention Only UTF-8 encodedable paths are supported, paths lengths may not exceed 256 BYTES, and directory names may not exceed 248 characters. Symlinks are always resolved on posix systems, but never on Windows systems. This is a user problem and should cause no errors so long as they do not reorganize the installation files. Note that the recursive folder creation and deletion options attempt to fully adhere to the strong guarantee. But, due to the nature of filesystem race conditions, this is impossible.
+			*/
+			class Path : private Interop::Allocatable {
+			public:
+				enum : int {
+					MAX_PATH_BYTES = 256,
+				};
+				enum class SystemPath {
+					EXECUTABLE_IMAGE,	//!< @brief The path from which the engine was launched, read only
+					EXECUTABLE,	//!< @brief The directory from which the engine was launched, read only
+					RESOURCE,	//!< @brief The directory where program resources are stored, read only
+					TEMPORARY,	//!< @brief The directory for storing data relevant only to this execution
+					USER,	//!< @brief The directory for storing permanent data associated with the OS' current user, read write
+					WORKING,	//!< @brief The current application working directory, permissions indeterminate
+				};
+				/*!
+					@brief See @ref interstructors. Get the Path of a given SystemPath
+					@par SystemPath
+						The SystemPath to begin the path with
+					@par Thread Safety
+						Construction requires no thread safety
+					@par Throws
+						CYB::Exception::Violation Error code: <B>CYB::Exception::Violation::INVALID_ENUM</B>. If an invalid value for @p ADirectory is given
+						<BR>CYB::Exception::SystemData Error code: <B>CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE</B>. Thrown if the current heap runs out of memory
+						<BR>CYB::Exception::SystemData Error code: <B>CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE</B> if the specified path could not be retrieved
+				*/
+				typedef Interop::Constructor<const SystemPath> Constructor;	
+			public:
+				/*!
+					@brief Get the standardized UTF-8 directory separator string
+					@return '/'
+					@par Thread Safety
+						This function requires no thread safety
+				*/
+				static String::Static DirectorySeparatorChar(void) noexcept { return String::Static(u8"/"); }
+
+				/*!
+					@brief Append a directory/file to the path
+					@param AAppendage The string to append to the path. This may contain '/'s and ".."s as required, though they should never start with '/'. If the last file in the path does not exist, the function will still succeed, however, further calls on the object will generate a CYB::Exception::SystemData::PATH_LOST error. This is to enable creation of new files
+					@param ACreateIfNonExistant Create the end of path as a directory if it does not exist. If this is true then the last path token in @p AAppendage must not be ".."
+					@param ACreateRecursive Create the path recursively. If this is true none of the path tokens in @p AAppendage should be "..". Ignored if @p ACreateIfNonExistant is false
+					@return true if navigation succeeded, false otherwise
+					@attention This function will always fail if the current path is a file. If the function is inexplicably returning false, it may be due to windows UTF16 conversion errors, try simplifying @p AAppendage
+					@par Thread Safety
+						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE If a new path could not be created. Filesystem state will be reverted even while doing recursive creation
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_TOO_LONG If the new path would exceed the limitation
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify
+				*/
+				virtual bool Append(const API::String::UTF8& AAppendage, const bool ACreateIfNonExistant, const bool ACreateRecursive) = 0;
+				/*!
+					@brief Navigate the path to the parent directory. Does NOT work on invalidated paths
+					@attention On POSIX systems, symlinks in path names are resolved upon path evaluation. This could lead to strange behaviour, though the onus is on the user for changing their file system
+					@par Thread Safety
+						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify
+				*/
+				virtual void NavigateToParentDirectory(void) = 0;
+				
+				/*!
+					@brief Ensures the current Path doesn't exist. This will invalidate the path
+					@param ARecursive If true and IsDirectory() returns true, all files in the directory represented by this path will be deleted along with the directory
+					@par Thread Safety
+						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::DIRECTORY_NOT_EMPTY. Thrown if the directory is not empty
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the file/directory could not be deleted
+				*/
+				virtual void Delete(const bool ARecursive) const = 0;
+
+				/*!
+					@brief Check if the current path is a directory
+					@return true if the current path is a directory, false otherwise
+					@par Thread Safety
+						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify
+				*/
+				virtual bool IsDirectory(void) const = 0;
+				/*!
+					@brief Check if the current path is a file
+					@return true if the current path is a directory, false otherwise
+					@par Thread Safety
+						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify
+				*/
+				virtual bool IsFile(void) const = 0;
+
+				virtual bool CanRead(void) const = 0;
+				virtual bool CanWrite(void) const = 0;
+				virtual bool CanExecute(void) const = 0;
+
+				virtual API::String::UTF8 FullFileName(void) const = 0;
+				virtual API::String::UTF8 FileName(void) const = 0;
+				virtual API::String::UTF8 Extension(void) const = 0;
+
+				virtual int ByteLength(void) const noexcept = 0;
+			};
+	};
+};
+CYB_SET_ALLOCATABLE_ID(Path)

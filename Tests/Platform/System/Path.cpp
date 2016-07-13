@@ -13,8 +13,7 @@ SCENARIO("Path Append works", "[Platform][System][Path][Unit]") {
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	{
 		Path Setup(Path::SystemPath::TEMPORARY);
-		if (Setup.Append(UTF8(Static(u8"TestPath")), false, false))
-			REQUIRE_NOTHROW(Setup.Delete(true));
+		REQUIRE_NOTHROW(Setup.Delete(true));
 		REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Append(UTF8(Static(u8"ExistingPath/Recurse/Recurse")), true, true));
 	}
 	GIVEN("A valid Path") {
@@ -58,7 +57,7 @@ SCENARIO("Path Append works", "[Platform][System][Path][Unit]") {
 			}
 		}
 		WHEN("A folder is appended onto it that doesn't exist and is created") {
-			const auto Result(TestPath.Append(UTF8(Static(u8"TestPath")), true, false));
+			const auto Result(TestPath.Append(UTF8(Static(u8"TestPath3")), true, false));
 			THEN("It will have succeeded") {
 				CHECK(Result);
 			}
@@ -70,10 +69,6 @@ SCENARIO("Path Append works", "[Platform][System][Path][Unit]") {
 			}
 		}
 	}
-	try {
-		Path(Path::SystemPath::TEMPORARY).Delete(true);
-	}
-	catch (...) {}
 }
 
 template <class ARedirector> class BadCreateDirectory;
@@ -205,13 +200,14 @@ SCENARIO("Paths can be created by the system", "[Platform][System][Path][Unit]")
 }
 
 SCENARIO("Path string retrieval operator works", "[Platform][System][Path][Unit]") {
-	GIVEN("A UTF8 string interpreted as a Path") {
-		UTF8 Fake(Static(u8"asdf"));
-		const Path& Ref(*reinterpret_cast<Path*>(&Fake));
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	GIVEN("A test Path") {
+		const Path TestPath(Path::SystemPath::TEMPORARY);
 		WHEN("The string is retrieved") {
-			auto Cop(Ref());
-			THEN("They are equal") {
-				CHECK(Cop == Fake);
+			auto Cop(TestPath());
+			THEN("All is well") {
+				CHECK(Cop.RawLength() > 0);
 			}
 		}
 	}

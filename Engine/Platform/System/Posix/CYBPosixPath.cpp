@@ -146,3 +146,19 @@ bool CYB::Platform::System::Path::IsDirectory(void) const {
 	using namespace CYB::Platform::Posix;
 	return S_ISDIR(ST.st_mode);
 }
+
+void CYB::Platform::System::Path::NavigateToParentDirectory(void) {
+
+}
+
+bool CYB::Platform::System::Path::CanRead(void) const {
+	return false;
+}
+
+bool CYB::Platform::System::Path::CanWrite(void) const {
+	return false;
+}
+
+bool CYB::Platform::System::Path::CanExecute(void) const {
+	return false;
+}

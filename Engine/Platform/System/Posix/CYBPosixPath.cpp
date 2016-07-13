@@ -92,9 +92,33 @@ void CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath
 		throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
 }
 
+void CYB::Platform::System::Path::DeleteFile(const API::String::UTF8& APath) {
+	if (Core().FModuleManager.FC.Call<Modules::LibC::unlink>(APath.CString()) != 0) {
+		const auto Error(errno);
+		API::Assert::NotEqual(EISDIR, Error);
+		switch (Error) {
+		case ENOTDIR:
+		case ENOENT:
+			break;	//contract fufilled
+		default:
+			throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+		}
+	}
+}
+
 void CYB::Platform::System::Path::DeleteDirectory(const API::String::UTF8& APath) {
-	static_cast<void>(APath);
-	throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+	if (Core().FModuleManager.FC.Call<Modules::LibC::rmdir>(APath.CString()) != 0) {
+		const auto Error(errno);
+		switch (Error) {
+		case ENOENT:
+			break;	//contract fufilled
+		case EEXIST:	//Posix 2001
+		case ENOTEMPTY:
+			throw Exception::SystemData(Exception::SystemData::DIRECTORY_NOT_EMPTY);
+		default:
+			throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+		}
+	}
 }
 
 void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
@@ -108,9 +132,17 @@ void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
 
 bool CYB::Platform::System::Path::Verify(const API::String::UTF8& APath) const {
 	StatStruct ST;
-	return Sys::Call(Sys::STAT, const_cast<char*>(APath.CString()), &ST) == 0;
+	return Sys::Call(Sys::LSTAT, const_cast<char*>(APath.CString()), &ST) == 0;
 }
 
 void CYB::Platform::System::Path::SetPath(API::String::UTF8&& APath) {
 	FPath = std::move(APath);
+}
+
+bool CYB::Platform::System::Path::IsDirectory(void) const {
+	StatStruct ST;
+	if (Sys::Call(Sys::LSTAT, const_cast<char*>(FPath.CString()), &ST) != 0)
+		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
+	using namespace CYB::Platform::Posix;
+	return S_ISDIR(ST.st_mode);
 }

@@ -27,7 +27,8 @@ namespace CYB {
 			#undef min
 			#undef max
 			#undef CreateProcess
-			#undef CreateDirectory
+			#undef CreateDirectory		
+			#undef DeleteFile
 #endif
 			//! @endcond
 		};

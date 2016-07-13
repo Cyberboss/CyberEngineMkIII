@@ -47,7 +47,7 @@ namespace CYB {
 				static API::String::UTF8 GetResourceDirectory(void);
 				
 				/*!
-					@brief Create a single directory. Path's before it must exist
+					@brief Ensure the existance of a single directory. Path's before it must exist
 					@param APath The path to the directory that will be created. Last token must not be ".."
 					@par Thread Safety
 						This function requires no thread safety
@@ -67,14 +67,25 @@ namespace CYB {
 					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
 				*/
 				static void CreateDirectories(const API::String::UTF8& AExistingPath, const API::Container::Deque<API::String::UTF8>& APaths);
+				
 				/*!
-					@brief Delete a single directory. Path's before it must exist. Directory must be empty
-					@param APath The path to the directory that will be created. Last token must not be ".."
+					@brief Ensure the non-existance of a single file. Path's before it must exist. Directory must be empty
+					@param APath The path to the file that will be deleted
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the directory could not be deleted
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::DIRECTORY_NOT_EMPTY. Thrown if the directory is not empty
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
+				*/
+				static void DeleteFile(const API::String::UTF8& APath);
+				/*!
+					@brief Ensure the non-existance of a single directory. Path's before it must exist. Directory must be empty
+					@param APath The path to the directory that will be deleted. Last token must not be ".."
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the directory could not be deleted
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::DIRECTORY_NOT_EMPTY. Thrown if the directory is not empty
 					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
 				*/
 				static void DeleteDirectory(const API::String::UTF8& APath);
@@ -142,13 +153,41 @@ namespace CYB {
 				*/
 				bool Append(const API::String::UTF8& AAppendage, const bool ACreateIfNonExistant, const bool ACreateRecursive);
 				/*!
-					@brief Navigate the path to the parent directory
+					@brief Navigate the path to the parent directory. Does NOT work on invalidated paths
 					@attention On POSIX systems, symlinks in path names are resolved upon path evaluation. This could lead to strange behaviour, though the onus is on the user for changing their file system
+					@par Thread Safety
+						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify
 				*/
 				void NavigateToParentDirectory(void);
+				
+				/*!
+					@brief Ensures the current Path doesn't exist. This will invalidate the path
+					@param ARecursive If true and IsDirectory() returns true, all files in the directory represented by this path will be deleted along with the directory
+					@par Thread Safety
+						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::DIRECTORY_NOT_EMPTY. Thrown if the directory is not empty
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the file/directory could not be deleted
+				*/
 				void Delete(const bool ARecursive) const;
 
+				/*!
+					@brief Check if the current path is a directory
+					@return true if the current path is a directory, false otherwise
+					@par Thread Safety
+						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify
+				*/
 				bool IsDirectory(void) const;
+				/*!
+					@brief Check if the current path is a file
+					@return true if the current path is a directory, false otherwise
+					@par Thread Safety
+						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify
+				*/
 				bool IsFile(void) const;
 
 				bool CanRead(void) const;
@@ -169,7 +208,7 @@ namespace CYB {
 				API::String::UTF8 FileName(void) const;
 				API::String::UTF8 Extension(void) const;
 
-				int ByteLength(void) const;
+				int ByteLength(void) const noexcept;
 			};
 		};
 	};

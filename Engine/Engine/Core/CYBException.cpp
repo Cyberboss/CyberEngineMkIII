@@ -28,6 +28,8 @@ CYB::Exception::Violation::Violation(const ErrorCode AErrorCode) :
 
 CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCode AErrorCode) {
 	switch (AErrorCode) {
+	case DIRECTORY_NOT_EMPTY:
+		return API::String::Static(u8"Tried to delete a non-empty directory");
 	case FILE_NOT_FOUND:
 		return API::String::Static(u8"A required file was not found.");
 	case FILE_NOT_READABLE:

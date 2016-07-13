@@ -174,9 +174,42 @@ bool CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 }
 
 void CYB::Platform::System::Path::Delete(const bool ARecursive) const {
-	static_cast<void>(ARecursive);
+	if (Verify(FPath)) {
+		bool Throw(false);
+		Exception::SystemData::ErrorCode ThrowCode(Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);
+		try {
+			if (!ARecursive) {
+				if (IsDirectory())
+					DeleteDirectory(FPath);
+				else
+					DeleteFile(FPath);
+			}
+			else {
+
+			}
+		}
+		catch (Exception::Internal AException) {
+			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING);
+			//... There's no error for this...
+		}
+		catch (Exception::SystemData AException) {
+			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::HEAP_ALLOCATION_FAILURE, Exception::SystemData::DIRECTORY_NOT_EMPTY, Exception::SystemData::FILE_NOT_WRITABLE, Exception::SystemData::PATH_LOST);
+			Throw = AException.FErrorCode != Exception::SystemData::PATH_LOST;
+			ThrowCode = static_cast<Exception::SystemData::ErrorCode>(AException.FErrorCode);
+		}
+		if (Throw)
+			throw Exception::SystemData(ThrowCode);
+	}
 }
 
 CYB::API::String::Static CYB::Platform::System::Path::DirectorySeparatorChar(void) noexcept {
 	return Static(u8"/");
+}
+
+bool CYB::Platform::System::Path::IsFile(void) const {
+	return !IsDirectory();
+}
+
+int CYB::Platform::System::Path::ByteLength(void) const noexcept {
+	return FPath.RawLength();
 }

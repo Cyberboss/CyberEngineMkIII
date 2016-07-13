@@ -103,8 +103,43 @@ void CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath
 }
 
 void CYB::Platform::System::Path::DeleteDirectory(const API::String::UTF8& APath) {
-	static_cast<void>(APath);
-	throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+	API::String::UTF16 As16(APath);
+	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::RemoveDirectoryW>(As16.WString()) == FALSE) {
+		const auto Error(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>());
+		switch (Error) {
+		case ERROR_FILE_NOT_FOUND:
+			break;	//contract fufilled
+		case ERROR_DIR_NOT_EMPTY:
+			throw Exception::SystemData(Exception::SystemData::DIRECTORY_NOT_EMPTY);
+		default:
+			throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+		}
+	}
+}
+
+
+void CYB::Platform::System::Path::DeleteFile(const API::String::UTF8& APath) {
+	API::String::UTF16 As16(APath);
+	auto& K32(Core().FModuleManager.FK32);
+	if (K32.Call<Modules::Kernel32::DeleteFileW>(As16.WString()) == FALSE) {
+		const auto Error(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>());
+		switch (Error) {
+		case ERROR_FILE_NOT_FOUND:
+			break;	//contract fufilled
+		case ERROR_ACCESS_DENIED: {
+			//try once more with no RO attribute
+			auto Attributes(K32.Call<Modules::Kernel32::GetFileAttributesW>(As16.WString()));
+			if (Attributes != INVALID_FILE_ATTRIBUTES) {
+				Attributes &= ~FILE_ATTRIBUTE_READONLY;
+				if (K32.Call<Modules::Kernel32::SetFileAttributesW>(As16.WString(), Attributes) != FALSE && K32.Call<Modules::Kernel32::DeleteFileW>(As16.WString()) != FALSE)
+					break;
+			}
+			throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+		}
+		default:
+			throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+		}
+	}
 }
 
 void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
@@ -128,4 +163,18 @@ bool CYB::Platform::System::Path::Verify(const API::String::UTF8& APath) const {
 void CYB::Platform::System::Path::SetPath(API::String::UTF8&& APath) {
 	FWidePath = API::String::UTF16(APath);
 	FPath = std::move(APath);
+}
+
+bool CYB::Platform::System::Path::IsDirectory(void) const {
+	const auto Attributes(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetFileAttributesW>(FWidePath.WString()));
+	if (Attributes == INVALID_FILE_ATTRIBUTES) {
+		const auto Error(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>());
+		switch (Error) {
+		case ERROR_FILE_NOT_FOUND:
+			throw Exception::SystemData(Exception::SystemData::PATH_LOST);
+		default:
+			throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+		}
+	}
+	return (Attributes & FILE_ATTRIBUTE_DIRECTORY) > 0;
 }

@@ -111,7 +111,7 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 				AND_THEN("The pre-verification fails") {
 					const auto BPFE(ShellAPI.Redirect<CYB::Platform::Modules::ShellAPI::PathFileExistsW, BadPathFileExists>());
 #ifndef TARGET_OS_WINDOWS
-					SysCallOverride BS(Sys::CallNumber::STAT, FakeStat);
+					SysCallOverride BS(Sys::CallNumber::LSTAT, FakeStat);
 #endif
 					bool Result(false);
 					REQUIRE_THROWS_AS(Result = TestPath.Append(Appendage, false, false), CYB::Exception::SystemData);

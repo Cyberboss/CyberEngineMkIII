@@ -67,12 +67,12 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 				const auto UID(MM.FC.Call<Modules::LibC::getuid>());	//they say this can't fail
 				PasswdStruct PS, *Out;
 				API::String::UTF8 FinalPath;
-				auto Buffer(static_cast<char*>(Allocator().FHeap.Alloc(BufferSize)));
+				auto Buffer(static_cast<char*>(API::Allocator().FHeap.Alloc(BufferSize)));
 				const auto Result(MM.FC.Call<Modules::LibC::getpwuid_r>(UID, &PS, Buffer, BufferSize, &Out));
 				const auto Succeeded(Result == 0 && Out == &PS);
 				if(Succeeded)
 					FinalPath = API::String::UTF8(API::String::Static(PS.pw_dir));
-				Allocator().FHeap.Free(Buffer);
+				API::Allocator().FHeap.Free(Buffer);
 				if (Succeeded)
 					return FinalPath;
 			}

@@ -32,7 +32,7 @@ inline CYB::API::Interop::Allocator& CYB::API::Interop::Allocator::GetAllocator(
 	return *FAllocator;
 }
 
-inline CYB::API::Interop::Allocator& CYB::Allocator(void) noexcept {
+inline CYB::API::Interop::Allocator& CYB::API::Allocator(void) noexcept {
 	return API::Interop::Allocator::GetAllocator();
 }
 

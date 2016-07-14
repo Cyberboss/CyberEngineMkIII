@@ -67,7 +67,7 @@ SCENARIO("UTF16 errors work", "[Platform][String][UTF16][Unit]") {
 		const auto Wide(L"私は自分のベストを尽くします");
 		WHEN("The 8 -> 16 conversion function is called") {
 			UTF16* U16(nullptr);
-			REQUIRE_THROWS_AS(U16 = new UTF16(Dyn), CYB::Exception::Internal);
+			REQUIRE_THROWS_AS(U16 = new UTF16(Dyn), CYB::Exception::SystemData);
 			THEN("The correct error is thrown") {
 				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STRING_VALIDATION_FAILURE);
 			}
@@ -75,7 +75,7 @@ SCENARIO("UTF16 errors work", "[Platform][String][UTF16][Unit]") {
 		}
 		WHEN("The 16 -> 8 conversion function is called") {
 			UTF8 U8;
-			REQUIRE_THROWS_AS(U8 = UTF16::ToUTF8(Wide), CYB::Exception::Internal);
+			REQUIRE_THROWS_AS(U8 = UTF16::ToUTF8(Wide), CYB::Exception::SystemData);
 			THEN("The correct error is thrown") {
 				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STRING_VALIDATION_FAILURE);
 			}

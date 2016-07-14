@@ -17,10 +17,7 @@ template <class AInterface> CYB::API::Interop::Object<AInterface>& CYB::API::Int
 }
 
 template <class AInterface> CYB::API::Interop::Object<AInterface>::~Object() {
-	if (FPointer != nullptr) {
-		FPointer->~AInterface();
-		Allocator::GetAllocator().FHeap.Free(FPointer);
-	}
+	Allocator::GetAllocator().Delete(FPointer);
 }
 
 template <class AInterface> AInterface& CYB::API::Interop::Object<AInterface>::operator()(void) noexcept {

@@ -84,7 +84,7 @@ namespace CYB {
 				void Delete(Allocatable* const AAllocatable) noexcept;
 			};
 		};
+		//! @copydoc CYB::API::Interop::Allocator::GetAllocator()
+		API::Interop::Allocator& Allocator(void) noexcept;
 	};
-	//! @copydoc CYB::API::Interop::Allocator::GetAllocator()
-	API::Interop::Allocator& Allocator(void) noexcept;
 };

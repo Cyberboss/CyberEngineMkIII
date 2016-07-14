@@ -7,7 +7,7 @@ namespace CYB {
 			@par WARNING
 				Using Mutex's incorrectly results in hard to detect undefined behaviour, proceed with caution
 		*/
-		class Mutex : private Interop::Allocatable {
+		class Mutex : public Interop::Allocatable {
 		public:
 			typedef Interop::EmptyConstructor Constructor;	//!< @brief See @ref interstructors
 		public:

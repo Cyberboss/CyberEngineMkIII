@@ -6,7 +6,7 @@ namespace CYB {
 				@brief Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are '/' delimited when forming though may not be while retrieving. File names ".." will ascend a directory and '.' represents a no-op
 				@attention Only UTF-8 encodedable paths are supported, paths lengths may not exceed 256 BYTES, and directory names may not exceed 248 characters. Symlinks are always resolved on posix systems, but never on Windows systems. This is a user problem and should cause no errors so long as they do not reorganize the installation files. Note that the recursive folder creation and deletion options attempt to fully adhere to the strong guarantee. But, due to the nature of filesystem race conditions, this is impossible.
 			*/
-			class Path : private Interop::Allocatable {
+			class Path : public Interop::Allocatable {
 			public:
 				enum : int {
 					MAX_PATH_BYTES = 256,
@@ -33,7 +33,7 @@ namespace CYB {
 				typedef Interop::Constructor<const SystemPath> Constructor;
 
 				//! @brief Iterator for paths in a directory
-				class DirectoryEntry : private Interop::Allocatable {
+				class DirectoryEntry : public Interop::Allocatable {
 				public:
 					/*!
 						@brief Get the current path the iterator points to. Can be moved. Valid must return true before calling this function

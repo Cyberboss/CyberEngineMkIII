@@ -77,7 +77,7 @@ namespace CYB {
 
 				/*!
 					@brief Deletes an object allocated with the Allocator
-					@param AAllocatable* A pointer to the allocated object
+					@param AAllocatable A pointer to the allocated object
 					@par Thread Safety
 						This function requires no thread safety
 				*/

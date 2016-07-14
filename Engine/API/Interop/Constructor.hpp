@@ -3,15 +3,13 @@
 namespace CYB {
 	namespace API {
 		namespace Interop {
-			//! @brief Used as a base class by all constructors
-			class EmptyConstructor {};
 			/*!
 				@brief Template for defining the types of parameters for engine object constructors with multiple arguments
 				@tparam AType The last in the series of types
 			*/
 			template <typename AType, typename... ATypes> class Constructor : /*! @cond */ public Constructor<ATypes...> /*! @endcond */ {
 			public:
-				AType* const FParam;	//!< @brief The pointer to the parameter
+				AType FParam;	//!< @brief The pointer to the parameter
 			public:
 				/*!
 					@brief Construct a Constructor
@@ -20,18 +18,20 @@ namespace CYB {
 					@par Thread Safety
 						This function requires no thread safety
 				*/
-				Constructor(AType* const AParam, ATypes&&... AParams) noexcept :
+				Constructor(AType AParam, ATypes&&... AParams) noexcept :
 					Constructor<ATypes...>(std::forward(AParams)...),
 					FParam(AParam)
 				{}
 			};
+			//! @brief Used as a base class by all constructors
+			template <> class Constructor<void> {};
 			/*!
 				@brief Template for defining the types of parameters for engine object constructors
 				@tparam AType The last in the series of types
 			*/
-			template <typename AType> class Constructor<AType> : public EmptyConstructor {
+			template <typename AType> class Constructor<AType> : public Constructor<void> {
 			public:
-				AType* const FParam;	//!< @brief The pointer to the parameter
+				AType FParam;	//!< @brief The pointer to the parameter
 			public:
 				/*!
 					@brief Construct a Constructor
@@ -39,10 +39,11 @@ namespace CYB {
 					@par Thread Safety
 						This function requires no thread safety
 				*/
-				Constructor(AType* const AParam) noexcept :
+				Constructor(AType AParam) noexcept :
 					FParam(AParam)
 				{}
 			};
+			typedef Constructor<void> EmptyConstructor;
 		};
 	};
 };

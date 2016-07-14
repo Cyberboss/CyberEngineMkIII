@@ -21,7 +21,7 @@ namespace CYB {
 					@attention Throws dependant on called constructor
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the heap does not have the space for the allocation and more system memory cannot be requested
 				*/
-				virtual Interop::Allocatable* NewObject(const Interop::Allocatable::ID AID, const Interop::EmptyConstructor& AConstructor) = 0;
+				virtual Allocatable* InteropAllocation(const Allocatable::ID AID, const Constructor<void>& AConstructor) = 0;
 			protected:
 				/*!
 					@brief Construct an Allocator

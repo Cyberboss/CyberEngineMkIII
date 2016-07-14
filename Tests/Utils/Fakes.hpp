@@ -5,7 +5,7 @@ namespace Fake {
 	public:
 		Allocator();
 		~Allocator();
-		CYB::API::Interop::Allocatable* NewObject(const CYB::API::Interop::Allocatable::ID AID, const CYB::API::Interop::EmptyConstructor& AConstructor) final override;
+		CYB::API::Interop::Allocatable* InteropAllocation(const CYB::API::Interop::Allocatable::ID AID, const CYB::API::Interop::EmptyConstructor& AConstructor) final override;
 	};
 
 	class Core {

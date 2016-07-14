@@ -7,25 +7,25 @@ inline CYB::API::Interop::Allocator::Allocator(Heap& AHeap) noexcept :
 }
 
 template <class AType> CYB::API::Interop::Object<AType> CYB::API::Interop::Allocator::NewObject(void) {
-	static_assert(!std::is_abstract<AType>::value 
-		|| std::is_same<Interop::EmptyConstructor, typename AType::Constructor>::value,
+	static_assert(!std::is_abstract<AType>::value
+		|| std::is_same<EmptyConstructor, typename AType::Constructor>::value,
 		"Allocatable arguments do not match");
 	if (std::is_abstract<AType>::value) {
-		Interop::EmptyConstructor Constructor;
-		return Object<AType>(NewObject(Interop::Allocatable::GetID<AType>(), Constructor));
+		Constructor<void> Construction;
+		return Object<AType>(static_cast<AType*>(InteropAllocation(Allocatable::GetID<AType>(), Construction)));
 	}
-	return Object<AType>(InPlaceAllocation<AType>(FHeap.Alloc(sizeof(AType))));
+	return Object<AType>(static_cast<AType*>(InPlaceAllocation<AType>(FHeap.Alloc(sizeof(AType)))));
 }
 
 template <class AType, typename... AArgs> CYB::API::Interop::Object<AType> CYB::API::Interop::Allocator::NewObject(AArgs&&... AArguments) {
-	static_assert(!std::is_abstract<AType>::value 
-		|| std::is_same<Interop::Constructor<AArgs...>, typename AType::Constructor>::value,
+	static_assert(!std::is_abstract<AType>::value
+		|| std::is_same<Constructor<AArgs...>, typename AType::Constructor>::value,
 		"Allocatable arguments do not match");
 	if (std::is_abstract<AType>::value) {
-		Interop::Constructor<AArgs...> Constructor(std::forward<AArgs>(AArguments)...);
-		return Object<AType>(NewObject(Interop::Allocatable::GetID<AType>(), Constructor));
+		Constructor<AArgs...> Construction(std::forward<AArgs>(AArguments)...);
+		return Object<AType>(static_cast<AType*>(InteropAllocation(Allocatable::GetID<AType>(), Construction)));
 	}
-	return Object<AType>(InPlaceAllocation<AType>(FHeap.Alloc(sizeof(AType)), std::forward<AArgs>(AArguments)...));
+	return Object<AType>(static_cast<AType*>(InPlaceAllocation<AType>(FHeap.Alloc(sizeof(AType)), std::forward<AArgs>(AArguments)...)));
 }
 
 inline CYB::API::Interop::Allocator& CYB::API::Interop::Allocator::GetAllocator(void) noexcept {

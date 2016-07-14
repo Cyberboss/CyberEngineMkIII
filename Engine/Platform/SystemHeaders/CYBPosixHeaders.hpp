@@ -26,6 +26,7 @@ namespace CYB {
 			#include <sched.h>
 			#include <pthread.h>
 			#include <dlfcn.h>
+			#include <dirent.h>
 
 			//pwd.h
 			struct passwd
@@ -41,6 +42,7 @@ namespace CYB {
 			int getpwuid_r(uid_t uid, struct passwd *pwd,
 				char *buf, size_t buflen, struct passwd **result);
 			typedef struct passwd PasswdStruct;
+			typedef struct dirent DirStruct;
 #endif
 			//! @endcond
 		};

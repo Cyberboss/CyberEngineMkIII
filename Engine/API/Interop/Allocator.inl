@@ -14,7 +14,24 @@ template <class AType> CYB::API::Interop::Object<AType> CYB::API::Interop::Alloc
 		Constructor<void> Construction;
 		return Object<AType>(static_cast<AType*>(InteropAllocation(Allocatable::GetID<AType>(), Construction)));
 	}
-	return Object<AType>(static_cast<AType*>(InPlaceAllocation<AType>(FHeap.Alloc(sizeof(AType)))));
+	class AutoFreeBuffer {
+	public:
+		Allocator& FAllocator;
+		void* FBuffer;
+	public:
+		AutoFreeBuffer(void* const ABuffer, Allocator& AAllocator) :
+			FAllocator(AAllocator),
+			FBuffer(ABuffer)
+		{}
+		~AutoFreeBuffer() {
+			if (FBuffer != nullptr)
+				FAllocator.FHeap.Free(FBuffer);
+		}
+	};
+	AutoFreeBuffer Buf(FHeap.Alloc(sizeof(AType)), *this);
+	Object<AType> Result(static_cast<AType*>(InPlaceAllocation<AType>(Buf.FBuffer)));
+	Buf.FBuffer = nullptr;
+	return Result;
 }
 
 template <class AType, typename... AArgs> CYB::API::Interop::Object<AType> CYB::API::Interop::Allocator::NewObject(AArgs&&... AArguments) {
@@ -25,7 +42,24 @@ template <class AType, typename... AArgs> CYB::API::Interop::Object<AType> CYB::
 		Constructor<AArgs...> Construction(std::forward<AArgs>(AArguments)...);
 		return Object<AType>(static_cast<AType*>(InteropAllocation(Allocatable::GetID<AType>(), Construction)));
 	}
-	return Object<AType>(static_cast<AType*>(InPlaceAllocation<AType>(FHeap.Alloc(sizeof(AType)), std::forward<AArgs>(AArguments)...)));
+	class AutoFreeBuffer {
+	public:
+		Allocator& FAllocator;
+		void* FBuffer;
+	public:
+		AutoFreeBuffer(void* const ABuffer, Allocator& AAllocator) :
+			FAllocator(AAllocator),
+			FBuffer(ABuffer)
+		{}
+		~AutoFreeBuffer() {
+			if (FBuffer != nullptr)
+				FAllocator.FHeap.Free(FBuffer);
+		}
+	};
+	AutoFreeBuffer Buf(FHeap.Alloc(sizeof(AType)), *this);
+	Object<AType> Result(static_cast<AType*>(InPlaceAllocation<AType>(Buf.FBuffer, std::forward<AArgs>(AArguments)...)));
+	Buf.FBuffer = nullptr;
+	return Result;
 }
 
 inline CYB::API::Interop::Allocator& CYB::API::Interop::Allocator::GetAllocator(void) noexcept {

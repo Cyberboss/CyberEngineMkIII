@@ -40,3 +40,10 @@ template <typename AType, typename... AArgs> AType* CYB::API::Interop::Allocator
 	Assert::NotEqual<void*>(ALocation, nullptr);
 	return new (ALocation) AType(std::forward<AArgs>(AArguments)...);
 }
+
+void CYB::API::Interop::Allocator::Delete(Allocatable* const AAllocatable) noexcept {
+	if (AAllocatable != nullptr) {
+		AAllocatable->~Allocatable();
+		FHeap.Free(AAllocatable);
+	}
+}

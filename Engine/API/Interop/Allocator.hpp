@@ -53,7 +53,7 @@ namespace CYB {
 				template <typename AType, typename... AArgs> static AType* InPlaceAllocation(void* const ALocation, AArgs&&... AArguments);
 
 				/*!
-					@brief Allocates the object specified by AAllocatable
+					@brief Allocates the Object specified by AAllocatable
 					@tparam AAllocatable The type of object to allocate
 					@tparam AArgs The arguments types of AAllocatable's constructor
 					@param AArguments The arguments of AAllocatable's constructor
@@ -65,7 +65,7 @@ namespace CYB {
 				*/
 				template <class AAllocatable, typename... AArgs> Object<AAllocatable> NewObject(AArgs&&... AArguments);
 				/*!
-					@brief Allocates the object specified by AAllocatable
+					@brief Allocates the Object specified by AAllocatable
 					@tparam AAllocatable The type of object to allocate
 					@return An Object specialized on AAllocatable containing the allocated object
 					@par Thread Safety
@@ -74,6 +74,14 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the heap does not have the space for the allocation and more system memory cannot be requested
 				*/
 				template <class AAllocatable> Object<AAllocatable> NewObject(void);
+
+				/*!
+					@brief Deletes an object allocated with the Allocator
+					@param AAllocatable* A pointer to the allocated object
+					@par Thread Safety
+						This function requires no thread safety
+				*/
+				void Delete(Allocatable* const AAllocatable) noexcept;
 			};
 		};
 	};

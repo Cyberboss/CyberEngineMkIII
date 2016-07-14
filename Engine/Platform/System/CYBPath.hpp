@@ -132,10 +132,14 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				Path(const SystemPath ADirectory);
+				/*!
+					@brief See @ref structors
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+				*/
 				Path(const Path& ACopy) = default;
-				Path(Path&& AMove) noexcept = default;
-				Path& operator=(Path&& AMove) noexcept = default;
-				~Path() final override = default;
+				Path(Path&& AMove) noexcept = default;	//! @brief See @ref structors
+				Path& operator=(Path&& AMove) noexcept = default;	//! @brief See @ref structors
+				~Path() final override = default;	//! @brief See @ref structors
 
 				void SetAsWorkingDirectory(void) const;
 

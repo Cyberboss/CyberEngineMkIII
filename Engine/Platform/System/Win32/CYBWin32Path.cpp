@@ -196,6 +196,7 @@ bool CYB::Platform::System::Path::CanExecute(void) const {
 }
 
 CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry(const System::Path& APath) :
+	FOriginalPath(APath),
 	FPathListing(nullptr)
 {
 	{
@@ -213,8 +214,13 @@ CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry(cons
 			throw Exception::SystemData(Exception::SystemData::PATH_LOST);
 		}
 	}
-	else 
-		FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(UTF16::ToUTF8(FFindData.cFileName)));
+	else {
+		auto Conversion(UTF16::ToUTF8(FFindData.cFileName));
+		if (Conversion == Static(u8".") || Conversion == Static(u8".."))
+			operator++();
+		else
+			FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Conversion));
+	}
 }
 
 CYB::Platform::System::Implementation::Path::DirectoryEntry::~DirectoryEntry() {
@@ -225,13 +231,18 @@ void CYB::Platform::System::Implementation::Path::DirectoryEntry::operator++(voi
 	if(Core().FModuleManager.FK32.Call<Modules::Kernel32::FindNextFileW>(FFindHandle, &FFindData) == 0){
 		const auto Error(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>());
 		switch (Error) {
-		case ERROR_FILE_NOT_FOUND:
+		case ERROR_NO_MORE_FILES:
 			FPathListing = API::Interop::Object<API::Path>(nullptr);
 			break;
 		default:
 			throw Exception::SystemData(Exception::SystemData::PATH_LOST);
 		}
 	}
-	else
-		FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(UTF16::ToUTF8(FFindData.cFileName)));
+	else {
+		auto Conversion(UTF16::ToUTF8(FFindData.cFileName));
+		if (Conversion == Static(u8".") || Conversion == Static(u8".."))
+			operator++();
+		else
+			FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Conversion));
+	}
 }

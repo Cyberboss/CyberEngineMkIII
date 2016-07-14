@@ -13,6 +13,7 @@ namespace CYB {
 					public:
 						typedef API::Interop::Constructor<const System::Path&> Constructor;
 					private:
+						const System::Path& FOriginalPath;
 						API::Interop::Object<API::Path> FPathListing;
 						Win32::HANDLE FFindHandle;
 						Win32::WIN32_FIND_DATA FFindData;

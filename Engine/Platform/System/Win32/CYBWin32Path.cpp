@@ -200,7 +200,7 @@ CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry(cons
 	FPathListing(nullptr)
 {
 	{
-		UTF16 Query(UTF8(APath() + API::Path::DirectorySeparatorChar() + Static(u8"*")));
+		UTF16 Query(UTF8(FOriginalPath() + API::Path::DirectorySeparatorChar() + Static(u8"*")));
 		FFindHandle = Core().FModuleManager.FK32.Call<Modules::Kernel32::FindFirstFileW>(Query.WString(), &FFindData);
 	}
 	if (FFindHandle == INVALID_HANDLE_VALUE) {

@@ -13,6 +13,7 @@ namespace CYB {
 					public:
 						typedef API::Interop::Constructor<const System::Path&> Constructor;
 					private:
+						const System::Path& FOriginalPath;
 						API::Interop::Object<API::Path> FPathListing;
 						Posix::DirStruct FEntry;
 						Posix::DIR* FDirectory;

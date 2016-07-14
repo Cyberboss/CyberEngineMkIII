@@ -162,8 +162,9 @@ bool CYB::Platform::System::Path::CanExecute(void) const {
 }
 
 CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry(const System::Path& APath) :
+	FOriginalPath(APath),
 	FPathListing(nullptr),
-	FDirectory(Core().FModuleManager.FC.Call<Modules::LibC::opendir>(APath().CString()))
+	FDirectory(Core().FModuleManager.FC.Call<Modules::LibC::opendir>(FOriginalPath().CString()))
 {
 	if (FDirectory == nullptr) {
 		const auto Error(errno);
@@ -186,6 +187,11 @@ void CYB::Platform::System::Implementation::Path::DirectoryEntry::operator++(voi
 	DirStruct* Result(nullptr);
 	if (Core().FModuleManager.FC.Call<Modules::LibC::readdir_r>(FDirectory, &FEntry, &Result) != 0 || Result != &FEntry)
 		FPathListing = API::Interop::Object<API::Path>(nullptr);
-	else
-		FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(UTF8(Static(FEntry.d_name))));
+	else {
+		Static Addition(FEntry.d_name);
+		if (Addition == Static(u8".") || Addition == Static(u8".."))
+			operator++();
+		else
+			FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Addition));
+	}
 }

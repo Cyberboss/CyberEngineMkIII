@@ -5,6 +5,7 @@ namespace CYB {
 		namespace Posix {
 #ifdef TARGET_OS_LINUX
 			#include <linux/limits.h>
+			#include <gnu/lib-names.h>
 #endif
 		}
 	}

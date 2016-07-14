@@ -35,6 +35,14 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				const AInterface& operator()(void) const noexcept;
+				
+				/*!
+					@brief Checks that the pointer isn't null. Will never be the case unless function says otherwise
+					@return true if the pointer is not null, false otherwise
+					@par Thread Safety
+						This function requires no thread safety
+				*/
+				bool Valid(void) const noexcept;
 
 				/*!
 					@brief Cast an Object to one of it's base classes

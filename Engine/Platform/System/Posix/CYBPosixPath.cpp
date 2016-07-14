@@ -138,8 +138,7 @@ void CYB::Platform::System::Path::SetPath(API::String::UTF8&& APath) {
 }
 
 bool CYB::Platform::System::Path::IsDirectory(void) const {
-	StatStruct ST;
-	if (Sys::Call(Sys::LSTAT, const_cast<char*>(FPath.CString()), &ST) != 0)
+	StatStruct ST;	if (Sys::Call(Sys::LSTAT, const_cast<char*>(FPath.CString()), &ST) != 0)
 		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
 	using namespace CYB::Platform::Posix;
 	return S_ISDIR(ST.st_mode);
@@ -159,4 +158,33 @@ bool CYB::Platform::System::Path::CanWrite(void) const {
 
 bool CYB::Platform::System::Path::CanExecute(void) const {
 	return false;
+}
+
+CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry(const System::Path& APath) :
+	FPathListing(nullptr),
+	FDirectory(Core().FModuleManager.FC.Call<Modules::LibC::opendir>(APath().CString()))
+{
+	if (FDirectory == nullptr) {
+		const auto Error(errno);
+		switch (Error) {
+		case EACCES:
+			throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+		default:
+			throw Exception::SystemData(Exception::SystemData::PATH_LOST);
+		}
+	}
+
+	operator++();
+}
+
+CYB::Platform::System::Implementation::Path::DirectoryEntry::~DirectoryEntry() {
+	Core().FModuleManager.FC.Call<Modules::LibC::closedir>(FDirectory);
+}
+
+void CYB::Platform::System::Implementation::Path::DirectoryEntry::operator++(void) {
+	DirStruct* Result(nullptr);
+	if (Core().FModuleManager.FC.Call<Modules::LibC::readdir_r>(FDirectory, &FEntry, &Result) != 0 || Result != &FEntry)
+		FPathListing = API::Interop::Object<API::Path>(nullptr);
+	else
+		FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(UTF8(Static(FEntry.d_name))));
 }

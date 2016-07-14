@@ -14,6 +14,7 @@ namespace CYB {
 						typedef API::Interop::Constructor<const System::Path&> Constructor;
 					private:
 						API::Interop::Object<API::Path> FPathListing;
+						Win32::HANDLE FFindHandle;
 						Win32::WIN32_FIND_DATA FFindData;
 					public:
 						/*!
@@ -21,6 +22,7 @@ namespace CYB {
 							@param APath The path whose contents we are listing
 							@par Thread Safety
 								This function requires no thread safety
+							@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. If enumeration permission was denied
 							@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 							@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify
 						*/
@@ -33,8 +35,6 @@ namespace CYB {
 
 						//! @copydoc CYB::API::Path::DirectoryEntry::operator++()
 						void operator++(void) final override;
-						//! @copydoc CYB::API::Path::DirectoryEntry::Valid()
-						bool Valid(void) const noexcept final override;
 					};
 				protected:
 					API::String::UTF16 FWidePath;	//!< @brief The UTF16 string

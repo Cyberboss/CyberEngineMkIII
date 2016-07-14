@@ -36,7 +36,7 @@ namespace CYB {
 				class DirectoryEntry : public Interop::Allocatable {
 				public:
 					/*!
-						@brief Get the current path the iterator points to. Can be moved. Valid must return true before calling this function
+						@brief Get the current path the iterator points to. Must be checked for validity after iteration. If invalid, end of iteration has been reached. Can be moved
 						@return The current path the iterator points to
 						@par Thread Safety
 							Inherited from Path functions called. The reference is only valid until the iterator is advanced or destroyed
@@ -51,13 +51,6 @@ namespace CYB {
 						@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the parent path failed to verify or was potentially deleted
 					*/
 					virtual void operator++(void) = 0;
-					/*!
-						@brief Ensures the end of iteration has not been reached
-						@return true if the iterator currently points to a valid path, false otherwise
-						@par Thread Safety
-							This function requires no thread safety
-					*/
-					virtual bool Valid(void) const noexcept = 0;
 				};
 
 			public:
@@ -137,6 +130,7 @@ namespace CYB {
 					@return The first directory entry iterator in the path
 					@par Thread Safety
 						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. If enumeration permission was denied
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify or is not a directory
 				*/

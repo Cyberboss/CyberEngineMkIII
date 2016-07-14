@@ -3,6 +3,19 @@
 
 using namespace CYB::API::String;
 
+CYB::Platform::System::Path::Path(API::String::UTF8&& APath) {
+	bool Throw(false);
+	try {
+		SetPath(std::move(APath));
+	}
+	catch (Exception::Internal AException) {
+		API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING);
+		Throw = true;
+	}
+	if (Throw)
+		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
+}
+
 CYB::Platform::System::Path::Path(const SystemPath ADirectory) {
 	bool Throw(false);
 	try {
@@ -223,8 +236,11 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::Extension(void) const {
 }
 
 CYB::API::Interop::Object<CYB::API::Path::DirectoryEntry> CYB::Platform::System::Path::Contents(void) const {
-	//return API::Interop::Object<Implementation::Path::DirectoryEntry>::Upcast<API::Path::DirectoryEntry>(
-	//	API::Allocator().NewObject<Implementation::Path::DirectoryEntry>(*this)
-	//	);
-	return CYB::API::Interop::Object<CYB::API::Path::DirectoryEntry>(nullptr);
+	return API::Interop::Object<Implementation::Path::DirectoryEntry>::Upcast<API::Path::DirectoryEntry>(
+		API::Allocator().NewObject<Implementation::Path::DirectoryEntry>(*this)
+		);
+}
+
+CYB::API::Interop::Object<CYB::API::Path>& CYB::Platform::System::Implementation::Path::DirectoryEntry::operator*(void) noexcept {
+	return FPathListing;
 }

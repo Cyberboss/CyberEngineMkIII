@@ -27,6 +27,11 @@ template <class AInterface> AInterface& CYB::API::Interop::Object<AInterface>::o
 template <class AInterface> const AInterface& CYB::API::Interop::Object<AInterface>::operator()(void) const noexcept {
 	return *FPointer;
 }
+
+template <class AInterface> bool CYB::API::Interop::Object<AInterface>::Valid(void) const noexcept {
+	return FPointer != nullptr;
+}
+
 template <class AInterface> template <class ANewInterface> CYB::API::Interop::Object<ANewInterface> CYB::API::Interop::Object<AInterface>::Upcast(Object<AInterface>&& AUpcastable) noexcept {
 	static_assert(std::is_base_of<ANewInterface, AInterface>::value, "Attempted to upcast to non-base class");
 	auto Pointer(AUpcastable.FPointer);

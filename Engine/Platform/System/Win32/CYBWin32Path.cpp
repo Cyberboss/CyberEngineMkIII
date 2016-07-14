@@ -194,3 +194,44 @@ bool CYB::Platform::System::Path::CanWrite(void) const {
 bool CYB::Platform::System::Path::CanExecute(void) const {
 	return false;
 }
+
+CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry(const System::Path& APath) :
+	FPathListing(nullptr)
+{
+	{
+		UTF16 Query(UTF8(APath() + API::Path::DirectorySeparatorChar() + Static(u8"*")));
+		FFindHandle = Core().FModuleManager.FK32.Call<Modules::Kernel32::FindFirstFileW>(Query.WString(), &FFindData);
+	}
+	if (FFindHandle == INVALID_HANDLE_VALUE) {
+		const auto Error(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>());
+		switch (Error) {
+		case ERROR_FILE_NOT_FOUND:
+			break;
+		case ERROR_ACCESS_DENIED:
+			throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+		default:
+			throw Exception::SystemData(Exception::SystemData::PATH_LOST);
+		}
+	}
+	else 
+		FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(UTF16::ToUTF8(FFindData.cFileName)));
+}
+
+CYB::Platform::System::Implementation::Path::DirectoryEntry::~DirectoryEntry() {
+	Core().FModuleManager.FK32.Call<Modules::Kernel32::FindClose>(FFindHandle);
+}
+
+void CYB::Platform::System::Implementation::Path::DirectoryEntry::operator++(void) {
+	if(Core().FModuleManager.FK32.Call<Modules::Kernel32::FindNextFileW>(FFindHandle, &FFindData) == 0){
+		const auto Error(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>());
+		switch (Error) {
+		case ERROR_FILE_NOT_FOUND:
+			FPathListing = API::Interop::Object<API::Path>(nullptr);
+			break;
+		default:
+			throw Exception::SystemData(Exception::SystemData::PATH_LOST);
+		}
+	}
+	else
+		FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(UTF16::ToUTF8(FFindData.cFileName)));
+}

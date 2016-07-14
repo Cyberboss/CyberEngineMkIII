@@ -8,6 +8,8 @@ namespace CYB {
 				@attention Only UTF-8 encodedable paths are supported, paths lengths may not exceed 256 BYTES, and directory names may not exceed 248 characters. Symlinks are always resolved on posix systems, but never on Windows systems. This is a user problem and should cause no errors so long as they do not reoganize the installation files. Note that the recursive folder creation and deletion options attempt to fully adhere to the strong guarantee. But, due to the nature of filesystem race conditions, this is impossible.
 			*/
 			class Path : public Implementation::Path, public API::Path {	//impl has to be public due to File using the wondows wide string cache
+			public:
+				typedef API::Interop::Constructor<API::String::UTF8&&> Constructor;
 			private:
 				API::String::UTF8 FPath;	//!< @brief The underlying string
 			private:
@@ -110,6 +112,15 @@ namespace CYB {
 				*/
 				void SetPath(API::String::UTF8&& APath);
 			public:
+
+				/*!
+					@brief Sets the path, must be valid 
+					@param APath An xvalue of the path
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the parent path failed to verify or was potentially deleted
+				*/
+				Path(API::String::UTF8&& APath);
 				/*!
 					@brief Get the Path of a given SystemPath
 					@param ADirectory The type of SystemPath to look up
@@ -123,6 +134,7 @@ namespace CYB {
 				Path(const Path& ACopy) = default;
 				Path(Path&& AMove) noexcept = default;
 				Path& operator=(Path&& AMove) noexcept = default;
+				~Path() final override = default;
 
 				void SetAsWorkingDirectory(void) const;
 

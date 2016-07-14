@@ -19,9 +19,9 @@ namespace CYB {
 					@return The string path of @p ADirectory
 					@par Thread Safety
 						Use of SystemDirectory::WORKING must be synchronized with SetAsWorkingDirectory. Otherwise, this function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the specified path could not be retrieved
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				static API::String::UTF8 LocateDirectory(const SystemPath ADirectory);
 				/*!
@@ -29,10 +29,10 @@ namespace CYB {
 					@return The string path of SystemDirectory::RESOURCE
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. If an invalid value for @p ADirectory is given
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_ENUM. If an invalid value for @p ADirectory is given
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the specified path could not be retrieved
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				static API::String::UTF8 GetResourceDirectory(void);
 				
@@ -41,9 +41,9 @@ namespace CYB {
 					@param APath The path to the directory that will be created. Last token must not be ".."
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the directory could not be created
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_WRITABLE. Thrown if the directory could not be created
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				static void CreateDirectory(const API::String::UTF8& APath);
 				/*!
@@ -52,9 +52,9 @@ namespace CYB {
 					@param APaths Names of directories to recusively create. None of these should exist. None of them should be ".."
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the directories could not be created
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_WRITABLE. Thrown if the directories could not be created
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				static void CreateDirectories(const API::String::UTF8& AExistingPath, const API::Container::Deque<API::String::UTF8>& APaths);
 				
@@ -63,9 +63,9 @@ namespace CYB {
 					@param APath The path to the file that will be deleted
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the directory could not be deleted
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_WRITABLE. Thrown if the directory could not be deleted
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				static void DeleteFile(const API::String::UTF8& APath);
 				/*!
@@ -73,10 +73,10 @@ namespace CYB {
 					@param APath The path to the directory that will be deleted. Last token must not be ".."
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the directory could not be deleted
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::DIRECTORY_NOT_EMPTY. Thrown if the directory is not empty
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_WRITABLE. Thrown if the directory could not be deleted
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::DIRECTORY_NOT_EMPTY. Thrown if the directory is not empty
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				static void DeleteDirectory(const API::String::UTF8& APath);
 
@@ -85,9 +85,9 @@ namespace CYB {
 					@param[out] APath The path to evaluate
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::PATH_EVALUATION_FAILURE. If the path could not be evaluated
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::PATH_EVALUATION_FAILURE. If the path could not be evaluated
 				*/
 				static void Evaluate(API::String::UTF8& APath);
 
@@ -96,9 +96,9 @@ namespace CYB {
 					@param APath The path to check
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE If some part of the new path is not readable with the current permissions
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_READABLE If some part of the new path is not readable with the current permissions
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				bool Verify(const API::String::UTF8& APath) const;
 
@@ -107,8 +107,8 @@ namespace CYB {
 					@param APath The string to set the path to
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if windows failed to convert the string
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				void SetPath(API::String::UTF8&& APath);
 			public:
@@ -118,7 +118,7 @@ namespace CYB {
 					@param APath An xvalue of the path
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the parent path failed to verify or was potentially deleted
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				Path(API::String::UTF8&& APath);
 				/*!
@@ -126,9 +126,10 @@ namespace CYB {
 					@param ADirectory The type of SystemPath to look up
 					@par Thread Safety
 						Use of CYB::Platform::Path::SystemDirectory::WORKING must be synchronized with SetAsWorkingDirectory. Otherwise, this function requires no thread safety
-					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. If an invalid value for @p ADirectory is given
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_ENUM. If an invalid value for @p ADirectory is given
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE if the specified path could not be retrieved
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				Path(const SystemPath ADirectory);
 				Path(const Path& ACopy) = default;

@@ -62,8 +62,6 @@ CYB::Exception::SystemData::SystemData(const ErrorCode AErrorCode) :
 }
 CYB::API::String::Static CYB::Exception::Internal::ErrorMessage(const ErrorCode AErrorCode) {
 	switch (AErrorCode) {
-	case FAILED_TO_CONVERT_UTF16_STRING:
-		return API::String::Static(u8"Failed to convert between a UTF-8 and UTF-16 string.");
 	case MEMORY_COMMITAL_FAILURE:
 		return API::String::Static(u8"Failed to commit virtual memory from the OS.");
 	case MEMORY_PROTECT_FAILURE:

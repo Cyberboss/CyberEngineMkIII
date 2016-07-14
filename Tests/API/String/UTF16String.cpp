@@ -69,7 +69,7 @@ SCENARIO("UTF16 errors work", "[Platform][String][UTF16][Unit]") {
 			UTF16* U16(nullptr);
 			REQUIRE_THROWS_AS(U16 = new UTF16(Dyn), CYB::Exception::Internal);
 			THEN("The correct error is thrown") {
-				CHECK_EXCEPTION_CODE(CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STRING_VALIDATION_FAILURE);
 			}
 			delete U16;
 		}
@@ -77,7 +77,7 @@ SCENARIO("UTF16 errors work", "[Platform][String][UTF16][Unit]") {
 			UTF8 U8;
 			REQUIRE_THROWS_AS(U8 = UTF16::ToUTF8(Wide), CYB::Exception::Internal);
 			THEN("The correct error is thrown") {
-				CHECK_EXCEPTION_CODE(CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STRING_VALIDATION_FAILURE);
 			}
 		}
 	}

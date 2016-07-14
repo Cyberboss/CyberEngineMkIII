@@ -3,6 +3,7 @@
 #include "Object.inl"
 #include "Allocator.inl"
 #include "STLAllocator.inl"
+#include "Allocatable.inl"
 
 //include any inls that need the allocator here
 

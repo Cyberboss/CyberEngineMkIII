@@ -30,7 +30,36 @@ namespace CYB {
 						<BR>CYB::Exception::SystemData Error code: <B>CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE</B>. Thrown if the current heap runs out of memory
 						<BR>CYB::Exception::SystemData Error code: <B>CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE</B> if the specified path could not be retrieved
 				*/
-				typedef Interop::Constructor<const SystemPath> Constructor;	
+				typedef Interop::Constructor<const SystemPath> Constructor;
+
+				//! @brief Iterator for paths in a directory
+				class DirectoryEntry : private Interop::Allocatable {
+				public:
+					/*!
+						@brief Get the current path the iterator points to. Can be moved. Valid must return true before calling this function
+						@return The current path the iterator points to
+						@par Thread Safety
+							Inherited from Path functions called. The reference is only valid until the iterator is advanced or destroyed
+					*/
+					virtual Interop::Object<Path>& operator*(void) noexcept = 0;
+
+					/*!
+						@brief Advance the iterator
+						@par Thread Safety
+							This function requires thread safety at the object level
+						@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+						@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the parent path failed to verify or was potentially deleted
+					*/
+					virtual void operator++(void) = 0;
+					/*!
+						@brief Ensures the end of iteration has not been reached
+						@return true if the iterator currently points to a valid path, false otherwise
+						@par Thread Safety
+							This function requires no thread safety
+					*/
+					virtual bool Valid(void) const noexcept = 0;
+				};
+
 			public:
 				/*!
 					@brief Get the standardized UTF-8 directory separator string
@@ -102,6 +131,16 @@ namespace CYB {
 				virtual API::String::UTF8 Extension(void) const = 0;
 
 				virtual int ByteLength(void) const noexcept = 0;
+
+				/*!
+					@brief Get the first directory entry iterator in the path
+					@return The first directory entry iterator in the path
+					@par Thread Safety
+						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify or is not a directory
+				*/
+				virtual API::Interop::Object<DirectoryEntry> Contents(void) const = 0;
 			};
 	};
 };

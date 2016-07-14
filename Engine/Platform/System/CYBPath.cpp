@@ -221,3 +221,8 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::FileName(void) const {
 CYB::API::String::UTF8 CYB::Platform::System::Path::Extension(void) const {
 	return UTF8();
 }
+
+CYB::API::Interop::Object<CYB::API::Path::DirectoryEntry> CYB::Platform::System::Path::Contents(void) const {
+	//return CYB::API::Interop::Object<CYB::API::Path>(
+	return CYB::API::Interop::Object<CYB::API::Path::DirectoryEntry>(nullptr);
+}

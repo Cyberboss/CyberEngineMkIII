@@ -250,7 +250,9 @@
     <None Include="API\Declarations\Expressions.inl" />
     <None Include="API\Declarations\OSDeclaration.inl" />
     <None Include="API\ExtendedTypes\LockGuard.inl" />
+    <None Include="API\Interop\Allocatable.inl" />
     <None Include="API\Interop\Allocator.inl" />
+    <None Include="API\Interop\Interop.inl" />
     <None Include="API\Interop\Object.inl" />
     <None Include="API\Interop\STLAllocator.inl" />
     <None Include="API\Types\Exception.inl" />

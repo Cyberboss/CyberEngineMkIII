@@ -72,19 +72,19 @@ bool CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 	if (!ACreateIfNonExistant) {
 		//try a simple cd
 		auto NewPath(FPath + DirectorySeparatorChar() + AAppendage);
-		try {
-			Evaluate(NewPath);
-		}
-		catch (Exception::Internal AException) {
-			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::PATH_EVALUATION_FAILURE);
-			return false;
-		}
 		if (Verify(NewPath)) {
+			try {
+				Evaluate(NewPath);
+			}
+			catch (Exception::Internal AException) {
+				API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::PATH_EVALUATION_FAILURE);
+				return false;
+			}
 			SetPath(std::move(NewPath));
 			return true;
 		}
 		else {
-			//Okay, we may be trying to create a new file
+			//Okay, we may be trying to create a new file, check it's parent directory
 			UTF8 Work;
 			auto I(NewPath.RawLength() - 1);
 			for (; I > 0; --I)

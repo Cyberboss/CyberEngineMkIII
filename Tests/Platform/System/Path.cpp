@@ -84,10 +84,8 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	{
 		Path Setup(Path::SystemPath::TEMPORARY);
-		if (Setup.Append(UTF8(Static(u8"TestPath")), false, false))
-			REQUIRE_NOTHROW(Setup.Delete(true));
-		REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"ExistingPath")), true, false));
-		REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"Recurse")), true, false));
+		REQUIRE_NOTHROW(Setup.Delete(true));
+		REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Append(UTF8(Static(u8"ExistingPath/Recurse/Recurse")), true, true));
 	}
 	GIVEN("A valid path") {
 		Path TestPath(Path::SystemPath::TEMPORARY);

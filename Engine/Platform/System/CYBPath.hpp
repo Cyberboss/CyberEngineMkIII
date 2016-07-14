@@ -152,7 +152,7 @@ namespace CYB {
 				void NavigateToParentDirectory(void) final override;
 				
 				//! @copydoc CYB::API::Path::Delete()
-				void Delete(const bool ARecursive) const final override;
+				void Delete(bool ARecursive) const final override;
 
 				//! @copydoc CYB::API::Path::IsDirectory()
 				bool IsDirectory(void) const final override;

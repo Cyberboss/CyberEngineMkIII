@@ -42,6 +42,13 @@ namespace CYB {
 							Inherited from Path functions called. The reference is only valid until the iterator is advanced or destroyed
 					*/
 					virtual Interop::Object<Path>& operator*(void) noexcept = 0;
+					/*!
+						@brief Get the current path the iterator points to. Must be checked for validity after iteration. If invalid, end of iteration has been reached. Can be moved
+						@return The current path the iterator points to
+						@par Thread Safety
+							Inherited from Path functions called. The reference is only valid until the iterator is advanced or destroyed
+					*/
+					virtual Interop::Object<Path>* operator->(void) noexcept = 0;
 
 					/*!
 						@brief Advance the iterator
@@ -96,7 +103,7 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::DIRECTORY_NOT_EMPTY. Thrown if the directory is not empty
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the file/directory could not be deleted
 				*/
-				virtual void Delete(const bool ARecursive) const = 0;
+				virtual void Delete(bool ARecursive) const = 0;
 
 				/*!
 					@brief Check if the current path is a directory

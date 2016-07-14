@@ -32,6 +32,8 @@ namespace CYB {
 
 						//! @copydoc CYB::API::Path::DirectoryEntry::operator*()
 						API::Interop::Object<API::Path>& operator*(void) noexcept final override;
+						//! @copydoc CYB::API::Path::DirectoryEntry::operator->()
+						API::Interop::Object<API::Path>* operator->(void) noexcept final override;
 
 						//! @copydoc CYB::API::Path::DirectoryEntry::operator++()
 						void operator++(void) final override;

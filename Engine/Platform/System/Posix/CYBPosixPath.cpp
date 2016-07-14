@@ -138,7 +138,8 @@ void CYB::Platform::System::Path::SetPath(API::String::UTF8&& APath) {
 }
 
 bool CYB::Platform::System::Path::IsDirectory(void) const {
-	StatStruct ST;	if (Sys::Call(Sys::LSTAT, const_cast<char*>(FPath.CString()), &ST) != 0)
+	StatStruct ST;	
+	if (Sys::Call(Sys::LSTAT, const_cast<char*>(FPath.CString()), &ST) != 0)
 		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
 	using namespace CYB::Platform::Posix;
 	return S_ISDIR(ST.st_mode);

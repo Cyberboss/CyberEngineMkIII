@@ -35,6 +35,16 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				const AInterface& operator()(void) const noexcept;
+
+				/*!
+					@brief Cast an Object to one of it's base classes
+					@tparam ANewInterface A base class of AInterface
+					@param AUpcastable An xvalue of the current Object
+					@return The new upcasted object
+					@par Thread Safety
+						This function requires no thread safety
+				*/
+				template <class ANewInterface> static Object<ANewInterface> Upcast(Object&& AUpcastable) noexcept;
 			};
 		};
 	};

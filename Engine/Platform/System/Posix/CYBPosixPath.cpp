@@ -33,8 +33,6 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 			CreateDirectory(Result);
 		}
 		catch (Exception::SystemData AException) {
-			if (AException.FErrorCode == Exception::SystemData::HEAP_ALLOCATION_FAILURE)
-				throw;
 			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::FILE_NOT_WRITABLE);
 			Throw = true;
 		}

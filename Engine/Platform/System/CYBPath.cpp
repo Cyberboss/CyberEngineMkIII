@@ -223,6 +223,8 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::Extension(void) const {
 }
 
 CYB::API::Interop::Object<CYB::API::Path::DirectoryEntry> CYB::Platform::System::Path::Contents(void) const {
-	//return CYB::API::Interop::Object<CYB::API::Path>(
+	//return API::Interop::Object<Implementation::Path::DirectoryEntry>::Upcast<API::Path::DirectoryEntry>(
+	//	API::Allocator().NewObject<Implementation::Path::DirectoryEntry>(*this)
+	//	);
 	return CYB::API::Interop::Object<CYB::API::Path::DirectoryEntry>(nullptr);
 }

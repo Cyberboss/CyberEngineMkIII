@@ -14,7 +14,7 @@ Fake::Allocator::~Allocator() {
 	delete &FHeap;
 }
 
-CYB::API::Interop::Allocatable* Fake::Allocator::NewObject(const CYB::API::Interop::Allocatable::ID, const CYB::API::Interop::EmptyConstructor&) {
+CYB::API::Interop::Allocatable* Fake::Allocator::InteropAllocation(const CYB::API::Interop::Allocatable::ID, const CYB::API::Interop::EmptyConstructor&) {
 	CYB::API::Assert::HCF();
 }
 

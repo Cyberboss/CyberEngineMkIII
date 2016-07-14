@@ -186,28 +186,30 @@ bool CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 	return false;
 }
 
-void CYB::Platform::System::Path::Delete(const bool ARecursive) const {
+void CYB::Platform::System::Path::Delete(bool ARecursive) const {
 	if (Verify(FPath)) {
 		bool Throw(false);
 		Exception::SystemData::ErrorCode ThrowCode(Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);
 		try {
-			if (!ARecursive) {
-				if (IsDirectory())
-					DeleteDirectory(FPath);
-				else
-					DeleteFile(FPath);
-			}
+			if (!IsDirectory())
+				DeleteFile(FPath);
 			else {
-
+				if (ARecursive) {
+					for (auto Entry(Contents()); Entry()->Valid(); ++Entry())
+						(*Entry())().Delete(true);	//recursion may be a bad idea here, but I'd like to see someone even TRY and overflow this
+					ARecursive = false;
+				}
+				DeleteDirectory(FPath);
 			}
 		}
 		catch (Exception::Internal AException) {
 			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING);
-			//... There's no error for this...
+			Throw = true;
+			ThrowCode = Exception::SystemData::FILE_NOT_WRITABLE;
 		}
 		catch (Exception::SystemData AException) {
 			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::HEAP_ALLOCATION_FAILURE, Exception::SystemData::DIRECTORY_NOT_EMPTY, Exception::SystemData::FILE_NOT_WRITABLE, Exception::SystemData::PATH_LOST);
-			Throw = AException.FErrorCode != Exception::SystemData::PATH_LOST;
+			Throw = ARecursive || (AException.FErrorCode != Exception::SystemData::PATH_LOST);
 			ThrowCode = static_cast<Exception::SystemData::ErrorCode>(AException.FErrorCode);
 		}
 		if (Throw)
@@ -243,4 +245,8 @@ CYB::API::Interop::Object<CYB::API::Path::DirectoryEntry> CYB::Platform::System:
 
 CYB::API::Interop::Object<CYB::API::Path>& CYB::Platform::System::Implementation::Path::DirectoryEntry::operator*(void) noexcept {
 	return FPathListing;
+}
+
+CYB::API::Interop::Object<CYB::API::Path>* CYB::Platform::System::Implementation::Path::DirectoryEntry::operator->(void) noexcept {
+	return &FPathListing;
 }

@@ -26,8 +26,53 @@ SCENARIO("Paths can be deleted", "[Platform][System][Path][Unit]") {
 			REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"SomeFile")), false, false));
 			Touch(Setup);
 		}
-		WHEN("An empty folder is deleted") {
-
+		WHEN("An empty folder is deleted non-recursively") {
+			Path Test(Path::SystemPath::TEMPORARY);
+			REQUIRE_NOTHROW(Test.Append(UTF8(Static(u8"TestPath")), false, false));
+			REQUIRE_NOTHROW(Test.Delete(false));
+			THEN("All is well") {
+				CHECK(true);
+			}
+		}
+		WHEN("An empty folder is deleted recursively") {
+			Path Test(Path::SystemPath::TEMPORARY);
+			REQUIRE_NOTHROW(Test.Append(UTF8(Static(u8"TestPath")), false, false));
+			REQUIRE_NOTHROW(Test.Delete(true));
+			THEN("All is well") {
+				CHECK(true);
+			}
+		}
+		WHEN("A file is deleted non-recursively") {
+			Path Test(Path::SystemPath::TEMPORARY);
+			REQUIRE_NOTHROW(Test.Append(UTF8(Static(u8"TestPath2/SomeFile")), false, false));
+			REQUIRE_NOTHROW(Test.Delete(false));
+			THEN("All is well") {
+				CHECK(true);
+			}
+		}
+		WHEN("A file is deleted recursively") {
+			Path Test(Path::SystemPath::TEMPORARY);
+			REQUIRE_NOTHROW(Test.Append(UTF8(Static(u8"TestPath2/SomeFile")), false, false));
+			REQUIRE_NOTHROW(Test.Delete(true));
+			THEN("All is well") {
+				CHECK(true);
+			}
+		}
+		WHEN("An non-empty folder is deleted non-recursively") {
+			Path Test(Path::SystemPath::TEMPORARY);
+			REQUIRE_NOTHROW(Test.Append(UTF8(Static(u8"RecursivePath")), false, false));
+			REQUIRE_THROWS_AS(Test.Delete(false), CYB::Exception::SystemData);
+			THEN("The appropriate error is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::DIRECTORY_NOT_EMPTY);
+			}
+		}
+		WHEN("An non-empty folder is deleted recursively") {
+			Path Test(Path::SystemPath::TEMPORARY);
+			REQUIRE_NOTHROW(Test.Append(UTF8(Static(u8"RecursivePath")), false, false));
+			REQUIRE_NOTHROW(Test.Delete(true));
+			THEN("All is well") {
+				CHECK(true);
+			}
 		}
 	}
 }

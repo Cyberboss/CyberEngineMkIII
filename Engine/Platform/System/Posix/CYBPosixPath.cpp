@@ -120,9 +120,8 @@ void CYB::Platform::System::Path::DeleteDirectory(const API::String::UTF8& APath
 }
 
 void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
-	auto NewPath(APath + CYB::API::String::UTF8(CYB::API::String::Static(u8"/.")));
 	char ThePath[PATH_MAX];
-	auto const Result(Core().FModuleManager.FC.Call<Modules::LibC::realpath>(NewPath.CString(), ThePath));
+	auto const Result(Core().FModuleManager.FC.Call<Modules::LibC::realpath>(APath.CString(), ThePath));
 	if (Result != ThePath)
 		throw Exception::Internal(Exception::Internal::PATH_EVALUATION_FAILURE);
 	APath = CYB::API::String::UTF8(CYB::API::String::Static(ThePath));

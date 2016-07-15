@@ -3,9 +3,9 @@
 
 using namespace CYB::API::String;
 
-int CYB::Platform::System::Path::GetIndexOfLastSeperator(const API::String::UTF8& AString) noexcept {
+int CYB::Platform::System::Path::GetIndexOfLastSeperator(const API::String::UTF8& AString, const char ASeparator) noexcept {
 	for (auto I(AString.RawLength() - 1); I > 0; --I)
-		if (AString.CString()[I] == '/')
+		if (AString.CString()[I] == ASeparator)
 			return I;
 	return -1;
 }
@@ -95,7 +95,7 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 		else {
 			//Okay, we may be trying to create a new file, check it's parent directory
 			UTF8 Work;
-			const auto I(GetIndexOfLastSeperator(NewPath));
+			const auto I(GetIndexOfLastSeperator(NewPath, '/'));
 			API::Assert::LessThan(0, I);
 			Work = UTF8(static_cast<const Dynamic&>(NewPath).SubString(0, I));
 			if (!Verify(Work))
@@ -116,7 +116,7 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 			WorkingPath = UTF8(FPath);
 		}
 		else {
-			const auto I(GetIndexOfLastSeperator(AAppendage));
+			const auto I(GetIndexOfLastSeperator(AAppendage, '/'));
 			if (I == -1) {
 				Tokens.emplace_back(UTF8(AAppendage));
 				WorkingPath = UTF8(FPath);
@@ -173,15 +173,19 @@ int CYB::Platform::System::Path::ByteLength(void) const noexcept {
 }
 
 CYB::API::String::UTF8 CYB::Platform::System::Path::FullFileName(void) const {
-	return UTF8();
+	const auto Slash(GetIndexOfLastSeperator(FPath, '/') + 1);
+	return UTF8(static_cast<const Dynamic&>(FPath).SubString(Slash, FPath.RawLength() - Slash));
 }
 
 CYB::API::String::UTF8 CYB::Platform::System::Path::FileName(void) const {
-	return UTF8();
+	const auto Slash(GetIndexOfLastSeperator(FPath, '/') + 1);
+	const auto Dot(GetIndexOfLastSeperator(FPath, '.'));
+	return UTF8(static_cast<const Dynamic&>(FPath).SubString(Slash, Dot - Slash));
 }
 
 CYB::API::String::UTF8 CYB::Platform::System::Path::Extension(void) const {
-	return UTF8();
+	const auto Dot(GetIndexOfLastSeperator(FPath, '.') + 1);
+	return UTF8(static_cast<const Dynamic&>(FPath).SubString(Dot, FPath.RawLength() - Dot));
 }
 
 CYB::API::Interop::Object<CYB::API::Path::DirectoryEntry> CYB::Platform::System::Path::Contents(void) const {

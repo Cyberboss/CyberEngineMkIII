@@ -81,13 +81,14 @@ namespace CYB {
 				static void DeleteDirectory(const API::String::UTF8& APath);
 
 				/*!
-					@brief Get the index of the last '/' in a string
-					@param AString the path to get the index of the last seperator
-					@return The index of the last '/' in a string or -1 if it was not found
+					@brief Get the index of the last of a given seperator in a string
+					@param AString The path to get the index of the last seperator
+					@param ASeparator The separator to look for
+					@return The index of the last @p ASeparator in @p AString or -1 if it was not found
 					@par Thread Safety
 						This function requires no thread safety
 				*/
-				static int GetIndexOfLastSeperator(const API::String::UTF8& AString) noexcept;
+				static int GetIndexOfLastSeperator(const API::String::UTF8& AString, const char ASeparator) noexcept;
 
 				/*!
 					@brief Evaluates '..' and '.' references within the path

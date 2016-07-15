@@ -145,7 +145,6 @@ namespace CYB {
 					@par Thread Safety
 						This function requires synchronization at the object level
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_READABLE. Thrown if a directory component of the path could not be read
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::PATH_LOST. Thrown if the current path failed to verify or is a directory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				virtual API::String::UTF8 FileName(void) const = 0;
@@ -155,7 +154,6 @@ namespace CYB {
 					@par Thread Safety
 						This function requires synchronization at the object level
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_READABLE. Thrown if a directory component of the path could not be read
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::PATH_LOST. Thrown if the current path failed to verify or is a directory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				virtual API::String::UTF8 Extension(void) const = 0;

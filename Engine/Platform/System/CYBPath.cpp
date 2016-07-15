@@ -3,6 +3,13 @@
 
 using namespace CYB::API::String;
 
+int CYB::Platform::System::Path::GetIndexOfLastSeperator(const API::String::UTF8& AString) noexcept {
+	for (auto I(AString.RawLength() - 1); I > 0; --I)
+		if (AString.CString()[I] == '/')
+			return I;
+	return -1;
+}
+
 CYB::Platform::System::Path::Path(API::String::UTF8&& APath) {
 	SetPath(std::move(APath));
 }
@@ -88,13 +95,9 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 		else {
 			//Okay, we may be trying to create a new file, check it's parent directory
 			UTF8 Work;
-			auto I(NewPath.RawLength() - 1);
-			for (; I > 0; --I)
-				if (NewPath.CString()[I] == '/') {
-					Work = UTF8(static_cast<const Dynamic&>(NewPath).SubString(0, I));
-					break;
-				}
+			const auto I(GetIndexOfLastSeperator(NewPath));
 			API::Assert::LessThan(0, I);
+			Work = UTF8(static_cast<const Dynamic&>(NewPath).SubString(0, I));
 			if (!Verify(Work))
 				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
 			SetPath(std::move(NewPath));
@@ -113,19 +116,17 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 			WorkingPath = UTF8(FPath);
 		}
 		else {
-			auto I(AAppendage.RawLength() - 1);
-			for (; I > 0; --I)
-				if (AAppendage.CString()[I] == '/') {
-					Tokens.emplace_back(UTF8(static_cast<const Dynamic&>(AAppendage).SubString(I + 1, AAppendage.RawLength() - I - 1)));
-					WorkingPath = UTF8(static_cast<const Dynamic&>(AAppendage).SubString(0, AAppendage.RawLength()));
-					break;
-				}
-			if (I == 0) {
+			const auto I(GetIndexOfLastSeperator(AAppendage));
+			if (I == -1) {
 				Tokens.emplace_back(UTF8(AAppendage));
 				WorkingPath = UTF8(FPath);
 			}
-			else if (!Verify(WorkingPath))
-				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+			else {
+				Tokens.emplace_back(UTF8(static_cast<const Dynamic&>(AAppendage).SubString(I + 1, AAppendage.RawLength() - I - 1)));
+				WorkingPath = UTF8(static_cast<const Dynamic&>(AAppendage).SubString(0, AAppendage.RawLength())); 
+				if (!Verify(WorkingPath))
+					throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+			}
 		}
 		const Static Ascender(u8"..");
 		for (auto& Tok : Tokens)

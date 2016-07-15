@@ -3,7 +3,38 @@
 using namespace CYB::Platform::System;
 using namespace CYB::API::String;
 
+static void Touch(const Path& APath);
+SCENARIO("Paths can be deleted", "[Platform][System][Path][Unit]") {
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 
+	GIVEN("Some existing items") {
+		REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
+		{
+			Path Setup(Path::SystemPath::TEMPORARY);
+			REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"RecursivePath/Recurse/Recurse")), true, true));
+			bool Result(false);
+			REQUIRE_NOTHROW(Result = (Setup.Append(UTF8(Static(u8"SomeFile")), false, false)));
+			REQUIRE(Result);
+			Touch(Setup);
+		}
+		REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Append(UTF8(Static(u8"TestPath")), true, false));
+		{
+			Path Setup(Path::SystemPath::TEMPORARY);
+			REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"TestPath2")), true, false));
+			bool Result(false);
+			REQUIRE_NOTHROW(Result = (Setup.Append(UTF8(Static(u8"SomeFile")), false, false)));
+			REQUIRE(Result);
+			Touch(Setup);
+		}
+		WHEN("An empty folder is deleted, no errors occur") {
+
+		}
+	}
+}
 
 SCENARIO("Path Append works", "[Platform][System][Path][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
@@ -11,11 +42,10 @@ SCENARIO("Path Append works", "[Platform][System][Path][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	{
-		Path Setup(Path::SystemPath::TEMPORARY);
-		REQUIRE_NOTHROW(Setup.Delete(true));
-		REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Append(UTF8(Static(u8"ExistingPath/Recurse/Recurse")), true, true));
-	}
+
+	REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
+	REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Append(UTF8(Static(u8"ExistingPath/Recurse/Recurse")), true, true));
+
 	GIVEN("A valid Path") {
 		Path TestPath(Path::SystemPath::TEMPORARY);
 		WHEN("Something too long is appended onto it") {
@@ -127,6 +157,20 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 
 
 
+//TODO: Use File::Touch after it's implemented
+static void Touch(const Path& APath) {
+#ifdef TARGET_OS_WINDOWS
+	using namespace CYB::Platform::Win32;
+	const Path Myself(Path::SystemPath::EXECUTABLE_IMAGE);
+	UTF16 Version(Myself()), OtherVersion(APath());
+	CopyFileW(Version.WString(), OtherVersion.WString(), FALSE);
+#else
+	using namespace CYB::Platform::Posix;
+	auto Command(UTF8(Static(u8"touch ")) + APath());
+
+	system(Command.CString());
+#endif
+}
 
 
 

@@ -140,6 +140,75 @@ SCENARIO("Path Append works", "[Platform][System][Path][Unit]") {
 	}
 }
 
+SCENARIO("Path Directory Seperator works", "[Platform][System][Path][Unit]") {
+	CHECK(Path::DirectorySeparatorChar() == Static(u8"/"));
+}
+
+SCENARIO("Path file type identification works", "[Platform][System][Path][Unit]") {
+
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+
+	GIVEN("Some setup files") {
+		REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
+		Path Setup1(Path::SystemPath::TEMPORARY), Setup2(Setup1), Setup3(Setup1);
+		Setup1.Append(UTF8(Static(u8"TestDir")), true, false);
+		Setup2.Append(UTF8(Static(u8"TestFile")), false, false);
+		Touch(Setup2);
+		Setup3.Append(UTF8(Static(u8"FakeFile")), false, false);
+
+		WHEN("A file is asked if it is a file") {
+			bool Result;
+			REQUIRE_NOTHROW(Result = Setup2.IsFile());
+			THEN("The result is correct") {
+				CHECK(Result);
+			}
+		}
+		WHEN("A file is asked if it is a directory") {
+			bool Result;
+			REQUIRE_NOTHROW(Result = Setup2.IsDirectory());
+			THEN("The result is correct") {
+				CHECK_FALSE(Result);
+			}
+		}
+		WHEN("A directory is asked if it is a file") {
+			bool Result;
+			REQUIRE_NOTHROW(Result = Setup1.IsFile());
+			THEN("The result is correct") {
+				CHECK_FALSE(Result);
+			}
+		}
+		WHEN("A directory is asked if it is a directory") {
+			bool Result;
+			REQUIRE_NOTHROW(Result = Setup1.IsDirectory());
+			THEN("The result is correct") {
+				CHECK(Result);
+			}
+		}
+		WHEN("A nothing is asked if it is a file") {
+			bool Result(false);
+			REQUIRE_THROWS_AS(Result = Setup3.IsFile(), CYB::Exception::SystemData);
+			THEN("The result is correct") {
+				CHECK_FALSE(Result);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::PATH_LOST);
+			}
+		}
+		WHEN("A nothing is asked if it is a directory") {
+			bool Result(false);
+			REQUIRE_THROWS_AS(Result = Setup3.IsDirectory(), CYB::Exception::SystemData);
+			THEN("The result is correct") {
+				CHECK_FALSE(Result);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::PATH_LOST);
+			}
+		}
+
+	}
+
+}
+
 template <class ARedirector> class BadCreateDirectory;
 template <class ARedirector> class BadRealPath;
 template <class ARedirector> class BadPathFileExists;

@@ -60,7 +60,7 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::GetResourceDirectory(void) {
 	return FirstPath;
 }
 
-bool CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, const bool ACreateIfNonExistant, const bool ACreateRecursive) {
+void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, const bool ACreateIfNonExistant, const bool ACreateRecursive) {
 	//first ensure we aren't breaking the rules
 	if (FPath.RawLength() + AAppendage.RawLength() + 1 > MAX_PATH_BYTES)
 		throw Exception::SystemData(Exception::SystemData::PATH_TOO_LONG);
@@ -73,15 +73,17 @@ bool CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 		//try a simple cd
 		auto NewPath(FPath + DirectorySeparatorChar() + AAppendage);
 		if (Verify(NewPath)) {
+			bool Throw(false);
 			try {
 				Evaluate(NewPath);
 			}
 			catch (Exception::Internal AException) {
 				API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::PATH_EVALUATION_FAILURE);
-				return false;
+				Throw = true;
 			}
+			if(Throw)
+				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
 			SetPath(std::move(NewPath));
-			return true;
 		}
 		else {
 			//Okay, we may be trying to create a new file, check it's parent directory
@@ -93,82 +95,46 @@ bool CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 					break;
 				}
 			API::Assert::LessThan(0, I);
-			if (Verify(Work)) {
-				SetPath(std::move(NewPath));
-				return true;
-			}
+			if (!Verify(Work))
+				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+			SetPath(std::move(NewPath));
 		}
 	}
 	else {
-		UTF8 WorkingPath, FirstNewDir;
-		{
-			//create tokens of directories to create
-			API::Container::Deque<UTF8> Tokens;
-			if (ACreateRecursive) {
-				//TODO: Change this to UTF-8 tokenize, once implemented
-				//Tokens = AAppendage.Tokenize(DirectorySeparatorChar());
-				auto DynTokens(AAppendage.Tokenize('/'));
-				for (auto& Tok : DynTokens)
-					Tokens.emplace_back(std::move(Tok));
+		UTF8 WorkingPath;
+		//create tokens of directories to create
+		API::Container::Deque<UTF8> Tokens;
+		if (ACreateRecursive) {
+			//TODO: Change this to UTF-8 tokenize, once implemented
+			//Tokens = AAppendage.Tokenize(DirectorySeparatorChar());
+			auto DynTokens(AAppendage.Tokenize('/'));
+			for (auto& Tok : DynTokens)
+				Tokens.emplace_back(std::move(Tok));
+			WorkingPath = UTF8(FPath);
+		}
+		else {
+			auto I(AAppendage.RawLength() - 1);
+			for (; I > 0; --I)
+				if (AAppendage.CString()[I] == '/') {
+					Tokens.emplace_back(UTF8(static_cast<const Dynamic&>(AAppendage).SubString(I + 1, AAppendage.RawLength() - I - 1)));
+					WorkingPath = UTF8(static_cast<const Dynamic&>(AAppendage).SubString(0, AAppendage.RawLength()));
+					break;
+				}
+			if (I == 0) {
+				Tokens.emplace_back(UTF8(AAppendage));
 				WorkingPath = UTF8(FPath);
 			}
-			else {
-				auto I(AAppendage.RawLength() - 1);
-				for (; I > 0; --I)
-					if (AAppendage.CString()[I] == '/') {
-						Tokens.emplace_back(UTF8(static_cast<const Dynamic&>(AAppendage).SubString(I + 1, AAppendage.RawLength() - I - 1)));
-						WorkingPath = UTF8(static_cast<const Dynamic&>(AAppendage).SubString(0, AAppendage.RawLength()));
-						break;
-					}
-				if (I == 0) {
-					Tokens.emplace_back(UTF8(AAppendage));
-					WorkingPath = UTF8(FPath);
-				}
-				else if (!Verify(WorkingPath)) {
-					return false;
-				}
-			}
-			const Static Ascender(u8"..");
-			for (auto& Tok : Tokens)
-				if (Tok == Ascender)
-					return false;
+			else if (!Verify(WorkingPath))
+				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+		}
+		const Static Ascender(u8"..");
+		for (auto& Tok : Tokens)
+			if (Tok == Ascender)
+				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
 
-			//and try to create them
-			CreateDirectories(WorkingPath, Tokens);
-			FirstNewDir = std::move(Tokens.front());
-		}
-		//If you enter this block, things MUST get cleaned up after ANY error
-		bool MustThrowOOM(false);
-		const auto GrimCleanup([&]() {
-			try {
-				Path Working(*this);
-				if (Working.Append(WorkingPath + DirectorySeparatorChar() + FirstNewDir, false, false))
-					Delete(true);
-			}
-			catch (CYB::Exception::SystemData AException2) {
-				MustThrowOOM = AException2.FErrorCode == Exception::SystemData::HEAP_ALLOCATION_FAILURE;
-			}	//grumble grumble
-		});
-		try {
-			auto NewPath(FPath + DirectorySeparatorChar() + AAppendage);
-			Evaluate(NewPath);
-			SetPath(std::move(NewPath));
-			return true;
-		}
-		catch (Exception::Internal AException) {
-			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::PATH_EVALUATION_FAILURE);
-			GrimCleanup();
-		}
-		catch (Exception::SystemData AException) {
-			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::HEAP_ALLOCATION_FAILURE, Exception::SystemData::STRING_VALIDATION_FAILURE);
-			MustThrowOOM = AException.FErrorCode == Exception::SystemData::HEAP_ALLOCATION_FAILURE;
-			if(!MustThrowOOM)
-				GrimCleanup();
-		}
-		if (MustThrowOOM)
-			throw Exception::SystemData(Exception::SystemData::HEAP_ALLOCATION_FAILURE);
+		//and try to create them
+		CreateDirectories(WorkingPath, Tokens);
 	}
-	return false;
 }
 
 void CYB::Platform::System::Path::Delete(bool ARecursive) const {

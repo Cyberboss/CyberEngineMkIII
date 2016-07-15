@@ -115,6 +115,7 @@ namespace CYB {
 					@return true if the current path is a directory, false otherwise
 					@par Thread Safety
 						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_READABLE. Thrown if a directory component of the path could not be read
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::PATH_LOST. Thrown if the current path failed to verify
 				*/
 				virtual bool IsDirectory(void) const = 0;
@@ -123,12 +124,37 @@ namespace CYB {
 					@return true if the current path is a directory, false otherwise
 					@par Thread Safety
 						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_READABLE. Thrown if a directory component of the path could not be read
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::PATH_LOST. Thrown if the current path failed to verify
 				*/
 				virtual bool IsFile(void) const = 0;
 
+				/*!
+					@brief Get the name of the file without any directory prefixes. Equivalent to FileName and Extension if the name does not contain a period
+					@return The name of the file without any directory prefixes
+					@par Thread Safety
+						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_READABLE. Thrown if a directory component of the path could not be read
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::PATH_LOST. Thrown if the current path failed to verify or is a directory
+				*/
 				virtual API::String::UTF8 FullFileName(void) const = 0;
+				/*!
+					@brief Get the name of the file without any directory prefixes or extensions. Equivalent to FullFileName and Extension if the name does not contain a period
+					@return The name of the file without any directory prefixes or extensions
+					@par Thread Safety
+						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_READABLE. Thrown if a directory component of the path could not be read
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::PATH_LOST. Thrown if the current path failed to verify or is a directory
+				*/
 				virtual API::String::UTF8 FileName(void) const = 0;
+				/*!
+					@brief Get the extension of the file without the leading period. Equivalent to FullFileName and FileName if the name does not contain a period
+					@return The extension of the file without the leading period
+					@par Thread Safety
+						This function requires synchronization at the object level
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_READABLE. Thrown if a directory component of the path could not be read
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::PATH_LOST. Thrown if the current path failed to verify or is a directory
+				*/
 				virtual API::String::UTF8 Extension(void) const = 0;
 
 				/*!

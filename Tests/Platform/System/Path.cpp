@@ -209,6 +209,47 @@ SCENARIO("Path file type identification works", "[Platform][System][Path][Unit]"
 
 }
 
+SCENARIO("Path file name parsing works", "[Platform][System][Path][Unit]") {
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	GIVEN("Some variously named files"){
+		REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
+		Path Setup1(Path::SystemPath::TEMPORARY), Setup2(Setup1), Setup3(Setup1), Setup4(Setup1);
+		Setup1.Append(UTF8(Static(u8"TestFile1")), true, false);
+		Setup2.Append(UTF8(Static(u8"Te.st.File2")), false, false);
+		Touch(Setup1);
+		Touch(Setup2);
+		WHEN("A file without an extension is checked") {
+			auto& Subject(Setup1);
+			UTF8 Result1, Result2, Result3;
+			REQUIRE_NOTHROW(Result1 = Subject.FullFileName());
+			REQUIRE_NOTHROW(Result2 = Subject.FileName());
+			REQUIRE_NOTHROW(Result3 = Subject.Extension());
+			THEN("The correct results are given") {
+				CHECK(Result1 == Static(u8"TestFile1"));
+				CHECK(Result2 == Static(u8"TestFile1"));
+				CHECK(Result3 == Static(u8"TestFile1"));
+			}
+		}
+		WHEN("A file with an extension is checked") {
+			auto& Subject(Setup2);
+			UTF8 Result1, Result2, Result3;
+			REQUIRE_NOTHROW(Result1 = Subject.FullFileName());
+			REQUIRE_NOTHROW(Result2 = Subject.FileName());
+			REQUIRE_NOTHROW(Result3 = Subject.Extension());
+			THEN("The correct results are given") {
+				CHECK(Result1 == Static(u8"Te.st.File2"));
+				CHECK(Result2 == Static(u8"Te.st"));
+				CHECK(Result3 == Static(u8"File2"));
+			}
+		}
+	}
+
+}
+
 template <class ARedirector> class BadCreateDirectory;
 template <class ARedirector> class BadRealPath;
 template <class ARedirector> class BadPathFileExists;

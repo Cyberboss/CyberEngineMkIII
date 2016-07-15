@@ -127,10 +127,6 @@ namespace CYB {
 				*/
 				virtual bool IsFile(void) const = 0;
 
-				virtual bool CanRead(void) const = 0;
-				virtual bool CanWrite(void) const = 0;
-				virtual bool CanExecute(void) const = 0;
-
 				virtual API::String::UTF8 FullFileName(void) const = 0;
 				virtual API::String::UTF8 FileName(void) const = 0;
 				virtual API::String::UTF8 Extension(void) const = 0;

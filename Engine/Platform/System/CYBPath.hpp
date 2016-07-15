@@ -164,13 +164,6 @@ namespace CYB {
 				//! @copydoc CYB::API::Path::IsFile()
 				bool IsFile(void) const final override;
 
-				//! @copydoc CYB::API::Path::CanRead()
-				bool CanRead(void) const final override;
-				//! @copydoc CYB::API::Path::CanWrite()
-				bool CanWrite(void) const final override;
-				//! @copydoc CYB::API::Path::CanExecute()
-				bool CanExecute(void) const final override;
-
 				//! @copydoc CYB::API::Path::FullFileName()
 				API::String::UTF8 FullFileName(void) const final override;
 				//! @copydoc CYB::API::Path::FileName()

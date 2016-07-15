@@ -148,18 +148,6 @@ void CYB::Platform::System::Path::NavigateToParentDirectory(void) {
 
 }
 
-bool CYB::Platform::System::Path::CanRead(void) const {
-	return false;
-}
-
-bool CYB::Platform::System::Path::CanWrite(void) const {
-	return false;
-}
-
-bool CYB::Platform::System::Path::CanExecute(void) const {
-	return false;
-}
-
 CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry(const System::Path& APath) :
 	FOriginalPath(APath),
 	FPathListing(nullptr),

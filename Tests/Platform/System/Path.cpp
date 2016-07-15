@@ -161,28 +161,28 @@ SCENARIO("Path file type identification works", "[Platform][System][Path][Unit]"
 		Setup3.Append(UTF8(Static(u8"FakeFile")), false, false);
 
 		WHEN("A file is asked if it is a file") {
-			bool Result;
+			bool Result(false);
 			REQUIRE_NOTHROW(Result = Setup2.IsFile());
 			THEN("The result is correct") {
 				CHECK(Result);
 			}
 		}
 		WHEN("A file is asked if it is a directory") {
-			bool Result;
+			bool Result(true);
 			REQUIRE_NOTHROW(Result = Setup2.IsDirectory());
 			THEN("The result is correct") {
 				CHECK_FALSE(Result);
 			}
 		}
 		WHEN("A directory is asked if it is a file") {
-			bool Result;
+			bool Result(true);
 			REQUIRE_NOTHROW(Result = Setup1.IsFile());
 			THEN("The result is correct") {
 				CHECK_FALSE(Result);
 			}
 		}
 		WHEN("A directory is asked if it is a directory") {
-			bool Result;
+			bool Result(false);
 			REQUIRE_NOTHROW(Result = Setup1.IsDirectory());
 			THEN("The result is correct") {
 				CHECK(Result);

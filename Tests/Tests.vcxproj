@@ -154,6 +154,7 @@
     <None Include="CoverageExclusions.runsettings" />
     <None Include="llvm-gcov.sh" />
     <None Include="Main.inl" />
+    <None Include="Optimized.runsettings" />
     <None Include="Utils\Backdoor.inl" />
     <None Include="Utils\CallRedirect.inl" />
     <None Include="Utils\HCF.inl" />

@@ -125,5 +125,6 @@
     <None Include="Utils\HCF.inl">
       <Filter>Utils</Filter>
     </None>
+    <None Include="Optimized.runsettings" />
   </ItemGroup>
 </Project>

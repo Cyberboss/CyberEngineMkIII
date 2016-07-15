@@ -13,6 +13,6 @@ if($LastExitCode -eq 0){
 	& "BuildScripts/RemoteDebug/plink.exe" "$userhost" -i "$key" "mkdir -p $wd"
 	& "BuildScripts/RemoteDebug/pscp.exe" -i "$key" -r GDBSync/* "$paththing"
 	rm -r GDBSync
-	$command = "cd $wd; cd ../..;cmake . -DCMAKE_BUILD_TYPE=DEBUG -DCOTIRE_MINIMUM_NUMBER_OF_TARGET_SOURCES=1;dos2unix Tests/llvm-gcov.sh;chmod +x Tests/llvm-gcov.sh;dos2unix BuildScripts/GenerateTestXMLs.sh;chmod +x BuildScripts/GenerateTestXMLs.sh;find . -iname `"*.gcda`" -delete;rm -rf Testing HTMLStaticAnalysis;scan-build -o HTMLStaticAnalysis make && ctest -T Test --output-on-failure && BuildScripts/GenerateTestXMLs.sh genhtml"
+	$command = "cd $wd; cd ../..;cmake . -DCMAKE_BUILD_TYPE=Debug -DCOTIRE_MINIMUM_NUMBER_OF_TARGET_SOURCES=1;dos2unix Tests/llvm-gcov.sh;chmod +x Tests/llvm-gcov.sh;dos2unix BuildScripts/GenerateTestXMLs.sh;chmod +x BuildScripts/GenerateTestXMLs.sh;find . -iname `"*.gcda`" -delete;rm -rf Testing HTMLStaticAnalysis;scan-build -o HTMLStaticAnalysis make && ctest -T Test --output-on-failure && BuildScripts/GenerateTestXMLs.sh genhtml"
 	& "BuildScripts/RemoteDebug/plink.exe" "$userhost" -i "$key" "$command"
 }

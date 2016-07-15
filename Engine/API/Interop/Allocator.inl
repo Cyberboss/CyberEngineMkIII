@@ -29,7 +29,7 @@ template <class AType> CYB::API::Interop::Object<AType> CYB::API::Interop::Alloc
 		}
 	};
 	AutoFreeBuffer Buf(FHeap.Alloc(sizeof(AType)), *this);
-	Object<AType> Result(static_cast<AType*>(InPlaceAllocation<AType>(Buf.FBuffer)));
+	Object<AType> Result(InPlaceAllocation<AType>(Buf.FBuffer));
 	Buf.FBuffer = nullptr;
 	return Result;
 }
@@ -57,7 +57,7 @@ template <class AType, typename... AArgs> CYB::API::Interop::Object<AType> CYB::
 		}
 	};
 	AutoFreeBuffer Buf(FHeap.Alloc(sizeof(AType)), *this);
-	Object<AType> Result(static_cast<AType*>(InPlaceAllocation<AType>(Buf.FBuffer, std::forward<AArgs>(AArguments)...)));
+	Object<AType> Result(InPlaceAllocation<AType>(Buf.FBuffer, std::forward<AArgs>(AArguments)...));
 	Buf.FBuffer = nullptr;
 	return Result;
 }

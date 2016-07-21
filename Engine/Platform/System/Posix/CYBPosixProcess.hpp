@@ -12,6 +12,7 @@ namespace CYB {
 					bool FExitCodeReady;
 				private:
 					static pid_t SpawnProcess(const System::Path& APath, const API::String::Dynamic& ACommandLine);
+					static void HandleSpawnError[[noreturn]](void);
 				protected:
 					Process() noexcept;
 					Process(const System::Path& APath, const API::String::UTF8& ACommandLine);

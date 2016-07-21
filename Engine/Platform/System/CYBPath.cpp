@@ -147,7 +147,7 @@ void CYB::Platform::System::Path::Delete(bool ARecursive) const {
 				DeleteFile(FPath);
 			else {
 				if (ARecursive) {
-					for (auto Entry(Contents()); Entry()->Valid(); ++Entry())
+					for (auto Entry(Contents()); Entry()->Valid(); ++Entry()) 
 						(*Entry())().Delete(true);	//recursion may be a bad idea here, but I'd like to see someone even TRY and overflow this
 					ARecursive = false;
 				}

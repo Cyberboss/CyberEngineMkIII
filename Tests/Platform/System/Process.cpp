@@ -1,4 +1,6 @@
 #include "TestHeader.hpp"
+#include <chrono>
+#include <thread>
 
 using namespace CYB::Platform::System;
 
@@ -24,6 +26,7 @@ FORKED_FUNCTION(InfiniteLoop) {
 SCENARIO("Process constructors work", "[Platform][System][Process][Unit]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
 	GIVEN("A Process") {
 		auto Proc(Process::GetSelf());
 		WHEN("The process is moved and move assigned") {
@@ -40,6 +43,7 @@ SCENARIO("Process constructors work", "[Platform][System][Process][Unit]") {
 	GIVEN("The Path of a process image") {
 		Path ThePath(Path::SystemPath::EXECUTABLE_IMAGE);
 		WHEN("The process is constructed from that name") {
+			INFO(ThePath().CString());
 			CYB::Platform::System::Process* Proc(nullptr);
 			REQUIRE_NOTHROW(Proc = new CYB::Platform::System::Process(ThePath, CommandLine));
 			THEN("All is well") {
@@ -60,6 +64,7 @@ FORKED_FUNCTION(Nothing) {
 SCENARIO("Process equivalence works", "[Platform][System][Process][Unit]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
 	GIVEN("A Process") {
 		auto Proc(CYB::Platform::System::Process::GetSelf());
 		WHEN("The process is compared with itself") {
@@ -98,11 +103,7 @@ SCENARIO("Process equivalence works", "[Platform][System][Process][Unit]") {
 FORKED_FUNCTION(ExitCode42) {
 	static_cast<void>(AArgumentCount);
 	static_cast<void>(AArguments);
-#ifdef TARGET_OS_WINDOWS
-	CYB::Platform::Win32::Sleep(1000);
-#else
-	CYB::Platform::Posix::usleep(1000 * 1000);
-#endif
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 	return 0;
 }
 
@@ -125,6 +126,7 @@ REDIRECTED_FUNCTION(BadGetExitCodeProcess, const void* const, unsigned long* con
 SCENARIO("Process exiting works", "[Platform][System][Process][Unit][Slow]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
 	GIVEN("A Process") {
 		Process Proc(CYB::API::String::UTF8(CYB::API::String::Static(u8"--refork ExitCode42")));
 		WHEN("We don't wait for it's exit") {
@@ -202,6 +204,7 @@ REDIRECTED_FUNCTION(BadPosixSpawn, const void* const, const void* const, const v
 SCENARIO("Process errors work", "[Platform][System][Process][Unit]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
 	GIVEN("A fake create process call") {
 		const auto BCP(K32.Redirect<CYB::Platform::Modules::Kernel32::CreateProcessW, BadCreateProcess>());
 		const auto BGLE(K32.Redirect<CYB::Platform::Modules::Kernel32::GetLastError, GetLastErrorHook>());

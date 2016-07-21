@@ -9,20 +9,16 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 	switch (ADirectory) {
 	case SystemPath::EXECUTABLE_IMAGE:
 	case SystemPath::EXECUTABLE: {
-		char ThePath[PATH_MAX];
-		if (MM.FC.Call<Modules::LibC::readlink>("/proc/self/exe", ThePath, PATH_MAX) > 0) {
-			API::String::Static AsStatic(ThePath);
-			API::String::Dynamic Work(AsStatic);
-			if (ADirectory == SystemPath::EXECUTABLE) {
-				auto Last(0);
-				for(auto I(0U); I < Work.RawLength(); ++I)
-					if (Work.CString()[I] == '/')
-						Last = I;
-				Work.Shrink(Last + 1);
-			}
-			return Work;
+		API::String::Dynamic Work(GetExecutableImage());
+		if (ADirectory == SystemPath::EXECUTABLE) {
+			auto Last(0);
+			for(auto I(0U); I < Work.RawLength(); ++I)
+				if (Work.CString()[I] == '/')
+					Last = I;
+			Work.Shrink(Last + 1);
 		}
-		throw CYB::Exception::SystemData(CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE);}
+		return Work;
+	}
 	case SystemPath::RESOURCE:
 		return GetResourceDirectory();
 	case SystemPath::TEMPORARY: {
@@ -137,11 +133,11 @@ void CYB::Platform::System::Path::SetPath(API::String::UTF8&& APath) {
 }
 
 bool CYB::Platform::System::Path::IsDirectory(void) const {
-	StatStruct ST;	
+	StatStruct ST;
 	if (Sys::Call(Sys::LSTAT, const_cast<char*>(FPath.CString()), &ST) != 0)
 		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
 	using namespace CYB::Platform::Posix;
-	return S_ISDIR(ST.st_mode);
+	return S_ISDIR(ST.st_mode) != 0;
 }
 
 void CYB::Platform::System::Path::NavigateToParentDirectory(void) {
@@ -176,7 +172,7 @@ void CYB::Platform::System::Implementation::Path::DirectoryEntry::operator++(voi
 		FPathListing = API::Interop::Object<API::Path>(nullptr);
 	else {
 		Static Addition(FEntry.d_name);
-		if (Addition == Static(u8".") || Addition == Static(u8".."))
+		if (Addition == Static(u8".") || Addition == Static(u8"..") || (FEntry.d_type != DT_REG && FEntry.d_type != DT_DIR && FEntry.d_type != DT_LNK))
 			operator++();
 		else
 			FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Addition));

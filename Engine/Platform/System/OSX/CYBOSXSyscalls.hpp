@@ -8,7 +8,6 @@ namespace CYB {
 				public:
 					enum CallNumber : long long {
 						EXIT = 0x2000000 + 1,
-						KILL = 0x2000000 + 37,
 						EXIT_PROC = -1,
 						LOAD_LIBRARY = -2,
 						LOAD_SYMBOL = -3,

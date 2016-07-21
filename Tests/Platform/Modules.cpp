@@ -81,7 +81,7 @@ SCENARIO("Modules can load functions", "[Platform][Modules][Functional]") {
 }
 
 SCENARIO("Modules of the automatic variety work", "[Platform][Modules][Functional]") {
-	GIVEN("A valid system AutoModule definition") {
+	GIVEN("A valid/invalid system AutoModule definition") {
 		CYB::Platform::Modules::AMKernel32* K32(nullptr);
 		WHEN("It is instatiated") {
 			REQUIRE_NOTHROW(K32 = new CYB::Platform::Modules::AMKernel32());
@@ -91,7 +91,7 @@ SCENARIO("Modules of the automatic variety work", "[Platform][Modules][Functiona
 			delete K32;
 		}
 	}
-	GIVEN("A valid AutoModule definition not for this system") {
+	GIVEN("A valid/invalid AutoModule definition not for this system") {
 		CYB::Platform::Modules::AMLibC* LibC(nullptr);
 		WHEN("It is instatiated") {
 			REQUIRE_NOTHROW(LibC = new CYB::Platform::Modules::AMLibC());
@@ -101,9 +101,10 @@ SCENARIO("Modules of the automatic variety work", "[Platform][Modules][Functiona
 			delete LibC;
 		}
 	}
-	GIVEN("A valid AutoModule") {
+	GIVEN("A valid/invalid AutoModule") {
 		CYB::Platform::Modules::AMKernel32 K32;
 		CYB::Platform::Modules::AMRT RT;
+		CYB::Platform::Modules::AMSystem System;
 		WHEN("It is moved"){
 			{
 				auto K322(std::move(K32));
@@ -113,6 +114,10 @@ SCENARIO("Modules of the automatic variety work", "[Platform][Modules][Functiona
 				auto RT2(std::move(RT));
 				RT = std::move(RT2);
 			}
+			{
+				auto Sys2(std::move(System));
+				System = std::move(Sys2);
+			}
 			THEN("All is well") {
 				CHECK(true);
 			}
@@ -121,7 +126,11 @@ SCENARIO("Modules of the automatic variety work", "[Platform][Modules][Functiona
 #ifdef TARGET_OS_WINDOWS
 			K32.Call<CYB::Platform::Modules::Kernel32::SwitchToThread>();
 #else
+#ifdef TARGET_OS_LINUX
 			RT.Call<CYB::Platform::Modules::RT::sched_yield>();
+#else
+			System.Call<CYB::Platform::Modules::System::sched_yield>();
+#endif
 #endif
 			THEN("All is well") {
 				CHECK(true);
@@ -155,22 +164,22 @@ namespace CYB {
 	};
 };
 DEFINE_WINDOWS_MODULE(FakeKernel32, "kernel32.dll", Win32, true, SwitchToThread, FakeFunctionThatDoesNotExist)
-DEFINE_POSIX_MODULE(FakeRT, LIBRT_SO, Posix, true, sched_yield, FakeFunctionThatDoesNotExist)
+DEFINE_POSIX_MODULE(FakeC, LIBC_SO, Posix, true, mmap, FakeFunctionThatDoesNotExist)
 
 SCENARIO("Module optional functions work", "[Platform][Modules][Unit]") {
 	GIVEN("A valid optional module with some fake functions") {
 		CYB::Platform::Modules::AMFakeKernel32* TestMod1(nullptr);
-		CYB::Platform::Modules::AMFakeRT* TestMod2(nullptr);
+		CYB::Platform::Modules::AMFakeC* TestMod2(nullptr);
 		WHEN("The module is initialized") {
 			REQUIRE_NOTHROW(TestMod1 = new CYB::Platform::Modules::AMFakeKernel32());
-			REQUIRE_NOTHROW(TestMod2 = new CYB::Platform::Modules::AMFakeRT());
+			REQUIRE_NOTHROW(TestMod2 = new CYB::Platform::Modules::AMFakeC());
 			THEN("Some functions loaded successfully") {
 #ifdef TARGET_OS_WINDOWS
 				CHECK(TestMod1->Loaded(CYB::Platform::Modules::FakeKernel32::SwitchToThread));
 				CHECK_FALSE(TestMod1->Loaded(CYB::Platform::Modules::FakeKernel32::FakeFunctionThatDoesNotExist));
 #else
-				CHECK(TestMod2->Loaded(CYB::Platform::Modules::FakeRT::sched_yield));
-				CHECK_FALSE(TestMod2->Loaded(CYB::Platform::Modules::FakeRT::FakeFunctionThatDoesNotExist));
+				CHECK(TestMod2->Loaded(CYB::Platform::Modules::FakeC::mmap));
+				CHECK_FALSE(TestMod2->Loaded(CYB::Platform::Modules::FakeC::FakeFunctionThatDoesNotExist));
 #endif
 			}
 			delete TestMod1;

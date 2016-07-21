@@ -28,6 +28,13 @@ namespace CYB {
 				*/
 				static constexpr const char* ModuleName(void);
 				/*!
+					@brief Template for overriding the names of certain functions at compile time
+					@return nullptr if there is no override, the name of a function otherwise
+					@par Thread Safety
+						This function requires no thread safety
+				*/
+				static const API::String::Static* OverridenNames(void) noexcept;
+				/*!
 					@brief The names of the functions associated with this AutoModule. Must be implemented;
 					@return The names of the functions associated with this AutoModule
 					@par Thread Safety

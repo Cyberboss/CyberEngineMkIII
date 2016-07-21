@@ -1,7 +1,5 @@
 #include "CYB.hpp"
 
-#include "../../SystemHeaders/CYBUTF16String.inl"
-
 using namespace CYB::Platform::Win32;
 
 void CYB::Platform::System::Process::Terminate(void) {

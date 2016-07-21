@@ -80,6 +80,27 @@
     <ClCompile Include="Engine\Core\CYBEngineParameters.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Platform\System\OSX\CYBOSXProcess.cpp">
+      <Filter>Platform\System\OSX</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\System\Linux\CYBLinuxProcess.cpp">
+      <Filter>Platform\System\Linux</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\System\Linux\CYBLinuxThread.cpp">
+      <Filter>Platform\System\Linux</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\System\OSX\CYBOSXThread.cpp">
+      <Filter>Platform\System\OSX</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\System\Linux\CYBLinuxPath.cpp">
+      <Filter>Platform\System\Linux</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\System\OSX\CYBOSXPath.cpp">
+      <Filter>Platform\System\OSX</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\SystemHeaders\CYBUTF16String.cpp">
+      <Filter>Platform\SystemHeaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -479,9 +500,6 @@
     </None>
     <None Include="API\Interop\STLAllocator.inl">
       <Filter>API\Interop</Filter>
-    </None>
-    <None Include="Platform\SystemHeaders\CYBUTF16String.inl">
-      <Filter>Platform\SystemHeaders</Filter>
     </None>
     <None Include="API\Interop\Interop.inl">
       <Filter>API\Interop</Filter>

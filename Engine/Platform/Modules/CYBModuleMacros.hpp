@@ -54,7 +54,7 @@ namespace CYB {\
 			using namespace APlatform;\
 			typedef typename Platform::Modules::AutoModule<AOptionalFunctions, NARGS(__VA_ARGS__), APPLY(DECLTYPE_EXPAND, __VA_ARGS__)> AM##AModuleName;\
 			template <> constexpr const char* AM##AModuleName::ModuleName(void){\
-				return ADiskName; \
+				return ADiskName;\
 			}\
 			template <> inline const CYB::API::String::Static* AM##AModuleName::FunctionNames(void) noexcept {\
 				static const CYB::API::String::Static Names[NARGS(__VA_ARGS__)]{ APPLY(STATIC_STRINGIFY,__VA_ARGS__) };\
@@ -85,23 +85,44 @@ namespace CYB {\
 	};\
 };
 
+#define OVERRIDE_FUNCTION_NAMES(AAutoModule, ...)\
+namespace CYB {\
+	namespace Platform {\
+		namespace Modules {\
+			template<> inline const CYB::API::String::Static* AM##AAutoModule::OverridenNames(void) noexcept {\
+				static const API::String::Static Names[NARGS(__VA_ARGS__)]{ __VA_ARGS__ };\
+				return Names;\
+			}\
+		};\
+	};\
+};
+#define DUMMY_OVERRIDE_FUNCTION_NAMES(...)
+
 #ifdef TARGET_OS_WINDOWS
 #define DEFINE_WINDOWS_MODULE DEFINE_MODULE
 #define DEFINE_POSIX_MODULE DEFINE_DUMMY_MODULE
+#define OVERRIDE_WINDOWS_FUNCTION_NAMES OVERRIDE_FUNCTION_NAMES
+#define OVERRIDE_POSIX_FUNCTION_NAMES DUMMY_OVERRIDE_FUNCTION_NAMES
 #else
 #define DEFINE_WINDOWS_MODULE DEFINE_DUMMY_MODULE
 #define DEFINE_POSIX_MODULE DEFINE_MODULE
+#define OVERRIDE_WINDOWS_FUNCTION_NAMES DUMMY_OVERRIDE_FUNCTION_NAMES
+#define OVERRIDE_POSIX_FUNCTION_NAMES OVERRIDE_FUNCTION_NAMES
 #endif
 
 #ifdef TARGET_OS_LINUX
 #define DEFINE_LINUX_MODULE DEFINE_MODULE
+#define OVERRIDE_LINUX_FUNCTION_NAMES OVERRIDE_FUNCTION_NAMES
 #else
 #define DEFINE_LINUX_MODULE DEFINE_DUMMY_MODULE
+#define OVERRIDE_LINUX_FUNCTION_NAMES DUMMY_OVERRIDE_FUNCTION_NAMES
 #endif
 
 #ifdef TARGET_OS_MAC
 #define DEFINE_OSX_MODULE DEFINE_MODULE
+#define OVERRIDE_OSX_FUNCTION_NAMES OVERRIDE_FUNCTION_NAMES
 #else
 #define DEFINE_OSX_MODULE DEFINE_DUMMY_MODULE
+#define OVERRIDE_OSX_FUNCTION_NAMES DUMMY_OVERRIDE_FUNCTION_NAMES
 #endif
 //! @endcond

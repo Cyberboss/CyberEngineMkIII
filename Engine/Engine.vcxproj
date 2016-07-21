@@ -124,6 +124,30 @@
     <ClCompile Include="Platform\System\CYBProcess.cpp" />
     <ClCompile Include="Platform\System\CYBThread.cpp" />
     <ClCompile Include="Platform\System\CYBVirtualMemory.cpp" />
+    <ClCompile Include="Platform\System\Linux\CYBLinuxPath.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Platform\System\Linux\CYBLinuxProcess.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Platform\System\Linux\CYBLinuxThread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Platform\System\OSX\CYBOSXPath.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Platform\System\OSX\CYBOSXThread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Platform\System\OSX\CYBOSXProcess.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Platform\System\Posix\CYBPosixMutex.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -272,7 +296,9 @@
     <None Include="DoxyPages\Units.dox" />
     <None Include="Platform\Modules\CYBAutoModule.inl" />
     <None Include="Platform\Modules\CYBModuleDefinitions.hpp" />
-    <None Include="Platform\SystemHeaders\CYBUTF16String.inl" />
+    <ClCompile Include="Platform\SystemHeaders\CYBUTF16String.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
     <None Include="Platform\System\CYBSyscalls.inl" />
   </ItemGroup>
   <ItemGroup>

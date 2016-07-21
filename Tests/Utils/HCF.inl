@@ -1,6 +1,6 @@
 #pragma once
 
 inline void CYB::API::Assert::HCF[[noreturn]](void) noexcept {
-	BREAK;
+	FAIL("HCF was called");
 	std::terminate();
 }

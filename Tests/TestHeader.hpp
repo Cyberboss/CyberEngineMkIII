@@ -14,8 +14,6 @@
 
 #include "../Engine/CYB.hpp"
 
-#include "Utils/Utils.hpp"
-
 #ifdef _MSC_VER
 #pragma warning(disable : 4710)
 #pragma warning(push)
@@ -27,6 +25,8 @@
 using namespace CYB::Platform::Posix;
 #endif
 #include "../SupportLibs/Catch/include/catch.hpp"
+
+#include "Utils/Utils.hpp"
 
 #ifdef _MSC_VER
 #pragma warning(pop)

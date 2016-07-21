@@ -96,7 +96,3 @@ void CYB::Platform::System::Thread::Wait(void) const noexcept {
 void CYB::Platform::System::Thread::Sleep(const unsigned int AMilliseconds) noexcept {
 	Core().FModuleManager.FC.Call<Modules::LibC::usleep>(AMilliseconds * 1000);
 }
-
-void CYB::Platform::System::Thread::Yield(void) noexcept {
-	Core().FModuleManager.FRT.Call<Modules::RT::sched_yield>();
-}

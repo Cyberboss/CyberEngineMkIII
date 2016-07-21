@@ -32,30 +32,18 @@ pid_t CYB::Platform::System::Implementation::Process::SpawnProcess(const System:
 
 		Work = ACommandLine.Tokenize(' ');
 
-		Argv.reserve(Work.size());
+		Argv.reserve(Work.size() + 1);
 
 		for (auto& Word : Work)
 			Argv.emplace_back(Word.CString());
+		Argv.emplace_back(nullptr);
 	}
 
 	pid_t PID;
 	const auto Result(CYB::Core().FModuleManager.FC.Call<CYB::Platform::Modules::LibC::posix_spawn>(&PID, APath().CString(), nullptr, nullptr, HasArguments ? const_cast<char**>(&Argv[0]) : nullptr, environ));
 
 	if (Result != 0)
-		switch (errno) {
-		case ENOTDIR:
-		case ENOENT:
-			throw CYB::Exception::SystemData(CYB::Exception::SystemData::FILE_NOT_FOUND);
-		case EISDIR:
-		case ENOEXEC:
-		case ELIBBAD:
-		case EINVAL:
-		case EACCES:
-		case ETXTBSY:
-			throw CYB::Exception::SystemData(CYB::Exception::SystemData::FILE_NOT_READABLE);
-		default:
-			throw CYB::Exception::Internal(CYB::Exception::Internal::PROCESS_CREATION_ERROR);
-		}
+		HandleSpawnError();
 
 	return PID;
 }

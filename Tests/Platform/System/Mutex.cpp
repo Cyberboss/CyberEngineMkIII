@@ -6,7 +6,7 @@ static bool SpawnMutexTryLockThread(const CYB::Platform::System::Mutex& AMutex) 
 		const CYB::Platform::System::Mutex& FMutex;
 		bool FResult;
 	public:
-		MutexRunner(const CYB::Platform::System::Mutex& AMutex):
+		MutexRunner(const CYB::Platform::System::Mutex& AMutex) :
 			FMutex(AMutex)
 		{}
 		void BeginThreadedOperation(void) final override {
@@ -27,7 +27,8 @@ static bool SpawnMutexTryLockThread(const CYB::Platform::System::Mutex& AMutex) 
 SCENARIO("Mutex basic functions work", "[Platform][System][Mutex][Unit]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMRT> RT(CYB::Core().FModuleManager.FRT);
+	ModuleDependancy<CYB::API::Platform::LINUX, CYB::Platform::Modules::AMRT> RT(CYB::Core().FModuleManager.FRT);
+	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMSystem> System(CYB::Core().FModuleManager.FSystem);
 	GIVEN("An empty Mutex pointer") {
 		CYB::Platform::System::Mutex* TestMutex(nullptr);
 		WHEN("The mutex is initialized") {

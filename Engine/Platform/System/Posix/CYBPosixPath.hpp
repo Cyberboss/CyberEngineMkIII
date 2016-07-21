@@ -39,6 +39,8 @@ namespace CYB {
 						//! @copydoc CYB::API::Path::DirectoryEntry::operator++()
 						void operator++(void) final override;
 					};
+				protected:
+					static API::String::Dynamic GetExecutableImage(void);
 				};
 			};
 		};

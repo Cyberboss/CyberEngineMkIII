@@ -99,3 +99,10 @@ SysCallOverride::SysCallOverride(const CYB::Platform::System::Sys::CallNumber AC
 SysCallOverride::~SysCallOverride() {
 	Fake::SysCalls::ResetCall(FCallNumber);
 }
+
+void TestLog(const char* ALog) {
+	WARN(ALog);
+}
+void TestLogNum(const long long ALog) {
+	WARN(ALog);
+}

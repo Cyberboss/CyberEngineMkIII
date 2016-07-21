@@ -4,6 +4,12 @@ include_directories(${CYB_BASE_DIR}/Engine)
 
 find_package(Threads REQUIRED)
 
+if(APPLE)
+set(CYB_PLATFORM_CODE_FILES Platform/System/OSX/CYBOSXProcess.cpp Platform/System/OSX/CYBOSXThread.cpp Platform/System/OSX/CYBOSXPath.cpp)
+else()
+set(CYB_PLATFORM_CODE_FILES Platform/System/Linux/CYBLinuxProcess.cpp Platform/System/Linux/CYBLinuxThread.cpp Platform/System/Linux/CYBLinuxPath.cpp)
+endif()
+
 add_library(EngineBase STATIC
 
 
@@ -14,6 +20,8 @@ Platform/System/CYBThread.cpp
 Platform/System/CYBPath.cpp
 Platform/System/CYBProcess.cpp
 Platform/System/CYBVirtualMemory.cpp
+
+${CYB_PLATFORM_CODE_FILES}
 
 #Posix
 Platform/System/Posix/CYBPosixSyscalls.cpp
@@ -50,7 +58,11 @@ set_property(TARGET EngineBase PROPERTY CXX_STANDARD_REQUIRED ON)
 
 IF(CMAKE_BUILD_TYPE MATCHES Debug)
 	set_property(TARGET EngineBase PROPERTY COMPILE_FLAGS "-fprofile-arcs -ftest-coverage")
-	target_link_libraries(EngineBase dl -fprofile-arcs -ftest-coverage --coverage)
+	IF(APPLE)
+		target_link_libraries(EngineBase dl -fprofile-arcs -ftest-coverage)
+	ELSE()
+		target_link_libraries(EngineBase dl -fprofile-arcs -ftest-coverage --coverage)
+	ENDIF()
 ELSE()
 	target_link_libraries(EngineBase dl)
 ENDIF()

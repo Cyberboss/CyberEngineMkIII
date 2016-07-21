@@ -39,3 +39,6 @@ bool CYB::Platform::System::Sys::CallRedirected(const CallNumber ACallNumber) no
 unsigned long long CYB::Platform::System::Sys::RedirectedCall(const CallNumber, const Union64, const Union64, const Union64, const Union64, const Union64, const Union64) {
 	API::Assert::HCF();
 }
+
+void TestLog(const char*) noexcept {}
+void TestLogNum(const long long) noexcept {}

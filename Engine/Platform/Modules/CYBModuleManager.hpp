@@ -15,8 +15,14 @@ namespace CYB {
 
 				//Posix
 				AMLibC FC;	//!< @brief libc
-				AMRT FRT;	//!< @brief	librt
 				AMPThread FPThread;	//!< @brief libpthread
+
+				//Linux
+				AMRT FRT;	//!< @brief	librt
+				
+				//OSX
+				AMSystem FSystem;	//!< @brief libSystem
+				AMDyLD FDyLD;	//!< @brief libdyld
 			};
 		};
 	};

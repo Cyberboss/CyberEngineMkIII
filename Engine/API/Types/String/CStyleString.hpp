@@ -63,7 +63,10 @@ namespace CYB {
 				*/
 				bool operator!=(const CStyle& ARHS) const noexcept;
 
-				//! @copydoc CYB::API::String::CStyle::CString()
+				/*! 
+					@copydoc CYB::API::String::CStyle::CString()
+					@attention This version will never return nullptr. Instead, it will return the address of FLength, which will be 0
+				*/
 				operator const char*(void) const noexcept;
 			};
 		};

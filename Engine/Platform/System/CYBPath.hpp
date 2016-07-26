@@ -175,9 +175,9 @@ namespace CYB {
 				bool IsFile(void) const final override;
 
 				//! @copydoc CYB::API::Path::FullFileName()
-				API::String::UTF8 FullFileName(void) const final override;
+				API::String::UTF8 FullName(void) const final override;
 				//! @copydoc CYB::API::Path::FileName()
-				API::String::UTF8 FileName(void) const final override;
+				API::String::UTF8 Name(void) const final override;
 				//! @copydoc CYB::API::Path::Extension()
 				API::String::UTF8 Extension(void) const final override;
 

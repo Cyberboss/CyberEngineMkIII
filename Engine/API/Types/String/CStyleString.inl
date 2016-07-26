@@ -38,5 +38,10 @@ inline bool CYB::API::String::CStyle::operator!=(const CStyle& ARHS) const noexc
 }
 
 inline CYB::API::String::CStyle::operator const char*(void) const noexcept {
-	return CString();
+	auto Result(CString());
+	if (Result == nullptr) {
+		Assert::Equal(FLength, 0);
+		return reinterpret_cast<const char*>(&FLength);
+	}
+	return Result;
 }

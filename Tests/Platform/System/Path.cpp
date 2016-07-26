@@ -229,8 +229,8 @@ SCENARIO("Path file name parsing works", "[Platform][System][Path][Unit]") {
 		WHEN("A file without an extension is checked") {
 			auto& Subject(Setup1);
 			UTF8 Result1, Result2, Result3;
-			REQUIRE_NOTHROW(Result1 = Subject.FullFileName());
-			REQUIRE_NOTHROW(Result2 = Subject.FileName());
+			REQUIRE_NOTHROW(Result1 = Subject.FullName());
+			REQUIRE_NOTHROW(Result2 = Subject.Name());
 			REQUIRE_NOTHROW(Result3 = Subject.Extension());
 			THEN("The correct results are given") {
 				CHECK(Result1 == Static(u8"TestFile1"));
@@ -241,8 +241,8 @@ SCENARIO("Path file name parsing works", "[Platform][System][Path][Unit]") {
 		WHEN("A file with an extension is checked") {
 			auto& Subject(Setup2);
 			UTF8 Result1, Result2, Result3;
-			REQUIRE_NOTHROW(Result1 = Subject.FullFileName());
-			REQUIRE_NOTHROW(Result2 = Subject.FileName());
+			REQUIRE_NOTHROW(Result1 = Subject.FullName());
+			REQUIRE_NOTHROW(Result2 = Subject.Name());
 			REQUIRE_NOTHROW(Result3 = Subject.Extension());
 			THEN("The correct results are given") {
 				CHECK(Result1 == Static(u8"Te.st.File2"));

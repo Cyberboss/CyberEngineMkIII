@@ -35,8 +35,8 @@ namespace CYB {
 				@param AArguments The command line arguments
 				@par Thread Safety
 					This function should only be called once
-				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MEMORY_RESERVATION_FAILURE. Thrown if a heap's memory could not be reserved
-				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MEMORY_COMMITAL_FAILURE. Thrown if a heap's memory could not be committed
+				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_RESERVATION_FAILURE. Thrown if a heap's memory could not be reserved
+				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_COMMITAL_FAILURE. Thrown if a heap's memory could not be committed
 			*/
 			Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments);
 			//! @brief Cleans up the engine and terminates the process

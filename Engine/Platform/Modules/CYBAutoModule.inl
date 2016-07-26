@@ -18,7 +18,7 @@ namespace CYB {
 					@param AFunctionNames Names of the functions to load from the Module
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MODULE_FUNCTION_LOAD_FAILURE. Thrown if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE. Thrown if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
 				*/
 				static void Construct(Module& AModule, void* (&AFunctionPointers)[AN], void* const (&AReplacedFunctions)[AN], const API::String::Static* const* const AFunctionNames) {
 					for (unsigned int I(0); I < AN; ++I)
@@ -56,7 +56,7 @@ namespace CYB {
 					@param AFunctionNames Names of the functions to load from the Module
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MODULE_FUNCTION_LOAD_FAILURE. Thrown if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE. Thrown if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
 				*/
 				static void Construct(Module& AModule, void* (&AFunctionPointers)[AN], void* const (&AReplacedFunctions)[AN], const API::String::Static* const* const AFunctionNames) {
 					for (unsigned int I(0); I < AN; ++I)

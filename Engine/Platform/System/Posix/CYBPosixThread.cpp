@@ -28,10 +28,10 @@ CYB::Platform::System::Implementation::Thread::Thread(API::Threadable& AThreadab
 
 		try {
 			if (PThread.Call<Modules::PThread::pthread_mutex_init>(&FRunningLock, nullptr) != 0)
-				throw Exception::SystemData(Exception::SystemData::ErrorCode::MUTEX_INITIALIZATION_FAILURE);	//Throw for the specific reason
+				throw Exception::SystemData(Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);	//Throw for the specific reason
 		} catch(CYB::Exception::SystemData AException) {	//But always translate
-			API::Assert::Equal(AException.FErrorCode, static_cast<unsigned int>(Exception::SystemData::ErrorCode::MUTEX_INITIALIZATION_FAILURE));
-			throw Exception::SystemData(Exception::SystemData::ErrorCode::THREAD_CREATION_FAILURE);
+			API::Assert::Equal(AException.FErrorCode, static_cast<unsigned int>(Exception::SystemData::MUTEX_INITIALIZATION_FAILURE));
+			throw Exception::SystemData(Exception::SystemData::THREAD_CREATION_FAILURE);
 		}	//optimizer should take care of this
 		PThread.Call<Modules::PThread::pthread_mutex_lock>(&FRunningLock);
 
@@ -40,7 +40,7 @@ CYB::Platform::System::Implementation::Thread::Thread(API::Threadable& AThreadab
 		if (PThread.Call<Modules::PThread::pthread_create>(&FThread, nullptr, ThreadProc, &Data) != 0) {
 			PThread.Call<Modules::PThread::pthread_mutex_unlock>(&FRunningLock);
 			DestroyMutex();
-			throw Exception::SystemData(Exception::SystemData::ErrorCode::THREAD_CREATION_FAILURE);
+			throw Exception::SystemData(Exception::SystemData::THREAD_CREATION_FAILURE);
 		}
 
 		PThreadLockGuard Lock(&FRunningLock, false);

@@ -33,12 +33,12 @@ namespace CYB {
 					@param ACommandLine The command line for the Process
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_FOUND if @p APath does not exist in the filesystem
-					@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_READABLE if @p APath isn't accessible by the current user
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap ran out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
-					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::FILE_NOT_EXECUTABLE if @p APath does not indicate a process image
-					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::PROCESS_CREATION_ERROR if the process could not be created
+					@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::FILE_NOT_FOUND if @p APath does not exist in the filesystem
+					@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::FILE_NOT_READABLE if @p APath isn't accessible by the current user
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap ran out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
+					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::FILE_NOT_EXECUTABLE if @p APath does not indicate a process image
+					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::PROCESS_CREATION_ERROR if the process could not be created
 					@attention Launching processes which require administrator elevation on Windows will block the current thread until the authorization dialog is closed
 				*/
 				Process(const Path& APath, const API::String::UTF8& ACommandLine);
@@ -47,13 +47,13 @@ namespace CYB {
 					@param ACommandLine The command line for the new instance
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_FOUND. Thrown if @p APath does not exist in the filesystem
-					@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::ErrorCode::FILE_NOT_READABLE. Thrown if @p APath isn't accessible by the current user
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::SYSTEM_PATH_RETRIEVAL_FAILURE. Thrown if the path of the executable could not be retrieved
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the current heap ran out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
-					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::FILE_NOT_EXECUTABLE if @p APath does not indicate a process image
-					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::PROCESS_CREATION_ERROR if the process could not be created
+					@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::FILE_NOT_FOUND. Thrown if @p APath does not exist in the filesystem
+					@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if @p APath isn't accessible by the current user
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE. Thrown if the path of the executable could not be retrieved
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap ran out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
+					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::FILE_NOT_EXECUTABLE if @p APath does not indicate a process image
+					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::PROCESS_CREATION_ERROR if the process could not be created
 					@attention Launching processes which require administrator elevation on Windows will block the current thread until the authorization dialog is closed
 				*/
 				Process(const API::String::UTF8& ACommandLine);
@@ -90,7 +90,7 @@ namespace CYB {
 					@brief Terminates the Process with exit code 0
 					@par Thread Safety
 						This function should only be called once per object instance
-					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::PROCESS_TERMINATION_ERROR if the process could not be terminated. Will not happen if called on current process
+					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::PROCESS_TERMINATION_ERROR if the process could not be terminated. Will not happen if called on current process
 				*/
 				void Terminate(void);
 
@@ -107,7 +107,7 @@ namespace CYB {
 					@return The Process' exit code
 					@par Thread Safety
 						If Active() is true, This function requires sychronization at the object level
-					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::ErrorCode::PROCESS_EXIT_CODE_UNCHECKABLE Thrown if the OS would not allow the error code to be checked, usually due to a different user running the target process in the case of Windows elevation
+					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::PROCESS_EXIT_CODE_UNCHECKABLE Thrown if the OS would not allow the error code to be checked, usually due to a different user running the target process in the case of Windows elevation
 				*/
 				int GetExitCode(void);
 			};

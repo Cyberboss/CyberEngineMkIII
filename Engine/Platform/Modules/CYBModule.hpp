@@ -11,7 +11,7 @@ namespace CYB {
 					@param AModuleName The name of the module to load excluding the platform specific extension or the 'lib' prefix
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MODULE_LOAD_FAILURE. Thrown if the module is unable to be loaded
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MODULE_LOAD_FAILURE. Thrown if the module is unable to be loaded
 				*/
 				Module(const API::String::CStyle& AModuleName);	//!< @brief See @ref structors
 				Module(const Module&) = delete;
@@ -28,7 +28,7 @@ namespace CYB {
 					@return A pointer which can be casted to the function's prototype and called
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MODULE_FUNCTION_LOAD_FAILURE. Thrown if the requested function is unable to be loaded from the owned module
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE. Thrown if the requested function is unable to be loaded from the owned module
 				*/
 				void* LoadFunction(const API::String::CStyle& AFunctionName);
 			};

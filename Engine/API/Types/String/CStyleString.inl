@@ -36,3 +36,7 @@ inline bool CYB::API::String::CStyle::operator==(const CStyle& ARHS) const noexc
 inline bool CYB::API::String::CStyle::operator!=(const CStyle& ARHS) const noexcept {
 	return !(*this == ARHS);
 }
+
+inline CYB::API::String::CStyle::operator const char*(void) const noexcept {
+	return CString();
+}

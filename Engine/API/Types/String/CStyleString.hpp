@@ -62,6 +62,9 @@ namespace CYB {
 						This function requires synchronization at the object level
 				*/
 				bool operator!=(const CStyle& ARHS) const noexcept;
+
+				//! @copydoc CYB::API::String::CStyle::CString()
+				operator const char*(void) const noexcept;
 			};
 		};
 	};

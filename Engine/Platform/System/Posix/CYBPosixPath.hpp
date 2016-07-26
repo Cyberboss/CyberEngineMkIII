@@ -28,7 +28,7 @@ namespace CYB {
 							@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST If the current path failed to verify
 						*/
 						DirectoryEntry(const System::Path& APath);
-						//! @copydoc CYB::API::Path::DirectoryEntry::~DirectoryEntry()
+						//! @brief See @ref structors
 						~DirectoryEntry() final override;
 
 						//! @copydoc CYB::API::Path::DirectoryEntry::operator*()

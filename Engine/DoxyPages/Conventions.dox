@@ -63,6 +63,10 @@ CyberEngineMkII follows a strict set of programming conventions to add convienie
 
 The default C++ extended constructors apply. The copy constructor will copy an object verbatim. The move constructor and assignment operator will move the object without affecting it's state. The destructor will clean up an object and may perform other operations as specified
 
+@section interstructors Interop Construction
+
+//TODO
+
 @section raii RAII and Strong Guarantee
 
 All unit control paths should be able to shut down correctly in the event an exception unwinds the stack. This usually means flagging down and waiting for threads, running IO functions to save any data, and cleaning up owned objects. They should also provide the C++ strong guarantee, meaning that if an exception is throw, data will remain in a valid state. All engine functions provide both these guarantees.

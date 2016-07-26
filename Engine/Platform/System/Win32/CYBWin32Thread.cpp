@@ -4,7 +4,7 @@ CYB::Platform::System::Implementation::Thread::Thread(API::Threadable& AThreadab
 	FThread(Core().FModuleManager.FK32.Call<Modules::Kernel32::CreateThread>(nullptr, 0U, ThreadProc, &AThreadable, 0U, nullptr))
 {
 	if (FThread == nullptr)
-		throw Exception::SystemData(Exception::SystemData::ErrorCode::THREAD_CREATION_FAILURE);
+		throw Exception::SystemData(Exception::SystemData::THREAD_CREATION_FAILURE);
 }
 
 CYB::Platform::System::Implementation::Thread::~Thread() {

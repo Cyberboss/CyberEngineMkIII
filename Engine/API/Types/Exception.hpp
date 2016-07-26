@@ -45,7 +45,7 @@ namespace CYB {
 				@return A description of the exception indicated by @p AErrorCode
 				@par Thread Safety
 					This function requires no thread safety
-				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
 			*/
 			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
@@ -54,7 +54,7 @@ namespace CYB {
 				@param AErrorCode The ErrorCode describing the exception
 				@par Thread Safety
 					This function requires no thread safety
-				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
 				@attention This function is for internal use only
 			*/
 			Violation(const ErrorCode AErrorCode);
@@ -83,7 +83,7 @@ namespace CYB {
 				@return A description of the exception indicated by @p AErrorCode
 				@par Thread Safety
 					This function requires no thread safety
-				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
 			*/
 			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
@@ -92,7 +92,7 @@ namespace CYB {
 				@param AErrorCode The ErrorCode describing the exception
 				@par Thread Safety
 					This function requires no thread safety
-				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
 				@attention This function is for internal use only
 			*/
 			SystemData(const ErrorCode AErrorCode);
@@ -127,7 +127,7 @@ namespace CYB {
 				@param AErrorCode The ErrorCode describing the exception
 				@par Thread Safety
 					This function requires no thread safety
-				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
 				@attention This function is for internal use only
 			*/
 			Internal(const ErrorCode AErrorCode);
@@ -146,7 +146,7 @@ namespace CYB {
 				@return A description of the exception indicated by @p AErrorCode
 				@par Thread Safety
 					This function requires no thread safety
-				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
 			*/
 			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
 		public:
@@ -155,7 +155,7 @@ namespace CYB {
 				@param AErrorCode The ErrorCode describing the exception
 				@par Thread Safety
 					This function requires no thread safety
-				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::ErrorCode::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
 				@attention This function is for internal use only
 			*/
 			Fatal(const ErrorCode AErrorCode);

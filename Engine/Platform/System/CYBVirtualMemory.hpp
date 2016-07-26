@@ -24,7 +24,7 @@ namespace CYB {
 					@return A pointer to a reservation of size @p ANumBytes
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MEMORY_RESERVATION_FAILURE. Thrown if the reservation was unable to be made
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_RESERVATION_FAILURE. Thrown if the reservation was unable to be made
 				*/
 				static void* InitReservation(const unsigned long long ANumBytes);
 			public:
@@ -33,7 +33,7 @@ namespace CYB {
 					@param ANumBytes The number of bytes in the address space to reserve. Must be at least 1024. Will be rounded up to the nearest system page
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MEMORY_RESERVATION_FAILURE. Thrown if the reservation was unable to be made
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_RESERVATION_FAILURE. Thrown if the reservation was unable to be made
 				*/
 				VirtualMemory(const unsigned long long ANumBytes);
 				//! @brief Release a reservation. All memory that was used in entire reserved address space will be lost
@@ -44,7 +44,7 @@ namespace CYB {
 					@param ANumBytes The number of bytes in the address space to commit, will be rounded up to the nearest reservable granularity
 					@par Thread Safety
 						This function requires synchronization at the object level
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MEMORY_COMMITAL_FAILURE. Thrown if the commital was unable to be made
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_COMMITAL_FAILURE. Thrown if the commital was unable to be made
 				*/
 				void Commit(const unsigned long long ANumBytes);
 				/*!
@@ -60,7 +60,7 @@ namespace CYB {
 					@param AAccess The access level to set
 					@par Thread Safety
 						This function requires no thread safety, though it is not atomic
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MEMORY_PROTECT_FAILURE. Thrown if the commital was unable to be made
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_PROTECT_FAILURE. Thrown if the commital was unable to be made
 				*/
 				void Access(const AccessLevel AAccess);
 				/*!

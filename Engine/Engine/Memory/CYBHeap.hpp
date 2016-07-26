@@ -61,7 +61,7 @@ namespace CYB {
 					@param ARequiredNumBytes The required number of bytes from the LargeBlock
 					@par Thread Safety
 						This function requires that FMutex is locked
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the memory could not be committed
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the memory could not be committed
 				*/
 				void LargeBlockNeedsAtLeast(unsigned int ARequiredNumBytes);
 
@@ -81,7 +81,7 @@ namespace CYB {
 					@return An unused Block that isn't free and is is at least @p ANumBytes in size
 					@par Thread Safety
 						This function requires that FMutex is locked
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the memory could not be committed
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the memory could not be committed
 				*/
 				Block& AllocImpl(unsigned int ANumBytes, API::LockGuard& ALock);
 				/*!
@@ -92,7 +92,7 @@ namespace CYB {
 					@return An unused Block that isn't free, is at least @p ANumBytes in size, and contains all previous data from @p ABlock
 					@par Thread Safety
 						This function requires that FMutex is locked
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::HEAP_ALLOCATION_FAILURE. Thrown if the memory could not be committed
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the memory could not be committed
 				*/
 				Block& ReallocImpl(Block& ABlock, unsigned int ANumBytes, API::LockGuard& ALock);
 				/*!
@@ -117,8 +117,8 @@ namespace CYB {
 					@param AInitialCommitSize The amount of memory to initalize the heap with, must be smaller than @p AReservationSize
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MEMORY_RESERVATION_FAILURE. Thrown if the memory could not be reserved
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MEMORY_COMMITAL_FAILURE. Thrown if the memory could not be committed
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_RESERVATION_FAILURE. Thrown if the memory could not be reserved
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_COMMITAL_FAILURE. Thrown if the memory could not be committed
 				*/
 				Heap(const unsigned long long AInitialCommitSize);
 				Heap(const Heap&) = delete;
@@ -129,14 +129,14 @@ namespace CYB {
 					@brief Lock the Heap, preventing reads and writes to the owned memory
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MEMORY_PROTECT_FAILURE. Thrown if the memory protections could not be changed
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_PROTECT_FAILURE. Thrown if the memory protections could not be changed
 				*/
 				void Lock(void);
 				/*!
 					@brief Unlock the Heap, allowing reads and writes to the owned memory
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::ErrorCode::MEMORY_PROTECT_FAILURE. Thrown if the memory protections could not be changed
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_PROTECT_FAILURE. Thrown if the memory protections could not be changed
 				*/
 				void Unlock(void);
 				/*!

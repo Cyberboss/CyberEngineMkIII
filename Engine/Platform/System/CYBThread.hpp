@@ -34,7 +34,7 @@ namespace CYB {
 					@param AThreadable A reference to the threadable object the Thread will run, must remain valid for the lifetime of the Thread's run
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::ErrorCode::THREAD_CREATION_FAILURE. Thrown if the thread is unable to be created
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::THREAD_CREATION_FAILURE. Thrown if the thread is unable to be created
 				*/
 				Thread(API::Threadable& AThreadable);
 				Thread(const Thread&) = delete;

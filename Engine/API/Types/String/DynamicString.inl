@@ -39,10 +39,11 @@ inline CYB::API::String::Dynamic::~Dynamic() {
 }
 
 inline char* CYB::API::String::Dynamic::CopyCStyle(const CStyle& AData, int ALength) {
+	API::Assert::LessThanOrEqual(-1, ALength);
 	Assert::LessThanOrEqual(ALength, AData.RawLength());
 	if (ALength == -1)
 		ALength = AData.RawLength();
-	if (AData.RawLength() > 0) {
+	if (ALength != 0 && AData.RawLength() > 0) {
 		Assert::LessThan(AData.RawLength(), std::numeric_limits<int>::max());
 		auto Data(static_cast<char*>(Allocator().FHeap.Alloc(static_cast<int>(ALength + 1))));
 		std::copy(AData.CString(), AData.CString() + ALength, Data);

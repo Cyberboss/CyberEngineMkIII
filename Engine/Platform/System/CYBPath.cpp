@@ -76,23 +76,11 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 	if (!Verify(FPath))
 		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
 
+	auto NewPath(FPath + DirectorySeparatorChar() + AAppendage);
+	bool NeedsEvaluation(true);
 	if (!ACreateIfNonExistant) {
 		//try a simple cd
-		auto NewPath(FPath + DirectorySeparatorChar() + AAppendage);
-		if (Verify(NewPath)) {
-			bool Throw(false);
-			try {
-				Evaluate(NewPath);
-			}
-			catch (Exception::Internal AException) {
-				API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::PATH_EVALUATION_FAILURE);
-				Throw = true;
-			}
-			if(Throw)
-				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
-			SetPath(std::move(NewPath));
-		}
-		else {
+		if (!Verify(NewPath)) {
 			//Okay, we may be trying to create a new file, check it's parent directory
 			UTF8 Work;
 			const auto I(GetIndexOfLastSeperator(NewPath, '/'));
@@ -100,7 +88,7 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 			Work = UTF8(static_cast<const Dynamic&>(NewPath).SubString(0, I));
 			if (!Verify(Work))
 				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
-			SetPath(std::move(NewPath));
+			NeedsEvaluation = false;
 		}
 	}
 	else {
@@ -136,6 +124,19 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 		//and try to create them
 		CreateDirectories(WorkingPath, Tokens);
 	}
+	if (NeedsEvaluation) {
+		bool Throw(false);
+		try {
+			Evaluate(NewPath);
+		}
+		catch (Exception::Internal AException) {
+			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::PATH_EVALUATION_FAILURE);
+			Throw = true;
+		}
+		if (Throw)
+			throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+	}
+	SetPath(std::move(NewPath));
 }
 
 void CYB::Platform::System::Path::Delete(bool ARecursive) const {
@@ -172,20 +173,12 @@ int CYB::Platform::System::Path::ByteLength(void) const noexcept {
 	return FPath.RawLength();
 }
 
-CYB::API::String::UTF8 CYB::Platform::System::Path::FullFileName(void) const {
-	const auto Slash(GetIndexOfLastSeperator(FPath, '/') + 1);
-	return UTF8(static_cast<const Dynamic&>(FPath).SubString(Slash, FPath.RawLength() - Slash));
-}
-
-CYB::API::String::UTF8 CYB::Platform::System::Path::FileName(void) const {
-	const auto Slash(GetIndexOfLastSeperator(FPath, '/') + 1);
-	const auto Dot(GetIndexOfLastSeperator(FPath, '.'));
-	return UTF8(static_cast<const Dynamic&>(FPath).SubString(Slash, Dot - Slash));
-}
-
 CYB::API::String::UTF8 CYB::Platform::System::Path::Extension(void) const {
-	const auto Dot(GetIndexOfLastSeperator(FPath, '.') + 1);
-	return UTF8(static_cast<const Dynamic&>(FPath).SubString(Dot, FPath.RawLength() - Dot));
+	auto Full(FullName());
+	const auto Dot(GetIndexOfLastSeperator(Full, '.') + 1);
+	if (Dot == -1)
+		return Full;
+	return UTF8(static_cast<const Dynamic&>(Full).SubString(Dot, Full.RawLength() - Dot));
 }
 
 CYB::API::Interop::Object<CYB::API::Path::DirectoryEntry> CYB::Platform::System::Path::Contents(void) const {

@@ -12,6 +12,13 @@ inline void CYB::API::Assert::HCF[[noreturn]](void) noexcept {
 	__builtin_unreachable();
 #endif
 }
+
+inline void CYB::API::Assert::Unimplemented(const char* const AFunction, const char* const AFile, const unsigned int ALine) {
+	static_cast<void>(AFunction);
+	static_cast<void>(AFile);
+	static_cast<void>(ALine);
+	HCF();
+}
 #endif
 inline void CYB::API::Assert::True(const bool AExpression) noexcept {
 	if (!AExpression)

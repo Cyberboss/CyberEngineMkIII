@@ -20,6 +20,7 @@ template <class AAutoModule, typename ACallable, unsigned int AFunctionIndex> Ca
 	if (!FMoved) {
 		ReassignAutoModuleFunctionPointer<AAutoModule>(FReference ,AFunctionIndex, FOldFunction);
 		FOldFunction = nullptr;
+		FMoved = true;
 	}
 }
 

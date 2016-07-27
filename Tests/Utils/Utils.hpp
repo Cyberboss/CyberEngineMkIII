@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Backdoor.hpp"
-#include "Fakes.hpp"
 #include "RedirectedFunction.hpp"
 #include "CallRedirect.hpp"
 #include "ModuleDependancy.hpp"
+#include "Fakes.hpp"
 #include "ForkRegistry.hpp"
 
 namespace CYB {

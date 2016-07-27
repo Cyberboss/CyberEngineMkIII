@@ -106,3 +106,24 @@ void TestLog(const char* ALog) {
 void TestLogNum(const long long ALog) {
 	WARN(ALog);
 }
+
+unsigned int lastError;
+std::deque<unsigned int> NextError;
+
+REDIRECTED_FUNCTION(ErrorCallOverride) {
+	if (!NextError.empty()) {
+		lastError = NextError.front();
+		NextError.pop_front();
+	}
+	return lastError;
+}
+
+void PushError(unsigned int AError) {
+	NextError.push_back(AError);
+	errno = static_cast<int>(AError);
+}
+
+CallRedirect<CYB::Platform::Modules::AMKernel32, CYB::Platform::Modules::Kernel32::GetLastError> OverrideError(ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32>& AModule, unsigned int AErrorCode) {
+	PushError(AErrorCode);
+	return AModule.Redirect<CYB::Platform::Modules::Kernel32::GetLastError, ErrorCallOverride>();
+}

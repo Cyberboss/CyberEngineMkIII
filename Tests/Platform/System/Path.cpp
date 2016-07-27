@@ -256,7 +256,12 @@ SCENARIO("Path file name parsing works", "[Platform][System][Path][Unit]") {
 
 template <class ARedirector> class BadCreateDirectory;
 template <class ARedirector> class BadRealPath;
+template <class ARedirector> class BadDeleteFile;
+int DeleteFileSucceedsIf1(0);
 template <class ARedirector> class BadPathFileExists;
+template <class ARedirector> class BadUnlink;
+template <class ARedirector> class BadSetFileAttributes;
+template <class ARedirector> class GoodSetFileAttributes;
 unsigned long long FakeStat(Fake::SysCalls::Args&);
 
 SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
@@ -293,6 +298,57 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 					THEN("The correct exception is thrown") {
 						CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::PATH_LOST);
 					}
+				}
+			}
+		}
+	}
+	GIVEN("A valid file") {
+		Path Setup(Path::SystemPath::TEMPORARY);
+		REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"TestFile")), false, false));
+		Touch(Setup);
+		WHEN("The deletion functions are messed with") {
+			const auto BDF(K32.Redirect<CYB::Platform::Modules::Kernel32::DeleteFileW, BadDeleteFile>());
+			const auto BUL(LibC.Redirect<CYB::Platform::Modules::LibC::unlink, BadUnlink>());
+			AND_WHEN("The error is File not found") {
+#ifdef TARGET_OS_WINDOWS
+				const auto Error(OverrideError(K32, ERROR_FILE_NOT_FOUND));
+#else
+				const auto Error(OverrideError(K32, ENOENT));
+#endif
+				THEN("The function call succeeds") {
+					CHECK_NOTHROW(Setup.Delete(false));
+				}
+			}
+#ifdef TARGET_OS_WINDOWS
+			AND_WHEN("The error is a read only type") {
+				const auto Error(OverrideError(K32, ERROR_ACCESS_DENIED));
+				AND_WHEN("Setting the readonly property fails") {
+					const auto BSFA(K32.Redirect<CYB::Platform::Modules::Kernel32::SetFileAttributesW, BadSetFileAttributes>());
+					REQUIRE_THROWS_AS(Setup.Delete(false), CYB::Exception::SystemData);
+					THEN("The function call fails") {
+						CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+					}
+				}
+				AND_WHEN("Deleting the file fails again") {
+					const auto GSFA(K32.Redirect<CYB::Platform::Modules::Kernel32::SetFileAttributesW, GoodSetFileAttributes>());
+					REQUIRE_THROWS_AS(Setup.Delete(false), CYB::Exception::SystemData);
+					THEN("The function call fails") {
+						CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+					}
+				}
+				AND_WHEN("Deleting the file succeeds afterwards again") {
+					DeleteFileSucceedsIf1 = 2;
+					THEN("The function call succeeds") {
+						CHECK_NOTHROW(Setup.Delete(false));
+					}
+				}
+			}
+#endif
+			AND_WHEN("The error is unknown") {
+				const auto Error(OverrideError(K32, 0));
+				REQUIRE_THROWS_AS(Setup.Delete(false), CYB::Exception::SystemData);
+				THEN("The function call fails") {
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
 				}
 			}
 		}
@@ -431,6 +487,14 @@ REDIRECTED_FUNCTION(BadMkDir, const void* const, const unsigned long long) {
 	return -1;
 }
 
+REDIRECTED_FUNCTION(BadSetFileAttributes, const void* const, const unsigned int) {
+	return 0;
+}
+
+REDIRECTED_FUNCTION(GoodSetFileAttributes, const void* const, const unsigned int) {
+	return 1;
+}
+
 unsigned long LastError;
 
 REDIRECTED_FUNCTION(BadGetLastError) {
@@ -467,6 +531,24 @@ REDIRECTED_FUNCTION(BadSysConf, const int) {
 }
 
 REDIRECTED_FUNCTION(BadNSGetPath, const void* const, const unsigned long long) {
+	return -1;
+}
+
+REDIRECTED_FUNCTION(BadDeleteFile, const void* const) {
+	if (DeleteFileSucceedsIf1 == 2) {
+		--DeleteFileSucceedsIf1;
+		return 0;
+	}
+	else if (DeleteFileSucceedsIf1 == 0) {
+		return 0;
+	}
+	else {
+		--DeleteFileSucceedsIf1;
+		return 1;
+	}
+}
+
+REDIRECTED_FUNCTION(BadUnlink, const void* const) {
 	return -1;
 }
 

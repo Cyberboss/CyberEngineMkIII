@@ -17,6 +17,9 @@
 #endif
 #endif
 
+//! @brief Quick macro for supplying CYB::API::Assert::Unimplemented with the correct parameters
+#define UNIMPLEMENTED CYB::API::Assert::Unimplemented(__FUNCTION__, __FILE__, __LINE__)
+
 namespace CYB {
 	namespace API {
 		//! @brief Contains assertion functions
@@ -28,6 +31,15 @@ namespace CYB {
 					This function requires no thread safety
 			*/
 			static void HCF[[noreturn]](void) noexcept;
+			/*!
+				@brief Indicates an unimplimented function, calls HCF outside of testing
+				@par AFunction Should be __FUNCTION__ 
+				@par AFile Should be __FILE__
+				@par ALine Should be __LINE__
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			static void Unimplemented(const char* const AFunction, const char* const AFile, const unsigned int ALine);
 			/*!
 				@brief Assertion function. @p AExpression should always be evaluated
 				@param AExpression The expression to check. Will call HCF if false

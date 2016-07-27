@@ -254,6 +254,36 @@ SCENARIO("Path file name parsing works", "[Platform][System][Path][Unit]") {
 
 }
 
+SCENARIO("Path ascending works", "[Platform][System][Path][Unit]") {
+
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
+
+	REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
+
+	GIVEN("A valid Path") {
+		Path TestPath(Path::SystemPath::TEMPORARY);
+		const auto Prior(TestPath());
+		WHEN("The path is ascended from a file") {
+			REQUIRE_NOTHROW(TestPath.Append(UTF8(Static("Doesn'tExist")), false, false));
+			REQUIRE_NOTHROW(TestPath.NavigateToParentDirectory());
+			THEN("It succeeds") {
+				CHECK(Prior == TestPath());
+			}
+		}WHEN("The path is ascended from a directory") {
+			REQUIRE_NOTHROW(TestPath.Append(UTF8(Static("SomeDir")), true, false));
+			REQUIRE_NOTHROW(TestPath.NavigateToParentDirectory());
+			THEN("It succeeds") {
+				CHECK(Prior == TestPath());
+			}
+		}
+	}
+}
+
 template <class ARedirector> class BadCreateDirectory;
 template <class ARedirector> class BadRealPath;
 template <class ARedirector> class BadDeleteFile;

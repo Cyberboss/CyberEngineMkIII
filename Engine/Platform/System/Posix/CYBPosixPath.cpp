@@ -141,7 +141,7 @@ bool CYB::Platform::System::Path::IsDirectory(void) const {
 }
 
 void CYB::Platform::System::Path::NavigateToParentDirectory(void) {
-
+	UNIMPLEMENTED;
 }
 
 CYB::API::String::UTF8 CYB::Platform::System::Path::FullName(void) const {

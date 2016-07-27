@@ -6,6 +6,7 @@ add_executable(CyberEngineMkIIITester
 
 PosixMain.cpp
 Utils/Fakes.cpp
+Utils/HCF.cpp
 
 Platform/Modules.cpp
 

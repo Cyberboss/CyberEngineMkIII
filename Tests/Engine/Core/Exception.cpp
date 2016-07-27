@@ -22,22 +22,8 @@ SCENARIO("Exception error code verification works", "[Engine][Exception][Unit]")
 				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
 			}
 		}
-		WHEN("A Fatal instantiation is attempted") {
-			REQUIRE_THROWS_AS(CYB::Exception::Fatal(static_cast<CYB::Exception::Fatal::ErrorCode>(FakeExceptionCode)), CYB::Exception::Violation);
-			THEN("The correct Violation exception is thrown") {
-				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
-			}
-		}
 #else
 		CHECK(true);
 #endif
 	}
-}
-
-SCENARIO("REMOVE THIS AFTER YOU MAKE FATAL EXCEPTIONS", "[Engine][Exception][Unit]") {
-	try {
-		throw CYB::Exception::Fatal(CYB::Exception::Fatal::PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE);
-	}
-	catch (...) {}
-	CHECK_EXCEPTION_CODE(CYB::Exception::Fatal::PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE);
 }

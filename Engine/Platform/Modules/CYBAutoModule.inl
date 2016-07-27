@@ -11,24 +11,22 @@ namespace CYB {
 			template <unsigned int AN> class AutoModuleOptionalHelpers<true, AN> {
 			protected:
 				/*!
-					@brief Shared constructor implementation
+					@brief Shared constructor implementation for optional functions
 					@param AModule The Module to construct from
 					@param AFunctionPointers Function pointer list reference
-					@param AReplacedFunctions Function pointers to be used in place of the regular module functions. If any are nullptr, they will instead be loaded from the module as normal
 					@param AFunctionNames Names of the functions to load from the Module
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE. Thrown if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
 				*/
-				static void Construct(Module& AModule, void* (&AFunctionPointers)[AN], void* const (&AReplacedFunctions)[AN], const API::String::Static* const* const AFunctionNames) {
+				static void Construct(Module& AModule, void* (&AFunctionPointers)[AN], const API::String::Static* const* const AFunctionNames) noexcept {
 					for (unsigned int I(0); I < AN; ++I)
 						try {
-						AFunctionPointers[I] = AReplacedFunctions[I] != nullptr ? AReplacedFunctions[I] : AModule.LoadFunction(*AFunctionNames[I]);
-					}
-					catch (Exception::Internal AException) {
-						API::Assert::Equal(AException.FErrorCode, static_cast<unsigned int>(Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE));
-						AFunctionPointers[I] = nullptr;
-					}
+							AFunctionPointers[I] = AModule.LoadFunction(*AFunctionNames[I]);
+						}
+						catch (Exception::Internal AException) {
+							API::Assert::Equal(AException.FErrorCode, static_cast<unsigned int>(Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE));
+							AFunctionPointers[I] = nullptr;
+						}
 				}
 
 				/*!
@@ -49,18 +47,17 @@ namespace CYB {
 			template <unsigned int AN> class AutoModuleOptionalHelpers<false, AN> {
 			protected:
 				/*!
-					@brief Shared constructor implementation
+					@brief Shared constructor implementation for required functions
 					@param AModule The Module to construct from
 					@param AFunctionPointers Function pointer list reference
-					@param AReplacedFunctions Function pointers to be used in place of the regular module functions. If any are nullptr, they will instead be loaded from the module as normal
 					@param AFunctionNames Names of the functions to load from the Module
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE. Thrown if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
 				*/
-				static void Construct(Module& AModule, void* (&AFunctionPointers)[AN], void* const (&AReplacedFunctions)[AN], const API::String::Static* const* const AFunctionNames) {
+				static void Construct(Module& AModule, void* (&AFunctionPointers)[AN], const API::String::Static* const* const AFunctionNames) {
 					for (unsigned int I(0); I < AN; ++I)
-						AFunctionPointers[I] = AReplacedFunctions[I] != nullptr ? AReplacedFunctions[I] : AModule.LoadFunction(*AFunctionNames[I]);
+						AFunctionPointers[I] = AModule.LoadFunction(*AFunctionNames[I]);
 				}
 
 				/*!
@@ -68,7 +65,7 @@ namespace CYB {
 					@param AFunction A pointer to the function
 					@return true Since optional functions are not allowed in this type of AutoModule
 				*/
-				static constexpr bool Loaded(const void* const AFunction) {
+				static constexpr bool Loaded(const void* const AFunction) noexcept {
 					static_cast<void>(AFunction);
 					return true;
 				}
@@ -80,22 +77,10 @@ namespace CYB {
 template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::AutoModule() :
 	FModule(CYB::API::String::Static(ModuleName()))
 {
-	void* NoReplacedFunctions[AN];
-	for (unsigned int I(0); I < AN; ++I)
-		NoReplacedFunctions[I] = nullptr;
 	const API::String::Static* FunctionNameList[AN];
 	for (auto I(0U); I < AN; ++I)
 		FunctionNameList[I] = OverridenNames()[I].Length() == 0 ? &FunctionNames()[I] : &OverridenNames()[I];
-	AutoModuleOptionalHelpers<AOptionalFunctions, AN>::Construct(FModule, FFunctionPointers, NoReplacedFunctions, FunctionNameList);
-}
-
-template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::AutoModule(void* const (&AReplacedFunctions)[AN]) :
-	FModule(CYB::API::String::Static(ModuleName()))
-{
-	const API::String::Static* FunctionNameList[AN];
-	for (auto I(0U); I < AN; ++I)
-		FunctionNameList[I] = OverridenNames()[I].Length() == 0 ? &FunctionNames()[I] : &OverridenNames()[I];
-	AutoModuleOptionalHelpers<AOptionalFunctions, AN>::Construct(FModule, FFunctionPointers, AReplacedFunctions, FunctionNameList);
+	AutoModuleOptionalHelpers<AOptionalFunctions, AN>::Construct(FModule, FFunctionPointers, FunctionNameList);
 }
 
 template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::~AutoModule() {

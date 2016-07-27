@@ -55,15 +55,6 @@ namespace CYB {
 					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE. Thrown if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
 				*/
 				AutoModule();
-				/*!
-					@brief Construct an AutoModule with specific function pointers. Still loads the owned module
-					@param AReplacedFunctions Function pointers to be used in place of the regular module functions. If any are nullptr, they will instead be loaded from the module as normal
-					@par Thread Safety
-						This function requires no thread safety
-					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MODULE_LOAD_FAILURE. Thrown if the module is unable to be loaded<BR>
-					@throws CYB::Exception::Internal Error code:CYB::Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE. Thrown if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
-				*/
-				AutoModule(void* const (&AReplacedFunctions)[AN]);
 				AutoModule(AutoModule&& AMove);	//!< @brief See @ref structors
 				AutoModule& operator=(AutoModule&& AMove);	//!< @brief See @ref structors
 				~AutoModule();	//!< @brief See @ref structors

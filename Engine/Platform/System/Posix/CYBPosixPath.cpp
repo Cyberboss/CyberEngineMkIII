@@ -146,8 +146,7 @@ void CYB::Platform::System::Path::NavigateToParentDirectory(void) {
 
 CYB::API::String::UTF8 CYB::Platform::System::Path::FullName(void) const {
 	const auto Slash(GetIndexOfLastSeperator(FPath, '/') + 1);
-	return UTF8(static_cast<const Dynamic&>(FPath).SubString(Slash, FPath.RawLength() - Slash));
-}
+	return UTF8(static_cast<const Dynamic&>(FPath).SubString(Slash, FPath.RawLength() - Slash));}
 
 CYB::API::String::UTF8 CYB::Platform::System::Path::Name(void) const {
 	const auto Slash(GetIndexOfLastSeperator(FPath, '/') + 1);

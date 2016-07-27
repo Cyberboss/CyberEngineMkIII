@@ -13,7 +13,7 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 		if (ADirectory == SystemPath::EXECUTABLE) {
 			auto Last(0);
 			for(auto I(0U); I < Work.RawLength(); ++I)
-				if (Work.CString()[I] == '/')
+				if (Work.CString()[I] == *DirectorySeparatorChar())
 					Last = I;
 			Work.Shrink(Last + 1);
 		}
@@ -145,11 +145,11 @@ void CYB::Platform::System::Path::NavigateToParentDirectory(void) {
 }
 
 CYB::API::String::UTF8 CYB::Platform::System::Path::FullName(void) const {
-	const auto Slash(GetIndexOfLastSeperator(FPath, '/') + 1);
+	const auto Slash(GetIndexOfLastSeperator(FPath, *DirectorySeparatorChar()) + 1);
 	return UTF8(static_cast<const Dynamic&>(FPath).SubString(Slash, FPath.RawLength() - Slash));}
 
 CYB::API::String::UTF8 CYB::Platform::System::Path::Name(void) const {
-	const auto Slash(GetIndexOfLastSeperator(FPath, '/') + 1);
+	const auto Slash(GetIndexOfLastSeperator(FPath, *DirectorySeparatorChar()) + 1);
 	const auto Dot(GetIndexOfLastSeperator(FPath, '.'));
 	if(Dot >= Slash)
 		return UTF8(static_cast<const Dynamic&>(FPath).SubString(Slash, Dot - Slash));

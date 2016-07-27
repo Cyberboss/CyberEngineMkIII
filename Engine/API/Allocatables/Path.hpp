@@ -69,7 +69,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires no thread safety
 				*/
-				static String::Static DirectorySeparatorChar(void) noexcept { return String::Static(u8"/"); }
+				static const String::Static DirectorySeparatorChar(void) noexcept { return String::Static(u8"/"); }
 
 				/*!
 					@brief Append a directory/file to the path

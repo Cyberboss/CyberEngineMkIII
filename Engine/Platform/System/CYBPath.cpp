@@ -83,7 +83,7 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 		if (!Verify(NewPath)) {
 			//Okay, we may be trying to create a new file, check it's parent directory
 			UTF8 Work;
-			const auto I(GetIndexOfLastSeperator(NewPath, '/'));
+			const auto I(GetIndexOfLastSeperator(NewPath, *DirectorySeparatorChar()));
 			API::Assert::LessThan(0, I);
 			Work = UTF8(static_cast<const Dynamic&>(NewPath).SubString(0, I));
 			if (!Verify(Work))
@@ -98,13 +98,13 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 		if (ACreateRecursive) {
 			//TODO: Change this to UTF-8 tokenize, once implemented
 			//Tokens = AAppendage.Tokenize(DirectorySeparatorChar());
-			auto DynTokens(AAppendage.Tokenize('/'));
+			auto DynTokens(AAppendage.Tokenize(*DirectorySeparatorChar()));
 			for (auto& Tok : DynTokens)
 				Tokens.emplace_back(std::move(Tok));
 			WorkingPath = UTF8(FPath);
 		}
 		else {
-			const auto I(GetIndexOfLastSeperator(AAppendage, '/'));
+			const auto I(GetIndexOfLastSeperator(AAppendage, *DirectorySeparatorChar()));
 			if (I == -1) {
 				Tokens.emplace_back(UTF8(AAppendage));
 				WorkingPath = UTF8(FPath);

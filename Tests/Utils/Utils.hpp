@@ -13,8 +13,6 @@ namespace CYB {
 	};
 };
 
-#include "HCF.inl"
-
 #define CHECK_EXCEPTION_CODE(AExceptionCode) CHECK(CYB::Exception::FLastInstantiatedExceptionCode == static_cast<unsigned int>(AExceptionCode))
 
 inline std::string GetCYBExceptionTypeName(const CYB::Exception::Base::Level ALevel) {
@@ -28,8 +26,6 @@ inline std::string GetCYBExceptionTypeName(const CYB::Exception::Base::Level ALe
 		return "Internal";
 	case Base::Level::UNIT:
 		return "Unit";
-	case Base::Level::FATAL:
-		return "Fatal";
 	default:
 		return "Unknown CYB-based";
 	}

@@ -12,7 +12,6 @@ namespace CYB {
 				SYSTEM_DATA,	//!< System/Data error
 				INTERNAL,	//!< Engine error
 				UNIT,	//!< Unit error
-				FATAL,	//!< Fatal error
 			};
 		public:
 			API::String::Static FMessage;	//!< @brief An english description of the error, guaranteed to be compatible with CYB::API::String::UTF8
@@ -131,34 +130,6 @@ namespace CYB {
 				@attention This function is for internal use only
 			*/
 			Internal(const ErrorCode AErrorCode);
-		};
-		//! @brief Exceptions that compromise the stability of the engine and it must be promptly shutdown
-		class Fatal : public Base {
-		public:
-			//! @brief The error code of the exception
-			enum ErrorCode : unsigned int {
-				PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE, //!< @brief Dummy code, used for code coverage
-			};
-		private:
-			/*!
-				@brief Get the associated message for an exception
-				@param AErrorCode The ErrorCode describing the exception
-				@return A description of the exception indicated by @p AErrorCode
-				@par Thread Safety
-					This function requires no thread safety
-				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
-			*/
-			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
-		public:
-			/*!
-				@brief Construct a Fatal exception
-				@param AErrorCode The ErrorCode describing the exception
-				@par Thread Safety
-					This function requires no thread safety
-				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
-				@attention This function is for internal use only
-			*/
-			Fatal(const ErrorCode AErrorCode);
 		};
 	};
 };

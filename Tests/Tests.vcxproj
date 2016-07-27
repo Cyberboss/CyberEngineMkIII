@@ -157,7 +157,9 @@
     <None Include="Optimized.runsettings" />
     <None Include="Utils\Backdoor.inl" />
     <None Include="Utils\CallRedirect.inl" />
-    <None Include="Utils\HCF.inl" />
+    <ClCompile Include="Utils\HCF.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
     <None Include="Utils\ModuleDependancy.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,4 +1,4 @@
-//! @file CYBEntry.cpp The entry point to the program. Sole purpose is to call Main::Entry and return
+//! @file CYBEntry.cpp The entry point to the program. Sole purpose is to call Main::Entry and return. Also contains exceptional functions that cannot be included in main library for testing purposes
 
 #include "../Engine/CYB.hpp"
 
@@ -37,6 +37,13 @@ bool CYB::Platform::System::Sys::CallRedirected(const CallNumber ACallNumber) no
 }
 
 unsigned long long CYB::Platform::System::Sys::RedirectedCall(const CallNumber, const Union64, const Union64, const Union64, const Union64, const Union64, const Union64) {
+	API::Assert::HCF();
+}
+
+void CYB::API::Assert::Unimplemented(const char* const AFunction, const char* const AFile, const unsigned int ALine) {
+	static_cast<void>(AFunction);
+	static_cast<void>(AFile);
+	static_cast<void>(ALine);
 	API::Assert::HCF();
 }
 

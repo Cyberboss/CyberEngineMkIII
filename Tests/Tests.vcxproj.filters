@@ -122,9 +122,9 @@
       <Filter>Utils</Filter>
     </None>
     <None Include="Main.inl" />
-    <None Include="Utils\HCF.inl">
+    <None Include="Optimized.runsettings" />
+    <None Include="Utils\HCF.cpp">
       <Filter>Utils</Filter>
     </None>
-    <None Include="Optimized.runsettings" />
   </ItemGroup>
 </Project>

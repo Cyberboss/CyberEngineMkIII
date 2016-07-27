@@ -90,18 +90,3 @@ CYB::Exception::Internal::Internal(const ErrorCode AErrorCode) :
 {
 	FLastInstantiatedExceptionCode = AErrorCode;
 }
-
-CYB::API::String::Static CYB::Exception::Fatal::ErrorMessage(const ErrorCode AErrorCode) {
-	switch (AErrorCode) {
-	case PLEASE_REMOVE_ME_AS_SOON_AS_YOU_ADD_A_REAL_EXCEPTION_HERE:
-		return API::String::Static(u8"Seriously, do it");
-	default:
-		throw Violation(Violation::INVALID_ENUM);
-	}
-}
-
-CYB::Exception::Fatal::Fatal(const ErrorCode AErrorCode) :
-	Base(ErrorMessage(AErrorCode), AErrorCode, Level::FATAL)
-{
-	FLastInstantiatedExceptionCode = AErrorCode;
-}

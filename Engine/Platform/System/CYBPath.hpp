@@ -153,14 +153,6 @@ namespace CYB {
 
 				void SetAsWorkingDirectory(void) const;
 
-				/*!
-					@brief Public access to the underlying string. Does not verify the path
-					@return The UTF8 string representing the Path. Will always be fully evaluated
-					@par Thread Safety
-						This function requires synchronization at the object level
-				*/
-				const API::String::UTF8& operator()(void) const noexcept;
-
 				//! @copydoc CYB::API::Path::Append()
 				void Append(const API::String::UTF8& AAppendage, const bool ACreateIfNonExistant, const bool ACreateRecursive) final override;
 				//! @copydoc CYB::API::Path::NavigateToParentDirectory()
@@ -185,6 +177,9 @@ namespace CYB {
 				int ByteLength(void) const noexcept final override;
 				//! @copydoc CYB::API::Path::Contents()
 				API::Interop::Object<API::Path::DirectoryEntry> Contents(void) const final override;
+
+				//! @copydoc CYB::API::Path::operator()()
+				const API::String::UTF8& operator()(void) const noexcept final override;
 			};
 		};
 	};

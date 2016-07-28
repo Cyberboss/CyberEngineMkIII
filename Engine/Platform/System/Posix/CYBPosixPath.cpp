@@ -141,7 +141,14 @@ bool CYB::Platform::System::Path::IsDirectory(void) const {
 }
 
 void CYB::Platform::System::Path::NavigateToParentDirectory(void) {
-	UNIMPLEMENTED;
+	//we will ALWAYS be '/' delimited, so this is safe
+	const auto Slash(GetIndexOfLastSeperator(FPath, *DirectorySeparatorChar()));
+	if (Slash == 0)
+		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+	auto NewPath(static_cast<Dynamic&>(FPath).SubString(0, Slash));
+	if (!Verify(NewPath))
+		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
+	SetPath(std::move(NewPath));
 }
 
 CYB::API::String::UTF8 CYB::Platform::System::Path::FullName(void) const {

@@ -73,7 +73,7 @@ namespace CYB {
 
 				/*!
 					@brief Append a directory/file to the path
-					@param AAppendage The string to append to the path. This may contain '/'s and ".."s as required, though they should never start with '/'. If the last file in the path does not exist, the function will still succeed, however, further calls on the object will generate a CYB::Exception::SystemData::PATH_LOST error. This is to enable creation of new files
+					@param AAppendage The string to append to the path. This may contain '/'s and ".."s as required, though they should never start or end with '/'. If the last file in the path does not exist, the function will still succeed, however, further calls on the object will generate a CYB::Exception::SystemData::PATH_LOST error. This is to enable creation of new files
 					@param ACreateIfNonExistant Create the end of path as a directory if it does not exist. If this is true then the last path token in @p AAppendage must not be ".."
 					@param ACreateRecursive Create the path recursively. If this is true none of the path tokens in @p AAppendage should be "..", if one is it will be treated as unreadable. Ignored if @p ACreateIfNonExistant is false
 					@attention This function will always fail if the current path is a file

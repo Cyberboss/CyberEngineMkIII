@@ -178,7 +178,27 @@ bool CYB::Platform::System::Path::IsDirectory(void) const {
 }
 
 void CYB::Platform::System::Path::NavigateToParentDirectory(void) {
-	UNIMPLEMENTED;
+	//docs say it has to be MAX_PATH
+	//examples say otherwise, but this function is deprecated so lets humor them
+	UTF8 AsUTF8;
+	{
+		wchar_t Buffer[MAX_PATH];
+		API::Assert::Equal(FWidePath.RawLength() % 2, 0);
+		std::copy(FWidePath.WString(), FWidePath.WString() + FWidePath.RawLength(), Buffer);
+		//This won't work with '/' chars so convert them here
+		for (auto I(0); I < FWidePath.RawLength() / 2; ++I)
+			if (Buffer[I] == L'/') {
+				Buffer[I] = L'\\';
+				break;
+			}
+		const auto Result(Core().FModuleManager.FShellAPI.Call<Modules::ShellAPI::PathRemoveFileSpecW>(Buffer));
+		if (Result == 0)
+			throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+		AsUTF8 = UTF16::ToUTF8(Buffer);
+	}
+	if (!Verify(AsUTF8))
+		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
+	SetPath(std::move(AsUTF8));
 }
 
 CYB::API::String::UTF8 CYB::Platform::System::Path::FullName(void) const {

@@ -77,18 +77,17 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
 
 	auto NewPath(FPath + DirectorySeparatorChar() + AAppendage);
-	bool NeedsEvaluation(true);
+	UTF8 FinalComponent;
 	if (!ACreateIfNonExistant) {
 		//try a simple cd
 		if (!Verify(NewPath)) {
 			//Okay, we may be trying to create a new file, check it's parent directory
-			UTF8 Work;
 			const auto I(GetIndexOfLastSeperator(NewPath, *DirectorySeparatorChar()));
 			API::Assert::LessThan(0, I);
-			Work = UTF8(static_cast<const Dynamic&>(NewPath).SubString(0, I));
-			if (!Verify(Work))
+			FinalComponent = UTF8(static_cast<const Dynamic&>(NewPath).SubString(I, NewPath.RawLength() - I));
+			NewPath = UTF8(static_cast<const Dynamic&>(NewPath).SubString(0, I));
+			if (!Verify(NewPath))
 				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
-			NeedsEvaluation = false;
 		}
 	}
 	else {
@@ -111,7 +110,7 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 			}
 			else {
 				Tokens.emplace_back(UTF8(static_cast<const Dynamic&>(AAppendage).SubString(I + 1, AAppendage.RawLength() - I - 1)));
-				WorkingPath = UTF8(static_cast<const Dynamic&>(AAppendage).SubString(0, AAppendage.RawLength())); 
+				WorkingPath = UTF8(static_cast<const Dynamic&>(AAppendage).SubString(0, AAppendage.RawLength()));
 				if (!Verify(WorkingPath))
 					throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
 			}
@@ -124,18 +123,17 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 		//and try to create them
 		CreateDirectories(WorkingPath, Tokens);
 	}
-	if (NeedsEvaluation) {
-		bool Throw(false);
-		try {
-			Evaluate(NewPath);
-		}
-		catch (Exception::Internal AException) {
-			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::PATH_EVALUATION_FAILURE);
-			Throw = true;
-		}
-		if (Throw)
-			throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+	bool Throw(false);
+	try {
+		Evaluate(NewPath);
 	}
+	catch (Exception::Internal AException) {
+		API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::PATH_EVALUATION_FAILURE);
+		Throw = true;
+	}
+	if (Throw)
+		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+	NewPath += std::move(FinalComponent);
 	SetPath(std::move(NewPath));
 }
 

@@ -158,10 +158,10 @@ SCENARIO("Path file type identification works", "[Platform][System][Path][Unit]"
 	GIVEN("Some setup files") {
 		REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
 		Path Setup1(Path::SystemPath::TEMPORARY), Setup2(Setup1), Setup3(Setup1);
-		Setup1.Append(UTF8(Static(u8"TestDir")), true, false);
-		Setup2.Append(UTF8(Static(u8"TestFile")), false, false);
+		REQUIRE_NOTHROW(Setup1.Append(UTF8(Static(u8"TestDir")), true, false));
+		REQUIRE_NOTHROW(Setup2.Append(UTF8(Static(u8"TestFile")), false, false));
 		Touch(Setup2);
-		Setup3.Append(UTF8(Static(u8"FakeFile")), false, false);
+		REQUIRE_NOTHROW(Setup3.Append(UTF8(Static(u8"FakeFile")), false, false));
 
 		WHEN("A file is asked if it is a file") {
 			bool Result(false);

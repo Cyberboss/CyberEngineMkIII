@@ -1,11 +1,11 @@
 //! @file CYBUTF16String.cpp Implements the Win32 only UTF16 converter
 #include "CYB.hpp"
 
-char* CYB::API::String::UTF16::SetupData(const UTF8& AUTF8) {
+char* CYB::API::String::UTF16::SetupData(const UTF8& AUTF8, unsigned long long& ALengthReference) {
 	const auto BufferSize(Core().FModuleManager.FK32.Call<CYB::Platform::Modules::Kernel32::MultiByteToWideChar>(CYB::Platform::Win32::UINT(CP_UTF8), CYB::Platform::Win32::DWORD(0), AUTF8.CString(), -1, nullptr, 0));
-	const auto TotalSize(BufferSize * sizeof(wchar_t));
-	Assert::LessThan<unsigned long long>(TotalSize, static_cast<unsigned long long>(std::numeric_limits<int>::max()));
-	auto NewData(static_cast<wchar_t*>(Allocator().FHeap.Alloc(static_cast<int>(TotalSize))));
+	ALengthReference = BufferSize * sizeof(wchar_t);
+	Assert::LessThan<unsigned long long>(ALengthReference, static_cast<unsigned long long>(std::numeric_limits<int>::max()));
+	auto NewData(static_cast<wchar_t*>(Allocator().FHeap.Alloc(static_cast<int>(ALengthReference))));
 	if (CYB::Core().FModuleManager.FK32.Call<CYB::Platform::Modules::Kernel32::MultiByteToWideChar>(CYB::Platform::Win32::UINT(CP_UTF8), CYB::Platform::Win32::DWORD(0), AUTF8.CString(), -1, NewData, BufferSize) == 0) {
 		Allocator().FHeap.Free(NewData);
 		throw Exception::SystemData(Exception::SystemData::STRING_VALIDATION_FAILURE);
@@ -21,9 +21,15 @@ CYB::API::String::UTF8 CYB::API::String::UTF16::ToUTF8(const wchar_t* AWString) 
 }
 
 CYB::API::String::UTF16::UTF16(const UTF8& AUTF8) :
-	Dynamic(SetupData(AUTF8))
+	UTF16(AUTF8, 0)
+{}
+
+CYB::API::String::UTF16::UTF16(const UTF8& AUTF8, unsigned long long ALengthReference) :
+	Dynamic(SetupData(AUTF8, ALengthReference))
 {
-	FLength = (AUTF8.RawLength() * 2) + 1;	//null terminator is 2 bytes
+	if(ALengthReference > static_cast<unsigned long long>(std::numeric_limits<int>::max()))
+		throw Exception::SystemData(Exception::SystemData::STRING_VALIDATION_FAILURE);
+	FLength = static_cast<int>(ALengthReference);
 }
 
 wchar_t* CYB::API::String::UTF16::WideData(void) noexcept {

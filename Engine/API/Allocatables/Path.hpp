@@ -4,7 +4,7 @@ namespace CYB {
 	namespace API {
 			/*!
 				@brief Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are '/' delimited when forming though may not be while retrieving. File names ".." will ascend a directory and '.' represents a no-op
-				@attention Only UTF-8 encodedable paths are supported, paths lengths may not exceed 256 BYTES, and directory names may not exceed 248 characters. Symlinks are always resolved on posix systems, but never on Windows systems. This is a user problem and should cause no errors so long as they do not reorganize the installation files. Note that the recursive folder creation and deletion options attempt to fully adhere to the strong guarantee. But, due to the nature of filesystem race conditions, this is impossible.
+				@attention Only UTF-8 encodedable paths are supported, paths lengths may not exceed MAX_PATH_BYTES, and directory names may not exceed 248 characters. Symlinks are always resolved on posix systems, but never on Windows systems. This is a user problem and should cause no errors so long as they do not reorganize the installation files. Note that the recursive folder creation and deletion options attempt to fully adhere to the strong guarantee. But, due to the nature of filesystem race conditions, this is impossible.
 			*/
 			class Path : public Interop::Allocatable {
 			public:
@@ -86,7 +86,7 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if the current path failed to verify
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
-				virtual void Append(const API::String::UTF8& AAppendage, const bool ACreateIfNonExistant, const bool ACreateRecursive) = 0;
+				virtual void Append(const String::UTF8& AAppendage, const bool ACreateIfNonExistant, const bool ACreateRecursive) = 0;
 				/*!
 					@brief Navigate the path to the parent directory. Does NOT work on invalidated paths
 					@attention On POSIX systems, symlinks in path names are resolved upon path evaluation. This could lead to strange behaviour, though the onus is on the user for changing their file system
@@ -94,6 +94,7 @@ namespace CYB {
 						This function requires synchronization at the object level
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if the current path failed to verify
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if access to parent directory is denied or the Path is currently the root directory.
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				virtual void NavigateToParentDirectory(void) = 0;
@@ -137,7 +138,7 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if a directory component of the path could not be read
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
-				virtual API::String::UTF8 FullName(void) const = 0;
+				virtual String::UTF8 FullName(void) const = 0;
 				/*!
 					@brief Get the name of the file without any directory prefixes or extensions. Equivalent to FullFileName and Extension if the name does not contain a period. Path can point to a file or directory
 					@return The name of the file without any directory prefixes or extensions
@@ -146,7 +147,7 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if a directory component of the path could not be read
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
-				virtual API::String::UTF8 Name(void) const = 0;
+				virtual String::UTF8 Name(void) const = 0;
 				/*!
 					@brief Get the extension of the file without the leading period. Equivalent to FullFileName and FileName if the name does not contain a period. Path can point to a file or directory
 					@return The extension of the file without the leading period
@@ -155,7 +156,7 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if a directory component of the path could not be read
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
-				virtual API::String::UTF8 Extension(void) const = 0;
+				virtual String::UTF8 Extension(void) const = 0;
 
 				/*!
 					@brief Get the length in bytes of the Path's underlying string
@@ -175,7 +176,15 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if the current path failed to verify or is not a directory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
-				virtual API::Interop::Object<DirectoryEntry> Contents(void) const = 0;
+				virtual Interop::Object<DirectoryEntry> Contents(void) const = 0;
+				
+				/*!
+					@brief Public access to the underlying string
+					@return The UTF8 string representing the Path
+					@par Thread Safety
+						This function requires synchronization at the object level
+				*/
+				virtual const String::UTF8& operator()(void) const noexcept = 0;
 			};
 	};
 };

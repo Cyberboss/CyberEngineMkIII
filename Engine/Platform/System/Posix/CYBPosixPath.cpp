@@ -137,8 +137,7 @@ bool CYB::Platform::System::Path::IsDirectory(void) const {
 	if (Sys::Call(Sys::LSTAT, const_cast<char*>(FPath.CString()), &ST) != 0)
 		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
 	using namespace CYB::Platform::Posix;
-	return S_ISDIR(ST.st_mode) != 0;
-}
+	return S_ISDIR(ST.st_mode) != 0;}
 
 void CYB::Platform::System::Path::NavigateToParentDirectory(void) {
 	//we will ALWAYS be '/' delimited, so this is safe

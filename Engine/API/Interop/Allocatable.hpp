@@ -25,3 +25,9 @@ namespace CYB {
 		};
 	};
 };
+
+//! @def Used for tagging classes that are allocatables
+#define CYB_SET_ALLOCATABLE_ID(AClass)\
+template<> constexpr CYB::API::Interop::Allocatable::ID CYB::API::Interop::Allocatable::GetID<CYB::API::AClass>(void) {\
+	return ID::AClass;\
+}

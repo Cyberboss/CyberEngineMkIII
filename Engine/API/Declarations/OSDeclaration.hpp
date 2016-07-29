@@ -41,7 +41,16 @@ namespace CYB {
 				@return The Identifier for the current Platform
 			*/
 			static constexpr Identifier Current(void);
+
+			/*!
+				@brief Get if the current compilation is a debug compilation
+				@return true if the current compilation is a debug compilation, false otherwise
+			*/
 			static constexpr bool IsDebug(void);
+			/*!
+				@brief Get if the current compilation is a test compilation
+				@return true if the current compilation is a test compilation, false otherwise
+			*/
 			static constexpr bool IsTest(void);
 		};
 	}

@@ -35,4 +35,9 @@ namespace CYB {
 	};
 };
 
+#ifdef TARGET_OS_WINDOWS
+//! @brief Support Window's default of UTF-16
+typedef wchar_t oschar_t;
+#endif
+
 #include "CYBUTF16String.hpp"

@@ -11,12 +11,13 @@ namespace CYB {
 				enum : int {
 					MAX_PATH_BYTES = 256,
 				};
+				//! @brief Starting points for creating paths
 				enum class SystemPath {
 					EXECUTABLE_IMAGE,	//!< @brief The path from which the engine was launched, read only
 					EXECUTABLE,	//!< @brief The directory from which the engine was launched, read only
 					RESOURCE,	//!< @brief The directory where program resources are stored, read only
 					TEMPORARY,	//!< @brief The directory for storing data relevant only to this execution
-					USER,	//!< @brief The directory for storing permanent data associated with the OS' current user, read write
+					USER,	//!< @brief The directory for storing permanent data associated with the current OS/Steam user, read write
 					WORKING,	//!< @brief The current application working directory, permissions indeterminate
 				};
 				/*!

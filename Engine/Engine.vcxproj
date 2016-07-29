@@ -276,6 +276,7 @@
     <None Include="API\ExtendedTypes\LockGuard.inl" />
     <None Include="API\Interop\Allocatable.inl" />
     <None Include="API\Interop\Allocator.inl" />
+    <None Include="API\Interop\Constructor.inl" />
     <None Include="API\Interop\Interop.inl" />
     <None Include="API\Interop\Object.inl" />
     <None Include="API\Interop\STLAllocator.inl" />

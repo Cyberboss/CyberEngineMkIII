@@ -507,6 +507,9 @@
     <None Include="API\Interop\Allocatable.inl">
       <Filter>API\Interop</Filter>
     </None>
+    <None Include="API\Interop\Constructor.inl">
+      <Filter>API\Interop</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DoxyPages\DoxygenLayout.xml">

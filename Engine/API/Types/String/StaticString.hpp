@@ -18,7 +18,7 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				Static(const char* const AData) noexcept;
-				Static(const Static&) noexcept = default;
+				Static(const Static&) noexcept = default;	//!< @brief See @ref structors
 				Static(Static&& AMove) noexcept = default;	//!< @brief See @ref structors
 				Static& operator=(Static&& AMove) noexcept = default;	//!< @brief See @ref structors
 

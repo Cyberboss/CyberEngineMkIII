@@ -3,21 +3,28 @@
 namespace CYB {
 	namespace API {
 		namespace Interop {
-			//! @brief Remaps STL allocations to the CYB Allocator. Based on std::allocator usable on STL containers
+			//! @brief Remaps STL style allocations to the CyberEngine Allocator. Based on std::allocator, usable on STL containers
 			template <class AType> class STLAllocator {
 			public:
-				typedef AType value_type;
-				typedef std::false_type propagate_on_container_move_assignment;
-				typedef std::true_type is_always_equal;
+				typedef AType value_type;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a>
+				typedef std::false_type propagate_on_container_move_assignment;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a>
+				typedef std::true_type is_always_equal;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a>
 			public:
+				//! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator/allocate">std::allocator::allocate</a>
 				static AType* allocate(const std::size_t ACount);
+				//! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator/deallocate">std::allocator::deallocate</a>
 				static void deallocate(AType* const AObject, const std::size_t ACount) noexcept;
 
+				//! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator/allocator">std::allocator::allocator</a>
 				STLAllocator() noexcept = default;
+				//! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator/allocator">std::allocator::allocator</a>
 				STLAllocator(const STLAllocator& ACopy) noexcept = default;
+				//! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator/allocator">std::allocator::allocator</a>
 				template <class AOtherType> STLAllocator(const AOtherType& AOther) noexcept;
 
+				//! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator/operator_cmp">std::allocator operator_cmp</a>
 				template<class ARType> constexpr bool operator==(const STLAllocator<ARType>& ARHS) const noexcept;
+				//! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator/operator_cmp">std::allocator operator_cmp</a>
 				template<class ARType> constexpr bool operator!=(const STLAllocator<ARType>& ARHS) const noexcept;
 			};
 		};

@@ -52,7 +52,7 @@ namespace CYB {
 				
 				/*!
 					@brief A best effort validation for the integrity of a Constructor for a given Allocatable
-					@return True if the Constructor is valid, false otherwize
+					@return true if the Constructor is valid, false otherwize
 				*/
 				template <class AAllocatable> bool Valid(void) const noexcept;
 			};
@@ -81,6 +81,7 @@ namespace CYB {
 				*/
 				Constructor(AType&& AParam) noexcept;
 			};
+			//! @brief Constructor<void> alias
 			typedef Constructor<void> EmptyConstructor;
 		};
 	};

@@ -3,12 +3,6 @@
 
 typedef unsigned char byte;	//!< @brief It's a byte, 8 bits, etc...
 
-#ifdef UNICODE
-typedef wchar_t oschar_t;
-#else
-typedef char oschar_t;
-#endif
-
 #include "Containers.hpp"
 #include "String/Strings.hpp"
 

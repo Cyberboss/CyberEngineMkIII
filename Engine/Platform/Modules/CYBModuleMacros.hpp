@@ -52,7 +52,7 @@ namespace CYB {\
 	namespace Platform {\
 		namespace Modules {\
 			using namespace APlatform;\
-			typedef typename Platform::Modules::AutoModule<AOptionalFunctions, NARGS(__VA_ARGS__), APPLY(DECLTYPE_EXPAND, __VA_ARGS__)> AM##AModuleName;\
+			using AM##AModuleName = typename Platform::Modules::AutoModule<AOptionalFunctions, NARGS(__VA_ARGS__), APPLY(DECLTYPE_EXPAND, __VA_ARGS__)>;\
 			template <> constexpr const char* AM##AModuleName::ModuleName(void){\
 				return ADiskName;\
 			}\
@@ -74,7 +74,7 @@ namespace CYB {\
 namespace CYB {\
 	namespace Platform {\
 		namespace Modules {\
-			typedef AMFake AM##AModuleName;\
+			using AM##AModuleName = AMFake;\
 			class AModuleName{\
 			public:\
 				enum: unsigned int {\

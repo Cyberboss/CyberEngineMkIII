@@ -17,7 +17,7 @@ namespace CYB {
 			template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> class AutoModule : private AutoModuleOptionalHelpers<AOptionalFunctions, AN> {
 				ENABLE_TEST_HOOKS
 			public:
-				typedef API::ParameterPack<AFunctionTypes...> FParameterPack;
+				using FParameterPack = API::ParameterPack<AFunctionTypes...>;
 			private:
 				Module FModule;	//!< @brief The owned module
 				void* FFunctionPointers[AN];	//!< @brief Pointers to loaded functions

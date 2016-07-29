@@ -82,7 +82,7 @@ namespace CYB {
 				Constructor(AType&& AParam) noexcept;
 			};
 			//! @brief Constructor<void> alias
-			typedef Constructor<void> EmptyConstructor;
+			using EmptyConstructor = Constructor<void>;
 		};
 	};
 };

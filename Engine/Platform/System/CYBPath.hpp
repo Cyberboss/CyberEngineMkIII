@@ -9,7 +9,7 @@ namespace CYB {
 			*/
 			class Path : public Implementation::Path, public API::Path {	//impl has to be public due to File using the wondows wide string cache
 			public:
-				typedef API::Interop::Constructor<API::String::UTF8&&> Constructor;
+				using Constructor = API::Interop::Constructor<API::String::UTF8&&>;
 			private:
 				API::String::UTF8 FPath;	//!< @brief The underlying string
 			private:

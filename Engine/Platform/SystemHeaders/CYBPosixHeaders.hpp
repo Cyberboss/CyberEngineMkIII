@@ -8,14 +8,14 @@ namespace CYB {
 			//! @cond
 #ifndef TARGET_OS_WINDOWS
 			#ifdef CYB_BUILDING_TESTS
-			typedef ::pid_t pid_t;
+			using pid_t = ::pid_t;
 			#endif
 			#include <errno.h>
 			#include <sys/types.h>
 			#include <sys/mman.h>
 			#include <sys/wait.h>
 			#include <sys/stat.h>
-			typedef struct stat StatStruct;
+			using StatStruct = struct stat;
 			#include <unistd.h>
 #ifdef _WIN32	//for vs debugging
 			#include <posix/signal.h>
@@ -41,8 +41,8 @@ namespace CYB {
 			};
 			int getpwuid_r(uid_t uid, struct passwd *pwd,
 				char *buf, size_t buflen, struct passwd **result);
-			typedef struct passwd PasswdStruct;
-			typedef struct dirent DirStruct;
+			using PasswdStruct = struct passwd;
+			using DirStruct = struct dirent;
 #endif
 			//! @endcond
 		};
@@ -51,5 +51,5 @@ namespace CYB {
 
 #ifndef TARGET_OS_WINDOWS
 //! @brief Support Window's default of UTF-16
-typedef wchar_t oschar_t;
+using oschar_t = char;
 #endif

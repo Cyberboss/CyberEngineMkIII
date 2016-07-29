@@ -32,7 +32,7 @@ namespace CYB {
 						<BR>CYB::Exception::SystemData Error code: <B>CYB::Exception::SystemData::STRING_VALIDATION_FAILURE</B>. Thrown if the path string does not validate
 						<BR>CYB::Exception::SystemData Error code: <B>CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE</B> if the specified path could not be retrieved
 				*/
-				typedef Interop::Constructor<const SystemPath> Constructor;
+				using Constructor = Interop::Constructor<const SystemPath>;
 
 				//! @brief Iterator for paths in a directory
 				class DirectoryEntry : public Interop::Allocatable {

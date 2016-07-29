@@ -4,7 +4,10 @@
 namespace CYB {
 	namespace Platform {
 		//! @brief Contains functions for manipulating shared libraries
-		namespace Modules {};
+		namespace Modules {
+			//! @brief Contains Platform specific module functions
+			namespace Implementation {};
+		};
 	};
 };
 

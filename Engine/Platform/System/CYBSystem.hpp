@@ -4,7 +4,10 @@
 namespace CYB {
 	namespace Platform {
 		//! @brief Contain basic OS operations
-		namespace System {};
+		namespace System {
+			//! @brief Contains Platform specific OS functions
+			namespace Implementation {};
+		};
 	};
 };
 

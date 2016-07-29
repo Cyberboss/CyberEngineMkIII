@@ -175,11 +175,11 @@ SCENARIO("Module optional functions work", "[Platform][Modules][Unit]") {
 			REQUIRE_NOTHROW(TestMod2 = new CYB::Platform::Modules::AMFakeC());
 			THEN("Some functions loaded successfully") {
 #ifdef TARGET_OS_WINDOWS
-				CHECK(TestMod1->Loaded(CYB::Platform::Modules::FakeKernel32::SwitchToThread));
-				CHECK_FALSE(TestMod1->Loaded(CYB::Platform::Modules::FakeKernel32::FakeFunctionThatDoesNotExist));
+				CHECK(TestMod1->Loaded<CYB::Platform::Modules::FakeKernel32::SwitchToThread>());
+				CHECK_FALSE(TestMod1->Loaded<CYB::Platform::Modules::FakeKernel32::FakeFunctionThatDoesNotExist>());
 #else
-				CHECK(TestMod2->Loaded(CYB::Platform::Modules::FakeC::mmap));
-				CHECK_FALSE(TestMod2->Loaded(CYB::Platform::Modules::FakeC::FakeFunctionThatDoesNotExist));
+				CHECK(TestMod2->Loaded<CYB::Platform::Modules::FakeC::mmap>());
+				CHECK_FALSE(TestMod2->Loaded<CYB::Platform::Modules::FakeC::FakeFunctionThatDoesNotExist>());
 #endif
 			}
 			delete TestMod1;

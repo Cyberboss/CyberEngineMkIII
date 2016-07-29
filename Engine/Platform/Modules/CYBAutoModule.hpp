@@ -61,16 +61,16 @@ namespace CYB {
 
 				/*!
 					@brief Check if a function is loaded
-					@param AFunctionIndex The index of the function to check
+					@tparam AIndexClass The index class of the function to check
 					@return true if the function was loaded or AOptionalFunctions is false, false otherwise
 					@par Thread Safety
 						This function requires no thread safety
 				*/
-				bool Loaded(const unsigned int AFunctionIndex) const noexcept;
+				template <class AIndexClass> bool Loaded(void) const noexcept;
 
 				/*!
 					@brief Call a loaded function
-					@tparam APointerIndex The enum value of the function to be called. Generated in CYB::Platform::Implementation::Modules
+					@tparam AIndexClass The index class of the function to be called. Generated in CYB::Platform::Modules
 					@tparam AArgs The types of the arguments of the function to call
 					@param AArguments The arguments to the function represented by PointerIndex
 					@return The result from the called function
@@ -78,7 +78,7 @@ namespace CYB {
 						This function requires no thread safety. Does not apply to called function
 					@attention Throws dependant on called function
 				*/
-				template<unsigned int APointerIndex, typename... AArgs> auto Call(AArgs&&... AArguments) const;
+				template<class AIndexClass, typename... AArgs> auto Call(AArgs&&... AArguments) const;
 			};
 		};
 	};

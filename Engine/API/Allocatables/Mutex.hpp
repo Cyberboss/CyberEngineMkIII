@@ -9,7 +9,7 @@ namespace CYB {
 		*/
 		class Mutex : public Interop::Allocatable {
 		public:
-			typedef Interop::EmptyConstructor Constructor;	//!< @brief See @ref interstructors
+			using Constructor = Interop::EmptyConstructor;	//!< @brief See @ref interstructors
 		public:
 			//! @brief Destroy a Mutex. Mutex must be unlocked
 			virtual ~Mutex() = default;

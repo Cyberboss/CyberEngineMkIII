@@ -6,9 +6,9 @@ namespace CYB {
 			//! @brief Remaps STL style allocations to the CyberEngine Allocator. Based on std::allocator, usable on STL containers
 			template <class AType> class STLAllocator {
 			public:
-				typedef AType value_type;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a>
-				typedef std::false_type propagate_on_container_move_assignment;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a>
-				typedef std::true_type is_always_equal;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a>
+				using value_type = AType;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a>
+				using propagate_on_container_move_assignment = std::false_type;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a>
+				using is_always_equal = std::true_type;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a>
 			public:
 				//! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator/allocate">std::allocator::allocate</a>
 				static AType* allocate(const std::size_t ACount);

@@ -79,7 +79,7 @@ template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> 
 {
 	const API::String::Static* FunctionNameList[AN];
 	for (auto I(0U); I < AN; ++I)
-		FunctionNameList[I] = OverridenNames()[I].Length() == 0 ? &FunctionNames()[I] : &OverridenNames()[I];
+		FunctionNameList[I] = OverridenNames()[I].RawLength() == 0 ? &FunctionNames()[I] : &OverridenNames()[I];
 	AutoModuleOptionalHelpers<AOptionalFunctions, AN>::Construct(FModule, FFunctionPointers, FunctionNameList);
 }
 
@@ -105,13 +105,12 @@ template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> 
 }
 
 template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> template <unsigned int APointerIndex, typename... AArgs> auto CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::Call(AArgs&&... AArguments) const {
-	typedef typename API::ParameterPack<AFunctionTypes...> AsParameterPack;
-	typedef typename AsParameterPack::template Indexer<APointerIndex> Indexer;
-	typedef typename Indexer::FType CallableType;
+	using AsParameterPack = API::ParameterPack<AFunctionTypes...>;
+	using Indexer = typename AsParameterPack::template Indexer<APointerIndex>;
+	using CallableType = typename Indexer::FType;	//Typesafe af
 	static_assert(std::is_function<CallableType>::value, "Call must refer to a function");
 	API::Assert::True(Loaded(APointerIndex));
-	auto Callable(reinterpret_cast<CallableType*>(FFunctionPointers[APointerIndex]));
-	return Callable(std::forward<AArgs>(AArguments)...);
+	return (reinterpret_cast<CallableType*>(FFunctionPointers[APointerIndex]))(std::forward<AArgs>(AArguments)...);	//https://www.youtube.com/watch?v=_X6VoFBCE9k
 }
 
 template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> const CYB::API::String::Static* CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::OverridenNames(void) noexcept {

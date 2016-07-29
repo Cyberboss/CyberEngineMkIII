@@ -9,14 +9,15 @@ namespace CYB {
 				//! @brief Adds a UTF16 accompaniment to the UTF8 string of System::Path
 				class Path {
 				protected:
+					//! @brief Uses the FindFile API to enumerate directories
 					class DirectoryEntry : public API::Path::DirectoryEntry {
 					public:
-						typedef API::Interop::Constructor<const System::Path&> Constructor;
+						using Constructor = API::Interop::Constructor<const System::Path&>;	//! @brief See @ref interstructors
 					private:
-						const System::Path& FOriginalPath;
-						API::Interop::Object<API::Path> FPathListing;
-						Win32::HANDLE FFindHandle;
-						Win32::WIN32_FIND_DATA FFindData;
+						const System::Path& FOriginalPath;	//!< @brief The Path of the directory being enumerated
+						API::Interop::Object<API::Path> FPathListing;	//!< @brief The API exposure for the current enumerated Path
+						Win32::HANDLE FFindHandle;	//!< @brief The Win32 find handle
+						Win32::WIN32_FIND_DATA FFindData;	//!< @brief The Win32 find data
 					public:
 						/*!
 							@brief Begin the directory listing operation of @p APath

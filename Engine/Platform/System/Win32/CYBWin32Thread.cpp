@@ -25,7 +25,7 @@ unsigned long __stdcall CYB::Platform::System::Implementation::Thread::ThreadPro
 	return 0;
 }
 bool CYB::Platform::System::Thread::IsFinished(void) const noexcept {
-	typedef Win32::DWORD DWORD;
+	using DWORD = Win32::DWORD;
 	return Core().FModuleManager.FK32.Call<Modules::Kernel32::WaitForSingleObject>(FThread, 0U) == WAIT_OBJECT_0;
 }
 

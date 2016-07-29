@@ -11,7 +11,7 @@ namespace CYB {
 				protected:
 					class DirectoryEntry : public API::Path::DirectoryEntry {
 					public:
-						typedef API::Interop::Constructor<const System::Path&> Constructor;
+						using Constructor = API::Interop::Constructor<const System::Path&>;
 					private:
 						const System::Path& FOriginalPath;
 						API::Interop::Object<API::Path> FPathListing;

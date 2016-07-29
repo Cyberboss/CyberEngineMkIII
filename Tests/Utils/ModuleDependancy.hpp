@@ -6,7 +6,7 @@ public:
 	ModuleDependancy(AAutoModule& AReferenceToManagerObject);
 	~ModuleDependancy();
 
-	template <unsigned int AIndex, template <class ARedirector> class ARedirectedClass> CallRedirect<AAutoModule, AIndex> Redirect(void);
+	template <class AIndexClass, template <class ARedirector> class ARedirectedClass> CallRedirect<AAutoModule, AIndexClass> Redirect(void);
 };
 
 #include "ModuleDependancy.inl"

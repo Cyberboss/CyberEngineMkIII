@@ -1,6 +1,6 @@
 #pragma once
 
-template <class AAutoModule, typename ACallable, unsigned int AFunctionIndex> class CallRedirectBase {
+template <class AAutoModule, typename ACallable, class AIndexClass> class CallRedirectBase {
 public:
 	static void* FOldFunction;
 private:
@@ -14,11 +14,11 @@ public:
 	template <typename... AArgs> static auto CallOriginal(AArgs&&... AArguments);
 };
 
-template <class AAutoModule, unsigned int AFunctionIndex> class CallRedirect : public CallRedirectBase<AAutoModule, typename AAutoModule::FParameterPack::template Indexer<AFunctionIndex>::FType, AFunctionIndex> {
+template <class AAutoModule, class AIndexClass> class CallRedirect : public CallRedirectBase<AAutoModule, typename AAutoModule::FParameterPack::template Indexer<AIndexClass::Index>::FType, AIndexClass> {
 public:
-	typedef typename AAutoModule::FParameterPack::template Indexer<AFunctionIndex>::FType FCallable;
+	typedef typename AAutoModule::FParameterPack::template Indexer<AIndexClass::Index>::FType FCallable;
 public:
-	using CallRedirectBase<AAutoModule, FCallable, AFunctionIndex>::CallRedirectBase;
+	using CallRedirectBase<AAutoModule, FCallable, AIndexClass>::CallRedirectBase;
 };
 
 

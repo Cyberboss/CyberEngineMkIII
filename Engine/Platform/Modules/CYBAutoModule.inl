@@ -100,17 +100,18 @@ template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> 
 	return *this;
 }
 
-template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> bool CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::Loaded(const unsigned int AFunctionIndex) const noexcept {
-	return AutoModuleOptionalHelpers<AOptionalFunctions, AN>::Loaded(FFunctionPointers[AFunctionIndex]);
+template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> template <class AIndexClass> bool CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::Loaded(void) const noexcept {
+	return AutoModuleOptionalHelpers<AOptionalFunctions, AN>::Loaded(FFunctionPointers[AIndexClass::Index]);
 }
 
-template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> template <unsigned int APointerIndex, typename... AArgs> auto CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::Call(AArgs&&... AArguments) const {
+template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> template <class AIndexClass, typename... AArgs> auto CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::Call(AArgs&&... AArguments) const {
+	static_assert(std::is_same<typename AIndexClass::FAutoModule, AutoModule<AOptionalFunctions, AN, AFunctionTypes...>>::value, "Unmatched AutoModule index class");
 	using AsParameterPack = API::ParameterPack<AFunctionTypes...>;
-	using Indexer = typename AsParameterPack::template Indexer<APointerIndex>;
+	using Indexer = typename AsParameterPack::template Indexer<AIndexClass::Index>;
 	using CallableType = typename Indexer::FType;	//Typesafe af
-	static_assert(std::is_function<CallableType>::value, "Call must refer to a function");
-	API::Assert::True(Loaded(APointerIndex));
-	return (reinterpret_cast<CallableType*>(FFunctionPointers[APointerIndex]))(std::forward<AArgs>(AArguments)...);	//https://www.youtube.com/watch?v=_X6VoFBCE9k
+	static_assert(std::is_function<CallableType>::value, "AutoModule call must refer to a function");
+	API::Assert::True(Loaded<AIndexClass>());
+	return (reinterpret_cast<CallableType*>(FFunctionPointers[AIndexClass::Index]))(std::forward<AArgs>(AArguments)...);	//https://www.youtube.com/watch?v=_X6VoFBCE9k
 }
 
 template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> const CYB::API::String::Static* CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::OverridenNames(void) noexcept {

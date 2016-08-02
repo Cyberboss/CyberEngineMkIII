@@ -336,6 +336,13 @@ SCENARIO("Path directory enumeration works", "[Platform][System][Path][Unit]") {
 				CHECK_FALSE(Result);
 			}
 		}
+		WHEN("A deleted Path's contents are enumerated") {
+			REQUIRE_NOTHROW(TestPath.Delete(true));
+			REQUIRE_THROWS_AS(TestPath.Contents(), CYB::Exception::SystemData);
+			THEN("The correct error is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::PATH_LOST);
+			}
+		}
 	}
 }
 
@@ -349,6 +356,8 @@ template <class ARedirector> class BadUnlink;
 template <class ARedirector> class BadSetFileAttributes;
 template <class ARedirector> class GoodSetFileAttributes;
 template <class ARedirector> class BadPathRemoveFileSpec;
+template <class ARedirector> class BadFindFirstFile;
+template <class ARedirector> class BadOpenDir;
 unsigned long long FakeStat(Fake::SysCalls::Args&);
 
 SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
@@ -463,6 +472,19 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 			REQUIRE_THROWS_AS(Setup.Delete(false), CYB::Exception::SystemData);
 			THEN("All is well") {
 				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+			}
+		}
+		WHEN("Enumeration is attempted but access is denied") {
+			const auto BOD(LibC.Redirect<CYB::Platform::Modules::LibC::opendir, BadOpenDir>());
+			const auto BFFF(K32.Redirect<CYB::Platform::Modules::Kernel32::FindFirstFileW, BadFindFirstFile>());
+#ifdef TARGET_OS_WINDOWS
+			const auto Error(OverrideError(K32, ERROR_ACCESS_DENIED));
+#else
+			const auto Error(OverrideError(K32, EACCES));
+#endif
+			REQUIRE_THROWS_AS(Setup.Contents(), CYB::Exception::SystemData);
+			THEN("All is well") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
 			}
 		}
 	}
@@ -667,6 +689,14 @@ REDIRECTED_FUNCTION(BadDeleteFile, const void* const) {
 
 REDIRECTED_FUNCTION(BadUnlink, const void* const) {
 	return -1;
+}
+
+REDIRECTED_FUNCTION(BadFindFirstFile, const void* const, const void* const) {
+	return nullptr;
+}
+
+REDIRECTED_FUNCTION(BadOpenDir, const void* const) {
+	return nullptr;
 }
 
 SCENARIO("Path errors work", "[Platform][System][Path][Unit]") {

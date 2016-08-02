@@ -88,6 +88,7 @@ public:\
 		Index = static_cast<unsigned int>(InternalIndexes::X),\
 	};\
 	using FAutoModule = FParentAutoModule;\
+	X() = delete;\
 };\
 
 #define DEFINE_MODULE(AModuleName, ADiskName, APlatform, AOptionalFunctions, ...)\
@@ -111,6 +112,7 @@ namespace CYB {\
 				using FParentAutoModule = AM##AModuleName;\
 			public:\
 				APPLY_NC(CLASSIFY_ENUM, __VA_ARGS__)\
+				AModuleName() = delete;\
 			};\
 		};\
 	};\
@@ -129,6 +131,7 @@ namespace CYB {\
 				using FParentAutoModule = AM##AModuleName;\
 			public:\
 				APPLY_NC(CLASSIFY_ENUM, __VA_ARGS__)\
+				AModuleName() = delete;\
 			};\
 		};\
 	};\

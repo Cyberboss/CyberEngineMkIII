@@ -26,20 +26,20 @@ namespace CYB {
 		class Assert {
 		public:
 			/*!
-				@brief Indicates unreachable code
+				@brief Indicates unreachable code. Implementation can be overriden by defining ASSERTION_OVERRIDE
 				@par Thread Safety
 					This function requires no thread safety
 			*/
 			static void HCF[[noreturn]](void) noexcept;
 			/*!
-				@brief Indicates an unimplimented function, calls HCF outside of testing
+				@brief Indicates an unimplimented function, calls HCF if ASSERTION_OVERRIDE is not defined
 				@par AFunction Should be __FUNCTION__ 
 				@par AFile Should be __FILE__
 				@par ALine Should be __LINE__
 				@par Thread Safety
 					This function requires no thread safety
 			*/
-			static void Unimplemented(const char* const AFunction, const char* const AFile, const unsigned int ALine);
+			static void Unimplemented[[noreturn]](const char* const AFunction, const char* const AFile, const unsigned int ALine);
 			/*!
 				@brief Assertion function. @p AExpression should always be evaluated
 				@param AExpression The expression to check. Will call HCF if false

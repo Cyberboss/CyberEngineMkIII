@@ -274,11 +274,66 @@ SCENARIO("Path ascending works", "[Platform][System][Path][Unit]") {
 			THEN("It succeeds") {
 				CHECK(Prior == TestPath());
 			}
-		}WHEN("The path is ascended from a directory") {
+		}
+		WHEN("The path is ascended from a directory") {
 			REQUIRE_NOTHROW(TestPath.Append(UTF8(Static("SomeDir")), true, false));
 			REQUIRE_NOTHROW(TestPath.NavigateToParentDirectory());
 			THEN("It succeeds") {
 				CHECK(Prior == TestPath());
+			}
+		}
+		WHEN("Ascention is attempted past the root directory") {
+			const auto Lambda([&]() {
+				for (auto I(0U); I < 100; ++I)
+					TestPath.NavigateToParentDirectory();
+			});
+			REQUIRE_THROWS_AS(Lambda(), CYB::Exception::SystemData);
+			THEN("The correct error is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+			}
+		}
+	}
+}
+
+SCENARIO("Path directory enumeration works", "[Platform][System][Path][Unit]") {
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
+	REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
+	GIVEN("A path with some entries") {
+		Path TestPath(Path::SystemPath::TEMPORARY), File(TestPath), Folder(TestPath), FolderWithFiles(TestPath);
+		REQUIRE_NOTHROW(File.Append(UTF8(Static(u8"SomeFile")), false, false));
+		Touch(File);
+		REQUIRE_NOTHROW(Folder.Append(UTF8(Static(u8"SomeFolder")), true, false));
+		REQUIRE_NOTHROW(FolderWithFiles.Append(UTF8(Static(u8"SomeFolderWithFiles")), true, false));
+		REQUIRE_NOTHROW(FolderWithFiles.Append(UTF8(Static(u8"SomeFile")), false, false));
+		Touch(FolderWithFiles);
+		WHEN("The path's contents are enumerated") {
+			auto FoundCount(0U);
+			const auto Lambda([&]() {
+				auto Entry(TestPath.Contents());
+				for (auto& It(Entry()); It->Valid(); ++It) {
+					if ((*It)().Name() == Static(u8"SomeFile"))
+						++FoundCount;
+					else if ((*It)().Name() == Static(u8"SomeFolder"))
+						++FoundCount;
+					else if ((*It)().Name() == Static(u8"SomeFolderWithFiles"))
+						++FoundCount;
+				}
+			});
+			REQUIRE_NOTHROW(Lambda());
+			THEN("Everything is found") {
+				CHECK(FoundCount == 3);
+			}
+		}
+		WHEN("The empty path's contents are enumerated") {
+			bool Result(true);
+			REQUIRE_NOTHROW(Result = Folder.Contents()()->Valid());
+			THEN("Nothing is found") {
+				CHECK_FALSE(Result);
 			}
 		}
 	}
@@ -289,9 +344,11 @@ template <class ARedirector> class BadRealPath;
 template <class ARedirector> class BadDeleteFile;
 int DeleteFileSucceedsIf1(0);
 template <class ARedirector> class BadPathFileExists;
+template <class ARedirector> class BadRmDir;
 template <class ARedirector> class BadUnlink;
 template <class ARedirector> class BadSetFileAttributes;
 template <class ARedirector> class GoodSetFileAttributes;
+template <class ARedirector> class BadPathRemoveFileSpec;
 unsigned long long FakeStat(Fake::SysCalls::Args&);
 
 SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
@@ -380,6 +437,32 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 				THEN("The function call fails") {
 					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
 				}
+			}
+		}
+	}
+	GIVEN("A valid directory") {
+		Path Setup(Path::SystemPath::TEMPORARY);
+		REQUIRE_NOTHROW(Setup.Append(UTF8(Static("SomeDir")), true, false));
+		WHEN("A deletion is attempted but the directory is 'removed' prior to it's completion") {
+			const auto BRMD(LibC.Redirect<CYB::Platform::Modules::LibC::rmdir, BadRmDir>());
+			const auto BRD(K32.Redirect<CYB::Platform::Modules::Kernel32::RemoveDirectoryW, BadPathRemoveFileSpec>());
+#ifdef TARGET_OS_WINDOWS
+			const auto Error(OverrideError(K32, ERROR_FILE_NOT_FOUND));
+#else
+			const auto Error(OverrideError(K32, ENOENT));
+#endif
+			REQUIRE_NOTHROW(Setup.Delete(false));
+			THEN("All is well") {
+				CHECK(true);
+			}
+		}
+		WHEN("A deletion is attempted but fails for sommmmeeee reason") {
+			const auto BRMD(LibC.Redirect<CYB::Platform::Modules::LibC::rmdir, BadRmDir>());
+			const auto BRD(K32.Redirect<CYB::Platform::Modules::Kernel32::RemoveDirectoryW, BadPathRemoveFileSpec>());
+			const auto Error(OverrideError(K32, 0));
+			REQUIRE_THROWS_AS(Setup.Delete(false), CYB::Exception::SystemData);
+			THEN("All is well") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
 			}
 		}
 	}
@@ -543,6 +626,10 @@ REDIRECTED_FUNCTION(BadGetAppData, const CYB::Platform::Win32::KNOWNFOLDERID&, c
 
 REDIRECTED_FUNCTION(BadRealPath, const void* const, const void* const) {
 	return static_cast<char*>(nullptr);
+}
+
+REDIRECTED_FUNCTION(BadRmDir, const void* const) {
+	return -1;
 }
 
 REDIRECTED_FUNCTION(BadGetPwuid, const long, const void* const, const void* const, const long, const void* const) {

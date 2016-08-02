@@ -180,25 +180,24 @@ bool CYB::Platform::System::Path::IsDirectory(void) const {
 void CYB::Platform::System::Path::NavigateToParentDirectory(void) {
 	//docs say it has to be MAX_PATH
 	//examples say otherwise, but this function is deprecated so lets humor them
-	UTF8 AsUTF8;
-	{
-		wchar_t Buffer[MAX_PATH];
-		API::Assert::Equal(FWidePath.RawLength() % 2, 0);
-		std::copy(FWidePath.WString(), FWidePath.WString() + FWidePath.RawLength(), Buffer);
-		//This won't work with '/' chars so convert them here
-		for (auto I(0); I < FWidePath.RawLength() / 2; ++I)
-			if (Buffer[I] == L'/') {
-				Buffer[I] = L'\\';
-				break;
-			}
-		const auto Result(Core().FModuleManager.FShellAPI.Call<Modules::ShellAPI::PathRemoveFileSpecW>(Buffer));
-		if (Result == 0)
-			throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
-		AsUTF8 = UTF16::ToUTF8(Buffer);
-	}
-	if (!Verify(AsUTF8))
-		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
-	SetPath(std::move(AsUTF8));
+	wchar_t Buffer[MAX_PATH];
+	API::Assert::Equal(FWidePath.RawLength() % 2, 0);
+	std::copy(FWidePath.WString(), FWidePath.WString() + FWidePath.RawLength(), Buffer);
+	//This won't work with '/' chars so convert them here
+	for (auto I(0); I < FWidePath.RawLength() / 2; ++I)
+		if (Buffer[I] == L'/') {
+			Buffer[I] = L'\\';
+			break;
+		}
+	auto& SAPI(Core().FModuleManager.FShellAPI);
+	const auto Result1(SAPI.Call<Modules::ShellAPI::PathIsRootW>(Buffer));
+	if (Result1 != FALSE)
+		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+
+	const auto Result2(SAPI.Call<Modules::ShellAPI::PathRemoveFileSpecW>(Buffer));
+	if (Result2 == 0)
+		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);	//this doesn't seem to happen irl but whatever
+	SetPath(UTF16::ToUTF8(Buffer));
 }
 
 CYB::API::String::UTF8 CYB::Platform::System::Path::FullName(void) const {

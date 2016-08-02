@@ -692,11 +692,11 @@ REDIRECTED_FUNCTION(BadUnlink, const void* const) {
 }
 
 REDIRECTED_FUNCTION(BadFindFirstFile, const void* const, const void* const) {
-	return nullptr;
+	return static_cast<void*>(nullptr);
 }
 
 REDIRECTED_FUNCTION(BadOpenDir, const void* const) {
-	return nullptr;
+	return static_cast<void*>(nullptr);
 }
 
 SCENARIO("Path errors work", "[Platform][System][Path][Unit]") {

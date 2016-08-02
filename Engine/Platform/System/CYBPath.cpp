@@ -4,7 +4,7 @@
 using namespace CYB::API::String;
 
 int CYB::Platform::System::Path::GetIndexOfLastSeperator(const API::String::UTF8& AString, const char ASeparator) noexcept {
-	for (auto I(AString.RawLength() - 1); I > 0; --I)
+	for (auto I(AString.RawLength() - 1); I >= 0; --I)
 		if (AString.CString()[I] == ASeparator)
 			return I;
 	return -1;
@@ -146,8 +146,9 @@ void CYB::Platform::System::Path::Delete(bool ARecursive) const {
 				DeleteFile(FPath);
 			else {
 				if (ARecursive) {
-					for (auto Entry(Contents()); Entry()->Valid(); ++Entry()) 
-						(*Entry())().Delete(true);	//recursion may be a bad idea here, but I'd like to see someone even TRY and overflow this
+					auto Entry(Contents());
+					for (auto& It(Entry()); It->Valid(); ++It)
+						(*It)().Delete(true);	//recursion may be a bad idea here, but I'd like to see someone even TRY and overflow this
 					ARecursive = false;
 				}
 				DeleteDirectory(FPath);

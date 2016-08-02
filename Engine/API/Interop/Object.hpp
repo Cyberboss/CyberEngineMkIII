@@ -24,13 +24,13 @@ namespace CYB {
 				~Object();	//!< @brief See @ref structors
 
 				/*! 
-					@brief Implicit conversion to AInterface
+					@brief Conversion to AInterface
 					@par Thread Safety
 						This function requires no thread safety
 				*/
 				AInterface& operator()(void) noexcept;
 				/*!
-					@brief Implicit conversion to AInterface
+					@brief Conversion to AInterface
 					@par Thread Safety
 						This function requires no thread safety
 				*/

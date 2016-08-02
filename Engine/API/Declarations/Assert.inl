@@ -13,7 +13,7 @@ inline void CYB::API::Assert::HCF[[noreturn]](void) noexcept {
 #endif
 }
 
-inline void CYB::API::Assert::Unimplemented(const char* const AFunction, const char* const AFile, const unsigned int ALine) {
+inline void CYB::API::Assert::Unimplemented[[noreturn]](const char* const AFunction, const char* const AFile, const unsigned int ALine) {
 	static_cast<void>(AFunction);
 	static_cast<void>(AFile);
 	static_cast<void>(ALine);

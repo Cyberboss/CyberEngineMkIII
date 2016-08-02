@@ -40,7 +40,7 @@ unsigned long long CYB::Platform::System::Sys::RedirectedCall(const CallNumber, 
 	API::Assert::HCF();
 }
 
-void CYB::API::Assert::Unimplemented(const char* const AFunction, const char* const AFile, const unsigned int ALine) {
+void CYB::API::Assert::Unimplemented[[noreturn]](const char* const AFunction, const char* const AFile, const unsigned int ALine) {
 	static_cast<void>(AFunction);
 	static_cast<void>(AFile);
 	static_cast<void>(ALine);

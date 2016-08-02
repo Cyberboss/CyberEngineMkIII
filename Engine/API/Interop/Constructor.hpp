@@ -6,6 +6,7 @@ namespace CYB {
 			/*!
 				@brief Template for defining the types of parameters for engine object constructors with multiple arguments
 				@tparam AType The last in the series of types
+				@attention Unseen is a recursive public inheritance of Constructor<ATypes...> due to lackluster Doxygen parsing
 			*/																			//Doxygen too stupid for the recursive parse
 			template <typename AType, typename... ATypes> class Constructor : /*! @cond */ public Constructor<ATypes...> /*! @endcond */ {
 			public:

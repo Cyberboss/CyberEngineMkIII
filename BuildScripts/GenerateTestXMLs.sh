@@ -12,22 +12,15 @@ xsltproc CTest2JUnit.xsl Testing/$(ls Testing | grep 2)/Test.xml > Test.xml
 
 if [ $# -ne 2 ]
 then
-	echo "Resetting coverage counters..."
-	lcov --zerocounters --directory . --base-directory . --gcov-tool Tests/llvm-gcov.sh
-	lcov --capture --initial --directory . --output-file lcovrun.dat  --base-directory . --gcov-tool Tests/llvm-gcov.sh
-
-	echo "Running test coverage..."
-	Output/bin/CyberEngineMkIIITester
-	
 	echo "Gathering code coverage data..."
-	lcov --directory . --base-directory . --gcov-tool Tests/llvm-gcov.sh --no-external --capture -o lcovrun.dat
+	lcov --directory . --base-directory . --gcov-tool Tests/llvm-gcov.sh --no-external --capture -o lcovrun.dat --rc lcov_branch_coverage=1  --rc geninfo_gcov_all_blocks=1 --rc genhtml_branch_coverage=1
 
-	lcov -r lcovrun.dat *Assert.inl *Syscalls.* *.hpp -o lcovstripped.dat
+	lcov --directory . --base-directory . -r lcovrun.dat *Assert.inl *Syscalls.* *.hpp -o lcovstripped.dat --rc lcov_branch_coverage=1 --rc geninfo_gcov_all_blocks=1 --rc genhtml_branch_coverage=1 --gcov-tool Tests/llvm-gcov.sh 
 	
 	if [ "$(uname)" == "Darwin" ]; then
-		lcov -e lcovstripped.dat *CYBPosix* *CYBLinux* -o lcov.dat
+		lcov --directory . --base-directory . -e lcovstripped.dat *CYBPosix* *CYBLinux* -o lcov.dat --rc lcov_branch_coverage=1 --rc geninfo_gcov_all_blocks=1 --rc genhtml_branch_coverage=1 --gcov-tool Tests/llvm-gcov.sh 
 	else
-		lcov -e lcovstripped.dat *CYBPosix* *CYBOSX* -o lcov.dat
+		lcov --directory . --base-directory . -e lcovstripped.dat *CYBPosix* *CYBOSX* -o lcov.dat --rc lcov_branch_coverage=1 --rc geninfo_gcov_all_blocks=1 --rc genhtml_branch_coverage=1 --gcov-tool Tests/llvm-gcov.sh 
 	fi
 
 	python lcov_cobertura.py lcov.dat -o Code.coveragexml

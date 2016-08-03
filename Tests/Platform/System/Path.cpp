@@ -692,7 +692,12 @@ REDIRECTED_FUNCTION(BadUnlink, const void* const) {
 }
 
 REDIRECTED_FUNCTION(BadFindFirstFile, const void* const, const void* const) {
+#ifdef TARGET_OS_WINDOWS
+	using namespace CYB::Platform::Win32;
+	return INVALID_HANDLE_VALUE;
+#else
 	return static_cast<void*>(nullptr);
+#endif
 }
 
 REDIRECTED_FUNCTION(BadOpenDir, const void* const) {

@@ -47,12 +47,10 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 		}
 		catch (Exception::SystemData AException) {
 			Throw = true;
-			if (AException.FErrorCode == Exception::SystemData::HEAP_ALLOCATION_FAILURE)
-				ThrowCode = Exception::SystemData::HEAP_ALLOCATION_FAILURE;
-			else {
-				API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::FILE_NOT_WRITABLE);
+			ThrowCode = static_cast<Exception::SystemData::ErrorCode>(AException.FErrorCode);
+			API::Assert::Equal<unsigned int>(ThrowCode, Exception::SystemData::FILE_NOT_WRITABLE, Exception::SystemData::HEAP_ALLOCATION_FAILURE);
+			if(ThrowCode == Exception::SystemData::FILE_NOT_WRITABLE)
 				ThrowCode = Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE;
-			}
 		}
 		if(Throw)
 			throw Exception::SystemData(ThrowCode);
@@ -89,7 +87,7 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 		return Result;
 	}
 	default:
-		__assume(false);
+		__assume(false);	//HCF is too indirect for coverage
 	}
 }
 

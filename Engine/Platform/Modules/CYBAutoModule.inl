@@ -68,7 +68,7 @@ namespace CYB {
 					@return true Since optional functions are not allowed in this type of AutoModule
 				*/
 				static constexpr bool Loaded(const void* const AFunction) noexcept {
-					static_cast<void>(AFunction);
+					API::Assert::NotEqual<const void*>(nullptr, AFunction);
 					return true;
 				}
 			};

@@ -175,7 +175,7 @@ int CYB::Platform::System::Path::ByteLength(void) const noexcept {
 CYB::API::String::UTF8 CYB::Platform::System::Path::Extension(void) const {
 	auto Full(FullName());
 	const auto Dot(GetIndexOfLastSeperator(Full, '.') + 1);
-	if (Dot == -1)
+	if (Dot == 0)
 		return Full;
 	return UTF8(static_cast<const Dynamic&>(Full).SubString(Dot, Full.RawLength() - Dot));
 }

@@ -242,13 +242,8 @@ CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry(cons
 			throw Exception::SystemData(Exception::SystemData::PATH_LOST);
 		}
 	}
-	else {
-		auto Conversion(UTF16::ToUTF8(FFindData.cFileName));
-		if (Conversion == Static(u8".") || Conversion == Static(u8".."))
-			operator++();
-		else
-			FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Conversion));
-	}
+	else
+		AssignOrRecurse();
 }
 
 CYB::Platform::System::Implementation::Path::DirectoryEntry::~DirectoryEntry() {
@@ -258,11 +253,14 @@ CYB::Platform::System::Implementation::Path::DirectoryEntry::~DirectoryEntry() {
 void CYB::Platform::System::Implementation::Path::DirectoryEntry::operator++(void) {
 	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::FindNextFileW>(FFindHandle, &FFindData) == 0)
 		FPathListing = API::Interop::Object<API::Path>(nullptr);
-	else {
-		auto Conversion(UTF16::ToUTF8(FFindData.cFileName));
-		if (Conversion == Static(u8".") || Conversion == Static(u8".."))
-			operator++();
-		else
-			FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Conversion));
-	}
+	else
+		AssignOrRecurse();
+}
+
+void CYB::Platform::System::Implementation::Path::DirectoryEntry::AssignOrRecurse(void) {
+	auto Conversion(UTF16::ToUTF8(FFindData.cFileName));
+	if (Conversion == Static(u8".") || Conversion == Static(u8".."))
+		operator++();
+	else
+		FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Conversion));
 }

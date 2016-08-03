@@ -27,8 +27,7 @@ CYB::API::String::UTF16::UTF16(const UTF8& AUTF8) :
 CYB::API::String::UTF16::UTF16(const UTF8& AUTF8, unsigned long long ALengthReference) :
 	Dynamic(SetupData(AUTF8, ALengthReference))
 {
-	if(ALengthReference > static_cast<unsigned long long>(std::numeric_limits<int>::max()))
-		throw Exception::SystemData(Exception::SystemData::STRING_VALIDATION_FAILURE);
+	API::Assert::LessThan(ALengthReference, static_cast<unsigned long long>(std::numeric_limits<int>::max()));
 	FLength = static_cast<int>(ALengthReference);
 }
 

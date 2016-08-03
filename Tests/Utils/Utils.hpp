@@ -14,6 +14,7 @@ namespace CYB {
 };
 
 #define CHECK_EXCEPTION_CODE(AExceptionCode) CHECK(CYB::Exception::FLastInstantiatedExceptionCode == static_cast<unsigned int>(AExceptionCode))
+#define REQUIRE_EXCEPTION_CODE(AExceptionCode) REQUIRE(CYB::Exception::FLastInstantiatedExceptionCode == static_cast<unsigned int>(AExceptionCode))
 
 inline std::string GetCYBExceptionTypeName(const CYB::Exception::Base::Level ALevel) {
 	using namespace CYB::Exception;

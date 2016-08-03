@@ -15,13 +15,14 @@ namespace CYB {
 					@param AModule The Module to construct from
 					@param AFunctionPointers Function pointer list reference
 					@param AFunctionNames Names of the functions to load from the Module
+					@param AOverridenNames Names to override in @p AFunctionNames
 					@par Thread Safety
 						This function requires no thread safety
 				*/
-				static void Construct(Module& AModule, void* (&AFunctionPointers)[AN], const API::String::Static* const* const AFunctionNames) noexcept {
+				static void Construct(Module& AModule, void* (&AFunctionPointers)[AN], const API::String::Static* const AFunctionNames, const API::String::Static* const AOverridenNames) noexcept {
 					for (unsigned int I(0); I < AN; ++I)
 						try {
-							AFunctionPointers[I] = AModule.LoadFunction(*AFunctionNames[I]);
+							AFunctionPointers[I] = AModule.LoadFunction(AOverridenNames[I].RawLength() == 0 ? AFunctionNames[I] : AOverridenNames[I]);
 						}
 						catch (Exception::Internal AException) {
 							API::Assert::Equal(AException.FErrorCode, static_cast<unsigned int>(Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE));
@@ -51,13 +52,14 @@ namespace CYB {
 					@param AModule The Module to construct from
 					@param AFunctionPointers Function pointer list reference
 					@param AFunctionNames Names of the functions to load from the Module
+					@param AOverridenNames Names to override in @p AFunctionNames
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE. Thrown if a requested function is unable to be loaded from the owned module, unless OptionalFunctions returns true
 				*/
-				static void Construct(Module& AModule, void* (&AFunctionPointers)[AN], const API::String::Static* const* const AFunctionNames) {
+				static void Construct(Module& AModule, void* (&AFunctionPointers)[AN], const API::String::Static* const AFunctionNames, const API::String::Static* const AOverridenNames) {
 					for (unsigned int I(0); I < AN; ++I)
-						AFunctionPointers[I] = AModule.LoadFunction(*AFunctionNames[I]);
+						AFunctionPointers[I] = AModule.LoadFunction(AOverridenNames[I].RawLength() == 0 ? AFunctionNames[I] : AOverridenNames[I]);
 				}
 
 				/*!
@@ -77,10 +79,7 @@ namespace CYB {
 template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::AutoModule() :
 	FModule(CYB::API::String::Static(ModuleName()))
 {
-	const API::String::Static* FunctionNameList[AN];
-	for (auto I(0U); I < AN; ++I)
-		FunctionNameList[I] = OverridenNames()[I].RawLength() == 0 ? &FunctionNames()[I] : &OverridenNames()[I];
-	AutoModuleOptionalHelpers<AOptionalFunctions, AN>::Construct(FModule, FFunctionPointers, FunctionNameList);
+	AutoModuleOptionalHelpers<AOptionalFunctions, AN>::Construct(FModule, FFunctionPointers, FunctionNames(), OverridenNames());
 }
 
 template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::~AutoModule() {

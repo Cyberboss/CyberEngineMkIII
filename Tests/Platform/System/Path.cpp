@@ -309,8 +309,11 @@ SCENARIO("Path directory enumeration works", "[Platform][System][Path][Unit]") {
 		Touch(File);
 		REQUIRE_NOTHROW(Folder.Append(UTF8(Static(u8"SomeFolder")), true, false));
 		REQUIRE_NOTHROW(FolderWithFiles.Append(UTF8(Static(u8"SomeFolderWithFiles")), true, false));
+		Path FolderWithFiles2(FolderWithFiles);
+		REQUIRE_NOTHROW(FolderWithFiles2.Append(UTF8(Static(u8"SomeOtherFile")), false, false));
 		REQUIRE_NOTHROW(FolderWithFiles.Append(UTF8(Static(u8"SomeFile")), false, false));
 		Touch(FolderWithFiles);
+		Touch(FolderWithFiles2);
 		WHEN("The path's contents are enumerated") {
 			auto FoundCount(0U);
 			const auto Lambda([&]() {
@@ -487,6 +490,17 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
 			}
 		}
+#ifdef TARGET_OS_WINDOWS
+		WHEN("Enumeration is attempted = with a FNF error") {
+			const auto BFFF(K32.Redirect<CYB::Platform::Modules::Kernel32::FindFirstFileW, BadFindFirstFile>());
+			const auto Error(OverrideError(K32, ERROR_FILE_NOT_FOUND));
+			bool Result(true);
+			REQUIRE_NOTHROW(Result = Setup.Contents()()->Valid());
+			THEN("Nothing is found") {
+				CHECK_FALSE(Result);
+			}
+		}
+#endif
 	}
 	try {
 		Path(Path::SystemPath::TEMPORARY).Delete(true);

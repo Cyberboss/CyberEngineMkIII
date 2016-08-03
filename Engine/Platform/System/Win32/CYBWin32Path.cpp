@@ -237,7 +237,7 @@ CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry(cons
 		const auto Error(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>());
 		switch (Error) {
 		case ERROR_FILE_NOT_FOUND:
-			break;
+			break;	//can really only happen if a drive is enumed and is empty
 		case ERROR_ACCESS_DENIED:
 			throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
 		default:
@@ -258,16 +258,8 @@ CYB::Platform::System::Implementation::Path::DirectoryEntry::~DirectoryEntry() {
 }
 
 void CYB::Platform::System::Implementation::Path::DirectoryEntry::operator++(void) {
-	if(Core().FModuleManager.FK32.Call<Modules::Kernel32::FindNextFileW>(FFindHandle, &FFindData) == 0){
-		const auto Error(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>());
-		switch (Error) {
-		case ERROR_NO_MORE_FILES:
-			FPathListing = API::Interop::Object<API::Path>(nullptr);
-			break;
-		default:
-			throw Exception::SystemData(Exception::SystemData::PATH_LOST);
-		}
-	}
+	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::FindNextFileW>(FFindHandle, &FFindData) == 0)
+		FPathListing = API::Interop::Object<API::Path>(nullptr);
 	else {
 		auto Conversion(UTF16::ToUTF8(FFindData.cFileName));
 		if (Conversion == Static(u8".") || Conversion == Static(u8".."))

@@ -105,9 +105,7 @@ template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> 
 
 template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> template <class AIndexClass, typename... AArgs> auto CYB::Platform::Modules::AutoModule<AOptionalFunctions, AN, AFunctionTypes...>::Call(AArgs&&... AArguments) const {
 	static_assert(std::is_same<typename AIndexClass::FAutoModule, AutoModule<AOptionalFunctions, AN, AFunctionTypes...>>::value, "Unmatched AutoModule index class");
-	using AsParameterPack = API::ParameterPack<AFunctionTypes...>;
-	using Indexer = typename AsParameterPack::template Indexer<AIndexClass::Index>;
-	using CallableType = typename Indexer::FType;	//Typesafe af
+	using CallableType = typename FParameterPack::template Indexer<AIndexClass::Index>::FType;	//Typesafe af
 	static_assert(std::is_function<CallableType>::value, "AutoModule call must refer to a function");
 	API::Assert::True(Loaded<AIndexClass>());
 	return (reinterpret_cast<CallableType*>(FFunctionPointers[AIndexClass::Index]))(std::forward<AArgs>(AArguments)...);	//https://www.youtube.com/watch?v=_X6VoFBCE9k

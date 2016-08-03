@@ -200,7 +200,7 @@ void CYB::Platform::System::Path::NavigateToParentDirectory(void) {
 
 CYB::API::String::UTF8 CYB::Platform::System::Path::FullName(void) const {
 	const auto Result(Core().FModuleManager.FShellAPI.Call<Modules::ShellAPI::PathFindFileNameW>(const_cast<wchar_t*>(FWidePath.WString())));
-	if (Result == nullptr)
+	if (*Result == 0)
 		throw Exception::SystemData(Exception::SystemData::STRING_VALIDATION_FAILURE);
 	return UTF16::ToUTF8(Result);
 }
@@ -208,9 +208,9 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::FullName(void) const {
 CYB::API::String::UTF8 CYB::Platform::System::Path::Name(void) const {
 	const auto File(Core().FModuleManager.FShellAPI.Call<Modules::ShellAPI::PathFindFileNameW>(const_cast<wchar_t*>(FWidePath.WString()))),
 		Extension(Core().FModuleManager.FShellAPI.Call<Modules::ShellAPI::PathFindExtensionW>(const_cast<wchar_t*>(FWidePath.WString())));
-	if (File == nullptr)
+	if (*File == 0)
 		throw Exception::SystemData(Exception::SystemData::STRING_VALIDATION_FAILURE);
-	if(Extension == nullptr)
+	if (*Extension == 0)
 		return UTF16::ToUTF8(File);
 
 	wchar_t Buffer[MAX_PATH];

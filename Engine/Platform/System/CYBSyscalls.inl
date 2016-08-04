@@ -1,5 +1,13 @@
 #pragma once
 
+constexpr CYB::Platform::System::Sys::Union64::Union64(void* const APointer) noexcept :
+	FPointer(APointer)
+{}
+
+constexpr CYB::Platform::System::Sys::Union64::Union64(const unsigned long long ANumber) noexcept :
+	FNumber(ANumber)
+{}
+
 template <typename... Args> unsigned long long CYB::Platform::System::Sys::Call(const CallNumber ACallNumber, Args&&... AArgs) noexcept {
 	if (CallRedirected(ACallNumber))
 		return RedirectedCall(ACallNumber, std::forward<Args>(AArgs)...);

@@ -33,6 +33,7 @@ namespace CYB {
 			/*!
 				@brief Called by BeginThreadedOperation FNumTasks times with an incrementing @p ATask value. Each time it is called task number @p ATask should be run
 				@param ATask The task number to run
+				@return true to continue task execution, false otherwise
 				@par Calling Thread
 					The function will in the thread that the object's BeginThreadedOperation runs on
 			*/

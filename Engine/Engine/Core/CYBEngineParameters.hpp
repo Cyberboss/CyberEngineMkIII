@@ -6,6 +6,7 @@ namespace CYB {
 		//! @brief Compilation configuration variables
 		class Parameters {
 		public:
+			//! @brief Various engine constants
 			enum : unsigned long long {
 				VERSION_MAJOR = 3,	//!< @brief The major engine version
 				VERSION_MINOR = 0,	//!< @brief The minor engine version

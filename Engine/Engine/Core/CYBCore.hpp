@@ -6,9 +6,9 @@ namespace CYB {
 		//! @brief An instance of this object is the entirety of the engine
 		class Core : public API::Singleton<Core> {
 		public:
-			API::EngineInformation FEngineInformation;	//!< Information describing the engine
+			API::EngineInformation FEngineInformation;	//!< @brief Information describing the engine
 
-			Platform::Modules::ModuleManager FModuleManager;
+			Platform::Modules::ModuleManager FModuleManager;	//!< @brief Loads and contains required modules
 				//User
 				//GDI
 				//Winsock
@@ -18,7 +18,7 @@ namespace CYB {
 					//XInput
 			//Logger
 				//Heap
-			Memory::Heap FHeap;
+			Memory::Heap FHeap;	//!< @brief The engine's primary allocator
 			//ThreadPool
 			//Steam
 			//Command Line

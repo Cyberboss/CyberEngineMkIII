@@ -38,6 +38,7 @@ namespace CYB {
 
 				/*!
 					@brief Merge size and header into the size of the Block to the left. Does not modify free lists. Must be used if Block is a LargeBlock
+					@return A reference to the new LargeBlock
 					@par Thread Safety
 						This function requires the left Block not be modified during the operation
 				*/

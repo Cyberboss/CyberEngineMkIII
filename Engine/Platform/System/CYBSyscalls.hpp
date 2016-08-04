@@ -58,6 +58,7 @@ namespace CYB {
 				/*!
 					@brief Do an asm syscall for @p ACallNumber. The number of arguments must match system specification
 					@param ACallNumber The system call to do
+					@return The result of the call
 					@par Thread Safety
 						This function requires no thread safety
 				*/
@@ -66,6 +67,7 @@ namespace CYB {
 					@brief Do an asm syscall for @p ACallNumber. The number of arguments must match system specification
 					@param ACallNumber The system call to do
 					@param AArg1 An argument to the call
+					@return The result of the call
 					@par Thread Safety
 						This function requires no thread safety
 				*/
@@ -75,6 +77,7 @@ namespace CYB {
 					@param ACallNumber The system call to do
 					@param AArg1 An argument to the call
 					@param AArg2 An argument to the call
+					@return The result of the call
 					@par Thread Safety
 						This function requires no thread safety
 				*/
@@ -85,6 +88,7 @@ namespace CYB {
 					@param AArg1 An argument to the call
 					@param AArg2 An argument to the call
 					@param AArg3 An argument to the call
+					@return The result of the call
 					@par Thread Safety
 						This function requires no thread safety
 				*/
@@ -96,6 +100,7 @@ namespace CYB {
 					@param AArg2 An argument to the call
 					@param AArg3 An argument to the call
 					@param AArg4 An argument to the call
+					@return The result of the call
 					@par Thread Safety
 						This function requires no thread safety
 				*/
@@ -108,6 +113,7 @@ namespace CYB {
 					@param AArg3 An argument to the call
 					@param AArg4 An argument to the call
 					@param AArg5 An argument to the call
+					@return The result of the call
 					@par Thread Safety
 						This function requires no thread safety
 				*/
@@ -121,6 +127,7 @@ namespace CYB {
 					@param AArg4 An argument to the call
 					@param AArg5 An argument to the call
 					@param AArg6 An argument to the call
+					@return The result of the call
 					@par Thread Safety
 						This function requires no thread safety
 				*/
@@ -129,6 +136,7 @@ namespace CYB {
 				/*!
 					@brief Do linked call for @p ACallNumber. The number of arguments must match system specification
 					@param ACallNumber The linked call to do
+					@return The result of the call
 					@par Thread Safety
 						This function requires no thread safety
 				*/
@@ -138,6 +146,7 @@ namespace CYB {
 					@brief Do linked call for @p ACallNumber. The number of arguments must match system specification
 					@param ACallNumber The linked call to do
 					@param AArg1 An argument to the call
+					@return The result of the call
 					@par Thread Safety
 						This function requires no thread safety
 				*/
@@ -148,6 +157,7 @@ namespace CYB {
 					@param ACallNumber The linked call to do
 					@param AArg1 An argument to the call
 					@param AArg2 An argument to the call
+					@return The result of the call
 					@par Thread Safety
 						This function requires no thread safety
 				*/
@@ -159,6 +169,7 @@ namespace CYB {
 					@param AArg1 An argument to the call
 					@param AArg2 An argument to the call
 					@param AArg3 An argument to the call
+					@return The result of the call
 					@par Thread Safety
 						This function requires no thread safety
 				*/
@@ -171,6 +182,7 @@ namespace CYB {
 					@param AArg2 An argument to the call
 					@param AArg3 An argument to the call
 					@param AArg4 An argument to the call
+					@return The result of the call
 					@par Thread Safety
 						This function requires no thread safety
 				*/
@@ -184,6 +196,7 @@ namespace CYB {
 					@param AArg3 An argument to the call
 					@param AArg4 An argument to the call
 					@param AArg5 An argument to the call
+					@return The result of the call
 					@par Thread Safety
 						This function requires no thread safety
 				*/
@@ -198,6 +211,7 @@ namespace CYB {
 					@param AArg4 An argument to the call
 					@param AArg5 An argument to the call
 					@param AArg6 An argument to the call
+					@return The result of the call
 					@par Thread Safety
 						This function requires no thread safety
 				*/
@@ -215,6 +229,9 @@ namespace CYB {
 					@tparam Args The arguments to the call, must all be Union64
 					@param ACallNumber The number of the call to make
 					@param AArgs The arguments to the call
+					@return The result of the call
+					@par Thread Safety
+						This function requires no Thread Safety
 				*/
 				template <typename... Args> static unsigned long long Call(const CallNumber ACallNumber, Args&&... AArgs) noexcept;
 			};

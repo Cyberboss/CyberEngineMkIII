@@ -54,11 +54,15 @@ void CYB::API::Assert::Unimplemented[[noreturn]](const char* const AFunction, co
 	@par Thread Safety
 		This function requires external synchronization
 */
-void TestLog(const char* AMsg) noexcept {}
+void TestLog(const char* AMsg) noexcept {
+	static_cast<void>(AMsg);
+}
 /*!
 	@brief Forces a log write in testing, no-op in the runtime
 	@param ANumber The number to log
 	@par Thread Safety
 		This function requires external synchronization
 */
-void TestLogNum(const long long ANumber) noexcept {}
+void TestLogNum(const long long ANumber) noexcept {
+	static_cast<void>(ANumber);
+}

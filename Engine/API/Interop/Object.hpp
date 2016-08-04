@@ -25,12 +25,14 @@ namespace CYB {
 
 				/*! 
 					@brief Conversion to AInterface
+					@return A reference to the contained object
 					@par Thread Safety
 						This function requires no thread safety
 				*/
 				AInterface& operator()(void) noexcept;
 				/*!
 					@brief Conversion to AInterface
+					@return A const reference to the contained object
 					@par Thread Safety
 						This function requires no thread safety
 				*/

@@ -28,9 +28,10 @@ namespace CYB {
 			public:
 				/*!
 					@brief Validates if a given string is UTF8.
+					@param AString The string to validate
+					@return true if @p AString validated, false otherwise
 					@par Thread Safety
 						This function requires synchronization of AString at the object level
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the string does not validate
 				*/
 				static bool Validate(const CStyle& AString) noexcept;
 

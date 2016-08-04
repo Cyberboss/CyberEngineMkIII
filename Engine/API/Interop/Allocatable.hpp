@@ -16,6 +16,7 @@ namespace CYB {
 				/*!
 					@brief Returns the ID of an allocatable object
 					@tparam AParent The allocatable object whose ID is being checked
+					@return The ID of AParent
 				*/
 				template <class AParent> static constexpr ID GetID(void);
 

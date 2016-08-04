@@ -1,9 +1,7 @@
 //! @file CYBEngineParameters.cpp Engine compilation configuration string variables
 #include "CYB.hpp"
 
-using Params = CYB::Engine::Parameters;
-
-const char* const Params::FTempPathName(u8"CyberEngineMkIII");
+const char* const CYB::Engine::Parameters::FTempPathName(u8"CyberEngineMkIII");
 
 CYB::API::EngineInformation CYB::Engine::Parameters::CreateEngineInformation(void) noexcept {
 	return{

@@ -12,10 +12,8 @@ namespace CYB {
 					//! @copydoc CYB::Platform::Modules::Module::Module(const CYB::API::String::CStyle&)
 					Module(const API::String::CStyle& AModuleName);
 					Module(const Module&) = delete;
-					//! @copydoc CYB::Platform::Modules::Module::Module(CYB::Platform::Modules::Module&&)
-					Module(Module&& AMove) noexcept;
-					//! @copydoc CYB::Platform::Modules::Module::operator=()
-					Module& operator=(Module&& AMove) noexcept;
+					Module(Module&& AMove) noexcept;	//!< @brief See @ref structors
+					Module& operator=(Module&& AMove) noexcept;	//!< @brief See @ref structors
 					//! @brief Closes the module handle
 					~Module();
 				};

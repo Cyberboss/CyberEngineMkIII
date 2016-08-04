@@ -364,12 +364,6 @@
     <ClInclude Include="Platform\Modules\Posix\CYBPosixModule.hpp">
       <Filter>Platform\Modules\Posix</Filter>
     </ClInclude>
-    <ClInclude Include="Platform\Modules\Win32\CYBWin32ModulesImplementation.hpp">
-      <Filter>Platform\Modules\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="Platform\Modules\Posix\CYBPosixModulesImplementation.hpp">
-      <Filter>Platform\Modules\Posix</Filter>
-    </ClInclude>
     <ClInclude Include="Platform\SystemHeaders\CYBWin32Headers.hpp">
       <Filter>Platform\SystemHeaders</Filter>
     </ClInclude>
@@ -420,6 +414,12 @@
     </ClInclude>
     <ClInclude Include="API\Allocatables\Path.hpp">
       <Filter>API\Allocatables</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Modules\Win32\CYBWin32ModuleImplementation.hpp">
+      <Filter>Platform\Modules\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Modules\Posix\CYBPosixModuleImplementation.hpp">
+      <Filter>Platform\Modules\Posix</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

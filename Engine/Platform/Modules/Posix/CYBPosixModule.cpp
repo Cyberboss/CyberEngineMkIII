@@ -1,3 +1,4 @@
+//! @file CYBPosixModule.cpp Implements CYB::Platform::Modules::Module for Posix
 #include "CYB.hpp"
 
 using namespace CYB::Platform::Posix;

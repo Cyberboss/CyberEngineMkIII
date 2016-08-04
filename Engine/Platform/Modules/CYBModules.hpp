@@ -12,9 +12,9 @@ namespace CYB {
 };
 
 #ifdef TARGET_OS_WINDOWS
-#include "Win32/CYBWin32ModulesImplementation.hpp"
+#include "Win32/CYBWin32ModuleImplementation.hpp"
 #else
-#include "Posix/CYBPosixModulesImplementation.hpp"
+#include "Posix/CYBPosixModuleImplementation.hpp"
 #endif
 
 #include "CYBModule.hpp"

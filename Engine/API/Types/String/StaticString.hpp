@@ -14,6 +14,7 @@ namespace CYB {
 				Static() noexcept;
 				/*!
 					@brief Construct a static string
+					@param AData The const data that represents this string
 					@par Thread Safety
 						This function requires no thread safety
 				*/

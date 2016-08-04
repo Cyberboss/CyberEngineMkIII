@@ -80,6 +80,7 @@ namespace CYB {
 				Dynamic(const CStyle& AData, const int ALength = -1);
 				/*!
 					@brief See @ref structors
+					@param ACopy a reference to the existing Dynamic to copy
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
 				Dynamic(const Dynamic& ACopy);

@@ -12,7 +12,7 @@ namespace CYB {
 					//! @brief Uses the FindFile API to enumerate directories
 					class DirectoryEntry : public API::Path::DirectoryEntry {
 					public:
-						using Constructor = API::Interop::Constructor<const System::Path&>;	//! @brief See @ref interstructors
+						using Constructor = API::Interop::Constructor<const System::Path&>;	//!< @brief See @ref interstructors
 					private:
 						const System::Path& FOriginalPath;	//!< @brief The Path of the directory being enumerated
 						API::Interop::Object<API::Path> FPathListing;	//!< @brief The API exposure for the current enumerated Path

@@ -3,6 +3,7 @@
 namespace CYB {
 	namespace Platform {
 		namespace Modules {
+			//! @brief Fake AutoModule used in place of other Platform's AutoModules
 			class AMFake {};
 		};
 	};

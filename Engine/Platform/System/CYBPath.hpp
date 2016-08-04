@@ -9,7 +9,7 @@ namespace CYB {
 			*/
 			class Path : public Implementation::Path, public API::Path {	//impl has to be public due to File using the wondows wide string cache
 			public:
-				using Constructor = API::Interop::Constructor<API::String::UTF8&&>;
+				using Constructor = API::Interop::Constructor<API::String::UTF8&&>;	//!< @brief See @ref interstructors
 			private:
 				API::String::UTF8 FPath;	//!< @brief The underlying string
 			private:
@@ -104,10 +104,10 @@ namespace CYB {
 				/*!
 					@brief Verifys the path pointed to exists
 					@param APath The path to check
+					@return true if the Path verified, false otherwise
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if some part of the new path is not readable with the current permissions
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				bool Verify(const API::String::UTF8& APath) const;
@@ -144,14 +144,13 @@ namespace CYB {
 				Path(const SystemPath ADirectory);
 				/*!
 					@brief See @ref structors
+					@param ACopy A reference to the Path to copy
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
 				Path(const Path& ACopy) = default;
-				Path(Path&& AMove) noexcept = default;	//! @brief See @ref structors
-				Path& operator=(Path&& AMove) noexcept = default;	//! @brief See @ref structors
-				~Path() final override = default;	//! @brief See @ref structors
-
-				void SetAsWorkingDirectory(void) const;
+				Path(Path&& AMove) noexcept = default;	//!< @brief See @ref structors
+				Path& operator=(Path&& AMove) noexcept = default;	//!< @brief See @ref structors
+				~Path() final override = default;	//!< @brief See @ref structors
 
 				//! @copydoc CYB::API::Path::Append()
 				void Append(const API::String::UTF8& AAppendage, const bool ACreateIfNonExistant, const bool ACreateRecursive) final override;

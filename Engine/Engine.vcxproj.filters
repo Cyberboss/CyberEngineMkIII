@@ -510,6 +510,9 @@
     <None Include="API\Interop\Constructor.inl">
       <Filter>API\Interop</Filter>
     </None>
+    <None Include="API\Types\ThreadableTaskset.inl">
+      <Filter>API\Types</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DoxyPages\DoxygenLayout.xml">

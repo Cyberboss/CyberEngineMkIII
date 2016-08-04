@@ -32,10 +32,10 @@ namespace CYB {
 			*/
 			static void HCF[[noreturn]](void) noexcept;
 			/*!
-				@brief Indicates an unimplimented function, calls HCF if ASSERTION_OVERRIDE is not defined
-				@par AFunction Should be __FUNCTION__ 
-				@par AFile Should be __FILE__
-				@par ALine Should be __LINE__
+				@brief Indicates an unimplemented function, calls HCF if ASSERTION_OVERRIDE is not defined
+				@param AFunction Should be __FUNCTION__ 
+				@param AFile Should be __FILE__
+				@param ALine Should be __LINE__
 				@par Thread Safety
 					This function requires no thread safety
 			*/

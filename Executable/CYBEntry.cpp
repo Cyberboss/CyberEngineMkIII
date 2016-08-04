@@ -10,6 +10,7 @@
 	@brief Program entry point. Call CYB::Engine::Init::Run
 	@param ANumArguments The number of command line arguments
 	@param AArguments The command line arguments
+	@return Never returns
 	@par Thread Safety
 		This function may only be called once by the C++ runtime
 	@par Exception Safety
@@ -47,5 +48,17 @@ void CYB::API::Assert::Unimplemented[[noreturn]](const char* const AFunction, co
 	API::Assert::HCF();
 }
 
-void TestLog(const char*) noexcept {}
-void TestLogNum(const long long) noexcept {}
+/*!
+	@brief Forces a log write in testing, no-op in the runtime
+	@param AMsg The message to log
+	@par Thread Safety
+		This function requires external synchronization
+*/
+void TestLog(const char* AMsg) noexcept {}
+/*!
+	@brief Forces a log write in testing, no-op in the runtime
+	@param ANumber The number to log
+	@par Thread Safety
+		This function requires external synchronization
+*/
+void TestLogNum(const long long ANumber) noexcept {}

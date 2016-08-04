@@ -1,4 +1,4 @@
-//! @file CYBWin32VirtualMemory.hpp Contains the Win32 Sys implementation
+//! @file CYBWin32Syscalls.hpp Contains the Win32 Sys implementation
 #pragma once
 
 namespace CYB {

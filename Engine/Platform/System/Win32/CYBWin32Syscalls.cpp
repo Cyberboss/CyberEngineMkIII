@@ -5,28 +5,36 @@
 unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber) noexcept {
 	API::Assert::HCF();
 }
+
 unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber, const Union64) noexcept {
 	API::Assert::HCF();
 }
+
 unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber, const Union64, const Union64) noexcept {
 	API::Assert::HCF();
 }
+
 unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber, const Union64, const Union64, const Union64) noexcept {
 	API::Assert::HCF();
 }
+
 unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber, const Union64, const Union64, const Union64, const Union64) noexcept {
 	API::Assert::HCF();
 }
+
 unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber, const Union64, const Union64, const Union64, const Union64, const Union64) noexcept {
 	API::Assert::HCF();
 }
+
 unsigned long long CYB::Platform::System::Sys::DoCall(const CallNumber, const Union64, const Union64, const Union64, const Union64, const Union64, const Union64) noexcept {
 	API::Assert::HCF();
 }
+
 unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACallNumber) noexcept {
 	API::Assert::Equal(ACallNumber, GET_CURRENT_PROCESS);
 	return reinterpret_cast<unsigned long long>(Win32::GetCurrentProcess());
 }
+
 unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACallNumber, const Union64 AArg1) noexcept {
 	switch (ACallNumber) {
 	case TERMINATE_PROC:
@@ -49,6 +57,7 @@ unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACall
 		API::Assert::HCF();
 	}
 }
+
 unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACallNumber, const Union64 AArg1, const Union64 AArg2) noexcept {
 	using namespace Win32;
 	switch (ACallNumber) {
@@ -62,18 +71,23 @@ unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber ACall
 		API::Assert::HCF();
 	}
 }
+
 unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber, const Union64, const Union64, const Union64) noexcept {
 	API::Assert::HCF();
 }
+
 unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber, const Union64, const Union64, const Union64, const Union64) noexcept {
 	API::Assert::HCF();
 }
+
 unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber, const Union64, const Union64, const Union64, const Union64, const Union64) noexcept {
 	API::Assert::HCF();
 }
+
 unsigned long long CYB::Platform::System::Sys::LinkedCall(const CallNumber, const Union64, const Union64, const Union64, const Union64, const Union64, const Union64) noexcept {
 	API::Assert::HCF();
 }
+
 void CYB::Platform::System::Sys::VerifyArgumentCount(const CallNumber, const unsigned long long) noexcept {
 	API::Assert::HCF();
 }

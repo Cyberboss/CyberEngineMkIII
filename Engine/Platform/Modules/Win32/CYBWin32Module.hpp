@@ -1,4 +1,4 @@
-//! @file CYBWin32Module.hpp Defines the implementation for CYB::Platform::Modules::Module
+//! @file CYBWin32Module.hpp Defines CYB::Platform::Modules::Module for Win32
 #pragma once
 namespace CYB {
 	namespace Platform {

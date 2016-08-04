@@ -233,9 +233,9 @@
     <ClInclude Include="Platform\Modules\CYBModuleManager.hpp" />
     <ClInclude Include="Platform\Modules\CYBModules.hpp" />
     <ClInclude Include="Platform\Modules\Posix\CYBPosixModule.hpp" />
-    <ClInclude Include="Platform\Modules\Posix\CYBPosixModulesImplementation.hpp" />
+    <ClInclude Include="Platform\Modules\Posix\CYBPosixModuleImplementation.hpp" />
     <ClInclude Include="Platform\Modules\Win32\CYBWin32Module.hpp" />
-    <ClInclude Include="Platform\Modules\Win32\CYBWin32ModulesImplementation.hpp" />
+    <ClInclude Include="Platform\Modules\Win32\CYBWin32ModuleImplementation.hpp" />
     <ClInclude Include="Platform\SystemHeaders\CYBLinuxHeaders.hpp" />
     <ClInclude Include="Platform\SystemHeaders\CYBOSXHeaders.hpp" />
     <ClInclude Include="Platform\SystemHeaders\CYBPosixHeaders.hpp" />

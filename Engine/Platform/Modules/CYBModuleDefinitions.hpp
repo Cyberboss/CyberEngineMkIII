@@ -1,3 +1,4 @@
+//! @file CYBModuleDefinitions.hpp uses the module macros to define AutoModules that will be used by the engine
 #pragma once
 
 namespace CYB {

@@ -10,11 +10,6 @@ namespace CYB {
 	};
 };
 
-//TODO: HOW CAN THEY DO THIS?!?!
-#ifdef TARGET_OS_LINUX
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-#endif
-
 DEFINE_WINDOWS_MODULE(Kernel32, u8"kernel32.dll", Win32, false,
 	CreateThread,
 	WaitForSingleObject, Sleep, SwitchToThread, GetSystemInfo, GetLastError,
@@ -36,7 +31,7 @@ DEFINE_POSIX_MODULE(LibC, LIBC_SO, Posix, false,
 	kill, getpid, waitpid, usleep,
 	mmap, mprotect, munmap, madvise,
 	readlink, mkdir, realpath, rmdir, unlink,
-	opendir, readdir_r, closedir,
+	opendir, readdir, closedir,
 	getuid, getpwuid_r, getenv, sysconf,
 	posix_spawn)
 DEFINE_POSIX_MODULE(PThread, LIBPTHREAD_SO, Posix, false, 
@@ -47,5 +42,5 @@ DEFINE_OSX_MODULE(System, u8"libSystem.dylib", Posix, false, sched_yield)
 DEFINE_OSX_MODULE(DyLD, u8"/usr/lib/system/libdyld.dylib", Posix, false, _NSGetExecutablePath)
 OVERRIDE_OSX_FUNCTION_NAMES(LibC, 
 	nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
-	"readdir_r$INODE64",
+	"readdir$INODE64",
 	nullptr, nullptr, nullptr, nullptr, nullptr, nullptr)

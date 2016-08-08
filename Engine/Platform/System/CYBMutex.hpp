@@ -12,16 +12,16 @@ namespace CYB {
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE. Thrown if the Mutex could not be initialized
 				*/
-				Mutex() noexcept(API::Platform::Current() == API::Platform::WINDOWS);
+				Mutex();
 				//! @copydoc CYB::API::Mutex::~Mutex
 				~Mutex() final override;
 
 				//! @copydoc CYB::API::Mutex::Lock
-				void Lock(void) const noexcept final override;
+				void Lock(void) noexcept final override;
 				//! @copydoc CYB::API::Mutex::TryLock
-				bool TryLock(void) const noexcept final override;
+				bool TryLock(void) noexcept final override;
 				//! @copydoc CYB::API::Mutex::Unlock
-				void Unlock(void) const noexcept final override;
+				void Unlock(void) noexcept final override;
 			};
 		};
 	};

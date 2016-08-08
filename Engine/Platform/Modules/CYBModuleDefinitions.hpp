@@ -10,6 +10,11 @@ namespace CYB {
 	};
 };
 
+//TODO: HOW CAN THEY DO THIS?!?!
+#ifdef TARGET_OS_LINUX
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif
+
 DEFINE_WINDOWS_MODULE(Kernel32, u8"kernel32.dll", Win32, false,
 	CreateThread,
 	WaitForSingleObject, Sleep, SwitchToThread, GetSystemInfo, GetLastError,

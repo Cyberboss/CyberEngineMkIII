@@ -185,12 +185,12 @@ CYB::Platform::System::Implementation::Path::DirectoryEntry::~DirectoryEntry() {
 }
 
 void CYB::Platform::System::Implementation::Path::DirectoryEntry::operator++(void) {
-	DirStruct* Result(nullptr);
-	if (Core().FModuleManager.FC.Call<Modules::LibC::readdir_r>(FDirectory, &FEntry, &Result) != 0 || Result != &FEntry)
+	DirStruct Data, *Result(nullptr);
+	if (Core().FModuleManager.FC.Call<Modules::LibC::readdir_r>(FDirectory, &Data, &Result) != 0 || Result != &Data)
 		FPathListing = API::Interop::Object<API::Path>(nullptr);
 	else {
-		Static Addition(FEntry.d_name);
-		if (Addition == Static(u8".") || Addition == Static(u8"..") || (FEntry.d_type != DT_REG && FEntry.d_type != DT_DIR && FEntry.d_type != DT_LNK))
+		Static Addition(Data.d_name);
+		if (Addition == Static(u8".") || Addition == Static(u8"..") || (Data.d_type != DT_REG && Data.d_type != DT_DIR && Data.d_type != DT_LNK))
 			operator++();
 		else
 			FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Addition));

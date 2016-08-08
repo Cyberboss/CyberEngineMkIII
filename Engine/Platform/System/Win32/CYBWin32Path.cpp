@@ -227,9 +227,10 @@ CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry(cons
 	FOriginalPath(APath),
 	FPathListing(nullptr)
 {
+	WIN32_FIND_DATA FindData;
 	{
 		UTF16 Query(UTF8(FOriginalPath() + API::Path::DirectorySeparatorChar() + Static(u8"*")));
-		FFindHandle = Core().FModuleManager.FK32.Call<Modules::Kernel32::FindFirstFileW>(Query.WString(), &FFindData);
+		FFindHandle = Core().FModuleManager.FK32.Call<Modules::Kernel32::FindFirstFileW>(Query.WString(), &FindData);
 	}
 	if (FFindHandle == INVALID_HANDLE_VALUE) {
 		const auto Error(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>());
@@ -243,7 +244,7 @@ CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry(cons
 		}
 	}
 	else
-		AssignOrRecurse();
+		AssignOrRecurse(std::move(FindData));
 }
 
 CYB::Platform::System::Implementation::Path::DirectoryEntry::~DirectoryEntry() {
@@ -251,16 +252,22 @@ CYB::Platform::System::Implementation::Path::DirectoryEntry::~DirectoryEntry() {
 }
 
 void CYB::Platform::System::Implementation::Path::DirectoryEntry::operator++(void) {
-	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::FindNextFileW>(FFindHandle, &FFindData) == 0)
+	WIN32_FIND_DATA FindData;
+	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::FindNextFileW>(FFindHandle, &FindData) == 0)
 		FPathListing = API::Interop::Object<API::Path>(nullptr);
 	else
-		AssignOrRecurse();
+		AssignOrRecurse(std::move(FindData));
 }
 
-void CYB::Platform::System::Implementation::Path::DirectoryEntry::AssignOrRecurse(void) {
-	auto Conversion(UTF16::ToUTF8(FFindData.cFileName));
-	if (Conversion == Static(u8".") || Conversion == Static(u8".."))
-		operator++();
-	else
-		FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Conversion));
+void CYB::Platform::System::Implementation::Path::DirectoryEntry::AssignOrRecurse(WIN32_FIND_DATA&& AFindData) {
+	UTF8 Conversion;
+	{
+		auto FindData(std::move(AFindData));
+		Conversion = UTF16::ToUTF8(FindData.cFileName);
+		if (Conversion == Static(u8".") || Conversion == Static(u8"..")) {
+			operator++();
+			return;
+		}
+	}
+	FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Conversion));
 }

@@ -1,3 +1,4 @@
+//! @file CYBOSXProcess.cpp Implements CYB::Platform::System::Process for OSX
 #include "CYB.hpp"
 
 using namespace CYB::Platform::Posix;

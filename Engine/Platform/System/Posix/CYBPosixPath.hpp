@@ -1,4 +1,4 @@
-//! @file CYBPosixPath.hpp Defines the Posix implementation for CYB::Platform::System::Path
+//! @file CYBPosixPath.hpp Defines CYB::Platform::System::Path for Posix
 #pragma once
 
 namespace CYB {
@@ -9,14 +9,15 @@ namespace CYB {
 				//! @brief Implements directory iteration
 				class Path {
 				protected:
+					//! @brief Uses the opendir API
 					class DirectoryEntry : public API::Path::DirectoryEntry {
 					public:
+						//! @brief See @ref interstructors. See documented constructor CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry
 						using Constructor = API::Interop::Constructor<const System::Path&>;
 					private:
-						const System::Path& FOriginalPath;
-						API::Interop::Object<API::Path> FPathListing;
-						Posix::DirStruct FEntry;
-						Posix::DIR* FDirectory;
+						const System::Path& FOriginalPath;	//!< @brief The Path of the directory being enumerated
+						API::Interop::Object<API::Path> FPathListing;	//!< @brief The API exposure for the current enumerated Path
+						Posix::DIR* FDirectory;	//!< @brief The directory entry
 					public:
 						/*!
 							@brief Begin the directory listing operation of @p APath
@@ -40,6 +41,12 @@ namespace CYB {
 						void operator++(void) final override;
 					};
 				protected:
+					/*!
+						@brief Get the UTF8 string of the path of the executable image
+						@par Thread Safety
+							This function requires no thread safet
+						@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE If the path could not be retrieved
+					*/
 					static API::String::Dynamic GetExecutableImage(void);
 				};
 			};

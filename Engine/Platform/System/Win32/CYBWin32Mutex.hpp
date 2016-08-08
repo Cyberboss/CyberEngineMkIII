@@ -7,7 +7,7 @@ namespace CYB {
 				//! @brief Contains the CRITICAL_SECTION struct
 				class Mutex {
 				protected:
-					mutable Win32::CRITICAL_SECTION FCriticalSection;	//!< @brief The CRITICAL_SECTION struct
+					Win32::CRITICAL_SECTION FCriticalSection;	//!< @brief The CRITICAL_SECTION struct
 				};
 			};
 		};

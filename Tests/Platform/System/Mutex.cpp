@@ -1,12 +1,12 @@
 #include "TestHeader.hpp"
 
-static bool SpawnMutexTryLockThread(const CYB::Platform::System::Mutex& AMutex) {
+static bool SpawnMutexTryLockThread(CYB::Platform::System::Mutex& AMutex) {
 	class MutexRunner : public CYB::API::Threadable {
 	private:
-		const CYB::Platform::System::Mutex& FMutex;
+		CYB::Platform::System::Mutex& FMutex;
 		bool FResult;
 	public:
-		MutexRunner(const CYB::Platform::System::Mutex& AMutex) :
+		MutexRunner(CYB::Platform::System::Mutex& AMutex) :
 			FMutex(AMutex)
 		{}
 		void BeginThreadedOperation(void) final override {

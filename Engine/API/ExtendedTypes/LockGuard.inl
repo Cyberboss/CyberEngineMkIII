@@ -1,6 +1,6 @@
 #pragma once
 
-inline CYB::API::LockGuard::LockGuard(const Mutex& AMutex) noexcept :
+inline CYB::API::LockGuard::LockGuard(Mutex& AMutex) noexcept :
 	FMutex(&AMutex)
 {
 	FMutex->Lock();

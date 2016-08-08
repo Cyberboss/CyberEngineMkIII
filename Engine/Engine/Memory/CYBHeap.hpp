@@ -11,7 +11,7 @@ namespace CYB {
 				Block* FFreeList; //!< @brief The first block in the linked free list
 				LargeBlock* FLargeBlock; //!< @brief The block that extends to the end of the free list
 
-				Platform::System::Mutex FMutex;	//!< @brief The lock for the Heap
+				mutable Platform::System::Mutex FMutex;	//!< @brief The lock for the Heap
 
 				bool FLocked; //!< @brief Whether or not the Heap is currently locked
 			private:

@@ -1,3 +1,4 @@
+//! @file CYBOSXPath.cpp Implements CYB::Platform::System::Path for OSX
 #include "CYB.hpp"
 
 using namespace CYB::Platform::Posix;

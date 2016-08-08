@@ -12,20 +12,21 @@ namespace CYB {
 					//! @brief Uses the FindFile API to enumerate directories
 					class DirectoryEntry : public API::Path::DirectoryEntry {
 					public:
-						using Constructor = API::Interop::Constructor<const System::Path&>;	//!< @brief See @ref interstructors
+						//! @brief See @ref interstructors. See documented constructor CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry
+						using Constructor = API::Interop::Constructor<const System::Path&>;	
 					private:
 						const System::Path& FOriginalPath;	//!< @brief The Path of the directory being enumerated
 						API::Interop::Object<API::Path> FPathListing;	//!< @brief The API exposure for the current enumerated Path
 						Win32::HANDLE FFindHandle;	//!< @brief The Win32 find handle
-						Win32::WIN32_FIND_DATA FFindData;	//!< @brief The Win32 find data
 					private:
 						/*!
 							@brief Assign the current data to FPathListing if it is not '.' or '..'
+							@param AFindData The current find data
 							@par Thread Safety
 								This function thread safety at the object level
 							@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 						*/
-						void AssignOrRecurse(void);
+						void AssignOrRecurse(Win32::WIN32_FIND_DATA&& AFindData);
 					public:
 						/*!
 							@brief Begin the directory listing operation of @p APath

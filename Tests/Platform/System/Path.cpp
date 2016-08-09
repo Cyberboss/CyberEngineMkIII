@@ -388,6 +388,7 @@ template <class ARedirector> class GoodSetFileAttributes;
 template <class ARedirector> class BadPathRemoveFileSpec;
 template <class ARedirector> class BadPathFindName;
 template <class ARedirector> class BadFindFirstFile;
+template <class ARedirector> class BadGetFileAttributes;
 template <class ARedirector> class BadOpenDir;
 unsigned long long FakeStat(Fake::SysCalls::Args&);
 
@@ -498,6 +499,22 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 		}
 #endif
 	}
+	GIVEN("A non-existant file") {
+		Path TestPath(Path::SystemPath::TEMPORARY);
+		REQUIRE_NOTHROW(TestPath.Append(UTF8(Static(u8"gettingtiredoftypingthisshit")), false, false));
+#ifdef TARGET_OS_WINDOWS
+		WHEN("We fail a directory check with no error") {
+			const auto BGFA(K32.Redirect<CYB::Platform::Modules::Kernel32::GetFileAttributesW, BadGetFileAttributes>());
+			const auto Thing(OverrideError(K32, 0));
+			REQUIRE_THROWS_AS(TestPath.IsDirectory(), CYB::Exception::SystemData);
+			THEN("The correct error is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+			}
+		}
+#else
+		CHECK(true);
+#endif
+	}
 	GIVEN("A valid directory") {
 		Path Setup(Path::SystemPath::TEMPORARY);
 		REQUIRE_NOTHROW(Setup.Append(UTF8(Static("SomeDir")), true, false));
@@ -546,6 +563,13 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 				CHECK_FALSE(Result);
 			}
 		}
+		WHEN("Ascension is attempted with a bad PRFS") {
+			const auto BPRFS(ShellAPI.Redirect<CYB::Platform::Modules::ShellAPI::PathRemoveFileSpecW, BadPathRemoveFileSpec>());
+			REQUIRE_THROWS_AS(Setup.NavigateToParentDirectory(), CYB::Exception::SystemData);
+			THEN("The correct error is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+			}
+		}
 #endif
 	}
 	try {
@@ -573,8 +597,12 @@ static void Touch(const Path& APath) {
 #endif
 }
 
-
-
+#ifdef TARGET_OS_WINDOWS
+REDIRECTED_FUNCTION(BadGetFileAttributes, const void* const) {
+	using namespace CYB::Platform::Win32;
+	return INVALID_FILE_ATTRIBUTES;
+}
+#endif
 
 REDIRECTED_FUNCTION(BadPathFindName, const void* const AThing) {
 	auto I(0U);

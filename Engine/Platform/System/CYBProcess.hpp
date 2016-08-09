@@ -52,7 +52,7 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE. Thrown if the path of the executable could not be retrieved
 					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::PROCESS_CREATION_ERROR. Thrown if the process could not be created
-					@attention Launching processes which require administrator elevation on Windows will block the current thread until the authorization dialog is closed
+					@attention Launching processes which requires administrator elevation on Windows will block the current thread until the authorization dialog is closed
 				*/
 				Process(const API::String::UTF8& ACommandLine);
 				Process(const Process&) = delete;

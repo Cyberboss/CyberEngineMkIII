@@ -11,9 +11,13 @@ namespace CYB {
 					WRITE,
 					READ_WRITE,
 				};
+				enum class SeekOffset {
+					CURSOR,
+					BEGIN,
+					END,
+				};
 			public:
-				static void Delete(const Path& APath);
-				static bool Exists(const Path& APath);
+				static void Touch(const Path& APath);
 				static unsigned long long Size(const Path& APath);
 
 				File(const Path& APath, const Mode AMode);
@@ -24,11 +28,12 @@ namespace CYB {
 				unsigned long long Size(void) noexcept;
 
 				unsigned long long CursorPosition(void) const noexcept;
-				unsigned long long Seek(void) const;
+				void Seek(const unsigned long long AOffest, const SeekOffset AOffset) const;
 
-				unsigned long long Read(void* const ABuffer, const unsigned long long AAmount) const;
-				unsigned long long Write(void* const ABuffer, const unsigned long long AAmount) const;
+				unsigned long long Read(void* const ABuffer, const unsigned long long AMaxAmount) const;
+				unsigned long long Write(void* const ABuffer, const unsigned long long AMaxAmount) const;
 			};
 		};
 	};
 };
+//! @todo Use File::Touch in Path tests after it's implemented

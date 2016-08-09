@@ -37,7 +37,6 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if @p APath isn't accessible by the current user
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap ran out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
-					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::FILE_NOT_EXECUTABLE. Thrown if @p APath does not indicate a process image
 					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::PROCESS_CREATION_ERROR. Thrown if the process could not be created
 					@attention Launching processes which require administrator elevation on Windows will block the current thread until the authorization dialog is closed
 				*/
@@ -52,7 +51,6 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap ran out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE. Thrown if the path of the executable could not be retrieved
-					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::FILE_NOT_EXECUTABLE. Thrown if @p APath does not indicate a process image
 					@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::PROCESS_CREATION_ERROR. Thrown if the process could not be created
 					@attention Launching processes which require administrator elevation on Windows will block the current thread until the authorization dialog is closed
 				*/

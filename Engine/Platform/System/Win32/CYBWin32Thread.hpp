@@ -7,6 +7,7 @@ namespace CYB {
 				//! @brief Contains the thread handle and startup function
 				class Thread {
 				protected:
+					API::Threadable& FThreadable;	//!< @brief A reference to the Threadable object this Thread will run
 					Win32::HANDLE FThread;	//!< @brief The thread handle
 				private:
 					/*!

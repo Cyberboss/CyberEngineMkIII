@@ -3,9 +3,9 @@
 
 CYB::Platform::System::Thread::Thread(API::Threadable& AThreadable) :
 	Implementation::Thread(AThreadable),
-	FThreadable(AThreadable),
 	FCancelSubmitted(false)
 {}
+
 CYB::Platform::System::Thread::~Thread() {
 	Wait();
 }
@@ -18,10 +18,10 @@ void CYB::Platform::System::Thread::Cancel(void) noexcept {
 		}
 		catch (CYB::Exception::Base AException) {
 			static_cast<void>(AException);
-			// TODO Log error
+			//! @todo Log error
 		}
 		catch (...) {
-			// TODO Log error
+			//! @todo Log error
 		}
 	}
 }

@@ -5,8 +5,7 @@
 //! @brief Should be defined or not by user before all inclusions of CyberEngine.hpp. Enables engine debugging layers. Also ensure definition in unit matches CyberEngine executable you launch with(CyberEngine.exe for no debug, CyberEngineD.exe for debug). Must be defined by user
 #define DEBUG
 #undef DEBUG
-#endif
-
+#else
 //#define FAKE_POSIX	
 #define TARGET_OS_WINDOWS //!< @brief Designates a Windows NT based operating system
 #define TARGET_OS_MAC	//!< @brief Designates an OSX based operating system
@@ -20,6 +19,7 @@
 #endif
 #if !defined(__linux__) && !defined(FAKE_POSIX)
 #undef TARGET_OS_LINUX
+#endif
 #endif
 
 namespace CYB {

@@ -9,6 +9,7 @@ namespace CYB {
 				//! @brief Defines the IDs of allocatable engine objects
 				enum class ID {
 					NULL_ID,	//!< @brief Used in case of error
+					File,	//!< @brief CYB::API::File
 					Mutex,	//!< @brief CYB::API::Mutex
 					Path,	//!< @brief CYB::API::Path
 				};

@@ -187,4 +187,4 @@ namespace CYB {
 			};
 	};
 };
-CYB_SET_ALLOCATABLE_ID(Path)
+CYB_SET_ALLOCATABLE_ID(Path);

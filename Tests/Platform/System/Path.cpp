@@ -12,8 +12,8 @@ SCENARIO("Paths can be deleted", "[Platform][System][Path][Unit]") {
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
 
+	REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
 	GIVEN("Some existing items") {
-		REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
 		{
 			Path Setup(Path::SystemPath::TEMPORARY);
 			REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"RecursivePath/Recurse/Recurse")), true, true));
@@ -73,6 +73,16 @@ SCENARIO("Paths can be deleted", "[Platform][System][Path][Unit]") {
 			REQUIRE_NOTHROW(Test.Delete(true));
 			THEN("All is well") {
 				CHECK(true);
+			}
+		}
+	}
+	GIVEN("A non-existent item") {
+		Path Setup(Path::SystemPath::TEMPORARY);
+		REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"Nonexist")), false, false));
+		WHEN("It is deleted") {
+			REQUIRE_NOTHROW(Setup.Delete(false));
+			THEN("All is well") {
+				CHECK(TRUE);
 			}
 		}
 	}

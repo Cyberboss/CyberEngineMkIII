@@ -108,7 +108,7 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the file/directory could not be deleted
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
-				virtual void Delete(bool ARecursive) const = 0;
+				virtual void Delete(bool ARecursive) = 0;
 
 				/*!
 					@brief Check if the current path is a directory

@@ -71,8 +71,11 @@ FORKED_FUNCTION(loopforcomparison) {
 }
 
 SCENARIO("Process equivalence works", "[Platform][System][Process][Unit]") {
-	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
+	ModuleDependancy<CYB::API::Platform::LINUX, CYB::Platform::Modules::AMRT> RT(CYB::Core().FModuleManager.FRT);
+	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMSystem> System(CYB::Core().FModuleManager.FSystem);
 	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
 	GIVEN("A Process") {
 		auto Proc(CYB::Platform::System::Process::GetSelf());
@@ -98,6 +101,7 @@ SCENARIO("Process equivalence works", "[Platform][System][Process][Unit]") {
 		WHEN("The process is compared with a dead process") {
 			Process Proc3(CYB::API::String::UTF8(CYB::API::String::Static(u8"--refork Nothing")));
 			Proc3.Terminate();
+			CYB::Platform::System::Thread::Sleep(1);
 			THEN("They are not the same") {
 				CHECK_FALSE(Proc == Proc3);
 				CHECK_FALSE(Proc3 == Proc);

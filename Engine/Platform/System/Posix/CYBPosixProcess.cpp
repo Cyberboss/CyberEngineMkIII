@@ -3,11 +3,13 @@
 using namespace CYB::Platform::Posix;
 
 void CYB::Platform::System::Process::Terminate(void) {
-	if (FPID == static_cast<pid_t>(Sys::Call(Sys::GET_CURRENT_PROCESS))) {
+	if (FPID == static_cast<pid_t>(Sys::Call(Sys::GET_CURRENT_PROCESS))) 
 		Sys::Call(Sys::EXIT_PROC);
+	else {
+		if (Core().FModuleManager.FC.Call<Modules::LibC::kill>(FPID, SIGKILL) == -1)
+			throw Exception::Internal(Exception::Internal::PROCESS_TERMINATION_ERROR);
+		Wait();
 	}
-	else if (Core().FModuleManager.FC.Call<Modules::LibC::kill>(FPID, SIGKILL) == -1)
-		throw Exception::Internal(Exception::Internal::PROCESS_TERMINATION_ERROR);
 }
 
 CYB::Platform::System::Implementation::Process::Process() noexcept :

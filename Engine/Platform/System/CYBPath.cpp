@@ -137,7 +137,7 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 	SetPath(std::move(NewPath));
 }
 
-void CYB::Platform::System::Path::Delete(bool ARecursive) const {
+void CYB::Platform::System::Path::Delete(bool ARecursive) {
 	if (Verify(FPath)) {
 		bool Throw(false);
 		Exception::SystemData::ErrorCode ThrowCode(Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);

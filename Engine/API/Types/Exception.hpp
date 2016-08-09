@@ -64,6 +64,7 @@ namespace CYB {
 			//! @brief The error code of the exception
 			enum ErrorCode : unsigned int {
 				DIRECTORY_NOT_EMPTY,	//!< @brief Tried to delete a non-empty directory
+				FILE_EXISTS, //!< @brief A file that was to be created exists
 				FILE_NOT_FOUND,	//!< @brief A required file was not found in the filesystem
 				FILE_NOT_READABLE,	//!< @brief Tried to read/execute a file or enumerate a directory that the current user does not have permissions for
 				FILE_NOT_WRITABLE,	//!< @brief Tried to write/delete a file or create/modify/delete a directory that the current user does not have permissions for

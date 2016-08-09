@@ -62,6 +62,11 @@ FORKED_FUNCTION(Nothing) {
 }
 
 FORKED_FUNCTION(loopforcomparison) {
+	static_cast<void>(AArgumentCount);
+	static_cast<void>(AArguments);
+	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::LINUX, CYB::Platform::Modules::AMRT> LibC(CYB::Core().FModuleManager.FRT);
+	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMSystem> System(CYB::Core().FModuleManager.FSystem);
 	for (;; CYB::Platform::System::Thread::Yield());
 }
 
@@ -82,13 +87,13 @@ SCENARIO("Process equivalence works", "[Platform][System][Process][Unit]") {
 		}
 		WHEN("The process is compared with baloney") {
 			Process Proc2(CYB::API::String::UTF8(CYB::API::String::Static(u8"--refork loopforcomparison")));
-			*reinterpret_cast<unsigned int*>(&Proc2) = static_cast<unsigned int>(-2);
 			THEN("They are not the same") {
 				CHECK(Proc != Proc2);
 				CHECK(Proc2 != Proc);
 				CHECK_FALSE(Proc == Proc2);
 				CHECK_FALSE(Proc2 == Proc);
 			}
+			REQUIRE_NOTHROW(Proc2.Terminate());
 		}
 		WHEN("The process is compared with a dead process") {
 			Process Proc3(CYB::API::String::UTF8(CYB::API::String::Static(u8"--refork Nothing")));
@@ -106,7 +111,12 @@ SCENARIO("Process equivalence works", "[Platform][System][Process][Unit]") {
 FORKED_FUNCTION(ExitCode42) {
 	static_cast<void>(AArgumentCount);
 	static_cast<void>(AArguments);
-	std::this_thread::sleep_for(std::chrono::seconds(1));
+	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
+	ModuleDependancy<CYB::API::Platform::LINUX, CYB::Platform::Modules::AMRT> RT(CYB::Core().FModuleManager.FRT);
+	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMSystem> System(CYB::Core().FModuleManager.FSystem);
+	CYB::Platform::System::Thread::Sleep(1000);
 	return 0;
 }
 

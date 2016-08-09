@@ -143,7 +143,6 @@ namespace CYB {
 					@return The name of the file without any directory prefixes or extensions
 					@par Thread Safety
 						This function requires synchronization at the object level
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if a directory component of the path could not be read
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				virtual String::UTF8 Name(void) const = 0;

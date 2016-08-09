@@ -9,6 +9,8 @@ namespace CYB {
 		};
 	};
 };
+//! @cond
+//Posix generation is weird here
 
 DEFINE_WINDOWS_MODULE(Kernel32, u8"kernel32.dll", Win32, false,
 	CreateThread,
@@ -44,3 +46,5 @@ OVERRIDE_OSX_FUNCTION_NAMES(LibC,
 	nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 	"readdir$INODE64",
 	nullptr, nullptr, nullptr, nullptr, nullptr, nullptr)
+
+//! @endcond

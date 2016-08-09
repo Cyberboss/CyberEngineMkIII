@@ -19,6 +19,7 @@ namespace CYB {
 				virtual ~CStyle() = default;
 				/*!
 					@brief Calculate the byte length of the contained CString
+					@return The byte length of the contained CString
 					@par Thread Safety
 						This function requires synchronization at the object level
 				*/

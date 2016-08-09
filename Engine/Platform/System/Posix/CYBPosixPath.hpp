@@ -43,6 +43,7 @@ namespace CYB {
 				protected:
 					/*!
 						@brief Get the UTF8 string of the path of the executable image
+						@return The UTF8 string of the path of the executable image
 						@par Thread Safety
 							This function requires no thread safet
 						@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE If the path could not be retrieved

@@ -184,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="API\Allocatables\Allocatables.hpp" />
+    <ClInclude Include="API\Allocatables\File.hpp" />
     <ClInclude Include="API\Allocatables\Mutex.hpp" />
     <ClInclude Include="API\Allocatables\Path.hpp" />
     <ClInclude Include="API\CyberEngine.hpp" />

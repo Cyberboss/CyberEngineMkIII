@@ -3,3 +3,4 @@
 
 #include "Mutex.hpp"
 #include "Path.hpp"
+#include "File.hpp"

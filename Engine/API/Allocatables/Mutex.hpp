@@ -35,4 +35,4 @@ namespace CYB {
 		};
 	};
 };
-CYB_SET_ALLOCATABLE_ID(Mutex)
+CYB_SET_ALLOCATABLE_ID(Mutex);

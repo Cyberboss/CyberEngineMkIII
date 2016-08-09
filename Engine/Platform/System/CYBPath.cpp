@@ -18,33 +18,13 @@ CYB::Platform::System::Path::Path(const SystemPath ADirectory) :
 	Path(LocateDirectory(ADirectory))
 {}
 
-void CYB::Platform::System::Path::CreateDirectories(const UTF8& ABasePath, const API::Container::Deque<UTF8>& APaths) {
-	auto CurrentPath(ABasePath);
-	class AutoCleanup {
-	public:
-		API::Container::Stack<UTF8> FAddedPaths;
-	public:
-		~AutoCleanup() {
-			try {
-				while (!FAddedPaths.empty()) {
-					DeleteDirectory(FAddedPaths.top());
-					FAddedPaths.pop();
-				}
-			}
-			catch (CYB::Exception::Base) {} // :-<
-		}
-	};
-	AutoCleanup Manager;
-
+void CYB::Platform::System::Path::CreateDirectories(UTF8&& ABasePath, const API::Container::Deque<UTF8>& APaths) {
+	UTF8 CurrentPath(std::move(ABasePath));
 	for (auto& PathAddition : APaths) {
 		CurrentPath += DirectorySeparatorChar();
 		CurrentPath += PathAddition;
 		CreateDirectory(CurrentPath);
-		if (&PathAddition != &APaths.back())
-			Manager.FAddedPaths.push(CurrentPath);
 	}
-
-	Manager.FAddedPaths = API::Container::Stack<UTF8>();
 }
 
 const CYB::API::String::UTF8& CYB::Platform::System::Path::operator()(void) const noexcept {
@@ -121,7 +101,7 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
 
 		//and try to create them
-		CreateDirectories(WorkingPath, Tokens);
+		CreateDirectories(std::move(WorkingPath), Tokens);
 	}
 	bool Throw(false);
 	try {

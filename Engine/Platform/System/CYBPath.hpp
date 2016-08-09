@@ -56,7 +56,7 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the directories could not be created
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
-				static void CreateDirectories(const API::String::UTF8& AExistingPath, const API::Container::Deque<API::String::UTF8>& APaths);
+				static void CreateDirectories(API::String::UTF8&& AExistingPath, const API::Container::Deque<API::String::UTF8>& APaths);
 				
 				/*!
 					@brief Ensure the non-existance of a single file. Path's before it must exist. Directory must be empty

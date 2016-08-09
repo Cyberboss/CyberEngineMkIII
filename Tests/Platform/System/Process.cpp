@@ -61,6 +61,10 @@ FORKED_FUNCTION(Nothing) {
 	return 0;
 }
 
+FORKED_FUNCTION(loopforcomparison) {
+	for (;; CYB::Platform::System::Thread::Yield());
+}
+
 SCENARIO("Process equivalence works", "[Platform][System][Process][Unit]") {
 	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
@@ -77,8 +81,7 @@ SCENARIO("Process equivalence works", "[Platform][System][Process][Unit]") {
 			}
 		}
 		WHEN("The process is compared with baloney") {
-			auto Proc2(CYB::Platform::System::Process::GetSelf());
-			//TODO fix this test when reforking is implemented
+			Process Proc2(CYB::API::String::UTF8(CYB::API::String::Static(u8"--refork loopforcomparison")));
 			*reinterpret_cast<unsigned int*>(&Proc2) = static_cast<unsigned int>(-2);
 			THEN("They are not the same") {
 				CHECK(Proc != Proc2);
@@ -144,9 +147,6 @@ SCENARIO("Process exiting works", "[Platform][System][Process][Unit][Slow]") {
 		WHEN("We check it's exit code") {
 			bool Result(false);
 			REQUIRE_NOTHROW(Result = Proc.GetExitCode() == 0); 
-#ifndef TARGET_OS_WINDOWS
-			Result = true;	//TODO: FIX THIS
-#endif
 			THEN("The exit code is as expected") {
 				CHECK(Result);
 			}

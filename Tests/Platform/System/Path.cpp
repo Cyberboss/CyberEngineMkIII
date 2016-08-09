@@ -530,7 +530,6 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 
 
 
-//TODO: Use File::Touch after it's implemented
 static void Touch(const Path& APath) {
 #ifdef TARGET_OS_WINDOWS
 	using namespace CYB::Platform::Win32;

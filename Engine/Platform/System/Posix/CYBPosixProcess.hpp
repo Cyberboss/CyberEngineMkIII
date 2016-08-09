@@ -39,7 +39,6 @@ namespace CYB {
 				protected:
 					/*!
 						@brief Get's the Process representing the current execution
-						@return The current Process
 						@par Thread Safety
 							This function requires no thread safety
 					*/
@@ -55,14 +54,13 @@ namespace CYB {
 						@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap ran out of memory
 						@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 						@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::PROCESS_CREATION_ERROR. Thrown if the process could not be created
-						@attention Launching processes which require administrator elevation on Windows will block the current thread until the authorization dialog is closed
 					*/
 					Process(const System::Path& APath, const API::String::UTF8& ACommandLine);
 					Process(const Process&) = delete;
 					//! @brief See @ref structors
-					Process(Process&& AMove) noexcept;
+					Process(Process&& AMove) noexcept = default;
 					//! @brief See @ref structors
-					Process& operator=(Process&& AMove) noexcept;
+					Process& operator=(Process&& AMove) noexcept = default;
 				};
 			};
 		};

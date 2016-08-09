@@ -95,7 +95,7 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 		//create tokens of directories to create
 		API::Container::Deque<UTF8> Tokens;
 		if (ACreateRecursive) {
-			//TODO: Change this to UTF-8 tokenize, once implemented
+			//! @todo Change this to UTF-8 tokenize, once implemented
 			//Tokens = AAppendage.Tokenize(DirectorySeparatorChar());
 			auto DynTokens(AAppendage.Tokenize(*DirectorySeparatorChar()));
 			for (auto& Tok : DynTokens)

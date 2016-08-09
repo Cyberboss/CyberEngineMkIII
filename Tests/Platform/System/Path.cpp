@@ -376,6 +376,7 @@ template <class ARedirector> class BadUnlink;
 template <class ARedirector> class BadSetFileAttributes;
 template <class ARedirector> class GoodSetFileAttributes;
 template <class ARedirector> class BadPathRemoveFileSpec;
+template <class ARedirector> class BadPathFindName;
 template <class ARedirector> class BadFindFirstFile;
 template <class ARedirector> class BadOpenDir;
 unsigned long long FakeStat(Fake::SysCalls::Args&);
@@ -420,7 +421,7 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 	}
 	GIVEN("A valid file") {
 		Path Setup(Path::SystemPath::TEMPORARY);
-		REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"TestFile")), false, false));
+		REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"TestFile.avg")), false, false));
 		Touch(Setup);
 		WHEN("The deletion functions are messed with") {
 			const auto BDF(K32.Redirect<CYB::Platform::Modules::Kernel32::DeleteFileW, BadDeleteFile>());
@@ -468,6 +469,24 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 				}
 			}
 		}
+#ifdef TARGET_OS_WINDOWS
+		WHEN("We mess with name deduction on windows") {
+			auto BPFE(ShellAPI.Redirect<CYB::Platform::Modules::ShellAPI::PathFindExtensionW, BadPathFindName>());
+			auto BPFFN(ShellAPI.Redirect<CYB::Platform::Modules::ShellAPI::PathFindFileNameW, BadPathFindName>());
+			AND_WHEN("We check the full name") {
+				REQUIRE_THROWS_AS(Setup.FullName(), CYB::Exception::SystemData);
+				THEN("The correct error is thrown") {
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STRING_VALIDATION_FAILURE);
+				}
+			}
+			AND_WHEN("We check the name") {
+				REQUIRE_THROWS_AS(Setup.Name(), CYB::Exception::SystemData);
+				THEN("The correct error is thrown") {
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STRING_VALIDATION_FAILURE);
+				}
+			}
+		}
+#endif
 	}
 	GIVEN("A valid directory") {
 		Path Setup(Path::SystemPath::TEMPORARY);
@@ -547,7 +566,11 @@ static void Touch(const Path& APath) {
 
 
 
-
+REDIRECTED_FUNCTION(BadPathFindName, const void* const AThing) {
+	auto I(0U);
+	for (; static_cast<const short*>(AThing)[I] != 0; ++I);
+	return static_cast<const void*>(static_cast<const short*>(AThing) + I);
+}
 
 // old stuff
 

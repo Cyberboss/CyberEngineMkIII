@@ -118,30 +118,30 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 }
 
 void CYB::Platform::System::Path::Delete(bool ARecursive) {
-	if (Verify(FPath)) {
-		bool Throw(false);
-		Exception::SystemData::ErrorCode ThrowCode(Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);
-		try {
-			if (!IsDirectory())
-				DeleteFile(FPath);
-			else {
-				if (ARecursive) {
-					auto Entry(Contents());
-					for (auto& It(Entry()); It->Valid(); ++It)
-						(*It)().Delete(true);	//recursion may be a bad idea here, but I'd like to see someone even TRY and overflow this
-					ARecursive = false;
-				}
-				DeleteDirectory(FPath);
+	bool Throw(false);
+	Exception::SystemData::ErrorCode ThrowCode(Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);
+	try {
+		if (!IsDirectory())
+			DeleteFile(FPath);
+		else if (Verify(FPath)) {
+			if (ARecursive) {
+				auto Entry(Contents());
+				for (auto& It(Entry()); It->Valid(); ++It)
+					(*It)().Delete(true);	//recursion may be a bad idea here, but I'd like to see someone even TRY and overflow this
+				ARecursive = false;
 			}
+			DeleteDirectory(FPath);
 		}
-		catch (Exception::SystemData AException) {
-			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::HEAP_ALLOCATION_FAILURE, Exception::SystemData::DIRECTORY_NOT_EMPTY, Exception::SystemData::FILE_NOT_WRITABLE, Exception::SystemData::PATH_LOST, Exception::SystemData::STRING_VALIDATION_FAILURE);
-			Throw = ARecursive || (AException.FErrorCode != Exception::SystemData::PATH_LOST);
-			ThrowCode = static_cast<Exception::SystemData::ErrorCode>(AException.FErrorCode);
-		}
-		if (Throw)
-			throw Exception::SystemData(ThrowCode);
 	}
+	catch (Exception::SystemData AException) {
+		API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::HEAP_ALLOCATION_FAILURE, Exception::SystemData::DIRECTORY_NOT_EMPTY, Exception::SystemData::FILE_NOT_WRITABLE, Exception::SystemData::PATH_LOST, Exception::SystemData::STRING_VALIDATION_FAILURE);
+		Throw = true;
+		ThrowCode = static_cast<Exception::SystemData::ErrorCode>(AException.FErrorCode);
+		if (!ARecursive && ThrowCode == CYB::Exception::SystemData::PATH_LOST)
+			Throw = false;
+	}
+	if (Throw)
+		throw Exception::SystemData(ThrowCode);
 }
 
 bool CYB::Platform::System::Path::IsFile(void) const {

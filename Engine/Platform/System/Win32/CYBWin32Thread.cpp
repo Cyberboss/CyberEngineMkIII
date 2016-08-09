@@ -1,6 +1,7 @@
 #include "CYB.hpp"
 
 CYB::Platform::System::Implementation::Thread::Thread(API::Threadable& AThreadable) :
+	FThreadable(AThreadable),
 	FThread(Core().FModuleManager.FK32.Call<Modules::Kernel32::CreateThread>(nullptr, 0U, ThreadProc, &AThreadable, 0U, nullptr))
 {
 	if (FThread == nullptr)
@@ -16,11 +17,11 @@ unsigned long __stdcall CYB::Platform::System::Implementation::Thread::ThreadPro
 		static_cast<API::Threadable*>(AThreadable)->BeginThreadedOperation();
 	}
 	catch (CYB::Exception::Base AException) {
-		// TODO Log error
+		//! @todo Log error
 		static_cast<void>(AException);
 	}
 	catch (...) {
-		// TODO Log error
+		//! @todo Log error
 	}
 	return 0;
 }

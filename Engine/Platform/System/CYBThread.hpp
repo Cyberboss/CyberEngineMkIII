@@ -13,7 +13,6 @@ namespace CYB {
 					FINISHED,	//!< @brief The thread has finished running
 				};
 			private:
-				API::Threadable& FThreadable;	//!< @brief A reference to the Threadable object this Thread will run
 				bool FCancelSubmitted;	//!< @brief A check to make sure FThreadable.CancelThreadedOperation is not called more than once
 			public:
 				/*!

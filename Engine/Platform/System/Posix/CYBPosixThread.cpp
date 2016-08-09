@@ -2,87 +2,44 @@
 
 using namespace CYB::Platform::Posix;
 
-namespace CYB {
-	namespace Platform {
-		namespace System {
-			namespace Implementation {
-				class PThreadLockGuard {
-				private:
-					pthread_mutex_t* const FMutex;
-				public:
-					PThreadLockGuard(pthread_mutex_t* const AMutex, const bool ADoLock) noexcept : FMutex(AMutex) { if (ADoLock) Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_lock>(AMutex); }
-					~PThreadLockGuard() { Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_unlock>(FMutex); }
-				};
-			};
-		};
-	};
-};
-
 CYB::Platform::System::Implementation::Thread::Thread(API::Threadable& AThreadable) :
-	FRunningLock(PTHREAD_MUTEX_INITIALIZER),
-	FRunning(false)
+	FThreadable(AThreadable),
+	FRunning(true)
 {
-	{
-		auto& PThread(Core().FModuleManager.FPThread);
-		ThreadData Data{ &AThreadable, &FRunningLock, &FRunning };
+	std::atomic_thread_fence(std::memory_order_release);
 
-		try {
-			if (PThread.Call<Modules::PThread::pthread_mutex_init>(&FRunningLock, nullptr) != 0)
-				throw Exception::SystemData(Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);	//Throw for the specific reason
-		} catch(CYB::Exception::SystemData AException) {	//But always translate
-			API::Assert::Equal(AException.FErrorCode, static_cast<unsigned int>(Exception::SystemData::MUTEX_INITIALIZATION_FAILURE));
-			throw Exception::SystemData(Exception::SystemData::THREAD_CREATION_FAILURE);
-		}	//optimizer should take care of this
-		PThread.Call<Modules::PThread::pthread_mutex_lock>(&FRunningLock);
-
-		std::atomic_thread_fence(std::memory_order_release);
-
-		if (PThread.Call<Modules::PThread::pthread_create>(&FThread, nullptr, ThreadProc, &Data) != 0) {
-			PThread.Call<Modules::PThread::pthread_mutex_unlock>(&FRunningLock);
-			DestroyMutex();
-			throw Exception::SystemData(Exception::SystemData::THREAD_CREATION_FAILURE);
-		}
-
-		PThreadLockGuard Lock(&FRunningLock, false);
-
-		if (!FRunning.load(std::memory_order_release)) {
-			do {
-				Platform::System::Thread::Yield();
-			} while (!FRunning.load(std::memory_order_relaxed));
-		}
-	}
+	if (Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_create>(&FThread, nullptr, ThreadProc, this) != 0) 
+		throw Exception::SystemData(Exception::SystemData::THREAD_CREATION_FAILURE);
 }
 
-CYB::Platform::System::Implementation::Thread::~Thread() {
-	DestroyMutex();
-}
+void* CYB::Platform::System::Implementation::Thread::ThreadProc(void* const AThread) noexcept {
+	class AutoCleanup {
+		std::atomic_bool& FRunning;
+	public:
+		AutoCleanup(std::atomic_bool& ARunning) noexcept :
+			FRunning(ARunning)
+		{}
+		~AutoCleanup() {
+			FRunning.store(false, std::memory_order_release);
+		}
+	};
 
-void* CYB::Platform::System::Implementation::Thread::ThreadProc(void* const AThreadData) noexcept {
-	auto& Data(*static_cast<volatile ThreadData*>(AThreadData));
+	auto& Me(*static_cast<Thread*>(AThread));
+	auto& Threadable(Me.FThreadable);
+	AutoCleanup Cleaner(Me.FRunning);
 
-	auto const Threadable(Data.FThreadable);
-	auto const RunningAtomic(Data.FRunning);
-	auto const RunningLock(Data.FRunningLock);
-
-	RunningAtomic->store(true, std::memory_order_release);
-
-	PThreadLockGuard Lock(RunningLock, true);
 	try {
-		Threadable->BeginThreadedOperation();
+		Threadable.BeginThreadedOperation();
 	}
 	catch (CYB::Exception::Base AException) {
-		// TODO Log error
+		//! @todo Log error
 		static_cast<void>(AException);
 	}
 	catch (...) {
-		// TODO Log error
+		//! @todo Log error
 	}
-	RunningAtomic->store(false, std::memory_order_release);
-	return nullptr;
-}
 
-void CYB::Platform::System::Implementation::Thread::DestroyMutex(void) noexcept {
-	API::Assert::Equal(Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_destroy>(&FRunningLock), 0);
+	return nullptr;
 }
 
 bool CYB::Platform::System::Thread::IsFinished(void) const noexcept {

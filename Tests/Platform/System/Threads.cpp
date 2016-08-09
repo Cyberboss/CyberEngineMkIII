@@ -211,21 +211,6 @@ SCENARIO("Thread errors work", "[Platform][System][Threads][Unit]") {
 			delete Thread;
 		}
 	}
-#ifndef TARGET_OS_WINDOWS
-	GIVEN("An invalid mutex creation call") {
-		auto BPMC(PThread.Redirect<CYB::Platform::Modules::PThread::pthread_mutex_init, BadPThreadMutexInit>());
-		WHEN("Thread creation is attempted") {
-			ThreadBasicTest Test;
-			CYB::Platform::System::Thread* Thread(nullptr);
-			REQUIRE_THROWS_AS(Thread = new CYB::Platform::System::Thread(Test), CYB::Exception::SystemData);
-			THEN("The appropriate error occurs") {
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::THREAD_CREATION_FAILURE);
-				CHECK_FALSE(Test.FRan);
-			}
-			delete Thread;
-		}
-	}
-#endif
 	GIVEN("A Threadable that will throw an unknown exception on start") {
 		ThreadErrorTest Test(false, false);
 		WHEN("A thread is run created using it") {

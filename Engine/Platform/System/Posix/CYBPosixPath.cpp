@@ -63,12 +63,12 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 				const auto UID(MM.FC.Call<Modules::LibC::getuid>());	//they say this can't fail
 				PasswdStruct PS, *Out;
 				API::String::UTF8 FinalPath;
-				auto Buffer(static_cast<char*>(API::Allocator().FHeap.Alloc(BufferSize)));
+				auto Buffer(static_cast<char*>(API::Context().FAllocator.FHeap.Alloc(BufferSize)));
 				const auto Result(MM.FC.Call<Modules::LibC::getpwuid_r>(UID, &PS, Buffer, BufferSize, &Out));
 				const auto Succeeded(Result == 0 && Out == &PS);
 				if(Succeeded)
 					FinalPath = API::String::UTF8(API::String::Static(PS.pw_dir));
-				API::Allocator().FHeap.Free(Buffer);
+				API::Context().FAllocator.FHeap.Free(Buffer);
 				if (Succeeded)
 					return FinalPath;
 			}
@@ -193,6 +193,6 @@ void CYB::Platform::System::Implementation::Path::DirectoryEntry::operator++(voi
 		if (Addition == Static(u8".") || Addition == Static(u8"..") || (Result->d_type != DT_REG && Result->d_type != DT_DIR && Result->d_type != DT_LNK))
 			operator++();
 		else
-			FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Addition));
+			FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Context().FAllocator.NewObject<System::Path, System::Path::InternalConstructor>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Addition));
 	}
 }

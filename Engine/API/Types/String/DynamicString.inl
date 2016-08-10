@@ -45,7 +45,7 @@ inline char* CYB::API::String::Dynamic::CopyCStyle(const CStyle& AData, int ALen
 		ALength = AData.RawLength();
 	if (ALength != 0 && AData.RawLength() > 0) {
 		Assert::LessThan(AData.RawLength(), std::numeric_limits<int>::max());
-		auto Data(static_cast<char*>(Allocator().FHeap.Alloc(static_cast<int>(ALength + 1))));
+		auto Data(static_cast<char*>(Context().FAllocator.FHeap.Alloc(static_cast<int>(ALength + 1))));
 		std::copy(AData.CString(), AData.CString() + ALength, Data);
 		Data[ALength] = 0;
 		return Data;
@@ -54,7 +54,7 @@ inline char* CYB::API::String::Dynamic::CopyCStyle(const CStyle& AData, int ALen
 }
 
 template <typename ALambda> bool CYB::API::String::Dynamic::BuildAndPopulateBuffer(const int ASize, const ALambda APopulateData, Dynamic& ADynamic) {
-	auto Data(static_cast<char*>(Allocator().FHeap.Alloc(ASize + 1)));
+	auto Data(static_cast<char*>(Context().FAllocator.FHeap.Alloc(ASize + 1)));
 	if (APopulateData(Data)) {
 		Data[ASize] = 0;
 		ADynamic = Dynamic(Data);
@@ -64,7 +64,7 @@ template <typename ALambda> bool CYB::API::String::Dynamic::BuildAndPopulateBuff
 }
 
 inline void CYB::API::String::Dynamic::DeallocateData(void) {
-	Allocator().FHeap.Free(FData);
+	Context().FAllocator.FHeap.Free(FData);
 	FData = nullptr;
 }
 
@@ -72,7 +72,7 @@ inline CYB::API::String::Dynamic CYB::API::String::Dynamic::operator+(const CSty
 	const auto TotalLength(static_cast<unsigned long long>(RawLength() + ARHS.RawLength()));
 	if (TotalLength > 0) {
 		Assert::LessThanOrEqual(TotalLength + 1, static_cast<unsigned long long>(std::numeric_limits<int>::max()));
-		auto Data(static_cast<char*>(Allocator().FHeap.Alloc(static_cast<int>(TotalLength + 1))));
+		auto Data(static_cast<char*>(Context().FAllocator.FHeap.Alloc(static_cast<int>(TotalLength + 1))));
 		std::copy(CString(), CString() + RawLength(), Data);
 		std::copy(ARHS.CString(), ARHS.CString() + ARHS.RawLength() + 1, Data + RawLength());
 		return Dynamic(Data);
@@ -84,7 +84,7 @@ inline CYB::API::String::Dynamic& CYB::API::String::Dynamic::operator+=(const CS
 	if (ARHS.RawLength() > 0) {
 		const auto TotalSize(static_cast<unsigned long long>(RawLength() + ARHS.RawLength() + 1));
 		Assert::LessThanOrEqual(TotalSize, static_cast<unsigned long long>(std::numeric_limits<int>::max()));
-		FData = static_cast<char*>(Allocator().FHeap.Realloc(FData, static_cast<int>(TotalSize)));
+		FData = static_cast<char*>(Context().FAllocator.FHeap.Realloc(FData, static_cast<int>(TotalSize)));
 		std::copy(ARHS.CString(), ARHS.CString() + ARHS.RawLength() + 1, FData + RawLength());
 		FLength = static_cast<int>(TotalSize) - 1;
 	}

@@ -14,17 +14,21 @@ Fake::Allocator::~Allocator() {
 	delete &FHeap;
 }
 
-CYB::API::Interop::Allocatable* Fake::Allocator::InteropAllocation(const CYB::API::Interop::Allocatable::ID, const CYB::API::Interop::EmptyConstructor&) {
+void* Fake::Allocator::InteropAllocation(const CYB::API::Interop::Allocatable::ID, CYB::API::Interop::EmptyConstructor&) {
 	CYB::API::Assert::HCF();
 }
 
-template<> template<> void CYB::API::Singleton<CYB::Engine::Core>::Backdoor<void*>(void*& AHooker) {
+template <> template <> void CYB::API::Singleton<CYB::Engine::Core>::Backdoor<void*>(void*& AHooker) {
 	FSingleton = static_cast<CYB::Engine::Core*>(AHooker);
+}
+template <> void CYB::Engine::Core::Backdoor<Fake::Core>(Fake::Core& AHooker) {
+	new (&(reinterpret_cast<Core*>(AHooker.FBytes)->FEngineContext)) CYB::API::Interop::Context(*AHooker.FAllocator);	//this hurts you
 }
 
 Fake::Core::Core() {
-	ResetToFakeCorePointer();
 	FAllocator = new Allocator();
+	CYB::Engine::Core::Backdoor(*this);
+	ResetToFakeCorePointer();
 }
 Fake::Core::~Core() {
 	delete FAllocator;

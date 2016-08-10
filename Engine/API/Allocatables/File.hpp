@@ -2,7 +2,7 @@
 namespace CYB {
 	namespace API {
 		//! @brief Contains the basic File interface. Does not perform locking of any kind, be aware of possible race conditions
-		class File {
+		class File : public Interop::Allocatable {
 		public:
 			//! @brief The opening mode for the file
 			enum class Mode {
@@ -76,7 +76,7 @@ namespace CYB {
 				@par Thread Safety
 					This function requres no thread safety
 			*/
-			virtual unsigned long long Read(void* const ABuffer, const unsigned long long AMaxAmount) const = 0;
+			virtual unsigned long long Read(const void* const ABuffer, const unsigned long long AMaxAmount) const = 0;
 			/*!
 				@brief Write data to a File at the current cursor position and advance the cursor by that amount
 				@param ABuffer The location to get the data to write

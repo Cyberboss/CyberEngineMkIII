@@ -19,6 +19,7 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				Object(AInterface* const APointer) noexcept;
+				Object(const Object<AInterface>& ACopy);	//!< @brief See @ref interstructors
 				Object(Object&& AMove) noexcept;	//!< @brief See @ref structors
 				Object& operator=(Object&& AMove) noexcept;	//!< @brief See @ref structors
 				~Object();	//!< @brief See @ref structors

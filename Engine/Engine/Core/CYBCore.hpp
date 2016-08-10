@@ -1,14 +1,19 @@
 //! @file CYBCore.hpp Defines the engine core interface and static pointer as well as the Engine() access function
 #pragma once
 
+#include "CYBEngineParameters.hpp"
+#include "CYBInterop.hpp"
+
 namespace CYB {
 	namespace Engine {
 		//! @brief An instance of this object is the entirety of the engine
 		class Core : public API::Singleton<Core> {
+			ENABLE_TEST_HOOKS
 		public:
 			API::EngineInformation FEngineInformation;	//!< @brief Information describing the engine
 
 			Platform::Modules::ModuleManager FModuleManager;	//!< @brief Loads and contains required modules
+		private:
 				//User
 				//GDI
 				//Winsock
@@ -18,7 +23,10 @@ namespace CYB {
 					//XInput
 			//Logger
 				//Heap
-			Memory::Heap FHeap;	//!< @brief The engine's primary allocator
+			Memory::Heap FHeap;	//!< @brief The engine's primary Heap
+			Allocator FEngineAllocator;	//!< @brief The engine's primary Allocator
+			API::Interop::Context FEngineContext;	//!< @brief The engine Context
+
 			//ThreadPool
 			//Steam
 			//Command Line
@@ -66,6 +74,15 @@ namespace CYB {
 					This function should only be called once
 			*/
 			static void Run(const unsigned int ANumArguments, const oschar_t* const* const AArguments) noexcept;
+
+
+			/*!
+				@brief Get the current Context
+				@return A reference to the current context
+				@par Thread Safety
+					This function should only be called once
+			*/
+			API::Interop::Context& CurrentContext(void) noexcept;
 		};
 	};
 

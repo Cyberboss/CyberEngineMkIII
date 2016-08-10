@@ -5,10 +5,11 @@ namespace Fake {
 	public:
 		Allocator();
 		~Allocator();
-		CYB::API::Interop::Allocatable* InteropAllocation(const CYB::API::Interop::Allocatable::ID AID, const CYB::API::Interop::EmptyConstructor& AConstructor) final override;
+		void* InteropAllocation(const CYB::API::Interop::Allocatable::ID AID, CYB::API::Interop::EmptyConstructor& AConstructor) final override;
 	};
 
 	class Core {
+		friend class CYB::Engine::Core;
 	private:
 		byte FBytes[sizeof(CYB::Engine::Core)];
 		Allocator* FAllocator;

@@ -82,7 +82,7 @@ SCENARIO("Paths can be deleted", "[Platform][System][Path][Unit]") {
 		WHEN("It is deleted") {
 			REQUIRE_NOTHROW(Setup.Delete(false));
 			THEN("All is well") {
-				CHECK(TRUE);
+				CHECK(true);
 			}
 		}
 	}

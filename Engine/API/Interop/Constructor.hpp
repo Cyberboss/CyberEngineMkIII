@@ -21,6 +21,18 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				Constructor(AType&& AParam, ATypes&&... AParams, const unsigned short ASize) noexcept;
+
+				/*! 
+					@brief Do placement construction of AAllocatable with @p AArgs at @p ALocation
+					@tparam AAllocatable The class being allocated
+					@tparam AArgs The argument types
+					@param ALocation The location to construct AAllocatable
+					@param AArguments The arguments of construction before this segment
+					@par Thread Safety
+						Dependant on called constructor
+					@attention Throws dependant on called constructor
+				*/
+				template <class AAllocatable, typename... AArgs> void Construct(void* const ALocation, AArgs&&... AArguments);
 			public:
 				/*!
 					@brief Construct a Constructor
@@ -30,6 +42,15 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				Constructor(AType&& AParam, ATypes&&... AParams) noexcept;
+				/*! 
+					@brief Do placement construction of AAllocatable with @p AArgs at @p ALocation
+					@tparam AAllocatable The class being allocated
+					@param ALocation The location to construct AAllocatable
+					@par Thread Safety
+						Dependant on called constructor
+					@attention Throws dependant on called constructor
+				*/
+				template <class AAllocatable> void Construct(void* const ALocation);
 			};
 			//! @brief Used as a base class by all constructors
 			template <> class Constructor<void> {
@@ -43,6 +64,18 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				Constructor(const unsigned short ASize) noexcept;
+
+				/*! 
+					@brief Do placement construction of AAllocatable with @p AArgs at @p ALocation
+					@tparam AAllocatable The class being allocated
+					@tparam AArgs The argument types
+					@param ALocation The location to construct AAllocatable
+					@param AArguments The arguments of construction before this segment
+					@par Thread Safety
+						Dependant on called constructor
+					@attention Throws dependant on called constructor
+				*/
+				template <class AAllocatable, typename... AArgs> void Construct(void* const ALocation, AArgs&&... AArguments);
 			public:
 				/*!
 					@brief Construct an empty Constructor
@@ -50,10 +83,22 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				Constructor() noexcept;
+
+				/*! 
+					@brief Do placement construction of AAllocatable with @p AArgs at @p ALocation
+					@tparam AAllocatable The class being allocated
+					@param ALocation The location to construct AAllocatable
+					@par Thread Safety
+						Dependant on called constructor
+					@attention Throws dependant on called constructor
+				*/
+				template <class AAllocatable> void Construct(void* const ALocation);
 				
 				/*!
 					@brief A best effort validation for the integrity of a Constructor for a given Allocatable
 					@return true if the Constructor is valid, false otherwize
+					@par Thread Safety
+						This function requires no thread safety
 				*/
 				template <class AAllocatable> bool Valid(void) const noexcept;
 			};
@@ -73,6 +118,18 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				Constructor(AType&& AParam, const unsigned short ASize) noexcept;
+
+				/*! 
+					@brief Do placement construction of AAllocatable with @p AArgs at @p ALocation
+					@tparam AAllocatable The class being allocated
+					@tparam AArgs The argument types
+					@param ALocation The location to construct AAllocatable
+					@param AArguments The arguments of construction before this segment
+					@par Thread Safety
+						Dependant on called constructor
+					@attention Throws dependant on called constructor
+				*/
+				template <class AAllocatable, typename... AArgs> void Construct(void* const ALocation, AArgs&&... AArguments);
 			public:
 				/*!
 					@brief Construct a Constructor
@@ -81,11 +138,18 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				Constructor(AType&& AParam) noexcept;
+				/*! 
+					@brief Do placement construction of AAllocatable with @p AArgs at @p ALocation
+					@tparam AAllocatable The class being allocated
+					@param ALocation The location to construct AAllocatable
+					@par Thread Safety
+						Dependant on called constructor
+					@attention Throws dependant on called constructor
+				*/
+				template <class AAllocatable> void Construct(void* const ALocation);
 			};
 			//! @brief Constructor<void> alias
 			using EmptyConstructor = Constructor<void>;
 		};
 	};
 };
-
-#include "Constructor.inl"

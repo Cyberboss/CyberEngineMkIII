@@ -33,6 +33,8 @@ namespace CYB {
 						<BR>CYB::Exception::SystemData Error code: <B>CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE</B> if the specified path could not be retrieved
 				*/
 				using Constructor = Interop::Constructor<const SystemPath>;
+				//! @brief See @ref interstructors
+				using CopyConstructor = API::Interop::Constructor<const Path&>;
 
 				//! @brief Iterator for paths in a directory
 				class DirectoryEntry : public Interop::Allocatable {

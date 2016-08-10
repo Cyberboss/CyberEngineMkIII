@@ -4,6 +4,10 @@ template <class AInterface> CYB::API::Interop::Object<AInterface>::Object(AInter
 	FPointer(APointer)
 {}
 
+template <class AInterface> CYB::API::Interop::Object<AInterface>::Object(const Object<AInterface>& ACopy) :
+	FPointer(Context::GetContext().FAllocator.CopyObject<AInterface>(ACopy()))
+{}
+
 template <class AInterface> CYB::API::Interop::Object<AInterface>::Object(Object<AInterface>&& AMove) noexcept :
 	FPointer(AMove.FPointer)
 {
@@ -17,7 +21,7 @@ template <class AInterface> CYB::API::Interop::Object<AInterface>& CYB::API::Int
 }
 
 template <class AInterface> CYB::API::Interop::Object<AInterface>::~Object() {
-	Allocator::GetAllocator().Delete(FPointer);
+	Context::GetContext().FAllocator.Delete(FPointer);
 }
 
 template <class AInterface> AInterface& CYB::API::Interop::Object<AInterface>::operator()(void) noexcept {

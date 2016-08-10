@@ -9,7 +9,16 @@ namespace CYB {
 			*/
 			class Path : public Implementation::Path, public API::Path {
 			public:
-				using Constructor = API::Interop::Constructor<API::String::UTF8&&>;	//!< @brief See @ref interstructors
+				/*!
+					@brief See @ref interstructors. Sets the path directly, must be valid 
+					@par API::String::UTF8&&
+						An xvalue of the path to set
+					@par Thread Safety
+						This function requires no thread safety
+					@par Throws
+						CYB::Exception::SystemData Error code: <B>CYB::Exception::SystemData::STRING_VALIDATION_FAILURE</B>. Thrown if the path string does not validate
+				*/
+				using InternalConstructor = API::Interop::Constructor<API::String::UTF8&&>;
 			private:
 				API::String::UTF8 FPath;	//!< @brief The underlying string
 			private:
@@ -124,8 +133,8 @@ namespace CYB {
 			public:
 
 				/*!
-					@brief Sets the path, must be valid 
-					@param APath An xvalue of the path
+					@brief Sets the path directly, must be valid 
+					@param APath An xvalue of the path to set
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate

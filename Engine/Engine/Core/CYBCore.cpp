@@ -21,12 +21,11 @@
 
 */
 
-//Implement the allocator here
-CYB::API::Interop::Allocator* CYB::API::Interop::Allocator::FAllocator(nullptr);
-
 CYB::Engine::Core::Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments):
 	FEngineInformation(Parameters::CreateEngineInformation()),
-	FHeap(Parameters::ENGINE_HEAP_INITIAL_COMMIT_SIZE)
+	FHeap(Parameters::ENGINE_HEAP_INITIAL_COMMIT_SIZE),
+	FEngineAllocator(FHeap),
+	FEngineContext(FEngineAllocator)
 {
 	static_cast<void>(ANumArguments);
 	static_cast<void>(AArguments);
@@ -43,6 +42,12 @@ void CYB::Engine::Core::Run(const unsigned int ANumArguments, const oschar_t* co
 	catch (...) {}
 	Platform::System::Process::GetSelf().Terminate();
 }
+
+CYB::API::Interop::Context& CYB::Engine::Core::CurrentContext(void) noexcept {
+	//! @todo Allow the unit to have a context and enable switching
+	return FEngineContext;
+}
+
 CYB::Engine::Core& CYB::Core(void) noexcept {
 	return Engine::Core::GetCore();
 }

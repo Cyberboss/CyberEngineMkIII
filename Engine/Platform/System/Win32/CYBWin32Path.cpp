@@ -269,5 +269,5 @@ void CYB::Platform::System::Implementation::Path::DirectoryEntry::AssignOrRecurs
 			return;
 		}
 	}
-	FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Allocator().NewObject<System::Path>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Conversion));
+	FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Context().FAllocator.NewObject<System::Path, System::Path::InternalConstructor>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Conversion));
 }

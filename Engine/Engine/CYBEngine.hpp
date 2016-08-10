@@ -6,8 +6,6 @@ namespace CYB {
 	namespace Engine {};
 };
 
-#include "Core/CYBEngineParameters.hpp"
-
 #include "Memory/CYBMemory.hpp"
 
 #include "Core/CYBCore.hpp"

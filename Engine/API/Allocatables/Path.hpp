@@ -13,9 +13,9 @@ namespace CYB {
 				};
 				//! @brief Starting points for creating paths
 				enum class SystemPath {
-					EXECUTABLE_IMAGE,	//!< @brief The path from which the engine was launched, read only
-					EXECUTABLE,	//!< @brief The directory from which the engine was launched, read only
-					RESOURCE,	//!< @brief The directory where program resources are stored, read only
+					EXECUTABLE_IMAGE,	//!< @brief The path from which the engine was launched, file, read-only
+					EXECUTABLE,	//!< @brief The directory from which the engine was launched, read-only
+					RESOURCE,	//!< @brief The directory where program resources are stored, read-only
 					TEMPORARY,	//!< @brief The directory for storing data relevant only to this execution
 					USER,	//!< @brief The directory for storing permanent data associated with the current OS/Steam user, read write
 					WORKING,	//!< @brief The current application working directory, permissions indeterminate
@@ -32,7 +32,7 @@ namespace CYB {
 						<BR>CYB::Exception::SystemData Error code: <B>CYB::Exception::SystemData::STRING_VALIDATION_FAILURE</B>. Thrown if the path string does not validate
 						<BR>CYB::Exception::SystemData Error code: <B>CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE</B> if the specified path could not be retrieved
 				*/
-				using Constructor = Interop::Constructor<const SystemPath>;
+				using Constructor = Interop::Constructor<SystemPath>;
 				//! @brief See @ref interstructors
 				using CopyConstructor = API::Interop::Constructor<const Path&>;
 

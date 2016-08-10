@@ -9,7 +9,8 @@ CYB::API::Interop::Context& CYB::API::Interop::Context::GetContext(void) noexcep
 
 //Allocator
 template <class AAllocatable> AAllocatable* CYB::Engine::Allocator::DoAllocation(API::Interop::Constructor<void>& AConstructor) {
-	API::Assert::True(AConstructor.Valid<AAllocatable>());
+	if (!AConstructor.Valid<AAllocatable>())
+		throw Exception::Violation(Exception::Violation::INVALID_INTEROP_CONSTRUCTOR);
 
 	auto& TrueConstructor(static_cast<typename AAllocatable::Constructor&>(AConstructor));
 	

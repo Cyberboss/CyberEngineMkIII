@@ -28,6 +28,7 @@ API/String/DynamicString.cpp
 API/String/UTF8String.cpp
 API/String/UTF16String.cpp
 
+API/Interop/Allocator.cpp
 API/Interop/STLAllocator.cpp
 
 )

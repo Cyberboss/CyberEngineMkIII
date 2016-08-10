@@ -21,6 +21,27 @@ namespace CYB {
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p AID is unknown to the engine.
 				*/
 				virtual void* InteropAllocation(const Allocatable::ID AID, Constructor<void>& AConstructor) = 0;
+				/*!
+					@brief Drop in replacement for placement new with successful abstraction checking
+					@tparam AType The type to be constructed
+					@tparam AArgs The arguments types of AType's constructor
+					@param ALocation An area of memory not nullptr and at least sizof(AType) where AType will be constructed
+					@param AArguments Arguments to AType's constructor
+					@return A pointer to the new AType which will be equivalent to ALocation
+					@par Thread Safety
+						This function requires no thread safety
+					@attention Throws dependant on called constructor
+				*/
+				template <typename AType, typename... AArgs> static AType* InPlaceAllocation(void* const ALocation, std::false_type, AArgs&&... AArguments);
+				/*!
+					@brief Drop in replacement for placement new with failed abstraction checking. Calls HCF
+					@tparam AType Ignored
+					@tparam AArgs Ignored
+					@return A pointer to the new AType which will be equivalent to ALocation
+					@par Thread Safety
+						This function requires no thread safety
+				*/
+				template <typename AType, typename... AArgs> static AType* InPlaceAllocation(void* const, std::true_type, AArgs&&...) noexcept;
 			protected:
 				/*!
 					@brief Construct an Allocator
@@ -46,7 +67,7 @@ namespace CYB {
 				/*!
 					@brief Allocates the Object specified by AAllocatable
 					@tparam AAllocatable The type of object to allocate
-					@tparam AConstructor The constructor for AAllocatable to use
+					@tparam AConstructor The constructor for AAllocatable to use. Defaults to AAllocatable::Constructor
 					@tparam AArgs The arguments types of AAllocatable's constructor
 					@param AArguments The arguments of AAllocatable's constructor
 					@return An Object specialized on AAllocatable containing the allocated object
@@ -55,18 +76,22 @@ namespace CYB {
 					@attention Throws dependant on called constructor
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the heap does not have the space for the allocation and more system memory cannot be requested
 				*/
-				template <class AAllocatable, class AConstructor = typename AAllocatable::Constructor, typename... AArgs> Object<AAllocatable> NewObject(AArgs&&... AArguments);
+				template <class AAllocatable, class AConstructor
+#ifdef TARGET_OS_WINDOWS	//I think theres a clang bug that I really should report going on here
+					= typename AAllocatable::Constructor
+#endif
+					, typename... AArgs> Object<AAllocatable> NewObject(AArgs&&... AArguments);
 				/*!
 					@brief Allocates the Object specified by AAllocatable
 					@tparam AAllocatable The type of object to allocate
-					@tparam AConstructor The constructor for AAllocatable to use
 					@return An Object specialized on AAllocatable containing the allocated object
 					@par Thread Safety
 						This function requires no thread safety
 					@attention Throws dependant on called constructor
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the heap does not have the space for the allocation and more system memory cannot be requested
 				*/
-				template <class AAllocatable, class AConstructor = typename AAllocatable::Constructor> Object<AAllocatable> NewObject(void);
+				template <class AAllocatable> Object<AAllocatable> NewObject(void);
+
 				/*!
 					@brief Copys an Object of type AAllocatable
 					@tparam AAllocatable The type of object to copy

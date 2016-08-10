@@ -1,4 +1,4 @@
-//! @file CYBContext.cpp Implements various engine interop functions
+//! @file CYBInterop.cpp Implements various engine interop functions
 #include "CYB.hpp"
 
 //Context

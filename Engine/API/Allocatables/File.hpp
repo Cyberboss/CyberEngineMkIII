@@ -1,4 +1,4 @@
-//! @file CYBFile.hpp Defines the filesystem interface
+//! @file File.hpp Defines the API for files
 namespace CYB {
 	namespace API {
 		//! @brief Contains the basic File interface. Does not perform locking of any kind, be aware of possible race conditions
@@ -96,4 +96,6 @@ namespace CYB {
 		};
 	};
 };
+//! @cond
 CYB_SET_ALLOCATABLE_ID(File);
+//! @endcond

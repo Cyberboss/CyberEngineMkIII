@@ -1,4 +1,4 @@
-//! @file Path.hpp Defines the Path allocatable
+//! @file Path.hpp Defines the API for Paths
 #pragma once
 namespace CYB {
 	namespace API {
@@ -188,4 +188,6 @@ namespace CYB {
 			};
 	};
 };
+//! @cond
 CYB_SET_ALLOCATABLE_ID(Path);
+//! @endcond

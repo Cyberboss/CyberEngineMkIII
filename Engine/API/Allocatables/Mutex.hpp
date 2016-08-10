@@ -1,4 +1,4 @@
-//! @file Mutex.hpp Defines the API for CYB::Mutex
+//! @file Mutex.hpp Defines the API for Mutexes
 #pragma once
 namespace CYB {
 	namespace API {
@@ -35,4 +35,6 @@ namespace CYB {
 		};
 	};
 };
+//! @cond
 CYB_SET_ALLOCATABLE_ID(Mutex);
+//! @endcond

@@ -18,7 +18,7 @@ add_library(EngineBase STATIC
 #System
 Platform/System/CYBThread.cpp
 Platform/System/CYBPath.cpp
-Platform/System/CYBFile.cpp
+#Platform/System/CYBFile.cpp
 Platform/System/CYBProcess.cpp
 Platform/System/CYBVirtualMemory.cpp
 

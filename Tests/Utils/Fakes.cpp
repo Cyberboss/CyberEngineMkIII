@@ -7,31 +7,18 @@ bool BasicCmp(const char* const A, const char* const B) {
 	return CYB::API::String::Static(A) == CYB::API::String::Static(B);
 }
 
-Fake::Allocator::Allocator() :
-	CYB::API::Interop::Allocator(*new Heap())
-{}
-Fake::Allocator::~Allocator() {
-	delete &FHeap;
-}
-
-void* Fake::Allocator::InteropAllocation(const CYB::API::Interop::Allocatable::ID, CYB::API::Interop::EmptyConstructor&) {
-	CYB::API::Assert::HCF();
-}
-
 template <> template <> void CYB::API::Singleton<CYB::Engine::Core>::Backdoor<void*>(void*& AHooker) {
 	FSingleton = static_cast<CYB::Engine::Core*>(AHooker);
 }
 template <> void CYB::Engine::Core::Backdoor<Fake::Core>(Fake::Core& AHooker) {
-	new (&(reinterpret_cast<Core*>(AHooker.FBytes)->FEngineContext)) CYB::API::Interop::Context(*AHooker.FAllocator);	//this hurts you
+	new (&(reinterpret_cast<Core*>(AHooker.FBytes)->FEngineContext)) CYB::API::Interop::Context(AHooker.FAllocator);	//this hurts you
 }
 
-Fake::Core::Core() {
-	FAllocator = new Allocator();
+Fake::Core::Core() :
+	FAllocator(FHeap)
+{
 	CYB::Engine::Core::Backdoor(*this);
 	ResetToFakeCorePointer();
-}
-Fake::Core::~Core() {
-	delete FAllocator;
 }
 
 Fake::Core FFakeCore;

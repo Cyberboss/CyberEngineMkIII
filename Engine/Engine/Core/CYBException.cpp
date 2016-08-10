@@ -12,6 +12,8 @@ CYB::API::String::Static CYB::Exception::Violation::ErrorMessage(const ErrorCode
 	switch (AErrorCode)	{
 	case INVALID_ENUM:
 		return API::String::Static(u8"An operation was attempted with an invalid enum code");
+	case INVALID_INTEROP_CONSTRUCTOR:
+		return API::String::Static(u8"An engine allocation was attempted with a malformed constructor");
 	case NEGATIVE_HEAP_ALLOCATION:
 		return API::String::Static(u8"Alloc or Realloc called with a negative size value");
 	case UNSUPPORTED_ALLOCATION_AMOUNT:

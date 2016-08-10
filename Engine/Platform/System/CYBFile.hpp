@@ -42,7 +42,7 @@ namespace CYB {
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p AMode, or @p AMethod is invalid
 				*/
 				File(const API::Path& APath, const Mode AMode, const Method AMethod);
-				//! @copydoc CYB::Platform::System::File::File(CYB::API::Path&, CYB::API::File::Mode, CYB::API::File::Method)
+				//! @copydoc CYB::Platform::System::File::File(const CYB::API::Path&, CYB::API::File::Mode, CYB::API::File::Method)
 				File(System::Path&& APath, const Mode AMode, const Method AMethod);
 				File(const File&) = delete;
 				//! @brief See @ref structors

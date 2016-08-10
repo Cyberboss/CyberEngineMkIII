@@ -1,8 +1,9 @@
-//! @file CYBContext.hpp Defines the implementations of virtual functions defined in CYB::API::Interop
+//! @file CYBInterop.hpp Defines the implementations of virtual functions defined in CYB::API::Interop
 #pragma once
 
 namespace CYB {
 	namespace Engine {
+		//! @brief Implements InteropAllocation for the public allocator
 		class Allocator : public API::Interop::Allocator {
 		private:
 			/*!

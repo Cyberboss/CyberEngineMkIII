@@ -52,6 +52,10 @@
     <ClCompile Include="API\Interop\STLAllocator.cpp">
       <Filter>API\Interop</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\HCF.cpp" />
+    <ClCompile Include="Platform\System\File.cpp">
+      <Filter>Platform\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />
@@ -123,8 +127,5 @@
     </None>
     <None Include="Main.inl" />
     <None Include="Optimized.runsettings" />
-    <None Include="Utils\HCF.cpp">
-      <Filter>Utils</Filter>
-    </None>
   </ItemGroup>
 </Project>

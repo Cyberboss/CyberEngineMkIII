@@ -113,6 +113,7 @@
     <ClCompile Include="Engine\Memory\Blocks.cpp" />
     <ClCompile Include="Engine\Memory\Heap.cpp" />
     <ClCompile Include="Platform\Modules.cpp" />
+    <ClCompile Include="Platform\System\File.cpp" />
     <ClCompile Include="Platform\System\Mutex.cpp" />
     <ClCompile Include="Platform\System\Path.cpp" />
     <ClCompile Include="Platform\System\Process.cpp" />

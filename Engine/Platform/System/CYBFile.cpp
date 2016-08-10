@@ -1,4 +1,4 @@
-//! @file CYBPath.cpp Implements CYB::Platform::System::File shared functions
+//! @file CYBFile.cpp Implements CYB::Platform::System::File shared functions
 #include "CYB.hpp"
 
 CYB::Platform::System::File::File(const API::Path& APath, const Mode AMode, const Method AMethod) :

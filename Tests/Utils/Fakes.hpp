@@ -1,31 +1,24 @@
 #include "TestHeader.hpp"
 
 namespace Fake {
-	class Allocator : public CYB::API::Interop::Allocator {
-	public:
-		Allocator();
-		~Allocator();
-		void* InteropAllocation(const CYB::API::Interop::Allocatable::ID AID, CYB::API::Interop::EmptyConstructor& AConstructor) final override;
-	};
-
-	class Core {
-		friend class CYB::Engine::Core;
-	private:
-		byte FBytes[sizeof(CYB::Engine::Core)];
-		Allocator* FAllocator;
-	public:
-		Core();
-		~Core();
-
-		static void ResetToFakeCorePointer(void);
-		static void NullifySingleton(void);
-	};
 
 	class Heap : public CYB::API::Heap {
 	public:
 		void* Alloc(const int AAmount) final override;
 		void* Realloc(void* const AOld, const int ANewSize) final override;
 		void Free(void* const AOld) noexcept final override;
+	};
+	class Core {
+		friend class CYB::Engine::Core;
+	private:
+		byte FBytes[sizeof(CYB::Engine::Core)];
+		Heap FHeap;
+		CYB::Engine::Allocator FAllocator;
+	public:
+		Core();
+
+		static void ResetToFakeCorePointer(void);
+		static void NullifySingleton(void);
 	};
 	class SysCalls {
 	public:

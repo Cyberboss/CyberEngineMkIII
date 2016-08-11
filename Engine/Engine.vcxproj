@@ -121,10 +121,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Platform\Modules\Win32\CYBWin32Module.cpp" />
-    <ClCompile Include="Platform\System\CYBFile.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="Platform\System\CYBFile.cpp" />
     <ClCompile Include="Platform\System\CYBPath.cpp" />
     <ClCompile Include="Platform\System\CYBProcess.cpp" />
     <ClCompile Include="Platform\System\CYBThread.cpp" />

@@ -28,22 +28,26 @@ namespace CYB {
 					@tparam AType The type to be constructed
 					@tparam AArgs The arguments types of AType's constructor
 					@param ALocation An area of memory not nullptr and at least sizof(AType) where AType will be constructed
+					@param AIgnored Used for overloading
 					@param AArguments Arguments to AType's constructor
 					@return A pointer to the new AType which will be equivalent to ALocation
 					@par Thread Safety
 						This function requires no thread safety
 					@attention Throws dependant on called constructor
 				*/
-				template <typename AType, typename... AArgs> static AType* InPlaceAllocation(void* const ALocation, std::false_type, AArgs&&... AArguments);
+				template <typename AType, typename... AArgs> static AType* InPlaceAllocation(void* const ALocation, std::false_type AIgnored, AArgs&&... AArguments);
 				/*!
 					@brief Drop in replacement for placement new with failed abstraction checking. Calls HCF
 					@tparam AType Ignored
 					@tparam AArgs Ignored
+					@param ALocation Ignored
+					@param AIgnored Ignored
+					@param AArguments Ignored
 					@return A pointer to the new AType which will be equivalent to ALocation
 					@par Thread Safety
 						This function requires no thread safety
 				*/
-				template <typename AType, typename... AArgs> static AType* InPlaceAllocation(void* const, std::true_type, AArgs&&...) noexcept;
+				template <typename AType, typename... AArgs> static AType* InPlaceAllocation(void* const ALocation, std::true_type AIgnored, AArgs&&... AArguments) noexcept;
 			protected:
 				/*!
 					@brief Construct an Allocator

@@ -6,6 +6,7 @@ namespace CYB {
 		namespace Interop {
 			//! @brief Used for allocating objects within and without the engine
 			class Allocator {
+				ENABLE_TEST_HOOKS
 			public:
 				Heap& FHeap;	//!< @brief The Heap this allocator uses
 			private:
@@ -19,6 +20,7 @@ namespace CYB {
 					@attention Throws dependant on called constructor
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p AID is unknown to the engine.
+					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_INTEROP_CONSTRUCTOR. Thrown if @p AConstructor is malformed
 				*/
 				virtual void* InteropAllocation(const Allocatable::ID AID, Constructor<void>& AConstructor) = 0;
 				/*!

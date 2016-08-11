@@ -1,10 +1,10 @@
 #pragma once
 
 inline CYB::API::Interop::Allocator::Allocator(Heap& AHeap) noexcept :
-	FHeap(AHeap)
+FHeap(AHeap)
 {}
 
-template <class AAllocatable, class AConstructor 
+template <class AAllocatable, class AConstructor
 #ifndef TARGET_OS_WINDOWS
 	= typename AAllocatable::Constructor
 #endif
@@ -66,9 +66,10 @@ template <class AAllocatable> CYB::API::Interop::Object<AAllocatable> CYB::API::
 	return Result;
 }
 
-template <typename AType, typename... AArgs> AType* CYB::API::Interop::Allocator::InPlaceAllocation(void* const ALocation, std::false_type, AArgs&&... AArguments) {
+template <typename AType, typename... AArgs> AType* CYB::API::Interop::Allocator::InPlaceAllocation(void* const ALocation, std::false_type AIgnored, AArgs&&... AArguments) {
+	static_cast<void>(AIgnored);
 	Assert::NotEqual<void*>(ALocation, nullptr);
-	return new (ALocation) AType(std::forward<AArgs>(AArguments)...); 
+	return new (ALocation) AType(std::forward<AArgs>(AArguments)...);
 }
 
 template <typename AType, typename... AArgs> AType* CYB::API::Interop::Allocator::InPlaceAllocation(void* const, std::true_type, AArgs&&...) noexcept {

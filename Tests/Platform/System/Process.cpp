@@ -101,7 +101,7 @@ SCENARIO("Process equivalence works", "[Platform][System][Process][Unit]") {
 		WHEN("The process is compared with a dead process") {
 			Process Proc3(CYB::API::String::UTF8(CYB::API::String::Static(u8"--refork Nothing")));
 			Proc3.Terminate();
-			CYB::Platform::System::Thread::Sleep(1);
+			CYB::Platform::System::Thread::Sleep(1000);
 			THEN("They are not the same") {
 				CHECK_FALSE(Proc == Proc3);
 				CHECK_FALSE(Proc3 == Proc);

@@ -39,7 +39,7 @@ namespace CYB {
 				@par Thread Safety
 					This function requires no thread safety
 			*/
-			static void Unimplemented[[noreturn]](const char* const AFunction, const char* const AFile, const unsigned int ALine);
+			static void Unimplemented(const char* const AFunction, const char* const AFile, const unsigned int ALine) noexcept;
 			/*!
 				@brief Assertion function. @p AExpression should always be evaluated
 				@param AExpression The expression to check. Will call HCF if false

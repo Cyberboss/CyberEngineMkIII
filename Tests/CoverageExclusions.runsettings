@@ -39,7 +39,10 @@ Included items must then not match any entries in the exclude list to remain inc
               <Exclude>
                 <Function>^std::.*</Function>
                 <Function>^CYB::Platform::Modules::AutoModuleOptionalHelper.*</Function>
-                <Function>^CYB::API::Interop::Allocator::InPlaceAllocation.*</Function>
+                <Function>^CYB::API::Interop::Allocator.*</Function>
+                <Function>^CYB::API::Interop::Allocatable.*</Function>
+                <Function>^CYB::API::Interop::Constructor.*</Function>
+                <Function>^CYB::API::Interop::Object.*</Function>
                 <Function>^CYB::API::Interop::STLAllocator.*</Function>
                 <Function>^CYB::Platform::System::Sys.*</Function>
                 <Function>^CYB::API::String::UTF8::Validate.*</Function>

@@ -27,7 +27,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RemoteDebug", "RemoteDebug", "{AD52B059-EDE4-4BF9-B6A6-AFDE22310615}"
 	ProjectSection(SolutionItems) = preProject
 		BuildScripts\RemoteDebug\plink.exe = BuildScripts\RemoteDebug\plink.exe
-		BuildScripts\RemoteDebug\PrivateKey.ppk = BuildScripts\RemoteDebug\PrivateKey.ppk
 		BuildScripts\RemoteDebug\pscp.exe = BuildScripts\RemoteDebug\pscp.exe
 		BuildScripts\RemoteDebug\RemoteBuild.ps1 = BuildScripts\RemoteDebug\RemoteBuild.ps1
 		BuildScripts\RemoteDebug\RemoteClean.ps1 = BuildScripts\RemoteDebug\RemoteClean.ps1
@@ -47,11 +46,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Remote", "Utilities\Remote\
 		{CC599006-A54B-417F-9E3D-650A38A7C3E5} = {CC599006-A54B-417F-9E3D-650A38A7C3E5}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Programming Guide", "Programming Guide", "{CDC7A60A-EFF5-47F8-8FF4-2AC8F5DB02A6}"
-	ProjectSection(SolutionItems) = preProject
-		Before You Commit.txt = Before You Commit.txt
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SupportLibs", "SupportLibs", "{323845DB-C57F-48B8-8D9B-33CA513E85FE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catch", "Catch", "{A4BD2B4E-C162-4329-B6CF-E0C2F610E5B6}"
@@ -62,6 +56,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "single_include", "single_in
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tests", "Tests\Tests.vcxproj", "{C278CE8B-BC54-466E-A4F9-56F07CEB116F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Travis", "Travis", "{CCC2B42A-EE15-409C-8672-1FBBE533DF4C}"
+	ProjectSection(SolutionItems) = preProject
+		.travis.yml = .travis.yml
+		BuildScripts\Travis\Travis.sh = BuildScripts\Travis\Travis.sh
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -112,5 +112,6 @@ Global
 		{CC599006-A54B-417F-9E3D-650A38A7C3E5} = {4A2D05F7-6B95-4803-9807-F3E38919B099}
 		{A4BD2B4E-C162-4329-B6CF-E0C2F610E5B6} = {323845DB-C57F-48B8-8D9B-33CA513E85FE}
 		{85E06AE1-C645-43EE-B02E-24AFAF5CB194} = {A4BD2B4E-C162-4329-B6CF-E0C2F610E5B6}
+		{CCC2B42A-EE15-409C-8672-1FBBE533DF4C} = {0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}
 	EndGlobalSection
 EndGlobal

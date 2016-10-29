@@ -20,6 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doxygen", "Doxygen", "{71BE
 	ProjectSection(SolutionItems) = preProject
 		BuildScripts\Doxygen\CyberEngineMkIIIAPIDoxy.cfg = BuildScripts\Doxygen\CyberEngineMkIIIAPIDoxy.cfg
 		BuildScripts\Doxygen\CyberEngineMkIIIDoxy.cfg = BuildScripts\Doxygen\CyberEngineMkIIIDoxy.cfg
+		BuildScripts\Doxygen\TravisGenDox.sh = BuildScripts\Doxygen\TravisGenDox.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RemoteDebug", "RemoteDebug", "{AD52B059-EDE4-4BF9-B6A6-AFDE22310615}"

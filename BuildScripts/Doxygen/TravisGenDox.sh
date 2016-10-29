@@ -73,11 +73,8 @@ echo 'Generating Doxygen code documentation...'
 # Redirect both stderr and stdout to the log file AND the console.
 cd ../..
 doxygen $DOXYFILE 2>&1 | tee doxygen.log
-echo $(ls)
 cd code_docs
-echo $(ls)
 cd $GH_REPO_NAME
-echo $(ls)
 
 ################################################################################
 ##### Upload the documentation to the gh-pages branch of the repository.   #####

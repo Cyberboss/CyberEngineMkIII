@@ -6,6 +6,9 @@ namespace CYB {
 			//! @brief Remaps STL style allocations to the CyberEngine Allocator. Based on std::allocator, usable on STL containers
 			template <class AType> class STLAllocator {
 			public:
+				//! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::rebind</a>
+				template<class AOther> struct rebind { typedef STLllocator<AOther> other; };
+
 				using value_type = AType;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a>
 				using propagate_on_container_move_assignment = std::false_type;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a>
 				using is_always_equal = std::true_type;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a>

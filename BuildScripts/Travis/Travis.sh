@@ -1,0 +1,7 @@
+if [ "${TRAVIS_PULL_REQUEST}" = "false" ] then
+	cmake . -DCMAKE_BUILD_TYPE=Release -DCOTIRE_MINIMUM_NUMBER_OF_TARGET_SOURCES=1 .
+else
+	cmake . -DCMAKE_BUILD_TYPE=Debug -DCOTIRE_MINIMUM_NUMBER_OF_TARGET_SOURCES=1 .
+fi
+make
+ctest

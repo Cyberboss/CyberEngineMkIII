@@ -78,10 +78,10 @@ cd $GH_REPO_NAME
 
 ################################################################################
 ##### Upload the documentation to the gh-pages branch of the repository.   #####
-# Only upload if Doxygen successfully created the documentation.
+# Only upload if Doxygen successfully created the documentation and this is not a pull request.
 # Check this by verifying that the file index.html
 # exists. This is a good indication that Doxygen did it's work.
-if [ -f "index.html" ]; then
+if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ -f "index.html" ]; then
 
     echo 'Uploading documentation to the gh-pages branch...'
     # Add everything in this directory (the Doxygen code documentation) to the

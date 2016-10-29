@@ -6,14 +6,14 @@ namespace CYB {
 			//! @brief Remaps STL style allocations to the CyberEngine Allocator. Based on std::allocator, usable on STL containers
 			template <class AType> class STLAllocator {
 			public:
-				using pointer = AType*;	//<! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::pointer</a>
-				using const_pointer = const AType*;	//<! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::const_pointer</a>
-				using reference = AType&;	//<! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::reference</a>
-				using const_reference = const AType&;	//<! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::const_reference</a>
-				using size_type = unsigned long long;	//<! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::size_type</a>
-				using difference_type = std::ptrdiff_t;	//<! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::difference_type</a>
+				using pointer = AType*;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::pointer</a>
+				using const_pointer = const AType*;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::const_pointer</a>
+				using reference = AType&;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::reference</a>
+				using const_reference = const AType&;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::const_reference</a>
+				using size_type = unsigned long long;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::size_type</a>
+				using difference_type = std::ptrdiff_t;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::difference_type</a>
 
-				template<class AOther> struct rebind { typedef STLAllocator<AOther> other; };	//<! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::rebind</a>
+				template<class AOther> struct rebind { typedef STLAllocator<AOther> other; };	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::rebind</a>
 
 				using value_type = AType;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a>
 				using propagate_on_container_move_assignment = std::false_type;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a>

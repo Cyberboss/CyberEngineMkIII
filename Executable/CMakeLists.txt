@@ -7,7 +7,4 @@ ENDIF()
 add_executable(${CYB_EXE_NAME} 
 CYBEntry.cpp)
 
-set_property(TARGET ${CYB_EXE_NAME} PROPERTY CXX_STANDARD 17)
-set_property(TARGET ${CYB_EXE_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
-
 target_link_libraries(${CYB_EXE_NAME} EngineBase)

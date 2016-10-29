@@ -53,9 +53,6 @@ Engine/Core/CYBInterop.cpp
 Engine/Core/CYBCore.cpp
 )
 
-set_property(TARGET EngineBase PROPERTY CXX_STANDARD 17)
-set_property(TARGET EngineBase PROPERTY CXX_STANDARD_REQUIRED ON)
-
 set_property(TARGET EngineBase PROPERTY COMPILE_FLAGS "-pedantic")
 target_link_libraries(EngineBase dl)
 

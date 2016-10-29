@@ -9,6 +9,9 @@ include(${CYB_BASE_DIR}/BuildScripts/CMake/add_catch_tests.cmake)
 
 enable_testing()
 
+
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CYB_BASE_DIR}/Output/bin")

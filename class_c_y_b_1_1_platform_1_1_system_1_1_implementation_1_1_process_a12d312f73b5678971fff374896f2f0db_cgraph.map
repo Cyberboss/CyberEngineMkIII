@@ -1,0 +1,8 @@
+<map id="CYB::Platform::System::Implementation::Process::CreateProcess" name="CYB::Platform::System::Implementation::Process::CreateProcess">
+<area shape="rect" id="node2" href="$namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192" title="Retrieve the Core singleton. " alt="" coords="282,12,369,39"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html#ab1e6e8defdafe4440aeaa028a7da843a" title="Get the underlying wide char array. " alt="" coords="240,63,411,105"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html#a90212a7c1b5164d18679b9431a9c5562" title="Get the underlying const wide char array. " alt="" coords="240,129,411,170"/>
+<area shape="rect" id="node6" href="$class_c_y_b_1_1_a_p_i_1_1_assert.html#af010ca683e011c7a5d4390802b9c62ed" title="Less than assertion function. May not be evaluated. " alt="" coords="230,195,421,221"/>
+<area shape="rect" id="node7" href="$class_c_y_b_1_1_a_p_i_1_1_assert.html#a7c3b3fbce005743363eab2a74c2f30be" title="Unequivalence assertion function. May not be evaluated. " alt="" coords="231,245,419,272"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba" title="Retrieve the Core singleton. " alt="" coords="470,5,613,46"/>
+</map>

@@ -1,0 +1,13 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html" title="Defines the base class for allocatable engine objects. " alt="" coords="5,114,141,155"/>
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="223,12,332,39"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_a_p_i_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. " alt="" coords="215,63,339,89"/>
+<area shape="rect" id="node6" href="$class_c_y_b_1_1_a_p_i_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no&#45;op. " alt="" coords="220,180,335,207"/>
+<area shape="rect" id="node8" href="$class_c_y_b_1_1_a_p_i_1_1_path_1_1_directory_entry.html" title="Iterator for paths in a directory. " alt="" coords="189,297,365,338"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="413,5,573,46"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_platform_1_1_system_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. " alt="" coords="413,99,573,141"/>
+<area shape="rect" id="node7" href="$class_c_y_b_1_1_platform_1_1_system_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no&#45;op. " alt="" coords="413,187,573,229"/>
+<area shape="rect" id="node9" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_1_1_directory_entry.html" title="Uses the FindFile API to enumerate directories. " alt="" coords="413,289,573,345"/>
+<area shape="rect" id="node10" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_mutex.html" title="Contains the CRITICAL_SECTION struct. " alt="" coords="196,114,359,155"/>
+<area shape="rect" id="node11" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html" title="Adds a UTF16 accompaniment to the UTF8 string of System::Path. " alt="" coords="197,231,357,273"/>
+</map>

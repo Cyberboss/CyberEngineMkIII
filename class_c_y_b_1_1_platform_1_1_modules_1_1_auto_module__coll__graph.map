@@ -1,0 +1,5 @@
+<map id="CYB::Platform::Modules::AutoModule&lt; AOptionalFunctions, AN, AFunctionTypes &gt;" name="CYB::Platform::Modules::AutoModule&lt; AOptionalFunctions, AN, AFunctionTypes &gt;">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_platform_1_1_modules_1_1_auto_module_optional_helpers.html" title="AutoModule external helper for functions that rely on the state of AOptionalFunctions. " alt="" coords="227,5,419,61"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_platform_1_1_modules_1_1_module.html" title="Encompasses a handle on loaded modules. " alt="" coords="241,85,405,126"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_platform_1_1_modules_1_1_implementation_1_1_module.html" title="Contains the Module handle. " alt="" coords="6,85,175,126"/>
+</map>

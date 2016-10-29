@@ -1,0 +1,6 @@
+<map id="CYB::API::String::CStyle" name="CYB::API::String::CStyle">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html" title="Used for string of allocated variable length. " alt="" coords="94,80,276,107"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_static.html" title="A string pointing to unchanging data in the stack above it or the data segment. Must have UTF&#45;8 encod..." alt="" coords="301,80,464,107"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html" title="UTF&#45;16 String enabled only under windows. " alt="" coords="5,155,176,181"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html" title="A variable length UTF&#45;8 string. " alt="" coords="200,155,363,181"/>
+</map>

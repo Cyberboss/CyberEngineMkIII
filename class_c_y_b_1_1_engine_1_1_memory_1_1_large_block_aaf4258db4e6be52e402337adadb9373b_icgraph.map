@@ -1,0 +1,4 @@
+<map id="CYB::Engine::Memory::LargeBlock::AllocateBlock" name="CYB::Engine::Memory::LargeBlock::AllocateBlock">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a9daf8e91a1b56e54956f8c827d06b0f9" title="Allocates a Block. " alt="" coords="238,5,391,46"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a617b9703a4f90dc71cca12e22231e659" title="Reallocates a Block. " alt="" coords="238,70,391,111"/>
+</map>

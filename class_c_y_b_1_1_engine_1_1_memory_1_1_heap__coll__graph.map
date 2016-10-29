@@ -1,0 +1,11 @@
+<map id="CYB::Engine::Memory::Heap" name="CYB::Engine::Memory::Heap">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_heap.html" title="An interface which can allocate memory. " alt="" coords="474,5,593,32"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html" title="A unit of memory allocation. " alt="" coords="221,57,374,98"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_large_block.html" title="Used to identify the end of a Heap. " alt="" coords="457,119,610,161"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_platform_1_1_system_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. " alt="" coords="453,185,613,226"/>
+<area shape="rect" id="node6" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_mutex.html" title="Contains the CRITICAL_SECTION struct. " alt="" coords="216,130,379,171"/>
+<area shape="rect" id="node7" href="$class_c_y_b_1_1_a_p_i_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. " alt="" coords="235,196,359,223"/>
+<area shape="rect" id="node8" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html" title="Defines the base class for allocatable engine objects. " alt="" coords="5,189,141,230"/>
+<area shape="rect" id="node9" href="$class_c_y_b_1_1_platform_1_1_system_1_1_virtual_memory.html" title="Access and abstraction to the basic OS memory functions. " alt="" coords="453,250,613,291"/>
+<area shape="rect" id="node10" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_virtual_memory.html" title="Various aligment functions. " alt="" coords="192,250,403,291"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="CYB::Engine::Memory::Heap::Realloc" name="CYB::Engine::Memory::Heap::Realloc">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#a110ecf2566ba1562c0818fc4781f287e" title="Retrieves a reference to a Block given it&#39;s data pointer. " alt="" coords="221,5,374,46"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_a_p_i_1_1_byte_converters.html#a1d0a18efdec32153b10590ceead1a55b" title="Get the true byte value of some amount of megabytes. " alt="" coords="208,70,387,111"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#ad198efa9108b86e9c3ace43f56fa2fd1" title="Checks the validity of a Block HCFs if invalid. Has no effect outside of DEBUG mode. " alt="" coords="435,5,589,46"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="CYB::Engine::Core::Run" name="CYB::Engine::Core::Run">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_platform_1_1_system_1_1_process.html#a035de00f0f360ee411d3b139ae9aa143" title="Get&#39;s the Process representing the current execution. " alt="" coords="221,5,381,46"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_platform_1_1_system_1_1_process.html#a82fc7c88a7ec49d6006b801e477f714a" title="Terminates the Process with exit code 0. " alt="" coords="221,70,381,111"/>
+</map>

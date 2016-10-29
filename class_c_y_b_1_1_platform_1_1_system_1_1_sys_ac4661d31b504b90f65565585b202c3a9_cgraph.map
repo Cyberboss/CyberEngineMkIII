@@ -1,0 +1,5 @@
+<map id="CYB::Platform::System::Sys::LinkedCall" name="CYB::Platform::System::Sys::LinkedCall">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html#a587b183a459c771bcbfb8957e923ecd7" title="Get the contained const CString. " alt="" coords="213,5,384,46"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html#a6d93af0af6a1dc59cabc371c79a25ce1" title="Get the byte length of the contained CString. " alt="" coords="213,70,384,111"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_a_p_i_1_1_assert.html#a94aa600d08fe68fbf78bd3a3248f0176" title="Indicates unreachable code. Implementation can be overriden by defining ASSERTION_OVERRIDE. " alt="" coords="217,136,380,163"/>
+</map>

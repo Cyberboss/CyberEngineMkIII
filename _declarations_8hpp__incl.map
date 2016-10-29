@@ -1,0 +1,8 @@
+<map id="Engine/API/Declarations/Declarations.hpp" name="Engine/API/Declarations/Declarations.hpp">
+<area shape="rect" id="node2" href="$_o_s_declaration_8hpp.html" title="Defines the TARGET_OS_XXX macro for identifying the operating system the program is being compiled fo..." alt="" coords="5,96,136,123"/>
+<area shape="rect" id="node4" href="$_endianess_8hpp.html" title="Ensures the engine/unit is being compiled on a little endian architecture. " alt="" coords="161,96,268,123"/>
+<area shape="rect" id="node6" href="$_system_checks_8hpp.html" title="Checks the platform that the engine and unit is being compiled on is appropriate. ..." alt="" coords="293,96,429,123"/>
+<area shape="rect" id="node7" href="$_s_t_l_8hpp.html" title="Used for including c++ headers that contain language features, not library features. " alt="" coords="454,96,524,123"/>
+<area shape="rect" id="node8" href="$_assert_8hpp.html" title="Defines assertion functions and macros. " alt="" coords="549,96,635,123"/>
+<area shape="rect" id="node10" href="$_expressions_8hpp.html" title="Helpful constexprs. " alt="" coords="659,96,777,123"/>
+</map>

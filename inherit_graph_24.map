@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_c_y_b_1_1_exception_1_1_base.html" title="The base exception recognized by the entire engine. " alt="" coords="5,56,160,83"/>
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_exception_1_1_internal.html" title="Exceptions that are thrown internally in the engine that the should never see, these are a superset o..." alt="" coords="223,5,390,32"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p..." alt="" coords="208,56,405,83"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_exception_1_1_violation.html" title="Exceptions indicating an API contract violation. Should not be anticipated. " alt="" coords="219,107,394,133"/>
+</map>

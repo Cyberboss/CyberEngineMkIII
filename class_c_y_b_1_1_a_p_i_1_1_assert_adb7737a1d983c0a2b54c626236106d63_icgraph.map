@@ -1,0 +1,5 @@
+<map id="CYB::API::Assert::True" name="CYB::API::Assert::True">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a5533d1d9f1bed19c3e22ab96cd01215b" title="Coalesces Blocks to the left of ABlock and updates the free list. " alt="" coords="214,5,410,46"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a9daf8e91a1b56e54956f8c827d06b0f9" title="Allocates a Block. " alt="" coords="235,70,389,111"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a35eafabf1aabd058cb47525bbbd4b0db" title="Walks the heap blocks and free list and throws if an error is detected. " alt="" coords="235,135,389,177"/>
+</map>

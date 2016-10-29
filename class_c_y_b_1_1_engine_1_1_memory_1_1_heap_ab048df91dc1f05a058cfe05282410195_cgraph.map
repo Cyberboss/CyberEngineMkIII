@@ -1,0 +1,4 @@
+<map id="CYB::Engine::Memory::Heap::Free" name="CYB::Engine::Memory::Heap::Free">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#a110ecf2566ba1562c0818fc4781f287e" title="Retrieves a reference to a Block given it&#39;s data pointer. " alt="" coords="209,5,362,46"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#ad198efa9108b86e9c3ace43f56fa2fd1" title="Checks the validity of a Block HCFs if invalid. Has no effect outside of DEBUG mode. " alt="" coords="411,5,565,46"/>
+</map>

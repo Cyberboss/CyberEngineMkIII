@@ -1,0 +1,14 @@
+<map id="CYB::Engine::Memory::Heap::ReallocImpl" name="CYB::Engine::Memory::Heap::ReallocImpl">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_assert.html#af010ca683e011c7a5d4390802b9c62ed" title="Less than assertion function. May not be evaluated. " alt="" coords="441,29,631,55"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#abd6a084e7af34b02d51b0be2de603f28" title="Get the block to the right of this Block. " alt="" coords="223,312,377,353"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_a_p_i_1_1_lock_guard.html#a5aa57f3e1441081ceae9309601171bf5" title="Releases the lock on Mutex, this same LockGuard can never reaquire it. " alt="" coords="225,116,375,157"/>
+<area shape="rect" id="node6" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#a773a3ee9154efec099bcdd459aa2f329" title="Get the data portion of the memory owned by this Block. " alt="" coords="223,181,377,223"/>
+<area shape="rect" id="node7" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#a02df86224a15e0ca2b937d430b07e119" title="Get the size of the Block. " alt="" coords="223,51,377,92"/>
+<area shape="rect" id="node8" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#a110ecf2566ba1562c0818fc4781f287e" title="Retrieves a reference to a Block given it&#39;s data pointer. " alt="" coords="223,247,377,288"/>
+<area shape="rect" id="node10" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_large_block.html#aaf4258db4e6be52e402337adadb9373b" title="Allocate a portion of the LargeBlock&#39;s owned data to create a regular block. " alt="" coords="209,377,391,419"/>
+<area shape="rect" id="node11" href="$class_c_y_b_1_1_a_p_i_1_1_assert.html#afcd9826793c79329077a4cc928cec268" title="Equivalence assertion function. May not be evaluated. " alt="" coords="453,505,619,531"/>
+<area shape="rect" id="node12" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#af58464f0a7374799a0c6f9b48be8a18e" title="Merge size and header into the size of the Block to the left. Does not modify free lists..." alt="" coords="223,443,377,484"/>
+<area shape="rect" id="node13" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#ac205194cd5aef846158366f5dd3a9a9f" title="Set the Block&#39;s free state. " alt="" coords="223,560,377,601"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_a_p_i_1_1_assert.html#ad64c79fa059a2f03a3f094fa3314eb72" title="False assertion function. AExpression should always be evaluated. " alt="" coords="453,385,619,411"/>
+<area shape="rect" id="node9" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#ad198efa9108b86e9c3ace43f56fa2fd1" title="Checks the validity of a Block HCFs if invalid. Has no effect outside of DEBUG mode. " alt="" coords="459,247,613,288"/>
+</map>

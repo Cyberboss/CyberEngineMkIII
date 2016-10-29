@@ -1,0 +1,8 @@
+<map id="CYB::Engine::Memory::Heap::Heap" name="CYB::Engine::Memory::Heap::Heap">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_platform_1_1_system_1_1_virtual_memory.html#afd70a4b05a2147d38396e22264053cc1" title="Commit some amount of memory from a reserved address space. On return, the memory will be usable..." alt="" coords="237,5,405,46"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#aafdaee82c36e341844f2af76c326f57a" title="A small max comparison of AInitialCommitSize and sizeof(Block) + 1. " alt="" coords="208,70,435,111"/>
+<area shape="rect" id="node6" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#abf2798aefd94db831054ce1e4093e862" title="Get a reference to the first block in the reservation. " alt="" coords="245,135,398,177"/>
+<area shape="rect" id="node7" href="$class_c_y_b_1_1_platform_1_1_system_1_1_virtual_memory.html#a7d3278f812668f114f4707375974a4f3" title="Get the current commit size of the reservation. " alt="" coords="224,201,419,242"/>
+<area shape="rect" id="node3" href="$namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192" title="Retrieve the Core singleton. " alt="" coords="483,12,570,39"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba" title="Retrieve the Core singleton. " alt="" coords="619,5,762,46"/>
+</map>

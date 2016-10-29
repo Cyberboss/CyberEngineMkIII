@@ -1,0 +1,4 @@
+<map id="CYB::API::Interop::Context" name="CYB::API::Interop::Context">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html" title="Used for allocating objects within and without the engine. " alt="" coords="4,97,139,138"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_a_p_i_1_1_heap.html" title="An interface which can allocate memory. " alt="" coords="13,5,131,32"/>
+</map>

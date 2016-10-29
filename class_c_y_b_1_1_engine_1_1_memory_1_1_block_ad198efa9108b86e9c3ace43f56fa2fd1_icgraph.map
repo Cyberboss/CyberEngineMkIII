@@ -1,0 +1,7 @@
+<map id="CYB::Engine::Memory::Block::Validate" name="CYB::Engine::Memory::Block::Validate">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#a110ecf2566ba1562c0818fc4781f287e" title="Retrieves a reference to a Block given it&#39;s data pointer. " alt="" coords="209,70,362,111"/>
+<area shape="rect" id="node6" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_large_block.html#a6eb8c73e8c6a9446393a08cdac401dae" title="Checks the validity of a Block HCFs if invalid. Has no effect outside of DEBUG mode. This version must be used when referring to large blocks " alt="" coords="209,135,362,177"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a617b9703a4f90dc71cca12e22231e659" title="Reallocates a Block. " alt="" coords="411,5,565,46"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a156864e7a58c35e4d00c67a60c992b33" title="Allocate memory from the heap for use while preserving previous data. Passing a valid APreviousAlloca..." alt="" coords="411,70,565,111"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#ab048df91dc1f05a058cfe05282410195" title="Return memory to the heap. Data in allocated range will be lost. " alt="" coords="411,135,565,177"/>
+</map>

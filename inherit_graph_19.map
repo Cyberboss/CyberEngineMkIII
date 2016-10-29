@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html" title="A basic char contained string. " alt="" coords="5,56,176,83"/>
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html" title="Used for string of allocated variable length. " alt="" coords="225,31,407,57"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_static.html" title="A string pointing to unchanging data in the stack above it or the data segment. Must have UTF&#45;8 encod..." alt="" coords="234,81,398,108"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html" title="UTF&#45;16 String enabled only under windows. " alt="" coords="456,5,627,32"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html" title="A variable length UTF&#45;8 string. " alt="" coords="460,56,623,83"/>
+</map>

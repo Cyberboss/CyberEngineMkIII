@@ -3,5 +3,5 @@ if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then
 else
 	cmake . -DCMAKE_BUILD_TYPE=Debug -DCOTIRE_MINIMUM_NUMBER_OF_TARGET_SOURCES=1
 fi
-make
+make VERBOSE=1
 ctest

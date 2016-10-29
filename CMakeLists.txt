@@ -1,11 +1,11 @@
-cmake_minimum_required (VERSION 3.4.3)
+cmake_minimum_required (VERSION 3.2.2)
+
+Project(CyberEngineMarkIII)
 
 set(CYB_BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 
 include(${CYB_BASE_DIR}/BuildScripts/CMake/cotire.cmake)
 include(${CYB_BASE_DIR}/BuildScripts/CMake/add_catch_tests.cmake)
-
-Project(CyberEngineMarkIII)
 
 enable_testing()
 

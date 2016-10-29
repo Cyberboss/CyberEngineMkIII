@@ -1,5 +1,3 @@
-cmake_minimum_required (VERSION 3.4.3)
-
 include_directories(${CYB_BASE_DIR}/Tests)
 
 add_executable(CyberEngineMkIIITester

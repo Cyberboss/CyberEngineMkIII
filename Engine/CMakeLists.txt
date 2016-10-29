@@ -53,9 +53,6 @@ Engine/Core/CYBInterop.cpp
 Engine/Core/CYBCore.cpp
 )
 
-set_property(TARGET EngineBase PROPERTY CXX_STANDARD 14)
-set_property(TARGET EngineBase PROPERTY CXX_STANDARD_REQUIRED ON)
-
 IF(CMAKE_BUILD_TYPE MATCHES Debug)
 	set_property(TARGET EngineBase PROPERTY COMPILE_FLAGS "-fprofile-arcs -ftest-coverage -pedantic")
 	IF(APPLE)

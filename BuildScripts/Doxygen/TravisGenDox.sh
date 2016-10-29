@@ -73,6 +73,12 @@ echo 'Generating Doxygen code documentation...'
 # Redirect both stderr and stdout to the log file AND the console.
 cd ../..
 doxygen $DOXYFILE 2>&1 | tee doxygen.log
+
+if grep -q -i "warning" "doxygen.log"; then
+	echo 'Warnings detected in documentation. Failing build!'
+	exit 1
+ fi
+
 cd code_docs
 cd $GH_REPO_NAME
 

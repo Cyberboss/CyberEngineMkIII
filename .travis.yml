@@ -31,6 +31,9 @@ env:
   - GH_REPO_NAME: CyberEngineMkIII
   - DOXYFILE: $TRAVIS_BUILD_DIR/BuildScripts/Doxygen/CyberEngineMkIIIDoxy.cfg
   - GH_REPO_REF: github.com/CyberbossJHCB/CyberEngineMkIII.git
+  matrix:
+  - BUILD_RELEASE: false
+  - BUILD_RELEASE: true
 script: 
 - BuildScripts/Travis/Travis.sh
 - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisCheckDox.sh; fi

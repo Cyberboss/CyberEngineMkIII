@@ -26,7 +26,8 @@ addons:
     - graphviz
 env:
   global:
-  - COMPILER: clang++-3.7
+  - CXXOMPILER: clang++-3.7
+  - CCOMPILER: clang-3.7
   - GH_REPO_NAME: CyberEngineMkIII
   - DOXYFILE: $TRAVIS_BUILD_DIR/BuildScripts/Doxygen/CyberEngineMkIIIDoxy.cfg
   - GH_REPO_REF: github.com/CyberbossJHCB/CyberEngineMkIII.git

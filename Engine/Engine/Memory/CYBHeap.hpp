@@ -121,6 +121,7 @@ namespace CYB {
 					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_COMMITAL_FAILURE. Thrown if the memory could not be committed
 				*/
 				Heap(const unsigned long long AInitialCommitSize);
+				//! @brief See @ref structors
 				Heap(const Heap&) = delete;
 				//! @brief Destroys a heap, invalidating any memory allocated from it
 				~Heap() = default;

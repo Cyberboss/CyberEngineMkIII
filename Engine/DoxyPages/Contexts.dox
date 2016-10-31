@@ -6,32 +6,5 @@
 
 The name context was orginally derived from OpenGL context as that was what the object provided services. Now it operates as the loop manager for the engine.
 
-@section gloop Main Loop
-
-The Context loop is run every update, not every frame as rendering is asynchronous. It is based on a tick rate that is set by Units and can be overridden on the execution command line. This is the maximum speed at which the loop will operate. The loop runs internally in the engine and makes calls to ContextObjects, which in turn call into units. The main loop terminates when all ContextObjects have been deleted or a quit message was recieved by the Unit or the system. ContextObjects are constructed with a priority byte, and are processed in ascending order based on it.
-
-@section cos Context Objects
-
-The main bulk of engine work is in ContextObjects. The Context itself is mainly a bookkeeper and ContextObject factory. ContextObjects perform tasks such as rendering, tilemap processing, input handling and so forth. Context object are internal to the engine and units will never actually see them. To communicate with Units, ContextObject::Interfaces are provided. These are abstract classes which ContextObjects call into to facillitate Unit communication. For example, The Window ContextObject will call a unit with it's Dispatcher Interface with input events. 
-
-@subsection windows Windows
-
-Windows are a users portals to renderers. They also handle events. It's interface is the Dispatcher. A note on having multiple Windowing Contexts on Linux platforms: Due to the nature of X11 events, Window processing must be synchronized between threads. The engine takes care of this, however this incurs additional overhead in the form that all windowed Contexts will run, at best, the tickrate of the highest tickrate windowed Context. Also windowed Contexts are outright disallowed on non-main threads due to the nature of Cocoa windows on OSX. Due to these constraints CyberEngine reccommends running one Context that will handle all Windows on the main thread of your Unit. Note that, regardless of processing priority, Window events will be the first thing run on a Context tick.
-
-@subsection renderer Renderer
-
-This ContextObject exists if the Context contains a Window ContextObject. It has no interface as it is controlled through the interfaces of the Windows that use it
-
-@subsection networking Networks
-
-Used for semi-reliable UDP communications. It has Interfaces in Network::Manager and Network::Console
-
-@subsection ai Artifical Intelligences
-
-Used for NEAT algorithm based, potentially asyncronously bred, neural networks. It's Interface is the AI::Director
-
-@subsection audio Audio
-
-@subsection tm Tile Maps
 
 */

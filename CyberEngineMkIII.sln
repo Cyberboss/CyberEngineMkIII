@@ -76,6 +76,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Appveyor", "Appveyor", "{3B
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
 		BuildScripts\Appveyor\InstallCatchAdapter.ps1 = BuildScripts\Appveyor\InstallCatchAdapter.ps1
+		BuildScripts\Appveyor\RunTests.ps1 = BuildScripts\Appveyor\RunTests.ps1
 	EndProjectSection
 EndProject
 Global

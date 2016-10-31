@@ -20,7 +20,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doxygen", "Doxygen", "{71BE
 	ProjectSection(SolutionItems) = preProject
 		BuildScripts\Doxygen\CyberEngineMkIIIAPIDoxy.cfg = BuildScripts\Doxygen\CyberEngineMkIIIAPIDoxy.cfg
 		BuildScripts\Doxygen\CyberEngineMkIIIDoxy.cfg = BuildScripts\Doxygen\CyberEngineMkIIIDoxy.cfg
-		BuildScripts\Doxygen\TravisGenDox.sh = BuildScripts\Doxygen\TravisGenDox.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RemoteDebug", "RemoteDebug", "{AD52B059-EDE4-4BF9-B6A6-AFDE22310615}"
@@ -60,6 +59,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Travis", "Travis", "{CCC2B4
 	ProjectSection(SolutionItems) = preProject
 		.travis.yml = .travis.yml
 		BuildScripts\Travis\Travis.sh = BuildScripts\Travis\Travis.sh
+		BuildScripts\Travis\TravisCheckDox.sh = BuildScripts\Travis\TravisCheckDox.sh
+		BuildScripts\Travis\TravisGenDox.sh = BuildScripts\Travis\TravisGenDox.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Git Stuff", "Git Stuff", "{26ACC199-00A5-47D2-B0F5-37E072E393E5}"

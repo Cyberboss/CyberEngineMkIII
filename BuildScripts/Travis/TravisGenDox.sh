@@ -35,6 +35,12 @@ __AUTHOR__="Jeroen de Bruijn"
 
 ################################################################################
 ##### Setup this script and get the current gh-pages branch.               #####
+
+ if [ "${TRAVIS_PULL_REQUEST}" = "false" ] then
+	echo 'PR build detected. Not pushing to github pages'
+	exit 0
+ fi
+
 echo 'Setting up the script...'
 # Exit with nonzero exit code if anything fails
 set -e
@@ -71,13 +77,9 @@ echo "" > .nojekyll
 ##### Generate the Doxygen code documentation and log the output.          #####
 echo 'Generating Doxygen code documentation...'
 # Redirect both stderr and stdout to the log file AND the console.
+# Use the windows documentation
 cd ../..
-doxygen $DOXYFILE 2>&1 | tee doxygen.log
-
-if grep -q -i "warning" "doxygen.log"; then
-	echo 'Warnings detected in documentation. Failing build!'
-	exit 1
- fi
+$(cat $DOXYFILE ; echo "EXPAND_AS_DEFINED = DEBUG TARGET_OS_WINDOWS" ; echo "OUTPUT_DIRECTORY = code_docs/$GH_REPO_NAME"; echo "EXCLUDE_PATTERNS = CYBPosix* CYBLinux* CYBOSX*")|doxygen 2>&1 | tee doxygen.log
 
 cd code_docs
 cd $GH_REPO_NAME
@@ -87,7 +89,7 @@ cd $GH_REPO_NAME
 # Only upload if Doxygen successfully created the documentation and this is not a pull request.
 # Check this by verifying that the file index.html
 # exists. This is a good indication that Doxygen did it's work.
-if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ -f "index.html" ]; then
+if [ -f "index.html" ]; then
 
     echo 'Uploading documentation to the gh-pages branch...'
     # Add everything in this directory (the Doxygen code documentation) to the
@@ -104,8 +106,6 @@ if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ -f "index.html" ]; then
     # The ouput is redirected to /dev/null to hide any sensitive credential data
     # that might otherwise be exposed.
     git push --force "https://${GH_REPO_TOKEN}@${GH_REPO_REF}" > /dev/null 2>&1
-elif [ "${TRAVIS_PULL_REQUEST}" = "true" ] then
-	echo 'PR build detected. Not pushing to github pages'
 else
     echo '' >&2
     echo 'Warning: No documentation (html) files have been found!' >&2

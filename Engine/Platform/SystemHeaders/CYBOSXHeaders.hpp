@@ -8,7 +8,6 @@ namespace CYB {
 #define LIBDL_SO                       u8"libdl.dylib"
 #define LIBPTHREAD_SO                  u8"libpthread.dylib"
 #define LIBRT_SO                       u8"librt.dylib"
-#define thread_local __thread	//TLS hack
 			#include <limits.h>
 			#include <stdlib.h>
 			#include <mach-o/dyld.h>

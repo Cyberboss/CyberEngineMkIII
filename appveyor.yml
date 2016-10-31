@@ -12,7 +12,7 @@ configuration:
 
 install:
 - git submodule update --init --recursive
-- wget https://github.com/CyberbossJHCB/VSCatchAdapter/releases/download/0.1.0/VSCatchAdapter.vsix
+- BuildScripts/Appveyor/InstallCatchAdapter.ps1
 
 build: 
   project: CyberEngineMkIII.sln

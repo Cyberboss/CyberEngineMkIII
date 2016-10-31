@@ -75,6 +75,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Appveyor", "Appveyor", "{3BEB026D-3E5B-4704-AFC4-140DFA93AEBB}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
+		BuildScripts\Appveyor\InstallCatchAdapter.ps1 = BuildScripts\Appveyor\InstallCatchAdapter.ps1
 	EndProjectSection
 EndProject
 Global

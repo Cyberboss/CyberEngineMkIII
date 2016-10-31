@@ -22,4 +22,4 @@ before_test:
 - powershell -Command "BuildScripts/Appveyor/InstallCatchAdapter.ps1"
 
 test_script:
-- vstest.console /logger:Appveyor /Platform:x64 /TestAdapterPath:"." /inIsolation /Enablecodecoverage Output/bin/CyberEngineMkIIITester.exe
+- vstest.console /logger:Appveyor /Platform:x64 /TestAdapterPath:"VSCatchAdapter.dll" /inIsolation /Enablecodecoverage Output/bin/CyberEngineMkIIITester.exe

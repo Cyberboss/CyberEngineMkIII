@@ -296,12 +296,7 @@
     <None Include="API\Types\ThreadableTaskset.inl" />
     <None Include="DoxyPages\Contexts.dox" />
     <None Include="DoxyPages\Conventions.dox" />
-    <None Include="DoxyPages\IO.dox" />
-    <None Include="DoxyPages\Localization.dox" />
     <None Include="DoxyPages\Main.dox" />
-    <None Include="DoxyPages\Resources.dox" />
-    <None Include="DoxyPages\Tutorial.dox" />
-    <None Include="DoxyPages\Units.dox" />
     <None Include="Platform\Modules\CYBAutoModule.inl" />
     <None Include="Platform\Modules\CYBModuleDefinitions.hpp" />
     <ClCompile Include="Platform\SystemHeaders\CYBUTF16String.cpp">

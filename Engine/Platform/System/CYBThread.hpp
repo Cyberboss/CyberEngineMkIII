@@ -36,6 +36,7 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::THREAD_CREATION_FAILURE. Thrown if the thread is unable to be created
 				*/
 				Thread(API::Threadable& AThreadable);
+				//! @brief See @ref structors
 				Thread(const Thread&) = delete;
 				//! @brief Destroy a thread. Will block the caller until the owned thread terminates
 				~Thread();

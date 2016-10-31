@@ -56,6 +56,7 @@ namespace CYB {
 						@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::PROCESS_CREATION_ERROR. Thrown if the process could not be created
 					*/
 					Process(const System::Path& APath, const API::String::UTF8& ACommandLine);
+					//! @brief See @ref structors
 					Process(const Process&) = delete;
 					//! @brief See @ref structors
 					Process(Process&& AMove) noexcept = default;

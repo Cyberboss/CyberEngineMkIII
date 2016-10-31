@@ -60,6 +60,7 @@ namespace CYB {
 						This function requires that the owned memory isn't concurrently accessed during this function
 				*/
 				Block(const unsigned int ASpaceAvailable, const Block& ALeftBlock, const bool AFree) noexcept;
+				//! @brief See @ref structors
 				Block(const Block&) = delete;
 				/*!
 					@brief Get the data portion of the memory owned by this Block

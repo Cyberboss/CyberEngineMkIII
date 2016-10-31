@@ -12,8 +12,12 @@ namespace CYB {
 				using const_reference = const AType&;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::const_reference</a>
 				using size_type = unsigned long long;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::size_type</a>
 				using difference_type = std::ptrdiff_t;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::difference_type</a>
-
-				template<typename AOther> class rebind { public: typedef STLAllocator<AOther> other; };	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::rebind</a>
+				
+				//! @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::rebind</a>
+				template<typename AOther> class rebind { 
+				public:
+					using other = STLAllocator<AOther>;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator::rebind::other</a>
+				};	
 
 				using value_type = AType;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a>
 				using propagate_on_container_move_assignment = std::false_type;	//!< @brief See <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a>

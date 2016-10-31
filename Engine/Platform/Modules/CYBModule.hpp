@@ -14,7 +14,7 @@ namespace CYB {
 					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MODULE_LOAD_FAILURE. Thrown if the module is unable to be loaded
 				*/
 				Module(const API::String::CStyle& AModuleName);	//!< @brief See @ref structors
-				Module(const Module&) = delete;
+				Module(const Module&) = delete;	//!< @brief See @ref structors
 				Module(Module&& AMove) noexcept = default;	//!< @brief See @ref structors
 				Module& operator=(Module&& AMove) noexcept = default;	//!< @brief See @ref structors
 				/*!

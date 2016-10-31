@@ -444,22 +444,7 @@
     <None Include="DoxyPages\Conventions.dox">
       <Filter>DoxyPages</Filter>
     </None>
-    <None Include="DoxyPages\IO.dox">
-      <Filter>DoxyPages</Filter>
-    </None>
-    <None Include="DoxyPages\Localization.dox">
-      <Filter>DoxyPages</Filter>
-    </None>
     <None Include="DoxyPages\Main.dox">
-      <Filter>DoxyPages</Filter>
-    </None>
-    <None Include="DoxyPages\Resources.dox">
-      <Filter>DoxyPages</Filter>
-    </None>
-    <None Include="DoxyPages\Tutorial.dox">
-      <Filter>DoxyPages</Filter>
-    </None>
-    <None Include="DoxyPages\Units.dox">
       <Filter>DoxyPages</Filter>
     </None>
     <None Include="API\Declarations\Assert.inl">

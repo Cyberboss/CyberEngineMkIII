@@ -11,9 +11,12 @@ namespace CYB {
 				protected:
 					//! @copydoc CYB::Platform::Modules::Module::Module(const CYB::API::String::CStyle&)
 					Module(const API::String::CStyle& AModuleName);
+					//! @brief See @ref structors
 					Module(const Module&) = delete;
-					Module(Module&& AMove) noexcept;	//!< @brief See @ref structors
-					Module& operator=(Module&& AMove) noexcept;	//!< @brief See @ref structors
+					//! @brief See @ref structors
+					Module(Module&& AMove) noexcept;
+					//! @brief See @ref structors
+					Module& operator=(Module&& AMove) noexcept;
 					//! @brief dlcloses the Module
 					~Module();
 				};

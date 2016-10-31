@@ -2,10 +2,8 @@ platform:
 - x64
 
 matrix:
-- configuration:
-  - Debug
-- configuration:
-  - Release
+- configuration: Debug
+- configuration: Release
 
 install:
 - git submodule update --init --recursive

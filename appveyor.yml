@@ -14,10 +14,12 @@ configuration:
 
 install:
 - git submodule update --init --recursive
-- ps "BuildScripts/Appveyor/InstallCatchAdapter.ps1"
 
 build: 
   project: CyberEngineMkIII.sln
 
-test:
+before_test:
+- ps "BuildScripts/Appveyor/InstallCatchAdapter.ps1"
+
+test_script:
 - vstest.console /logger:Appveyor /UseVsixExtensions:true Output/bin/CyberEngineMkIIITester.exe /xml cyb-test-results.xml

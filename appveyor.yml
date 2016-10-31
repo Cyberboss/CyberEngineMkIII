@@ -19,7 +19,7 @@ build:
   project: CyberEngineMkIII.sln
 
 before_test:
-- ps "BuildScripts/Appveyor/InstallCatchAdapter.ps1"
+- powershell -Command "BuildScripts/Appveyor/InstallCatchAdapter.ps1"
 
 test_script:
-- ps "BuildScripts/Appveyor/RunTests.ps1"
+- powershell -Command "BuildScripts/Appveyor/RunTests.ps1"

@@ -36,7 +36,7 @@ __AUTHOR__="Jeroen de Bruijn"
 ################################################################################
 ##### Setup this script and get the current gh-pages branch.               #####
 
- if [ "${TRAVIS_PULL_REQUEST}" -ne "false" ]; then
+ if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
 	echo 'PR build detected. Not pushing to github pages'
 	exit 0
  fi

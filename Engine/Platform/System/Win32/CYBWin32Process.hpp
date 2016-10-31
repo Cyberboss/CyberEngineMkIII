@@ -46,6 +46,7 @@ namespace CYB {
 						@attention Launching processes which requires administrator elevation will block the current thread until the authorization dialog is closed
 					*/
 					Process(const System::Path& APath, const API::String::UTF8& ACommandLine);
+					//! @brief See @ref structors
 					Process(const Process&) = delete;
 					//! @brief See @ref structors
 					Process(Process&& AMove) noexcept;

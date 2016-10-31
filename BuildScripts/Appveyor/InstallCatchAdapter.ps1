@@ -1,4 +1,5 @@
 Write-Host "Downloading VSCatchAdapter v0.1.0..."
 wget https://github.com/CyberbossJHCB/VSCatchAdapter/releases/download/0.1.0/Release.zip
 Write-Host "Unzipping..."
+ls
 &"7z.exe" e Release.zip

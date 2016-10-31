@@ -18,8 +18,5 @@ install:
 build: 
   project: CyberEngineMkIII.sln
 
-before_test:
-- powershell -Command "BuildScripts/Appveyor/InstallCatchAdapter.ps1"
-
 test_script:
-- powershell -Command &"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" /logger:Appveyor /UseVsixExtensions:true /Platform:x64 /inIsolation /Enablecodecoverage Output/bin/CyberEngineMkIIITester.exe
+- powershell -Command "BuildScripts/Appveyor/InstallCatchAdapter.ps1"

@@ -31,6 +31,7 @@ static unsigned long long FakeLoadSym(Fake::SysCalls::Args& AArgs) {
 }
 
 SCENARIO("Core engine dry run", "[Engine][Core][Behavioural]") {
+	FAIL("Testing...");
 	GIVEN("A clean execution environment (With a redirected termination call of course)") {
 		FFakeProcExitRan = false;
 		ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);

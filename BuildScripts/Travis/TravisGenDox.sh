@@ -80,7 +80,7 @@ echo 'Generating Doxygen code documentation...'
 # Use the windows documentation
 cd ../..
 doxfile = "$(cat $DOXYFILE ; echo 'EXPAND_AS_DEFINED = DEBUG TARGET_OS_WINDOWS' ; echo 'OUTPUT_DIRECTORY = code_docs/$GH_REPO_NAME'; echo 'EXCLUDE_PATTERNS = CYBPosix* CYBLinux* CYBOSX*')"
-echo doxfile | doxygen 2>&1 | tee doxygen.log
+echo $doxfile | doxygen 2>&1 | tee doxygen.log
 
 cd code_docs
 cd $GH_REPO_NAME

@@ -65,6 +65,7 @@
       <AdditionalOptions>/experimental:module %(AdditionalOptions)</AdditionalOptions>
       <UseFullPaths>true</UseFullPaths>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <PostBuildEvent>
       <Command>

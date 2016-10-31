@@ -16,6 +16,7 @@ install:
 - git submodule update --init --recursive
 
 build: 
+  parallel: true
   project: CyberEngineMkIII.sln
 
 test_script:

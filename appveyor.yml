@@ -20,4 +20,4 @@ build:
   project: CyberEngineMkIII.sln
   
 test_script:
-- vstest.console.exe /logger:Appveyor /Platform:x64 /UseVsixExtensions:true /Enablecodecoverage Output/bin/CyberEngineMkIIITester.exe
+- vstest.console.exe /logger:Appveyor /Platform:x64 /UseVsixExtensions:true /inIsolation /Enablecodecoverage Output/bin/CyberEngineMkIIITester.exe

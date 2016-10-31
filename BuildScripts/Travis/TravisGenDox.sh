@@ -36,10 +36,10 @@ __AUTHOR__="Jeroen de Bruijn"
 ################################################################################
 ##### Setup this script and get the current gh-pages branch.               #####
 
- if [ "${TRAVIS_PULL_REQUEST}" = "false" ] then
+if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then
 	echo 'PR build detected. Not pushing to github pages'
 	exit 0
- fi
+fi
 
 echo 'Setting up the script...'
 # Exit with nonzero exit code if anything fails
@@ -79,7 +79,7 @@ echo 'Generating Doxygen code documentation...'
 # Redirect both stderr and stdout to the log file AND the console.
 # Use the windows documentation
 cd ../..
-doxfile = "$(cat $DOXYFILE ; echo 'EXPAND_AS_DEFINED = DEBUG TARGET_OS_WINDOWS' ; echo 'OUTPUT_DIRECTORY = code_docs/$GH_REPO_NAME'; echo 'EXCLUDE_PATTERNS = CYBPosix* CYBLinux* CYBOSX*')"
+doxfile="$(cat $DOXYFILE ; echo 'EXPAND_AS_DEFINED = DEBUG TARGET_OS_WINDOWS' ; echo 'OUTPUT_DIRECTORY = code_docs/$GH_REPO_NAME'; echo 'EXCLUDE_PATTERNS = CYBPosix* CYBLinux* CYBOSX*')"
 echo $doxfile | doxygen 2>&1 | tee doxygen.log
 
 cd code_docs

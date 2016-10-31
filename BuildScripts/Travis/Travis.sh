@@ -2,8 +2,8 @@
 
 #override the clag version we set for linux
 if [ "$(uname)" == "Darwin" ]; then
-	CXXCOMPILER=clang++
-	CCOMPILER=clang
+	export CXXCOMPILER=clang++
+	export CCOMPILER=clang
 fi
 
 if [ "${BUILD_RELEASE}" = "true" ]; then

@@ -28,5 +28,5 @@ env:
   - GH_REPO_REF: github.com/CyberbossJHCB/CyberEngineMkIII.git
 script: 
 - BuildScripts/Travis/Travis.sh
-- BuildScripts/Doxygen/TravisCheckDox.sh
-after_success: BuildScripts/Doxygen/TravisGenDox.sh
+- BuildScripts/Travis/TravisCheckDox.sh
+after_success: BuildScripts/Travis/TravisGenDox.sh

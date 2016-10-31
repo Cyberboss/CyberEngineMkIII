@@ -1,9 +1,10 @@
 platform:
 - x64
 
-configuration:
-  matrix:
+matrix:
+  configuration:
   - Debug
+  configuration:
   - Release
 
 install:

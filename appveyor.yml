@@ -17,9 +17,6 @@ install:
 
 build: 
   project: CyberEngineMkIII.sln
-
-before_test:
-- powershell -Command "BuildScripts/Appveyor/InstallCatchAdapter.ps1"
-
+  
 test_script:
-- vstest.console /logger:Appveyor /Platform:x64 /TestAdapterPath:"./" /inIsolation /Enablecodecoverage Output/bin/CyberEngineMkIIITester.exe
+- powershell -Command "BuildScripts/Appveyor/InstallCatchAdapter.ps1"

@@ -8,7 +8,7 @@ var searchData=
   ['testlognum',['TestLogNum',['../_c_y_b_entry_8cpp.html#a0b91f2bf67f914322582fc47c62ce53e',1,'CYBEntry.cpp']]],
   ['thread',['Thread',['../class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_thread.html',1,'CYB::Platform::System::Implementation']]],
   ['thread',['Thread',['../class_c_y_b_1_1_platform_1_1_system_1_1_thread.html',1,'CYB::Platform::System']]],
-  ['thread',['Thread',['../class_c_y_b_1_1_platform_1_1_system_1_1_thread.html#a8ed0977222ded6d70553d4a0e3d681d3',1,'CYB::Platform::System::Thread::Thread()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_thread.html#a29f12561f974ee56fe9e1df5c3cc3108',1,'CYB::Platform::System::Implementation::Thread::Thread()']]],
+  ['thread',['Thread',['../class_c_y_b_1_1_platform_1_1_system_1_1_thread.html#a8ed0977222ded6d70553d4a0e3d681d3',1,'CYB::Platform::System::Thread::Thread(API::Threadable &amp;AThreadable)'],['../class_c_y_b_1_1_platform_1_1_system_1_1_thread.html#a402bc01b053b33999f64d203cbf6a383',1,'CYB::Platform::System::Thread::Thread(const Thread &amp;)=delete'],['../class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_thread.html#a29f12561f974ee56fe9e1df5c3cc3108',1,'CYB::Platform::System::Implementation::Thread::Thread()']]],
   ['thread_5fcreation_5ffailure',['THREAD_CREATION_FAILURE',['../class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caae0bb0e073900687ffa9eae30291239b6',1,'CYB::Exception::SystemData']]],
   ['threadable',['Threadable',['../class_c_y_b_1_1_a_p_i_1_1_threadable.html',1,'CYB::API']]],
   ['threadable_2ehpp',['Threadable.hpp',['../_threadable_8hpp.html',1,'']]],

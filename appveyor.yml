@@ -22,4 +22,4 @@ before_test:
 - ps "BuildScripts/Appveyor/InstallCatchAdapter.ps1"
 
 test_script:
-- vstest.console /logger:Appveyor /UseVsixExtensions:true Output/bin/CyberEngineMkIIITester.exe /xml cyb-test-results.xml
+- ps "BuildScripts/Appveyor/RunTests.ps1"

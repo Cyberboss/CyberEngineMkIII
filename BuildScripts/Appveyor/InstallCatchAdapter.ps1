@@ -3,4 +3,9 @@ appveyor DownloadFile  https://github.com/CyberbossJHCB/VSCatchAdapter/releases/
 Write-Host "Unzipping..."
 &"7z.exe" e Release.zip
 
-&"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" /logger:Appveyor /Platform:x64 /TestAdapterPath:"./" /inIsolation /Enablecodecoverage Output/bin/CyberEngineMkIIITester.exe
+&"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\VSIXInstaller.exe" /q /a VSCatchAdapter.vsix
+
+&"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" /ListDiscoverers
+&"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" /ListExecutors
+
+&"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" /logger:Appveyor /Platform:x64 /UseVsixExtension:true /TestAdapterPath:"./" /inIsolation /Enablecodecoverage Output/bin/CyberEngineMkIIITester.exe

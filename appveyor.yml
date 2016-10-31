@@ -19,5 +19,8 @@ build:
   parallel: true
   project: CyberEngineMkIII.sln
   
+before_test:
+- powershell -Command "BuildScripts/Appveyor/InstallCatchAdapter.ps1"
+  
 test_script:
 - vstest.console.exe /logger:Appveyor /Platform:x64 /UseVsixExtensions:true /inIsolation /Enablecodecoverage Output/bin/CyberEngineMkIIITester.exe

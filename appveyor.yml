@@ -1,5 +1,5 @@
 branches:
-- only:
+  only:
   - master
   - dev
 
@@ -12,7 +12,7 @@ configuration:
 
 install:
 - git submodule update --init --recursive
-- https://github.com/CyberbossJHCB/VSCatchAdapter/releases/download/0.1.0/VSCatchAdapter.vsix
+- wget https://github.com/CyberbossJHCB/VSCatchAdapter/releases/download/0.1.0/VSCatchAdapter.vsix
 
 build: 
   project: CyberEngineMkIII.sln

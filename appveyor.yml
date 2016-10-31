@@ -16,8 +16,10 @@ install:
 - git submodule update --init --recursive
 
 build: 
-  parallel: true
   project: CyberEngineMkIII.sln
 
-test_script:
+before_test:
 - powershell -Command "BuildScripts/Appveyor/InstallCatchAdapter.ps1"
+
+test_script:
+- vstest.console /logger:Appveyor /UseVsixExtensions:true /Platform:x64 /inIsolation /Enablecodecoverage Output/bin/CyberEngineMkIIITester.exe

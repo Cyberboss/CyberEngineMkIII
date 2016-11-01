@@ -273,3 +273,7 @@ void CYB::Platform::System::Implementation::Path::DirectoryEntry::AssignOrRecurs
 	}
 	FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Context().FAllocator.NewObject<System::Path, System::Path::InternalConstructor>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Conversion));
 }
+
+const UTF16& CYB::Platform::System::Implementation::Path::WidePath(void) const noexcept {
+	return FWidePath;
+}

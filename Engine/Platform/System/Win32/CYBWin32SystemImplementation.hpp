@@ -1,3 +1,4 @@
+//! @file CYBWin32SystemImplementation.hpp Include implementation headers of CYB::Platform::System for Win32
 #pragma once
 
 #include "CYBWin32Syscalls.hpp"

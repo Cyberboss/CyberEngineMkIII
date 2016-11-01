@@ -50,6 +50,8 @@ namespace CYB {
 				File(File&& AMove) noexcept;
 				//! @brief See @ref structors
 				File& operator=(File&& AMove) noexcept = default;
+				//! @brief See @ref structors
+				~File() final override;
 
 				//! @copydoc CYB::API::File::Size()
 				unsigned long long Size(void) const noexcept final override;

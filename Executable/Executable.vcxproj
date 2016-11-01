@@ -63,7 +63,6 @@
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <BrowseInformation>true</BrowseInformation>
-      <AdditionalOptions>/experimental:module %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>kernel32.lib;Pathcch.lib</AdditionalDependencies>
@@ -92,7 +91,6 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <ControlFlowGuard>false</ControlFlowGuard>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
-      <AdditionalOptions>/experimental:module %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

@@ -62,7 +62,6 @@
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;_UNICODE;UNICODE;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4265;4548;4571;4668;4623;4626;4625;4710;4711;4820;5026;5027</DisableSpecificWarnings>
       <BrowseInformation>true</BrowseInformation>
-      <AdditionalOptions>/experimental:module %(AdditionalOptions)</AdditionalOptions>
       <UseFullPaths>true</UseFullPaths>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -89,7 +88,6 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>TestHeader.hpp</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4265;4548;4571;4668;4623;4626;4625;4710;4711;4820;5026;5027</DisableSpecificWarnings>
-      <AdditionalOptions>/experimental:module %(AdditionalOptions)</AdditionalOptions>
       <UseFullPaths>true</UseFullPaths>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -157,7 +155,6 @@
     <None Include="CoverageExclusions.runsettings" />
     <None Include="llvm-gcov.sh" />
     <None Include="Main.inl" />
-    <None Include="Optimized.runsettings" />
     <None Include="Utils\Backdoor.inl" />
     <None Include="Utils\CallRedirect.inl" />
     <ClCompile Include="Utils\HCF.cpp">

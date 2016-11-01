@@ -35,6 +35,7 @@ DEFINE_POSIX_MODULE(LibC, LIBC_SO, Posix, false,
 	mmap, mprotect, munmap, madvise,
 	readlink, mkdir, realpath, rmdir, unlink,
 	opendir, readdir, closedir,
+	open,
 	getuid, getpwuid_r, getenv, sysconf,
 	posix_spawn)
 DEFINE_POSIX_MODULE(PThread, LIBPTHREAD_SO, Posix, false, 

@@ -15,7 +15,9 @@ SCENARIO("File touching the unimplemented functions for code coverage", "[Platfo
 	Test.Append(UTF8(Static("HelloWorld")), false, false);
 	File From(Test, File::Mode::READ_WRITE, File::Method::ANY);
 	File To(std::move(From));
-	File TheFile(Path(Path::SystemPath::TEMPORARY), File::Mode::READ_WRITE, File::Method::ANY);
+	Path Test2(Path::SystemPath::TEMPORARY);
+	Test2.Append(UTF8(Static("HelloWorld2")), false, false);
+	File TheFile(std::move(Test2), File::Mode::READ_WRITE, File::Method::ANY);
 	TheFile.Size();
 	TheFile.CursorPosition();
 	TheFile.Seek(0, File::SeekLocation::CURSOR);

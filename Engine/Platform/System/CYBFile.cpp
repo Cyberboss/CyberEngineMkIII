@@ -1,19 +1,14 @@
 //! @file CYBFile.cpp Implements CYB::Platform::System::File shared functions
 #include "CYB.hpp"
 
-CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const Method AMethod) :
-	FPath(std::move(APath))
-{
-	static_cast<void>(AMode);
-	static_cast<void>(AMethod);
-	UNIMPLEMENTED;
-}
+CYB::Platform::System::File::File(const API::Path& APath, const Mode AMode, const Method AMethod) :
+	File(System::Path(static_cast<const System::Path&>(APath)), AMode, AMethod)
+{}
 
-CYB::Platform::System::File::File(File&& AMove) noexcept :
+CYB::Platform::System::File::File(File&& AMove) noexcept:
+	Implementation::File(std::move(AMove)),
 	FPath(std::move(AMove.FPath))
-{
-	UNIMPLEMENTED;
-}
+{}
 
 unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
 	UNIMPLEMENTED;

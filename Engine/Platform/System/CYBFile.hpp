@@ -5,7 +5,7 @@ namespace CYB {
 			//! @brief Contains the basic File interface. Does not perform locking of any kind, be aware of possible race conditions
 			class File : private Implementation::File, public API::File {
 			public:
-				const System::Path FPath;	//!< @brief The Path indicating this File
+				System::Path FPath;	//!< @brief The Path indicating this File
 			public:
 				/*!
 					@brief Equivalent to the statement File(APath, Mode::WRITE, Method::ANY);. Opens/creates a File and updates its access times
@@ -38,19 +38,18 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if @p AMode equals Mode::READ and the file could not be opened
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if @p AMode equals Mode::WRITE or Mode::READ_WRITE and the file could not be opened
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if @p APath failed to verify
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p AMode, or @p AMethod is invalid
 				*/
-				File(const API::Path& APath, const Mode AMode, const Method AMethod);
-				//! @copydoc CYB::Platform::System::File::File(const CYB::API::Path&, CYB::API::File::Mode, CYB::API::File::Method)
 				File(System::Path&& APath, const Mode AMode, const Method AMethod);
+				//! @copydoc CYB::Platform::System::File::File(CYB::Platform::System::Path&&, CYB::API::File::Mode, CYB::API::File::Method)
+				File(const API::Path& APath, const Mode AMode, const Method AMethod);
 				//! @brief See @ref structors
 				File(const File&) = delete;
 				//! @brief See @ref structors
 				File(File&& AMove) noexcept;
 				//! @brief See @ref structors
-				File& operator=(File&& AMove) noexcept = default;
-				//! @brief See @ref structors
+				File& operator=(File&& AMove) noexcept;
+				//! @brief Closes a file, saving changes
 				~File() final override;
 
 				//! @copydoc CYB::API::File::Size()

@@ -9,6 +9,11 @@ namespace CYB {
 				class File {
 				protected:
 					Win32::HANDLE FHandle;	//!< @brief The file handle
+				protected:
+					//! @brief See @ref structors
+					File() noexcept = default;
+					//! @brief See @ref structors
+					File(File&& AMove) noexcept;
 				};
 			};
 		};

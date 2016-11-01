@@ -5,7 +5,13 @@ namespace CYB {
 		namespace System {
 			namespace Implementation {
 				//! @brief Handles the file descriptor
-				class File {};
+				class File {
+				protected:
+					//! @brief See @ref structors
+					File() noexcept = default;
+					//! @brief See @ref structors
+					File(File&& AMove) noexcept;
+				};
 			};
 		};
 	};

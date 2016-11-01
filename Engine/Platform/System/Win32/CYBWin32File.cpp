@@ -3,8 +3,8 @@
 
 using namespace CYB::Platform::Win32;
 
-CYB::Platform::System::File::File(const API::Path& APath, const Mode AMode, const Method AMethod) :
-	FPath(static_cast<const System::Path&>(APath))
+CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const Method AMethod) :
+	FPath(std::move(APath))
 {
 	auto& K32(Core().FModuleManager.FK32);
 
@@ -18,7 +18,7 @@ CYB::Platform::System::File::File(const API::Path& APath, const Mode AMode, cons
 		case Mode::READ_WRITE:
 			return GENERIC_READ | GENERIC_WRITE;
 		default:
-			__assume(false);	//HCF is too indirect for coverage
+			throw Exception::Violation(Exception::Violation::INVALID_ENUM);
 		}
 	}()), CreationDisposition([&]() -> DWORD {
 		switch (AMethod) {
@@ -31,10 +31,9 @@ CYB::Platform::System::File::File(const API::Path& APath, const Mode AMode, cons
 		case Method::TRUNCATE:
 			return TRUNCATE_EXISTING;
 		default:
-			__assume(false);	//HCF is too indirect for coverage
+			throw Exception::Violation(Exception::Violation::INVALID_ENUM);
 		}
 	}());
-
 																												//we don't care if somebody sneaks a peek at us, just no touching ;)
 	FHandle = K32.Call<Modules::Kernel32::CreateFileW>(static_cast<const System::Path&>(APath).WidePath().WString(), DesiredAccess, static_cast<DWORD>(FILE_SHARE_READ | FILE_SHARE_DELETE), nullptr, CreationDisposition, static_cast<DWORD>(FILE_ATTRIBUTE_NORMAL), nullptr);
 
@@ -55,6 +54,18 @@ CYB::Platform::System::File::File(const API::Path& APath, const Mode AMode, cons
 				throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
 		}
 	}
+}
+
+CYB::Platform::System::Implementation::File::File(File&& AMove) noexcept :
+	FHandle(AMove.FHandle)
+{
+	AMove.FHandle = INVALID_HANDLE_VALUE;
+}
+
+CYB::Platform::System::File& CYB::Platform::System::File::operator=(File&& AMove) noexcept {
+	FHandle = AMove.FHandle;
+	AMove.FHandle = INVALID_HANDLE_VALUE;
+	return *this;
 }
 
 CYB::Platform::System::File::~File() {

@@ -131,6 +131,5 @@
       <Filter>Utils</Filter>
     </None>
     <None Include="Main.inl" />
-    <None Include="Optimized.runsettings" />
   </ItemGroup>
 </Project>

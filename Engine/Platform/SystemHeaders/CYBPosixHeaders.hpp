@@ -7,7 +7,7 @@ namespace CYB {
 		namespace Posix {
 			//! @cond
 #ifndef TARGET_OS_WINDOWS
-			#ifdef CYB_BUILDING_TESTS
+			#if defined(CYB_BUILDING_TESTS) && !defined(TARGET_OS_MAC)
 			using pid_t = ::pid_t;
 			#endif
 			#include <errno.h>

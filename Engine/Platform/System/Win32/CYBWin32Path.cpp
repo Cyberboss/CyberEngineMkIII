@@ -181,8 +181,10 @@ void CYB::Platform::System::Path::NavigateToParentDirectory(void) {
 	wchar_t Buffer[MAX_PATH];
 	API::Assert::Equal(FWidePath.RawLength() % 2, 0);
 	std::copy(FWidePath.WString(), FWidePath.WString() + FWidePath.RawLength(), Buffer);
+
 	//This won't work with '/' chars so convert them here
-	for (auto I(0); I < FWidePath.RawLength() / 2; ++I)
+	//Only the last one though because that's all we need
+	for (auto I(FWidePath.RawLength() / 2); I >= 0 ; --I)
 		if (Buffer[I] == L'/') {
 			Buffer[I] = L'\\';
 			break;

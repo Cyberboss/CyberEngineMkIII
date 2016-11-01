@@ -3,7 +3,7 @@ namespace CYB {
 	namespace Platform {
 		namespace System {
 			//! @brief Contains the basic File interface. Does not perform locking of any kind, be aware of possible race conditions
-			class File : public API::File {
+			class File : private Implementation::File, public API::File {
 			public:
 				const System::Path FPath;	//!< @brief The Path indicating this File
 			public:

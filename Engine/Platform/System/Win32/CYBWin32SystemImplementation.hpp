@@ -6,3 +6,4 @@
 #include "CYBWin32VirtualMemory.hpp"
 #include "CYBWin32Mutex.hpp"
 #include "CYBWin32Path.hpp"
+#include "CYBWin32File.hpp"

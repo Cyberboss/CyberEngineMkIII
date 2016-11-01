@@ -7,6 +7,8 @@ namespace CYB {
 				//! @brief Handles the file descriptor
 				class File {
 				protected:
+					int FDescriptor; //!< @brief The file descriptor
+				protected:
 					//! @brief See @ref structors
 					File() noexcept = default;
 					//! @brief See @ref structors

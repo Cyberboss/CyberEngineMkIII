@@ -23,7 +23,8 @@ DEFINE_WINDOWS_MODULE(Kernel32, u8"kernel32.dll", Win32, false,
 	GetModuleHandleW, GetModuleFileNameW,
 	GetTempPathW, GetCurrentDirectoryW,
 	FindFirstFileW, FindNextFileW, FindClose,
-	CreateDirectoryW, RemoveDirectoryW, GetFileAttributesW, SetFileAttributesW, DeleteFileW)
+	CreateDirectoryW, RemoveDirectoryW, GetFileAttributesW, SetFileAttributesW, DeleteFileW,
+	CreateFileW)
 DEFINE_WINDOWS_MODULE(Kernel32Extended, u8"kernel32.dll", Win32, true, DiscardVirtualMemory)
 DEFINE_WINDOWS_MODULE(Shell, u8"shell32.dll", Win32, false, ShellExecuteExW, SHGetKnownFolderPath)
 DEFINE_WINDOWS_MODULE(Ole32, u8"Ole32.dll", Win32, false, CoTaskMemFree)

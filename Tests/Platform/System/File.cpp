@@ -1,6 +1,7 @@
 #include "TestHeader.hpp"
 
 using namespace CYB::Platform::System;
+using namespace CYB::API::String;
 
 SCENARIO("File touching the unimplemented functions for code coverage", "[Platform][System][File][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
@@ -10,7 +11,8 @@ SCENARIO("File touching the unimplemented functions for code coverage", "[Platfo
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
 	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
 
-	const Path Test(Path::SystemPath::TEMPORARY);
+	Path Test(Path::SystemPath::TEMPORARY);
+	Test.Append(UTF8(Static("HelloWorld")), false, false);
 	File From(Test, File::Mode::READ_WRITE, File::Method::ANY);
 	File To(std::move(From));
 	File TheFile(Path(Path::SystemPath::TEMPORARY), File::Mode::READ_WRITE, File::Method::ANY);

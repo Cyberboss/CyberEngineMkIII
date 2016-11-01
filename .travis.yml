@@ -2,6 +2,10 @@ language: cpp
 sudo: required
 dist: trusty
 
+os:
+  - linux
+  - osx
+
 branches:
   only:
   - master
@@ -32,5 +36,6 @@ env:
   - BUILD_RELEASE: true
 script: 
 - BuildScripts/Travis/Travis.sh
-- BuildScripts/Travis/TravisCheckDox.sh
-after_success: BuildScripts/Travis/TravisGenDox.sh
+- if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisCheckDox.sh; fi
+after_success: 
+- if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisGenDox.sh; fi

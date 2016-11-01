@@ -6,7 +6,10 @@ namespace CYB {
 			class Path;
 			namespace Implementation {
 				//! @brief The file handle manager
-				class File {};
+				class File {
+				protected:
+					Win32::HANDLE FHandle;	//!< @brief The file handle
+				};
 			};
 		};
 	};

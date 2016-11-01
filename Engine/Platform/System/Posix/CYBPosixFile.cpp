@@ -11,3 +11,7 @@ CYB::Platform::System::File::File(const API::Path& APath, const Mode AMode, cons
 	static_cast<void>(AMethod);
 	UNIMPLEMENTED;
 }
+
+CYB::Platform::System::File::~File() {
+
+}

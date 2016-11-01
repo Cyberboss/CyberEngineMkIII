@@ -35,7 +35,7 @@ CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const 
 		}
 	}());
 																												//we don't care if somebody sneaks a peek at us, just no touching ;)
-	FHandle = K32.Call<Modules::Kernel32::CreateFileW>(static_cast<const System::Path&>(APath).WidePath().WString(), DesiredAccess, static_cast<DWORD>(FILE_SHARE_READ | FILE_SHARE_DELETE), nullptr, CreationDisposition, static_cast<DWORD>(FILE_ATTRIBUTE_NORMAL), nullptr);
+	FHandle = K32.Call<Modules::Kernel32::CreateFileW>(FPath.WidePath().WString(), DesiredAccess, static_cast<DWORD>(FILE_SHARE_READ | FILE_SHARE_DELETE), nullptr, CreationDisposition, static_cast<DWORD>(FILE_ATTRIBUTE_NORMAL), nullptr);
 
 	if (FHandle == INVALID_HANDLE_VALUE) {
 		const auto Error(K32.Call<Modules::Kernel32::GetLastError>());

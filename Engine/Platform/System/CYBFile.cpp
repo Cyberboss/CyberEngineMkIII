@@ -47,3 +47,7 @@ void CYB::Platform::System::File::Write(void* const ABuffer, const unsigned long
 const CYB::API::Path& CYB::Platform::System::File::Path(void) const noexcept {
 	return FPath;
 }
+
+CYB::API::File::Method CYB::Platform::System::File::OpenMethod(void) const noexcept {
+	UNIMPLEMENTED;
+}

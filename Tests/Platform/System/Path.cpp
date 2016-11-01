@@ -313,6 +313,7 @@ SCENARIO("Path ascending works", "[Platform][System][Path][Unit]") {
 
 	GIVEN("A valid Path") {
 		Path TestPath(Path::SystemPath::TEMPORARY);
+		TestPath.Append(UTF8(Static("IntermediateDir")), true, false);	//Needed for travis osx
 		const auto Prior(TestPath());
 		WHEN("The path is ascended from a file") {
 			REQUIRE_NOTHROW(TestPath.Append(UTF8(Static("Doesn'tExist")), false, false));

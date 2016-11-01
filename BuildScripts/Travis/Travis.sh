@@ -21,4 +21,4 @@ else
 	fi
 fi
 make
-ctest
+ctest --output-on-failure

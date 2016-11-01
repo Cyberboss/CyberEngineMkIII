@@ -4,8 +4,6 @@
 @tableofcontents
 @section conv_intro Introduction
 
-CyberEngineMkIII follows a strict set of programming conventions to add convienience to it's development use
-
 @section va_names Coding Covention
 
 - The entire CyberEngineMkIII API is contained within the CYB::API namespace.

@@ -45,6 +45,8 @@ CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const 
 		case ERROR_PATH_NOT_FOUND:
 		case ERROR_INVALID_NAME:
 			throw Exception::SystemData(Exception::SystemData::FILE_NOT_FOUND);
+		case ERROR_FILE_EXISTS:
+			throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
 		case ERROR_SHARING_VIOLATION:
 		case ERROR_ACCESS_DENIED:
 		default:

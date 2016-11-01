@@ -66,6 +66,8 @@ namespace CYB {
 
 				//! @copydoc CYB::API::File::Path()
 				const API::Path& Path(void) const noexcept final override;
+				//! @copydoc CYB::API::File::OpenMethod();
+				Method OpenMethod(void) const noexcept final override;
 			};
 		};
 	};

@@ -12,7 +12,7 @@ namespace CYB {
 			};
 			//! @brief The method of handling Files that already exist
 			enum class Method {
-				ANY, //!< @brief The File may or may not exist. It will be created if it doesn't
+				ANY, //!< @brief The File may or may not exist. It will be created if it doesn't. OpenMethod will be set to EXIST or CREATE once constructed to indicate result
 				EXIST,	//!< @brief The File must exist
 				CREATE,	//!< @brief The File must not exist. It will be created
 				TRUNCATE,	//!< @brief Any existing File will be overwritten and an empty file will be created
@@ -93,6 +93,14 @@ namespace CYB {
 					This function requres no thread safety
 			*/
 			virtual const Path& Path(void) const noexcept = 0;
+
+			/*!
+				@brief Gets the opening method of the File. Will never be Method::ANY
+				@return The opening method of the File. If it was orginally Method::ANY it will be changed to Method::EXIST or Method::CREATE
+				@par Thread Safety
+					This function requres no thread safety
+			*/
+			virtual Method OpenMethod(void) const noexcept = 0;
 		};
 	};
 };

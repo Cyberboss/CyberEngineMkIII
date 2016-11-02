@@ -74,3 +74,21 @@ CYB::Platform::System::File::~File() {
 	if (FHandle != INVALID_HANDLE_VALUE)
 		Core().FModuleManager.FK32.Call<Modules::Kernel32::CloseHandle>(FHandle);
 }
+
+unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) {
+	auto& K32(Core().FModuleManager.FK32);
+
+	WIN32_FILE_ATTRIBUTE_DATA Attributes;
+	if (GetFileAttributesExW(APath.WidePath().WString(), GetFileExInfoStandard, &Attributes) != 0) {
+		LARGE_INTEGER Size;
+		Size.HighPart = static_cast<LONG>(Attributes.nFileSizeHigh);
+		Size.LowPart = Attributes.nFileSizeLow;
+		return static_cast<unsigned long long>(Size.QuadPart);
+	}
+
+	const auto Error(K32.Call<Modules::Kernel32::GetLastError>());
+	if (Error == ERROR_ACCESS_DENIED || Error == ERROR_SHARING_VIOLATION)
+		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+	else
+		throw Exception::SystemData(Exception::SystemData::FILE_NOT_FOUND);
+}

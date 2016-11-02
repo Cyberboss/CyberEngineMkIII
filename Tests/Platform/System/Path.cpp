@@ -408,7 +408,7 @@ template <class ARedirector> class GoodSetFileAttributes;
 template <class ARedirector> class BadPathRemoveFileSpec;
 template <class ARedirector> class BadPathFindName;
 template <class ARedirector> class BadFindFirstFile;
-template <class ARedirector> class BadGetFileAttributes;
+template <class ARedirector> class BadGetFileAttributesEx;
 template <class ARedirector> class BadOpenDir;
 unsigned long long FakeStat(Fake::SysCalls::Args&);
 
@@ -524,7 +524,7 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 		REQUIRE_NOTHROW(TestPath.Append(UTF8(Static(u8"gettingtiredoftypingthisshit")), false, false));
 #ifdef TARGET_OS_WINDOWS
 		WHEN("We fail a directory check with no error") {
-			const auto BGFA(K32.Redirect<CYB::Platform::Modules::Kernel32::GetFileAttributesW, BadGetFileAttributes>());
+			const auto BGFA(K32.Redirect<CYB::Platform::Modules::Kernel32::GetFileAttributesExW, BadGetFileAttributesEx>());
 			const auto Thing(OverrideError(K32, 0));
 			REQUIRE_THROWS_AS(TestPath.IsDirectory(), CYB::Exception::SystemData);
 			THEN("The correct error is thrown") {
@@ -599,7 +599,7 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 }
 
 #ifdef TARGET_OS_WINDOWS
-REDIRECTED_FUNCTION(BadGetFileAttributes, const void* const) {
+REDIRECTED_FUNCTION(BadGetFileAttributesEx, const void* const, const CYB::Platform::Win32::GET_FILEEX_INFO_LEVELS, const void* const) {
 	using namespace CYB::Platform::Win32;
 	return INVALID_FILE_ATTRIBUTES;
 }

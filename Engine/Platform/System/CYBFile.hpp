@@ -24,7 +24,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if the file size could not be retrieved
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if @p APath failed to verify
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_FOUND. Thrown if @p APath failed to verify or the file does not exist
 				*/
 				static unsigned long long Size(const System::Path& APath);
 				

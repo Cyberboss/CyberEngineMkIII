@@ -10,6 +10,10 @@ CYB::Platform::System::File::File(File&& AMove) noexcept:
 	FPath(std::move(AMove.FPath))
 {}
 
+void CYB::Platform::System::File::Touch(System::Path&& APath) {
+	File(std::move(APath), Mode::WRITE, Method::ANY);
+}
+
 unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
 	UNIMPLEMENTED;
 	return 0;

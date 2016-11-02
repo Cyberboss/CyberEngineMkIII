@@ -70,3 +70,8 @@ CYB::Platform::System::File::~File() {
 	if (FDescriptor != -1)
 		Core().FModuleManager.FC.Call<Modules::LibC::close>(FDescriptor);
 }
+
+unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
+	UNIMPLEMENTED;
+	return 0;
+}

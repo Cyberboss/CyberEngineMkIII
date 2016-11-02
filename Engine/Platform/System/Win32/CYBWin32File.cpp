@@ -92,3 +92,9 @@ unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) 
 	else
 		throw Exception::SystemData(Exception::SystemData::FILE_NOT_FOUND);
 }
+
+unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
+	LARGE_INTEGER Size;
+	API::Assert::NotEqual(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetFileSizeEx>(FHandle, &Size), 0);
+	return static_cast<unsigned long long>(Size.QuadPart);
+}

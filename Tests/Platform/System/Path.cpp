@@ -3,7 +3,7 @@
 using namespace CYB::Platform::System;
 using namespace CYB::API::String;
 
-static void Touch(const Path& APath);
+//Note that a lot of these tests depend on File::Touch working
 
 SCENARIO("Path move constructor works", "[Platform][System][Path][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
@@ -37,14 +37,14 @@ SCENARIO("Paths can be deleted", "[Platform][System][Path][Unit]") {
 			Path Setup(Path::SystemPath::TEMPORARY);
 			REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"RecursivePath/Recurse/Recurse")), true, true));
 			REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"SomeFile")), false, false));
-			Touch(Setup);
+			File::Touch(std::move(Setup));
 		}
 		REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Append(UTF8(Static(u8"TestPath")), true, false));
 		{
 			Path Setup(Path::SystemPath::TEMPORARY);
 			REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"TestPath2")), true, false));
 			REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"SomeFile")), false, false));
-			Touch(Setup);
+			File::Touch(std::move(Setup));
 		}
 		WHEN("An empty folder is deleted non-recursively") {
 			Path Test(Path::SystemPath::TEMPORARY);
@@ -206,7 +206,7 @@ SCENARIO("Path file type identification works", "[Platform][System][Path][Unit]"
 		Path Setup1(Path::SystemPath::TEMPORARY), Setup2(Setup1), Setup3(Setup1);
 		REQUIRE_NOTHROW(Setup1.Append(UTF8(Static(u8"TestDir")), true, false));
 		REQUIRE_NOTHROW(Setup2.Append(UTF8(Static(u8"TestFile")), false, false));
-		Touch(Setup2);
+		File::Touch(Path(Setup2));
 		REQUIRE_NOTHROW(Setup3.Append(UTF8(Static(u8"FakeFile")), false, false));
 
 		WHEN("A file is asked if it is a file") {
@@ -270,8 +270,8 @@ SCENARIO("Path file name parsing works", "[Platform][System][Path][Unit]") {
 		Path Setup1(Path::SystemPath::TEMPORARY), Setup2(Setup1), Setup3(Setup1), Setup4(Setup1);
 		Setup1.Append(UTF8(Static(u8"TestFile1")), true, false);
 		Setup2.Append(UTF8(Static(u8"Te.st.File2")), false, false);
-		Touch(Setup1);
-		Touch(Setup2);
+		File::Touch(Path(Setup1));
+		File::Touch(Path(Setup2));
 		WHEN("A file without an extension is checked") {
 			auto& Subject(Setup1);
 			UTF8 Result1, Result2, Result3;
@@ -353,14 +353,14 @@ SCENARIO("Path directory enumeration works", "[Platform][System][Path][Unit]") {
 	GIVEN("A path with some entries") {
 		Path TestPath(Path::SystemPath::TEMPORARY), File(TestPath), Folder(TestPath), FolderWithFiles(TestPath);
 		REQUIRE_NOTHROW(File.Append(UTF8(Static(u8"SomeFile")), false, false));
-		Touch(File);
+		File::Touch(std::move(File));
 		REQUIRE_NOTHROW(Folder.Append(UTF8(Static(u8"SomeFolder")), true, false));
 		REQUIRE_NOTHROW(FolderWithFiles.Append(UTF8(Static(u8"SomeFolderWithFiles")), true, false));
 		Path FolderWithFiles2(FolderWithFiles);
 		REQUIRE_NOTHROW(FolderWithFiles2.Append(UTF8(Static(u8"SomeOtherFile")), false, false));
 		REQUIRE_NOTHROW(FolderWithFiles.Append(UTF8(Static(u8"SomeFile")), false, false));
-		Touch(FolderWithFiles);
-		Touch(FolderWithFiles2);
+		File::Touch(std::move(FolderWithFiles));
+		File::Touch(std::move(FolderWithFiles2));
 		WHEN("The path's contents are enumerated") {
 			auto FoundCount(0U);
 			const auto Lambda([&]() {
@@ -453,7 +453,7 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 	GIVEN("A valid file") {
 		Path Setup(Path::SystemPath::TEMPORARY);
 		REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"TestFile.avg")), false, false));
-		Touch(Setup);
+		File::Touch(Path(Setup));
 		WHEN("The deletion functions are messed with") {
 			const auto BDF(K32.Redirect<CYB::Platform::Modules::Kernel32::DeleteFileW, BadDeleteFile>());
 			const auto BUL(LibC.Redirect<CYB::Platform::Modules::LibC::unlink, BadUnlink>());
@@ -596,25 +596,6 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 		Path(Path::SystemPath::TEMPORARY).Delete(true);
 	}
 	catch (...) {}
-}
-
-
-
-
-
-
-static void Touch(const Path& APath) {
-#ifdef TARGET_OS_WINDOWS
-	using namespace CYB::Platform::Win32;
-	const Path Myself(Path::SystemPath::EXECUTABLE_IMAGE);
-	UTF16 Version(Myself()), OtherVersion(APath());
-	CopyFileW(Version.WString(), OtherVersion.WString(), FALSE);
-#else
-	using namespace CYB::Platform::Posix;
-	auto Command(UTF8(Static(u8"touch ")) + APath());
-
-	system(Command.CString());
-#endif
 }
 
 #ifdef TARGET_OS_WINDOWS

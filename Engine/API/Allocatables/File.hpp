@@ -19,8 +19,8 @@ namespace CYB {
 			};
 			//! @brief The location to begin a seek operation at
 			enum class SeekLocation {
-				CURSOR,	//!< @brief Seek from the cursor position
 				BEGIN,	//!< @brief Seek from the beginning of the file
+				CURSOR,	//!< @brief Seek from the cursor position
 				END,	//!< @brief Seek from the endo of the file
 			};
 

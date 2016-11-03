@@ -76,7 +76,9 @@ unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
 	return 0;
 }
 
-unsigned long long CYB::Platform::System::File::CursorPosition(void) const noexcept {
+unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, const SeekLocation ALocation) const {
+	static_cast<void>(AOffset);
+	static_cast<void>(ALocation);
 	UNIMPLEMENTED;
 	return 0;
 }

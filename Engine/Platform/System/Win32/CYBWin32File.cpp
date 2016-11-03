@@ -89,8 +89,7 @@ unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) 
 	const auto Error(K32.Call<Modules::Kernel32::GetLastError>());
 	if (Error == ERROR_ACCESS_DENIED || Error == ERROR_SHARING_VIOLATION)
 		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
-	else
-		throw Exception::SystemData(Exception::SystemData::FILE_NOT_FOUND);
+	throw Exception::SystemData(Exception::SystemData::FILE_NOT_FOUND);
 }
 
 unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
@@ -99,9 +98,25 @@ unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
 	return static_cast<unsigned long long>(Size.QuadPart);
 }
 
-unsigned long long CYB::Platform::System::File::CursorPosition(void) const noexcept {
+unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, const SeekLocation ALocation) const {
 	LARGE_INTEGER Distance, Location;
-	Distance.QuadPart = 0;
-	API::Assert::NotEqual(Core().FModuleManager.FK32.Call<Modules::Kernel32::SetFilePointerEx>(FHandle, Distance, &Location, static_cast<DWORD>(FILE_CURRENT)), 0);
+	Distance.QuadPart = AOffset;
+
+	const auto WinLocation([&]() -> DWORD {
+		switch (ALocation)
+		{
+		case SeekLocation::BEGIN:
+			return FILE_BEGIN;
+		case SeekLocation::CURSOR:
+			return FILE_CURRENT;
+		case SeekLocation::END:
+			return FILE_END;
+		default:
+			throw Exception::Violation(Exception::Violation::INVALID_ENUM);
+		}
+	}());
+
+	API::Assert::NotEqual(Core().FModuleManager.FK32.Call<Modules::Kernel32::SetFilePointerEx>(FHandle, Distance, &Location, WinLocation), 0);
+
 	return static_cast<unsigned long long>(Location.QuadPart);
 }

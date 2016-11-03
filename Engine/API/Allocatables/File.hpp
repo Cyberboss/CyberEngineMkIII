@@ -52,7 +52,7 @@ namespace CYB {
 			*/
 			virtual unsigned long long Size(void) const noexcept = 0;
 			/*!
-				@brief Get the current position of the read/write cursor in the File
+				@brief Get the current position of the read/write cursor in the File. Equivalent of Seek(0, SeekLocation::CURSOR)
 				@return The current position of the read/write cursor in the File
 				@par Thread Safety
 					This function requires no thread safety
@@ -63,11 +63,12 @@ namespace CYB {
 				@brief Set the cursor position in the File
 				@param AOffset The offset from ALocation to set the cursor to
 				@param ALocation The initial location to begin the offset
+				@return The current cursor position
 				@par Thread Safety
 					This function requires no thread safety
 				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p ALocation is invalid
 			*/
-			virtual void Seek(const long long AOffset, const SeekLocation ALocation) const = 0;
+			virtual unsigned long long Seek(const long long AOffset, const SeekLocation ALocation) const = 0;
 
 			/*!
 				@brief Read data from a File at the current cursor position and advance the cursor by that amount

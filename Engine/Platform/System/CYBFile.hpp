@@ -59,7 +59,7 @@ namespace CYB {
 				unsigned long long CursorPosition(void) const noexcept final override;
 
 				//! @copydoc CYB::API::File::Seek()
-				void Seek(const long long AOffset, const SeekLocation ALocation) const final override;
+				unsigned long long Seek(const long long AOffset, const SeekLocation ALocation) const final override;
 
 				//! @copydoc CYB::API::File::Read()
 				unsigned long long Read(const void* const ABuffer, const unsigned long long AMaxAmount) const final override;

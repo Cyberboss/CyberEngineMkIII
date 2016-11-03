@@ -71,6 +71,7 @@
       <HeapCommitSize>0</HeapCommitSize>
       <LargeAddressAware>true</LargeAddressAware>
       <EntryPointSymbol>wmainCRTStartup</EntryPointSymbol>
+      <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
     </Link>
     <PostBuildEvent>
       <Command>Powershell -File "$(ProjectDir)..\BuildScripts\PostBuild.ps1" "$(OutDir)"</Command>
@@ -102,6 +103,7 @@
       <HeapCommitSize>0</HeapCommitSize>
       <LargeAddressAware>true</LargeAddressAware>
       <EntryPointSymbol>wmainCRTStartup</EntryPointSymbol>
+      <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
     </Link>
     <PostBuildEvent>
       <Command>Powershell -File "$(ProjectDir)..\BuildScripts\PostBuild.ps1" "$(OutDir)"</Command>

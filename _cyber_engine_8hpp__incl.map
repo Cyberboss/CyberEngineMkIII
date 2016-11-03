@@ -4,7 +4,7 @@
 <area shape="rect" id="node27" href="$_interop_8hpp.html" title="Includes files that contain classes required for communitcation between the engine and the unit..." alt="" coords="2499,103,2628,129"/>
 <area shape="rect" id="node34" href="$_interfaces_8hpp.html" title="Includes headers that define non&#45;allocatable engine objects. " alt="" coords="2759,103,2925,129"/>
 <area shape="rect" id="node36" href="$_allocatables_8hpp.html" title="Includes engine allocatable types. " alt="" coords="2950,103,3143,129"/>
-<area shape="rect" id="node49" href="$_extended_types_8hpp.html" title="Includes headers that define types with certain dependancies. " alt="" coords="5139,103,5372,129"/>
+<area shape="rect" id="node49" href="$_extended_types_8hpp.html" title="Includes headers that define types with certain dependancies. " alt="" coords="5194,103,5427,129"/>
 <area shape="rect" id="node3" href="$_o_s_declaration_8hpp.html" title="Defines the TARGET_OS_XXX macro for identifying the operating system the program is being compiled fo..." alt="" coords="5,200,136,227"/>
 <area shape="rect" id="node5" href="$_endianess_8hpp.html" title="Ensures the engine/unit is being compiled on a little endian architecture. " alt="" coords="161,200,268,227"/>
 <area shape="rect" id="node7" href="$_system_checks_8hpp.html" title="Checks the platform that the engine and unit is being compiled on is appropriate. ..." alt="" coords="293,200,429,227"/>
@@ -34,5 +34,5 @@
 <area shape="rect" id="node37" href="$_mutex_8hpp.html" title="Defines the API for Mutexes. " alt="" coords="3005,200,3087,227"/>
 <area shape="rect" id="node38" href="$_path_8hpp.html" title="Defines the API for Paths. " alt="" coords="3112,200,3185,227"/>
 <area shape="rect" id="node39" href="$_file_8hpp.html" title="Defines the API for files. " alt="" coords="3211,200,3279,227"/>
-<area shape="rect" id="node50" href="$_lock_guard_8hpp.html" title="Defines the LockGuard class. " alt="" coords="5201,200,5311,227"/>
+<area shape="rect" id="node50" href="$_lock_guard_8hpp.html" title="Defines the LockGuard class. " alt="" coords="5255,200,5365,227"/>
 </map>

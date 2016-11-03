@@ -75,3 +75,8 @@ unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
 	UNIMPLEMENTED;
 	return 0;
 }
+
+unsigned long long CYB::Platform::System::File::CursorPosition(void) const noexcept {
+	UNIMPLEMENTED;
+	return 0;
+}

@@ -98,3 +98,10 @@ unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
 	API::Assert::NotEqual(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetFileSizeEx>(FHandle, &Size), 0);
 	return static_cast<unsigned long long>(Size.QuadPart);
 }
+
+unsigned long long CYB::Platform::System::File::CursorPosition(void) const noexcept {
+	LARGE_INTEGER Distance, Location;
+	Distance.QuadPart = 0;
+	API::Assert::NotEqual(Core().FModuleManager.FK32.Call<Modules::Kernel32::SetFilePointerEx>(FHandle, Distance, &Location, static_cast<DWORD>(FILE_CURRENT)), 0);
+	return static_cast<unsigned long long>(Location.QuadPart);
+}

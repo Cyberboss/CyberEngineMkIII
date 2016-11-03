@@ -14,11 +14,6 @@ void CYB::Platform::System::File::Touch(System::Path&& APath) {
 	File(std::move(APath), Mode::WRITE, Method::ANY);
 }
 
-unsigned long long CYB::Platform::System::File::CursorPosition(void) const noexcept {
-	UNIMPLEMENTED;
-	return 0;
-}
-
 void CYB::Platform::System::File::Seek(const long long AOffset, const SeekLocation ALocation) const {
 	static_cast<void>(AOffset);
 	static_cast<void>(ALocation);

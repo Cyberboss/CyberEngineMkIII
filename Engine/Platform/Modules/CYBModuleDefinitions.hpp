@@ -37,7 +37,7 @@ DEFINE_POSIX_MODULE(LibC, LIBC_SO, Posix, false,
 	opendir, readdir, closedir,
 	getuid, getpwuid_r, getenv, sysconf,
 	posix_spawn,
-	open, close)
+	open, close, lstat, read, write)
 DEFINE_POSIX_MODULE(PThread, LIBPTHREAD_SO, Posix, false, 
 	pthread_mutex_init, pthread_mutex_destroy, pthread_mutex_lock, pthread_mutex_trylock, pthread_mutex_unlock,
 	pthread_create, pthread_join)
@@ -48,6 +48,6 @@ OVERRIDE_OSX_FUNCTION_NAMES(LibC,
 	nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 	"readdir$INODE64",
 	nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
-	nullptr, nullptr)
+	nullptr, nullptr, nullptr, nullptr, nullptr)
 
 //! @endcond

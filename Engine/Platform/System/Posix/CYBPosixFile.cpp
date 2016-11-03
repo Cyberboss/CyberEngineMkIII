@@ -72,15 +72,29 @@ CYB::Platform::System::File::~File() {
 }
 
 unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
-	UNIMPLEMENTED;
+	StatStruct Stat;
+	API::Assert::Equal(Core().FModuleManager.FC.Call<Modules::LibC::fstat>(FDescriptor, &Stat), 0);
 	return 0;
 }
 
 unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, const SeekLocation ALocation) const {
-	static_cast<void>(AOffset);
-	static_cast<void>(ALocation);
-	UNIMPLEMENTED;
-	return 0;
+	const auto PosixLocation([&]() {
+		switch (ALocation) {
+		case SeekLocation::BEGIN:
+			return SEEK_SET;
+		case SeekLocation::CURSOR:
+			return SEEK_CUR;
+		case SeekLocation::END:
+			return SEEK_END;
+		default:
+			throw Exception::Violation(Exception::Violation::INVALID_ENUM);
+		}
+	}());
+
+	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::lseek>(FDescriptor, static_cast<off_t>(AOffset), PosixLocation));
+	API::Assert::NotEqual(-1, Result);
+
+	return static_cast<unsigned long long>(Result);
 }
 
 unsigned long long CYB::Platform::System::File::Read(const void* const ABuffer, const unsigned long long AMaxAmount) const {

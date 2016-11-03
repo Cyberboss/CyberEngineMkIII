@@ -103,8 +103,7 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 	Distance.QuadPart = AOffset;
 
 	const auto WinLocation([&]() -> DWORD {
-		switch (ALocation)
-		{
+		switch (ALocation) {
 		case SeekLocation::BEGIN:
 			return FILE_BEGIN;
 		case SeekLocation::CURSOR:

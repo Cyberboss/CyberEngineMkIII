@@ -169,8 +169,7 @@ bool CYB::Platform::System::Path::IsDirectory(void) const {
 		const auto Error(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>());
 		if (Error == ERROR_ACCESS_DENIED || Error == ERROR_SHARING_VIOLATION)
 			throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
-		else
-			throw Exception::SystemData(Exception::SystemData::PATH_LOST);
+		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
 	}
 	return (Attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) > 0;
 }

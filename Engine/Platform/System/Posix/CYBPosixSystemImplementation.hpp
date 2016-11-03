@@ -1,4 +1,4 @@
-//! @file CYBWin32SystemImplementation.hpp Include implementation headers of CYB::Platform::System for Posix
+//! @file CYBPosixSystemImplementation.hpp Include implementation headers of CYB::Platform::System for Posix
 #pragma once
 
 #include "CYBPosixThread.hpp"

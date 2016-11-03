@@ -82,3 +82,16 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 	UNIMPLEMENTED;
 	return 0;
 }
+
+unsigned long long CYB::Platform::System::File::Read(const void* const ABuffer, const unsigned long long AMaxAmount) const {
+	static_cast<void>(ABuffer);
+	static_cast<void>(AMaxAmount);
+	UNIMPLEMENTED;
+	return 0;
+}
+
+void CYB::Platform::System::File::Write(void* const ABuffer, const unsigned long long AAmount) {
+	static_cast<void>(ABuffer);
+	static_cast<void>(AAmount);
+	UNIMPLEMENTED;
+}

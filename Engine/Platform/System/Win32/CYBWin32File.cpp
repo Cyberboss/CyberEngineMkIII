@@ -120,3 +120,15 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 
 	return static_cast<unsigned long long>(Location.QuadPart);
 }
+
+unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const unsigned long long AMaxAmount) const noexcept {
+	DWORD BytesRead;
+	API::Assert::NotEqual(Core().FModuleManager.FK32.Call<Modules::Kernel32::ReadFile>(FHandle, ABuffer, static_cast<DWORD>(AMaxAmount), &BytesRead, nullptr), 0);
+	return BytesRead;
+}
+
+unsigned long long CYB::Platform::System::File::Write(const void* const ABuffer, const unsigned long long AAmount) noexcept {
+	DWORD BytesWritten;
+	API::Assert::NotEqual(Core().FModuleManager.FK32.Call<Modules::Kernel32::WriteFile>(FHandle, ABuffer, static_cast<DWORD>(AAmount), &BytesWritten, nullptr), 0);
+	return BytesWritten;
+}

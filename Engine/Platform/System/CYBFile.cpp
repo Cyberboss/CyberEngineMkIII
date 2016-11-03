@@ -18,19 +18,6 @@ unsigned long long CYB::Platform::System::File::CursorPosition(void) const noexc
 	return Seek(0, SeekLocation::CURSOR);
 }
 
-unsigned long long CYB::Platform::System::File::Read(const void* const ABuffer, const unsigned long long AMaxAmount) const {
-	static_cast<void>(ABuffer);
-	static_cast<void>(AMaxAmount);
-	UNIMPLEMENTED;
-	return 0;
-}
-
-void CYB::Platform::System::File::Write(void* const ABuffer, const unsigned long long AAmount) {
-	static_cast<void>(ABuffer);
-	static_cast<void>(AAmount);
-	UNIMPLEMENTED;
-}
-
 const CYB::API::Path& CYB::Platform::System::File::Path(void) const noexcept {
 	return FPath;
 }

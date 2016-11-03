@@ -62,9 +62,9 @@ namespace CYB {
 				unsigned long long Seek(const long long AOffset, const SeekLocation ALocation) const final override;
 
 				//! @copydoc CYB::API::File::Read()
-				unsigned long long Read(const void* const ABuffer, const unsigned long long AMaxAmount) const final override;
+				unsigned long long Read(void* const ABuffer, const unsigned long long AMaxAmount) const noexcept final override;
 				//! @copydoc CYB::API::File::Write()
-				void Write(void* const ABuffer, const unsigned long long AAmount) final override;
+				unsigned long long  Write(const void* const ABuffer, const unsigned long long AAmount) noexcept final override;
 
 				//! @copydoc CYB::API::File::Path()
 				const API::Path& Path(void) const noexcept final override;

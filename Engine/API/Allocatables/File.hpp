@@ -78,15 +78,16 @@ namespace CYB {
 				@par Thread Safety
 					This function requres no thread safety
 			*/
-			virtual unsigned long long Read(const void* const ABuffer, const unsigned long long AMaxAmount) const = 0;
+			virtual unsigned long long Read(void* const ABuffer, const unsigned long long AMaxAmount) const noexcept = 0;
 			/*!
 				@brief Write data to a File at the current cursor position and advance the cursor by that amount
 				@param ABuffer The location to get the data to write
 				@param AAmount The number of bytes to be written
+				@return The number of bytes written
 				@par Thread Safety
 					This function requres no thread safety
 			*/
-			virtual void Write(void* const ABuffer, const unsigned long long AAmount) = 0;
+			virtual unsigned long long  Write(const void* const ABuffer, const unsigned long long AAmount) noexcept = 0;
 
 			/*!
 				@brief Get the Path indicating the current File

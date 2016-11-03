@@ -1,9 +1,9 @@
 //! @file CYBModuleMacros.hpp Defines the DEFINE_MODULE macro for easily adding modules
 #pragma once
 //! @cond
-#define NARGS_IMPL(x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,N,...) N
+#define NARGS_IMPL(x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,N,...) N
 #define EXPAND(X) X
-#define NARGS(...) EXPAND(NARGS_IMPL(__VA_ARGS__,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0))
+#define NARGS(...) EXPAND(NARGS_IMPL(__VA_ARGS__,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0))
 
 #define PRIMITIVE_CAT(X, Y) X ## Y
 #define CAT(X, Y) PRIMITIVE_CAT(X, Y)
@@ -45,6 +45,8 @@
 #define APPLY_34(X, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23, x24, x25, x26, x27, x28, x29, x30, x31, x32, x33, x34) X(x1), X(x2), X(x3), X(x4), X(x5), X(x6), X(x7), X(x8), X(x9), X(x10), X(x11), X(x12), X(x13), X(x14), X(x15), X(x16), X(x17), X(x18), X(x19), X(x20), X(x21), X(x22), X(x23), X(x24), X(x25), X(x26), X(x27), X(x28), X(x29), X(x30), X(x31), X(x32), X(x33), X(x34)
 #define APPLY_35(X, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23, x24, x25, x26, x27, x28, x29, x30, x31, x32, x33, x34, x35) X(x1), X(x2), X(x3), X(x4), X(x5), X(x6), X(x7), X(x8), X(x9), X(x10), X(x11), X(x12), X(x13), X(x14), X(x15), X(x16), X(x17), X(x18), X(x19), X(x20), X(x21), X(x22), X(x23), X(x24), X(x25), X(x26), X(x27), X(x28), X(x29), X(x30), X(x31), X(x32), X(x33), X(x34), X(x35)
 #define APPLY_36(X, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23, x24, x25, x26, x27, x28, x29, x30, x31, x32, x33, x34, x35, x36) X(x1), X(x2), X(x3), X(x4), X(x5), X(x6), X(x7), X(x8), X(x9), X(x10), X(x11), X(x12), X(x13), X(x14), X(x15), X(x16), X(x17), X(x18), X(x19), X(x20), X(x21), X(x22), X(x23), X(x24), X(x25), X(x26), X(x27), X(x28), X(x29), X(x30), X(x31), X(x32), X(x33), X(x34), X(x35), X(x36)
+#define APPLY_37(X, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23, x24, x25, x26, x27, x28, x29, x30, x31, x32, x33, x34, x35, x36, x37) X(x1), X(x2), X(x3), X(x4), X(x5), X(x6), X(x7), X(x8), X(x9), X(x10), X(x11), X(x12), X(x13), X(x14), X(x15), X(x16), X(x17), X(x18), X(x19), X(x20), X(x21), X(x22), X(x23), X(x24), X(x25), X(x26), X(x27), X(x28), X(x29), X(x30), X(x31), X(x32), X(x33), X(x34), X(x35), X(x36), X(x37)
+#define APPLY_38(X, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23, x24, x25, x26, x27, x28, x29, x30, x31, x32, x33, x34, x35, x36, x37, x38) X(x1), X(x2), X(x3), X(x4), X(x5), X(x6), X(x7), X(x8), X(x9), X(x10), X(x11), X(x12), X(x13), X(x14), X(x15), X(x16), X(x17), X(x18), X(x19), X(x20), X(x21), X(x22), X(x23), X(x24), X(x25), X(x26), X(x27), X(x28), X(x29), X(x30), X(x31), X(x32), X(x33), X(x34), X(x35), X(x36), X(x37), X(x38)
 #define APPLY_NC(X, ...) EXPAND(CAT(APPLY_NC_, NARGS(__VA_ARGS__))(X, __VA_ARGS__))
 #define APPLY_NC_1(X, x1) X(x1)
 #define APPLY_NC_2(X, x1, x2) X(x1) X(x2)
@@ -82,6 +84,8 @@
 #define APPLY_NC_34(X, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23, x24, x25, x26, x27, x28, x29, x30, x31, x32, x33, x34) X(x1) X(x2) X(x3) X(x4) X(x5) X(x6) X(x7) X(x8) X(x9) X(x10) X(x11) X(x12) X(x13) X(x14) X(x15) X(x16) X(x17) X(x18) X(x19) X(x20) X(x21) X(x22) X(x23) X(x24) X(x25) X(x26) X(x27) X(x28) X(x29) X(x30) X(x31) X(x32) X(x33) X(x34)
 #define APPLY_NC_35(X, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23, x24, x25, x26, x27, x28, x29, x30, x31, x32, x33, x34, x35) X(x1) X(x2) X(x3) X(x4) X(x5) X(x6) X(x7) X(x8) X(x9) X(x10) X(x11) X(x12) X(x13) X(x14) X(x15) X(x16) X(x17) X(x18) X(x19) X(x20) X(x21) X(x22) X(x23) X(x24) X(x25) X(x26) X(x27) X(x28) X(x29) X(x30) X(x31) X(x32) X(x33) X(x34) X(x35)
 #define APPLY_NC_36(X, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23, x24, x25, x26, x27, x28, x29, x30, x31, x32, x33, x34, x35, x36) X(x1) X(x2) X(x3) X(x4) X(x5) X(x6) X(x7) X(x8) X(x9) X(x10) X(x11) X(x12) X(x13) X(x14) X(x15) X(x16) X(x17) X(x18) X(x19) X(x20) X(x21) X(x22) X(x23) X(x24) X(x25) X(x26) X(x27) X(x28) X(x29) X(x30) X(x31) X(x32) X(x33) X(x34) X(x35) X(x36)
+#define APPLY_NC_37(X, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23, x24, x25, x26, x27, x28, x29, x30, x31, x32, x33, x34, x35, x36, x37) X(x1) X(x2) X(x3) X(x4) X(x5) X(x6) X(x7) X(x8) X(x9) X(x10) X(x11) X(x12) X(x13) X(x14) X(x15) X(x16) X(x17) X(x18) X(x19) X(x20) X(x21) X(x22) X(x23) X(x24) X(x25) X(x26) X(x27) X(x28) X(x29) X(x30) X(x31) X(x32) X(x33) X(x34) X(x35) X(x36) X(x37)
+#define APPLY_NC_38(X, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23, x24, x25, x26, x27, x28, x29, x30, x31, x32, x33, x34, x35, x36, x37, x38) X(x1) X(x2) X(x3) X(x4) X(x5) X(x6) X(x7) X(x8) X(x9) X(x10) X(x11) X(x12) X(x13) X(x14) X(x15) X(x16) X(x17) X(x18) X(x19) X(x20) X(x21) X(x22) X(x23) X(x24) X(x25) X(x26) X(x27) X(x28) X(x29) X(x30) X(x31) X(x32) X(x33) X(x34) X(x35) X(x36) X(x37) X(x38)
 
 #define STRINGIFY(X) #X
 #define STATIC_STRINGIFY(X) API::String::Static(STRINGIFY(X))

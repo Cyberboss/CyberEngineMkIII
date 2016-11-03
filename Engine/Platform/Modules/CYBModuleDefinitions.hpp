@@ -35,9 +35,9 @@ DEFINE_POSIX_MODULE(LibC, LIBC_SO, Posix, false,
 	mmap, mprotect, munmap, madvise,
 	readlink, mkdir, realpath, rmdir, unlink,
 	opendir, readdir, closedir,
-	open, close,
 	getuid, getpwuid_r, getenv, sysconf,
-	posix_spawn)
+	posix_spawn,
+	open, close)
 DEFINE_POSIX_MODULE(PThread, LIBPTHREAD_SO, Posix, false, 
 	pthread_mutex_init, pthread_mutex_destroy, pthread_mutex_lock, pthread_mutex_trylock, pthread_mutex_unlock,
 	pthread_create, pthread_join)
@@ -47,6 +47,7 @@ DEFINE_OSX_MODULE(DyLD, u8"/usr/lib/system/libdyld.dylib", Posix, false, _NSGetE
 OVERRIDE_OSX_FUNCTION_NAMES(LibC, 
 	nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 	"readdir$INODE64",
-	nullptr, nullptr, nullptr, nullptr, nullptr, nullptr)
+	nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+	nullptr, nullptr)
 
 //! @endcond

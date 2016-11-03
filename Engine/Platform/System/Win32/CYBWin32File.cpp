@@ -56,6 +56,14 @@ CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const 
 				throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
 		}
 	}
+	else if (AMethod == Method::ANY) {
+		if (K32.Call<Modules::Kernel32::GetLastError>() == ERROR_ALREADY_EXISTS)
+			FOpenMethod = Method::EXIST;
+		else
+			FOpenMethod = Method::CREATE;
+	}
+	else
+		FOpenMethod = AMethod;
 }
 
 CYB::Platform::System::Implementation::File::File(File&& AMove) noexcept :

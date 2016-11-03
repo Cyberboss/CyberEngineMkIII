@@ -9,6 +9,7 @@ namespace CYB {
 				class File {
 				protected:
 					Win32::HANDLE FHandle;	//!< @brief The file handle
+					API::File::Method FOpenMethod;	//!< @brief The method used to open the file
 				protected:
 					//! @brief See @ref structors
 					File() noexcept = default;

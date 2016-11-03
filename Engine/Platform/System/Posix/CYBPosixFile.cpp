@@ -3,9 +3,7 @@
 
 using namespace CYB::Platform::Posix;
 
-CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const Method AMethod) :
-	FPath(std::move(APath))
-{
+void CYB::Platform::System::Implementation::File::Init(const System::Path& APath, const API::File::Mode AMode, const API::File::Method AMethod) {
 	auto Flags([&]() {
 		switch (AMode) {
 		case Mode::READ:
@@ -18,12 +16,11 @@ CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const 
 			throw Exception::Violation(Exception::Violation::INVALID_ENUM);
 		}
 	}());
+
 	switch (AMethod) {
 	case Method::ANY:
-		Flags |= O_CREAT;
-		break;
 	case Method::CREATE:
-		Flags |= O_EXCL;
+		Flags |= O_CREAT | O_EXCL;
 		break;
 	case Method::EXIST:
 		break;
@@ -34,12 +31,16 @@ CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const 
 		throw Exception::Violation(Exception::Violation::INVALID_ENUM);
 	}
 
-	FDescriptor = Core().FModuleManager.FC.Call<Modules::LibC::open>(FPath().CString(), Flags, S_IRUSR | S_IWUSR);
+	FDescriptor = Core().FModuleManager.FC.Call<Modules::LibC::open>(APath().CString(), Flags, S_IRUSR | S_IWUSR);
 
 	if (FDescriptor == -1) {
 		const auto Error(errno);
 		switch (Error) {
 		case EEXIST:
+			if (AMethod == Method::ANY) {
+				Init(AMode, Method::EXIST);
+				return;
+			}
 			throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
 		case ENOTDIR:
 		case ENOENT:
@@ -52,6 +53,14 @@ CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const 
 				throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
 		}
 	}
+	else
+		FOpenMethod = AMethod;
+}
+
+CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, Method AMethod) :
+	FPath(std::move(APath))
+{
+	Init(FPath, AMode, AMethod)
 }
 
 CYB::Platform::System::Implementation::File::File(File&& AMove) noexcept :

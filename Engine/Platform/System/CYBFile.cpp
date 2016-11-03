@@ -23,6 +23,5 @@ const CYB::API::Path& CYB::Platform::System::File::Path(void) const noexcept {
 }
 
 CYB::API::File::Method CYB::Platform::System::File::OpenMethod(void) const noexcept {
-	UNIMPLEMENTED;
-	return Method::ANY;
+	return FOpenMethod;
 }

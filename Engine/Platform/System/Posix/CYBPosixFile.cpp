@@ -6,11 +6,11 @@ using namespace CYB::Platform::Posix;
 void CYB::Platform::System::Implementation::File::Init(const System::Path& APath, const API::File::Mode AMode, const API::File::Method AMethod) {
 	auto Flags([&]() {
 		switch (AMode) {
-		case Mode::READ:
+		case API::File::Mode::READ:
 			return O_RDONLY;
-		case Mode::WRITE:
+		case API::File::Mode::WRITE:
 			return O_WRONLY;
-		case Mode::READ_WRITE:
+		case API::File::Mode::READ_WRITE:
 			return O_RDWR;
 		default:
 			throw Exception::Violation(Exception::Violation::INVALID_ENUM);
@@ -18,13 +18,13 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 	}());
 
 	switch (AMethod) {
-	case Method::ANY:
-	case Method::CREATE:
+	case API::File::Method::ANY:
+	case API::File::Method::CREATE:
 		Flags |= O_CREAT | O_EXCL;
 		break;
-	case Method::EXIST:
+	case API::File::Method::EXIST:
 		break;
-	case Method::TRUNCATE:
+	case API::File::Method::TRUNCATE:
 		Flags |= O_CREAT | O_TRUNC;
 		break;
 	default:
@@ -37,8 +37,8 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 		const auto Error(errno);
 		switch (Error) {
 		case EEXIST:
-			if (AMethod == Method::ANY) {
-				Init(AMode, Method::EXIST);
+			if (AMethod == API::File::Method::ANY) {
+				Init(AMode, API::File::Method::EXIST);
 				return;
 			}
 			throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
@@ -47,7 +47,7 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 			throw Exception::SystemData(Exception::SystemData::FILE_NOT_FOUND);
 		case EACCES:
 		default:
-			if (AMode == Mode::READ)
+			if (AMode == API::File::Mode::READ)
 				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
 			else
 				throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);

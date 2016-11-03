@@ -92,20 +92,19 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 	}());
 
 	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::lseek>(FDescriptor, static_cast<off_t>(AOffset), PosixLocation));
-	API::Assert::NotEqual(-1, Result);
+	API::Assert::NotEqual(Result, -1);
 
 	return static_cast<unsigned long long>(Result);
 }
 
-unsigned long long CYB::Platform::System::File::Read(const void* const ABuffer, const unsigned long long AMaxAmount) const {
-	static_cast<void>(ABuffer);
-	static_cast<void>(AMaxAmount);
-	UNIMPLEMENTED;
-	return 0;
+unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const unsigned long long AMaxAmount) const noexcept {
+	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::open>(FDescriptor, ABuffer, static_cast<size_t>(AMaxAmount)));
+	API::Assert::NotEqual(Result, -1);
+	return static_cast<unsigned long long>(Result);
 }
 
-void CYB::Platform::System::File::Write(void* const ABuffer, const unsigned long long AAmount) {
-	static_cast<void>(ABuffer);
-	static_cast<void>(AAmount);
-	UNIMPLEMENTED;
+unsigned long long CYB::Platform::System::File::Write(const void* const ABuffer, const unsigned long long AAmount) noexcept {
+	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::write>(FDescriptor, ABuffer, static_cast<size_t>(AAmount)));
+	API::Assert::NotEqual(Result, -1);
+	return static_cast<unsigned long long>(Result);
 }

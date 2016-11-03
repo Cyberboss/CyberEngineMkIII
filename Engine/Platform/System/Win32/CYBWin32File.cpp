@@ -34,7 +34,7 @@ CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const 
 			throw Exception::Violation(Exception::Violation::INVALID_ENUM);
 		}
 	}());
-																												//we don't care if somebody sneaks a peek at us, just no touching ;)
+																								//we don't care if somebody sneaks a peek at us, just no touching ;)
 	FHandle = K32.Call<Modules::Kernel32::CreateFileW>(FPath.WidePath().WString(), DesiredAccess, static_cast<DWORD>(FILE_SHARE_READ | FILE_SHARE_DELETE), nullptr, CreationDisposition, static_cast<DWORD>(FILE_ATTRIBUTE_NORMAL), nullptr);
 
 	if (FHandle == INVALID_HANDLE_VALUE) {

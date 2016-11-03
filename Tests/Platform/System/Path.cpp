@@ -268,7 +268,7 @@ SCENARIO("Path file name parsing works", "[Platform][System][Path][Unit]") {
 	GIVEN("Some variously named files"){
 		REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
 		Path Setup1(Path::SystemPath::TEMPORARY), Setup2(Setup1), Setup3(Setup1), Setup4(Setup1);
-		Setup1.Append(UTF8(Static(u8"TestFile1")), true, false);
+		Setup1.Append(UTF8(Static(u8"TestFile1")), false , false);
 		Setup2.Append(UTF8(Static(u8"Te.st.File2")), false, false);
 		File::Touch(Path(Setup1));
 		File::Touch(Path(Setup2));
@@ -528,9 +528,17 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 			const auto Thing(OverrideError(K32, 0));
 			REQUIRE_THROWS_AS(TestPath.IsDirectory(), CYB::Exception::SystemData);
 			THEN("The correct error is thrown") {
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::PATH_LOST);
 			}
 		}
+		WHEN("We fail a directory check with access denied") {
+			const auto BGFA(K32.Redirect<CYB::Platform::Modules::Kernel32::GetFileAttributesExW, BadGetFileAttributesEx>());
+			const auto Thing(OverrideError(K32, ERROR_ACCESS_DENIED));
+			REQUIRE_THROWS_AS(TestPath.IsDirectory(), CYB::Exception::SystemData);
+			THEN("The correct error is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+			}
+	}
 #else
 		CHECK(true);
 #endif
@@ -601,7 +609,7 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 #ifdef TARGET_OS_WINDOWS
 REDIRECTED_FUNCTION(BadGetFileAttributesEx, const void* const, const CYB::Platform::Win32::GET_FILEEX_INFO_LEVELS, const void* const) {
 	using namespace CYB::Platform::Win32;
-	return INVALID_FILE_ATTRIBUTES;
+	return 0;
 }
 #endif
 

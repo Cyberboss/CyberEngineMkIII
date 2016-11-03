@@ -82,8 +82,9 @@ CYB::Platform::System::File::~File() {
 
 unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
 	StatStruct Stat;
-	API::Assert::Equal(Core().FModuleManager.FC.Call<Modules::LibC::fstat>(FDescriptor, &Stat), 0);
-	return 0;
+	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::fstat>(FDescriptor, &Stat));
+	API::Assert::Equal(Result, static_cast<decltype(Result)>(0));
+	return static_cast<unsigned long long>(Stat.st_size);
 }
 
 unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, const SeekLocation ALocation) const {

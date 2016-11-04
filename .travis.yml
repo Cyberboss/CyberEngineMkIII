@@ -1,6 +1,6 @@
 language: cpp
-sudo: required
-dist: trusty
+dist: precise
+sudo: false
 
 os:
   - linux
@@ -14,11 +14,9 @@ branches:
 compiler: clang
 addons:
   apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    - llvm-toolchain-precise-3.7
     packages:
-    - clang-3.7
+    - clang
+    - cmake
     - doxygen
     - graphviz
 env:

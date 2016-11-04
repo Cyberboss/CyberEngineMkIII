@@ -38,7 +38,7 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 		switch (Error) {
 		case EEXIST:
 			if (AMethod == API::File::Method::ANY) {
-				Init(AMode, API::File::Method::EXIST);
+				Init(APath, AMode, API::File::Method::EXIST);
 				return;
 			}
 			throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
@@ -56,11 +56,11 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 	else
 		FOpenMethod = AMethod;
 }
-
+ 
 CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, Method AMethod) :
 	FPath(std::move(APath))
 {
-	Init(FPath, AMode, AMethod)
+	Init(FPath, AMode, AMethod);
 }
 
 CYB::Platform::System::Implementation::File::File(File&& AMove) noexcept :

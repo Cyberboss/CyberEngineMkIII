@@ -42,7 +42,7 @@ var searchData=
   ['createprocess',['CreateProcess',['../class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_process.html#a12d312f73b5678971fff374896f2f0db',1,'CYB::Platform::System::Implementation::Process']]],
   ['cstring',['CString',['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html#a587b183a459c771bcbfb8957e923ecd7',1,'CYB::API::String::CStyle']]],
   ['cstyle',['CStyle',['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html',1,'CYB::API::String']]],
-  ['cstyle',['CStyle',['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html#a518dff5038dc12e52c0d0a24de310647',1,'CYB::API::String::CStyle']]],
+  ['cstyle',['CStyle',['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html#aeebf495f21648cb0d6c16042a0c6c33d',1,'CYB::API::String::CStyle']]],
   ['cstylestring_2ehpp',['CStyleString.hpp',['../_c_style_string_8hpp.html',1,'']]],
   ['current',['Current',['../class_c_y_b_1_1_a_p_i_1_1_platform.html#afaa313539ac7f59f0f891d1c09d741ee',1,'CYB::API::Platform']]],
   ['currentamountofmemorycommitted',['CurrentAmountOfMemoryCommitted',['../class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#abad2501fcbebca29d32bd1eee4c50b42',1,'CYB::Engine::Memory::Heap']]],

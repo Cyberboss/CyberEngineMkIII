@@ -133,9 +133,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a518dff5038dc12e52c0d0a24de310647"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html#a518dff5038dc12e52c0d0a24de310647">CStyle</a> (char *const AData) noexcept</td></tr>
-<tr class="memdesc:a518dff5038dc12e52c0d0a24de310647"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html" title="A basic char contained string. ">CStyle</a> string.  <a href="#a518dff5038dc12e52c0d0a24de310647">More...</a><br/></td></tr>
-<tr class="separator:a518dff5038dc12e52c0d0a24de310647"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeebf495f21648cb0d6c16042a0c6c33d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html#aeebf495f21648cb0d6c16042a0c6c33d">CStyle</a> (char *const AData, const int ALength) noexcept</td></tr>
+<tr class="memdesc:aeebf495f21648cb0d6c16042a0c6c33d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html" title="A basic char contained string. ">CStyle</a> string.  <a href="#aeebf495f21648cb0d6c16042a0c6c33d">More...</a><br/></td></tr>
+<tr class="separator:aeebf495f21648cb0d6c16042a0c6c33d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d2b672ace61613dc97c5ec27170efb8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html#a9d2b672ace61613dc97c5ec27170efb8">CalculateByteLength</a> (void) const noexcept</td></tr>
 <tr class="memdesc:a9d2b672ace61613dc97c5ec27170efb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the byte length of the contained CString.  <a href="#a9d2b672ace61613dc97c5ec27170efb8">More...</a><br/></td></tr>
 <tr class="separator:a9d2b672ace61613dc97c5ec27170efb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,7 +156,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 
 <p>Definition at line <a class="el" href="_c_style_string_8hpp_source.html#l00007">7</a> of file <a class="el" href="_c_style_string_8hpp_source.html">CStyleString.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a518dff5038dc12e52c0d0a24de310647"></a>
+<a class="anchor" id="aeebf495f21648cb0d6c16042a0c6c33d"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -167,8 +167,18 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
           <td class="memname">CYB::API::String::CStyle::CStyle </td>
           <td>(</td>
           <td class="paramtype">char *const&#160;</td>
-          <td class="paramname"><em>AData</em></td><td>)</td>
+          <td class="paramname"><em>AData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>ALength</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -182,6 +192,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">AData</td><td>The data to populate the char array with. Must be at least a pointer to a null terminating character </td></tr>
+    <tr><td class="paramname">ALength</td><td>The length of AData. Looks instead for '\0' if set to -1 </td></tr>
   </table>
   </dd>
 </dl>

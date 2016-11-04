@@ -108,7 +108,7 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 }
 
 unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const unsigned long long AMaxAmount) const noexcept {
-	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::open>(FDescriptor, ABuffer, static_cast<size_t>(AMaxAmount)));
+	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::read>(FDescriptor, ABuffer, static_cast<size_t>(AMaxAmount)));
 	API::Assert::NotEqual(Result, static_cast<decltype(Result)>(-1));
 	return static_cast<unsigned long long>(Result);
 }

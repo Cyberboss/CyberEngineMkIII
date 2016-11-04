@@ -17,7 +17,7 @@ inline CYB::API::String::Dynamic::Dynamic(const CStyle& AData, const int ALength
 {}
 
 inline CYB::API::String::Dynamic::Dynamic(const Dynamic& ACopy) :
-	Dynamic(static_cast<const CStyle&>(ACopy), ACopy.FLength)
+	Dynamic(static_cast<const CStyle&>(ACopy))
 {}
 
 inline CYB::API::String::Dynamic::Dynamic(Dynamic&& AMove) noexcept :

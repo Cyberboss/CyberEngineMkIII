@@ -15,7 +15,8 @@ compiler: clang
 addons:
   apt:
     packages:
-    - clang-3.7
+    - clang
+    - cmake
     - doxygen
     - graphviz
 env:

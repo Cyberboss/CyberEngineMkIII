@@ -12,10 +12,11 @@ namespace CYB {
 				/*!
 					@brief Construct a CStyle string
 					@param AData The data to populate the char array with. Must be at least a pointer to a null terminating character
+					@param ALength The length of AData. Looks instead for '\0' if set to -1
 					@par Thread Safety
 						This function requires no thread safety
 				*/
-				CStyle(char* const AData) noexcept;
+				CStyle(char* const AData, const int ALength) noexcept;
 				virtual ~CStyle() = default;
 				/*!
 					@brief Calculate the byte length of the contained CString

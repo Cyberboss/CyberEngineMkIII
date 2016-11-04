@@ -1,19 +1,19 @@
 #pragma once
 
 inline CYB::API::String::Dynamic::Dynamic() noexcept :
-	CStyle(nullptr)
+	CStyle(nullptr, -1)
 {}
 
 inline CYB::API::String::Dynamic::Dynamic(char* const AData) noexcept :
-	CStyle(AData)
+	CStyle(AData, -1)
 {}
 
 inline CYB::API::String::Dynamic::Dynamic(const char* const AData, const int ALength) :
-	CStyle(CopyCStyle(Static(AData), ALength))
+	CStyle(CopyCStyle(Static(AData), ALength), ALength)
 {}
 
 inline CYB::API::String::Dynamic::Dynamic(const CStyle& AData, const int ALength) :
-	CStyle(CopyCStyle(AData, ALength))
+	CStyle(CopyCStyle(AData, ALength), ALength)
 {}
 
 inline CYB::API::String::Dynamic::Dynamic(const Dynamic& ACopy) :
@@ -21,7 +21,7 @@ inline CYB::API::String::Dynamic::Dynamic(const Dynamic& ACopy) :
 {}
 
 inline CYB::API::String::Dynamic::Dynamic(Dynamic&& AMove) noexcept :
-	CStyle(AMove.FData)
+	CStyle(AMove.FData, AMove.FLength)
 {
 	AMove.FData = nullptr;
 }

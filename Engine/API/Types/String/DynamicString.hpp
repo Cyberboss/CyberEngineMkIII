@@ -72,14 +72,14 @@ namespace CYB {
 				/*!
 					@brief Construct a Dynamic string. This will allocate enough data to copy the contents of @p AData
 					@param AData The data to populate the char array with
-					@param ALength The length of AData to copy. Looks instead for '\0' if set to -1
+					@param ALength The length of AData to copy. Uses @p AData's RawLength() if set to -1
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
 				Dynamic(const CStyle& AData, const int ALength = -1);
 				/*!
-					@brief See @ref structors
+					@brief Copies the FData of @p ACopy for its FLength bytes
 					@param ACopy a reference to the existing Dynamic to copy
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/

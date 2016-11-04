@@ -1,9 +1,9 @@
 //! @file CStyleString.inl Implements functions from CYB::API::String::CStyle
 #pragma once
 
-inline CYB::API::String::CStyle::CStyle(char* const AData) noexcept :
+inline CYB::API::String::CStyle::CStyle(char* const AData, const int ALength) noexcept :
 	FData(AData),
-	FLength(CalculateByteLength())
+	FLength(ALength == -1 ? CalculateByteLength() : ALength)
 {}
 
 inline int CYB::API::String::CStyle::CalculateByteLength(void) const noexcept {

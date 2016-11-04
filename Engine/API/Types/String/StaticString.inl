@@ -6,7 +6,7 @@ inline CYB::API::String::Static::Static() noexcept :
 {}
 
 inline CYB::API::String::Static::Static(const char* const AData) noexcept :
-	CStyle(const_cast<char*>(AData))	//Valid af since the data is immutable
+	CStyle(const_cast<char*>(AData), -1)	//Valid af since the data is immutable
 {}
 
 inline int CYB::API::String::Static::Length(void) const noexcept {

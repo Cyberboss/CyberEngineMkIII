@@ -85,3 +85,21 @@ SCENARIO("UTF16 errors work", "[Platform][String][UTF16][Unit]") {
 	CHECK(true);
 #endif
 }
+
+SCENARIO("UTF16 copies maintain the correct length", "[Platform][String][UTF16][Unit]") {
+	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
+#ifdef TARGET_OS_WINDOWS	//We use the MultiByteToWideChar/WideCharToMultiByte functions on windows, the only system where we need UTF16
+	GIVEN("A valid UTF16 string") {
+		UTF16 Source(Static(u8"私は自分のベストを尽くします"));
+		WHEN("It is copies") {
+			UTF16 Copy(Source);
+			THEN("The two of them have the same lengths") {
+				CHECK(Copy.RawLength() == Source.RawLength());
+				CHECK(Copy.Length() == Source.Length());
+			}
+		}
+	}
+#else
+	CHECK(true);
+#endif
+}

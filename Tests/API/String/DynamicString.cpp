@@ -1,4 +1,4 @@
-#include "TestHeader.hpp"
+﻿#include "TestHeader.hpp"
 
 using namespace CYB::API::String;
 
@@ -144,6 +144,19 @@ SCENARIO("Dynamic string addition works", "[API][String][Dynamic][Unit]") {
 			A += B;
 			THEN("The result is correct") {
 				CHECK(A == Static("asdfqwer"));
+			}
+		}
+	}
+}
+
+SCENARIO("Dynamic copies maintain the correct length", "[API][String][Dynamic][Unit]") {
+	GIVEN("A valid UTF8 string") {
+		Dynamic Source(u8"私は自分のベストを尽くします");
+		WHEN("It is copies") {
+			Dynamic Copy(Source);
+			THEN("The two of them have the same lengths") {
+				CHECK(Copy.RawLength() == Source.RawLength());
+				CHECK(Copy.Length() == Source.Length());
 			}
 		}
 	}

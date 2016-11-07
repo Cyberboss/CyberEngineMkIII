@@ -65,7 +65,7 @@
       <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;Pathcch.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <HeapReserveSize>0</HeapReserveSize>
       <HeapCommitSize>0</HeapCommitSize>

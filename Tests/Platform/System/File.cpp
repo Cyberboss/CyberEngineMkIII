@@ -79,6 +79,8 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 	bool MovePath, Exists, Directory;
 
 	const auto Creation([&]() {
+		INFO("Opening with path:");
+		INFO((*CurrentPath)());
 		File(MovePath ? std::move(*CurrentPath) : *CurrentPath, Mo, Me);
 	});
 
@@ -104,14 +106,21 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 				Then();
 			else {
 				THEN("It fails correctly") {
-					CHECK_THROWS_AS(File(MovePath ? std::move(*CurrentPath) : *CurrentPath, Mo, Me), CYB::Exception::SystemData);
+					CHECK_THROWS_AS(Creation(), CYB::Exception::SystemData);
 					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_EXISTS);
 				}
 			}
 		}
 		WHEN("We open with method TRUNCATE") {
 			Me = File::Method::TRUNCATE;
-			Then();
+			if(Mo != File::Mode::READ)
+				Then();
+			else {
+				THEN("It fails correctly") {
+					CHECK_THROWS_AS(Creation(), CYB::Exception::Violation);
+					CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_PARAMETERS);
+				}
+			}
 		}
 		WHEN("We open with method EXIST") {
 			Me = File::Method::EXIST;
@@ -119,7 +128,7 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 				Then();
 			else {
 				THEN("It fails correctly") {
-					CHECK_THROWS_AS(File(MovePath ? std::move(*CurrentPath) : *CurrentPath, Mo, Me), CYB::Exception::SystemData);
+					CHECK_THROWS_AS(Creation(), CYB::Exception::SystemData);
 					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_FOUND);
 				}
 			}

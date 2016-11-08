@@ -39,6 +39,7 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if @p AMode equals Mode::WRITE or Mode::READ_WRITE and the file could not be opened
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_FOUND. Thrown if @p AMethod equals Method::EXIST and the file portion of @p APath does not exist or if it is not valid in other cases.
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p AMode, or @p AMethod is invalid
+					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_PARAMETERS. Thrown if @p AMode is Mode::READ and @p AMethod is Method::TRUNCATE. Operating systems require write permissions to truncate a file
 				*/
 				File(System::Path&& APath, const Mode AMode, const Method AMethod);
 				/*!
@@ -53,6 +54,7 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_FOUND. Thrown if @p AMethod equals Method::EXIST and the file portion of @p APath does not exist or if it is not valid in other cases.
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p AMode, or @p AMethod is invalid
+					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_PARAMETERS. Thrown if @p AMode is Mode::READ and @p AMethod is Method::TRUNCATE. Operating systems require write permissions to truncate a file
 				*/
 				File(const API::Path& APath, const Mode AMode, const Method AMethod);
 				//! @brief See @ref structors

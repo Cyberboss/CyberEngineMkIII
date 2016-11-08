@@ -6,6 +6,9 @@ using namespace CYB::Platform::Win32;
 CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const Method AMethod) :
 	FPath(std::move(APath))
 {
+	if (AMode == Mode::READ && AMethod == Method::TRUNCATE)
+		throw Exception::Violation(Exception::Violation::INVALID_PARAMETERS);
+
 	auto& K32(Core().FModuleManager.FK32);
 
 	const auto DesiredAccess([&]() -> DWORD {
@@ -34,8 +37,10 @@ CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const 
 			throw Exception::Violation(Exception::Violation::INVALID_ENUM);
 		}
 	}());
+
+	const auto FilePath(FPath.WidePath().WString());
 																								//Maintain POSIX compatibility, no locking
-	FHandle = K32.Call<Modules::Kernel32::CreateFileW>(FPath.WidePath().WString(), DesiredAccess, static_cast<DWORD>(FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE), nullptr, CreationDisposition, static_cast<DWORD>(FILE_ATTRIBUTE_NORMAL), nullptr);
+	FHandle = K32.Call<Modules::Kernel32::CreateFileW>(FilePath, DesiredAccess, static_cast<DWORD>(FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE), nullptr, CreationDisposition, static_cast<DWORD>(FILE_ATTRIBUTE_NORMAL), nullptr);
 
 	if (FHandle == INVALID_HANDLE_VALUE) {
 		const auto Error(K32.Call<Modules::Kernel32::GetLastError>());

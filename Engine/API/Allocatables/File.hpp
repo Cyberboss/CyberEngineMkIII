@@ -41,6 +41,7 @@ namespace CYB {
 					<BR>CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					<BR>CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if @p APath failed to verify
 					<BR>CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p AMode, or @p AMethod is invalid
+					<BR>CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_PARAMETERS. Thrown if @p AMode is Mode::READ and @p AMethod is Method::TRUNCATE. Operating systems require write permissions to truncate a file
 			*/
 			using Constructor = Interop::Constructor<const Path&, const Mode, const Method>;
 		public:

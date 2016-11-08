@@ -4,6 +4,10 @@
 using namespace CYB::Platform::Posix;
 
 void CYB::Platform::System::Implementation::File::Init(const System::Path& APath, const API::File::Mode AMode, const API::File::Method AMethod) {
+
+	if (AMode == API::File::Mode::READ && AMethod == API::File::Method::TRUNCATE)
+		throw Exception::Violation(Exception::Violation::INVALID_PARAMETERS);
+
 	auto Flags([&]() {
 		switch (AMode) {
 		case API::File::Mode::READ:

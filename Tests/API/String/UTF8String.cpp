@@ -2,6 +2,8 @@
 
 #include <cstring>
 
+using namespace CYB::API::String;
+
 SCENARIO("UTF8 string constructors work","[API][String][UTF8][Unit]") {
 	GIVEN("Two static strings") {
 		CYB::API::String::Static S1(u8"asdf"), S2(u8"qwerty"), S3;
@@ -119,6 +121,19 @@ SCENARIO("UTF8 Shrink works", "[API][String][UTF8][Unit]") {
 			Data.Shrink(0);
 			THEN("It is now dead inside") {
 				CHECK(Data == Empty);
+			}
+		}
+	}
+}
+
+SCENARIO("UTF8 copies maintain the correct length", "[API][String][UTF8][Unit]") {
+	GIVEN("A valid UTF8 string") {
+		UTF8 Source(Static(u8"私は自分のベストを尽くします"));
+		WHEN("It is copies") {
+			UTF8 Copy(Source);
+			THEN("The two of them have the same lengths") {
+				CHECK(Copy.RawLength() == Source.RawLength());
+				CHECK(Copy.Length() == Source.Length());
 			}
 		}
 	}

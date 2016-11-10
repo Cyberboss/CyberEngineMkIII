@@ -87,4 +87,3 @@ namespace CYB {
 		};
 	};
 };
-//! @todo Use File::Touch in Path tests after it's implemented

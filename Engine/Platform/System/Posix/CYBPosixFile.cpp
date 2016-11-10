@@ -84,6 +84,17 @@ CYB::Platform::System::File::~File() {
 		Core().FModuleManager.FC.Call<Modules::LibC::close>(FDescriptor);
 }
 
+unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) {
+	StatStruct Stat;
+	const auto Result(Sys::Call(Sys::LSTAT, const_cast<char*>(APath().CString()), &Stat));
+	if(Result == 0)
+		return static_cast<unsigned long long>(Stat.st_size);
+	else if(Result == EACCES)
+		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+	throw Exception::SystemData(Exception::SystemData::FILE_NOT_FOUND);
+}
+
+
 unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
 	StatStruct Stat;
 	const auto Result(static_cast<int>(Sys::Call(Sys::FSTAT, FDescriptor, &Stat)));

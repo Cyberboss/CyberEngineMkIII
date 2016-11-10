@@ -103,7 +103,7 @@ unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) 
 
 StatStruct CYB::Platform::System::Implementation::File::StatFD(void) const noexcept {
 	StatStruct Stat;
-	const auto Result(static_cast<int>(Sys::Call(Sys::FSTAT, FDescriptor, &Stat)));
+	const auto Result(static_cast<int>(System::Sys::Call(Sys::FSTAT, FDescriptor, &Stat)));
 	API::Assert::Equal(Result, static_cast<decltype(Result)>(0));
 	return Stat;
 }

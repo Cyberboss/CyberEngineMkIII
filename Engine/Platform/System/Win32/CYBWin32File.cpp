@@ -32,7 +32,7 @@ CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const 
 		case Method::EXIST:
 			return OPEN_EXISTING;
 		case Method::TRUNCATE:
-			return TRUNCATE_EXISTING;
+			return CREATE_ALWAYS;
 		default:
 			throw Exception::Violation(Exception::Violation::INVALID_ENUM);
 		}

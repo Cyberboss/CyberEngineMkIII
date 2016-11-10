@@ -45,6 +45,7 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 				Init(APath, AMode, API::File::Method::EXIST);
 				return;
 			}
+		case EISDIR:
 			throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
 		case ENOTDIR:
 		case ENOENT:

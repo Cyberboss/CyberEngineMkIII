@@ -86,7 +86,10 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 	const auto Creation([&]() {
 		INFO("Opening with path:");
 		INFO((*CurrentPath)());
-		File(MovePath ? std::move(*CurrentPath) : *CurrentPath, Mo, Me);
+		if (MovePath)
+			File(std::move(*CurrentPath), Mo, Me);
+		else
+			File(*CurrentPath, Mo, Me);
 	});
 
 	const auto Then([&]() {
@@ -193,6 +196,43 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 		Exists = false;
 		Directory = false;
 		ConstructorMatrix();
+	}
+	GIVEN("A valid file") {
+		std::unique_ptr<File> DasFile;
+		REQUIRE_NOTHROW(DasFile.reset(new File(TestData.Path1(), File::Mode::READ_WRITE, File::Method::ANY)));
+		WHEN("It is moved constructed") {
+			std::unique_ptr<File> DasMove;
+			REQUIRE_NOTHROW(DasMove.reset(new File(std::move(*DasFile))));
+			THEN("All is well") {
+				CHECK(true);
+			}
+		}
+		WHEN("It is moved assigned") {
+			std::unique_ptr<File> DasMove;
+			REQUIRE_NOTHROW(DasMove.reset(new File(TestData.Path2(), File::Mode::READ_WRITE, File::Method::ANY)));
+			REQUIRE_NOTHROW(*DasMove = std::move(*DasFile));
+			THEN("All is well") {
+				CHECK(true);
+			}
+		}
+	}
+	const auto Violation([&]() {
+		WHEN("Creation is attempted") {
+			CHECK_THROWS_AS(File(TestData.Path1(), Mo, Me), CYB::Exception::Violation);
+			THEN("The correct error is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
+			}
+		}
+	});
+	GIVEN("A bad mode") {
+		Mo = static_cast<File::Mode>(5);
+		Me = File::Method::ANY;
+		Violation();
+	}
+	GIVEN("A bad method") {
+		Mo = File::Mode::READ_WRITE;
+		Me = static_cast<File::Method>(5);
+		Violation();
 	}
 }
 

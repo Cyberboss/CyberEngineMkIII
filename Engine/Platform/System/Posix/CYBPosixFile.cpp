@@ -61,7 +61,7 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 
 	//Check it's actually a file because otherwise we aren't supposed to have it open
 	if (!(S_ISREG(StatFD().st_mode))) {
-		Core().FModuleManager.FC.Call<Modules::LibC::close>(FDescriptor);
+		Close();
 		throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
 	}
 
@@ -81,14 +81,19 @@ CYB::Platform::System::Implementation::File::File(File&& AMove) noexcept :
 }
 
 CYB::Platform::System::File& CYB::Platform::System::File::operator=(File&& AMove) noexcept {
+	Close();
 	FDescriptor = AMove.FDescriptor;
 	AMove.FDescriptor = -1;
 	return *this;
 }
 
-CYB::Platform::System::File::~File() {
+void CYB::Platform::System::Implementation::File::Close(void) const noexcept {
 	if (FDescriptor != -1)
 		Core().FModuleManager.FC.Call<Modules::LibC::close>(FDescriptor);
+}
+
+CYB::Platform::System::File::~File() {
+	Close();
 }
 
 unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) {

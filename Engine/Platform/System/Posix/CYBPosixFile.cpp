@@ -61,7 +61,7 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 	//Check it's actually a file because otherwise we aren't supposed to have it open
 	if (!(S_ISREG(StatFD().st_mode))) {
 		Core().FModuleManager.FC.Call<Modules::LibC::close>(FDescriptor);
-		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+		throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
 	}
 
 	FOpenMethod = AMethod;

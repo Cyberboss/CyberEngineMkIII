@@ -52,8 +52,23 @@ CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const 
 			throw Exception::SystemData(Exception::SystemData::FILE_NOT_FOUND);
 		case ERROR_FILE_EXISTS:
 			throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
-		case ERROR_SHARING_VIOLATION:
 		case ERROR_ACCESS_DENIED:
+		{
+			//Translate properly to the directory error
+			//We don't care how screwed up FPath is, it has a different exception spec to us
+			//DO NOT LET IT PROPAGATE
+			bool IsDir;
+			try {
+				IsDir = FPath.IsDirectory();
+			}
+			catch(CYB::Exception::Base& AException) {
+				API::Assert::Equal(AException.FLevel, Exception::Base::Level::SYSTEM_DATA);
+				IsDir = false;
+			}
+			if(IsDir)
+				throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
+		}
+		case ERROR_SHARING_VIOLATION:
 		default:
 			if (AMode == Mode::READ)
 				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);

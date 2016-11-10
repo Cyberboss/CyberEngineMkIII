@@ -94,10 +94,7 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 			CHECK_NOTHROW(Creation());
 		else {
 			CHECK_THROWS_AS(Creation(), CYB::Exception::SystemData);
-			if(Mo == File::Mode::READ)
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
-			else
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+			CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_EXISTS);
 		}
 	});
 	const auto MethodMatrix([&]() {
@@ -112,12 +109,7 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 			else {
 				THEN("It fails correctly") {
 					CHECK_THROWS_AS(Creation(), CYB::Exception::SystemData);
-					if(!Directory)
-						CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_EXISTS);
-					else if(Mo == File::Mode::READ)
-						CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
-					else
-						CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_EXISTS);
 				}
 			}
 		}

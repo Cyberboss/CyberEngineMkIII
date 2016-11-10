@@ -11,6 +11,14 @@ namespace CYB {
 					int FDescriptor; //!< @brief The file descriptor
 					API::File::Method FOpenMethod;	//!< @brief The method used to open the file
 				protected:
+					/*!
+						@brief Returns the stat struct for the FDescriptor
+						@return The stat struct for FDescriptor
+						@par Thread Safety
+							This function requires no thread safety
+					*/
+					StatStruct StatFD(void) const noexcept;
+
 					//! @brief See @ref structors
 					File() noexcept = default;
 					//! @brief See @ref structors

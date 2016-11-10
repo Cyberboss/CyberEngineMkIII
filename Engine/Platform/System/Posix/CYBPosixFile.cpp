@@ -57,8 +57,14 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 				throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
 		}
 	}
-	else
-		FOpenMethod = AMethod;
+
+	//Check it's actually a file because otherwise we aren't supposed to have it open
+	if (!(S_ISREG(StatFD().st_mode))) {
+		Core().FModuleManager.FC.Call<Modules::LibC::close>(FDescriptor);
+		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+	}
+
+	FOpenMethod = AMethod;
 }
  
 CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, Method AMethod) :
@@ -95,11 +101,15 @@ unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) 
 }
 
 
-unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
+StatStruct CYB::Platform::System::Implementation::File::StatFD(void) const noexcept {
 	StatStruct Stat;
 	const auto Result(static_cast<int>(Sys::Call(Sys::FSTAT, FDescriptor, &Stat)));
 	API::Assert::Equal(Result, static_cast<decltype(Result)>(0));
-	return static_cast<unsigned long long>(Stat.st_size);
+	return Stat;
+}
+
+unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
+	return static_cast<unsigned long long>(StatFD().st_size);
 }
 
 unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, const SeekLocation ALocation) const {

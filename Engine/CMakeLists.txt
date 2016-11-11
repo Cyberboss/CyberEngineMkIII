@@ -53,8 +53,13 @@ Engine/Core/CYBInterop.cpp
 Engine/Core/CYBCore.cpp
 )
 
-set_property(TARGET EngineBase PROPERTY COMPILE_FLAGS "-pedantic")
-target_link_libraries(EngineBase dl)
+IF(CMAKE_BUILD_TYPE MATCHES Debug)
+	set_property(TARGET EngineBase PROPERTY COMPILE_FLAGS "-fprofile-arcs -ftest-coverage -pedantic")
+	target_link_libraries(EngineBase dl -fprofile-arcs -ftest-coverage)
+ELSE()
+	set_property(TARGET EngineBase PROPERTY COMPILE_FLAGS "-pedantic")
+	target_link_libraries(EngineBase dl)
+ENDIF()
 
 set_property (SOURCE "CYB.cpp" PROPERTY COTIRE_DEPENDENCY "TRUE")
 set_target_properties(EngineBase PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "CYB.hpp")

@@ -36,11 +36,13 @@ env:
 addons:
   coverity_scan:
     project:
-	  name: Cyberboss/CyberEngineMkIII
-	  description: "Build submitted via Travis CI"
-      build_command_prepend: "BuildScripts/Travis/Travis.sh"
-      build_command: "make -j 4"
-      branch_pattern: qa
+      name: Cyberboss/CyberEngineMkIII
+      description: "Build submitted via Travis CI"
+      version: $TRAVIS_BUILD_NUMBER
+    notification_email: $CoverityNotificationEmail
+    build_command_prepend: "BuildScripts/Travis/Travis.sh"
+    build_command: "make -j 4"
+    branch_pattern: qa
 
 before_install:
 - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-

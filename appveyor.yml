@@ -3,6 +3,7 @@ os: Visual Studio 2015
 branches:
   only:
   - master
+  - qa
   - dev
 
 platform:
@@ -19,6 +20,21 @@ build:
   parallel: true
   project: CyberEngineMkIII.sln
   
+after_build:
+- ps: |
+  if ($env:APPVEYOR_REPO_BRANCH -eq "qa" -and -Not $env:APPVEYOR_PULL_REQUEST_NUMBER ) {
+    cov-build.exe --dir cov-int msbuild CyberEngineMkIII.sln /property:Configuration=$env:CONFIGURATION
+    nuget.exe install PublishCoverity -ExcludeVersion
+	$version = Get-Date -format s
+    PublishCoverity\tools\PublishCoverity.exe publish `
+      -t "$env:CoverityProjectToken" `
+      -e "$env:CoverityNotificationEmail" `
+      -r "$env:APPVEYOR_REPO_NAME" `
+      -z coverity.zip `
+      -d "AppVeyor CI build ($env:APPVEYOR_BUILD_VERSION)." `
+      --codeVersion "$version"
+  }
+
 before_test:
 - powershell -Command "BuildScripts/Appveyor/InstallCatchAdapter.ps1"
   

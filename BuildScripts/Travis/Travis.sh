@@ -20,4 +20,8 @@ else
 		cmake . -DCMAKE_C_COMPILER=$CCOMPILER -DCMAKE_CXX_COMPILER=$CXXOMPILER -DCMAKE_BUILD_TYPE=Debug -DCOTIRE_MINIMUM_NUMBER_OF_TARGET_SOURCES=1 -DGOLD_PLUGIN=OFF
 	fi
 fi
-make && ctest --output-on-failure
+
+#setup coverage
+lcov --zerocounters --directory . --base-directory . --gcov-tool Tests/llvm-gcov.sh --rc
+
+scan-build -o StaticAnalysis make && ctest -T Test --output-on-failure

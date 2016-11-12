@@ -1,6 +1,9 @@
 if ($env:CONFIGURATION -eq "Debug"){
+	ls
+	$test = ls
+	Write-Host $test
 	$coverageFilePath = Resolve-Path -path "TestResults\*\*.coverage"
-	$coveralls = Resolve-Path -path "packages\*\tools\csmacnz.coveralls.exe.coverage"
+	$coveralls = Resolve-Path -path "*\tools\csmacnz.coveralls.exe.coverage"
  
 	$coverageFilePath = $coverageFilePath.ToString()
 	$coveralls = $coveralls.ToString()

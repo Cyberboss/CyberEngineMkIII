@@ -23,7 +23,7 @@ before_test:
 - powershell -Command "BuildScripts/Appveyor/InstallCatchAdapter.ps1"
 
 after_build:
-- nuget.exe install coveralls.io -ExcludeVersion
+- nuget.exe install coveralls.net -ExcludeVersion
   
 test_script:
 - vstest.console.exe /logger:Appveyor /Platform:x64 /UseVsixExtensions:true /inIsolation /Settings:"Tests/CoverageExclusions.runsettings" Output/bin/CyberEngineMkIIITester.exe /Enablecodecoverage

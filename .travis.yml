@@ -47,5 +47,5 @@ script:
 - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisCheckDox.sh; fi
 
 after_success: 
-- if [[ "$BUILD_RELEASE" != "true" ]]; then coveralls --gcov llvm-cov --gcov-options gcov --extension .cpp --extension .inl; fi
+- if [[ "$BUILD_RELEASE" != "true" ]]; then coveralls --gcov llvm-cov --gcov-options gcov --exclude Tests --exclude Executable --exclude-pattern ".*\\.hpp" --exclude-pattern ".*\\.h" ; fi
 - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisGenDox.sh; fi

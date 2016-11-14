@@ -27,4 +27,4 @@ test_script:
 
 after_test: 
 - powershell -Command "BuildScripts/Appveyor/GenCodeCovXML.ps1"
-- bash <(curl -s https://codecov.io/bash)
+- '%CYG_ROOT%/bin/bash <(curl -s https://codecov.io/bash)

@@ -37,5 +37,5 @@ script:
 - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisCheckDox.sh; fi
 
 after_success: 
-- if [[ "$BUILD_RELEASE" != "true" ]]; then bash <(curl -s https://codecov.io/bash); fi
+- if [[ "$BUILD_RELEASE" != "true" ]]; then bash <(curl -s https://codecov.io/bash) -x llvm-cov -a gcov; fi
 - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisGenDox.sh; fi

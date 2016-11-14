@@ -79,11 +79,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Appveyor", "Appveyor", "{3B
 		BuildScripts\Appveyor\InstallCatchAdapter.ps1 = BuildScripts\Appveyor\InstallCatchAdapter.ps1
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeCov", "CodeCov", "{A26FCB3C-87A9-40DF-B928-B91837695673}"
-	ProjectSection(SolutionItems) = preProject
-		codecov.yml = codecov.yml
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -135,6 +130,5 @@ Global
 		{85E06AE1-C645-43EE-B02E-24AFAF5CB194} = {A4BD2B4E-C162-4329-B6CF-E0C2F610E5B6}
 		{CCC2B42A-EE15-409C-8672-1FBBE533DF4C} = {0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}
 		{3BEB026D-3E5B-4704-AFC4-140DFA93AEBB} = {0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}
-		{A26FCB3C-87A9-40DF-B928-B91837695673} = {0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}
 	EndGlobalSection
 EndGlobal

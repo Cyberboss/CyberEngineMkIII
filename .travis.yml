@@ -41,5 +41,6 @@ script:
 
 after_success: 
 - if [[ "$BUILD_RELEASE" != "true" ]]; then if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then bash <(curl -s https://codecov.io/bash) -x llvm-cov -a gcov -F Linux; fi; fi
+- if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then llvm-cov gcov --help; fi
 - if [[ "$BUILD_RELEASE" != "true" ]]; then if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then bash <(curl -s https://codecov.io/bash) -x llvm-cov -a gcov -F OSX; fi; fi
 - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisGenDox.sh; fi

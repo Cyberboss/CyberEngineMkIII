@@ -27,4 +27,6 @@ test_script:
 
 after_test: 
 - powershell -Command "BuildScripts/Appveyor/GenCodeCovXML.ps1"
-- pip install --user codecov && codecov -t CODECOV_TOKEN
+- "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
+- pip install codecov
+- codecov -t CODECOV_TOKEN -f coverage.coveragexml

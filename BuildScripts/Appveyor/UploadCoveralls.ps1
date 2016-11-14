@@ -6,7 +6,7 @@ if ($env:CONFIGURATION -eq "Debug"){
 	Write-Host "Running CodeCoverage.exe..."
 	& "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Dynamic Code Coverage Tools\CodeCoverage.exe" analyze /output:coverage.coveragexml "$coverageFilePath"
 	Write-Host "Downloading PathCapitalizationCorrector v0.1.0..."
-	appveyor DownloadFile https://github.com/Cyberboss/PathCapitalizationCorrector/releases/download/0.1.0/PathCapitalizationCorrector.exe
+	appveyor DownloadFile https://github.com/Cyberboss/PathCapitalizationCorrector/releases/download/0.1.1/PathCapitalizationCorrector.exe
 	Write-Host "Fixing Window's terrible case ignorance..."
 	&"PathCapitalizationCorrector.exe coverage.coveragexml"
 	cat coverage.coveragexml

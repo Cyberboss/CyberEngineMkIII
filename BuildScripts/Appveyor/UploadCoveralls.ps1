@@ -12,5 +12,4 @@ if ($env:CONFIGURATION -eq "Debug"){
 	else{
 		& $coveralls --serviceName appveyor-ci --pullRequest $env:APPVEYOR_PULL_REQUEST_NUMBER --dynamiccodecoverage -i coverage.coveragexml --useRelativePaths --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
 	}
-	cat coverage.coveragexml
 }

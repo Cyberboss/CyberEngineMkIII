@@ -26,5 +26,5 @@ test_script:
 - vstest.console.exe /logger:Appveyor /Platform:x64 /UseVsixExtensions:true /inIsolation /Settings:"Tests/CoverageExclusions.runsettings" Output/bin/CyberEngineMkIIITester.exe /Enablecodecoverage
 
 after_test: 
-- nuget.exe install coveralls.net -Version 0.7.0 -ExcludeVersion
-- powershell -Command "BuildScripts/Appveyor/UploadCoveralls.ps1"
+- powershell -Command "BuildScripts/Appveyor/GenCodeCovXML.ps1"
+- bash <(curl -s https://codecov.io/bash)

@@ -32,6 +32,9 @@ env:
   - BUILD_RELEASE: false
   - BUILD_RELEASE: true
 
+install:
+- if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo ln -s /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/llvm-cov /usr/local/bin/llvm-cov; fi
+
 script: 
 - BuildScripts/Travis/Travis.sh
 - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisCheckDox.sh; fi

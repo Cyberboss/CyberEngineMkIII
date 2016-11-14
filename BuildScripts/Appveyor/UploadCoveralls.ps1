@@ -8,8 +8,7 @@ if ($env:CONFIGURATION -eq "Debug"){
 	Write-Host "Downloading PathCapitalizationCorrector v0.1.0..."
 	appveyor DownloadFile https://github.com/Cyberboss/PathCapitalizationCorrector/releases/download/0.1.1/PathCapitalizationCorrector.exe
 	Write-Host "Fixing Window's terrible case ignorance..."
-	&"PathCapitalizationCorrector.exe coverage.coveragexml"
-	cat coverage.coveragexml
+	&"PathCapitalizationCorrector.exe" coverage.coveragexml
 
 	$coveralls = "coveralls.net/tools/csmacnz.coveralls.exe"
 	if (-Not $env:APPVEYOR_PULL_REQUEST_NUMBER) {

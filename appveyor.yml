@@ -27,4 +27,4 @@ test_script:
 
 after_test: 
 - powershell -Command "BuildScripts/Appveyor/GenCodeCovXML.ps1"
-- '%CYG_ROOT%/bin/bash <(curl -s https://codecov.io/bash)'
+- pip install --user codecov && codecov -t CODECOV_TOKEN

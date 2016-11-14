@@ -32,10 +32,18 @@ env:
   - BUILD_RELEASE: false
   - BUILD_RELEASE: true
 
+before_install:
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then eval "$(pyenv init -)"; fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pyenv install 2.7.6; fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pyenv global 2.7.6; fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pyenv rehash; fi
+- pip install cpp-coveralls
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pyenv rehash; fi
+
 script: 
 - BuildScripts/Travis/Travis.sh
 - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisCheckDox.sh; fi
 
 after_success: 
-- if [[ "$BUILD_RELEASE" != "true" ]]; then bash <(curl -s https://codecov.io/bash); fi
+- if [[ "$BUILD_RELEASE" != "true" ]]; then coveralls --gcov llvm-cov --gcov-options gcov --exclude Tests --exclude Executable --exclude-pattern ".*\\.hpp" --exclude-pattern ".*\\.h" ; fi
 - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisGenDox.sh; fi

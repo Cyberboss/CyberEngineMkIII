@@ -40,6 +40,6 @@ script:
 - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisCheckDox.sh; fi
 
 after_success:
-- if [[ "$BUILD_RELEASE" != "true" ]]; then if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then bash <(curl -s https://codecov.io/bash) -x "llvm-cov gcov" -G "Engine/CMakeFiles/EngineBase.dir/Platform/System/Posix" -G "Engine/CMakeFiles/EngineBase.dir/Platform/System/Linux" -F Linux; fi; fi
-- if [[ "$BUILD_RELEASE" != "true" ]]; then if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then bash <(curl -s https://codecov.io/bash) -x "llvm-cov gcov" -G "Engine/CMakeFiles/EngineBase.dir/Platform/System/Posix" -G "Engine/CMakeFiles/EngineBase.dir/Platform/System/OSX" -F OSX; fi; fi
+- if [[ "$BUILD_RELEASE" != "true" ]]; then if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then bash <(curl -s https://codecov.io/bash) -x "llvm-cov gcov" -G "./Engine/CMakeFiles/EngineBase.dir/Platform/System/Posix*" -G "./Engine/CMakeFiles/EngineBase.dir/Platform/System/Linux*" -F Linux; fi; fi
+- if [[ "$BUILD_RELEASE" != "true" ]]; then if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then bash <(curl -s https://codecov.io/bash) -x "llvm-cov gcov" -G "./Engine/CMakeFiles/EngineBase.dir/Platform/System/Posix*" -G "./Engine/CMakeFiles/EngineBase.dir/Platform/System/OSX*" -F OSX; fi; fi
 - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisGenDox.sh; fi

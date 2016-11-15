@@ -2,10 +2,10 @@
 //!	@file SystemChecks.hpp Checks the platform that the engine and unit is being compiled on is appropriate
 
 #if !defined(TARGET_OS_WINDOWS) && !defined(TARGET_OS_MAC) && !defined(TARGET_OS_LINUX)
-#error CyberEngineMkII must be compiled on Windows, OSX, or Linux
+#error CyberEngineMkIII must be compiled on Windows, OSX, or Linux
 #endif
 #if !defined(_M_X64) && !defined(__x86_64__)
-#error CyberEngineMkII must be compiled on an amd64 architecture CPU
+#error CyberEngineMkIII must be compiled on an amd64 architecture CPU
 #endif
 
 #ifdef FAKE_POSIX

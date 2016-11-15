@@ -40,6 +40,10 @@ script:
 - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisCheckDox.sh; fi
 
 after_success: 
+- find -iname *.gc* | grep Syscalls | xargs rm
+- if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then find -iname *.gc* | grep -v Posix | grep -v Linux | xargs rm; fi
+- if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then find -iname *.gc* | grep -v Posix | grep -v OSX | xargs rm; fi
+- find -iname *.gc*
 - if [[ "$BUILD_RELEASE" != "true" ]]; then if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then bash <(curl -s https://codecov.io/bash) -x llvm-cov -a gcov -F Linux; fi; fi
 - if [[ "$BUILD_RELEASE" != "true" ]]; then if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then bash <(curl -s https://codecov.io/bash) -x llvm-cov -a gcov -F OSX; fi; fi
 - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisGenDox.sh; fi

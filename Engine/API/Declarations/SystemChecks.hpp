@@ -29,3 +29,7 @@ static_assert(
 	&& sizeof(void*) == 8,
 	"A type size assertion failed");
 static_assert(CYB::API::Endianess::Get() == CYB::API::Endianess::Type::LITTLE_ENDIAN, "CyberEngineMkIII relies on a little endian architecture");
+
+#ifndef ENABLE_TEST_HOOKS
+#define ENABLE_TEST_HOOKS
+#endif

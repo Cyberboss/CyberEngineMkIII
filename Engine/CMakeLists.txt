@@ -54,8 +54,8 @@ Engine/Core/CYBCore.cpp
 )
 
 IF(CMAKE_BUILD_TYPE MATCHES Debug)
-	set_property(TARGET EngineBase PROPERTY COMPILE_FLAGS "-fprofile-arcs -ftest-coverage -pedantic -fno-inline -fno-inline-small-functions -fno-default-inline")
-	target_link_libraries(EngineBase dl -fprofile-arcs -ftest-coverage -fno-inline -fno-inline-small-functions -fno-default-inline)
+	set_property(TARGET EngineBase PROPERTY COMPILE_FLAGS "-fprofile-arcs -ftest-coverage -pedantic -fno-inline")
+	target_link_libraries(EngineBase dl -fprofile-arcs -ftest-coverage -fno-inline)
 ELSE()
 	set_property(TARGET EngineBase PROPERTY COMPILE_FLAGS "-pedantic")
 	target_link_libraries(EngineBase dl)

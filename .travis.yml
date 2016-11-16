@@ -1,10 +1,12 @@
 language: cpp
 sudo: required
-dist: trusty
 
 os:
   - linux
   - osx
+
+dist: trusty
+osx_image: xcode8.1
 
 branches:
   only:

@@ -155,8 +155,6 @@
     <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CoverageExclusions.runsettings" />
-    <None Include="llvm-gcov.sh" />
     <None Include="Main.inl" />
     <None Include="Utils\Backdoor.inl" />
     <None Include="Utils\CallRedirect.inl" />

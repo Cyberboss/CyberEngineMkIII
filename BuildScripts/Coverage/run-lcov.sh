@@ -4,7 +4,7 @@ curl -O -L https://github.com/linux-test-project/lcov/archive/v1.12.tar.gz
 gunzip v1.12.tar.gz
 tar -xvf v1.12.tar
 cd lcov-1.12
-make install
+sudo make install
 cd ..
 rm -r v1.12.tar v1.12.tar.gz lcov-1.12
 

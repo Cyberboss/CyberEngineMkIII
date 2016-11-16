@@ -23,7 +23,7 @@ before_test:
 - powershell -Command "BuildScripts/Appveyor/InstallCatchAdapter.ps1"
   
 test_script:
-- vstest.console.exe /logger:Appveyor /Platform:x64 /UseVsixExtensions:true /inIsolation /Settings:"Tests/CoverageExclusions.runsettings" Output/bin/CyberEngineMkIIITester.exe /Enablecodecoverage
+- vstest.console.exe /logger:Appveyor /Platform:x64 /UseVsixExtensions:true /inIsolation /Settings:"BuildScripts/Coverage/CoverageExclusions.runsettings" Output/bin/CyberEngineMkIIITester.exe /Enablecodecoverage
 
 after_test: 
 - powershell -Command "BuildScripts/Appveyor/GenCodeCovXML.ps1"

@@ -21,6 +21,7 @@ addons:
     - clang-3.7
     - doxygen
     - graphviz
+	- lcov
 env:
   global:
   - CXXOMPILER: clang++-3.7
@@ -34,16 +35,13 @@ env:
 
 install:
 - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo ln -s /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/llvm-cov /usr/local/bin/llvm-cov; fi
+- if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update; fi
+- if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install lcov; fi
 
 script: 
 - BuildScripts/Travis/Travis.sh
 - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisCheckDox.sh; fi
 
 after_success:
-- find -iname *.gc* | grep Syscalls | xargs rm
-- if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then find -iname *.gc* | grep -v Posix | grep -v Linux | xargs rm; fi
-- if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then find -iname *.gc* | grep -v Posix | grep -v OSX | xargs rm; fi
-- find -iname *.gc*
-- if [[ "$BUILD_RELEASE" != "true" ]]; then if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then bash <(curl -s https://codecov.io/bash) -x "llvm-cov gcov" -F Linux; fi; fi
-- if [[ "$BUILD_RELEASE" != "true" ]]; then if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then bash <(curl -s https://codecov.io/bash) -x "llvm-cov gcov" -F OSX; fi; fi
+- BuildScripts/Coverage/run-lcov.sh
 - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then BuildScripts/Travis/TravisGenDox.sh; fi

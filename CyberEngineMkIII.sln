@@ -5,7 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildScripts", "BuildScripts", "{0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}"
 	ProjectSection(SolutionItems) = preProject
-		BuildScripts\GenerateTestXMLs.sh = BuildScripts\GenerateTestXMLs.sh
 		BuildScripts\PostBuild.ps1 = BuildScripts\PostBuild.ps1
 	EndProjectSection
 EndProject
@@ -76,7 +75,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Appveyor", "Appveyor", "{3BEB026D-3E5B-4704-AFC4-140DFA93AEBB}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
+		BuildScripts\Appveyor\GenCodeCovXML.ps1 = BuildScripts\Appveyor\GenCodeCovXML.ps1
 		BuildScripts\Appveyor\InstallCatchAdapter.ps1 = BuildScripts\Appveyor\InstallCatchAdapter.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Coverage", "Coverage", "{9D439926-268E-4D50-98C4-88A32242F6CF}"
+	ProjectSection(SolutionItems) = preProject
+		BuildScripts\Coverage\CoverageExclusions.runsettings = BuildScripts\Coverage\CoverageExclusions.runsettings
+		BuildScripts\Coverage\llvm-gcov.sh = BuildScripts\Coverage\llvm-gcov.sh
+		BuildScripts\Coverage\run-lcov.sh = BuildScripts\Coverage\run-lcov.sh
 	EndProjectSection
 EndProject
 Global
@@ -130,5 +137,6 @@ Global
 		{85E06AE1-C645-43EE-B02E-24AFAF5CB194} = {A4BD2B4E-C162-4329-B6CF-E0C2F610E5B6}
 		{CCC2B42A-EE15-409C-8672-1FBBE533DF4C} = {0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}
 		{3BEB026D-3E5B-4704-AFC4-140DFA93AEBB} = {0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}
+		{9D439926-268E-4D50-98C4-88A32242F6CF} = {0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}
 	EndGlobalSection
 EndGlobal

@@ -125,8 +125,6 @@
     <None Include="Utils\CallRedirect.inl">
       <Filter>Utils</Filter>
     </None>
-    <None Include="CoverageExclusions.runsettings" />
-    <None Include="llvm-gcov.sh" />
     <None Include="Utils\Backdoor.inl">
       <Filter>Utils</Filter>
     </None>

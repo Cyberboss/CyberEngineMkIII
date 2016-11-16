@@ -21,7 +21,7 @@ addons:
     - clang-3.7
     - doxygen
     - graphviz
-    - lcov
+    - lcov-1.12
 env:
   global:
   - CXXOMPILER: clang++-3.7

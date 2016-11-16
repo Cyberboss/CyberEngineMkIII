@@ -14,10 +14,10 @@ lcov --directory . --base-directory . --gcov-tool BuildScripts/Coverage/llvm-gco
 
 lcov --directory . --base-directory . -r lcovrun.dat *Assert.inl *Syscalls.* *.hpp -o lcovstripped.dat --rc lcov_branch_coverage=1 --gcov-tool BuildScripts/Coverage/llvm-gcov.sh 
 	
-if [ "$(uname)" == "Darwin" ]; then
+if [ "$(uname)" != "Darwin" ]; then
 	lcov --directory . --base-directory . -e lcovstripped.dat *CYBPosix* *CYBLinux* -o lcov.info --rc lcov_branch_coverage=1 --gcov-tool BuildScripts/Coverage/llvm-gcov.sh 
-	bash <(curl -s https://codecov.io/bash) -X gcov -f lcov.info -F OSX
+	bash <(curl -s https://codecov.io/bash) -X gcov -f lcov.info -F Linux
 else
 	lcov --directory . --base-directory . -e lcovstripped.dat *CYBPosix* *CYBOSX* -o lcov.info --rc lcov_branch_coverage=1 --gcov-tool BuildScripts/Coverage/llvm-gcov.sh 
-	bash <(curl -s https://codecov.io/bash) -X gcov -f lcov.info -F Linux
+	bash <(curl -s https://codecov.io/bash) -X gcov -f lcov.info -F OSX
 fi

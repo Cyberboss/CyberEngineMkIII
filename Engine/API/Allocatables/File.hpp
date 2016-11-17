@@ -78,8 +78,9 @@ namespace CYB {
 				@return The number of bytes read
 				@par Thread Safety
 					This function requres no thread safety
+				@throw CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_OPERATION. Thrown if the File was opened with Mode::WRITE
 			*/
-			virtual unsigned long long Read(void* const ABuffer, const unsigned long long AMaxAmount) const noexcept = 0;
+			virtual unsigned long long Read(void* const ABuffer, const unsigned long long AMaxAmount) const = 0;
 			/*!
 				@brief Write data to a File at the current cursor position and advance the cursor by that amount
 				@param ABuffer The location to get the data to write
@@ -87,8 +88,9 @@ namespace CYB {
 				@return The number of bytes written
 				@par Thread Safety
 					This function requres no thread safety
+				@throw CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_OPERATION. Thrown if the File was opened with Mode::READ
 			*/
-			virtual unsigned long long  Write(const void* const ABuffer, const unsigned long long AAmount) noexcept = 0;
+			virtual unsigned long long  Write(const void* const ABuffer, const unsigned long long AAmount) = 0;
 
 			/*!
 				@brief Get the Path indicating the current File
@@ -97,7 +99,14 @@ namespace CYB {
 					This function requres no thread safety
 			*/
 			virtual const Path& Path(void) const noexcept = 0;
-
+			
+			/*!
+				@brief Gets the opening Mode of the File
+				@return The opening Mode of the File
+				@par Thread Safety
+					This function requres no thread safety
+			*/
+			virtual Mode OpenMode(void) const noexcept = 0;
 			/*!
 				@brief Gets the opening method of the File. Will never be Method::ANY
 				@return The opening method of the File. If it was orginally Method::ANY it will be changed to Method::EXIST or Method::CREATE

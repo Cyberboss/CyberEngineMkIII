@@ -14,6 +14,8 @@ CYB::API::String::Static CYB::Exception::Violation::ErrorMessage(const ErrorCode
 		return API::String::Static(u8"An operation was attempted with an invalid enum code");
 	case INVALID_INTEROP_CONSTRUCTOR:
 		return API::String::Static(u8"An engine allocation was attempted with a malformed constructor");
+	case INVALID_OPERATION:
+		return API::String::Static(u8"An illegal call was made given prexisting conditions");
 	case INVALID_PARAMETERS:
 		return API::String::Static(u8"The current arrangment of arguments passed the function is invalid");
 	case NEGATIVE_HEAP_ALLOCATION:

@@ -69,7 +69,8 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 }
  
 CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, Method AMethod) :
-	FPath(std::move(APath))
+	FPath(std::move(APath)),
+	FOpenMode(AMode)
 {
 	Init(FPath, AMode, AMethod);
 }
@@ -84,6 +85,8 @@ CYB::Platform::System::File& CYB::Platform::System::File::operator=(File&& AMove
 	Close();
 	FDescriptor = AMove.FDescriptor;
 	AMove.FDescriptor = -1;
+	FOpenMode = AMove.FOpenMode;
+	FOpenMethod = AMove.FOpenMethod;
 	return *this;
 }
 
@@ -139,12 +142,16 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 }
 
 unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const unsigned long long AMaxAmount) const noexcept {
+	if (FOpenMode == Mode::WRITE)
+		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
 	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::read>(FDescriptor, ABuffer, static_cast<size_t>(AMaxAmount)));
 	API::Assert::NotEqual(Result, static_cast<decltype(Result)>(-1));
 	return static_cast<unsigned long long>(Result);
 }
 
 unsigned long long CYB::Platform::System::File::Write(const void* const ABuffer, const unsigned long long AAmount) noexcept {
+	if (FOpenMode == Mode::READ)
+		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
 	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::write>(FDescriptor, ABuffer, static_cast<size_t>(AAmount)));
 	API::Assert::NotEqual(Result, static_cast<decltype(Result)>(-1));
 	return static_cast<unsigned long long>(Result);

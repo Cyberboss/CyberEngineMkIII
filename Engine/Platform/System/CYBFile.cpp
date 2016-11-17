@@ -7,7 +7,9 @@ CYB::Platform::System::File::File(const API::Path& APath, const Mode AMode, cons
 
 CYB::Platform::System::File::File(File&& AMove) noexcept:
 	Implementation::File(std::move(AMove)),
-	FPath(std::move(AMove.FPath))
+	FPath(std::move(AMove.FPath)),
+	FOpenMode(AMove.FOpenMode),
+	FOpenMethod(AMove.FOpenMethod)
 {}
 
 void CYB::Platform::System::File::Touch(System::Path&& APath) {
@@ -20,6 +22,10 @@ unsigned long long CYB::Platform::System::File::CursorPosition(void) const noexc
 
 const CYB::API::Path& CYB::Platform::System::File::Path(void) const noexcept {
 	return FPath;
+}
+
+CYB::API::File::Mode CYB::Platform::System::File::OpenMode(void) const noexcept {
+	return FOpenMode;
 }
 
 CYB::API::File::Method CYB::Platform::System::File::OpenMethod(void) const noexcept {

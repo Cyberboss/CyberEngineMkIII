@@ -269,7 +269,88 @@ SCENARIO("Files can have their cursor position set and retrieved", "[Platform][S
 
 SCENARIO("Files can be read from", "[Platform][System][File][Unit]") {
 	TestStartup TestData;
-	FAIL("Unwritten test");
+	File::Mode Mo;
+	File::Method Me;
+	bool HasData;
+	const auto OpenAndRead([&]() {
+		if (Mo == File::Mode::READ && Me == File::Method::TRUNCATE) {
+			THEN("We won't run this check as it'll fail on opening") {
+				CHECK(true);
+			}
+		}
+		else {
+			AND_THEN("It is opened") {
+				File TF(TestData.Path1(), Mo, Me);
+				AND_THEN("It is read from") {
+					char Data[21];
+					if (Mo != File::Mode::WRITE) {
+						const auto Result(TF.Read(Data, 21));
+						THEN("The read data is correct") {
+							CHECK(Result == (HasData ? 21U : 0));
+							if (HasData) {
+								CYB::API::String::Dynamic TS1(CYB::API::String::Static(Data), 21),
+									TS2(CYB::API::String::Static(ALotOfData), 21);
+								CHECK(TS1 == TS2);
+							}
+						}
+					}
+					else {
+#ifdef DEBUG
+						CHECK_THROWS_AS(TF.Read(Data, 21), CYB::Exception::Violation);
+#endif
+						THEN("The correct exception is thrown") {
+#ifdef DEBUG
+							CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_OPERATION);
+#else
+							CHECK(true);
+#endif
+						}
+					}
+				}
+			}
+		}
+	});
+
+	const auto MethodMatrix([&]() {
+		WHEN("It is opened with method ANY") {
+			Me = File::Method::ANY;
+			OpenAndRead();
+		}
+		WHEN("It is opened with method EXIST") {
+			Me = File::Method::EXIST;
+			OpenAndRead();
+		}
+		WHEN("It is opened with method TRUNCATE") {
+			Me = File::Method::TRUNCATE;
+			HasData = false;
+			OpenAndRead();
+		}
+	});
+
+	const auto PermissionsMatrix([&]() {
+		WHEN("It is opened with Mode::READ") {
+			Mo = File::Mode::READ;
+			MethodMatrix();
+		}
+		WHEN("It is opened with Mode::READ") {
+			Mo = File::Mode::WRITE;
+			MethodMatrix();
+		}
+		WHEN("It is opened with Mode::READ_WRITE") {
+			Mo = File::Mode::READ_WRITE;
+			MethodMatrix();
+		}
+	});
+	GIVEN("A file with some data") {
+		TestData.Data1(21);
+		HasData = true;
+		PermissionsMatrix();
+	}
+	GIVEN("A file with no data") {
+		File::Touch(TestData.Path1());
+		HasData = false;
+		PermissionsMatrix();
+	}
 }
 
 SCENARIO("Files can be written to", "[Platform][System][File][Unit]") {
@@ -357,6 +438,40 @@ SCENARIO("Files' OpenMethod can be retrieved", "[Platform][System][File][Unit]")
 			const auto Size(TF.Size());
 			THEN("It is zero") {
 				CHECK(Size == 0U);
+			}
+		}
+	}
+}
+
+SCENARIO("Files' OpenMode can be retrieved", "[Platform][System][File][Unit]") {
+	TestStartup TestData;
+	GIVEN("A pre-existing file opened with Mode::READ") {
+		TestData.Data1(5);
+		File TF(TestData.Path1(), File::Mode::READ, File::Method::ANY);
+		WHEN("The open mode is checked") {
+			const auto Result(TF.OpenMode());
+			THEN("It is Mode::READ") {
+				CHECK(Result == File::Mode::READ);
+			}
+		}
+	}
+	GIVEN("A pre-existing file opened with Mode::WRITE") {
+		TestData.Data1(5);
+		File TF(TestData.Path1(), File::Mode::WRITE, File::Method::ANY);
+		WHEN("The open mode is checked") {
+			const auto Result(TF.OpenMode());
+			THEN("It is Mode::WRITE") {
+				CHECK(Result == File::Mode::WRITE);
+			}
+		}
+	}
+	GIVEN("A pre-existing file opened with Mode::READ_WRITE") {
+		TestData.Data1(5);
+		File TF(TestData.Path1(), File::Mode::READ_WRITE, File::Method::ANY);
+		WHEN("The open mode is checked") {
+			const auto Result(TF.OpenMode());
+			THEN("It is Mode::READ_WRITE") {
+				CHECK(Result == File::Mode::READ_WRITE);
 			}
 		}
 	}

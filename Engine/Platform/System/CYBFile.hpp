@@ -6,6 +6,8 @@ namespace CYB {
 			class File : private Implementation::File, public API::File {
 			public:
 				System::Path FPath;	//!< @brief The Path indicating this File
+				Mode FOpenMode;	//!< @brief The method used to open the file
+				Method FOpenMethod;	//!< @brief The method used to open the file
 			public:
 				/*!
 					@brief Equivalent to the statement File(APath, Mode::WRITE, Method::ANY);. Opens/creates a File and updates its access times
@@ -77,12 +79,14 @@ namespace CYB {
 				unsigned long long Seek(const long long AOffset, const SeekLocation ALocation) const final override;
 
 				//! @copydoc CYB::API::File::Read()
-				unsigned long long Read(void* const ABuffer, const unsigned long long AMaxAmount) const noexcept final override;
+				unsigned long long Read(void* const ABuffer, const unsigned long long AMaxAmount) const final override;
 				//! @copydoc CYB::API::File::Write()
-				unsigned long long  Write(const void* const ABuffer, const unsigned long long AAmount) noexcept final override;
+				unsigned long long  Write(const void* const ABuffer, const unsigned long long AAmount) final override;
 
 				//! @copydoc CYB::API::File::Path()
 				const API::Path& Path(void) const noexcept final override;
+				//! @copydoc CYB::API::File::OpenMode();
+				Mode OpenMode(void) const noexcept final override;
 				//! @copydoc CYB::API::File::OpenMethod();
 				Method OpenMethod(void) const noexcept final override;
 			};

@@ -1,7 +1,7 @@
 //! @file CYBFile.cpp Implements CYB::Platform::System::File shared functions
 #include "CYB.hpp"
 
-CYB::Platform::System::File::File(const API::Path& APath, const Mode AMode, const Method AMethod) :
+CYB::Platform::System::File::File(const CYB::API::Path& APath, const Mode AMode, const Method AMethod) :
 	File(System::Path(static_cast<const System::Path&>(APath)), AMode, AMethod)
 {}
 

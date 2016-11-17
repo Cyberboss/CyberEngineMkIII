@@ -257,14 +257,72 @@ SCENARIO("Files sizes can be retrieved after opening them", "[Platform][System][
 	}
 }
 
-SCENARIO("Files can have their cursor position retrieved", "[Platform][System][File][Unit]") {
-	TestStartup TestData;
-	FAIL("Unwritten test");
-}
-
 SCENARIO("Files can have their cursor position set and retrieved", "[Platform][System][File][Unit]") {
 	TestStartup TestData;
-	FAIL("Unwritten test");
+	GIVEN("A file with some data") {
+		TestData.Data1(10);
+		WHEN("It is opened") {
+			File TF(TestData.Path1(), File::Mode::READ_WRITE, File::Method::EXIST);
+			AND_THEN("It's cursor position is retrieved") {
+				const auto Result(TF.CursorPosition());
+				THEN("It is at the beginning") {
+					REQUIRE(Result == 0U);
+					AND_WHEN("It is set using Seek(0, Cur)") {
+						const auto Result2(TF.Seek(0, File::SeekLocation::CURSOR));
+						THEN("It is the same") {
+							CHECK(Result == Result2);
+						}
+					}
+				}
+			}
+			AND_THEN("It's cursor position is set to the end") {
+				const auto Result(TF.Seek(0, File::SeekLocation::END));
+				THEN("It is at the end") {
+					REQUIRE(Result == 10U);
+					AND_WHEN("It is seeked back to the beginning") {
+						const auto Result2(TF.Seek(0, File::SeekLocation::BEGIN));
+						THEN("It is at the beginning") {
+							CHECK(Result2 == 0U);
+						}
+					}
+				}
+			}
+			AND_THEN("It's cursor position is set to some offset of the beginning") {
+				const auto Result(TF.Seek(5, File::SeekLocation::BEGIN));
+				THEN("It is there") {
+					CHECK(Result == 5U);
+				}
+			}
+			AND_THEN("It's cursor position is set to some offset of the cursor") {
+				const auto Result(TF.Seek(5, File::SeekLocation::CURSOR));
+				THEN("It is there") {
+					CHECK(Result == 5U);
+				}
+			}
+			AND_THEN("It's cursor position is set to some offset of the end") {
+				const auto Result(TF.Seek(-5, File::SeekLocation::END));
+				THEN("It is there") {
+					CHECK(Result == 5U);
+				}
+			}
+			AND_WHEN("We seek up a bit") {
+				REQUIRE(TF.Seek(1, File::SeekLocation::CURSOR));
+				AND_THEN("Some stuff is read") {
+					char Dest[5];
+					REQUIRE_NOTHROW(TF.Read(Dest, 5));
+					THEN("It has moved") {
+						CHECK(TF.CursorPosition() == 6U);
+					}
+				}
+				AND_THEN("Some stuff is writted") {
+					REQUIRE_NOTHROW(TF.Write(ALotOfData, 5));
+					THEN("It has moved") {
+						CHECK(TF.CursorPosition() == 6U);
+					}
+				}
+			}
+		}
+	}
 }
 
 SCENARIO("Files can be read from", "[Platform][System][File][Unit]") {

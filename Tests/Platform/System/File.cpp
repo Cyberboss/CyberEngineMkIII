@@ -238,7 +238,15 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 
 SCENARIO("Files sizes can be retrieved after opening them", "[Platform][System][File][Unit]") {
 	TestStartup TestData;
-	FAIL("Unwritten test");
+	GIVEN("A file with some data") {
+		TestData.Data1(20);
+		WHEN("It is opened") {
+			File TF(TestData.Path1(), File::Mode::READ, File::Method::EXIST);
+			THEN("It has the same size") {
+				CHECK(TF.Size() == 20U);
+			}
+		}
+	}
 }
 
 SCENARIO("Files can have their cursor position retrieved", "[Platform][System][File][Unit]") {

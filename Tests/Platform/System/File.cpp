@@ -122,8 +122,10 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 				Then();
 			else {
 				THEN("It fails correctly") {
+#ifdef DEBUG
 					CHECK_THROWS_AS(Creation(), CYB::Exception::Violation);
 					CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_PARAMETERS);
+#endif
 				}
 			}
 		}
@@ -218,9 +220,15 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 	}
 	const auto Violation([&]() {
 		WHEN("Creation is attempted") {
+#ifdef DEBUG
 			CHECK_THROWS_AS(File(TestData.Path1(), Mo, Me), CYB::Exception::Violation);
+#endif
 			THEN("The correct error is thrown") {
+#ifdef DEBUG
 				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
+#else
+				CHECK(true);
+#endif
 			}
 		}
 	});

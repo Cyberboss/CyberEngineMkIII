@@ -290,5 +290,58 @@ SCENARIO("Files' Paths can be retrieved", "[Platform][System][File][Unit]") {
 
 SCENARIO("Files' OpenMethod can be retrieved", "[Platform][System][File][Unit]") {
 	TestStartup TestData;
-	FAIL("Unwritten test");
+	GIVEN("A freshly created file opened with Method::CREATE") {
+		File TF(TestData.Path1(), File::Mode::READ_WRITE, File::Method::CREATE);
+		WHEN("The open method is checked") {
+			const auto Result(TF.OpenMethod());
+			THEN("It is Method::CREATE") {
+				CHECK(Result == File::Method::CREATE);
+			}
+		}
+	}
+	GIVEN("A freshly created file opened with Method::ANY"){
+		File TF(TestData.Path1(), File::Mode::READ_WRITE, File::Method::ANY);
+		WHEN("The open method is checked") {
+			const auto Result(TF.OpenMethod());
+			THEN("It is Method::CREATE") {
+				CHECK(Result == File::Method::CREATE);
+			}
+		}
+	}
+	GIVEN("A pre-existing file opened with Method::ANY") {
+		File::Touch(TestData.Path1());
+		File TF(TestData.Path1(), File::Mode::READ_WRITE, File::Method::ANY);
+		WHEN("The open method is checked") {
+			const auto Result(TF.OpenMethod());
+			THEN("It is Method::EXIST") {
+				CHECK(Result == File::Method::EXIST);
+			}
+		}
+	}
+	GIVEN("A pre-existing file opened with Method::EXIST") {
+		File::Touch(TestData.Path1());
+		File TF(TestData.Path1(), File::Mode::READ_WRITE, File::Method::EXIST);
+		WHEN("The open method is checked") {
+			const auto Result(TF.OpenMethod());
+			THEN("It is Method::EXIST") {
+				CHECK(Result == File::Method::EXIST);
+			}
+		}
+	}
+	GIVEN("A pre-existing file with data opened with Method::TRUNCATE") {
+		TestData.Data1(10);
+		File TF(TestData.Path1(), File::Mode::READ_WRITE, File::Method::TRUNCATE);
+		WHEN("The open method is checked") {
+			const auto Result(TF.OpenMethod());
+			THEN("It is Method::TRUNCATE") {
+				CHECK(Result == File::Method::TRUNCATE);
+			}
+		}
+		WHEN("The data size is checked") {
+			const auto Size(TF.Size());
+			THEN("It is zero") {
+				CHECK(Size == 0U);
+			}
+		}
+	}
 }

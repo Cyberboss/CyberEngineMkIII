@@ -433,9 +433,15 @@ SCENARIO("Files can be written to", "[Platform][System][File][Unit]") {
 						}
 					}
 					else {
+#ifdef DEBUG
 						CHECK_THROWS_AS(TF.Write(ALotOfData, 21), CYB::Exception::Violation);
+#endif
 						THEN("The correct exception is thrown") {
+#ifdef DEBUG
 							CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_OPERATION);
+#else
+							CHECK(true);
+#endif
 						}
 					}
 				}

@@ -20,7 +20,7 @@ unsigned long long CYB::Platform::System::File::CursorPosition(void) const noexc
 	return Seek(0, SeekLocation::CURSOR);
 }
 
-const CYB::API::Path& CYB::Platform::System::File::Path(void) const noexcept {
+const CYB::API::Path& CYB::Platform::System::File::GetPath(void) const noexcept {
 	return FPath;
 }
 

@@ -70,7 +70,7 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 		AMethod = API::File::Method::CREATE;
 }
  
-CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const Method AMethod) :
+CYB::Platform::System::File::File(Path&& APath, const Mode AMode, const Method AMethod) :
 	FPath(std::move(APath)),
 	FOpenMode(AMode),
 	FOpenMethod(AMethod)

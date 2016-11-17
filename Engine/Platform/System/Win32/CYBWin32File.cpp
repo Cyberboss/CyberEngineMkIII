@@ -3,7 +3,7 @@
 
 using namespace CYB::Platform::Win32;
 
-CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const Method AMethod) :
+CYB::Platform::System::File::File(Path&& APath, const Mode AMode, const Method AMethod) :
 	FPath(std::move(APath)),
 	FOpenMode(AMode)
 {

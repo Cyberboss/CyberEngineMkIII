@@ -527,7 +527,7 @@ SCENARIO("Files' Paths can be retrieved", "[Platform][System][File][Unit]") {
 	GIVEN("A file") {
 		File TF(TestData.Path1(), File::Mode::READ_WRITE, File::Method::ANY);
 		WHEN("It's path is retrieved") {
-			auto& FilePath(TF.Path());
+			auto& FilePath(TF.GetPath());
 			THEN("It is the same as when it was opened") {
 				CHECK(FilePath() == TestData.Path1()());
 			}

@@ -44,7 +44,7 @@ namespace CYB {
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p AMode, or @p AMethod is invalid
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_PARAMETERS. Thrown if @p AMode is Mode::READ and @p AMethod is Method::TRUNCATE. Operating systems require write permissions to truncate a file
 				*/
-				File(System::Path&& APath, const Mode AMode, const Method AMethod);
+				File(Path&& APath, const Mode AMode, const Method AMethod);
 				/*!
 					@brief Opens a file for access
 					@param APath The Path of the File to open
@@ -83,8 +83,8 @@ namespace CYB {
 				//! @copydoc CYB::API::File::Write()
 				unsigned long long  Write(const void* const ABuffer, const unsigned long long AAmount) final override;
 
-				//! @copydoc CYB::API::File::Path()
-				const API::Path& Path(void) const noexcept final override;
+				//! @copydoc CYB::API::File::GetPath()
+				const API::Path& GetPath(void) const noexcept final override;
 				//! @copydoc CYB::API::File::OpenMode();
 				Mode OpenMode(void) const noexcept final override;
 				//! @copydoc CYB::API::File::OpenMethod();

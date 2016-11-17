@@ -98,7 +98,7 @@ namespace CYB {
 				@par Thread Safety
 					This function requres no thread safety
 			*/
-			virtual const Path& Path(void) const noexcept = 0;
+			virtual const Path& GetPath(void) const noexcept = 0;
 			
 			/*!
 				@brief Gets the opening Mode of the File

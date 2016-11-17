@@ -3,7 +3,6 @@
 namespace CYB {
 	namespace Platform {
 		namespace System {
-			class Path;
 			namespace Implementation {
 				//! @brief The file handle manager
 				class File {

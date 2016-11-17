@@ -3,7 +3,6 @@
 namespace CYB {
 	namespace Platform {
 		namespace System {
-			class Path;
 			namespace Implementation {
 				//! @brief Handles the file descriptor
 				class File {

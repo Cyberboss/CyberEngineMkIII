@@ -3,7 +3,7 @@
 
 using namespace CYB::Platform::Posix;
 
-void CYB::Platform::System::Implementation::File::Init(const System::Path& APath, const API::File::Mode AMode, const API::File::Method AMethod) {
+void CYB::Platform::System::Implementation::File::Init(const System::Path& APath, const API::File::Mode AMode, API::File::Method& AMethod) {
 
 	if (AMode == API::File::Mode::READ && AMethod == API::File::Method::TRUNCATE)
 		throw Exception::Violation(Exception::Violation::INVALID_PARAMETERS);
@@ -42,7 +42,8 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 		switch (Error) {
 		case EEXIST:
 			if (AMethod == API::File::Method::ANY) {
-				Init(APath, AMode, API::File::Method::EXIST);
+				AMethod = API::File::Method::EXIST;
+				Init(APath, AMode, AMethod);
 				return;
 			}
 		case EISDIR:
@@ -65,14 +66,16 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 		throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
 	}
 
-	FOpenMethod = AMethod == API::File::Method::ANY ? API::File::Method::CREATE : AMethod;
+	if (AMethod == API::File::Method::ANY)
+		AMethod = API::File::Method::CREATE;
 }
  
 CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, Method AMethod) :
 	FPath(std::move(APath)),
-	FOpenMode(AMode)
+	FOpenMode(AMode),
+	FOpenMethod(AMethod)
 {
-	Init(FPath, AMode, AMethod);
+	Init(FPath, AMode, FOpenMethod);
 }
 
 CYB::Platform::System::Implementation::File::File(File&& AMove) noexcept :

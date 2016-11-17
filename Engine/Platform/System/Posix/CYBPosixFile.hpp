@@ -9,7 +9,6 @@ namespace CYB {
 				class File {
 				protected:
 					int FDescriptor; //!< @brief The file descriptor
-					API::File::Method FOpenMethod;	//!< @brief The method used to open the file
 				protected:
 					/*!
 						@brief Returns the stat struct for the FDescriptor

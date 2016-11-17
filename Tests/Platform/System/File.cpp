@@ -246,7 +246,7 @@ SCENARIO("Files can have their cursor position retrieved", "[Platform][System][F
 	FAIL("Unwritten test");
 }
 
-SCENARIO("Files can have their cursor position set set retrieved", "[Platform][System][File][Unit]") {
+SCENARIO("Files can have their cursor position set and retrieved", "[Platform][System][File][Unit]") {
 	TestStartup TestData;
 	FAIL("Unwritten test");
 }

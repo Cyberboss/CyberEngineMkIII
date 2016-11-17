@@ -7,14 +7,14 @@ const char* const ALotOfData = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 class TestStartup {
 private:
-	std::unique_ptr<Path> TestPath1, TestPath2;
+	std::unique_ptr<Path> TestPath1, TestPath2, TestPathDir;
 public:
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> FK32;
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> FShell;
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> FShellAPI;
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> FC;
 private:
-	void Write(unsigned long long AAmount, Path&& AFile, const File::Method AMethod) {
+	static void Write(unsigned long long AAmount, Path&& AFile, const File::Method AMethod) {
 		File Data(std::move(AFile), File::Mode::WRITE, AMethod);
 		while (AAmount > 0) {
 			const auto DataWritten(Data.Write(ALotOfData, AAmount));
@@ -37,24 +37,29 @@ public:
 		REQUIRE_NOTHROW(TestPath1->Append(UTF8(Static("TestFile1")), false, false));
 		REQUIRE_NOTHROW(TestPath2.reset(new Path(Path::SystemPath::TEMPORARY)));
 		REQUIRE_NOTHROW(TestPath2->Append(UTF8(Static("TestFile2")), false, false));
+		REQUIRE_NOTHROW(TestPathDir.reset(new Path(Path::SystemPath::TEMPORARY)));
+		REQUIRE_NOTHROW(TestPathDir->Append(UTF8(Static("Dir")), true, false));
 	}
-	void Data1(const unsigned long long AAmount, const File::Method AMethod = File::Method::ANY) {
+	void Data1(const unsigned long long AAmount, const File::Method AMethod = File::Method::ANY) const {
 		Write(AAmount, Path1(), AMethod);
 	}
-	void Data2(const unsigned long long AAmount, const File::Method AMethod = File::Method::ANY) {
+	void Data2(const unsigned long long AAmount, const File::Method AMethod = File::Method::ANY) const {
 		Write(AAmount, Path2(), AMethod);
 	}
-	void Touch1(void) {
+	void Touch1(void) const {
 		REQUIRE_NOTHROW(File::Touch(Path(*TestPath1)));
 	}
-	void Touch2(void) {
+	void Touch2(void) const {
 		REQUIRE_NOTHROW(File::Touch(Path(*TestPath2)));
 	}
-	Path Path1() {
+	Path Path1() const {
 		return *TestPath1;
 	}
-	Path Path2() {
+	Path Path2() const {
 		return *TestPath2;
+	}
+	Path Dir() const {
+		return *TestPathDir;
 	}
 };
 
@@ -81,7 +86,10 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 	const auto Creation([&]() {
 		INFO("Opening with path:");
 		INFO((*CurrentPath)());
-		File(MovePath ? std::move(*CurrentPath) : *CurrentPath, Mo, Me);
+		if (MovePath)
+			File(std::move(*CurrentPath), Mo, Me);
+		else
+			File(*CurrentPath, Mo, Me);
 	});
 
 	const auto Then([&]() {
@@ -89,10 +97,7 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 			CHECK_NOTHROW(Creation());
 		else {
 			CHECK_THROWS_AS(Creation(), CYB::Exception::SystemData);
-			if(Mo == File::Mode::READ)
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
-			else
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+			CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_EXISTS);
 		}
 	});
 	const auto MethodMatrix([&]() {
@@ -176,23 +181,58 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 		ConstructorMatrix();
 	}
 	GIVEN("A path that is a directory") {
-		auto Test(TestData.Path1());
+		auto Test(TestData.Dir());
 		REQUIRE_NOTHROW(Test.Append(UTF8(Static("SomeDir")), true, false));
-		REQUIRE_NOTHROW(File::Touch(Path(Test)));
 		CurrentPath = &Test;
 		Exists = true;
 		Directory = true;
 		ConstructorMatrix();
 	}
 	GIVEN("A path that is deleted") {
-		auto Test(TestData.Path1());
+		auto Test(TestData.Dir());
 		REQUIRE_NOTHROW(Test.Append(UTF8(Static("SomeDir")), true, false));
 		REQUIRE_NOTHROW(Test.Delete(true));
-		REQUIRE_NOTHROW(File::Touch(Path(Test)));
 		CurrentPath = &Test;
-		Exists = true;
+		Exists = false;
 		Directory = false;
 		ConstructorMatrix();
+	}
+	GIVEN("A valid file") {
+		std::unique_ptr<File> DasFile;
+		REQUIRE_NOTHROW(DasFile.reset(new File(TestData.Path1(), File::Mode::READ_WRITE, File::Method::ANY)));
+		WHEN("It is moved constructed") {
+			std::unique_ptr<File> DasMove;
+			REQUIRE_NOTHROW(DasMove.reset(new File(std::move(*DasFile))));
+			THEN("All is well") {
+				CHECK(true);
+			}
+		}
+		WHEN("It is moved assigned") {
+			std::unique_ptr<File> DasMove;
+			REQUIRE_NOTHROW(DasMove.reset(new File(TestData.Path2(), File::Mode::READ_WRITE, File::Method::ANY)));
+			REQUIRE_NOTHROW(*DasMove = std::move(*DasFile));
+			THEN("All is well") {
+				CHECK(true);
+			}
+		}
+	}
+	const auto Violation([&]() {
+		WHEN("Creation is attempted") {
+			CHECK_THROWS_AS(File(TestData.Path1(), Mo, Me), CYB::Exception::Violation);
+			THEN("The correct error is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
+			}
+		}
+	});
+	GIVEN("A bad mode") {
+		Mo = static_cast<File::Mode>(5);
+		Me = File::Method::ANY;
+		Violation();
+	}
+	GIVEN("A bad method") {
+		Mo = File::Mode::READ_WRITE;
+		Me = static_cast<File::Method>(5);
+		Violation();
 	}
 }
 

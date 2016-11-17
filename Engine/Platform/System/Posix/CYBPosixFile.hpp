@@ -11,6 +11,14 @@ namespace CYB {
 					int FDescriptor; //!< @brief The file descriptor
 					API::File::Method FOpenMethod;	//!< @brief The method used to open the file
 				protected:
+					/*!
+						@brief Returns the stat struct for the FDescriptor
+						@return The stat struct for FDescriptor
+						@par Thread Safety
+							This function requires no thread safety
+					*/
+					StatStruct StatFD(void) const noexcept;
+
 					//! @brief See @ref structors
 					File() noexcept = default;
 					//! @brief See @ref structors
@@ -29,6 +37,13 @@ namespace CYB {
 						@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p AMode, or @p AMethod is invalid
 					*/
 					void Init(const System::Path& APath, const API::File::Mode AMode, const API::File::Method AMethod);
+
+					/*!
+						@brief Closes the FDescriptor if it is valid
+						@par Thread Safety
+							This function requires no thread safety
+					*/
+					void Close(void) const noexcept;
 				};
 			};
 		};

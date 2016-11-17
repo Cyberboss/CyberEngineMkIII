@@ -45,6 +45,7 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 				Init(APath, AMode, API::File::Method::EXIST);
 				return;
 			}
+		case EISDIR:
 			throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
 		case ENOTDIR:
 		case ENOENT:
@@ -57,8 +58,14 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 				throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
 		}
 	}
-	else
-		FOpenMethod = AMethod;
+
+	//Check it's actually a file because otherwise we aren't supposed to have it open
+	if (!(S_ISREG(StatFD().st_mode))) {
+		Close();
+		throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
+	}
+
+	FOpenMethod = AMethod;
 }
  
 CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, Method AMethod) :
@@ -74,21 +81,41 @@ CYB::Platform::System::Implementation::File::File(File&& AMove) noexcept :
 }
 
 CYB::Platform::System::File& CYB::Platform::System::File::operator=(File&& AMove) noexcept {
+	Close();
 	FDescriptor = AMove.FDescriptor;
 	AMove.FDescriptor = -1;
 	return *this;
 }
 
-CYB::Platform::System::File::~File() {
+void CYB::Platform::System::Implementation::File::Close(void) const noexcept {
 	if (FDescriptor != -1)
 		Core().FModuleManager.FC.Call<Modules::LibC::close>(FDescriptor);
 }
 
-unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
+CYB::Platform::System::File::~File() {
+	Close();
+}
+
+unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) {
 	StatStruct Stat;
-	const auto Result(static_cast<int>(Sys::Call(Sys::FSTAT, FDescriptor, &Stat)));
+	const auto Result(Sys::Call(Sys::LSTAT, const_cast<char*>(APath().CString()), &Stat));
+	if(Result == 0)
+		return static_cast<unsigned long long>(Stat.st_size);
+	else if(Result == EACCES)
+		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+	throw Exception::SystemData(Exception::SystemData::FILE_NOT_FOUND);
+}
+
+
+StatStruct CYB::Platform::System::Implementation::File::StatFD(void) const noexcept {
+	StatStruct Stat;
+	const auto Result(static_cast<int>(System::Sys::Call(Sys::FSTAT, FDescriptor, &Stat)));
 	API::Assert::Equal(Result, static_cast<decltype(Result)>(0));
-	return static_cast<unsigned long long>(Stat.st_size);
+	return Stat;
+}
+
+unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
+	return static_cast<unsigned long long>(StatFD().st_size);
 }
 
 unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, const SeekLocation ALocation) const {

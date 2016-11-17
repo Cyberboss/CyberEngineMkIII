@@ -32,7 +32,7 @@ CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const 
 		case Method::EXIST:
 			return OPEN_EXISTING;
 		case Method::TRUNCATE:
-			return TRUNCATE_EXISTING;
+			return CREATE_ALWAYS;
 		default:
 			throw Exception::Violation(Exception::Violation::INVALID_ENUM);
 		}
@@ -52,8 +52,23 @@ CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, const 
 			throw Exception::SystemData(Exception::SystemData::FILE_NOT_FOUND);
 		case ERROR_FILE_EXISTS:
 			throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
-		case ERROR_SHARING_VIOLATION:
 		case ERROR_ACCESS_DENIED:
+		{
+			//Translate properly to the directory error
+			//We don't care how screwed up FPath is, it has a different exception spec to us
+			//DO NOT LET IT PROPAGATE
+			bool IsDir;
+			try {
+				IsDir = FPath.IsDirectory();
+			}
+			catch(CYB::Exception::Base& AException) {
+				API::Assert::Equal(AException.FLevel, Exception::Base::Level::SYSTEM_DATA);
+				IsDir = false;
+			}
+			if(IsDir)
+				throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
+		}
+		case ERROR_SHARING_VIOLATION:
 		default:
 			if (AMode == Mode::READ)
 				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
@@ -77,15 +92,20 @@ CYB::Platform::System::Implementation::File::File(File&& AMove) noexcept :
 	AMove.FHandle = INVALID_HANDLE_VALUE;
 }
 
+void CYB::Platform::System::Implementation::File::Close(void) const noexcept {
+	if (FHandle != INVALID_HANDLE_VALUE)
+		Core().FModuleManager.FK32.Call<Modules::Kernel32::CloseHandle>(FHandle);
+}
+
 CYB::Platform::System::File& CYB::Platform::System::File::operator=(File&& AMove) noexcept {
+	Close();
 	FHandle = AMove.FHandle;
 	AMove.FHandle = INVALID_HANDLE_VALUE;
 	return *this;
 }
 
 CYB::Platform::System::File::~File() {
-	if (FHandle != INVALID_HANDLE_VALUE)
-		Core().FModuleManager.FK32.Call<Modules::Kernel32::CloseHandle>(FHandle);
+	Close();
 }
 
 unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) {

@@ -15,6 +15,13 @@ namespace CYB {
 					File() noexcept = default;
 					//! @brief See @ref structors
 					File(File&& AMove) noexcept;
+
+					/*!
+						@brief Closes the FHandle if it is valid
+						@par Thread Safety
+							This function requires no thread safety
+					*/
+					void Close(void) const noexcept;
 				};
 			};
 		};

@@ -3,7 +3,7 @@
 using namespace CYB::Platform::System;
 using namespace CYB::API::String;
 
-const char* const ALotOfData = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+const char* const ALotOfData = "aabaaaaaaaaaaabbbaaaaaaabbbbaaaaaaaaaaaaaaabbbaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
 class TestStartup {
 private:
@@ -285,7 +285,7 @@ SCENARIO("Files can be read from", "[Platform][System][File][Unit]") {
 					char Data[21];
 					if (Mo != File::Mode::WRITE) {
 						const auto Result(TF.Read(Data, 21));
-						THEN("The read data is correct") {
+						THEN("The correct amount of bytes were read (No good OS should fail this check) and the data is correct") {
 							CHECK(Result == (HasData ? 21U : 0));
 							if (HasData) {
 								CYB::API::String::Dynamic TS1(CYB::API::String::Static(Data), 21),
@@ -355,21 +355,81 @@ SCENARIO("Files can be read from", "[Platform][System][File][Unit]") {
 
 SCENARIO("Files can be written to", "[Platform][System][File][Unit]") {
 	TestStartup TestData;
-	FAIL("Unwritten test");
+	File::Mode Mo;
+	File::Method Me;
+	bool HasData;
+	const auto OpenAndWrite([&]() {
+		if (Mo == File::Mode::READ && Me == File::Method::TRUNCATE) {
+			THEN("We won't run this check as it'll fail on opening") {
+				CHECK(true);
+			}
+		}
+		else {
+			AND_THEN("It is opened") {
+				File TF(TestData.Path1(), Mo, Me);
+				AND_THEN("We try to write to it") {
+					if (Mo != File::Mode::READ) {
+						const auto Result(TF.Write(ALotOfData, 21));
+						THEN("The correct amount of bytes were written (No good OS should fail this check)") {
+							CHECK(Result == 21U);
+						}
+					}
+					else {
+						CHECK_THROWS_AS(TF.Write(ALotOfData, 21), CYB::Exception::Violation);
+						THEN("The correct exception is thrown") {
+							CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_OPERATION);
+						}
+					}
+				}
+			}
+		}
+	});
+
+	const auto MethodMatrix([&]() {
+		WHEN("It is opened with method ANY") {
+			Me = File::Method::ANY;
+			OpenAndWrite();
+		}
+		WHEN("It is opened with method EXIST") {
+			Me = File::Method::EXIST;
+			OpenAndWrite();
+		}
+		WHEN("It is opened with method TRUNCATE") {
+			Me = File::Method::TRUNCATE;
+			HasData = false;
+			OpenAndWrite();
+		}
+	});
+
+	const auto PermissionsMatrix([&]() {
+		WHEN("It is opened with Mode::READ") {
+			Mo = File::Mode::READ;
+			MethodMatrix();
+		}
+		WHEN("It is opened with Mode::READ") {
+			Mo = File::Mode::WRITE;
+			MethodMatrix();
+		}
+		WHEN("It is opened with Mode::READ_WRITE") {
+			Mo = File::Mode::READ_WRITE;
+			MethodMatrix();
+		}
+	});
+	GIVEN("A file with some data") {
+		TestData.Data1(21);
+		HasData = true;
+		PermissionsMatrix();
+	}
+	GIVEN("A file with no data") {
+		File::Touch(TestData.Path1());
+		HasData = false;
+		PermissionsMatrix();
+	}
 }
 
 SCENARIO("Files sizes can be retrieved without opening them", "[Platform][System][File][Unit]") {
 	TestStartup TestData;
-	GIVEN("A touched file") {
-		TestData.Touch1();
-		WHEN("It's size is checked") {
-			unsigned long long Size(1);
-			CHECK_NOTHROW(Size = File::Size(TestData.Path1()));
-			THEN("It is zero") {
-				CHECK(Size == 0U);
-			}
-		}
-	}
+	FAIL("Unwritten test");
 }
 
 SCENARIO("Files' Paths can be retrieved", "[Platform][System][File][Unit]") {

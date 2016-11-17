@@ -65,7 +65,7 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 		throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
 	}
 
-	FOpenMethod = AMethod;
+	FOpenMethod = AMethod == API::File::Method::ANY ? API::File::Method::CREATE : AMethod;
 }
  
 CYB::Platform::System::File::File(System::Path&& APath, const Mode AMode, Method AMethod) :

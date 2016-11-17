@@ -35,7 +35,7 @@ namespace CYB {
 						@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_FOUND. Thrown if @p AMethod equals Method::EXIST and the file portion of @p APath does not exist or if it is not valid in other cases.
 						@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p AMode, or @p AMethod is invalid
 					*/
-					void Init(const System::Path& APath, const API::File::Mode AMode, const API::File::Method AMethod);
+					void Init(const System::Path& APath, const API::File::Mode AMode, API::File::Method& AMethod);
 
 					/*!
 						@brief Closes the FDescriptor if it is valid

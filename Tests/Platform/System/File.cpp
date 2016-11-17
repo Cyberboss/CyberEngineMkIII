@@ -277,7 +277,15 @@ SCENARIO("Files sizes can be retrieved without opening them", "[Platform][System
 
 SCENARIO("Files' Paths can be retrieved", "[Platform][System][File][Unit]") {
 	TestStartup TestData;
-	FAIL("Unwritten test");
+	GIVEN("A file") {
+		File TF(TestData.Path1(), File::Mode::READ_WRITE, File::Method::ANY);
+		WHEN("It's path is retrieved") {
+			auto& FilePath(TF.Path());
+			THEN("It is the same as when it was opened") {
+				CHECK(FilePath() == TestData.Path1()());
+			}
+		}
+	}
 }
 
 SCENARIO("Files' OpenMethod can be retrieved", "[Platform][System][File][Unit]") {

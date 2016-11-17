@@ -429,7 +429,33 @@ SCENARIO("Files can be written to", "[Platform][System][File][Unit]") {
 
 SCENARIO("Files sizes can be retrieved without opening them", "[Platform][System][File][Unit]") {
 	TestStartup TestData;
-	FAIL("Unwritten test");
+	GIVEN("A file with some data") {
+		TestData.Data1(5);
+		WHEN("It's size is statically checked") {
+			const auto Result(File::Size(TestData.Path1()));
+			THEN("It is correct") {
+				CHECK(Result == 5U);
+			}
+		}
+	}
+	GIVEN("A file with no data") {
+		File::Touch(TestData.Path1());
+		WHEN("It's size is statically checked") {
+			const auto Result(File::Size(TestData.Path1()));
+			THEN("It is correct") {
+				CHECK(Result == 0U);
+			}
+		}
+	}
+	GIVEN("An empty Path") {
+		auto Path(TestData.Path1());
+		WHEN("It's size is statically checked") {
+			CHECK_THROWS_AS(File::Size(std::move(Path)), CYB::Exception::SystemData);
+			THEN("The correct exception is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_FOUND);
+			}
+		}
+	}
 }
 
 SCENARIO("Files' Paths can be retrieved", "[Platform][System][File][Unit]") {

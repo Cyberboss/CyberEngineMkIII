@@ -60,7 +60,7 @@ namespace CYB {
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p AMode, or @p AMethod is invalid
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_PARAMETERS. Thrown if @p AMode is Mode::READ and @p AMethod is Method::TRUNCATE. Operating systems require write permissions to truncate a file
 				*/
-				File(System::Path&& APath, const Mode AMode, const Method AMethod);
+				File(CYB::Platform::System::Path&& APath, const CYB::API::File::Mode AMode, const CYB::API::File::Method AMethod);
 				//! @brief See @ref structors
 				File(const File&) = delete;
 				//! @brief See @ref structors

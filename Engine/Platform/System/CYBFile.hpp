@@ -29,22 +29,7 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_FOUND. Thrown if @p APath failed to verify or the file does not exist
 				*/
 				static unsigned long long Size(const System::Path& APath);
-				
-				/*!
-					@brief Opens a file for access
-					@param APath The Path of the File to open
-					@param AMode The Mode of opening the file, subsequent operations must respect this
-					@param AMethod The Method of handling preexisting files
-					@par Thread Safety
-						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if @p AMode equals Mode::READ and the file could not be opened
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if @p AMode equals Mode::WRITE or Mode::READ_WRITE and the file could not be opened
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_FOUND. Thrown if @p AMethod equals Method::EXIST and the file portion of @p APath does not exist or if it is not valid in other cases
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_EXISTS. Thrown if @p AMethod equals Method::CREATE and the file portion of @p APath already exists or is a directory
-					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p AMode, or @p AMethod is invalid
-					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_PARAMETERS. Thrown if @p AMode is Mode::READ and @p AMethod is Method::TRUNCATE. Operating systems require write permissions to truncate a file
-				*/
-				File(CYB::Platform::System::Path&& APath, CYB::API::File::Mode AMode, Method AMethod);
+
 				/*!
 					@brief Opens a file for access
 					@param APath The Path of the File to open
@@ -61,6 +46,21 @@ namespace CYB {
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_PARAMETERS. Thrown if @p AMode is Mode::READ and @p AMethod is Method::TRUNCATE. Operating systems require write permissions to truncate a file
 				*/
 				File(const API::Path& APath, const Mode AMode, const Method AMethod);
+				/*!
+					@brief Opens a file for access
+					@param APath The Path of the File to open
+					@param AMode The Mode of opening the file, subsequent operations must respect this
+					@param AMethod The Method of handling preexisting files
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if @p AMode equals Mode::READ and the file could not be opened
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if @p AMode equals Mode::WRITE or Mode::READ_WRITE and the file could not be opened
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_FOUND. Thrown if @p AMethod equals Method::EXIST and the file portion of @p APath does not exist or if it is not valid in other cases
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_EXISTS. Thrown if @p AMethod equals Method::CREATE and the file portion of @p APath already exists or is a directory
+					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p AMode, or @p AMethod is invalid
+					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_PARAMETERS. Thrown if @p AMode is Mode::READ and @p AMethod is Method::TRUNCATE. Operating systems require write permissions to truncate a file
+				*/
+				File(System::Path&& APath, const Mode AMode, const Method AMethod);
 				//! @brief See @ref structors
 				File(const File&) = delete;
 				//! @brief See @ref structors

@@ -5,13 +5,13 @@ namespace CYB {
 		class File : public Interop::Allocatable {
 		public:
 			//! @brief The opening mode for the file
-			enum class Mode {
+			enum class Mode : byte {
 				READ,	//!< @brief Read only mode
 				WRITE,	//!< @brief Write only mode
 				READ_WRITE,	//!< @brief Read write mode
 			};
 			//! @brief The method of handling Files that already exist
-			enum class Method {
+			enum class Method : byte {
 				ANY, //!< @brief The File may or may not exist. It will be created if it doesn't. OpenMethod will be set to EXIST or CREATE once constructed to indicate result
 				EXIST,	//!< @brief The File must exist
 				CREATE,	//!< @brief The File must not exist. It will be created
@@ -28,9 +28,9 @@ namespace CYB {
 				@brief See @ref interstructors. Opens a file for access
 				@par Path
 					An xvalue of the Path of the File to open
-				@par Mode 
+				@par Mode
 					The Mode of opening the file, subsequent operations must respect this
-				@par Method	
+				@par Method
 					The Method of handling preexisting files
 				@par Thread Safety
 					This function requires no thread safety
@@ -99,7 +99,7 @@ namespace CYB {
 					This function requres no thread safety
 			*/
 			virtual const Path& GetPath(void) const noexcept = 0;
-			
+
 			/*!
 				@brief Gets the opening Mode of the File
 				@return The opening Mode of the File

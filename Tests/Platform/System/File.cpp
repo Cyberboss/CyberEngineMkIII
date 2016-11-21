@@ -125,6 +125,8 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 #ifdef DEBUG
 					CHECK_THROWS_AS(Creation(), CYB::Exception::Violation);
 					CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_PARAMETERS);
+#else
+					CHECK(true);
 #endif
 				}
 			}

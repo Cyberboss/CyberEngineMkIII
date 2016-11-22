@@ -69,10 +69,6 @@ REDIRECTED_FUNCTION(BadCreateFile, const void* const, DWORD, DWORD, const void* 
 	return INVALID_HANDLE_VALUE;
 }
 
-REDIRECTED_FUNCTION(BadOpen, const void* const, const unsigned long long, const unsigned long long) {
-	return -1;
-}
-
 REDIRECTED_FUNCTION(BadGetFileAttributesEx, const void* const, const CYB::Platform::Win32::GET_FILEEX_INFO_LEVELS, const void* const) {
 	using namespace CYB::Platform::Win32;
 	return 0;
@@ -81,6 +77,10 @@ REDIRECTED_FUNCTION(BadGetFileAttributesEx, const void* const, const CYB::Platfo
 unsigned long long FakeStatReturn;
 unsigned long long FakeStat(Fake::SysCalls::Args&) {
 	return 1;
+}
+
+REDIRECTED_FUNCTION(BadOpen, const void* const, const unsigned long long, const unsigned long long) {
+	return -1;
 }
 #endif
 
@@ -266,32 +266,33 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 	}
 
 	GIVEN("A bad open calls") {
-		const auto BCF(TestData.FK32.Redirect<CYB::Platform::Modules::Kernel32::CreateFileW, BadCreateFile>());
-		const auto BO(TestData.FC.Redirect<CYB::Platform::Modules::LibC::open, BadOpen>());
-#ifndef TARGET_OS_WINDOWS
-		errno = EACCES;
-#endif
-		WHEN("We try to open a file for reading") {
-			const auto Thing(OverrideError(TestData.FK32, ERROR_ACCESS_DENIED));
-			CHECK_THROWS_AS(File(TestData.Path1(), File::Mode::READ, File::Method::EXIST), CYB::Exception::SystemData);
-			THEN("The correct exception is thrown") {
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
-			}
-		}
-		WHEN("We try to open a file for writing") {
-			CHECK_THROWS_AS(File(TestData.Path1(), File::Mode::WRITE, File::Method::EXIST), CYB::Exception::SystemData);
-			THEN("The correct exception is thrown") {
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
-			}
-		}
 #ifdef TARGET_OS_WINDOWS
-		GIVEN("Bad path checks") {
+		const auto BCF(TestData.FK32.Redirect<CYB::Platform::Modules::Kernel32::CreateFileW, BadCreateFile>());
+#else
+		const auto BO(TestData.FC.Redirect<CYB::Platform::Modules::LibC::open, BadOpen>());
+#endif
+		WHEN("We give access errors") {
 			const auto Thing(OverrideError(TestData.FK32, ERROR_ACCESS_DENIED));
-			const auto BPC(TestData.FK32.Redirect<CYB::Platform::Modules::Kernel32::GetFileAttributesExW, BadGetFileAttributesEx>());
-			WHEN("We try to open a file") {
-				CHECK_THROWS_AS(File(TestData.Path1(), File::Mode::READ_WRITE, File::Method::ANY), CYB::Exception::SystemData);
+			WHEN("We try to open a file for reading") {
+				CHECK_THROWS_AS(File(TestData.Path1(), File::Mode::READ, File::Method::EXIST), CYB::Exception::SystemData);
+				THEN("The correct exception is thrown") {
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+				}
+			}
+			WHEN("We try to open a file for writing") {
+				CHECK_THROWS_AS(File(TestData.Path1(), File::Mode::WRITE, File::Method::EXIST), CYB::Exception::SystemData);
 				THEN("The correct exception is thrown") {
 					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+				}
+			}
+#ifdef TARGET_OS_WINDOWS
+			GIVEN("Bad path checks") {
+				const auto BPC(TestData.FK32.Redirect<CYB::Platform::Modules::Kernel32::GetFileAttributesExW, BadGetFileAttributesEx>());
+				WHEN("We try to open a file") {
+					CHECK_THROWS_AS(File(TestData.Path1(), File::Mode::READ_WRITE, File::Method::ANY), CYB::Exception::SystemData);
+					THEN("The correct exception is thrown") {
+						CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+					}
 				}
 			}
 		}
@@ -311,8 +312,8 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 			CheckThis(ERROR_ACCESS_DENIED, CYB::Exception::SystemData::FILE_NOT_WRITABLE);
 			CheckThis(ERROR_SHARING_VIOLATION, CYB::Exception::SystemData::FILE_NOT_WRITABLE);
 			CheckThis(0, CYB::Exception::SystemData::FILE_NOT_WRITABLE);
-		}
 #endif
+		}
 	}
 }
 
@@ -609,10 +610,10 @@ SCENARIO("Files sizes can be retrieved without opening them", "[Platform][System
 				DoCheck(CYB::Exception::SystemData::FILE_NOT_FOUND);
 			}
 #else
-			SysCallOverride BS(CYB::Platform::Sys::CallNumber::LSTAT, FakeStat);
+			SysCallOverride BS(Sys::CallNumber::LSTAT, FakeStat);
 			WHEN("The error is set to EACCES") {
 				FakeStatReturn = EACCES;
-				DoCheck(CYB::Exception::SystemData::FILE_NOT_READABLE)
+				DoCheck(CYB::Exception::SystemData::FILE_NOT_READABLE);
 			}
 			WHEN("The error is set to anything other that EACCES") {
 				FakeStatReturn = 0;

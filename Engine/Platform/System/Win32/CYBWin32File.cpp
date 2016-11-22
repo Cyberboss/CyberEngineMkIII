@@ -73,11 +73,11 @@ CYB::Platform::System::File::File(Path&& APath, const Mode AMode, const Method A
 		default:
 			if (AMode == Mode::READ)
 				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
-			else
-				throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+			throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
 		}
 	}
-	else if (AMethod == Method::ANY) {
+	
+	if (AMethod == Method::ANY) {
 		if (K32.Call<Modules::Kernel32::GetLastError>() == ERROR_ALREADY_EXISTS)
 			FOpenMethod = Method::EXIST;
 		else
@@ -115,7 +115,7 @@ unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) 
 	auto& K32(Core().FModuleManager.FK32);
 
 	WIN32_FILE_ATTRIBUTE_DATA Attributes;
-	if (GetFileAttributesExW(APath.WidePath().WString(), GetFileExInfoStandard, &Attributes) != 0) {
+	if (K32.Call<Modules::Kernel32::GetFileAttributesExW>(APath.WidePath().WString(), GetFileExInfoStandard, &Attributes) != 0) {
 		LARGE_INTEGER Size;
 		Size.HighPart = static_cast<LONG>(Attributes.nFileSizeHigh);
 		Size.LowPart = Attributes.nFileSizeLow;

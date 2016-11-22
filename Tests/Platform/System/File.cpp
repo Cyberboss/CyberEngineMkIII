@@ -63,6 +63,27 @@ public:
 	}
 };
 
+#ifdef TARGET_OS_WINDOWS
+using namespace CYB::Platform::Win32;
+REDIRECTED_FUNCTION(BadCreateFile, const void* const, DWORD, DWORD, const void* const, DWORD, DWORD, const void* const) {
+	return INVALID_HANDLE_VALUE;
+}
+
+REDIRECTED_FUNCTION(BadOpen, const void* const, const unsigned long long, const unsigned long long) {
+	return -1;
+}
+
+REDIRECTED_FUNCTION(BadGetFileAttributesEx, const void* const, const CYB::Platform::Win32::GET_FILEEX_INFO_LEVELS, const void* const) {
+	using namespace CYB::Platform::Win32;
+	return 0;
+}
+#else
+unsigned long long FakeStatReturn;
+unsigned long long FakeStat(Fake::SysCalls::Args&) {
+	return 1;
+}
+#endif
+
 SCENARIO("Files can be touched", "[Platform][System][File][Unit]") {
 	TestStartup TestData;
 	GIVEN("A path to touch") {
@@ -202,24 +223,23 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 		ConstructorMatrix();
 	}
 	GIVEN("A valid file") {
-		std::unique_ptr<File> DasFile;
-		REQUIRE_NOTHROW(DasFile.reset(new File(TestData.Path1(), File::Mode::READ_WRITE, File::Method::ANY)));
+		File DasFile(TestData.Path1(), File::Mode::READ_WRITE, File::Method::ANY);
 		WHEN("It is moved constructed") {
-			std::unique_ptr<File> DasMove;
-			REQUIRE_NOTHROW(DasMove.reset(new File(std::move(*DasFile))));
+			File DasMove(std::move(DasFile));
 			THEN("All is well") {
 				CHECK(true);
 			}
 		}
 		WHEN("It is moved assigned") {
-			std::unique_ptr<File> DasMove;
-			REQUIRE_NOTHROW(DasMove.reset(new File(TestData.Path2(), File::Mode::READ_WRITE, File::Method::ANY)));
-			REQUIRE_NOTHROW(*DasMove = std::move(*DasFile));
+			File DasMove(TestData.Path2(), File::Mode::READ_WRITE, File::Method::ANY);
+			REQUIRE_NOTHROW(DasMove = std::move(DasFile));
 			THEN("All is well") {
 				CHECK(true);
 			}
 		}
 	}
+
+	//whitebox
 	const auto Violation([&]() {
 		WHEN("Creation is attempted") {
 #ifdef DEBUG
@@ -243,6 +263,56 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 		Mo = File::Mode::READ_WRITE;
 		Me = static_cast<File::Method>(5);
 		Violation();
+	}
+
+	GIVEN("A bad open calls") {
+		const auto BCF(TestData.FK32.Redirect<CYB::Platform::Modules::Kernel32::CreateFileW, BadCreateFile>());
+		const auto BO(TestData.FC.Redirect<CYB::Platform::Modules::LibC::open, BadOpen>());
+#ifndef TARGET_OS_WINDOWS
+		errno = EACCES;
+#endif
+		WHEN("We try to open a file for reading") {
+			const auto Thing(OverrideError(TestData.FK32, ERROR_ACCESS_DENIED));
+			CHECK_THROWS_AS(File(TestData.Path1(), File::Mode::READ, File::Method::EXIST), CYB::Exception::SystemData);
+			THEN("The correct exception is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+			}
+		}
+		WHEN("We try to open a file for writing") {
+			CHECK_THROWS_AS(File(TestData.Path1(), File::Mode::WRITE, File::Method::EXIST), CYB::Exception::SystemData);
+			THEN("The correct exception is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+			}
+		}
+#ifdef TARGET_OS_WINDOWS
+		GIVEN("Bad path checks") {
+			const auto Thing(OverrideError(TestData.FK32, ERROR_ACCESS_DENIED));
+			const auto BPC(TestData.FK32.Redirect<CYB::Platform::Modules::Kernel32::GetFileAttributesExW, BadGetFileAttributesEx>());
+			WHEN("We try to open a file") {
+				CHECK_THROWS_AS(File(TestData.Path1(), File::Mode::READ_WRITE, File::Method::ANY), CYB::Exception::SystemData);
+				THEN("The correct exception is thrown") {
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+				}
+			}
+		}
+		GIVEN("Coverage required on the error switch") {
+			const auto CheckThis([&](const auto AError, const auto AException) {
+				WHEN("We do this error") {
+					const auto Thing2(OverrideError(TestData.FK32, static_cast<DWORD>(AError)));
+					CHECK_THROWS_AS(File(TestData.Path1(), File::Mode::READ_WRITE, File::Method::ANY), CYB::Exception::SystemData);
+					THEN("The correct exception is thrown") {
+						CHECK_EXCEPTION_CODE(AException);
+					}
+				}
+			});
+			CheckThis(ERROR_FILE_NOT_FOUND, CYB::Exception::SystemData::FILE_NOT_FOUND);
+			CheckThis(ERROR_PATH_NOT_FOUND, CYB::Exception::SystemData::FILE_NOT_FOUND);
+			CheckThis(ERROR_INVALID_NAME, CYB::Exception::SystemData::FILE_NOT_FOUND);
+			CheckThis(ERROR_ACCESS_DENIED, CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+			CheckThis(ERROR_SHARING_VIOLATION, CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+			CheckThis(0, CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+		}
+#endif
 	}
 }
 
@@ -321,6 +391,18 @@ SCENARIO("Files can have their cursor position set and retrieved", "[Platform][S
 					THEN("It has moved") {
 						CHECK(TF.CursorPosition() == 6U);
 					}
+				}
+			}
+			AND_WHEN("We seek invalidly") {
+#ifdef DEBUG
+				REQUIRE_THROWS_AS(TF.Seek(1, static_cast<File::SeekLocation>(5)), CYB::Exception::Violation);
+#endif
+				THEN("The correct error is thrown") {
+#ifdef DEBUG
+					CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
+#else
+					CHECK(true);
+#endif
 				}
 			}
 		}
@@ -502,6 +584,42 @@ SCENARIO("Files sizes can be retrieved without opening them", "[Platform][System
 			THEN("It is correct") {
 				CHECK(Result == 5U);
 			}
+		}
+		GIVEN("Bad stat calls") {
+			const auto DoCheck([&](const CYB::Exception::SystemData::ErrorCode AError) {
+				WHEN("It's size is statically checked") {
+					CHECK_THROWS_AS(File::Size(TestData.Path1()), CYB::Exception::SystemData);
+					THEN("The correct error is thrown") {
+						CHECK_EXCEPTION_CODE(AError);
+					}
+				}
+			});
+#ifdef TARGET_OS_WINDOWS
+			const auto BPC(TestData.FK32.Redirect<CYB::Platform::Modules::Kernel32::GetFileAttributesExW, BadGetFileAttributesEx>());
+			WHEN("The error is set to ACCESS_DENIED") {
+				const auto Thing(OverrideError(TestData.FK32, ERROR_ACCESS_DENIED));
+				DoCheck(CYB::Exception::SystemData::FILE_NOT_READABLE);
+			}
+			WHEN("The error is set to SHARING_VIOLATION") {
+				const auto Thing(OverrideError(TestData.FK32, ERROR_SHARING_VIOLATION));
+				DoCheck(CYB::Exception::SystemData::FILE_NOT_READABLE);
+			}
+			WHEN("The error is set to anything other than SHARING_VIOLATION and ACCESS_DENIED") {
+				const auto Thing(OverrideError(TestData.FK32, 0));
+				DoCheck(CYB::Exception::SystemData::FILE_NOT_FOUND);
+			}
+#else
+			SysCallOverride BS(CYB::Platform::Sys::CallNumber::LSTAT, FakeStat);
+			WHEN("The error is set to EACCES") {
+				FakeStatReturn = EACCES;
+				DoCheck(CYB::Exception::SystemData::FILE_NOT_READABLE)
+			}
+			WHEN("The error is set to anything other that EACCES") {
+				FakeStatReturn = 0;
+				const auto Thing(OverrideError(TestData.FK32, ERROR_SHARING_VIOLATION));
+				DoCheck(CYB::Exception::SystemData::FILE_NOT_FOUND);
+			}
+#endif
 		}
 	}
 	GIVEN("A file with no data") {

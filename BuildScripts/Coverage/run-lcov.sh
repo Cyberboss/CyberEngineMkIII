@@ -13,14 +13,14 @@ sudo cp bin/* /usr/local/bin/
 cd ..
 rm -r v1.12.tar v1.12.tar.gz lcov-1.12
 
-lcov --directory . --base-directory . --gcov-tool BuildScripts/Coverage/llvm-gcov.sh --no-external --capture -o lcovrun.dat --rc lcov_branch_coverage=1
+lcov --directory . --base-directory . --gcov-tool BuildScripts/Coverage/llvm-gcov.sh --no-external --capture -o lcovrun.dat
 
-lcov --directory . --base-directory . -r lcovrun.dat *Assert.inl *Syscalls.* *.hpp -o lcovstripped.dat --rc lcov_branch_coverage=1 --gcov-tool BuildScripts/Coverage/llvm-gcov.sh 
+lcov --directory . --base-directory . -r lcovrun.dat *Assert.inl *Syscalls.* *.hpp -o lcovstripped.dat --gcov-tool BuildScripts/Coverage/llvm-gcov.sh 
 	
 if [ "$(uname)" != "Darwin" ]; then
-	lcov --directory . --base-directory . -e lcovstripped.dat *CYBPosix* *CYBLinux* -o lcov.info --rc lcov_branch_coverage=1 --gcov-tool BuildScripts/Coverage/llvm-gcov.sh 
+	lcov --directory . --base-directory . -e lcovstripped.dat *CYBPosix* *CYBLinux* -o lcov.info --gcov-tool BuildScripts/Coverage/llvm-gcov.sh 
 	bash <(curl -s https://codecov.io/bash) -X gcov -f lcov.info -F Linux
 else
-	lcov --directory . --base-directory . -e lcovstripped.dat *CYBPosix* *CYBOSX* -o lcov.info --rc lcov_branch_coverage=1 --gcov-tool BuildScripts/Coverage/llvm-gcov.sh 
+	lcov --directory . --base-directory . -e lcovstripped.dat *CYBPosix* *CYBOSX* -o lcov.info --gcov-tool BuildScripts/Coverage/llvm-gcov.sh 
 	bash <(curl -s https://codecov.io/bash) -X gcov -f lcov.info -F OSX
 fi

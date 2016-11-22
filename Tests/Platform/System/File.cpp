@@ -75,8 +75,8 @@ REDIRECTED_FUNCTION(BadGetFileAttributesEx, const void* const, const CYB::Platfo
 }
 #else
 unsigned long long FakeStatReturn;
-unsigned long long FakeStat(Fake::SysCalls::Args&) {
-	return 1;
+unsigned long long FakeStat2(Fake::SysCalls::Args&) {
+	return FakeStatReturn;
 }
 
 REDIRECTED_FUNCTION(BadOpen, const void* const, const unsigned long long, const unsigned long long) {
@@ -614,7 +614,7 @@ SCENARIO("Files sizes can be retrieved without opening them", "[Platform][System
 				DoCheck(CYB::Exception::SystemData::FILE_NOT_FOUND);
 			}
 #else
-			SysCallOverride BS(Sys::CallNumber::LSTAT, FakeStat);
+			SysCallOverride BS(Sys::CallNumber::LSTAT, FakeStat2);
 			WHEN("The error is set to EACCES") {
 				FakeStatReturn = EACCES;
 				DoCheck(CYB::Exception::SystemData::FILE_NOT_READABLE);

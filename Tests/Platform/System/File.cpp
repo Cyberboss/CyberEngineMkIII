@@ -272,7 +272,11 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 		const auto BO(TestData.FC.Redirect<CYB::Platform::Modules::LibC::open, BadOpen>());
 #endif
 		WHEN("We give access errors") {
+#ifdef TARGET_OS_WINDOWS
 			const auto Thing(OverrideError(TestData.FK32, ERROR_ACCESS_DENIED));
+#else
+			errno = EACCES;
+#endif
 			WHEN("We try to open a file for reading") {
 				CHECK_THROWS_AS(File(TestData.Path1(), File::Mode::READ, File::Method::EXIST), CYB::Exception::SystemData);
 				THEN("The correct exception is thrown") {
@@ -617,7 +621,6 @@ SCENARIO("Files sizes can be retrieved without opening them", "[Platform][System
 			}
 			WHEN("The error is set to anything other that EACCES") {
 				FakeStatReturn = 0;
-				const auto Thing(OverrideError(TestData.FK32, ERROR_SHARING_VIOLATION));
 				DoCheck(CYB::Exception::SystemData::FILE_NOT_FOUND);
 			}
 #endif

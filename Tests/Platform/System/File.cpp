@@ -620,7 +620,7 @@ SCENARIO("Files sizes can be retrieved without opening them", "[Platform][System
 				DoCheck(CYB::Exception::SystemData::FILE_NOT_READABLE);
 			}
 			WHEN("The error is set to anything other that EACCES") {
-				FakeStatReturn = 0;
+				FakeStatReturn = EAGAIN;
 				DoCheck(CYB::Exception::SystemData::FILE_NOT_FOUND);
 			}
 #endif

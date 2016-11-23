@@ -86,6 +86,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Coverage", "Coverage", "{9D
 		BuildScripts\Coverage\run-lcov.sh = BuildScripts\Coverage\run-lcov.sh
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeCov", "CodeCov", "{B1DF8EDA-BCB7-43EB-9295-8EEBE09D8893}"
+	ProjectSection(SolutionItems) = preProject
+		.codecov.yml = .codecov.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -138,5 +143,6 @@ Global
 		{CCC2B42A-EE15-409C-8672-1FBBE533DF4C} = {0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}
 		{3BEB026D-3E5B-4704-AFC4-140DFA93AEBB} = {0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}
 		{9D439926-268E-4D50-98C4-88A32242F6CF} = {0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}
+		{B1DF8EDA-BCB7-43EB-9295-8EEBE09D8893} = {0989EA0A-5DBB-4468-BB8D-2ADBFF49B04C}
 	EndGlobalSection
 EndGlobal

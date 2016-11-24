@@ -141,6 +141,7 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 	}());
 
 	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::lseek>(FDescriptor, static_cast<off_t>(AOffset), PosixLocation));
+	//See http://man7.org/linux/man-pages/man2/lseek.2.html, there is no way besides us screwing up
 	API::Assert::NotEqual(Result, static_cast<decltype(Result)>(-1));
 
 	return static_cast<unsigned long long>(Result);

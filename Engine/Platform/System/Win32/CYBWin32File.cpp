@@ -54,6 +54,8 @@ CYB::Platform::System::File::File(Path&& APath, const Mode AMode, const Method A
 		if (Error == ERROR_FILE_EXISTS)
 			throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
 		if (Error == ERROR_ACCESS_DENIED) {
+			//Keep things DRY
+
 			//Translate properly to the directory error
 			//We don't care how screwed up FPath is, it has a different exception spec to us
 			//DO NOT LET IT PROPAGATE

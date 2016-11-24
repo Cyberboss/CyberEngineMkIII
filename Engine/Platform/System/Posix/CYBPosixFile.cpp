@@ -150,7 +150,7 @@ unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const 
 	if (FOpenMode == Mode::WRITE)
 		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
 	auto Result(Core().FModuleManager.FC.Call<Modules::LibC::read>(FDescriptor, ABuffer, static_cast<size_t>(AMaxAmount)));
-	if (Result == -1)
+	if (Result == static_cast<decltype(Result)>(-1))
 		Result = 0;
 	return static_cast<unsigned long long>(Result);
 }
@@ -159,7 +159,7 @@ unsigned long long CYB::Platform::System::File::Write(const void* const ABuffer,
 	if (FOpenMode == Mode::READ)
 		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
 	auto Result(Core().FModuleManager.FC.Call<Modules::LibC::write>(FDescriptor, ABuffer, static_cast<size_t>(AAmount)));
-	if (Result == -1)
+	if (Result == static_cast<decltype(Result)>(-1))
 		Result = 0;
 	return static_cast<unsigned long long>(Result);
 }

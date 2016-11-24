@@ -454,7 +454,7 @@ SCENARIO("Files can be read from", "[Platform][System][File][Unit]") {
 					if (Mo != File::Mode::WRITE) {
 						const auto Result(TF.Read(Data, 21));
 						THEN("The correct amount of bytes were read (No good OS should fail this check) and the data is correct") {
-							CHECK(Result == (HasData && !Fail ? 21U : 0));
+							CHECK(Result == ((HasData && !Fail) ? 21U : 0));
 							if (HasData && !Fail) {
 								CYB::API::String::Dynamic TS1(CYB::API::String::Static(Data), 21),
 									TS2(CYB::API::String::Static(ALotOfData), 21);

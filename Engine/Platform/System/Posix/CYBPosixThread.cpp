@@ -4,8 +4,7 @@ using namespace CYB::Platform::Posix;
 
 CYB::Platform::System::Implementation::Thread::Thread(API::Threadable& AThreadable) :
 	FThreadable(AThreadable),
-	FRunning(true)
-{
+	FRunning(true) {
 	std::atomic_thread_fence(std::memory_order_release);
 
 	if (Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_create>(&FThread, nullptr, ThreadProc, this) != 0) 
@@ -13,20 +12,8 @@ CYB::Platform::System::Implementation::Thread::Thread(API::Threadable& AThreadab
 }
 
 void* CYB::Platform::System::Implementation::Thread::ThreadProc(void* const AThread) noexcept {
-	class AutoCleanup {
-		std::atomic_bool& FRunning;
-	public:
-		AutoCleanup(std::atomic_bool& ARunning) noexcept :
-			FRunning(ARunning)
-		{}
-		~AutoCleanup() {
-			FRunning.store(false, std::memory_order_release);
-		}
-	};
-
 	auto& Me(*static_cast<Thread*>(AThread));
 	auto& Threadable(Me.FThreadable);
-	AutoCleanup Cleaner(Me.FRunning);
 
 	try {
 		Threadable.BeginThreadedOperation();
@@ -38,6 +25,8 @@ void* CYB::Platform::System::Implementation::Thread::ThreadProc(void* const AThr
 	catch (...) {
 		//! @todo Log error
 	}
+
+	Me.FRunning.store(false, std::memory_order_release);
 
 	return nullptr;
 }

@@ -75,7 +75,7 @@ namespace CYB {
 				@brief Read data from a File at the current cursor position and advance the cursor by that amount
 				@param[out] ABuffer The location to store the read data
 				@param AMaxAmount The maximum number of bytes to be read
-				@return The number of bytes read
+				@return The number of bytes read. If zero is returned, and the cursor position is not as SeekLocation::END an error has occurred and the read should not be retried
 				@par Thread Safety
 					This function requres no thread safety
 				@throw CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_OPERATION. Thrown if the File was opened with Mode::WRITE
@@ -85,7 +85,7 @@ namespace CYB {
 				@brief Write data to a File at the current cursor position and advance the cursor by that amount
 				@param ABuffer The location to get the data to write
 				@param AAmount The number of bytes to be written
-				@return The number of bytes written
+				@return The number of bytes written. If zero is returned, an error has occurred and the write should not be retried
 				@par Thread Safety
 					This function requres no thread safety
 				@throw CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_OPERATION. Thrown if the File was opened with Mode::READ

@@ -153,7 +153,8 @@ unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const 
 	if (FOpenMode == Mode::WRITE)
 		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
 	DWORD BytesRead;
-	API::Assert::NotEqual(Core().FModuleManager.FK32.Call<Modules::Kernel32::ReadFile>(FHandle, ABuffer, static_cast<DWORD>(AMaxAmount), &BytesRead, nullptr), 0);
+	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::ReadFile>(FHandle, ABuffer, static_cast<DWORD>(AMaxAmount), &BytesRead, nullptr) == 0)
+		BytesRead = 0;
 	return BytesRead;
 }
 
@@ -161,6 +162,7 @@ unsigned long long CYB::Platform::System::File::Write(const void* const ABuffer,
 	if (FOpenMode == Mode::READ)
 		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
 	DWORD BytesWritten;
-	API::Assert::NotEqual(Core().FModuleManager.FK32.Call<Modules::Kernel32::WriteFile>(FHandle, ABuffer, static_cast<DWORD>(AAmount), &BytesWritten, nullptr), 0);
+	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::WriteFile>(FHandle, ABuffer, static_cast<DWORD>(AAmount), &BytesWritten, nullptr) == 0)
+		BytesWritten = 0;
 	return BytesWritten;
 }

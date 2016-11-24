@@ -64,7 +64,7 @@ namespace CYB {
 				//! @brief See @ref structors
 				File(const File&) = delete;
 				//! @brief See @ref structors
-				File(File&& AMove) noexcept;
+				File(File&& AMove) noexcept = default;
 				//! @brief See @ref structors
 				File& operator=(File&& AMove) noexcept;
 				//! @brief Closes a file, saving changes

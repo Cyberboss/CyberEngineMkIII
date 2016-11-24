@@ -5,13 +5,6 @@ CYB::Platform::System::File::File(const API::Path& APath, const Mode AMode, cons
 	File(System::Path(static_cast<const System::Path&>(APath)), AMode, AMethod)
 {}
 
-CYB::Platform::System::File::File(File&& AMove) noexcept:
-	Implementation::File(std::move(AMove)),
-	FPath(std::move(AMove.FPath)),
-	FOpenMode(AMove.FOpenMode),
-	FOpenMethod(AMove.FOpenMethod)
-{}
-
 void CYB::Platform::System::File::Touch(System::Path&& APath) {
 	File(std::move(APath), Mode::WRITE, Method::ANY);
 }

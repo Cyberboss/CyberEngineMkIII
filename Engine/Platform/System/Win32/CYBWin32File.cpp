@@ -90,7 +90,7 @@ CYB::Platform::System::Implementation::File::File(File&& AMove) noexcept :
 	AMove.FHandle = INVALID_HANDLE_VALUE;
 }
 
-void CYB::Platform::System::Implementation::File::Close(void) const noexcept {
+void CYB::Platform::System::File::Close(void) const noexcept {
 	if (FHandle != INVALID_HANDLE_VALUE)
 		Core().FModuleManager.FK32.Call<Modules::Kernel32::CloseHandle>(FHandle);
 }
@@ -102,10 +102,6 @@ CYB::Platform::System::File& CYB::Platform::System::File::operator=(File&& AMove
 	FOpenMode = AMove.FOpenMode;
 	FOpenMethod = AMove.FOpenMethod;
 	return *this;
-}
-
-CYB::Platform::System::File::~File() {
-	Close();
 }
 
 unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) {

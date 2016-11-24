@@ -35,13 +35,6 @@ namespace CYB {
 						@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p AMode, or @p AMethod is invalid
 					*/
 					void Init(const System::Path& APath, const API::File::Mode AMode, API::File::Method& AMethod);
-
-					/*!
-						@brief Closes the FDescriptor if it is valid
-						@par Thread Safety
-							This function requires no thread safety
-					*/
-					void Close(void) const noexcept;
 				};
 			};
 		};

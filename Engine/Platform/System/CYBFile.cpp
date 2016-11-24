@@ -9,6 +9,10 @@ void CYB::Platform::System::File::Touch(System::Path&& APath) {
 	File(std::move(APath), Mode::WRITE, Method::ANY);
 }
 
+CYB::Platform::System::File::~File() {
+	Close();
+}
+
 unsigned long long CYB::Platform::System::File::CursorPosition(void) const noexcept {
 	return Seek(0, SeekLocation::CURSOR);
 }

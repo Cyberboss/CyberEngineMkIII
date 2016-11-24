@@ -92,13 +92,9 @@ CYB::Platform::System::File& CYB::Platform::System::File::operator=(File&& AMove
 	return *this;
 }
 
-void CYB::Platform::System::Implementation::File::Close(void) const noexcept {
+void CYB::Platform::System::File::Close(void) const noexcept {
 	if (FDescriptor != -1)
 		Core().FModuleManager.FC.Call<Modules::LibC::close>(FDescriptor);
-}
-
-CYB::Platform::System::File::~File() {
-	Close();
 }
 
 unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) {

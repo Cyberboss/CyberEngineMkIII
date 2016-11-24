@@ -8,6 +8,13 @@ namespace CYB {
 				System::Path FPath;	//!< @brief The Path indicating this File
 				Mode FOpenMode;	//!< @brief The method used to open the file
 				Method FOpenMethod;	//!< @brief The method used to open the file
+			private:
+				/*!
+					@brief Closes the file's handle if it is valid
+					@par Thread Safety
+						This function requires no thread safety
+				*/
+				void Close(void) const noexcept;
 			public:
 				/*!
 					@brief Equivalent to the statement File(APath, Mode::WRITE, Method::ANY);. Opens/creates a File and updates its access times

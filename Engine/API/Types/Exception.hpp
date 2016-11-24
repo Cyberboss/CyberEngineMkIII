@@ -49,7 +49,7 @@ namespace CYB {
 					This function requires no thread safety
 				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
 			*/
-			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
+			static API::String::Static ErrorMessage(const ErrorCode AErrorCode) noexcept;
 		public:
 			/*!
 				@brief Construct a Violation exception
@@ -59,7 +59,7 @@ namespace CYB {
 				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
 				@attention This function is for internal use only
 			*/
-			Violation(const ErrorCode AErrorCode);
+			Violation(const ErrorCode AErrorCode) noexcept;
 		};
 		//! @brief Exceptions caused by external call failures or invalid external data. Only classifies ones that can pass through the ABI
 		class SystemData : public Base{
@@ -88,7 +88,7 @@ namespace CYB {
 					This function requires no thread safety
 				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
 			*/
-			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
+			static API::String::Static ErrorMessage(const ErrorCode AErrorCode) noexcept;
 		public:
 			/*!
 				@brief Construct a SystemData exception
@@ -98,7 +98,7 @@ namespace CYB {
 				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
 				@attention This function is for internal use only
 			*/
-			SystemData(const ErrorCode AErrorCode);
+			SystemData(const ErrorCode AErrorCode) noexcept;
 		};
 		//! @brief Exceptions that are thrown internally in the engine that the should never see, these are a superset of SystemData type exceptions. If one of these exceptions appear in a unit, please contant the engine development team
 		class Internal : public Base {
@@ -123,7 +123,7 @@ namespace CYB {
 				@par Thread Safety
 					This function requires no thread safety
 			*/
-			static API::String::Static ErrorMessage(const ErrorCode AErrorCode);
+			static API::String::Static ErrorMessage(const ErrorCode AErrorCode) noexcept;
 		public:
 			/*!
 				@brief Construct an Internal exception
@@ -133,7 +133,7 @@ namespace CYB {
 				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_EXCEPTION_CODE. Thrown if @p AErrorCode is not recognized by the engine
 				@attention This function is for internal use only
 			*/
-			Internal(const ErrorCode AErrorCode);
+			Internal(const ErrorCode AErrorCode) noexcept;
 		};
 	};
 };

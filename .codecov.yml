@@ -10,9 +10,8 @@ coverage:
     patch: off
     changes:
       default:
-        set_pending: no
         if_no_uploads: failure
         if_ci_failed: failure
-        only_pulls: no
+        only_pulls: yes
 comment:
   layout: "header, diff, changes"

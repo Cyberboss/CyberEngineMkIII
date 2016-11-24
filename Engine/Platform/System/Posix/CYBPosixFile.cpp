@@ -79,8 +79,7 @@ CYB::Platform::System::File::File(Path&& APath, const Mode AMode, const Method A
 }
 
 CYB::Platform::System::Implementation::File::File(File&& AMove) noexcept :
-	FDescriptor(AMove.FDescriptor)
-{
+	FDescriptor(AMove.FDescriptor) {
 	AMove.FDescriptor = -1;
 }
 

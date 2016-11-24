@@ -118,6 +118,7 @@ unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) 
 StatStruct CYB::Platform::System::Implementation::File::StatFD(void) const noexcept {
 	StatStruct Stat;
 	const auto Result(static_cast<int>(System::Sys::Call(Sys::FSTAT, FDescriptor, &Stat)));
+	//TODO: Could ENOMEM!!!!
 	API::Assert::Equal(Result, static_cast<decltype(Result)>(0));
 	return Stat;
 }
@@ -140,11 +141,12 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 		}
 	}());
 
-	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::lseek>(FDescriptor, static_cast<off_t>(AOffset), PosixLocation));
-	//See http://man7.org/linux/man-pages/man2/lseek.2.html, there is no way besides us screwing up
-	API::Assert::NotEqual(Result, static_cast<decltype(Result)>(-1));
+	unsigned long long Result(Core().FModuleManager.FC.Call<Modules::LibC::lseek>(FDescriptor, static_cast<off_t>(AOffset), PosixLocation));
+	//See http://man7.org/linux/man-pages/man2/lseek.2.html, there is no way besides the user seeking past
+	if (Result == static_cast<decltype(Result)>(-1))
+		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
 
-	return static_cast<unsigned long long>(Result);
+	return Result;
 }
 
 unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const unsigned long long AMaxAmount) const {
@@ -153,7 +155,7 @@ unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const 
 	unsigned long long Result(Core().FModuleManager.FC.Call<Modules::LibC::read>(FDescriptor, ABuffer, static_cast<size_t>(AMaxAmount)));
 	if (Result == static_cast<decltype(Result)>(-1))
 		Result = 0;
-	return static_cast<unsigned long long>(Result);
+	return Result;
 }
 
 unsigned long long CYB::Platform::System::File::Write(const void* const ABuffer, const unsigned long long AAmount) {
@@ -162,5 +164,5 @@ unsigned long long CYB::Platform::System::File::Write(const void* const ABuffer,
 	unsigned long long Result(Core().FModuleManager.FC.Call<Modules::LibC::write>(FDescriptor, ABuffer, static_cast<size_t>(AAmount)));
 	if (Result == static_cast<decltype(Result)>(-1))
 		Result = 0;
-	return static_cast<unsigned long long>(Result);
+	return Result;
 }

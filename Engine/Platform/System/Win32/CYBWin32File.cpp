@@ -145,7 +145,8 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 		}
 	}());
 
-	API::Assert::NotEqual(Core().FModuleManager.FK32.Call<Modules::Kernel32::SetFilePointerEx>(FHandle, Distance, &Location, WinLocation), 0);
+	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::SetFilePointerEx>(FHandle, Distance, &Location, WinLocation) == 0)
+		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
 
 	return static_cast<unsigned long long>(Location.QuadPart);
 }

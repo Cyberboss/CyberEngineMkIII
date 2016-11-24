@@ -67,6 +67,7 @@ namespace CYB {
 				@return The current cursor position
 				@par Thread Safety
 					This function requires no thread safety
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if the seek would put the cursor past the bounds of the file
 				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p ALocation is invalid
 			*/
 			virtual unsigned long long Seek(const long long AOffset, const SeekLocation ALocation) const = 0;
@@ -79,7 +80,7 @@ namespace CYB {
 				@par Thread Safety
 					This function requres no thread safety
 				@throw CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_OPERATION. Thrown if the File was opened with Mode::WRITE
-			*/
+			*/	
 			virtual unsigned long long Read(void* const ABuffer, const unsigned long long AMaxAmount) const = 0;
 			/*!
 				@brief Write data to a File at the current cursor position and advance the cursor by that amount

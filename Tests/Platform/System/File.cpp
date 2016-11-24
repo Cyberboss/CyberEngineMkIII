@@ -301,10 +301,11 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 			}
 		}
 		GIVEN("Coverage required on the error switch") {
+			File::Mode Mo2(File::Mode::READ_WRITE);
 			const auto CheckThis([&](const auto AError, const auto AException) {
 				WHEN("We do this error") {
 					const auto Thing2(OverrideError(TestData.FK32, static_cast<DWORD>(AError)));
-					CHECK_THROWS_AS(File(TestData.Path1(), File::Mode::READ_WRITE, File::Method::ANY), CYB::Exception::SystemData);
+					CHECK_THROWS_AS(File(TestData.Path1(), Mo2, File::Method::ANY), CYB::Exception::SystemData);
 					THEN("The correct exception is thrown") {
 						CHECK_EXCEPTION_CODE(AException);
 					}
@@ -313,9 +314,14 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 			CheckThis(ERROR_FILE_NOT_FOUND, CYB::Exception::SystemData::FILE_NOT_FOUND);
 			CheckThis(ERROR_PATH_NOT_FOUND, CYB::Exception::SystemData::FILE_NOT_FOUND);
 			CheckThis(ERROR_INVALID_NAME, CYB::Exception::SystemData::FILE_NOT_FOUND);
+			CheckThis(ERROR_FILE_EXISTS, CYB::Exception::SystemData::FILE_EXISTS);
 			CheckThis(ERROR_ACCESS_DENIED, CYB::Exception::SystemData::FILE_NOT_WRITABLE);
 			CheckThis(ERROR_SHARING_VIOLATION, CYB::Exception::SystemData::FILE_NOT_WRITABLE);
 			CheckThis(0, CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+			Mo2 = File::Mode::READ;
+			CheckThis(ERROR_ACCESS_DENIED, CYB::Exception::SystemData::FILE_NOT_READABLE);
+			CheckThis(ERROR_SHARING_VIOLATION, CYB::Exception::SystemData::FILE_NOT_READABLE);
+			CheckThis(0, CYB::Exception::SystemData::FILE_NOT_READABLE);
 #endif
 		}
 	}

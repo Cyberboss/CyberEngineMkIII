@@ -46,15 +46,14 @@ CYB::Platform::System::File::File(Path&& APath, const Mode AMode, const Method A
 	if (FHandle == INVALID_HANDLE_VALUE) {
 		const auto Error(K32.Call<Modules::Kernel32::GetLastError>());
 		API::Assert::NotEqual<DWORD>(Error, ERROR_INVALID_PARAMETER);
-		switch (Error) {
-		case ERROR_FILE_NOT_FOUND:
-		case ERROR_PATH_NOT_FOUND:
-		case ERROR_INVALID_NAME:
+
+		//I know this could be a switch but CodeCoverage.exe hates it
+
+		if (Error == ERROR_FILE_NOT_FOUND || Error == ERROR_PATH_NOT_FOUND || Error == ERROR_INVALID_NAME)
 			throw Exception::SystemData(Exception::SystemData::FILE_NOT_FOUND);
-		case ERROR_FILE_EXISTS:
+		if (Error == ERROR_FILE_EXISTS)
 			throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
-		case ERROR_ACCESS_DENIED:
-		{
+		if (Error == ERROR_ACCESS_DENIED) {
 			//Translate properly to the directory error
 			//We don't care how screwed up FPath is, it has a different exception spec to us
 			//DO NOT LET IT PROPAGATE
@@ -62,19 +61,17 @@ CYB::Platform::System::File::File(Path&& APath, const Mode AMode, const Method A
 			try {
 				IsDir = FPath.IsDirectory();
 			}
-			catch(CYB::Exception::Base& AException) {
+			catch (CYB::Exception::Base& AException) {
 				API::Assert::Equal(AException.FLevel, Exception::Base::Level::SYSTEM_DATA);
 				IsDir = false;
 			}
-			if(IsDir)
+			if (IsDir)
 				throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
 		}
-		case ERROR_SHARING_VIOLATION:
-		default:
-			if (AMode == Mode::READ)
-				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
-			throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
-		}
+		if (AMode == Mode::READ)
+			throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+		throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+
 	}
 	
 	if (AMethod == Method::ANY) {

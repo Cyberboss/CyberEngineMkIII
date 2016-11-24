@@ -28,9 +28,6 @@
     <ClCompile Include="Utils\Fakes.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Core\Exception.cpp">
-      <Filter>Engine\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Core\Core.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>

@@ -33,7 +33,7 @@ var searchData=
   ['system_5fpath_5fretrieval_5ffailure',['SYSTEM_PATH_RETRIEVAL_FAILURE',['../class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa667e268d5c5f12b432c95d90ea4107cd',1,'CYB::Exception::SystemData']]],
   ['systemchecks_2ehpp',['SystemChecks.hpp',['../_system_checks_8hpp.html',1,'']]],
   ['systemdata',['SystemData',['../class_c_y_b_1_1_exception_1_1_system_data.html',1,'CYB::Exception']]],
-  ['systemdata',['SystemData',['../class_c_y_b_1_1_exception_1_1_system_data.html#abba9353c4f4cab3f61fa7d178eb362bd',1,'CYB::Exception::SystemData']]],
+  ['systemdata',['SystemData',['../class_c_y_b_1_1_exception_1_1_system_data.html#add1e96c08b97710d85910d2480a37873',1,'CYB::Exception::SystemData']]],
   ['systempagesize',['SystemPageSize',['../class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_virtual_memory.html#ac7ed65763e3bc22cb24270f1506c402b',1,'CYB::Platform::System::Implementation::VirtualMemory']]],
   ['systempath',['SystemPath',['../class_c_y_b_1_1_a_p_i_1_1_path.html#aaff4736ced2bd3ddc862e39c1baed3af',1,'CYB::API::Path']]]
 ];

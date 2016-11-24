@@ -6,14 +6,12 @@ using namespace CYB::Platform::Posix;
 #include <cstring>
 
 CYB::Platform::Modules::Implementation::Module::Module(const API::String::CStyle& AModuleName) 
-{
-	//This can be called without Core
-	FModule = reinterpret_cast<void*>(Platform::System::Sys::Call(Platform::System::Sys::LOAD_LIBRARY, const_cast<char*>(AModuleName.CString()), RTLD_LAZY));
+{	FModule = reinterpret_cast<void*>(Platform::System::Sys::Call(Platform::System::Sys::LOAD_LIBRARY, const_cast<char*>(AModuleName.CString()), RTLD_LAZY));	//This can be called without Core
 	if (FModule == nullptr)
 		throw Exception::Internal(Exception::Internal::MODULE_LOAD_FAILURE);
 }
-CYB::Platform::Modules::Implementation::Module::~Module() {
-	if (FModule != nullptr)
+CYB::Platform::Modules::Implementation::Module::~Module() 
+{	if (FModule != nullptr)
 		//This can be called without Core
 		Platform::System::Sys::Call(Platform::System::Sys::CLOSE_LIBRARY, FModule);
 }

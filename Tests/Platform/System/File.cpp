@@ -69,10 +69,17 @@ REDIRECTED_FUNCTION(BadGetFileAttributesEx, const void* const, const CYB::Platfo
 	return 0;
 }
 
+REDIRECTED_FUNCTION(BadCreateFile, const void* const, const unsigned long, const unsigned long, const void* const, const unsigned long, const unsigned long, const void* const) {
+	return INVALID_HANDLE_VALUE;
+}
 #endif
 unsigned long long FakeStatReturn;
 unsigned long long FakeStat2(Fake::SysCalls::Args&) {
 	return FakeStatReturn;
+}
+
+REDIRECTED_FUNCTION(BadOpen, const unsigned long long, const void* const, const unsigned long long) {
+	return -1;
 }
 
 REDIRECTED_FUNCTION(BadRead, const unsigned long long, const void* const, const unsigned long long) {
@@ -90,10 +97,6 @@ REDIRECTED_FUNCTION(BadWrite, const long long, const void* const, const unsigned
 
 REDIRECTED_FUNCTION(BadWriteFile, const void* const, const void* const, const unsigned long, const void* const, const void* const) {
 	return 0;
-}
-
-REDIRECTED_FUNCTION(BadCreateFile, const void* const, const unsigned long, const unsigned long, const void* const, const unsigned long, const unsigned long, const void* const) {
-	return INVALID_HANDLE_VALUE;
 }
 
 SCENARIO("Files can be touched", "[Platform][System][File][Unit]") {

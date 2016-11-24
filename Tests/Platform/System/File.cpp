@@ -65,24 +65,36 @@ public:
 
 #ifdef TARGET_OS_WINDOWS
 using namespace CYB::Platform::Win32;
-REDIRECTED_FUNCTION(BadCreateFile, const void* const, DWORD, DWORD, const void* const, DWORD, DWORD, const void* const) {
-	return INVALID_HANDLE_VALUE;
-}
-
 REDIRECTED_FUNCTION(BadGetFileAttributesEx, const void* const, const CYB::Platform::Win32::GET_FILEEX_INFO_LEVELS, const void* const) {
-	using namespace CYB::Platform::Win32;
 	return 0;
 }
-#else
+
+#endif
 unsigned long long FakeStatReturn;
 unsigned long long FakeStat2(Fake::SysCalls::Args&) {
 	return FakeStatReturn;
 }
 
-REDIRECTED_FUNCTION(BadOpen, const void* const, const unsigned long long, const unsigned long long) {
+REDIRECTED_FUNCTION(BadRead, const unsigned long long, const void* const, const unsigned long long) {
 	return -1;
 }
-#endif
+
+REDIRECTED_FUNCTION(BadReadFile, const void* const, const void* const, const unsigned long, const void* const, const void* const) {
+	return 0;
+}
+
+
+REDIRECTED_FUNCTION(BadWrite, const long long, const void* const, const unsigned long long) {
+	return -1;
+}
+
+REDIRECTED_FUNCTION(BadWriteFile, const void* const, const void* const, const unsigned long, const void* const, const void* const) {
+	return 0;
+}
+
+REDIRECTED_FUNCTION(BadCreateFile, const void* const, const unsigned long, const unsigned long, const void* const, const unsigned long, const unsigned long, const void* const) {
+	return INVALID_HANDLE_VALUE;
+}
 
 SCENARIO("Files can be touched", "[Platform][System][File][Unit]") {
 	TestStartup TestData;
@@ -424,7 +436,7 @@ SCENARIO("Files can be read from", "[Platform][System][File][Unit]") {
 	TestStartup TestData;
 	File::Mode Mo;
 	File::Method Me;
-	bool HasData;
+	bool HasData, Fail(false);
 	const auto OpenAndRead([&]() {
 		if (Mo == File::Mode::READ && Me == File::Method::TRUNCATE) {
 			THEN("We won't run this check as it'll fail on opening") {
@@ -439,8 +451,8 @@ SCENARIO("Files can be read from", "[Platform][System][File][Unit]") {
 					if (Mo != File::Mode::WRITE) {
 						const auto Result(TF.Read(Data, 21));
 						THEN("The correct amount of bytes were read (No good OS should fail this check) and the data is correct") {
-							CHECK(Result == (HasData ? 21U : 0));
-							if (HasData) {
+							CHECK(Result == (HasData && !Fail ? 21U : 0));
+							if (HasData && !Fail) {
 								CYB::API::String::Dynamic TS1(CYB::API::String::Static(Data), 21),
 									TS2(CYB::API::String::Static(ALotOfData), 21);
 								CHECK(TS1 == TS2);
@@ -494,15 +506,26 @@ SCENARIO("Files can be read from", "[Platform][System][File][Unit]") {
 			MethodMatrix();
 		}
 	});
+
+	const auto FailMatrix([&]() {
+		PermissionsMatrix();
+		WHEN("The calls fails") {
+			auto Thing1(TestData.FK32.Redirect<CYB::Platform::Modules::Kernel32::ReadFile, BadReadFile>());
+			auto Thing2(TestData.FC.Redirect<CYB::Platform::Modules::LibC::read, BadRead>());
+			Fail = true;
+			PermissionsMatrix();
+		};
+	});
+
 	GIVEN("A file with some data") {
 		TestData.Data1(21);
 		HasData = true;
-		PermissionsMatrix();
+		FailMatrix();
 	}
 	GIVEN("A file with no data") {
 		File::Touch(TestData.Path1());
 		HasData = false;
-		PermissionsMatrix();
+		FailMatrix();
 	}
 }
 
@@ -510,7 +533,7 @@ SCENARIO("Files can be written to", "[Platform][System][File][Unit]") {
 	TestStartup TestData;
 	File::Mode Mo;
 	File::Method Me;
-	bool HasData;
+	bool HasData, Fail(false);
 	const auto OpenAndWrite([&]() {
 		if (Mo == File::Mode::READ && Me == File::Method::TRUNCATE) {
 			THEN("We won't run this check as it'll fail on opening") {
@@ -524,7 +547,7 @@ SCENARIO("Files can be written to", "[Platform][System][File][Unit]") {
 					if (Mo != File::Mode::READ) {
 						const auto Result(TF.Write(ALotOfData, 21));
 						THEN("The correct amount of bytes were written (No good OS should fail this check)") {
-							CHECK(Result == 21U);
+							CHECK(Result == (Fail ? 0U : 21U));
 						}
 					}
 					else {
@@ -574,15 +597,26 @@ SCENARIO("Files can be written to", "[Platform][System][File][Unit]") {
 			MethodMatrix();
 		}
 	});
+
+	const auto FailMatrix([&]() {
+		PermissionsMatrix();
+		WHEN("The call fails") {
+			auto Thing1(TestData.FK32.Redirect<CYB::Platform::Modules::Kernel32::WriteFile, BadWriteFile>());
+			auto Thing2(TestData.FC.Redirect<CYB::Platform::Modules::LibC::write, BadWrite>());
+			Fail = true;
+			PermissionsMatrix();
+		}
+	});
+
 	GIVEN("A file with some data") {
 		TestData.Data1(21);
 		HasData = true;
-		PermissionsMatrix();
+		FailMatrix();
 	}
 	GIVEN("A file with no data") {
 		File::Touch(TestData.Path1());
 		HasData = false;
-		PermissionsMatrix();
+		FailMatrix();
 	}
 }
 

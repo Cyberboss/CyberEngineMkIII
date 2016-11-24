@@ -61,10 +61,8 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 	}
 
 	//Check it's actually a file because otherwise we aren't supposed to have it open
-	if (!(S_ISREG(StatFD().st_mode))) {
-		Close();
+	if (!(S_ISREG(StatFD().st_mode)))
 		throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
-	}
 
 	if (AMethod == API::File::Method::ANY)
 		AMethod = API::File::Method::CREATE;
@@ -75,7 +73,16 @@ CYB::Platform::System::File::File(Path&& APath, const Mode AMode, const Method A
 	FOpenMode(AMode),
 	FOpenMethod(AMethod)
 {
-	Init(FPath, AMode, FOpenMethod);
+	try {
+		Init(FPath, AMode, FOpenMethod);
+	}
+	catch (Exception::SystemData& AException) {
+		if (FDescriptor != -1) {
+			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::FILE_EXISTS);
+			Close();
+		}
+		throw;
+	}
 }
 
 CYB::Platform::System::Implementation::File::File(File&& AMove) noexcept :

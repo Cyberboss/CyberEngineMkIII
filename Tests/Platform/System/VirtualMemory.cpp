@@ -96,6 +96,9 @@ SCENARIO("VirtualMemory can be discarded and reused","[Platform][System][Virtual
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32Extended> K32E(CYB::Core().FModuleManager.FK32Extended);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+#ifdef TARGET_OS_WINDOWS
+	REQUIRE(CYB::Core().FModuleManager.FK32Extended.Loaded<CYB::Platform::Modules::Kernel32Extended::DiscardVirtualMemory>());
+#endif
 	GIVEN("A standard reservation and commit which has some data written to it") {
 		CYB::Platform::System::VirtualMemory Reservation(1000000);
 		Reservation.Commit(500000);

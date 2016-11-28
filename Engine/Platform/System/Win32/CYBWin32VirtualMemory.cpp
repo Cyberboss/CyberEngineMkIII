@@ -69,15 +69,22 @@ void CYB::Platform::System::VirtualMemory::Discard(void* const AMemory, const un
 	API::Assert::LessThanOrEqual(static_cast<byte*>(AMemory), static_cast<byte*>(FReservation) + FCommitSize);
 	API::Assert::LessThanOrEqual(static_cast<byte*>(AMemory) + ANumBytes, static_cast<byte*>(FReservation) + FCommitSize);
 	const auto PageSize(Implementation::VirtualMemory::SystemPageSize());
-	if (ANumBytes >= PageSize) {
-		auto const AlignedMemory(Implementation::VirtualMemory::PageAlignedUpperBound(AMemory, PageSize));
-		const auto Difference(reinterpret_cast<unsigned long long>(AlignedMemory) - reinterpret_cast<unsigned long long>(AMemory));
-		if (Difference < ANumBytes) {
-			const auto BytesAvailableToDiscard(ANumBytes - Difference);
-			const auto TrueDiscardSize(BytesAvailableToDiscard - (BytesAvailableToDiscard % PageSize));
-			const auto DoDiscard(TrueDiscardSize >= PageSize && Core().FModuleManager.FK32Extended.Loaded<Modules::Kernel32Extended::DiscardVirtualMemory>());
-			if(DoDiscard)
-				Core().FModuleManager.FK32Extended.Call<Modules::Kernel32Extended::DiscardVirtualMemory>(AlignedMemory, TrueDiscardSize);
-		}
-	}
+	if (ANumBytes < PageSize)
+		return;
+
+	auto const AlignedMemory(Implementation::VirtualMemory::PageAlignedUpperBound(AMemory, PageSize));
+	const auto Difference(reinterpret_cast<unsigned long long>(AlignedMemory) - reinterpret_cast<unsigned long long>(AMemory));
+	if (Difference >= ANumBytes)
+		return;
+
+	const auto BytesAvailableToDiscard(ANumBytes - Difference);
+	const auto TrueDiscardSize(BytesAvailableToDiscard - (BytesAvailableToDiscard % PageSize));
+
+	if (TrueDiscardSize < PageSize)
+		return;
+
+	if (!Core().FModuleManager.FK32Extended.Loaded<Modules::Kernel32Extended::DiscardVirtualMemory>())
+		return;
+
+	Core().FModuleManager.FK32Extended.Call<Modules::Kernel32Extended::DiscardVirtualMemory>(AlignedMemory, TrueDiscardSize);
 }

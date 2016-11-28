@@ -101,15 +101,30 @@ SCENARIO("VirtualMemory can be discarded and reused","[Platform][System][Virtual
 		Reservation.Commit(500000);
 		*static_cast<unsigned long long*>(Reservation()) = 1234;
 		WHEN("The memory is discarded") {
+			auto DiscardSize(250000U);
+			auto DiscardPoint(Reservation());
 			const auto Then([&]() {
-				REQUIRE_NOTHROW(Reservation.Discard(Reservation(), 500000));
+				REQUIRE_NOTHROW(Reservation.Discard(DiscardPoint, DiscardSize));
 				THEN("No errors occur and pages can be reused but data may differ") {
 					CHECK_NOTHROW(*static_cast<unsigned long long*>(Reservation()) = 5678);
 				}
 			});
 			Then();
+			AND_WHEN("The discard size is low") {
+				DiscardSize = 12;
+				Then();
+			}
+			AND_WHEN("The discard point is close the end of the a page") {
+				DiscardPoint = static_cast<char*>(DiscardPoint) + 4090;
+				Then();
+			}
+			AND_WHEN("The discard size is okay but crosses a page boundary") {
+				DiscardSize = 5000;
+				DiscardPoint = static_cast<char*>(DiscardPoint) + 1500;
+				Then();
+			}
 #ifdef TARGET_OS_WINDOWS
-			AND_WHEN("We do an incredible code coverage hack") {
+			AND_WHEN("The discard function does not exist") {
 				using RedirectType = CallRedirect<CYB::Platform::Modules::AMKernel32Extended, CYB::Platform::Modules::Kernel32Extended::DiscardVirtualMemory>;
 				RedirectType DoIt(CYB::Core().FModuleManager.FK32Extended, static_cast<RedirectType::FCallable*>(nullptr));
 				Then();

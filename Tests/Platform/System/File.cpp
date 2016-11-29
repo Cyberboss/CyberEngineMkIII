@@ -83,7 +83,7 @@ REDIRECTED_FUNCTION(BadOpen, const unsigned long long, const void* const, const 
 }
 
 REDIRECTED_FUNCTION(BadRead, const unsigned long long, const void* const, const unsigned long long) {
-	return -1;
+	return static_cast<unsigned long long>(-1);
 }
 
 REDIRECTED_FUNCTION(BadReadFile, const void* const, const void* const, const unsigned long, const void* const, const void* const) {
@@ -92,7 +92,7 @@ REDIRECTED_FUNCTION(BadReadFile, const void* const, const void* const, const uns
 
 
 REDIRECTED_FUNCTION(BadWrite, const long long, const void* const, const unsigned long long) {
-	return -1;
+	return static_cast<unsigned long long>(-1);
 }
 
 REDIRECTED_FUNCTION(BadWriteFile, const void* const, const void* const, const unsigned long, const void* const, const void* const) {
@@ -454,7 +454,8 @@ SCENARIO("Files can be read from", "[Platform][System][File][Unit]") {
 					if (Mo != File::Mode::WRITE) {
 						const auto Result(TF.Read(Data, 21));
 						THEN("The correct amount of bytes were read (No good OS should fail this check) and the data is correct") {
-							CHECK(Result == ((HasData && !Fail) ? 21U : 0));
+							const auto Expected((HasData && !Fail) ? 21U : 0);
+							CHECK(Result == Expected);
 							if (HasData && !Fail) {
 								CYB::API::String::Dynamic TS1(CYB::API::String::Static(Data), 21),
 									TS2(CYB::API::String::Static(ALotOfData), 21);
@@ -550,7 +551,8 @@ SCENARIO("Files can be written to", "[Platform][System][File][Unit]") {
 					if (Mo != File::Mode::READ) {
 						const auto Result(TF.Write(ALotOfData, 21));
 						THEN("The correct amount of bytes were written (No good OS should fail this check)") {
-							CHECK(Result == (Fail ? 0U : 21U));
+							const auto Expected(Fail ? 0U : 21U);
+							CHECK(Result == Expected);
 						}
 					}
 					else {

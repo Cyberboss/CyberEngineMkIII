@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <Type Name="CYB::API::String::CStyle">
+      <DisplayString>{FData}</DisplayString>
+      <StringView>FData</StringView>
+      <Expand>  
+          <Item Name="[Length]" ExcludeView="simple">FLength</Item>  
+      </Expand>  
+  </Type>
+  <Type Name="CYB::API::String::UTF8">
+      <DisplayString>{FData,s8}</DisplayString>
+      <StringView>FData,s8</StringView>
+      <Expand>  
+          <Item Name="[Length]" ExcludeView="simple">FLength</Item>  
+      </Expand>  
+  </Type>
+  <Type Name="CYB::API::String::UTF16">
+      <DisplayString>{FData,su}</DisplayString>
+      <StringView>FData,su</StringView>
+      <Expand>  
+          <Item Name="[Length]" ExcludeView="simple">FLength</Item>  
+      </Expand>  
+  </Type>
+</AutoVisualizer>

@@ -127,4 +127,7 @@
     </None>
     <None Include="Main.inl" />
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\Engine\CyberEngineMkIII.natvis" />
+  </ItemGroup>
 </Project>

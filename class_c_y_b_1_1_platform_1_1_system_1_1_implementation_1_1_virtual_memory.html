@@ -114,7 +114,7 @@ Static Protected Member Functions</h2></td></tr>
 <tr class="memdesc:ac7ed65763e3bc22cb24270f1506c402b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the system page size.  <a href="#ac7ed65763e3bc22cb24270f1506c402b">More...</a><br/></td></tr>
 <tr class="separator:ac7ed65763e3bc22cb24270f1506c402b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3605096b80af9ccf19068f09539032d"><td class="memItemLeft" align="right" valign="top">static void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_virtual_memory.html#ac3605096b80af9ccf19068f09539032d">PageAlignedUpperBound</a> (void *const AMemory, const unsigned int APageSize) noexcept</td></tr>
-<tr class="memdesc:ac3605096b80af9ccf19068f09539032d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the base address of a page given an address.  <a href="#ac3605096b80af9ccf19068f09539032d">More...</a><br/></td></tr>
+<tr class="memdesc:ac3605096b80af9ccf19068f09539032d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the base address of a page on or after a given address.  <a href="#ac3605096b80af9ccf19068f09539032d">More...</a><br/></td></tr>
 <tr class="separator:ac3605096b80af9ccf19068f09539032d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -154,7 +154,7 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get the base address of a page given an address. </p>
+<p>Get the base address of a page on or after a given address. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">AMemory</td><td>The address to reference </td></tr>
@@ -167,8 +167,10 @@ Static Protected Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="_c_y_b_win32_virtual_memory_8cpp_source.html#l00009">9</a> of file <a class="el" href="_c_y_b_win32_virtual_memory_8cpp_source.html">CYBWin32VirtualMemory.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;                                                                                                                              {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(AMemory) + (APageSize - (reinterpret_cast&lt;unsigned long long&gt;(AMemory) % APageSize)));</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keywordflow">if</span> ((reinterpret_cast&lt;unsigned long long&gt;(AMemory) % APageSize) == 0)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="keywordflow">return</span> AMemory;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(AMemory) + (APageSize - (reinterpret_cast&lt;unsigned long long&gt;(AMemory) % APageSize)));</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>

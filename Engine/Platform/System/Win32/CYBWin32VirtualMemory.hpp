@@ -15,7 +15,7 @@ namespace CYB {
 					*/
 					static unsigned int SystemPageSize(void) noexcept;
 					/*!
-						@brief Get the base address of a page given an address
+						@brief Get the base address of a page on or after a given address
 						@param AMemory The address to reference
 						@param APageSize The system page size
 						@return The base address of the page @p AMemory lies on

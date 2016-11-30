@@ -92,19 +92,51 @@ SCENARIO("VirtualMemory reservation protection levels can be changed", "[Platfor
 		}
 	}
 }
+REDIRECTED_FUNCTION(BadDiscardVirtualMemory, void* const, const unsigned long long) {
+	return 0;
+}
 SCENARIO("VirtualMemory can be discarded and reused","[Platform][System][VirtualMemory][Unit]") {
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
 	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32Extended> K32E(CYB::Core().FModuleManager.FK32Extended);
 	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+#ifdef TARGET_OS_WINDOWS
+	//For testing purposes, assume it's not there
+	auto Thing(K32E.Redirect<CYB::Platform::Modules::Kernel32Extended::DiscardVirtualMemory, BadDiscardVirtualMemory>());
+#endif
 	GIVEN("A standard reservation and commit which has some data written to it") {
 		CYB::Platform::System::VirtualMemory Reservation(1000000);
 		Reservation.Commit(500000);
 		*static_cast<unsigned long long*>(Reservation()) = 1234;
 		WHEN("The memory is discarded") {
-			REQUIRE_NOTHROW(Reservation.Discard(Reservation(), 500000));
-			THEN("No errors occur and pages can be reused but data may differ") {
-				CHECK_NOTHROW(*static_cast<unsigned long long*>(Reservation()) = 5678);
+			auto DiscardSize(250000U);
+			auto DiscardPoint(Reservation());
+			const auto Then([&]() {
+				REQUIRE_NOTHROW(Reservation.Discard(DiscardPoint, DiscardSize));
+				THEN("No errors occur and pages can be reused but data may differ") {
+					CHECK_NOTHROW(*static_cast<unsigned long long*>(Reservation()) = 5678);
+				}
+			});
+			Then();
+			AND_WHEN("The discard size is low") {
+				DiscardSize = 12;
+				Then();
 			}
+			AND_WHEN("The discard point is close the end of the a page") {
+				DiscardPoint = static_cast<char*>(DiscardPoint) + 4090;
+				Then();
+			}
+			AND_WHEN("The discard size is okay but crosses a page boundary") {
+				DiscardSize = 5000;
+				DiscardPoint = static_cast<char*>(DiscardPoint) + 1500;
+				Then();
+			}
+#ifdef TARGET_OS_WINDOWS
+			AND_WHEN("The discard function does not exist") {
+				using RedirectType = CallRedirect<CYB::Platform::Modules::AMKernel32Extended, CYB::Platform::Modules::Kernel32Extended::DiscardVirtualMemory>;
+				RedirectType DoIt(CYB::Core().FModuleManager.FK32Extended, static_cast<RedirectType::FCallable*>(nullptr));
+				Then();
+			}
+#endif
 		}
 	}
 }

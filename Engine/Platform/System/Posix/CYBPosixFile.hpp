@@ -15,7 +15,7 @@ namespace CYB {
 						@par Thread Safety
 							This function requires no thread safety
 					*/
-					StatStruct StatFD(void) const noexcept;
+					StatStruct StatFD(void) const;
 
 					//! @brief See @ref structors
 					File() noexcept = default;

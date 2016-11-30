@@ -118,7 +118,6 @@ unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) 
 StatStruct CYB::Platform::System::Implementation::File::StatFD(void) const {
 	StatStruct Stat;
 	const auto Result(static_cast<int>(System::Sys::Call(Sys::FSTAT, FDescriptor, &Stat)));
-	//TODO: Could ENOMEM!!!!
 	if (Result != 0)
 		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
 	return Stat;

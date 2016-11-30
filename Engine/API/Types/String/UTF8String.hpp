@@ -75,9 +75,10 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
 				UTF8& operator+=(const UTF8& ARHS);
-				//! @copydoc CYB::API::String::Dynamic::SubString() This version must be used with UTF8 strings
+				//! @copydoc CYB::API::String::Dynamic::SubString() This version will not segment inside of multibyte characters
 				UTF8 SubString(const int AIndex, const int ALength) const;
 
+				//! @todo Implement
 				/*!
 					@brief Iterate over the code points
 					@param AIterator The function called on each codepoint. Takes an unsigned integer denoting the code point and an integer denoting the character index. Returns a bool indicating whether or not to continue the loop
@@ -89,17 +90,17 @@ namespace CYB {
 				template <typename ALambda> void IterateCodepoints(const ALambda AIterator, const bool AReverse) const noexcept(noexcept(AIterator(0U,0)));
 				
 				/*!
-					@brief Get the char at index @p APosition
+					@brief Get the char at index @p APosition. This may be a reference to a multibyte char
 					@param APosition The index of character to look up
-					@return A const reference to the character at that index
+					@return A const reference to the character at that index. This may be a reference to a multibyte char
 					@par Thread Safety
 						This function requires synchronization at the object level
 				*/
 				const char& operator[](const int APosition) const noexcept;
 
 				/*!
-					@brief Move the null terminator of the string so that the readable length is @p AMaxChars
-					@param AMaxChars The maximum index of the new null terminator
+					@brief Move the null terminator of the string so that the maxumum number of remaining characters is @p AMaxChars
+					@param AMaxChars The maximum character index of the new null terminator
 					@par Thread Safety
 						This function requires synchronization at the object level
 				*/

@@ -50,8 +50,9 @@ namespace CYB {
 				@return The current size of the File
 				@par Thread Safety
 					This function requires no thread safety
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if the size could not be retrieved
 			*/
-			virtual unsigned long long Size(void) const noexcept = 0;
+			virtual unsigned long long Size(void) const = 0;
 			/*!
 				@brief Get the current position of the read/write cursor in the File. Equivalent of Seek(0, SeekLocation::CURSOR)
 				@return The current position of the read/write cursor in the File

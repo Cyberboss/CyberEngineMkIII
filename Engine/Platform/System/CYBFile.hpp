@@ -78,7 +78,7 @@ namespace CYB {
 				~File() final override;
 
 				//! @copydoc CYB::API::File::Size()
-				unsigned long long Size(void) const noexcept final override;
+				unsigned long long Size(void) const final override;
 				//! @copydoc CYB::API::File::CursorPosition()
 				unsigned long long CursorPosition(void) const noexcept final override;
 

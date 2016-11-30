@@ -78,7 +78,7 @@ CYB::Platform::System::File::File(Path&& APath, const Mode AMode, const Method A
 	}
 	catch (Exception::SystemData& AException) {
 		if (FDescriptor != -1) {
-			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::FILE_EXISTS);
+			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::FILE_EXISTS, Exception::SystemData::FILE_NOT_READABLE);
 			Close();
 		}
 		throw;
@@ -115,15 +115,16 @@ unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) 
 }
 
 
-StatStruct CYB::Platform::System::Implementation::File::StatFD(void) const noexcept {
+StatStruct CYB::Platform::System::Implementation::File::StatFD(void) const {
 	StatStruct Stat;
 	const auto Result(static_cast<int>(System::Sys::Call(Sys::FSTAT, FDescriptor, &Stat)));
 	//TODO: Could ENOMEM!!!!
-	API::Assert::Equal(Result, static_cast<decltype(Result)>(0));
+	if (Result != 0)
+		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
 	return Stat;
 }
 
-unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
+unsigned long long CYB::Platform::System::File::Size(void) const {
 	return static_cast<unsigned long long>(StatFD().st_size);
 }
 

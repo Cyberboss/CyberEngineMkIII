@@ -122,9 +122,10 @@ unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) 
 	throw Exception::SystemData(Exception::SystemData::FILE_NOT_FOUND);
 }
 
-unsigned long long CYB::Platform::System::File::Size(void) const noexcept {
+unsigned long long CYB::Platform::System::File::Size(void) const {
 	LARGE_INTEGER Size;
-	API::Assert::NotEqual(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetFileSizeEx>(FHandle, &Size), 0);
+	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::GetFileSizeEx>(FHandle, &Size) == 0)
+		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
 	return static_cast<unsigned long long>(Size.QuadPart);
 }
 

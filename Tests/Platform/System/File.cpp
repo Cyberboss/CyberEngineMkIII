@@ -72,10 +72,19 @@ REDIRECTED_FUNCTION(BadGetFileAttributesEx, const void* const, const CYB::Platfo
 REDIRECTED_FUNCTION(BadCreateFile, const void* const, const unsigned long, const unsigned long, const void* const, const unsigned long, const unsigned long, const void* const) {
 	return INVALID_HANDLE_VALUE;
 }
+
+REDIRECTED_FUNCTION(BadSetFilePointerEx, const void* const, const LARGE_INTEGER, const void* const, const unsigned long) {
+	return 0;
+}
+
 #endif
 unsigned long long FakeStatReturn;
 unsigned long long FakeStat2(Fake::SysCalls::Args&) {
 	return FakeStatReturn;
+}
+
+REDIRECTED_FUNCTION(BadLSeek, const unsigned long long, const unsigned long long, const unsigned long long) {
+	return static_cast<unsigned long long>(-1);
 }
 
 REDIRECTED_FUNCTION(BadOpen, const unsigned long long, const void* const, const unsigned long long) {
@@ -429,6 +438,17 @@ SCENARIO("Files can have their cursor position set and retrieved", "[Platform][S
 #else
 					CHECK(true);
 #endif
+				}
+			}
+			AND_WHEN("The seek failed") {
+#ifdef TARGET_OS_WINDOWS
+				const auto Thing1(TestData.FK32.Redirect<CYB::Platform::Modules::Kernel32::SetFilePointerEx, BadSetFilePointerEx>());
+#else
+				const auto Thing2(TestData.FC.Redirect<CYB::Platform::Modules::LibC::lseek, BadLSeek>());
+#endif
+				REQUIRE_THROWS_AS(TF.Seek(-5, File::SeekLocation::END), CYB::Exception::SystemData);
+				THEN("The correct error is thrown") {
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
 				}
 			}
 		}

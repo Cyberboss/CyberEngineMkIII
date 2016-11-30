@@ -436,6 +436,9 @@
     <ClInclude Include="Engine\Core\CYBInterop.hpp">
       <Filter>Engine\Core</Filter>
     </ClInclude>
+    <ClInclude Include="API\Allocatables\Semaphore.hpp">
+      <Filter>API\Allocatables</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DoxyPages\Contexts.dox">

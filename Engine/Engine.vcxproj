@@ -188,6 +188,7 @@
     <ClInclude Include="API\Allocatables\File.hpp" />
     <ClInclude Include="API\Allocatables\Mutex.hpp" />
     <ClInclude Include="API\Allocatables\Path.hpp" />
+    <ClInclude Include="API\Allocatables\Semaphore.hpp" />
     <ClInclude Include="API\CyberEngine.hpp" />
     <ClInclude Include="API\Declarations\Assert.hpp" />
     <ClInclude Include="API\Declarations\Declarations.hpp" />

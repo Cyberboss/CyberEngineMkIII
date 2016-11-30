@@ -1,8 +1,7 @@
 #include "TestHeader.hpp"
 
 void CYB::API::Assert::HCF[[noreturn]](void) noexcept {
-	WARN("HCF was called");
-	std::terminate();
+	FAIL("HCF was called");
 }
 
 void CYB::API::Assert::Unimplemented(const char* const AFunction, const char* const AFile, const unsigned int ALine) noexcept {

@@ -80,7 +80,7 @@ namespace CYB {
 				@par Thread Safety
 					This function requres no thread safety
 				@throw CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_OPERATION. Thrown if the File was opened with Mode::WRITE
-			*/	
+			*/
 			virtual unsigned long long Read(void* const ABuffer, const unsigned long long AMaxAmount) const = 0;
 			/*!
 				@brief Write data to a File at the current cursor position and advance the cursor by that amount

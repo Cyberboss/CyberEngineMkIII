@@ -83,6 +83,10 @@ unsigned long long FakeStat2(Fake::SysCalls::Args&) {
 	return FakeStatReturn;
 }
 
+unsigned long long FakeFStat(Fake::SysCalls::Args&) {
+	return 1;
+}
+
 REDIRECTED_FUNCTION(BadLSeek, const unsigned long long, const unsigned long long, const unsigned long long) {
 	return static_cast<unsigned long long>(-1);
 }
@@ -105,6 +109,10 @@ REDIRECTED_FUNCTION(BadWrite, const long long, const void* const, const unsigned
 }
 
 REDIRECTED_FUNCTION(BadWriteFile, const void* const, const void* const, const unsigned long, const void* const, const void* const) {
+	return 0;
+}
+
+REDIRECTED_FUNCTION(BadGetFileSizeEx, const void* const, const void* const) {
 	return 0;
 }
 
@@ -359,6 +367,16 @@ SCENARIO("Files sizes can be retrieved after opening them", "[Platform][System][
 			File TF(TestData.Path1(), File::Mode::READ, File::Method::EXIST);
 			THEN("It has the same size") {
 				CHECK(TF.Size() == 20U);
+			}
+			AND_WHEN("The sizing call fails") {
+#ifndef TARGET_OS_WINDOWS
+				SysCallOverride BS(CYB::Platform::System::Sys::FSTAT, FakeFStat);
+#endif
+				const auto Thing(TestData.FK32.Redirect<CYB::Platform::Modules::Kernel32::GetFileSizeEx, BadGetFileSizeEx>());
+				THEN("The correct error is thrown") {
+					CHECK_THROWS_AS(TF.Size(), CYB::Exception::SystemData);
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+				}
 			}
 		}
 	}

@@ -2,6 +2,7 @@
 
 void CYB::API::Assert::HCF[[noreturn]](void) noexcept {
 	FAIL("HCF was called");
+	std::terminate();
 }
 
 void CYB::API::Assert::Unimplemented(const char* const AFunction, const char* const AFile, const unsigned int ALine) noexcept {

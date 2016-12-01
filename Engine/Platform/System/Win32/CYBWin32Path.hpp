@@ -53,6 +53,14 @@ namespace CYB {
 					API::String::UTF16 FWidePath;	//!< @brief The UTF16 string
 				protected:
 					Path() noexcept = default;	//!< @brief See @ref structors
+				public:
+					/*!
+						@brief Accessor for other Win32 implementations that require the UTF16 Path
+						@return A reference to the UTF16 string of the Path
+						@par Thread Safety
+							This function requires synchronization at the object level
+					*/
+					const API::String::UTF16& WidePath(void) const noexcept;
 				};
 			};
 		};

@@ -7,7 +7,7 @@ namespace CYB {
 				@brief Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are '/' delimited when forming though may not be while retrieving. File names ".." will ascend a directory and '.' represents a no-op
 				@attention Only UTF-8 encodedable paths are supported, paths lengths may not exceed 256 BYTES, and directory names may not exceed 248 characters. Symlinks are always resolved on posix systems, but never on Windows systems. This is a user problem and should cause no errors so long as they do not reoganize the installation files. Note that the recursive folder creation and deletion options attempt to fully adhere to the strong guarantee. But, due to the nature of filesystem race conditions, this is impossible.
 			*/
-			class Path : public Implementation::Path, public API::Path {
+			class Path : public Implementation::Path, public API::Path {	//needs public implementation to be properly interstructed
 			public:
 				/*!
 					@brief See @ref interstructors. Sets the path directly, must be valid 

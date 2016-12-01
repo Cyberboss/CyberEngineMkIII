@@ -43,7 +43,7 @@ template <class AAllocatable> AAllocatable* CYB::Engine::Allocator::DoAllocation
 void* CYB::Engine::Allocator::InteropAllocation(const API::Interop::Allocatable::ID AID, API::Interop::Constructor<void>& AConstructor) {
 	using namespace API::Interop;
 	switch (AID) {
-	case Allocatable::ID::File: //return DoAllocation<Platform::System::File>(AConstructor);
+	case Allocatable::ID::File: return DoAllocation<Platform::System::File>(AConstructor);
 	case Allocatable::ID::Mutex: return DoAllocation<Platform::System::Mutex>(AConstructor);
 	case Allocatable::ID::Path: return DoAllocation<Platform::System::Path>(AConstructor);
 	case Allocatable::ID::NULL_ID:

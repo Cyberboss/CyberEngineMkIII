@@ -1,7 +1,7 @@
 #include "TestHeader.hpp"
 
 void CYB::API::Assert::HCF[[noreturn]](void) noexcept {
-	WARN("HCF was called");
+	FAIL("HCF was called");
 	std::terminate();
 }
 

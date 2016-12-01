@@ -44,6 +44,8 @@ var searchData=
   ['cybutf16string_2ecpp',['CYBUTF16String.cpp',['../_c_y_b_u_t_f16_string_8cpp.html',1,'']]],
   ['cybutf16string_2ehpp',['CYBUTF16String.hpp',['../_c_y_b_u_t_f16_string_8hpp.html',1,'']]],
   ['cybvirtualmemory_2ecpp',['CYBVirtualMemory.cpp',['../_c_y_b_virtual_memory_8cpp.html',1,'']]],
+  ['cybwin32file_2ecpp',['CYBWin32File.cpp',['../_c_y_b_win32_file_8cpp.html',1,'']]],
+  ['cybwin32file_2ehpp',['CYBWin32File.hpp',['../_c_y_b_win32_file_8hpp.html',1,'']]],
   ['cybwin32headers_2ehpp',['CYBWin32Headers.hpp',['../_c_y_b_win32_headers_8hpp.html',1,'']]],
   ['cybwin32module_2ecpp',['CYBWin32Module.cpp',['../_c_y_b_win32_module_8cpp.html',1,'']]],
   ['cybwin32module_2ehpp',['CYBWin32Module.hpp',['../_c_y_b_win32_module_8hpp.html',1,'']]],
@@ -53,6 +55,7 @@ var searchData=
   ['cybwin32path_2ehpp',['CYBWin32Path.hpp',['../_c_y_b_win32_path_8hpp.html',1,'']]],
   ['cybwin32process_2ehpp',['CYBWin32Process.hpp',['../_c_y_b_win32_process_8hpp.html',1,'']]],
   ['cybwin32syscalls_2ehpp',['CYBWin32Syscalls.hpp',['../_c_y_b_win32_syscalls_8hpp.html',1,'']]],
+  ['cybwin32systemimplementation_2ehpp',['CYBWin32SystemImplementation.hpp',['../_c_y_b_win32_system_implementation_8hpp.html',1,'']]],
   ['cybwin32thread_2ehpp',['CYBWin32Thread.hpp',['../_c_y_b_win32_thread_8hpp.html',1,'']]],
   ['cybwin32virtualmemory_2ehpp',['CYBWin32VirtualMemory.hpp',['../_c_y_b_win32_virtual_memory_8hpp.html',1,'']]]
 ];

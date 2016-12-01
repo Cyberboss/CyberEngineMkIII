@@ -8,6 +8,7 @@ var searchData=
   ['getexitcode',['GetExitCode',['../class_c_y_b_1_1_platform_1_1_system_1_1_process.html#a507703ac9203d8dbd44bd3fa583d1828',1,'CYB::Platform::System::Process']]],
   ['getid',['GetID',['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html#ae42dc9160c7b29c014141bfff9752930',1,'CYB::API::Interop::Allocatable']]],
   ['getindexoflastseperator',['GetIndexOfLastSeperator',['../class_c_y_b_1_1_platform_1_1_system_1_1_path.html#ac7ba26d5447f0ad142feac7f5e78c213',1,'CYB::Platform::System::Path']]],
+  ['getpath',['GetPath',['../class_c_y_b_1_1_a_p_i_1_1_file.html#ab86a2319c5b56fc17c370ebb924a2ed0',1,'CYB::API::File::GetPath()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a784cc66b6c6a9871fee78a6c0a303530',1,'CYB::Platform::System::File::GetPath()']]],
   ['getresourcedirectory',['GetResourceDirectory',['../class_c_y_b_1_1_platform_1_1_system_1_1_path.html#a8ec6072237ba16338f98d12d40eb9a46',1,'CYB::Platform::System::Path']]],
   ['getself',['GetSelf',['../class_c_y_b_1_1_platform_1_1_system_1_1_process.html#a035de00f0f360ee411d3b139ae9aa143',1,'CYB::Platform::System::Process']]],
   ['gigabytes',['Gigabytes',['../class_c_y_b_1_1_a_p_i_1_1_byte_converters.html#ad66ab8201c81bc2f44a88d9948547c36',1,'CYB::API::ByteConverters']]]

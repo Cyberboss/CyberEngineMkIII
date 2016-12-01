@@ -23,7 +23,8 @@ DEFINE_WINDOWS_MODULE(Kernel32, u8"kernel32.dll", Win32, false,
 	GetModuleHandleW, GetModuleFileNameW,
 	GetTempPathW, GetCurrentDirectoryW,
 	FindFirstFileW, FindNextFileW, FindClose,
-	CreateDirectoryW, RemoveDirectoryW, GetFileAttributesW, SetFileAttributesW, DeleteFileW)
+	CreateDirectoryW, RemoveDirectoryW, GetFileAttributesExW, SetFileAttributesW, DeleteFileW,
+	CreateFileW, GetFileSizeEx, SetFilePointerEx, ReadFile, WriteFile)
 DEFINE_WINDOWS_MODULE(Kernel32Extended, u8"kernel32.dll", Win32, true, DiscardVirtualMemory)
 DEFINE_WINDOWS_MODULE(Shell, u8"shell32.dll", Win32, false, ShellExecuteExW, SHGetKnownFolderPath)
 DEFINE_WINDOWS_MODULE(Ole32, u8"Ole32.dll", Win32, false, CoTaskMemFree)
@@ -35,7 +36,8 @@ DEFINE_POSIX_MODULE(LibC, LIBC_SO, Posix, false,
 	readlink, mkdir, realpath, rmdir, unlink,
 	opendir, readdir, closedir,
 	getuid, getpwuid_r, getenv, sysconf,
-	posix_spawn)
+	posix_spawn,
+	open, close, lseek, read, write)
 DEFINE_POSIX_MODULE(PThread, LIBPTHREAD_SO, Posix, false, 
 	pthread_mutex_init, pthread_mutex_destroy, pthread_mutex_lock, pthread_mutex_trylock, pthread_mutex_unlock,
 	pthread_create, pthread_join)
@@ -45,6 +47,7 @@ DEFINE_OSX_MODULE(DyLD, u8"/usr/lib/system/libdyld.dylib", Posix, false, _NSGetE
 OVERRIDE_OSX_FUNCTION_NAMES(LibC, 
 	nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 	"readdir$INODE64",
+	nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 	nullptr, nullptr, nullptr, nullptr, nullptr, nullptr)
 
 //! @endcond

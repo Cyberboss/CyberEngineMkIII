@@ -25,7 +25,7 @@ template <class AAutoModule, typename ACallable, class AIndexClass> CallRedirect
 
 template <class AAutoModule, typename ACallable, class AIndexClass> template<typename... AArgs> auto CallRedirectBase<AAutoModule, ACallable, AIndexClass>::CallOriginal(AArgs&&... AArguments) {
 	static_assert(std::is_function<ACallable>::value, "Call must refer to a function");
-	auto Callable(reinterpret_cast<ACallable*>(FOldFunction));
+	auto Callable(reinterpret_cast<ACallable*>(FOldFunctions.top()));
 	return Callable(std::forward<AArgs>(AArguments)...);
 }
 

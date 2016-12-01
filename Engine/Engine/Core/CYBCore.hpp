@@ -12,7 +12,7 @@ namespace CYB {
 		public:
 			API::EngineInformation FEngineInformation;	//!< @brief Information describing the engine
 
-			Platform::Modules::ModuleManager FModuleManager;	//!< @brief Loads and contains required modules
+			Platform::Modules::Manager FModuleManager;	//!< @brief Loads and contains required modules
 		private:
 				//User
 				//GDI

@@ -1,7 +1,21 @@
 #pragma once
 
-template <unsigned int APlatform, class AAutoModule> ModuleDependancy<APlatform, AAutoModule>::ModuleDependancy(AAutoModule& AReferenceToManagerObject) :
-	FReferenceToManagerObject(AReferenceToManagerObject)
+template <typename AAutoModule> struct RefHookStruc {
+	void* FAM;
+};
+
+template <typename AAutoModule> void CYB::Platform::Modules::Manager::Backdoor(AAutoModule& AHooker) {
+	reinterpret_cast<RefHookStruc<AAutoModule>&>(AHooker).FAM = CYB::Core().FModuleManager.GetAutoModule<AAutoModule>();
+}
+
+template <typename AAutoModule> AAutoModule& GetAMReference(void) {
+	RefHookStruc<AAutoModule> Hooker;
+	CYB::Platform::Modules::Manager::Backdoor<AAutoModule>(reinterpret_cast<AAutoModule&>(Hooker));
+	return *static_cast<AAutoModule*>(Hooker.FAM);
+}
+
+template <unsigned int APlatform, class AAutoModule> ModuleDependancy<APlatform, AAutoModule>::ModuleDependancy() :
+	FReferenceToManagerObject(GetAMReference<AAutoModule>())
 {
 	if(APlatform & CYB::API::Platform::Current())
 		FReferenceToManagerObject = AAutoModule();

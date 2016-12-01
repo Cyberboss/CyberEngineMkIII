@@ -28,7 +28,7 @@ CYB::Platform::System::Implementation::Process& CYB::Platform::System::Implement
 
 CYB::Platform::System::Process::~Process() {
 	if(FHandle != nullptr)
-		Core().FModuleManager.FK32.Call<Modules::Kernel32::CloseHandle>(FHandle);
+		Core().FModuleManager.Call<Modules::Kernel32::CloseHandle>(FHandle);
 }
 
 HANDLE CYB::Platform::System::Implementation::Process::CreateProcess(const CYB::Platform::System::Path& APath, const CYB::API::String::UTF8& ACommandLine) {
@@ -38,10 +38,10 @@ HANDLE CYB::Platform::System::Implementation::Process::CreateProcess(const CYB::
 	PROCESS_INFORMATION ProcessInformation;
 	auto& MM(CYB::Core().FModuleManager);
 
-	const auto Result(MM.FK32.Call<CYB::Platform::Modules::Kernel32::CreateProcessW>(ExeAs16.WString(), CmdlAs16.WideData(), nullptr, nullptr, FALSE, DWORD(0), nullptr, nullptr, &StartupInfo, &ProcessInformation));
+	const auto Result(MM.Call<CYB::Platform::Modules::Kernel32::CreateProcessW>(ExeAs16.WString(), CmdlAs16.WideData(), nullptr, nullptr, FALSE, DWORD(0), nullptr, nullptr, &StartupInfo, &ProcessInformation));
 
 	if (Result == 0)
-		switch (MM.FK32.Call<CYB::Platform::Modules::Kernel32::GetLastError>()) {
+		switch (MM.Call<CYB::Platform::Modules::Kernel32::GetLastError>()) {
 		case ERROR_ACCESS_DENIED:
 			throw CYB::Exception::SystemData(CYB::Exception::SystemData::FILE_NOT_READABLE);
 		case ERROR_FILE_NOT_FOUND:
@@ -53,7 +53,7 @@ HANDLE CYB::Platform::System::Implementation::Process::CreateProcess(const CYB::
 			ShellExecuteInfo.hIcon = 0;
 			ShellExecuteInfo.hMonitor = 0;
 			ShellExecuteInfo.hProcess = 0;
-			const auto Result2(MM.FShell.Call<CYB::Platform::Modules::Shell::ShellExecuteExW>(&ShellExecuteInfo));
+			const auto Result2(MM.Call<CYB::Platform::Modules::Shell::ShellExecuteExW>(&ShellExecuteInfo));
 			if (Result2 == TRUE) {
 				CYB::API::Assert::LessThan(reinterpret_cast<HINSTANCE>(32), ShellExecuteInfo.hInstApp);
 				CYB::API::Assert::NotEqual(ShellExecuteInfo.hProcess, static_cast<HANDLE>(nullptr));
@@ -64,7 +64,7 @@ HANDLE CYB::Platform::System::Implementation::Process::CreateProcess(const CYB::
 			throw CYB::Exception::Internal(CYB::Exception::Internal::PROCESS_CREATION_ERROR);
 		}
 
-	MM.FK32.Call<CYB::Platform::Modules::Kernel32::CloseHandle>(ProcessInformation.hThread);
+	MM.Call<CYB::Platform::Modules::Kernel32::CloseHandle>(ProcessInformation.hThread);
 	return ProcessInformation.hProcess;
 }
 
@@ -73,20 +73,20 @@ CYB::Platform::System::Implementation::Process::Process(const System::Path& APat
 {}
 
 bool CYB::Platform::System::Process::Active(void) const noexcept {
-	return Core().FModuleManager.FK32.Call<Modules::Kernel32::WaitForSingleObject>(FHandle, Win32::DWORD(0)) == WAIT_TIMEOUT;
+	return Core().FModuleManager.Call<Modules::Kernel32::WaitForSingleObject>(FHandle, Win32::DWORD(0)) == WAIT_TIMEOUT;
 }
 
 bool CYB::Platform::System::Process::operator==(const Process& ARHS) const noexcept {
 	if (Active() && ARHS.Active()) {
-		const auto Result(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetProcessId>(FHandle));
+		const auto Result(Core().FModuleManager.Call<Modules::Kernel32::GetProcessId>(FHandle));
 		if (Result != 0)
-			return Result == Core().FModuleManager.FK32.Call<Modules::Kernel32::GetProcessId>(ARHS.FHandle);
+			return Result == Core().FModuleManager.Call<Modules::Kernel32::GetProcessId>(ARHS.FHandle);
 	}
 	return false;
 }
 
 bool CYB::Platform::System::Process::Wait(const unsigned int AMilliseconds) {
-	const auto Result(Core().FModuleManager.FK32.Call<Modules::Kernel32::WaitForSingleObject>(FHandle, AMilliseconds == 0 ? INFINITE : AMilliseconds));
+	const auto Result(Core().FModuleManager.Call<Modules::Kernel32::WaitForSingleObject>(FHandle, AMilliseconds == 0 ? INFINITE : AMilliseconds));
 	API::Assert::NotEqual<decltype(Result)>(Result, WAIT_FAILED);
 	return Result == WAIT_OBJECT_0;
 }
@@ -94,9 +94,9 @@ bool CYB::Platform::System::Process::Wait(const unsigned int AMilliseconds) {
 int CYB::Platform::System::Process::GetExitCode(void) {
 	Wait();
 	DWORD Result;
-	auto& K32(Core().FModuleManager.FK32);
-	if (K32.Call<Modules::Kernel32::GetExitCodeProcess>(FHandle, &Result) == 0) {
-		const auto ErrorCode(K32.Call<Modules::Kernel32::GetLastError>());
+	auto& MM(Core().FModuleManager);
+	if (MM.Call<Modules::Kernel32::GetExitCodeProcess>(FHandle, &Result) == 0) {
+		const auto ErrorCode(MM.Call<Modules::Kernel32::GetLastError>());
 		API::Assert::NotEqual<decltype(ErrorCode)>(ErrorCode, ERROR_INVALID_HANDLE);
 		throw Exception::Internal(Exception::Internal::PROCESS_EXIT_CODE_UNCHECKABLE);
 	}

@@ -23,12 +23,7 @@ private:
 		}
 	}
 public:
-	TestStartup() :
-		FK32(CYB::Core().FModuleManager.FK32),
-		FShell(CYB::Core().FModuleManager.FShell),
-		FShellAPI(CYB::Core().FModuleManager.FShellAPI),
-		FC(CYB::Core().FModuleManager.FC)
-	{
+	TestStartup() {
 		//Clear the temp folder
 		REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
 		

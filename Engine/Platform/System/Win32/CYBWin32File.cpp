@@ -10,7 +10,7 @@ CYB::Platform::System::File::File(Path&& APath, const Mode AMode, const Method A
 	if (AMode == Mode::READ && AMethod == Method::TRUNCATE)
 		throw Exception::Violation(Exception::Violation::INVALID_PARAMETERS);
 
-	auto& K32(Core().FModuleManager.FK32);
+	auto& MM(Core().FModuleManager);
 
 	const auto DesiredAccess([&]() -> DWORD {
 		switch (AMode)
@@ -41,10 +41,10 @@ CYB::Platform::System::File::File(Path&& APath, const Mode AMode, const Method A
 
 	const auto FilePath(FPath.WidePath().WString());
 																								//Maintain POSIX compatibility, no locking
-	FHandle = K32.Call<Modules::Kernel32::CreateFileW>(FilePath, DesiredAccess, static_cast<DWORD>(FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE), nullptr, CreationDisposition, static_cast<DWORD>(FILE_ATTRIBUTE_NORMAL), nullptr);
+	FHandle = MM.Call<Modules::Kernel32::CreateFileW>(FilePath, DesiredAccess, static_cast<DWORD>(FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE), nullptr, CreationDisposition, static_cast<DWORD>(FILE_ATTRIBUTE_NORMAL), nullptr);
 
 	if (FHandle == INVALID_HANDLE_VALUE) {
-		const auto Error(K32.Call<Modules::Kernel32::GetLastError>());
+		const auto Error(MM.Call<Modules::Kernel32::GetLastError>());
 		API::Assert::NotEqual<DWORD>(Error, ERROR_INVALID_PARAMETER);
 
 		//I know this could be a switch but CodeCoverage.exe hates it
@@ -76,7 +76,7 @@ CYB::Platform::System::File::File(Path&& APath, const Mode AMode, const Method A
 	}
 	
 	if (AMethod == Method::ANY) {
-		if (K32.Call<Modules::Kernel32::GetLastError>() == ERROR_ALREADY_EXISTS)
+		if (MM.Call<Modules::Kernel32::GetLastError>() == ERROR_ALREADY_EXISTS)
 			FOpenMethod = Method::EXIST;
 		else
 			FOpenMethod = Method::CREATE;
@@ -93,7 +93,7 @@ CYB::Platform::System::Implementation::File::File(File&& AMove) noexcept :
 
 void CYB::Platform::System::File::Close(void) const noexcept {
 	if (FHandle != INVALID_HANDLE_VALUE)
-		Core().FModuleManager.FK32.Call<Modules::Kernel32::CloseHandle>(FHandle);
+		Core().FModuleManager.Call<Modules::Kernel32::CloseHandle>(FHandle);
 }
 
 CYB::Platform::System::File& CYB::Platform::System::File::operator=(File&& AMove) noexcept {
@@ -106,7 +106,7 @@ CYB::Platform::System::File& CYB::Platform::System::File::operator=(File&& AMove
 }
 
 unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) {
-	auto& K32(Core().FModuleManager.FK32);
+	auto& K32(Core().FModuleManager);
 
 	WIN32_FILE_ATTRIBUTE_DATA Attributes;
 	if (K32.Call<Modules::Kernel32::GetFileAttributesExW>(APath.WidePath().WString(), GetFileExInfoStandard, &Attributes) != 0) {
@@ -124,7 +124,7 @@ unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) 
 
 unsigned long long CYB::Platform::System::File::Size(void) const {
 	LARGE_INTEGER Size;
-	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::GetFileSizeEx>(FHandle, &Size) == 0)
+	if (Core().FModuleManager.Call<Modules::Kernel32::GetFileSizeEx>(FHandle, &Size) == 0)
 		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
 	return static_cast<unsigned long long>(Size.QuadPart);
 }
@@ -146,7 +146,7 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 		}
 	}());
 
-	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::SetFilePointerEx>(FHandle, Distance, &Location, WinLocation) == 0)
+	if (Core().FModuleManager.Call<Modules::Kernel32::SetFilePointerEx>(FHandle, Distance, &Location, WinLocation) == 0)
 		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
 
 	return static_cast<unsigned long long>(Location.QuadPart);
@@ -156,7 +156,7 @@ unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const 
 	if (FOpenMode == Mode::WRITE)
 		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
 	DWORD BytesRead;
-	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::ReadFile>(FHandle, ABuffer, static_cast<DWORD>(AMaxAmount), &BytesRead, nullptr) == 0)
+	if (Core().FModuleManager.Call<Modules::Kernel32::ReadFile>(FHandle, ABuffer, static_cast<DWORD>(AMaxAmount), &BytesRead, nullptr) == 0)
 		BytesRead = 0;
 	return BytesRead;
 }
@@ -165,7 +165,7 @@ unsigned long long CYB::Platform::System::File::Write(const void* const ABuffer,
 	if (FOpenMode == Mode::READ)
 		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
 	DWORD BytesWritten;
-	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::WriteFile>(FHandle, ABuffer, static_cast<DWORD>(AAmount), &BytesWritten, nullptr) == 0)
+	if (Core().FModuleManager.Call<Modules::Kernel32::WriteFile>(FHandle, ABuffer, static_cast<DWORD>(AAmount), &BytesWritten, nullptr) == 0)
 		BytesWritten = 0;
 	return BytesWritten;
 }

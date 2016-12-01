@@ -308,6 +308,7 @@
     <ClCompile Include="Platform\SystemHeaders\CYBUTF16String.cpp">
       <FileType>Document</FileType>
     </ClCompile>
+    <None Include="Platform\Modules\CYBModuleManager.inl" />
     <None Include="Platform\System\CYBSyscalls.inl" />
   </ItemGroup>
   <ItemGroup>

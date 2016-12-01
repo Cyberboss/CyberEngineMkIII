@@ -132,7 +132,7 @@ namespace CYB {\
 namespace CYB {\
 	namespace Platform {\
 		namespace Modules {\
-			using AM##AModuleName = AMFake;\
+			using AM##AModuleName = AMFake<__COUNTER__>;\
 			class AModuleName{\
 			private:\
 				enum class InternalIndexes: unsigned int {\
@@ -159,6 +159,30 @@ namespace CYB {\
 	};\
 };
 #define DUMMY_OVERRIDE_FUNCTION_NAMES(...)
+
+#define REQUIRED_MODULE(AModuleName) \
+template <> auto GetAutoModule<AM##AModuleName>(void) noexcept -> AM##AModuleName* { return &F##AModuleName; }\
+AM##AModuleName F##AModuleName
+
+#define OPTIONAL_MODULE(AModuleName) \
+template <> auto GetAutoModule<AM##AModuleName>(void) noexcept -> AM##AModuleName* { return F##AModuleName##Pointer; }\
+template <> void LoadAutoModule<AM##AModuleName>(void) noexcept {\
+	try {\
+		auto const Pointer(reinterpret_cast<AM##AModuleName*>(F##AModuleName##Bytes));\
+		new (Pointer) AM##AModuleName();\
+		F##AModuleName##Pointer = Pointer;\
+	}\
+	catch (CYB::Exception::SystemData& AException) {\
+		F##AModuleName##Pointer = nullptr;\
+	}\
+}\
+template <> void UnloadAutoModule<AM##AModuleName>(void) noexcept {\
+	auto const Pointer(GetAutoModule<AM##AModuleName>());\
+	if(Pointer != nullptr)\
+		Pointer->~AM##AModuleName();\
+}\
+AM##AModuleName* F##AModuleName##Pointer;\
+byte F##AModuleName##Bytes[sizeof(AM##AModuleName)];
 
 #ifdef TARGET_OS_WINDOWS
 #define DEFINE_WINDOWS_MODULE DEFINE_MODULE

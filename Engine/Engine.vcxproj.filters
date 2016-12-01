@@ -534,4 +534,7 @@
       <Filter>DoxyPages</Filter>
     </Xml>
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="CyberEngineMkIII.natvis" />
+  </ItemGroup>
 </Project>

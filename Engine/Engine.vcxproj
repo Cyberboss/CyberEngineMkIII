@@ -313,6 +313,9 @@
   <ItemGroup>
     <Xml Include="DoxyPages\DoxygenLayout.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="CyberEngineMkIII.natvis" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

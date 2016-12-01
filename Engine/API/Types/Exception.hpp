@@ -35,6 +35,7 @@ namespace CYB {
 			enum ErrorCode : unsigned int {
 				INVALID_ENUM, //!< @brief An operation was attempted with an invalid enum code
 				INVALID_INTEROP_CONSTRUCTOR,	//!< @brief A contructor passed to the engine was malformed
+				INVALID_OPERATION,	//!< @brief Illegal call given prexisting conditions
 				INVALID_PARAMETERS,	//!< @brief The current arrangment of arguments passed the function is invalid
 				NEGATIVE_HEAP_ALLOCATION, //!< @brief An allocation was attempted with a negative size value
 				UNSUPPORTED_ALLOCATION_AMOUNT, //!< @brief An allocation was attempted with a size above 2047MB

@@ -124,10 +124,11 @@ void CYB::Platform::System::Path::DeleteFile(const API::String::UTF8& APath) {
 			break;	//contract fufilled
 		case ERROR_ACCESS_DENIED: {
 			//try once more with no RO attribute
-			auto Attributes(K32.Call<Modules::Kernel32::GetFileAttributesW>(As16.WString()));
-			if (Attributes != INVALID_FILE_ATTRIBUTES) {
-				Attributes &= ~FILE_ATTRIBUTE_READONLY;
-				if (K32.Call<Modules::Kernel32::SetFileAttributesW>(As16.WString(), Attributes) != FALSE && K32.Call<Modules::Kernel32::DeleteFileW>(As16.WString()) != FALSE)
+			WIN32_FILE_ATTRIBUTE_DATA Attributes;
+			const auto Result(K32.Call<Modules::Kernel32::GetFileAttributesExW>(As16.WString(), GetFileExInfoStandard, &Attributes));
+			if (Result != 0) {
+				Attributes.dwFileAttributes &= ~FILE_ATTRIBUTE_READONLY;
+				if (K32.Call<Modules::Kernel32::SetFileAttributesW>(As16.WString(), Attributes.dwFileAttributes) != FALSE && K32.Call<Modules::Kernel32::DeleteFileW>(As16.WString()) != FALSE)
 					break;
 			}
 			throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
@@ -162,17 +163,15 @@ void CYB::Platform::System::Path::SetPath(API::String::UTF8&& APath) {
 }
 
 bool CYB::Platform::System::Path::IsDirectory(void) const {
-	const auto Attributes(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetFileAttributesW>(FWidePath.WString()));
-	if (Attributes == INVALID_FILE_ATTRIBUTES) {
+	WIN32_FILE_ATTRIBUTE_DATA Attributes;
+	const auto Result(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetFileAttributesExW>(FWidePath.WString(), GetFileExInfoStandard, &Attributes));
+	if (Result == 0) {
 		const auto Error(Core().FModuleManager.FK32.Call<Modules::Kernel32::GetLastError>());
-		switch (Error) {
-		case ERROR_FILE_NOT_FOUND:
-			throw Exception::SystemData(Exception::SystemData::PATH_LOST);
-		default:
+		if (Error == ERROR_ACCESS_DENIED || Error == ERROR_SHARING_VIOLATION)
 			throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
-		}
+		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
 	}
-	return (Attributes & FILE_ATTRIBUTE_DIRECTORY) > 0;
+	return (Attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) > 0;
 }
 
 void CYB::Platform::System::Path::NavigateToParentDirectory(void) {
@@ -272,4 +271,8 @@ void CYB::Platform::System::Implementation::Path::DirectoryEntry::AssignOrRecurs
 		}
 	}
 	FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Context().FAllocator.NewObject<System::Path, System::Path::InternalConstructor>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Conversion));
+}
+
+const UTF16& CYB::Platform::System::Implementation::Path::WidePath(void) const noexcept {
+	return FWidePath;
 }

@@ -16,6 +16,8 @@ CYB::API::String::Static CYB::Exception::Violation::ErrorMessage(const ErrorCode
 		ErrorMessage = API::String::Static(u8"An operation was attempted with an invalid enum code");
 	case INVALID_INTEROP_CONSTRUCTOR:
 		ErrorMessage = API::String::Static(u8"An engine allocation was attempted with a malformed constructor");
+	case INVALID_OPERATION:
+		ErrorMessage = API::String::Static(u8"An illegal call was made given prexisting conditions");
 	case INVALID_PARAMETERS:
 		ErrorMessage = API::String::Static(u8"The current arrangment of arguments passed the function is invalid");
 	case NEGATIVE_HEAP_ALLOCATION:
@@ -38,7 +40,7 @@ CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCod
 	case DIRECTORY_NOT_EMPTY:
 		ErrorMessage = API::String::Static(u8"Tried to delete a non-empty directory");
 	case FILE_EXISTS:
-		//return API::String::Static(u8"Tried to exclusively create a file that exists");
+		ErrorMessage = API::String::Static(u8"Tried to exclusively create a file that exists");
 	case FILE_NOT_FOUND:
 		ErrorMessage = API::String::Static(u8"A required file was not found.");
 	case FILE_NOT_READABLE:

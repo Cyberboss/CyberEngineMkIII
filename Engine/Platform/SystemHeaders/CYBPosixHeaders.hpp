@@ -16,6 +16,7 @@ namespace CYB {
 			#include <sys/wait.h>
 			#include <sys/stat.h>
 			using StatStruct = struct stat;
+			#include <fcntl.h>
 			#include <unistd.h>
 #ifdef _WIN32	//for vs debugging
 			#include <posix/signal.h>

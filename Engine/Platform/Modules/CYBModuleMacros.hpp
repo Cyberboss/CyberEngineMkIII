@@ -102,11 +102,11 @@ public:\
 };\
 
 #ifdef TARGET_OS_WINDOWS
-#define PLATFORM_MODULE_EXTENSION u8".dll"
+#define MODULE_EXTENSION u8".dll"
 #elif defined(TARGET_OS_MAC)
-#define PLATFORM_MODULE_EXTENSION u8".dylib"
-#elif defined(TARGET_OS_WINDOWS)
-#define PLATFORM_MODULE_EXTENSION u8".so"
+#define MODULE_EXTENSION u8".dylib"
+#elif defined(TARGET_OS_LINUX)
+#define MODULE_EXTENSION u8".so"
 #endif
 
 #define DEFINE_MODULE(AModuleName, ADiskName, APlatform, AOptionalFunctions, AAppendExtension, ...)\
@@ -127,7 +127,7 @@ namespace CYB {\
 				AModuleName() = delete;\
 			};\
 			template <> constexpr const char* AModuleName::FAutoModule::ModuleName(void){\
-				return AAppendExtension ? ADiskName PLATFORM_MODULE_EXTENSION : ADiskName;\
+				return AAppendExtension ? ADiskName MODULE_EXTENSION : ADiskName;\
 			}\
 			template <> inline const CYB::API::String::Static* AModuleName::FAutoModule::FunctionNames(void) noexcept {\
 				static const CYB::API::String::Static Names[NARGS(__VA_ARGS__)]{ APPLY(STATIC_STRINGIFY, __VA_ARGS__) };\

@@ -16,17 +16,17 @@ namespace CYB {
 				*/
 				template <typename AAutoModule> auto GetAutoModule(void) noexcept -> AAutoModule*;
 				/*!
-					@brief Load the requested optional AutoModule
+					@brief Load the requested optional AutoModule. Should be alternated with calls to UnloadAutoModule<AAutoModule>
 					@tparam AAutoModule The AutoModule to load
 					@par Thread Safety
-						This function requires no thread safety
+						This function requires synchronization at the object level
 				*/
 				template <typename AAutoModule> void LoadAutoModule(void) noexcept;
 				/*!
-					@brief Unoad the requested optional AutoModule
+					@brief Unoad the requested optional AutoModule. Should be alternated with calls to LoadAutoModule<AAutoModule>
 					@tparam AAutoModule The AutoModule to unload
 					@par Thread Safety
-						This function requires no thread safety
+						This function requires synchronization at the object level
 				*/
 				template <typename AAutoModule> void UnloadAutoModule(void) noexcept;
 			private:
@@ -72,7 +72,7 @@ namespace CYB {
 					@return true if the AutoModule is loaded, false otherwise
 					@par Thread Safety
 						This function requires no thread safety
-					@attention This function will immediately return true for any type that is not an AutoModule that can fail loading
+					@attention This function will immediately return true for any type that is not an optional AutoModule
 				*/
 				template <template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> class AAutoModule> bool Loaded(void) noexcept;
 				//! @copydoc CYB::Platform::Modules::AutoModule::Loaded()

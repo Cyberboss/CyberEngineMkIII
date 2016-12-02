@@ -4,7 +4,10 @@
 namespace CYB {
 	namespace Platform {
 		namespace Modules {
-			//! @brief Fake AutoModule used in place of other Platform's AutoModules
+			/*!
+				@brief Fake AutoModule used in place of other Platform's AutoModules
+				@tparam AUnused Used with __COUNTER__ to create unique types
+			*/
 			template <unsigned int AUnused> class AMFake {};
 		};
 	};

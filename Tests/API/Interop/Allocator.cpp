@@ -1,11 +1,11 @@
 #include "TestHeader.hpp"
 
 SCENARIO("Allocatables can be allocated", "[API][Interop][Allocator][Unit]") {
-	ModuleDependancy<CYB::Platform::Modules::AMKernel32> K32;
-	ModuleDependancy<CYB::Platform::Modules::AMPThread> PThread;
-	ModuleDependancy<CYB::Platform::Modules::AMLibC> LibC;
-	ModuleDependancy<CYB::Platform::Modules::AMRT> RT;
-	ModuleDependancy<CYB::Platform::Modules::AMSystem> System;
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::PThread> PThread;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::RT> RT;
+	ModuleDependancy<CYB::Platform::Modules::System> System;
 	GIVEN("Abstract allocatables") {
 		using namespace CYB::API;
 		WHEN("We try to allocate a Mutex") {

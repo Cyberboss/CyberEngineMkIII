@@ -30,8 +30,8 @@ inline CYB::Platform::Modules::Manager::~Manager() {
 }
 
 template <typename AIndexClass, typename... AArgs> auto CYB::Platform::Modules::Manager::Call(AArgs&&... AArguments) {
-	typename AIndexClass::FAutoModule* AM(GetAutoModule<typename AIndexClass::FAutoModule>());
-	API::Assert::NotEqual<typename AIndexClass::FAutoModule*>(AM, nullptr);
+	typename AIndexClass::FAutoModule* const AM(GetAutoModule<typename AIndexClass::FAutoModule>());
+	API::Assert::NotEqual<decltype(AM)>(AM, nullptr);
 	return AM->template Call<AIndexClass>(std::forward<AArgs>(AArguments)...);
 }
 

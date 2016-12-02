@@ -13,11 +13,11 @@ public:
 };
 
 SCENARIO("Thread creation works", "[Platform][System][Threads][Unit][Slow]") {
-	ModuleDependancy<CYB::Platform::Modules::AMKernel32> K32;
-	ModuleDependancy<CYB::Platform::Modules::AMLibC> LibC;
-	ModuleDependancy<CYB::Platform::Modules::AMPThread> PThread;
-	ModuleDependancy<CYB::Platform::Modules::AMRT> RT;
-	ModuleDependancy<CYB::Platform::Modules::AMSystem> System;
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::PThread> PThread;
+	ModuleDependancy<CYB::Platform::Modules::RT> RT;
+	ModuleDependancy<CYB::Platform::Modules::System> System;
 	GIVEN("A valid thread class") {
 		ThreadBasicTest TestClass;
 		WHEN("The class is used as a parameter to the Thread constructor") {
@@ -34,11 +34,11 @@ SCENARIO("Thread creation works", "[Platform][System][Threads][Unit][Slow]") {
 };
 
 SCENARIO("Thread Wait and deletion work", "[Platform][System][Threads][Unit][Slow]") {
-	ModuleDependancy<CYB::Platform::Modules::AMKernel32> K32;
-	ModuleDependancy<CYB::Platform::Modules::AMLibC> LibC;
-	ModuleDependancy<CYB::Platform::Modules::AMPThread> PThread;
-	ModuleDependancy<CYB::Platform::Modules::AMRT> RT;
-	ModuleDependancy<CYB::Platform::Modules::AMSystem> System;
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::PThread> PThread;
+	ModuleDependancy<CYB::Platform::Modules::RT> RT;
+	ModuleDependancy<CYB::Platform::Modules::System> System;
 	GIVEN("A valid thread") {
 		ThreadBasicTest TestClass;
 		auto TestThread(new CYB::Platform::System::Thread(TestClass));
@@ -80,11 +80,11 @@ public:
 };
 
 SCENARIO("Threaded operations can be cancelled", "[Platform][System][Threads][Unit][Slow]") {
-	ModuleDependancy<CYB::Platform::Modules::AMKernel32> K32;
-	ModuleDependancy<CYB::Platform::Modules::AMLibC> LibC;
-	ModuleDependancy<CYB::Platform::Modules::AMPThread> PThread;
-	ModuleDependancy<CYB::Platform::Modules::AMRT> RT;
-	ModuleDependancy<CYB::Platform::Modules::AMSystem> System;
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::PThread> PThread;
+	ModuleDependancy<CYB::Platform::Modules::RT> RT;
+	ModuleDependancy<CYB::Platform::Modules::System> System;
 	GIVEN("A valid thread that will run forever") {
 		ThreadCancelTest TestClass;
 		CYB::Platform::System::Thread TestThread(TestClass);
@@ -105,11 +105,11 @@ static long long TestGetTime(void) {
 }
 
 SCENARIO("Thread Sleep works", "[Platform][System][Threads][Unit][Slow]") {
-	ModuleDependancy<CYB::Platform::Modules::AMKernel32> K32;
-	ModuleDependancy<CYB::Platform::Modules::AMLibC> LibC;
-	ModuleDependancy<CYB::Platform::Modules::AMPThread> PThread;
-	ModuleDependancy<CYB::Platform::Modules::AMRT> RT;
-	ModuleDependancy<CYB::Platform::Modules::AMSystem> System;
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::PThread> PThread;
+	ModuleDependancy<CYB::Platform::Modules::RT> RT;
+	ModuleDependancy<CYB::Platform::Modules::System> System;
 	GIVEN("A long ass computer time and a current time") {
 		const auto Milliseconds(1000);
 		const auto StartTime(TestGetTime());
@@ -124,9 +124,9 @@ SCENARIO("Thread Sleep works", "[Platform][System][Threads][Unit][Slow]") {
 
 SCENARIO("Thread Yield works", "[Platform][System][Threads][Unit]") {
 	GIVEN("The correct modules") {
-		ModuleDependancy<CYB::Platform::Modules::AMKernel32> K32;
-		ModuleDependancy<CYB::Platform::Modules::AMRT> RT;
-		ModuleDependancy<CYB::Platform::Modules::AMSystem> System;
+		ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+		ModuleDependancy<CYB::Platform::Modules::RT> RT;
+		ModuleDependancy<CYB::Platform::Modules::System> System;
 		WHEN("Yield is called") {
 			CYB::Platform::System::Thread::Yield();	//what do you want from me?
 			THEN("Nothing bad happens and we can only assume the OS did it's job") {
@@ -193,10 +193,10 @@ REDIRECTED_FUNCTION(BadPThreadMutexInit, const void* const, const void* const) {
 }
 
 SCENARIO("Thread errors work", "[Platform][System][Threads][Unit]") {
-	ModuleDependancy<CYB::Platform::Modules::AMKernel32> K32;
-	ModuleDependancy<CYB::Platform::Modules::AMPThread> PThread;
-	ModuleDependancy<CYB::Platform::Modules::AMRT> RT;
-	ModuleDependancy<CYB::Platform::Modules::AMSystem> System;
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::PThread> PThread;
+	ModuleDependancy<CYB::Platform::Modules::RT> RT;
+	ModuleDependancy<CYB::Platform::Modules::System> System;
 	GIVEN("An invalid thread creation call") {
 		auto BCT(K32.Redirect<CYB::Platform::Modules::Kernel32::CreateThread, BadCreateThread>());
 		auto BPTC(PThread.Redirect<CYB::Platform::Modules::PThread::pthread_create, BadPThreadCreate>());

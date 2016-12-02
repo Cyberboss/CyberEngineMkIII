@@ -25,10 +25,10 @@ static bool SpawnMutexTryLockThread(CYB::Platform::System::Mutex& AMutex) {
 }
 
 SCENARIO("Mutex basic functions work", "[Platform][System][Mutex][Unit]") {
-	ModuleDependancy<CYB::Platform::Modules::AMKernel32> K32;
-	ModuleDependancy<CYB::Platform::Modules::AMPThread> PThread;
-	ModuleDependancy<CYB::Platform::Modules::AMRT> RT;
-	ModuleDependancy<CYB::Platform::Modules::AMSystem> System;
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::PThread> PThread;
+	ModuleDependancy<CYB::Platform::Modules::RT> RT;
+	ModuleDependancy<CYB::Platform::Modules::System> System;
 	GIVEN("An empty Mutex pointer") {
 		CYB::Platform::System::Mutex* TestMutex(nullptr);
 		WHEN("The mutex is initialized") {
@@ -69,7 +69,7 @@ REDIRECTED_FUNCTION(BadPThreadMutexInit, const void* const, const void* const) {
 }
 SCENARIO("Mutex initialization error works", "[Platform][System][Mutex][Unit]") {
 #ifndef TARGET_OS_WINDOWS
-	ModuleDependancy<CYB::Platform::Modules::AMPThread> PThread;
+	ModuleDependancy<CYB::Platform::Modules::PThread> PThread;
 	GIVEN("A Redirected initialization function") {
 		auto BPMC(PThread.Redirect<CYB::Platform::Modules::PThread::pthread_mutex_init, BadPThreadMutexInit>());
 		WHEN("The function is called") {

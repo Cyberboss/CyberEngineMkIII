@@ -14,15 +14,18 @@ template <typename AAutoModule> AAutoModule& GetAMReference(void) {
 	return *static_cast<AAutoModule*>(Hooker.FAM);
 }
 
-template <class AAutoModule> ModuleDependancy<AAutoModule>::ModuleDependancy() :
-	FReferenceToManagerObject(GetAMReference<AAutoModule>())
+template <class AAutoModuleClass> ModuleDependancy<AAutoModuleClass>::ModuleDependancy() :
+	FReferenceToManagerObject(GetAMReference<typename AAutoModuleClass::FAutoModule>())
 {
+	using AAutoModule = typename AAutoModuleClass::FAutoModule;
 	FReferenceToManagerObject = AAutoModule();
 }
-template <class AAutoModule> ModuleDependancy<AAutoModule>::~ModuleDependancy() {
+template <class AAutoModuleClass> ModuleDependancy<AAutoModuleClass>::~ModuleDependancy() {
+	using AAutoModule = typename AAutoModuleClass::FAutoModule;
 	FReferenceToManagerObject.~AAutoModule();
 }
 
-template <class AAutoModule> template <class AIndexClass, template <class ARedirector> class ARedirectedClass> CallRedirect<AAutoModule, AIndexClass> ModuleDependancy<AAutoModule>::Redirect(void) {
-	return CallRedirect<AAutoModule, AIndexClass>(FReferenceToManagerObject, reinterpret_cast<typename CallRedirect<AAutoModule, AIndexClass>::FCallable*>(ARedirectedClass<CallRedirect<AAutoModule, AIndexClass>>::RedirectedFunction));
+template <class AAutoModuleClass> template <class AIndexClass, template <class ARedirector> class ARedirectedClass> CallRedirect<typename AAutoModuleClass::FAutoModule, AIndexClass> ModuleDependancy<AAutoModuleClass>::Redirect(void) {
+	using CRType = CallRedirect<typename AAutoModuleClass::FAutoModule, AIndexClass>;
+	return CRType(FReferenceToManagerObject, reinterpret_cast<typename CRType::FCallable*>(ARedirectedClass<CRType>::RedirectedFunction));
 }

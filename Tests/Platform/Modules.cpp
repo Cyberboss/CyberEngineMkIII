@@ -82,9 +82,9 @@ SCENARIO("Modules can load functions", "[Platform][Modules][Functional]") {
 
 SCENARIO("Modules of the automatic variety work", "[Platform][Modules][Functional]") {
 	GIVEN("A valid/invalid system AutoModule definition") {
-		CYB::Platform::Modules::AMKernel32* K32(nullptr);
+		CYB::Platform::Modules::Kernel32::FAutoModule* K32(nullptr);
 		WHEN("It is instatiated") {
-			REQUIRE_NOTHROW(K32 = new CYB::Platform::Modules::AMKernel32());
+			REQUIRE_NOTHROW(K32 = new CYB::Platform::Modules::Kernel32::FAutoModule());
 			THEN("No exceptions occur") {
 				CHECK(true);
 			}
@@ -92,9 +92,9 @@ SCENARIO("Modules of the automatic variety work", "[Platform][Modules][Functiona
 		}
 	}
 	GIVEN("A valid/invalid AutoModule definition not for this system") {
-		CYB::Platform::Modules::AMLibC* LibC(nullptr);
+		CYB::Platform::Modules::LibC::FAutoModule* LibC(nullptr);
 		WHEN("It is instatiated") {
-			REQUIRE_NOTHROW(LibC = new CYB::Platform::Modules::AMLibC());
+			REQUIRE_NOTHROW(LibC = new CYB::Platform::Modules::LibC::FAutoModule());
 			THEN("No exceptions occur") {
 				CHECK(true);
 			}
@@ -102,9 +102,9 @@ SCENARIO("Modules of the automatic variety work", "[Platform][Modules][Functiona
 		}
 	}
 	GIVEN("A valid/invalid AutoModule") {
-		CYB::Platform::Modules::AMKernel32 K32;
-		CYB::Platform::Modules::AMRT RT;
-		CYB::Platform::Modules::AMSystem System;
+		CYB::Platform::Modules::Kernel32::FAutoModule K32;
+		CYB::Platform::Modules::RT::FAutoModule RT;
+		CYB::Platform::Modules::System::FAutoModule System;
 		WHEN("It is moved"){
 			{
 				auto K322(std::move(K32));
@@ -163,16 +163,51 @@ namespace CYB {
 		};
 	};
 };
+
+/*
+namespace CYB {
+	namespace Platform {
+		namespace Modules {
+			using namespace Win32;
+			class FakeKernel32 {
+			public:
+				using FAutoModule = typename Platform::Modules::AutoModule<true, 1, decltype(FakeFunctionThatDoesNotExist)>;
+			private:
+				enum class InternalIndexes : unsigned int {
+					FakeFunctionThatDoesNotExist
+				};
+				using FParentAutoModule = FAutoModule;
+			public:
+				class FakeFunctionThatDoesNotExist {
+				public:
+					enum : unsigned int {
+						Index = static_cast<unsigned int>(InternalIndexes::FakeFunctionThatDoesNotExist),
+					};
+					using FAutoModule = FParentAutoModule;
+					FakeFunctionThatDoesNotExist() = delete;
+				};
+			};
+			template <> constexpr const char* FakeKernel32::FAutoModule::ModuleName(void) {
+				return "kernel32.dll";
+			}
+			template <> inline const CYB::API::String::Static* FakeKernel32::FAutoModule::FunctionNames(void) noexcept {
+				static const CYB::API::String::Static Names[1]{ u8"FakeFunctionThatDoesNotExist" };
+				return Names;
+			}
+		};
+	};
+};
+//*/
 DEFINE_WINDOWS_MODULE(FakeKernel32, "kernel32.dll", Win32, true, SwitchToThread, FakeFunctionThatDoesNotExist)
 DEFINE_POSIX_MODULE(FakeC, LIBC_SO, Posix, true, mmap, FakeFunctionThatDoesNotExist)
 
 SCENARIO("Module optional functions work", "[Platform][Modules][Unit]") {
 	GIVEN("A valid optional module with some fake functions") {
-		CYB::Platform::Modules::AMFakeKernel32* TestMod1(nullptr);
-		CYB::Platform::Modules::AMFakeC* TestMod2(nullptr);
+		CYB::Platform::Modules::FakeKernel32::FAutoModule* TestMod1(nullptr);
+		CYB::Platform::Modules::FakeC::FAutoModule* TestMod2(nullptr);
 		WHEN("The module is initialized") {
-			REQUIRE_NOTHROW(TestMod1 = new CYB::Platform::Modules::AMFakeKernel32());
-			REQUIRE_NOTHROW(TestMod2 = new CYB::Platform::Modules::AMFakeC());
+			REQUIRE_NOTHROW(TestMod1 = new CYB::Platform::Modules::FakeKernel32::FAutoModule());
+			REQUIRE_NOTHROW(TestMod2 = new CYB::Platform::Modules::FakeC::FAutoModule());
 			THEN("Some functions loaded successfully") {
 #ifdef TARGET_OS_WINDOWS
 				CHECK(TestMod1->Loaded<CYB::Platform::Modules::FakeKernel32::SwitchToThread>());

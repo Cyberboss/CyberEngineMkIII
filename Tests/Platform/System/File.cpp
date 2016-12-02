@@ -9,10 +9,10 @@ class TestStartup {
 private:
 	std::unique_ptr<Path> TestPath1, TestPath2, TestPathDir;
 public:
-	ModuleDependancy<CYB::Platform::Modules::AMKernel32> FK32;
-	ModuleDependancy<CYB::Platform::Modules::AMShell> FShell;
-	ModuleDependancy<CYB::Platform::Modules::AMShellAPI> FShellAPI;
-	ModuleDependancy<CYB::Platform::Modules::AMLibC> FC;
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> FK32;
+	ModuleDependancy<CYB::Platform::Modules::Shell> FShell;
+	ModuleDependancy<CYB::Platform::Modules::ShellAPI> FShellAPI;
+	ModuleDependancy<CYB::Platform::Modules::LibC> FC;
 private:
 	static void Write(unsigned long long AAmount, Path&& AFile, const File::Method AMethod) {
 		File Data(std::move(AFile), File::Mode::WRITE, AMethod);

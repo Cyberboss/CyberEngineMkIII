@@ -1,12 +1,12 @@
 #pragma once
-template <class AAutoModule> class ModuleDependancy {
+template <class AAutoModuleClass> class ModuleDependancy {
 private:
-	AAutoModule& FReferenceToManagerObject;
+	typename AAutoModuleClass::FAutoModule& FReferenceToManagerObject;
 public:
 	ModuleDependancy();
 	~ModuleDependancy();
 
-	template <class AIndexClass, template <class ARedirector> class ARedirectedClass> CallRedirect<AAutoModule, AIndexClass> Redirect(void);
+	template <class AIndexClass, template <class ARedirector> class ARedirectedClass> CallRedirect<typename AAutoModuleClass::FAutoModule, AIndexClass> Redirect(void);
 };
 
 #include "ModuleDependancy.inl"

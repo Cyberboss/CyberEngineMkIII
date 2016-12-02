@@ -114,7 +114,7 @@ void PushError(unsigned int AError) {
 	errno = static_cast<int>(AError);
 }
 
-CallRedirect<CYB::Platform::Modules::AMKernel32, CYB::Platform::Modules::Kernel32::GetLastError> OverrideError(ModuleDependancy<CYB::Platform::Modules::AMKernel32>& AModule, unsigned int AErrorCode) {
+CallRedirect<CYB::Platform::Modules::Kernel32::FAutoModule, CYB::Platform::Modules::Kernel32::GetLastError> OverrideError(ModuleDependancy<CYB::Platform::Modules::Kernel32>& AModule, unsigned int AErrorCode) {
 	PushError(AErrorCode);
 	return AModule.Redirect<CYB::Platform::Modules::Kernel32::GetLastError, ErrorCallOverride>();
 }

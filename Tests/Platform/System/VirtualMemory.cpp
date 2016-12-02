@@ -1,7 +1,7 @@
 #include "TestHeader.hpp"
 SCENARIO("VirtualMemory reservations can be made and released", "[Platform][System][VirtualMemory][Unit]") {
-	ModuleDependancy<CYB::Platform::Modules::AMKernel32> K32;
-	ModuleDependancy<CYB::Platform::Modules::AMLibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
 	GIVEN("A sane reservation size") {
 		const auto ReservationSize(1000000);
 		WHEN("A reservation is made") {
@@ -26,8 +26,8 @@ SCENARIO("VirtualMemory reservations can be made and released", "[Platform][Syst
 	}
 }
 SCENARIO("VirtualMemory commits work as intended", "[Platform][System][VirtualMemory][Unit]") {
-	ModuleDependancy<CYB::Platform::Modules::AMKernel32> K32;
-	ModuleDependancy<CYB::Platform::Modules::AMLibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
 	GIVEN("A standard reservation") {
 		CYB::Platform::System::VirtualMemory Reservation(1000000);
 		unsigned long long CommitSize;
@@ -65,8 +65,8 @@ SCENARIO("VirtualMemory commits work as intended", "[Platform][System][VirtualMe
 	}
 }
 SCENARIO("VirtualMemory reservation protection levels can be changed", "[Platform][System][VirtualMemory][Unit]") {
-	ModuleDependancy<CYB::Platform::Modules::AMKernel32> K32;
-	ModuleDependancy<CYB::Platform::Modules::AMLibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
 	GIVEN("A standard reservation and commit which has some data written to it") {
 		CYB::Platform::System::VirtualMemory Reservation(1000000);
 		Reservation.Commit(500000);
@@ -96,9 +96,9 @@ REDIRECTED_FUNCTION(BadDiscardVirtualMemory, void* const, const unsigned long lo
 	return 0;
 }
 SCENARIO("VirtualMemory can be discarded and reused","[Platform][System][VirtualMemory][Unit]") {
-	ModuleDependancy<CYB::Platform::Modules::AMKernel32> K32;
-	ModuleDependancy<CYB::Platform::Modules::AMKernel32Extended> K32E;
-	ModuleDependancy<CYB::Platform::Modules::AMLibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::Kernel32Extended> K32E;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
 #ifdef TARGET_OS_WINDOWS
 	//For testing purposes, assume it's not there
 	auto Thing(K32E.Redirect<CYB::Platform::Modules::Kernel32Extended::DiscardVirtualMemory, BadDiscardVirtualMemory>());
@@ -132,8 +132,8 @@ SCENARIO("VirtualMemory can be discarded and reused","[Platform][System][Virtual
 			}
 #ifdef TARGET_OS_WINDOWS
 			AND_WHEN("The discard function does not exist") {
-				using RedirectType = CallRedirect<CYB::Platform::Modules::AMKernel32Extended, CYB::Platform::Modules::Kernel32Extended::DiscardVirtualMemory>;
-				RedirectType DoIt(GetAMReference<CYB::Platform::Modules::AMKernel32Extended>(), static_cast<RedirectType::FCallable*>(nullptr));
+				using RedirectType = CallRedirect<CYB::Platform::Modules::Kernel32Extended::FAutoModule, CYB::Platform::Modules::Kernel32Extended::DiscardVirtualMemory>;
+				RedirectType DoIt(GetAMReference<CYB::Platform::Modules::Kernel32Extended::FAutoModule>(), static_cast<RedirectType::FCallable*>(nullptr));
 				Then();
 			}
 #endif
@@ -169,9 +169,9 @@ REDIRECTED_FUNCTION(BadMProtect, void* const, const unsigned long long, const in
 }
 
 SCENARIO("VirtualMemory errors work", "[Platform][System][VirtualMemory][Unit]") {
-	ModuleDependancy<CYB::Platform::Modules::AMKernel32> K32;
-	ModuleDependancy<CYB::Platform::Modules::AMKernel32Extended> K32E;
-	ModuleDependancy<CYB::Platform::Modules::AMLibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::Kernel32Extended> K32E;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
 	GIVEN("Calls that will result in error and a valid reservation and commit") {
 		CYB::Platform::System::VirtualMemory ValidReservation(1000000);
 		ValidReservation.Commit(1000);
@@ -220,8 +220,8 @@ SCENARIO("VirtualMemory errors work", "[Platform][System][VirtualMemory][Unit]")
 	}
 }
 SCENARIO("Virtual Memory sizes work", "[Platform][System][VirtualMemory][Unit]") {
-	ModuleDependancy<CYB::Platform::Modules::AMKernel32> K32;
-	ModuleDependancy<CYB::Platform::Modules::AMLibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
 	GIVEN("A valid reservation and commit") {
 		CYB::Platform::System::VirtualMemory VM(10000);
 		VM.Commit(1000);

@@ -14,17 +14,15 @@ template <typename AAutoModule> AAutoModule& GetAMReference(void) {
 	return *static_cast<AAutoModule*>(Hooker.FAM);
 }
 
-template <unsigned int APlatform, class AAutoModule> ModuleDependancy<APlatform, AAutoModule>::ModuleDependancy() :
+template <class AAutoModule> ModuleDependancy<AAutoModule>::ModuleDependancy() :
 	FReferenceToManagerObject(GetAMReference<AAutoModule>())
 {
-	if(APlatform & CYB::API::Platform::Current())
-		FReferenceToManagerObject = AAutoModule();
+	FReferenceToManagerObject = AAutoModule();
 }
-template <unsigned int APlatform, class AAutoModule> ModuleDependancy<APlatform, AAutoModule>::~ModuleDependancy() {
-	if (APlatform & CYB::API::Platform::Current())
-		FReferenceToManagerObject.~AAutoModule();
+template <class AAutoModule> ModuleDependancy<AAutoModule>::~ModuleDependancy() {
+	FReferenceToManagerObject.~AAutoModule();
 }
 
-template <unsigned int APlatform, class AAutoModule> template <class AIndexClass, template <class ARedirector> class ARedirectedClass> CallRedirect<AAutoModule, AIndexClass> ModuleDependancy<APlatform, AAutoModule>::Redirect(void) {
+template <class AAutoModule> template <class AIndexClass, template <class ARedirector> class ARedirectedClass> CallRedirect<AAutoModule, AIndexClass> ModuleDependancy<AAutoModule>::Redirect(void) {
 	return CallRedirect<AAutoModule, AIndexClass>(FReferenceToManagerObject, reinterpret_cast<typename CallRedirect<AAutoModule, AIndexClass>::FCallable*>(ARedirectedClass<CallRedirect<AAutoModule, AIndexClass>>::RedirectedFunction));
 }

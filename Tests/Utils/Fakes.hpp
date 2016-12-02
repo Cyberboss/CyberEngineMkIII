@@ -53,6 +53,6 @@ public:
 	~SysCallOverride();
 };
 
-CallRedirect<CYB::Platform::Modules::AMKernel32, CYB::Platform::Modules::Kernel32::GetLastError> OverrideError(ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32>& AModule, const unsigned int AErrorCode);
+CallRedirect<CYB::Platform::Modules::AMKernel32, CYB::Platform::Modules::Kernel32::GetLastError> OverrideError(ModuleDependancy<CYB::Platform::Modules::AMKernel32>& AModule, const unsigned int AErrorCode);
 
 void PushError(unsigned int AError);

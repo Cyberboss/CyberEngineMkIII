@@ -34,7 +34,6 @@ Platform/System/Posix/CYBPosixFile.cpp
 
 #Modules
 Platform/Modules/CYBModule.cpp
-Platform/Modules/CYBModuleManager.cpp
 
 #Posix
 Platform/Modules/Posix/CYBPosixModule.cpp

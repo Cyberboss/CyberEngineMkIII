@@ -35,7 +35,7 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 		throw Exception::Violation(Exception::Violation::INVALID_ENUM);
 	}
 
-	FDescriptor = Core().FModuleManager.FC.Call<Modules::LibC::open>(APath().CString(), Flags, S_IRUSR | S_IWUSR);
+	FDescriptor = Core().FModuleManager.Call<Modules::LibC::open>(APath().CString(), Flags, S_IRUSR | S_IWUSR);
 
 	if (FDescriptor == -1) {
 		const auto Error(errno);
@@ -101,7 +101,7 @@ CYB::Platform::System::File& CYB::Platform::System::File::operator=(File&& AMove
 
 void CYB::Platform::System::File::Close(void) const noexcept {
 	if (FDescriptor != -1)
-		Core().FModuleManager.FC.Call<Modules::LibC::close>(FDescriptor);
+		Core().FModuleManager.Call<Modules::LibC::close>(FDescriptor);
 }
 
 unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) {
@@ -141,7 +141,7 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 		}
 	}());
 
-	unsigned long long Result(Core().FModuleManager.FC.Call<Modules::LibC::lseek>(FDescriptor, static_cast<off_t>(AOffset), PosixLocation));
+	unsigned long long Result(Core().FModuleManager.Call<Modules::LibC::lseek>(FDescriptor, static_cast<off_t>(AOffset), PosixLocation));
 	//See http://man7.org/linux/man-pages/man2/lseek.2.html, there is no way besides the user seeking past
 	if (Result == static_cast<decltype(Result)>(-1))
 		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
@@ -152,7 +152,7 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const unsigned long long AMaxAmount) const {
 	if (FOpenMode == Mode::WRITE)
 		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
-	unsigned long long Result(Core().FModuleManager.FC.Call<Modules::LibC::read>(FDescriptor, ABuffer, static_cast<size_t>(AMaxAmount)));
+	unsigned long long Result(Core().FModuleManager.Call<Modules::LibC::read>(FDescriptor, ABuffer, static_cast<size_t>(AMaxAmount)));
 	if (Result == static_cast<decltype(Result)>(-1))
 		Result = 0;
 	return Result;
@@ -161,7 +161,7 @@ unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const 
 unsigned long long CYB::Platform::System::File::Write(const void* const ABuffer, const unsigned long long AAmount) {
 	if (FOpenMode == Mode::READ)
 		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
-	unsigned long long Result(Core().FModuleManager.FC.Call<Modules::LibC::write>(FDescriptor, ABuffer, static_cast<size_t>(AAmount)));
+	unsigned long long Result(Core().FModuleManager.Call<Modules::LibC::write>(FDescriptor, ABuffer, static_cast<size_t>(AAmount)));
 	if (Result == static_cast<decltype(Result)>(-1))
 		Result = 0;
 	return Result;

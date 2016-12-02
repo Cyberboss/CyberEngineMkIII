@@ -51,20 +51,20 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 		return CurrentDir;
 	}
 	case SystemPath::USER: {
-		const API::String::Static XDGDir(MM.FC.Call<Modules::LibC::getenv>("XDG_CONFIG_HOME")),
-			HOMEDir(MM.FC.Call<Modules::LibC::getenv>("HOME"));
+		const API::String::Static XDGDir(MM.Call<Modules::LibC::getenv>("XDG_CONFIG_HOME")),
+			HOMEDir(MM.Call<Modules::LibC::getenv>("HOME"));
 		if (XDGDir.RawLength() > 0)
 			return API::String::UTF8(XDGDir);
 		else if (HOMEDir.RawLength() > 0)
 			return API::String::UTF8(HOMEDir);
 		else {
-			const auto BufferSize(MM.FC.Call<Modules::LibC::sysconf>(_SC_GETPW_R_SIZE_MAX));
+			const auto BufferSize(MM.Call<Modules::LibC::sysconf>(_SC_GETPW_R_SIZE_MAX));
 			if (BufferSize != -1) {
-				const auto UID(MM.FC.Call<Modules::LibC::getuid>());	//they say this can't fail
+				const auto UID(MM.Call<Modules::LibC::getuid>());	//they say this can't fail
 				PasswdStruct PS, *Out;
 				API::String::UTF8 FinalPath;
 				auto Buffer(static_cast<char*>(API::Context().FAllocator.FHeap.Alloc(BufferSize)));
-				const auto Result(MM.FC.Call<Modules::LibC::getpwuid_r>(UID, &PS, Buffer, BufferSize, &Out));
+				const auto Result(MM.Call<Modules::LibC::getpwuid_r>(UID, &PS, Buffer, BufferSize, &Out));
 				const auto Succeeded(Result == 0 && Out == &PS);
 				if(Succeeded)
 					FinalPath = API::String::UTF8(API::String::Static(PS.pw_dir));
@@ -81,13 +81,13 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 }
 
 void CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath) {
-	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::mkdir>(APath.CString(), 0777));
+	const auto Result(Core().FModuleManager.Call<Modules::LibC::mkdir>(APath.CString(), 0777));
 	if (!(Result == 0 || errno == EEXIST))
 		throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
 }
 
 void CYB::Platform::System::Path::DeleteFile(const API::String::UTF8& APath) {
-	if (Core().FModuleManager.FC.Call<Modules::LibC::unlink>(APath.CString()) != 0) {
+	if (Core().FModuleManager.Call<Modules::LibC::unlink>(APath.CString()) != 0) {
 		const auto Error(errno);
 		API::Assert::NotEqual(EISDIR, Error);
 		switch (Error) {
@@ -101,7 +101,7 @@ void CYB::Platform::System::Path::DeleteFile(const API::String::UTF8& APath) {
 }
 
 void CYB::Platform::System::Path::DeleteDirectory(const API::String::UTF8& APath) {
-	if (Core().FModuleManager.FC.Call<Modules::LibC::rmdir>(APath.CString()) != 0) {
+	if (Core().FModuleManager.Call<Modules::LibC::rmdir>(APath.CString()) != 0) {
 		const auto Error(errno);
 		switch (Error) {
 		case ENOENT:
@@ -117,7 +117,7 @@ void CYB::Platform::System::Path::DeleteDirectory(const API::String::UTF8& APath
 
 void CYB::Platform::System::Path::Evaluate(API::String::UTF8& APath) {
 	char ThePath[PATH_MAX];
-	auto const Result(Core().FModuleManager.FC.Call<Modules::LibC::realpath>(APath.CString(), ThePath));
+	auto const Result(Core().FModuleManager.Call<Modules::LibC::realpath>(APath.CString(), ThePath));
 	if (Result != ThePath)
 		throw Exception::Internal(Exception::Internal::PATH_EVALUATION_FAILURE);
 	APath = CYB::API::String::UTF8(CYB::API::String::Static(ThePath));
@@ -165,7 +165,7 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::Name(void) const {
 CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry(const System::Path& APath) :
 	FOriginalPath(APath),
 	FPathListing(nullptr),
-	FDirectory(Core().FModuleManager.FC.Call<Modules::LibC::opendir>(FOriginalPath().CString()))
+	FDirectory(Core().FModuleManager.Call<Modules::LibC::opendir>(FOriginalPath().CString()))
 {
 	if (FDirectory == nullptr) {
 		const auto Error(errno);
@@ -181,11 +181,11 @@ CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry(cons
 }
 
 CYB::Platform::System::Implementation::Path::DirectoryEntry::~DirectoryEntry() {
-	Core().FModuleManager.FC.Call<Modules::LibC::closedir>(FDirectory);
+	Core().FModuleManager.Call<Modules::LibC::closedir>(FDirectory);
 }
 
 void CYB::Platform::System::Implementation::Path::DirectoryEntry::operator++(void) {
-	const auto Result(Core().FModuleManager.FC.Call<Modules::LibC::readdir>(FDirectory));	//pray to torvalds for thread safety
+	const auto Result(Core().FModuleManager.Call<Modules::LibC::readdir>(FDirectory));	//pray to torvalds for thread safety
 	if (Result == nullptr)
 		FPathListing = API::Interop::Object<API::Path>(nullptr);	//we don't care about errors here
 	else {

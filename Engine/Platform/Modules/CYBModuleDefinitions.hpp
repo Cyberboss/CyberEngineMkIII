@@ -41,10 +41,10 @@ DEFINE_POSIX_MODULE(LibC, LIBC_SO, Posix, false, false,
 	getuid, getpwuid_r, getenv, sysconf,
 	posix_spawn,
 	open, close, lseek, read, write)
-DEFINE_POSIX_MODULE(PThread, LIBPTHREAD_SO, false, Posix, false,
+DEFINE_POSIX_MODULE(PThread, LIBPTHREAD_SO, Posix, false, false,
 	pthread_mutex_init, pthread_mutex_destroy, pthread_mutex_lock, pthread_mutex_trylock, pthread_mutex_unlock,
 	pthread_create, pthread_join)
-DEFINE_LINUX_MODULE(RT, LIBRT_SO, false, Posix, false, sched_yield)
+DEFINE_LINUX_MODULE(RT, LIBRT_SO, Posix, false, false, sched_yield)
 DEFINE_OSX_MODULE(System, u8"libSystem", Posix, false, true, sched_yield)
 DEFINE_OSX_MODULE(DyLD, u8"/usr/lib/system/libdyld", Posix, false, true, _NSGetExecutablePath)
 OVERRIDE_OSX_FUNCTION_NAMES(LibC, 

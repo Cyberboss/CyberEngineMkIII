@@ -161,7 +161,7 @@ namespace CYB {\
 namespace CYB {\
 	namespace Platform {\
 		namespace Modules {\
-			template<> inline const CYB::API::String::Static* typename AAutoModule::FAutoModule::OverridenNames(void) noexcept {\
+			template<> inline const CYB::API::String::Static* AModuleName::FAutoModule::OverridenNames(void) noexcept {\
 				static const API::String::Static Names[NARGS(__VA_ARGS__)]{ __VA_ARGS__ };\
 				return Names;\
 			}\

@@ -22,3 +22,23 @@ template <template <bool AOptionalFunctions, unsigned int AN, typename... AFunct
 template <typename ACallIndex> bool CYB::Platform::Modules::Manager::Loaded(void) noexcept {
 	return GetAutoModule<typename ACallIndex::FAutoModule>()->template Loaded<ACallIndex>();
 }
+
+//! @cond
+//Windows
+REQUIRED_MODULE_MANAGEMENT(Kernel32)
+REQUIRED_MODULE_MANAGEMENT(Kernel32Extended)
+REQUIRED_MODULE_MANAGEMENT(Shell)
+REQUIRED_MODULE_MANAGEMENT(Ole32)
+REQUIRED_MODULE_MANAGEMENT(ShellAPI)
+
+//Posix
+REQUIRED_MODULE_MANAGEMENT(LibC)
+REQUIRED_MODULE_MANAGEMENT(PThread)
+
+//Linux
+REQUIRED_MODULE_MANAGEMENT(RT)
+
+//OSX
+REQUIRED_MODULE_MANAGEMENT(System)
+REQUIRED_MODULE_MANAGEMENT(DyLD)
+//! @endcond

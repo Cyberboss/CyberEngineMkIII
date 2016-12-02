@@ -32,22 +32,22 @@ namespace CYB {
 			private:
 				//! @cond
 				//Windows
-				REQUIRED_MODULE(Kernel32);
-				REQUIRED_MODULE(Kernel32Extended);
-				REQUIRED_MODULE(Shell);
-				REQUIRED_MODULE(Ole32);
-				REQUIRED_MODULE(ShellAPI);
+				REQURIED_MODULE_FIELD(Kernel32);
+				REQURIED_MODULE_FIELD(Kernel32Extended);
+				REQURIED_MODULE_FIELD(Shell);
+				REQURIED_MODULE_FIELD(Ole32);
+				REQURIED_MODULE_FIELD(ShellAPI);
 
 				//Posix
-				REQUIRED_MODULE(LibC);
-				REQUIRED_MODULE(PThread);
+				REQURIED_MODULE_FIELD(LibC);
+				REQURIED_MODULE_FIELD(PThread);
 
 				//Linux
-				REQUIRED_MODULE(RT);
+				REQURIED_MODULE_FIELD(RT);
 				
 				//OSX
-				REQUIRED_MODULE(System);
-				REQUIRED_MODULE(DyLD);
+				REQURIED_MODULE_FIELD(System);
+				REQURIED_MODULE_FIELD(DyLD);
 				//! @endcond
 			public:
 				/*!

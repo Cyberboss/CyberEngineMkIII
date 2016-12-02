@@ -160,13 +160,19 @@ namespace CYB {\
 };
 #define DUMMY_OVERRIDE_FUNCTION_NAMES(...)
 
-#define REQUIRED_MODULE(AModuleName) \
-template <> auto GetAutoModule<AM##AModuleName>(void) noexcept -> AM##AModuleName* { return &F##AModuleName; }\
+#define REQURIED_MODULE_FIELD(AModuleName)\
 AM##AModuleName F##AModuleName
 
-#define OPTIONAL_MODULE(AModuleName) \
-template <> auto GetAutoModule<AM##AModuleName>(void) noexcept -> AM##AModuleName* { return F##AModuleName##Pointer; }\
-template <> void LoadAutoModule<AM##AModuleName>(void) noexcept {\
+#define OPTIONAL_MODULE_FILED(AModuleName)\
+AM##AModuleName* F##AModuleName##Pointer; \
+byte F##AModuleName##Bytes[sizeof(AM##AModuleName)]
+
+#define REQUIRED_MODULE_MANAGEMENT(AModuleName) \
+template <> inline auto CYB::Platform::Modules::Manager::GetAutoModule<CYB::Platform::Modules::AM##AModuleName>(void) noexcept -> AM##AModuleName* { return &F##AModuleName; }
+
+#define OPTIONAL_MODULE_MANAGEMENT(AModuleName) \
+template <> inline auto CYB::Platform::Modules::Manager::GetAutoModule<CYB::Platform::Modules::AM##AModuleName>(void) noexcept -> AM##AModuleName* { return F##AModuleName##Pointer; }\
+template <> inline void CYB::Platform::Modules::Manager::LoadAutoModule<CYB::Platform::Modules::AM##AModuleName>(void) noexcept {\
 	try {\
 		auto const Pointer(reinterpret_cast<AM##AModuleName*>(F##AModuleName##Bytes));\
 		new (Pointer) AM##AModuleName();\
@@ -176,13 +182,11 @@ template <> void LoadAutoModule<AM##AModuleName>(void) noexcept {\
 		F##AModuleName##Pointer = nullptr;\
 	}\
 }\
-template <> void UnloadAutoModule<AM##AModuleName>(void) noexcept {\
+template <> inline void CYB::Platform::Modules::Manager::UnloadAutoModule<CYB::Platform::Modules::AM##AModuleName>(void) noexcept {\
 	auto const Pointer(GetAutoModule<AM##AModuleName>());\
 	if(Pointer != nullptr)\
 		Pointer->~AM##AModuleName();\
-}\
-AM##AModuleName* F##AModuleName##Pointer;\
-byte F##AModuleName##Bytes[sizeof(AM##AModuleName)];
+}
 
 #ifdef TARGET_OS_WINDOWS
 #define DEFINE_WINDOWS_MODULE DEFINE_MODULE

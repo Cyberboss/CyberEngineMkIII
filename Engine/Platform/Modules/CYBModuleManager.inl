@@ -1,4 +1,4 @@
-//! @file CYBModuleManager.cpp Contains the definition of CYB::Platform::Manager
+//! @file CYBModuleManager.inl Contains the definitions of CYB::Platform::JModules::Manager
 #pragma once
 
 inline CYB::Platform::Modules::Manager::Manager() {

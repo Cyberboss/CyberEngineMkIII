@@ -47,6 +47,7 @@ Included items must then not match any entries in the exclude list to remain inc
                 <Function>^CYB::Engine::Allocator::InteropAllocation.*</Function>
                 <Function>^CYB::Engine::Allocator::DoAllocation.*</Function>
                 <Function>^CYB::Platform::Modules::AutoModuleOptionalHelper.*</Function>
+                <Function>^CYB::Platform::Modules::AutoModule.*::ModuleName</Function>
                 <Function>^CYB::Platform::System::Sys.*</Function>
               </Exclude>
             </Functions>

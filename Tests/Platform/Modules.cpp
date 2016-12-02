@@ -198,8 +198,8 @@ namespace CYB {
 	};
 };
 //*/
-DEFINE_WINDOWS_MODULE(FakeKernel32, "kernel32.dll", Win32, true, SwitchToThread, FakeFunctionThatDoesNotExist)
-DEFINE_POSIX_MODULE(FakeC, LIBC_SO, Posix, true, mmap, FakeFunctionThatDoesNotExist)
+DEFINE_WINDOWS_MODULE(FakeKernel32, "kernel32", Win32, true, true, SwitchToThread, FakeFunctionThatDoesNotExist)
+DEFINE_POSIX_MODULE(FakeC, LIBC_SO, Posix, true, false, mmap, FakeFunctionThatDoesNotExist)
 
 SCENARIO("Module optional functions work", "[Platform][Modules][Unit]") {
 	GIVEN("A valid optional module with some fake functions") {

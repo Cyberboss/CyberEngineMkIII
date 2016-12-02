@@ -101,7 +101,15 @@ public:\
 	X() = delete;\
 };\
 
-#define DEFINE_MODULE(AModuleName, ADiskName, APlatform, AOptionalFunctions, ...)\
+#ifdef TARGET_OS_WINDOWS
+#define PLATFORM_MODULE_EXTENSION u8".dll"
+#elif defined(TARGET_OS_MAC)
+#define PLATFORM_MODULE_EXTENSION u8".dylib"
+#elif defined(TARGET_OS_WINDOWS)
+#define PLATFORM_MODULE_EXTENSION u8".so"
+#endif
+
+#define DEFINE_MODULE(AModuleName, ADiskName, APlatform, AOptionalFunctions, AAppendExtension, ...)\
 namespace CYB {\
 	namespace Platform {\
 		namespace Modules {\
@@ -119,7 +127,7 @@ namespace CYB {\
 				AModuleName() = delete;\
 			};\
 			template <> constexpr const char* AModuleName::FAutoModule::ModuleName(void){\
-				return ADiskName;\
+				return AAppendExtension ? ADiskName PLATFORM_MODULE_EXTENSION : ADiskName;\
 			}\
 			template <> inline const CYB::API::String::Static* AModuleName::FAutoModule::FunctionNames(void) noexcept {\
 				static const CYB::API::String::Static Names[NARGS(__VA_ARGS__)]{ APPLY(STATIC_STRINGIFY, __VA_ARGS__) };\
@@ -129,7 +137,7 @@ namespace CYB {\
 	};\
 };\
 
-#define DEFINE_DUMMY_MODULE(AModuleName, ADiskName, APlatform, AOptionalFunctions, ...)\
+#define DEFINE_DUMMY_MODULE(AModuleName, ADiskName, APlatform, AOptionalFunctions, AAppendExtension, ...)\
 namespace CYB {\
 	namespace Platform {\
 		namespace Modules {\

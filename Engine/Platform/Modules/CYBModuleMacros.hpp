@@ -173,6 +173,7 @@ template <> inline auto CYB::Platform::Modules::Manager::GetAutoModule<CYB::Plat
 #define OPTIONAL_MODULE_MANAGEMENT(AModuleName) \
 template <> inline auto CYB::Platform::Modules::Manager::GetAutoModule<CYB::Platform::Modules::AM##AModuleName>(void) noexcept -> AM##AModuleName* { return F##AModuleName##Pointer; }\
 template <> inline void CYB::Platform::Modules::Manager::LoadAutoModule<CYB::Platform::Modules::AM##AModuleName>(void) noexcept {\
+	API::Assert::Equal(F##AModuleName##Pointer, nullptr);\
 	try {\
 		auto const Pointer(reinterpret_cast<AM##AModuleName*>(F##AModuleName##Bytes));\
 		new (Pointer) AM##AModuleName();\
@@ -183,9 +184,9 @@ template <> inline void CYB::Platform::Modules::Manager::LoadAutoModule<CYB::Pla
 	}\
 }\
 template <> inline void CYB::Platform::Modules::Manager::UnloadAutoModule<CYB::Platform::Modules::AM##AModuleName>(void) noexcept {\
-	auto const Pointer(GetAutoModule<AM##AModuleName>());\
-	if(Pointer != nullptr)\
-		Pointer->~AM##AModuleName();\
+	API::Assert::NotEqual(F##AModuleName##Pointer, nullptr);\
+	F##AModuleName##Pointer->~AM##AModuleName();\
+	F##AModuleName##Pointer = nullptr;\
 }
 
 #ifdef TARGET_OS_WINDOWS

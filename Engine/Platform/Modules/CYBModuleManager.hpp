@@ -64,7 +64,7 @@ namespace CYB {
 				~Manager();
 
 				//! @copydoc CYB::Platform::Modules::AutoModule::Call()
-				template <typename ACallIndex, typename... AArgs> auto Call(AArgs&&... AArguments);
+				template <typename AIndexClass, typename... AArgs> auto Call(AArgs&&... AArguments);
 				
 				/*!
 					@brief Check if an AutoModule is loaded
@@ -75,8 +75,8 @@ namespace CYB {
 					@attention This function will immediately return true for any type that is not an AutoModule that can fail loading
 				*/
 				template <template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> class AAutoModule> bool Loaded(void) noexcept;
-				//! @copydoc CYB::Platform::Modules::AutoModule::Load()
-				template <typename ACallIndex> bool Loaded(void) noexcept;
+				//! @copydoc CYB::Platform::Modules::AutoModule::Loaded()
+				template <typename AIndexClass> bool Loaded(void) noexcept;
 			};
 		};
 	};

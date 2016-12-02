@@ -29,25 +29,35 @@ namespace CYB {
 						This function requires synchronization at the object level
 				*/
 				template <typename AAutoModule> void UnloadAutoModule(void) noexcept;
+				
+				/*!
+					@brief Check if an AutoModule is loaded
+					@tparam AAutoModule The AutoModule to check
+					@return true if the AutoModule is loaded, false otherwise
+					@par Thread Safety
+						This function requires no thread safety
+					@attention This function will immediately return true for any type that is not an optional AutoModule
+				*/
+				template <typename AAutoModule> bool LoadedInternal(void) const noexcept;
 			private:
 				//! @cond
 				//Windows
-				REQURIED_MODULE_FIELD(Kernel32);
-				REQURIED_MODULE_FIELD(Kernel32Extended);
-				REQURIED_MODULE_FIELD(Shell);
-				REQURIED_MODULE_FIELD(Ole32);
-				REQURIED_MODULE_FIELD(ShellAPI);
+				REQUIRED_MODULE_FIELD(Kernel32);
+				REQUIRED_MODULE_FIELD(Kernel32Extended);
+				REQUIRED_MODULE_FIELD(Shell);
+				REQUIRED_MODULE_FIELD(Ole32);
+				REQUIRED_MODULE_FIELD(ShellAPI);
 
 				//Posix
-				REQURIED_MODULE_FIELD(LibC);
-				REQURIED_MODULE_FIELD(PThread);
+				REQUIRED_MODULE_FIELD(LibC);
+				REQUIRED_MODULE_FIELD(PThread);
 
 				//Linux
-				REQURIED_MODULE_FIELD(RT);
+				REQUIRED_MODULE_FIELD(RT);
 				
 				//OSX
-				REQURIED_MODULE_FIELD(System);
-				REQURIED_MODULE_FIELD(DyLD);
+				REQUIRED_MODULE_FIELD(System);
+				REQUIRED_MODULE_FIELD(DyLD);
 				//! @endcond
 			public:
 				/*!
@@ -74,7 +84,7 @@ namespace CYB {
 						This function requires no thread safety
 					@attention This function will immediately return true for any type that is not an optional AutoModule
 				*/
-				template <template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> class AAutoModule> bool Loaded(void) noexcept;
+				template <template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> class AAutoModule> bool Loaded(void) const noexcept;
 				//! @copydoc CYB::Platform::Modules::AutoModule::Loaded()
 				template <typename AIndexClass> bool Loaded(void) noexcept;
 			};

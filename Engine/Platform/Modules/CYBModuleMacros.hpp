@@ -160,34 +160,39 @@ namespace CYB {\
 };
 #define DUMMY_OVERRIDE_FUNCTION_NAMES(...)
 
-#define REQURIED_MODULE_FIELD(AModuleName)\
+#define REQUIRED_MODULE_FIELD(AModuleName)\
 AM##AModuleName F##AModuleName
 
-#define OPTIONAL_MODULE_FILED(AModuleName)\
-AM##AModuleName* F##AModuleName##Pointer; \
+#define OPTIONAL_MODULE_FIELD(AModuleName)\
+bool F##AModuleName##Loaded = false;\
 byte F##AModuleName##Bytes[sizeof(AM##AModuleName)]
+//bool first so the bytes get loaded when it's checked
 
 #define REQUIRED_MODULE_MANAGEMENT(AModuleName) \
-template <> inline auto CYB::Platform::Modules::Manager::GetAutoModule<CYB::Platform::Modules::AM##AModuleName>(void) noexcept -> AM##AModuleName* { return &F##AModuleName; }
+template <> inline auto CYB::Platform::Modules::Manager::GetAutoModule<CYB::Platform::Modules::AM##AModuleName>(void) noexcept -> AM##AModuleName* { return &F##AModuleName; }\
+template <> inline bool CYB::Platform::Modules::Manager::LoadedInternal<CYB::Platform::Modules::AM##AModuleName>(void) const noexcept { return true; }
 
 #define OPTIONAL_MODULE_MANAGEMENT(AModuleName) \
-template <> inline auto CYB::Platform::Modules::Manager::GetAutoModule<CYB::Platform::Modules::AM##AModuleName>(void) noexcept -> AM##AModuleName* { return F##AModuleName##Pointer; }\
+template <> inline auto CYB::Platform::Modules::Manager::GetAutoModule<CYB::Platform::Modules::AM##AModuleName>(void) noexcept -> AM##AModuleName* {\
+	return reinterpret_cast<AM##AModuleName*>(F##AModuleName##Bytes);\
+}\
 template <> inline void CYB::Platform::Modules::Manager::LoadAutoModule<CYB::Platform::Modules::AM##AModuleName>(void) noexcept {\
-	API::Assert::Equal(F##AModuleName##Pointer, nullptr);\
+	API::Assert::False(F##AModuleName##Loaded);\
 	try {\
 		auto const Pointer(reinterpret_cast<AM##AModuleName*>(F##AModuleName##Bytes));\
 		new (Pointer) AM##AModuleName();\
-		F##AModuleName##Pointer = Pointer;\
+		F##AModuleName##Loaded = true;\
 	}\
-	catch (CYB::Exception::SystemData& AException) {\
-		F##AModuleName##Pointer = nullptr;\
+	catch (CYB::Exception::Internal& AException) {\
+		API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::MODULE_LOAD_FAILURE, Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE);\
 	}\
 }\
 template <> inline void CYB::Platform::Modules::Manager::UnloadAutoModule<CYB::Platform::Modules::AM##AModuleName>(void) noexcept {\
-	API::Assert::NotEqual(F##AModuleName##Pointer, nullptr);\
-	F##AModuleName##Pointer->~AM##AModuleName();\
-	F##AModuleName##Pointer = nullptr;\
-}
+	API::Assert::True(F##AModuleName##Loaded);\
+	GetAutoModule<AM##AModuleName>()->~AM##AModuleName();\
+	F##AModuleName##Loaded = false;\
+}\
+template <> inline bool CYB::Platform::Modules::Manager::LoadedInternal<CYB::Platform::Modules::AM##AModuleName>(void) const noexcept { return F##AModuleName##Loaded; }
 
 #ifdef TARGET_OS_WINDOWS
 #define DEFINE_WINDOWS_MODULE DEFINE_MODULE

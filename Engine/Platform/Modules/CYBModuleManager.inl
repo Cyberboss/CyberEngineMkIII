@@ -1,28 +1,6 @@
 //! @file CYBModuleManager.inl Contains the definitions of CYB::Platform::JModules::Manager
 #pragma once
 
-inline CYB::Platform::Modules::Manager::Manager() {
-	//Load optionals
-}
-
-inline CYB::Platform::Modules::Manager::~Manager() {
-	//Unload optionals
-}
-
-template <typename AIndexClass, typename... AArgs> auto CYB::Platform::Modules::Manager::Call(AArgs&&... AArguments) {
-	typename AIndexClass::FAutoModule* AM(GetAutoModule<typename AIndexClass::FAutoModule>());
-	API::Assert::NotEqual<typename AIndexClass::FAutoModule*>(AM, nullptr);
-	return AM->template Call<AIndexClass>(std::forward<AArgs>(AArguments)...);
-}
-
-template <template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> class AAutoModule> bool CYB::Platform::Modules::Manager::Loaded(void) noexcept {
-	return GetAutoModule<AAutoModule>() != nullptr;
-}
-
-template <typename AIndexClass> bool CYB::Platform::Modules::Manager::Loaded(void) noexcept {
-	return GetAutoModule<typename AIndexClass::FAutoModule>()->template Loaded<AIndexClass>();
-}
-
 //! @cond
 //Windows
 REQUIRED_MODULE_MANAGEMENT(Kernel32)
@@ -42,3 +20,25 @@ REQUIRED_MODULE_MANAGEMENT(RT)
 REQUIRED_MODULE_MANAGEMENT(System)
 REQUIRED_MODULE_MANAGEMENT(DyLD)
 //! @endcond
+
+inline CYB::Platform::Modules::Manager::Manager() {
+	//Load optionals
+}
+
+inline CYB::Platform::Modules::Manager::~Manager() {
+	//Unload optionals
+}
+
+template <typename AIndexClass, typename... AArgs> auto CYB::Platform::Modules::Manager::Call(AArgs&&... AArguments) {
+	typename AIndexClass::FAutoModule* AM(GetAutoModule<typename AIndexClass::FAutoModule>());
+	API::Assert::NotEqual<typename AIndexClass::FAutoModule*>(AM, nullptr);
+	return AM->template Call<AIndexClass>(std::forward<AArgs>(AArguments)...);
+}
+
+template <template <bool AOptionalFunctions, unsigned int AN, typename... AFunctionTypes> class AAutoModule> bool CYB::Platform::Modules::Manager::Loaded(void) const noexcept {
+	return LoadedInternal<AAutoModule>();
+}
+
+template <typename AIndexClass> bool CYB::Platform::Modules::Manager::Loaded(void) noexcept {
+	return GetAutoModule<typename AIndexClass::FAutoModule>()->template Loaded<AIndexClass>();
+}

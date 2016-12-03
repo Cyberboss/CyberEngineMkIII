@@ -2,7 +2,7 @@
 
 unsigned int CYB::Platform::System::Implementation::VirtualMemory::SystemPageSize(void) noexcept {
 	Win32::SYSTEM_INFO Info;
-	Core().FModuleManager.FK32.Call<Modules::Kernel32::GetSystemInfo>(&Info);
+	Core().FModuleManager.Call<Modules::Kernel32::GetSystemInfo>(&Info);
 	return Info.dwPageSize;
 }
 
@@ -14,7 +14,7 @@ void* CYB::Platform::System::Implementation::VirtualMemory::PageAlignedUpperBoun
 
 void* CYB::Platform::System::VirtualMemory::InitReservation(const unsigned long long ANumBytes) {
 	if (ANumBytes >= 1024) {
-		void* const Result(Core().FModuleManager.FK32.Call<Modules::Kernel32::VirtualAlloc>(nullptr, ANumBytes, Win32::DWORD(MEM_RESERVE), Win32::DWORD(PAGE_NOACCESS)));
+		void* const Result(Core().FModuleManager.Call<Modules::Kernel32::VirtualAlloc>(nullptr, ANumBytes, Win32::DWORD(MEM_RESERVE), Win32::DWORD(PAGE_NOACCESS)));
 		if (Result != nullptr)
 			return Result;
 	}
@@ -22,7 +22,7 @@ void* CYB::Platform::System::VirtualMemory::InitReservation(const unsigned long 
 }
 
 CYB::Platform::System::VirtualMemory::~VirtualMemory() {
-	API::Assert::NotEqual<Win32::BOOL>(Core().FModuleManager.FK32.Call<Modules::Kernel32::VirtualFree>(FReservation, 0U, Win32::DWORD(MEM_RELEASE)), FALSE);
+	API::Assert::NotEqual<Win32::BOOL>(Core().FModuleManager.Call<Modules::Kernel32::VirtualFree>(FReservation, 0U, Win32::DWORD(MEM_RELEASE)), FALSE);
 }
 
 void CYB::Platform::System::VirtualMemory::Commit(const unsigned long long ANumBytes) {
@@ -38,7 +38,7 @@ void CYB::Platform::System::VirtualMemory::Commit(const unsigned long long ANumB
 			}
 			if (ThrowOccurred)
 				throw Exception::Internal(Exception::Internal::MEMORY_COMMITAL_FAILURE);
-			const void* const Result(Core().FModuleManager.FK32.Call<Modules::Kernel32::VirtualAlloc>(FReservation, ANumBytes, Win32::DWORD(MEM_COMMIT), Win32::DWORD(PAGE_READWRITE)));
+			const void* const Result(Core().FModuleManager.Call<Modules::Kernel32::VirtualAlloc>(FReservation, ANumBytes, Win32::DWORD(MEM_COMMIT), Win32::DWORD(PAGE_READWRITE)));
 			if (Result == nullptr)
 				throw Exception::Internal(Exception::Internal::MEMORY_COMMITAL_FAILURE);
 			FCommitSize = ANumBytes;
@@ -50,13 +50,13 @@ void CYB::Platform::System::VirtualMemory::Commit(const unsigned long long ANumB
 
 void CYB::Platform::System::VirtualMemory::Access(const AccessLevel AAccessLevel) {
 	Win32::MEMORY_BASIC_INFORMATION Info;
-	if (Core().FModuleManager.FK32.Call<Modules::Kernel32::VirtualQuery>(FReservation, &Info, sizeof(Win32::MEMORY_BASIC_INFORMATION)) == 0)
+	if (Core().FModuleManager.Call<Modules::Kernel32::VirtualQuery>(FReservation, &Info, sizeof(Win32::MEMORY_BASIC_INFORMATION)) == 0)
 		throw Exception::Internal(Exception::Internal::MEMORY_PROTECT_FAILURE);
 
 	if (Info.State == MEM_COMMIT) {
 		Win32::DWORD Last;
 		//for some reason we can't use the base of the allocation when protecting :/
-		if (Core().FModuleManager.FK32.Call<Modules::Kernel32::VirtualProtect>(FReservation, Info.RegionSize, static_cast<Win32::DWORD>(
+		if (Core().FModuleManager.Call<Modules::Kernel32::VirtualProtect>(FReservation, Info.RegionSize, static_cast<Win32::DWORD>(
 			AAccessLevel == AccessLevel::READ_WRITE ? 
 			PAGE_READWRITE : 
 			(AAccessLevel == AccessLevel::NONE ?
@@ -71,7 +71,7 @@ void CYB::Platform::System::VirtualMemory::Discard(void* const AMemory, const un
 	API::Assert::LessThanOrEqual(static_cast<byte*>(AMemory), static_cast<byte*>(FReservation) + FCommitSize);
 	API::Assert::LessThanOrEqual(static_cast<byte*>(AMemory) + ANumBytes, static_cast<byte*>(FReservation) + FCommitSize);
 
-	if (!Core().FModuleManager.FK32Extended.Loaded<Modules::Kernel32Extended::DiscardVirtualMemory>())
+	if (!Core().FModuleManager.Loaded<Modules::Kernel32Extended::DiscardVirtualMemory>())
 		return;
 
 	const auto PageSize(Implementation::VirtualMemory::SystemPageSize());
@@ -90,5 +90,5 @@ void CYB::Platform::System::VirtualMemory::Discard(void* const AMemory, const un
 
 	const auto TrueDiscardSize(BytesAvailableToDiscard - (BytesAvailableToDiscard % PageSize));
 
-	Core().FModuleManager.FK32Extended.Call<Modules::Kernel32Extended::DiscardVirtualMemory>(AlignedMemory, TrueDiscardSize);
+	Core().FModuleManager.Call<Modules::Kernel32Extended::DiscardVirtualMemory>(AlignedMemory, TrueDiscardSize);
 }

@@ -101,44 +101,54 @@ public:\
 	X() = delete;\
 };\
 
-#define DEFINE_MODULE(AModuleName, ADiskName, APlatform, AOptionalFunctions, ...)\
+#ifdef TARGET_OS_WINDOWS
+#define MODULE_EXTENSION u8".dll"
+#elif defined(TARGET_OS_MAC)
+#define MODULE_EXTENSION u8".dylib"
+#elif defined(TARGET_OS_LINUX)
+#define MODULE_EXTENSION u8".so"
+#endif
+
+#define DEFINE_MODULE(AModuleName, ADiskName, APlatform, AOptionalFunctions, AAppendExtension, ...)\
 namespace CYB {\
 	namespace Platform {\
 		namespace Modules {\
 			using namespace APlatform;\
-			using AM##AModuleName = typename Platform::Modules::AutoModule<AOptionalFunctions, NARGS(__VA_ARGS__), APPLY(DECLTYPE_EXPAND, __VA_ARGS__)>;\
-			template <> constexpr const char* AM##AModuleName::ModuleName(void){\
-				return ADiskName;\
-			}\
-			template <> inline const CYB::API::String::Static* AM##AModuleName::FunctionNames(void) noexcept {\
-				static const CYB::API::String::Static Names[NARGS(__VA_ARGS__)]{ APPLY(STATIC_STRINGIFY, __VA_ARGS__) };\
-				return Names;\
-			}\
 			class AModuleName{\
+			public:\
+				using FAutoModule = typename Platform::Modules::AutoModule<AOptionalFunctions, NARGS(__VA_ARGS__), APPLY(DECLTYPE_EXPAND, __VA_ARGS__)>;\
 			private:\
 				enum class InternalIndexes: unsigned int {\
 					__VA_ARGS__\
 				};\
-				using FParentAutoModule = AM##AModuleName;\
+				using FParentAutoModule = FAutoModule;\
 			public:\
 				APPLY_NC(CLASSIFY_ENUM, __VA_ARGS__)\
 				AModuleName() = delete;\
 			};\
+			template <> constexpr const char* AModuleName::FAutoModule::ModuleName(void){\
+				return AAppendExtension ? ADiskName MODULE_EXTENSION : ADiskName;\
+			}\
+			template <> inline const CYB::API::String::Static* AModuleName::FAutoModule::FunctionNames(void) noexcept {\
+				static const CYB::API::String::Static Names[NARGS(__VA_ARGS__)]{ APPLY(STATIC_STRINGIFY, __VA_ARGS__) };\
+				return Names;\
+			}\
 		};\
 	};\
 };\
 
-#define DEFINE_DUMMY_MODULE(AModuleName, ADiskName, APlatform, AOptionalFunctions, ...)\
+#define DEFINE_DUMMY_MODULE(AModuleName, ADiskName, APlatform, AOptionalFunctions, AAppendExtension, ...)\
 namespace CYB {\
 	namespace Platform {\
 		namespace Modules {\
-			using AM##AModuleName = AMFake;\
 			class AModuleName{\
+			public:\
+				using FAutoModule = AMFake<__COUNTER__>;\
 			private:\
 				enum class InternalIndexes: unsigned int {\
 					__VA_ARGS__\
 				};\
-				using FParentAutoModule = AM##AModuleName;\
+				using FParentAutoModule = FAutoModule;\
 			public:\
 				APPLY_NC(CLASSIFY_ENUM, __VA_ARGS__)\
 				AModuleName() = delete;\
@@ -147,11 +157,11 @@ namespace CYB {\
 	};\
 };
 
-#define OVERRIDE_FUNCTION_NAMES(AAutoModule, ...)\
+#define OVERRIDE_FUNCTION_NAMES(AModuleName, ...)\
 namespace CYB {\
 	namespace Platform {\
 		namespace Modules {\
-			template<> inline const CYB::API::String::Static* AM##AAutoModule::OverridenNames(void) noexcept {\
+			template<> inline const CYB::API::String::Static* AModuleName::FAutoModule::OverridenNames(void) noexcept {\
 				static const API::String::Static Names[NARGS(__VA_ARGS__)]{ __VA_ARGS__ };\
 				return Names;\
 			}\
@@ -159,6 +169,40 @@ namespace CYB {\
 	};\
 };
 #define DUMMY_OVERRIDE_FUNCTION_NAMES(...)
+
+#define REQUIRED_MODULE_FIELD(AModuleName)\
+AModuleName::FAutoModule F##AModuleName
+
+#define OPTIONAL_MODULE_FIELD(AModuleName)\
+bool F##AModuleName##Loaded = false;\
+byte F##AModuleName##Bytes[sizeof(AModuleName::FAutoModule)]
+//bool first so the bytes get loaded when it's checked
+
+#define REQUIRED_MODULE_MANAGEMENT(AModuleName) \
+template <> inline auto CYB::Platform::Modules::Manager::GetAutoModule<CYB::Platform::Modules::AModuleName::FAutoModule>(void) noexcept -> typename AModuleName::FAutoModule* { return &F##AModuleName; }\
+template <> inline bool CYB::Platform::Modules::Manager::LoadedInternal<CYB::Platform::Modules::AModuleName>(void) const noexcept { return true; }
+
+#define OPTIONAL_MODULE_MANAGEMENT(AModuleName) \
+template <> inline auto CYB::Platform::Modules::Manager::GetAutoModule<CYB::Platform::Modules::AModuleName::FAutoModule>(void) noexcept -> AModuleName::FAutoModule* {\
+	return reinterpret_cast<AModuleName::FAutoModule*>(F##AModuleName##Bytes);\
+}\
+template <> inline void CYB::Platform::Modules::Manager::LoadAutoModule<CYB::Platform::Modules::AModuleName>(void) noexcept {\
+	API::Assert::False(F##AModuleName##Loaded);\
+	try {\
+		auto const Pointer(reinterpret_cast<AModuleName::FAutoModule*>(F##AModuleName##Bytes));\
+		new (Pointer) AM##AModuleName();\
+		F##AModuleName##Loaded = true;\
+	}\
+	catch (CYB::Exception::Internal& AException) {\
+		API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::Internal::MODULE_LOAD_FAILURE, Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE);\
+	}\
+}\
+template <> inline void CYB::Platform::Modules::Manager::UnloadAutoModule<CYB::Platform::Modules::AModuleName>(void) noexcept {\
+	API::Assert::True(F##AModuleName##Loaded);\
+	GetAutoModule<AM##AModuleName>()->~(AModuleName::FAutoModule)();\
+	F##AModuleName##Loaded = false;\
+}\
+template <> inline bool CYB::Platform::Modules::Manager::LoadedInternal<CYB::Platform::Modules::AModuleName>(void) const noexcept { return F##AModuleName##Loaded; }
 
 #ifdef TARGET_OS_WINDOWS
 #define DEFINE_WINDOWS_MODULE DEFINE_MODULE

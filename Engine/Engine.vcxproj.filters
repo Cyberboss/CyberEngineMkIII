@@ -528,6 +528,9 @@
     <None Include="API\Interop\Context.inl">
       <Filter>API\Interop</Filter>
     </None>
+    <None Include="Platform\Modules\CYBModuleManager.inl">
+      <Filter>Platform\Modules</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DoxyPages\DoxygenLayout.xml">

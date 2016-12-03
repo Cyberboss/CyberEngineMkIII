@@ -164,40 +164,6 @@ namespace CYB {
 	};
 };
 
-/*
-namespace CYB {
-	namespace Platform {
-		namespace Modules {
-			using namespace Win32;
-			class FakeKernel32 {
-			public:
-				using FAutoModule = typename Platform::Modules::AutoModule<true, 1, decltype(FakeFunctionThatDoesNotExist)>;
-			private:
-				enum class InternalIndexes : unsigned int {
-					FakeFunctionThatDoesNotExist
-				};
-				using FParentAutoModule = FAutoModule;
-			public:
-				class FakeFunctionThatDoesNotExist {
-				public:
-					enum : unsigned int {
-						Index = static_cast<unsigned int>(InternalIndexes::FakeFunctionThatDoesNotExist),
-					};
-					using FAutoModule = FParentAutoModule;
-					FakeFunctionThatDoesNotExist() = delete;
-				};
-			};
-			template <> constexpr const char* FakeKernel32::FAutoModule::ModuleName(void) {
-				return "kernel32.dll";
-			}
-			template <> inline const CYB::API::String::Static* FakeKernel32::FAutoModule::FunctionNames(void) noexcept {
-				static const CYB::API::String::Static Names[1]{ u8"FakeFunctionThatDoesNotExist" };
-				return Names;
-			}
-		};
-	};
-};
-//*/
 DEFINE_WINDOWS_MODULE(FakeKernel32, "kernel32", Win32, true, true, SwitchToThread, FakeFunctionThatDoesNotExist)
 DEFINE_POSIX_MODULE(FakeC, LIBC_SO, Posix, true, false, mmap, FakeFunctionThatDoesNotExist)
 

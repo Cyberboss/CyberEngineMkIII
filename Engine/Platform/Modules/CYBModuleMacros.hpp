@@ -157,7 +157,7 @@ namespace CYB {\
 	};\
 };
 
-#define OVERRIDE_FUNCTION_NAMES(AAutoModule, ...)\
+#define OVERRIDE_FUNCTION_NAMES(AModuleName, ...)\
 namespace CYB {\
 	namespace Platform {\
 		namespace Modules {\

@@ -15,5 +15,5 @@
 <area shape="rect" id="node20" href="$_c_y_b_auto_module_8hpp.html" title="Defines the interface for creating templates that are modules as objects. " alt="" coords="2171,155,2315,181"/>
 <area shape="rect" id="node22" href="$_c_y_b_module_macros_8hpp.html" title="Defines the DEFINE_MODULE macro for easily adding modules. " alt="" coords="2499,155,2657,181"/>
 <area shape="rect" id="node23" href="$_c_y_b_module_definitions_8hpp.html" title="uses the module macros to define AutoModules that will be used by the engine " alt="" coords="2683,155,2861,181"/>
-<area shape="rect" id="node24" href="$_c_y_b_module_manager_8hpp.html" title="Contains the definition of CYB::Platform::ModuleManager. " alt="" coords="2886,155,3052,181"/>
+<area shape="rect" id="node24" href="$_c_y_b_module_manager_8hpp.html" title="Contains the declaration of CYB::Platform::Manager. " alt="" coords="2886,155,3052,181"/>
 </map>

@@ -1,6 +1,7 @@
 var searchData=
 [
   ['get',['Get',['../class_c_y_b_1_1_a_p_i_1_1_endianess.html#a3b66ae73fa5efe5b35637bf58da698e7',1,'CYB::API::Endianess']]],
+  ['getautomodule',['GetAutoModule',['../class_c_y_b_1_1_platform_1_1_modules_1_1_manager.html#a8e334eb4527ba62bc40df5f3aa72cfb9',1,'CYB::Platform::Modules::Manager']]],
   ['getcontext',['GetContext',['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_context.html#a129b23a0aca6ad0032205bac9f5bade6',1,'CYB::API::Interop::Context']]],
   ['getcore',['GetCore',['../class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba',1,'CYB::Engine::Core']]],
   ['getdata',['GetData',['../class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#a773a3ee9154efec099bcdd459aa2f329',1,'CYB::Engine::Memory::Block']]],

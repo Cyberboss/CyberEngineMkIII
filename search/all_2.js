@@ -5,7 +5,7 @@ var searchData=
   ['calculateinitialcommitsize',['CalculateInitialCommitSize',['../class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#aafdaee82c36e341844f2af76c326f57a',1,'CYB::Engine::Memory::Heap']]],
   ['calculatelength',['CalculateLength',['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html#a045099144612ca8c27b8fd08465f17e8',1,'CYB::API::String::UTF8']]],
   ['calculateoffset',['CalculateOffset',['../class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#a6536d14bdc2f20b9e269b6a81b1ffb6d',1,'CYB::Engine::Memory::Block']]],
-  ['call',['Call',['../class_c_y_b_1_1_platform_1_1_modules_1_1_auto_module.html#a1c8cb650a015641c8ad721587c5e3f47',1,'CYB::Platform::Modules::AutoModule::Call()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_sys.html#a33da5ae33a618d9de48ebebc9fd7502d',1,'CYB::Platform::System::Sys::Call()']]],
+  ['call',['Call',['../class_c_y_b_1_1_platform_1_1_modules_1_1_auto_module.html#a1c8cb650a015641c8ad721587c5e3f47',1,'CYB::Platform::Modules::AutoModule::Call()'],['../class_c_y_b_1_1_platform_1_1_modules_1_1_manager.html#a68fda1e0198788c3c9df883a0c69cf69',1,'CYB::Platform::Modules::Manager::Call()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_sys.html#a33da5ae33a618d9de48ebebc9fd7502d',1,'CYB::Platform::System::Sys::Call()']]],
   ['callnumber',['CallNumber',['../class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_sys.html#adee313938272faab552175507b7e2074',1,'CYB::Platform::System::Implementation::Sys']]],
   ['callredirected',['CallRedirected',['../class_c_y_b_1_1_platform_1_1_system_1_1_sys.html#ab3b1cf4c3338eb2d96480d0828cbf3b5',1,'CYB::Platform::System::Sys']]],
   ['cancel',['Cancel',['../class_c_y_b_1_1_platform_1_1_system_1_1_thread.html#a085c9e320ce856e4b89d8e268073b962',1,'CYB::Platform::System::Thread']]],

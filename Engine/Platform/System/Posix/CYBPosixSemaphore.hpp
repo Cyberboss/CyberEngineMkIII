@@ -1,4 +1,4 @@
-//! @file CYBWin32File.hpp Defines the Win32 implementation for CYB::Platform::System::File
+//! @file CYBPosixSemaphore.hpp Defines the Win32 implementation for CYB::Platform::System::File
 #pragma once
 namespace CYB {
 	namespace Platform {

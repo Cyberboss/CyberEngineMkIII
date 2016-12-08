@@ -421,9 +421,6 @@
     <ClInclude Include="API\Interop\STLAllocator.hpp">
       <Filter>API\Interop</Filter>
     </ClInclude>
-    <ClInclude Include="API\Types\Containers.hpp">
-      <Filter>API\Types</Filter>
-    </ClInclude>
     <ClInclude Include="Platform\System\Win32\CYBWin32Path.hpp">
       <Filter>Platform\System\Win32</Filter>
     </ClInclude>
@@ -468,6 +465,12 @@
     </ClInclude>
     <ClInclude Include="Platform\System\Posix\CYBPosixSemaphore.hpp">
       <Filter>Platform\System\Posix</Filter>
+    </ClInclude>
+    <ClInclude Include="API\ExtendedTypes\FunctionWrapper.hpp">
+      <Filter>API\ExtendedTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\Containers.hpp">
+      <Filter>API\Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -551,6 +554,9 @@
     </None>
     <None Include="Platform\Modules\CYBModuleManager.inl">
       <Filter>Platform\Modules</Filter>
+    </None>
+    <None Include="API\ExtendedTypes\FunctionWrapper.inl">
+      <Filter>API\ExtendedTypes</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

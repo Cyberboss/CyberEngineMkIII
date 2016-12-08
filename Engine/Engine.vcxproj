@@ -123,6 +123,7 @@
     <ClCompile Include="Platform\System\CYBFile.cpp" />
     <ClCompile Include="Platform\System\CYBPath.cpp" />
     <ClCompile Include="Platform\System\CYBProcess.cpp" />
+    <ClCompile Include="Platform\System\CYBSemaphore.cpp" />
     <ClCompile Include="Platform\System\CYBThread.cpp" />
     <ClCompile Include="Platform\System\CYBVirtualMemory.cpp" />
     <ClCompile Include="Platform\System\Linux\CYBLinuxPath.cpp">
@@ -251,6 +252,7 @@
     <ClInclude Include="Platform\System\CYBMutex.hpp" />
     <ClInclude Include="Platform\System\CYBPath.hpp" />
     <ClInclude Include="Platform\System\CYBProcess.hpp" />
+    <ClInclude Include="Platform\System\CYBSemaphore.hpp" />
     <ClInclude Include="Platform\System\CYBSyscalls.hpp" />
     <ClInclude Include="Platform\System\CYBSystem.hpp" />
     <ClInclude Include="Platform\System\CYBThread.hpp" />

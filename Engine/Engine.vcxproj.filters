@@ -107,6 +107,12 @@
     <ClCompile Include="Engine\Core\CYBInterop.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Platform\System\Win32\CYBWin32File.cpp">
+      <Filter>Platform\System\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\System\Posix\CYBPosixFile.cpp">
+      <Filter>Platform\System\Posix</Filter>
+    </ClCompile>
     <ClCompile Include="Platform\System\CYBSemaphore.cpp">
       <Filter>Platform\System</Filter>
     </ClCompile>
@@ -439,6 +445,12 @@
     <ClInclude Include="Engine\Core\CYBInterop.hpp">
       <Filter>Engine\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Platform\System\Win32\CYBWin32File.hpp">
+      <Filter>Platform\System\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\System\Posix\CYBPosixFile.hpp">
+      <Filter>Platform\System\Posix</Filter>
+    </ClInclude>
     <ClInclude Include="API\Allocatables\Semaphore.hpp">
       <Filter>API\Allocatables</Filter>
     </ClInclude>
@@ -525,10 +537,16 @@
     <None Include="API\Interop\Context.inl">
       <Filter>API\Interop</Filter>
     </None>
+    <None Include="Platform\Modules\CYBModuleManager.inl">
+      <Filter>Platform\Modules</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DoxyPages\DoxygenLayout.xml">
       <Filter>DoxyPages</Filter>
     </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="CyberEngineMkIII.natvis" />
   </ItemGroup>
 </Project>

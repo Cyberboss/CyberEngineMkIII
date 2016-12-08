@@ -6,7 +6,7 @@ void CYB::Platform::System::Process::Terminate(void) {
 	if (FPID == static_cast<pid_t>(Sys::Call(Sys::GET_CURRENT_PROCESS))) 
 		Sys::Call(Sys::EXIT_PROC);
 	else {
-		if (Core().FModuleManager.FC.Call<Modules::LibC::kill>(FPID, SIGKILL) == -1)
+		if (Core().FModuleManager.Call<Modules::LibC::kill>(FPID, SIGKILL) == -1)
 			throw Exception::Internal(Exception::Internal::PROCESS_TERMINATION_ERROR);
 		Wait();
 	}
@@ -42,7 +42,7 @@ pid_t CYB::Platform::System::Implementation::Process::SpawnProcess(const System:
 	}
 
 	pid_t PID;
-	const auto Result(CYB::Core().FModuleManager.FC.Call<CYB::Platform::Modules::LibC::posix_spawn>(&PID, APath().CString(), nullptr, nullptr, HasArguments ? const_cast<char**>(&Argv[0]) : nullptr, environ));
+	const auto Result(CYB::Core().FModuleManager.Call<CYB::Platform::Modules::LibC::posix_spawn>(&PID, APath().CString(), nullptr, nullptr, HasArguments ? const_cast<char**>(&Argv[0]) : nullptr, environ));
 
 	if (Result != 0)
 		HandleSpawnError();
@@ -53,11 +53,11 @@ pid_t CYB::Platform::System::Implementation::Process::SpawnProcess(const System:
 CYB::Platform::System::Process::~Process() {
 	//try to reap
 	int ExitCode;
-	Core().FModuleManager.FC.Call<Modules::LibC::waitpid>(FPID, &ExitCode, WNOHANG);
+	Core().FModuleManager.Call<Modules::LibC::waitpid>(FPID, &ExitCode, WNOHANG);
 }
 
 bool CYB::Platform::System::Process::Active(void) const noexcept {
-	return Core().FModuleManager.FC.Call<Modules::LibC::kill>(FPID, 0) == 0 
+	return Core().FModuleManager.Call<Modules::LibC::kill>(FPID, 0) == 0 
 		|| errno == EPERM;
 }
 
@@ -70,10 +70,10 @@ bool CYB::Platform::System::Process::Wait(const unsigned int AMilliseconds) {
 		const auto WaitForever(AMilliseconds == 0);
 		pid_t Result(0);
 		if (WaitForever)
-			Result = Core().FModuleManager.FC.Call<Modules::LibC::waitpid>(FPID, &FExitCode, 0);
+			Result = Core().FModuleManager.Call<Modules::LibC::waitpid>(FPID, &FExitCode, 0);
 		else
 			for (auto I(0U); I < AMilliseconds && Result == 0; Thread::Sleep(1), ++I)
-				Result = Core().FModuleManager.FC.Call<Modules::LibC::waitpid>(FPID, &FExitCode, WNOHANG);
+				Result = Core().FModuleManager.Call<Modules::LibC::waitpid>(FPID, &FExitCode, WNOHANG);
 
 		if (Result == -1)
 			throw Exception::Internal(Exception::Internal::PROCESS_EXIT_CODE_UNCHECKABLE);

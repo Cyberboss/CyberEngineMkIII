@@ -14,9 +14,9 @@ REDIRECTED_FUNCTION(BadMProtect, void* const, const unsigned long long, const in
 }
 
 SCENARIO("Heap Alloc works", "[Engine][Memory][Heap][Functional]") {
-	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::PThread> PThread;
 	GIVEN("A basic heap") {
 		Heap TestHeap(5);
 		WHEN("A sane allocation is made") {
@@ -72,9 +72,9 @@ SCENARIO("Heap Alloc works", "[Engine][Memory][Heap][Functional]") {
 }
 
 SCENARIO("Heap walk works", "[Engine][Memory][Heap][Unit]") {
-	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::PThread> PThread;
 	GIVEN("A basic heap and allocation") {
 		Heap TestHeap(10000);
 		TestHeap.Alloc(50);
@@ -89,9 +89,9 @@ SCENARIO("Heap walk works", "[Engine][Memory][Heap][Unit]") {
 }
 
 SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
-	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::PThread> PThread;
 	GIVEN("A basic heap") {
 		Heap TestHeap(10000);
 		GIVEN("A nullptr start") {
@@ -188,9 +188,9 @@ SCENARIO("Heap Realloc works", "[Engine][Memory][Heap][Functional]") {
 }
 
 SCENARIO("Heap Free works", "[Engine][Memory][Heap][Functional]") {
-	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::PThread> PThread;
 	GIVEN("A basic heap") {
 		Heap TestHeap(10000);
 		WHEN("nullptr is freed") {
@@ -215,9 +215,9 @@ SCENARIO("Heap Free works", "[Engine][Memory][Heap][Functional]") {
 }
 
 SCENARIO("Heap seeded random stress test", "[Engine][Memory][Heap][Functional][Stress][Slow]") {
-	ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMPThread> PThread(CYB::Core().FModuleManager.FPThread);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::PThread> PThread;
 	GIVEN("A basic heap and rng seed") {
 		Heap TestHeap(1000);
 		std::mt19937 RNG(3);

@@ -33,8 +33,8 @@ static unsigned long long FakeLoadSym(Fake::SysCalls::Args& AArgs) {
 SCENARIO("Core engine dry run", "[Engine][Core][Behavioural]") {
 	GIVEN("A clean execution environment (With a redirected termination call of course)") {
 		FFakeProcExitRan = false;
-		ModuleDependancy<CYB::API::Platform::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-		ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+		ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+		ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
 		Fake::Core::NullifySingleton();
 		SysCallOverride Exit(
 #ifdef TARGET_OS_WINDOWS

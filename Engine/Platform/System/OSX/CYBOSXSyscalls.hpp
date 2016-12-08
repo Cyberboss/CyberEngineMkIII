@@ -17,6 +17,7 @@ namespace CYB {
 						CLOSE_LIBRARY = -4,	//!< @brief dlclose
 						GET_CURRENT_PROCESS = -5,	//!< @brief getpid
 						LSTAT = -6,	//!< @brief lstat
+						FSTAT = -7, //!< @brief fstat
 					};
 				};
 			};

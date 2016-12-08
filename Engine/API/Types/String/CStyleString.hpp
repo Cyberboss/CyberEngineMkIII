@@ -34,7 +34,7 @@ namespace CYB {
 				*/
 				const char* CString(void) const noexcept;
 				/*!
-					@brief Get the number of characters in the contained string
+					@brief Get the number of characters in the contained string. The definition of character may change in derived types
 					@return The number of characters in the contained CString
 					@par Thread Safety
 						This function requires synchronization at the object level

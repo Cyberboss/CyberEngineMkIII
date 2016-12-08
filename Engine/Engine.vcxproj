@@ -150,6 +150,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Platform\System\Posix\CYBPosixFile.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Platform\System\Posix\CYBPosixMutex.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -174,6 +178,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Platform\System\Win32\CYBWin32File.cpp" />
     <ClCompile Include="Platform\System\Win32\CYBWin32Mutex.cpp" />
     <ClCompile Include="Platform\System\Win32\CYBWin32Path.cpp" />
     <ClCompile Include="Platform\System\Win32\CYBWin32Process.cpp" />
@@ -261,12 +266,14 @@
     <ClInclude Include="Platform\System\Linux\CYBLinuxSyscalls.hpp" />
     <ClInclude Include="Platform\System\OSX\CYBOSXSystemImplementation.hpp" />
     <ClInclude Include="Platform\System\OSX\CYBOSXSyscalls.hpp" />
+    <ClInclude Include="Platform\System\Posix\CYBPosixFile.hpp" />
     <ClInclude Include="Platform\System\Posix\CYBPosixPath.hpp" />
     <ClInclude Include="Platform\System\Posix\CYBPosixSystemImplementation.hpp" />
     <ClInclude Include="Platform\System\Posix\CYBPosixMutex.hpp" />
     <ClInclude Include="Platform\System\Posix\CYBPosixProcess.hpp" />
     <ClInclude Include="Platform\System\Posix\CYBPosixThread.hpp" />
     <ClInclude Include="Platform\System\Posix\CYBPosixVirtualMemory.hpp" />
+    <ClInclude Include="Platform\System\Win32\CYBWin32File.hpp" />
     <ClInclude Include="Platform\System\Win32\CYBWin32Path.hpp" />
     <ClInclude Include="Platform\System\Win32\CYBWin32SystemImplementation.hpp" />
     <ClInclude Include="Platform\System\Win32\CYBWin32Mutex.hpp" />
@@ -304,10 +311,14 @@
     <ClCompile Include="Platform\SystemHeaders\CYBUTF16String.cpp">
       <FileType>Document</FileType>
     </ClCompile>
+    <None Include="Platform\Modules\CYBModuleManager.inl" />
     <None Include="Platform\System\CYBSyscalls.inl" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DoxyPages\DoxygenLayout.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="CyberEngineMkIII.natvis" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

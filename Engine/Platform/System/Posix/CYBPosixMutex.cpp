@@ -8,23 +8,23 @@ CYB::Platform::System::Implementation::Mutex::Mutex() :
 {}
 
 CYB::Platform::System::Mutex::Mutex() {
-	if (Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_init>(&FMutex, nullptr) != 0)
+	if (Core().FModuleManager.Call<Modules::PThread::pthread_mutex_init>(&FMutex, nullptr) != 0)
 		throw CYB::Exception::SystemData(CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);
 }
 
 CYB::Platform::System::Mutex::~Mutex() {
-	const auto Result(Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_destroy>(&FMutex));
+	const auto Result(Core().FModuleManager.Call<Modules::PThread::pthread_mutex_destroy>(&FMutex));
 	API::Assert::Equal(Result, 0);
 }
 
 void CYB::Platform::System::Mutex::Lock(void) noexcept {
-	Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_lock>(&FMutex);
+	Core().FModuleManager.Call<Modules::PThread::pthread_mutex_lock>(&FMutex);
 }
 
 bool CYB::Platform::System::Mutex::TryLock(void) noexcept {
-	return Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_trylock>(&FMutex) == 0;
+	return Core().FModuleManager.Call<Modules::PThread::pthread_mutex_trylock>(&FMutex) == 0;
 }
 
 void CYB::Platform::System::Mutex::Unlock(void) noexcept {
-	Core().FModuleManager.FPThread.Call<Modules::PThread::pthread_mutex_unlock>(&FMutex);
+	Core().FModuleManager.Call<Modules::PThread::pthread_mutex_unlock>(&FMutex);
 }

@@ -1,13 +1,12 @@
 #pragma once
 
-template <class AAutoModule, typename ACallable, class AIndexClass> void* CallRedirectBase<AAutoModule, ACallable, AIndexClass>::FOldFunction(nullptr);
+template <class AAutoModule, typename ACallable, class AIndexClass> std::stack<void*> CallRedirectBase<AAutoModule, ACallable, AIndexClass>::FOldFunctions;
 
 template <class AAutoModule, typename ACallable, class AIndexClass> CallRedirectBase<AAutoModule, ACallable, AIndexClass>::CallRedirectBase(AAutoModule& AReference, ACallable* const ANewFunction) :
 	FReference(AReference),
 	FMoved(false)
 {
-	CYB::API::Assert::Equal<decltype(FOldFunction)>(FOldFunction, nullptr);
-	FOldFunction = ReassignAutoModuleFunctionPointer<AAutoModule>(FReference, AIndexClass::Index, reinterpret_cast<void*>(ANewFunction));
+	FOldFunctions.emplace(ReassignAutoModuleFunctionPointer<AAutoModule>(FReference, AIndexClass::Index, reinterpret_cast<void*>(ANewFunction)));
 }
 
 template <class AAutoModule, typename ACallable, class AIndexClass> CallRedirectBase<AAutoModule, ACallable, AIndexClass>::CallRedirectBase(CallRedirectBase&& AMove) :
@@ -18,23 +17,23 @@ template <class AAutoModule, typename ACallable, class AIndexClass> CallRedirect
 
 template <class AAutoModule, typename ACallable, class AIndexClass> CallRedirectBase<AAutoModule, ACallable, AIndexClass>::~CallRedirectBase() {
 	if (!FMoved) {
-		ReassignAutoModuleFunctionPointer<AAutoModule>(FReference , AIndexClass::Index, FOldFunction);
-		FOldFunction = nullptr;
+		ReassignAutoModuleFunctionPointer<AAutoModule>(FReference , AIndexClass::Index, FOldFunctions.top());
+		FOldFunctions.pop();
 		FMoved = true;
 	}
 }
 
 template <class AAutoModule, typename ACallable, class AIndexClass> template<typename... AArgs> auto CallRedirectBase<AAutoModule, ACallable, AIndexClass>::CallOriginal(AArgs&&... AArguments) {
 	static_assert(std::is_function<ACallable>::value, "Call must refer to a function");
-	auto Callable(reinterpret_cast<ACallable*>(FOldFunction));
+	auto Callable(reinterpret_cast<ACallable*>(FOldFunctions.top()));
 	return Callable(std::forward<AArgs>(AArguments)...);
 }
 
-template <class AIndexClass> class CallRedirect<CYB::Platform::Modules::AMFake, AIndexClass> {
+template <class AIndexClass, unsigned int AFakeIndex> class CallRedirect<CYB::Platform::Modules::AMFake<AFakeIndex>, AIndexClass> {
 public:
 	typedef void FCallable;
 public:
-	CallRedirect(CYB::Platform::Modules::AMFake& AReference, FCallable* const ANewFunction) {
+	CallRedirect(CYB::Platform::Modules::AMFake<AFakeIndex>& AReference, FCallable* const ANewFunction) {
 		static_cast<void>(AReference);
 		static_cast<void>(ANewFunction);
 	}

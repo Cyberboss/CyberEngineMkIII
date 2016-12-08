@@ -162,6 +162,9 @@
     </ClCompile>
     <None Include="Utils\ModuleDependancy.inl" />
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\Engine\CyberEngineMkIII.natvis" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -2,7 +2,7 @@
 
 template <class AAutoModule, typename ACallable, class AIndexClass> class CallRedirectBase {
 public:
-	static void* FOldFunction;
+	static std::stack<void*> FOldFunctions;
 private:
 	AAutoModule& FReference;
 	bool FMoved;

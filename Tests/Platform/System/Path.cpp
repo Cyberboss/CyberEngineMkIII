@@ -3,15 +3,15 @@
 using namespace CYB::Platform::System;
 using namespace CYB::API::String;
 
-static void Touch(const Path& APath);
+//Note that a lot of these tests depend on File::Touch working
 
 SCENARIO("Path move constructor works", "[Platform][System][Path][Unit]") {
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::Shell> Shell;
+	ModuleDependancy<CYB::Platform::Modules::Ole32> OLE;
+	ModuleDependancy<CYB::Platform::Modules::ShellAPI> ShellAPI;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::DyLD> DyLD;
 	GIVEN("A Path") {
 		Path Test(Path::SystemPath::TEMPORARY);
 		WHEN("It is moved") {
@@ -24,12 +24,12 @@ SCENARIO("Path move constructor works", "[Platform][System][Path][Unit]") {
 }
 
 SCENARIO("Paths can be deleted", "[Platform][System][Path][Unit]") {
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::Shell> Shell;
+	ModuleDependancy<CYB::Platform::Modules::Ole32> OLE;
+	ModuleDependancy<CYB::Platform::Modules::ShellAPI> ShellAPI;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::DyLD> DyLD;
 
 	REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
 	GIVEN("Some existing items") {
@@ -37,14 +37,14 @@ SCENARIO("Paths can be deleted", "[Platform][System][Path][Unit]") {
 			Path Setup(Path::SystemPath::TEMPORARY);
 			REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"RecursivePath/Recurse/Recurse")), true, true));
 			REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"SomeFile")), false, false));
-			Touch(Setup);
+			File::Touch(std::move(Setup));
 		}
 		REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Append(UTF8(Static(u8"TestPath")), true, false));
 		{
 			Path Setup(Path::SystemPath::TEMPORARY);
 			REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"TestPath2")), true, false));
 			REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"SomeFile")), false, false));
-			Touch(Setup);
+			File::Touch(std::move(Setup));
 		}
 		WHEN("An empty folder is deleted non-recursively") {
 			Path Test(Path::SystemPath::TEMPORARY);
@@ -108,12 +108,12 @@ SCENARIO("Paths can be deleted", "[Platform][System][Path][Unit]") {
 }
 
 SCENARIO("Path Append works", "[Platform][System][Path][Unit]") {
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::Shell> Shell;
+	ModuleDependancy<CYB::Platform::Modules::Ole32> OLE;
+	ModuleDependancy<CYB::Platform::Modules::ShellAPI> ShellAPI;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::DyLD> DyLD;
 
 	REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
 	REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Append(UTF8(Static(u8"ExistingPath/Recurse/Recurse")), true, true));
@@ -178,12 +178,12 @@ SCENARIO("Path Append works", "[Platform][System][Path][Unit]") {
 }
 
 SCENARIO("Path ByteLength works", "[Platform][System][Path][Unit]") {
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::Shell> Shell;
+	ModuleDependancy<CYB::Platform::Modules::Ole32> OLE;
+	ModuleDependancy<CYB::Platform::Modules::ShellAPI> ShellAPI;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::DyLD> DyLD;
 	Path TestPath(Path::SystemPath::TEMPORARY);
 	CHECK(TestPath().RawLength() == TestPath.ByteLength());
 }
@@ -194,19 +194,19 @@ SCENARIO("Path Directory Seperator works", "[Platform][System][Path][Unit]") {
 
 SCENARIO("Path file type identification works", "[Platform][System][Path][Unit]") {
 
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::Shell> Shell;
+	ModuleDependancy<CYB::Platform::Modules::Ole32> OLE;
+	ModuleDependancy<CYB::Platform::Modules::ShellAPI> ShellAPI;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::DyLD> DyLD;
 
 	GIVEN("Some setup files") {
 		REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
 		Path Setup1(Path::SystemPath::TEMPORARY), Setup2(Setup1), Setup3(Setup1);
 		REQUIRE_NOTHROW(Setup1.Append(UTF8(Static(u8"TestDir")), true, false));
 		REQUIRE_NOTHROW(Setup2.Append(UTF8(Static(u8"TestFile")), false, false));
-		Touch(Setup2);
+		File::Touch(Path(Setup2));
 		REQUIRE_NOTHROW(Setup3.Append(UTF8(Static(u8"FakeFile")), false, false));
 
 		WHEN("A file is asked if it is a file") {
@@ -259,19 +259,19 @@ SCENARIO("Path file type identification works", "[Platform][System][Path][Unit]"
 }
 
 SCENARIO("Path file name parsing works", "[Platform][System][Path][Unit]") {
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::Shell> Shell;
+	ModuleDependancy<CYB::Platform::Modules::Ole32> OLE;
+	ModuleDependancy<CYB::Platform::Modules::ShellAPI> ShellAPI;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::DyLD> DyLD;
 	GIVEN("Some variously named files"){
 		REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
 		Path Setup1(Path::SystemPath::TEMPORARY), Setup2(Setup1), Setup3(Setup1), Setup4(Setup1);
-		Setup1.Append(UTF8(Static(u8"TestFile1")), true, false);
+		Setup1.Append(UTF8(Static(u8"TestFile1")), false , false);
 		Setup2.Append(UTF8(Static(u8"Te.st.File2")), false, false);
-		Touch(Setup1);
-		Touch(Setup2);
+		File::Touch(Path(Setup1));
+		File::Touch(Path(Setup2));
 		WHEN("A file without an extension is checked") {
 			auto& Subject(Setup1);
 			UTF8 Result1, Result2, Result3;
@@ -302,12 +302,12 @@ SCENARIO("Path file name parsing works", "[Platform][System][Path][Unit]") {
 
 SCENARIO("Path ascending works", "[Platform][System][Path][Unit]") {
 
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::Shell> Shell;
+	ModuleDependancy<CYB::Platform::Modules::Ole32> OLE;
+	ModuleDependancy<CYB::Platform::Modules::ShellAPI> ShellAPI;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::DyLD> DyLD;
 
 	REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
 
@@ -343,24 +343,24 @@ SCENARIO("Path ascending works", "[Platform][System][Path][Unit]") {
 }
 
 SCENARIO("Path directory enumeration works", "[Platform][System][Path][Unit]") {
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::Shell> Shell;
+	ModuleDependancy<CYB::Platform::Modules::Ole32> OLE;
+	ModuleDependancy<CYB::Platform::Modules::ShellAPI> ShellAPI;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::DyLD> DyLD;
 	REQUIRE_NOTHROW(Path(Path::SystemPath::TEMPORARY).Delete(true));
 	GIVEN("A path with some entries") {
 		Path TestPath(Path::SystemPath::TEMPORARY), File(TestPath), Folder(TestPath), FolderWithFiles(TestPath);
 		REQUIRE_NOTHROW(File.Append(UTF8(Static(u8"SomeFile")), false, false));
-		Touch(File);
+		File::Touch(std::move(File));
 		REQUIRE_NOTHROW(Folder.Append(UTF8(Static(u8"SomeFolder")), true, false));
 		REQUIRE_NOTHROW(FolderWithFiles.Append(UTF8(Static(u8"SomeFolderWithFiles")), true, false));
 		Path FolderWithFiles2(FolderWithFiles);
 		REQUIRE_NOTHROW(FolderWithFiles2.Append(UTF8(Static(u8"SomeOtherFile")), false, false));
 		REQUIRE_NOTHROW(FolderWithFiles.Append(UTF8(Static(u8"SomeFile")), false, false));
-		Touch(FolderWithFiles);
-		Touch(FolderWithFiles2);
+		File::Touch(std::move(FolderWithFiles));
+		File::Touch(std::move(FolderWithFiles2));
 		WHEN("The path's contents are enumerated") {
 			auto FoundCount(0U);
 			const auto Lambda([&]() {
@@ -408,17 +408,17 @@ template <class ARedirector> class GoodSetFileAttributes;
 template <class ARedirector> class BadPathRemoveFileSpec;
 template <class ARedirector> class BadPathFindName;
 template <class ARedirector> class BadFindFirstFile;
-template <class ARedirector> class BadGetFileAttributes;
+template <class ARedirector> class BadGetFileAttributesEx;
 template <class ARedirector> class BadOpenDir;
 unsigned long long FakeStat(Fake::SysCalls::Args&);
 
 SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::Shell> Shell;
+	ModuleDependancy<CYB::Platform::Modules::Ole32> OLE;
+	ModuleDependancy<CYB::Platform::Modules::ShellAPI> ShellAPI;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::DyLD> DyLD;
 	{
 		Path Setup(Path::SystemPath::TEMPORARY);
 		REQUIRE_NOTHROW(Setup.Delete(true));
@@ -453,7 +453,7 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 	GIVEN("A valid file") {
 		Path Setup(Path::SystemPath::TEMPORARY);
 		REQUIRE_NOTHROW(Setup.Append(UTF8(Static(u8"TestFile.avg")), false, false));
-		Touch(Setup);
+		File::Touch(Path(Setup));
 		WHEN("The deletion functions are messed with") {
 			const auto BDF(K32.Redirect<CYB::Platform::Modules::Kernel32::DeleteFileW, BadDeleteFile>());
 			const auto BUL(LibC.Redirect<CYB::Platform::Modules::LibC::unlink, BadUnlink>());
@@ -524,13 +524,21 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 		REQUIRE_NOTHROW(TestPath.Append(UTF8(Static(u8"gettingtiredoftypingthisshit")), false, false));
 #ifdef TARGET_OS_WINDOWS
 		WHEN("We fail a directory check with no error") {
-			const auto BGFA(K32.Redirect<CYB::Platform::Modules::Kernel32::GetFileAttributesW, BadGetFileAttributes>());
+			const auto BGFA(K32.Redirect<CYB::Platform::Modules::Kernel32::GetFileAttributesExW, BadGetFileAttributesEx>());
 			const auto Thing(OverrideError(K32, 0));
+			REQUIRE_THROWS_AS(TestPath.IsDirectory(), CYB::Exception::SystemData);
+			THEN("The correct error is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::PATH_LOST);
+			}
+		}
+		WHEN("We fail a directory check with access denied") {
+			const auto BGFA(K32.Redirect<CYB::Platform::Modules::Kernel32::GetFileAttributesExW, BadGetFileAttributesEx>());
+			const auto Thing(OverrideError(K32, ERROR_ACCESS_DENIED));
 			REQUIRE_THROWS_AS(TestPath.IsDirectory(), CYB::Exception::SystemData);
 			THEN("The correct error is thrown") {
 				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
 			}
-		}
+	}
 #else
 		CHECK(true);
 #endif
@@ -598,29 +606,10 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 	catch (...) {}
 }
 
-
-
-
-
-
-static void Touch(const Path& APath) {
 #ifdef TARGET_OS_WINDOWS
+REDIRECTED_FUNCTION(BadGetFileAttributesEx, const void* const, const CYB::Platform::Win32::GET_FILEEX_INFO_LEVELS, const void* const) {
 	using namespace CYB::Platform::Win32;
-	const Path Myself(Path::SystemPath::EXECUTABLE_IMAGE);
-	UTF16 Version(Myself()), OtherVersion(APath());
-	CopyFileW(Version.WString(), OtherVersion.WString(), FALSE);
-#else
-	using namespace CYB::Platform::Posix;
-	auto Command(UTF8(Static(u8"touch ")) + APath());
-
-	system(Command.CString());
-#endif
-}
-
-#ifdef TARGET_OS_WINDOWS
-REDIRECTED_FUNCTION(BadGetFileAttributes, const void* const) {
-	using namespace CYB::Platform::Win32;
-	return INVALID_FILE_ATTRIBUTES;
+	return 0;
 }
 #endif
 
@@ -645,12 +634,12 @@ REDIRECTED_FUNCTION(GoodCreateDirectory, const void* const, const void* const) {
 	return 1;
 }
 SCENARIO("Paths can be created by the system", "[Platform][System][Path][Unit]") {
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMOle32> OLE(CYB::Core().FModuleManager.FOLE);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::Shell> Shell;
+	ModuleDependancy<CYB::Platform::Modules::Ole32> OLE;
+	ModuleDependancy<CYB::Platform::Modules::ShellAPI> ShellAPI;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::DyLD> DyLD;
 	GIVEN("That paths can be constructed with a system directory") {
 		Path* TestPath(nullptr);
 		WHEN("The executable directory is retrieved") {
@@ -696,8 +685,8 @@ SCENARIO("Paths can be created by the system", "[Platform][System][Path][Unit]")
 }
 
 SCENARIO("Path string retrieval operator works", "[Platform][System][Path][Unit]") {
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
 	GIVEN("A test Path") {
 		const Path TestPath(Path::SystemPath::TEMPORARY);
 		WHEN("The string is retrieved") {
@@ -816,11 +805,11 @@ REDIRECTED_FUNCTION(BadOpenDir, const void* const) {
 }
 
 SCENARIO("Path errors work", "[Platform][System][Path][Unit]") {
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMKernel32> K32(CYB::Core().FModuleManager.FK32);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShellAPI> ShellAPI(CYB::Core().FModuleManager.FShellAPI);
-	ModuleDependancy<CYB::API::Platform::Identifier::WINDOWS, CYB::Platform::Modules::AMShell> Shell(CYB::Core().FModuleManager.FShell);
-	ModuleDependancy<CYB::API::Platform::POSIX, CYB::Platform::Modules::AMLibC> LibC(CYB::Core().FModuleManager.FC);
-	ModuleDependancy<CYB::API::Platform::OSX, CYB::Platform::Modules::AMDyLD> DyLD(CYB::Core().FModuleManager.FDyLD);
+	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
+	ModuleDependancy<CYB::Platform::Modules::ShellAPI> ShellAPI;
+	ModuleDependancy<CYB::Platform::Modules::Shell> Shell;
+	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::DyLD> DyLD;
 	GIVEN("Faulty system path retrival") {
 		{
 			const auto BRL(LibC.Redirect<CYB::Platform::Modules::LibC::readlink, BadReadLink>());

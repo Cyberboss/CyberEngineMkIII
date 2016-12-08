@@ -2,20 +2,20 @@
 #include "CYB.hpp"
 
 char* CYB::API::String::UTF16::SetupData(const UTF8& AUTF8, unsigned long long& ALengthReference) {
-	const auto BufferSize(Core().FModuleManager.FK32.Call<CYB::Platform::Modules::Kernel32::MultiByteToWideChar>(CYB::Platform::Win32::UINT(CP_UTF8), CYB::Platform::Win32::DWORD(0), AUTF8.CString(), -1, nullptr, 0));
+	const auto BufferSize(Core().FModuleManager.Call<CYB::Platform::Modules::Kernel32::MultiByteToWideChar>(CYB::Platform::Win32::UINT(CP_UTF8), CYB::Platform::Win32::DWORD(0), AUTF8.CString(), -1, nullptr, 0));
 	ALengthReference = BufferSize * sizeof(wchar_t);
 	Assert::LessThan<unsigned long long>(ALengthReference, static_cast<unsigned long long>(std::numeric_limits<int>::max()));
 	auto NewData(static_cast<wchar_t*>(Context().FAllocator.FHeap.Alloc(static_cast<int>(ALengthReference))));
-	if (CYB::Core().FModuleManager.FK32.Call<CYB::Platform::Modules::Kernel32::MultiByteToWideChar>(CYB::Platform::Win32::UINT(CP_UTF8), CYB::Platform::Win32::DWORD(0), AUTF8.CString(), -1, NewData, BufferSize) == 0) {
+	if (CYB::Core().FModuleManager.Call<CYB::Platform::Modules::Kernel32::MultiByteToWideChar>(CYB::Platform::Win32::UINT(CP_UTF8), CYB::Platform::Win32::DWORD(0), AUTF8.CString(), -1, NewData, BufferSize) == 0) {
 		Context().FAllocator.FHeap.Free(NewData);
 		throw Exception::SystemData(Exception::SystemData::STRING_VALIDATION_FAILURE);
 	}
 	return reinterpret_cast<char*>(NewData);
 }
 CYB::API::String::UTF8 CYB::API::String::UTF16::ToUTF8(const wchar_t* AWString) {
-	const auto BufferSize(CYB::Core().FModuleManager.FK32.Call<CYB::Platform::Modules::Kernel32::WideCharToMultiByte>(CYB::Platform::Win32::UINT(CP_UTF8), CYB::Platform::Win32::DWORD(0), AWString, -1, nullptr, 0, nullptr, nullptr));
+	const auto BufferSize(CYB::Core().FModuleManager.Call<CYB::Platform::Modules::Kernel32::WideCharToMultiByte>(CYB::Platform::Win32::UINT(CP_UTF8), CYB::Platform::Win32::DWORD(0), AWString, -1, nullptr, 0, nullptr, nullptr));
 	auto NewData(static_cast<char*>(Context().FAllocator.FHeap.Alloc(BufferSize)));
-	if (Core().FModuleManager.FK32.Call<CYB::Platform::Modules::Kernel32::WideCharToMultiByte>(CYB::Platform::Win32::UINT(CP_UTF8), CYB::Platform::Win32::DWORD(0), AWString, -1, NewData, BufferSize, nullptr, nullptr) == 0)
+	if (Core().FModuleManager.Call<CYB::Platform::Modules::Kernel32::WideCharToMultiByte>(CYB::Platform::Win32::UINT(CP_UTF8), CYB::Platform::Win32::DWORD(0), AWString, -1, NewData, BufferSize, nullptr, nullptr) == 0)
 		throw Exception::SystemData(Exception::SystemData::STRING_VALIDATION_FAILURE);
 	return UTF8(FromData(NewData));
 }

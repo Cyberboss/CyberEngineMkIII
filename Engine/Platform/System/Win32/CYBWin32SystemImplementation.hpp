@@ -6,5 +6,6 @@
 #include "CYBWin32Process.hpp"
 #include "CYBWin32VirtualMemory.hpp"
 #include "CYBWin32Mutex.hpp"
+#include "CYBWin32Semaphore.hpp"
 #include "CYBWin32Path.hpp"
 #include "CYBWin32File.hpp"

@@ -116,6 +116,12 @@
     <ClCompile Include="Platform\System\CYBSemaphore.cpp">
       <Filter>Platform\System</Filter>
     </ClCompile>
+    <ClCompile Include="Platform\System\Win32\CYBWin32Semaphore.cpp">
+      <Filter>Platform\System\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\System\Posix\CYBPosixSemaphore.cpp">
+      <Filter>Platform\System\Posix</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -456,6 +462,12 @@
     </ClInclude>
     <ClInclude Include="Platform\System\CYBSemaphore.hpp">
       <Filter>Platform\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\System\Win32\CYBWin32Semaphore.hpp">
+      <Filter>Platform\System\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\System\Posix\CYBPosixSemaphore.hpp">
+      <Filter>Platform\System\Posix</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

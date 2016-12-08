@@ -3,7 +3,7 @@ namespace CYB {
 	namespace Platform {
 		namespace System {
 			//! @brief A reliable wait queue
-			class Semaphore : public API::Semaphore {
+			class Semaphore : private Implementation::Semaphore, public API::Semaphore {
 			public:
 				/*!
 					@brief Construct a Semaphore
@@ -13,6 +13,7 @@ namespace CYB {
 				Semaphore();
 				//! @copydoc CYB::API::Semaphore::~Semaphore()
 				~Semaphore();
+
 				//! @copydoc CYB::API::Semaphore::SignalN()
 				void SignalN(const unsigned long long AN) noexcept final override;
 				//! @copydoc CYB::API::Semaphore::SignalAll()

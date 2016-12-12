@@ -2,3 +2,5 @@
 #pragma once
 
 #include "LockGuard.hpp"
+
+#include "ECS/ECS.hpp"

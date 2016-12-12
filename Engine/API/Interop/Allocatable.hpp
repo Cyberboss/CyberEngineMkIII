@@ -12,6 +12,7 @@ namespace CYB {
 					File,	//!< @brief CYB::API::File
 					Mutex,	//!< @brief CYB::API::Mutex
 					Path,	//!< @brief CYB::API::Path
+					World,	//!< @brief CYB::API::ECS::World
 				};
 			public:
 				/*!
@@ -31,5 +32,9 @@ namespace CYB {
 //! @def Used for tagging classes that are allocatables
 #define CYB_SET_ALLOCATABLE_ID(AClass)\
 template<> constexpr CYB::API::Interop::Allocatable::ID CYB::API::Interop::Allocatable::GetID<CYB::API::AClass>(void) {\
+	return ID::AClass;\
+}
+#define CYB_SET_ALLOCATABLE_ID_EX(ANamespace, AClass)\
+template<> constexpr CYB::API::Interop::Allocatable::ID CYB::API::Interop::Allocatable::GetID<CYB::API::ANamespace::AClass>(void) {\
 	return ID::AClass;\
 }

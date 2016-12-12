@@ -1,14 +1,6 @@
 //! @file CYBFile.cpp Implements CYB::Platform::System::Semaphore shared functions
 #include "CYB.hpp"
 
-CYB::Platform::System::Semaphore::Semaphore() {
-	UNIMPLEMENTED;
-}
-
-CYB::Platform::System::Semaphore::~Semaphore() {
-	UNIMPLEMENTED;
-}
-
 void CYB::Platform::System::Semaphore::SignalAll(void) noexcept {
 	UNIMPLEMENTED;
 }

@@ -10,8 +10,12 @@ namespace CYB {
 					pthread_mutex_t FMutex;	//!< @brief The mutex
 					pthread_cond_t FCondVar;	//!< @brief The condition variable
 				protected:
-					//! @brief See @ref structors
-					Semaphore() noexcept = default;
+					/*!
+						@brief Sets the initializer values for the pthread structures
+						@par Thread Safety
+							This function requires no thread safety
+					*/
+					Semaphore() noexcept;
 				};
 			};
 		};

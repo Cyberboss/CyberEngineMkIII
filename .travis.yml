@@ -19,7 +19,6 @@ addons:
     - llvm-toolchain-precise-3.7
     packages:
     - clang-3.7
-    - doxygen-1.8.12
     - graphviz
 env:
   global:
@@ -34,6 +33,14 @@ env:
 
 install:
 - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo ln -s /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/llvm-cov /usr/local/bin/llvm-cov; fi
+- wget https://github.com/doxygen/doxygen/archive/Release_1_8_12.tar.gz
+- gunzip Release_1_8_12.tar.gz
+- tar -xvf Release_1_8_12.tar
+- cd Release_1_8_12
+- mkdir build
+- cd build
+- cmake -G "Unix Makefiles" ..
+- make install
 
 script: 
 - BuildScripts/Travis/Travis.sh

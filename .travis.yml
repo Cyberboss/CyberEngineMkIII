@@ -19,7 +19,7 @@ addons:
     - llvm-toolchain-precise-3.7
     packages:
     - clang-3.7
-    - doxygen
+    - doxygen-1.8.12
     - graphviz
 env:
   global:

@@ -20,7 +20,7 @@ DEFINE_WINDOWS_MODULE(Kernel32, u8"kernel32", Win32, false, true,
 	WaitForSingleObject, Sleep, SwitchToThread, GetSystemInfo, GetLastError,
 	CloseHandle,
 	InitializeCriticalSection, DeleteCriticalSection, EnterCriticalSection, TryEnterCriticalSection, LeaveCriticalSection,
-	InitializeConditionVariable,
+	InitializeConditionVariable, WakeConditionVariable, WakeAllConditionVariable, SleepConditionVariableCS,
 	VirtualAlloc, VirtualFree, VirtualProtect, VirtualQuery, GetProcessId,
 	MultiByteToWideChar, WideCharToMultiByte,
 	CreateProcessW, GetExitCodeProcess,
@@ -45,7 +45,7 @@ DEFINE_POSIX_MODULE(LibC, LIBC_SO, Posix, false, false,
 DEFINE_POSIX_MODULE(PThread, LIBPTHREAD_SO, Posix, false, false,
 	pthread_mutex_init, pthread_mutex_destroy, pthread_mutex_lock, pthread_mutex_trylock, pthread_mutex_unlock,
 	pthread_create, pthread_join,
-	pthread_cond_init, pthread_cond_destroy)
+	pthread_cond_init, pthread_cond_destroy, pthread_cond_wait, pthread_cond_signal, pthread_cond_broadcast)
 DEFINE_LINUX_MODULE(RT, LIBRT_SO, Posix, false, false, sched_yield)
 DEFINE_OSX_MODULE(System, u8"libSystem", Posix, false, true, sched_yield)
 DEFINE_OSX_MODULE(DyLD, u8"/usr/lib/system/libdyld", Posix, false, true, _NSGetExecutablePath)

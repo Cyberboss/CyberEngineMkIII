@@ -12,3 +12,23 @@ CYB::Platform::System::Semaphore::~Semaphore(){
 	//See https://stackoverflow.com/questions/28975958/why-does-windows-have-no-deleteconditionvariable-function-to-go-together-with
 	Core().FModuleManager.Call<Modules::Kernel32::DeleteCriticalSection>(&FCritSection);
 }
+
+void CYB::Platform::System::Semaphore::Lock(void) noexcept {
+	Core().FModuleManager.Call<Modules::Kernel32::EnterCriticalSection>(&FCritSection);
+}
+
+void CYB::Platform::System::Semaphore::Unlock(void) noexcept {
+	Core().FModuleManager.Call<Modules::Kernel32::LeaveCriticalSection>(&FCritSection);
+}
+
+void CYB::Platform::System::Semaphore::EnterCV(void) noexcept {
+	API::Assert::LessThan(0, Core().FModuleManager.Call<Modules::Kernel32::SleepConditionVariableCS>(&FCondVar, &FCritSection, INFINITE));
+}
+
+void CYB::Platform::System::Semaphore::WakeOne(void) noexcept {
+	Core().FModuleManager.Call<Modules::Kernel32::WakeConditionVariable>(&FCondVar);
+}
+
+void CYB::Platform::System::Implementation::Semaphore::WakeAll(void) noexcept {
+	Core().FModuleManager.Call<Modules::Kernel32::WakeAllConditionVariable>(&FCondVar);
+}

@@ -16,6 +16,13 @@ namespace CYB {
 							This function requires no thread safety
 					*/
 					Semaphore() noexcept;
+
+					/*!
+						@brief Wake all threads waiting on the condition variable
+						@par Thread Safety
+							This function requires the mutex to be locked
+					*/
+					void WakeAll(void) noexcept;
 				};
 			};
 		};

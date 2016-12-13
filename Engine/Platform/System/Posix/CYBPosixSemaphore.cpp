@@ -9,6 +9,9 @@ CYB::Platform::System::Implementation::Semaphore::Semaphore() :
 {}
 
 CYB::Platform::System::Semaphore::Semaphore() {
+	API::Assert::True(FServiceCount.is_lock_free());
+	API::Assert::True(FSleepCount.is_lock_free());
+	API::Assert::True(FWakeCount.is_lock_free());
 	if (Core().FModuleManager.Call<Modules::PThread::pthread_mutex_init>(&FMutex, nullptr) != 0)
 		throw CYB::Exception::SystemData(CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);
 	if (Core().FModuleManager.Call<Modules::PThread::pthread_cond_init>(&FCondVar, nullptr) != 0)
@@ -20,4 +23,30 @@ CYB::Platform::System::Semaphore::~Semaphore() {
 	API::Assert::Equal(Result1, 0);
 	const auto Result2(Core().FModuleManager.Call<Modules::PThread::pthread_mutex_destroy>(&FMutex));
 	API::Assert::Equal(Result2, 0);
+}
+
+void CYB::Platform::System::Semaphore::Lock(void) noexcept {
+	Core().FModuleManager.Call<Modules::PThread::pthread_mutex_lock>(&FMutex);
+}
+
+void CYB::Platform::System::Semaphore::Unlock(void) noexcept {
+	Core().FModuleManager.Call<Modules::PThread::pthread_mutex_unlock>(&FMutex);
+}
+
+void CYB::Platform::System::Semaphore::EnterCV(void) noexcept {
+	Core().FModuleManager.Call<Modules::PThread::pthread_cond_wait>(&FCondVar, &FMutex);
+}
+
+//POSIX is weird in that it needs the lock in order to signal
+
+void CYB::Platform::System::Semaphore::WakeOne(void) noexcept {
+	Lock();
+	Core().FModuleManager.Call<Modules::PThread::pthread_cond_signal>(&FCondVar);
+	Unlock();
+}
+
+//This is tightly coupled with SignalAll in that it expects the Mutex to be locked
+
+void CYB::Platform::System::Implementation::Semaphore::WakeAll(void) noexcept {
+	Core().FModuleManager.Call<Modules::PThread::pthread_cond_broadcast>(&FCondVar);
 }

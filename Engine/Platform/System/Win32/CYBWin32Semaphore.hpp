@@ -12,6 +12,13 @@ namespace CYB {
 				protected:
 					//! @brief See @ref structors
 					Semaphore() noexcept = default;
+
+					/*!
+						@brief Wake all threads waiting on the condition variable
+						@par Thread Safety
+							This function requires no thread safety
+					*/
+					void WakeAll(void) noexcept;
 				};
 			};
 		};

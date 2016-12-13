@@ -26,15 +26,7 @@ namespace CYB {
 				@par Thread Safety
 					This function requires no thread safety
 			*/
-			virtual void Wait(void) const noexcept = 0;
-			/*!
-				@brief Wait at most @p AMilliseconds for a signal from this semaphore. Will be placed last into the queue
-				@param AMilliseconds The maximum number of milliseconds to wait
-				@return true if the wait was stopped by a signal, false if the time elapsed
-				@par Thread Safety
-					This function requires no thread safety
-			*/
-			virtual bool WaitN(const unsigned int AMilliseconds) const noexcept = 0;
+			virtual void Wait(void) noexcept = 0;
 		};
 	};
 };

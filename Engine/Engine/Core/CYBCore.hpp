@@ -86,6 +86,9 @@ namespace CYB {
 		};
 	};
 
-	//! @copydoc CYB::Engine::Core::GetCore
+	/*! 
+		@copydoc CYB::Engine::Core::GetCore
+		@hidecallergraph
+	*/
 	Engine::Core& Core(void) noexcept;
 };

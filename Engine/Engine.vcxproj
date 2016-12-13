@@ -209,7 +209,6 @@
     <ClInclude Include="API\Declarations\STL.hpp" />
     <ClInclude Include="API\Declarations\SystemChecks.hpp" />
     <ClInclude Include="API\ExtendedTypes\ExtendedTypes.hpp" />
-    <ClInclude Include="API\ExtendedTypes\FunctionWrapper.hpp" />
     <ClInclude Include="API\ExtendedTypes\LockGuard.hpp" />
     <ClInclude Include="API\Interfaces\Heap.hpp" />
     <ClInclude Include="API\Interfaces\Interfaces.hpp" />
@@ -295,7 +294,6 @@
     <None Include="API\Declarations\Endianess.inl" />
     <None Include="API\Declarations\Expressions.inl" />
     <None Include="API\Declarations\OSDeclaration.inl" />
-    <None Include="API\ExtendedTypes\FunctionWrapper.inl" />
     <None Include="API\ExtendedTypes\LockGuard.inl" />
     <None Include="API\Interop\Context.inl" />
     <None Include="API\Interop\Allocatable.inl" />

@@ -86,9 +86,12 @@ namespace CYB {
 		};
 	};
 
-	/*! 
-		@copydoc CYB::Engine::Core::GetCore
+	/*!
 		@hidecallergraph
+		@brief Retrieve the Core singleton
+		@return A reference to the Core singleton
+		@par Thread Safety
+			This function requires no thread safety
 	*/
 	Engine::Core& Core(void) noexcept;
 };

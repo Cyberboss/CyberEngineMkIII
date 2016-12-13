@@ -41,6 +41,7 @@ install:
 - cd build
 - cmake -G "Unix Makefiles" ..
 - sudo make install
+- cd ../..
 
 script: 
 - BuildScripts/Travis/Travis.sh

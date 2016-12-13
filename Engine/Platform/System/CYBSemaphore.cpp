@@ -23,7 +23,7 @@ void CYB::Platform::System::Semaphore::Wait(void) noexcept {
 	API::Assert::NotEqual(FServiceCount, 0ULL);
 
 	bool NotFirst(false);
-	while (FWakeCount < FServiceCount) {
+	while (FWakeCount < WaitingFor) {
 		if (NotFirst)
 			WakeOne();
 

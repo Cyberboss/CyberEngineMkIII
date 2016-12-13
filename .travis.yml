@@ -36,7 +36,7 @@ install:
 - wget https://github.com/doxygen/doxygen/archive/Release_1_8_12.tar.gz
 - gunzip Release_1_8_12.tar.gz
 - tar -xvf Release_1_8_12.tar
-- cd Release_1_8_12
+- cd doxygen-Release_1_8_12
 - mkdir build
 - cd build
 - cmake -G "Unix Makefiles" ..

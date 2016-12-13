@@ -3,15 +3,12 @@
 
 using namespace CYB::Platform::Posix;
 
-CYB::Platform::System::Implementation::Semaphore::Semaphore() :
+CYB::Platform::System::Implementation::Semaphore::Semaphore() noexcept :
 	FMutex(PTHREAD_MUTEX_INITIALIZER),
 	FCondVar(PTHREAD_COND_INITIALIZER)
 {}
 
 CYB::Platform::System::Semaphore::Semaphore() {
-	API::Assert::True(FServiceCount.is_lock_free());
-	API::Assert::True(FSleepCount.is_lock_free());
-	API::Assert::True(FWakeCount.is_lock_free());
 	if (Core().FModuleManager.Call<Modules::PThread::pthread_mutex_init>(&FMutex, nullptr) != 0)
 		throw CYB::Exception::SystemData(CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);
 	if (Core().FModuleManager.Call<Modules::PThread::pthread_cond_init>(&FCondVar, nullptr) != 0)

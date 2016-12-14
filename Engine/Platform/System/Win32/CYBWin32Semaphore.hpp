@@ -19,6 +19,13 @@ namespace CYB {
 							This function requires no thread safety
 					*/
 					void WakeAll(void) noexcept;
+
+					/*!
+						@brief Wake one thread waiting on the condition variable
+						@par Thread Safety
+							This function requires no thread safety
+					*/
+					void WakeOne(void) noexcept;
 				};
 			};
 		};

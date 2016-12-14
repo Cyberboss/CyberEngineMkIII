@@ -9,9 +9,11 @@ void CYB::Platform::System::Semaphore::SignalAll(void) noexcept {
 }
 
 void CYB::Platform::System::Semaphore::SignalN(const unsigned long long AN) noexcept {
+	Lock();
 	FWakeCount += AN;
 	for (auto I(0ULL); I < AN; ++I)
 		WakeOne();
+	Unlock();
 }
 
 void CYB::Platform::System::Semaphore::Wait(void) noexcept {
@@ -39,7 +41,7 @@ void CYB::Platform::System::Semaphore::Wait(void) noexcept {
 	if (FSleepCount == 0) {
 		//take this opportunity to reset the counters
 		//overflow will never happen in a million years, but it would be BAD
-		FServiceCount = 0;
+		FServiceCount = 1;
 		FWakeCount = 0;
 		std::atomic_thread_fence(std::memory_order_release);
 	}

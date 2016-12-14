@@ -23,6 +23,13 @@ namespace CYB {
 							This function requires the mutex to be locked
 					*/
 					void WakeAll(void) noexcept;
+
+					/*!
+						@brief Wake one thread waiting on the condition variable
+						@par Thread Safety
+							This function requires the mutex to be locked
+					*/
+					void WakeOne(void) noexcept;
 				};
 			};
 		};

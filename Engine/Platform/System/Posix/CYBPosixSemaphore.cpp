@@ -8,7 +8,11 @@ CYB::Platform::System::Implementation::Semaphore::Semaphore() noexcept :
 	FCondVar(PTHREAD_COND_INITIALIZER)
 {}
 
-CYB::Platform::System::Semaphore::Semaphore() {
+CYB::Platform::System::Semaphore::Semaphore() :
+	FServiceCount(1),
+	FWakeCount(0),
+	FSleepCount(0)
+{
 	if (Core().FModuleManager.Call<Modules::PThread::pthread_mutex_init>(&FMutex, nullptr) != 0)
 		throw CYB::Exception::SystemData(CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE);
 	if (Core().FModuleManager.Call<Modules::PThread::pthread_cond_init>(&FCondVar, nullptr) != 0)
@@ -35,15 +39,12 @@ void CYB::Platform::System::Semaphore::EnterCV(void) noexcept {
 }
 
 //POSIX is weird in that it needs the lock in order to signal
-
-void CYB::Platform::System::Semaphore::WakeOne(void) noexcept {
-	Lock();
-	Core().FModuleManager.Call<Modules::PThread::pthread_cond_signal>(&FCondVar);
-	Unlock();
-}
-
-//This is tightly coupled with SignalAll in that it expects the Mutex to be locked
+//Be aware
 
 void CYB::Platform::System::Implementation::Semaphore::WakeAll(void) noexcept {
 	Core().FModuleManager.Call<Modules::PThread::pthread_cond_broadcast>(&FCondVar);
+}
+
+void CYB::Platform::System::Implementation::Semaphore::WakeOne(void) noexcept {
+	Core().FModuleManager.Call<Modules::PThread::pthread_cond_signal>(&FCondVar);
 }

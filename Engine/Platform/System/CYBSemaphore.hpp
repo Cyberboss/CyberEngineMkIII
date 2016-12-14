@@ -28,13 +28,6 @@ namespace CYB {
 						This function requires the current thread to hold a lock on the mutex
 				*/
 				void EnterCV(void) noexcept;
-
-				/*!
-					@brief Wake one thread waiting on the condition variable
-					@par Thread Safety
-						This function requires no thread safety
-				*/
-				void WakeOne(void) noexcept;
 			public:
 				/*!
 					@brief Construct a Semaphore

@@ -3,7 +3,11 @@
 
 using namespace CYB::Platform::Win32;
 
-CYB::Platform::System::Semaphore::Semaphore() {
+CYB::Platform::System::Semaphore::Semaphore() :
+	FServiceCount(1),
+	FWakeCount(0),
+	FSleepCount(0) 
+{
 	Core().FModuleManager.Call<Modules::Kernel32::InitializeCriticalSection>(&FCritSection);
 	Core().FModuleManager.Call<Modules::Kernel32::InitializeConditionVariable>(&FCondVar);
 }
@@ -25,10 +29,10 @@ void CYB::Platform::System::Semaphore::EnterCV(void) noexcept {
 	API::Assert::LessThan(0, Core().FModuleManager.Call<Modules::Kernel32::SleepConditionVariableCS>(&FCondVar, &FCritSection, INFINITE));
 }
 
-void CYB::Platform::System::Semaphore::WakeOne(void) noexcept {
-	Core().FModuleManager.Call<Modules::Kernel32::WakeConditionVariable>(&FCondVar);
-}
-
 void CYB::Platform::System::Implementation::Semaphore::WakeAll(void) noexcept {
 	Core().FModuleManager.Call<Modules::Kernel32::WakeAllConditionVariable>(&FCondVar);
+}
+
+void CYB::Platform::System::Implementation::Semaphore::WakeOne(void) noexcept {
+	Core().FModuleManager.Call<Modules::Kernel32::WakeConditionVariable>(&FCondVar);
 }

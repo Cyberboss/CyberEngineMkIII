@@ -1,4 +1,4 @@
-//! @file CYBThread.hpp Contains the platform memory manager functions
+//! @file CYBVirtualMemory.hpp Contains the platform memory manager functions
 #pragma once
 
 namespace CYB {

@@ -1,4 +1,4 @@
-//! @file CYBBlock.hpp Defines the LargeBlock class used by the Heap
+//! @file CYBLargeBlock.hpp Defines the LargeBlock class used by the Heap
 #pragma once
 namespace CYB {
 	namespace Engine {

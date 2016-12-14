@@ -40,6 +40,7 @@ namespace CYB {
 					@brief Construct a Semaphore
 					@par Thread Safety
 						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE Thrown if the internal mutex could not be initialized
 				*/
 				Semaphore();
 				//! @copydoc CYB::API::Semaphore::~Semaphore()

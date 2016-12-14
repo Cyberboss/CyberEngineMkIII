@@ -4,7 +4,11 @@ namespace CYB {
 		//! @brief A reliable wait queue
 		class Semaphore : public Interop::Allocatable {
 		public:
-			using Constructor = Interop::EmptyConstructor;	//!< @brief See @ref interstructors
+			/*!
+				@brief See @ref interstructors
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE Thrown if the internal mutex could not be initialized
+			*/
+			using Constructor = Interop::EmptyConstructor;
 		public:
 			//! @brief Destroy a Semaphore. Semaphore must have no waiters
 			virtual ~Semaphore() = default;

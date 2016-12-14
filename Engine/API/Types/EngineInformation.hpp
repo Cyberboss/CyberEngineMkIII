@@ -1,3 +1,4 @@
+//! @brief EngineInformation.hpp Defines the CYB::API::EngineInformation class
 #pragma once
 namespace CYB {
 	namespace API {

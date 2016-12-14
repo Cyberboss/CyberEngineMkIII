@@ -181,6 +181,9 @@
     <Filter Include="Engine\Core">
       <UniqueIdentifier>{7d357251-032e-4d44-8752-b9dd099ec944}</UniqueIdentifier>
     </Filter>
+    <Filter Include="API\ExtendedTypes\ECS">
+      <UniqueIdentifier>{1e81c00f-f368-452c-9905-b4f45ddbbf70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CYB.hpp" />
@@ -448,6 +451,9 @@
     <ClInclude Include="Platform\System\Posix\CYBPosixFile.hpp">
       <Filter>Platform\System\Posix</Filter>
     </ClInclude>
+    <ClInclude Include="API\ExtendedTypes\ECS\ECS.hpp">
+      <Filter>API\ExtendedTypes\ECS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DoxyPages\Contexts.dox">
@@ -530,6 +536,9 @@
     </None>
     <None Include="Platform\Modules\CYBModuleManager.inl">
       <Filter>Platform\Modules</Filter>
+    </None>
+    <None Include="API\ExtendedTypes\ECS\ECS.inl">
+      <Filter>API\ExtendedTypes\ECS</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

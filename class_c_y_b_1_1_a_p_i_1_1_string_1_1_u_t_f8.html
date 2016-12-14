@@ -149,20 +149,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a90304cbc701c7542f27c245d8f3d77fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends to a <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html" title="Used for string of allocated variable length. ">Dynamic</a> string in place.  <a href="#a90304cbc701c7542f27c245d8f3d77fd">More...</a><br/></td></tr>
 <tr class="separator:a90304cbc701c7542f27c245d8f3d77fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac027237fc329a973f96a8910876fd3e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html">UTF8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html#ac027237fc329a973f96a8910876fd3e7">SubString</a> (const int AIndex, const int ALength) const </td></tr>
-<tr class="memdesc:ac027237fc329a973f96a8910876fd3e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a substring of the contained string. This version must be used with <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html" title="A variable length UTF-8 string. ">UTF8</a> strings  <a href="#ac027237fc329a973f96a8910876fd3e7">More...</a><br/></td></tr>
+<tr class="memdesc:ac027237fc329a973f96a8910876fd3e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a substring of the contained string. This version will not segment inside of multibyte characters  <a href="#ac027237fc329a973f96a8910876fd3e7">More...</a><br/></td></tr>
 <tr class="separator:ac027237fc329a973f96a8910876fd3e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fc80c9d72cd9016abb062b197ebbe86"><td class="memTemplParams" colspan="2">template&lt;typename ALambda &gt; </td></tr>
 <tr class="memitem:a8fc80c9d72cd9016abb062b197ebbe86"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html#a8fc80c9d72cd9016abb062b197ebbe86">IterateCodepoints</a> (const ALambda AIterator, const bool AReverse) const noexcept(noexcept(AIterator(0U, 0)))</td></tr>
 <tr class="memdesc:a8fc80c9d72cd9016abb062b197ebbe86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterate over the code points.  <a href="#a8fc80c9d72cd9016abb062b197ebbe86">More...</a><br/></td></tr>
 <tr class="separator:a8fc80c9d72cd9016abb062b197ebbe86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2bb8cc07aff3e04383e216eab779eef"><td class="memItemLeft" align="right" valign="top">const char &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html#aa2bb8cc07aff3e04383e216eab779eef">operator[]</a> (const int APosition) const noexcept</td></tr>
-<tr class="memdesc:aa2bb8cc07aff3e04383e216eab779eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the char at index <code>APosition</code>.  <a href="#aa2bb8cc07aff3e04383e216eab779eef">More...</a><br/></td></tr>
+<tr class="memdesc:aa2bb8cc07aff3e04383e216eab779eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the char at index <code>APosition</code>. This may be a reference to a multibyte char.  <a href="#aa2bb8cc07aff3e04383e216eab779eef">More...</a><br/></td></tr>
 <tr class="separator:aa2bb8cc07aff3e04383e216eab779eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acbbca26d9a010dcd93171ce9008e7445"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html#acbbca26d9a010dcd93171ce9008e7445">Shrink</a> (const int AMaxChars) noexceptfinaloverride</td></tr>
-<tr class="memdesc:acbbca26d9a010dcd93171ce9008e7445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the null terminator of the string so that the readable length is <code>AMaxChars</code>.  <a href="#acbbca26d9a010dcd93171ce9008e7445">More...</a><br/></td></tr>
+<tr class="memdesc:acbbca26d9a010dcd93171ce9008e7445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the null terminator of the string so that the maxumum number of remaining characters is <code>AMaxChars</code>.  <a href="#acbbca26d9a010dcd93171ce9008e7445">More...</a><br/></td></tr>
 <tr class="separator:acbbca26d9a010dcd93171ce9008e7445"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a966838c0f913ac101fb7840ff0de1d6b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html#a966838c0f913ac101fb7840ff0de1d6b">Length</a> (void) const noexceptfinaloverride</td></tr>
-<tr class="memdesc:a966838c0f913ac101fb7840ff0de1d6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of characters in the contained string.  <a href="#a966838c0f913ac101fb7840ff0de1d6b">More...</a><br/></td></tr>
+<tr class="memdesc:a966838c0f913ac101fb7840ff0de1d6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of characters in the contained string. The definition of character may change in derived types.  <a href="#a966838c0f913ac101fb7840ff0de1d6b">More...</a><br/></td></tr>
 <tr class="separator:a966838c0f913ac101fb7840ff0de1d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html">CYB::API::String::Dynamic</a></td></tr>
 <tr class="memitem:aa6bc04067aecf66247b7b993a279c89d inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html#aa6bc04067aecf66247b7b993a279c89d">Dynamic</a> () noexcept</td></tr>
@@ -438,6 +438,7 @@ template&lt;typename ALambda &gt; </div>
 </div><div class="memdoc">
 
 <p>Iterate over the code points. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Implement </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">AIterator</td><td>The function called on each codepoint. Takes an unsigned integer denoting the code point and an integer denoting the character index. Returns a bool indicating whether or not to continue the loop </td></tr>
@@ -477,7 +478,7 @@ template&lt;typename ALambda &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the number of characters in the contained string. </p>
+<p>Get the number of characters in the contained string. The definition of character may change in derived types. </p>
 <dl class="section return"><dt>Returns</dt><dd>The number of characters in the contained CString </dd></dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires synchronization at the object level </dd></dl>
 
@@ -571,14 +572,14 @@ template&lt;typename ALambda &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the char at index <code>APosition</code>. </p>
+<p>Get the char at index <code>APosition</code>. This may be a reference to a multibyte char. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">APosition</td><td>The index of character to look up </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A const reference to the character at that index </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A const reference to the character at that index. This may be a reference to a multibyte char </dd></dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires synchronization at the object level </dd></dl>
 
 </div>
@@ -605,10 +606,10 @@ template&lt;typename ALambda &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Move the null terminator of the string so that the readable length is <code>AMaxChars</code>. </p>
+<p>Move the null terminator of the string so that the maxumum number of remaining characters is <code>AMaxChars</code>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">AMaxChars</td><td>The maximum index of the new null terminator </td></tr>
+    <tr><td class="paramname">AMaxChars</td><td>The maximum character index of the new null terminator </td></tr>
   </table>
   </dd>
 </dl>
@@ -642,7 +643,7 @@ template&lt;typename ALambda &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Get a substring of the contained string. This version must be used with <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html" title="A variable length UTF-8 string. ">UTF8</a> strings </p>
+<p>Get a substring of the contained string. This version will not segment inside of multibyte characters </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">AIndex</td><td>the starting index. Must be less than Length </td></tr>
@@ -654,7 +655,7 @@ template&lt;typename ALambda &gt; </div>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires synchronization at the object level </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa93eaaf592450d4b08d4088b4b3bba0bc" title="A heap has no block large enough for a requested allocation and expansion failed. ...">CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE</a>. Thrown if the current heap runs out of memory This version must be used with <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html" title="A variable length UTF-8 string. ">UTF8</a> strings </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa93eaaf592450d4b08d4088b4b3bba0bc" title="A heap has no block large enough for a requested allocation and expansion failed. ...">CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE</a>. Thrown if the current heap runs out of memory This version will not segment inside of multibyte characters </td></tr>
   </table>
   </dd>
 </dl>

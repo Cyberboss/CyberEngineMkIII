@@ -35,7 +35,7 @@
 <area shape="rect" id="node32" href="$_file_8hpp.html" title="Defines the API for files. " alt="" coords="3211,275,3279,301"/>
 <area shape="rect" id="node43" href="$_lock_guard_8hpp.html" title="Defines the LockGuard class. " alt="" coords="5255,275,5365,301"/>
 <area shape="rect" id="node45" href="$_c_y_b_system_headers_8hpp.html" title="Includes files which include Platform specific headers. " alt="" coords="5452,177,5719,204"/>
-<area shape="rect" id="node46" href="$_c_y_b_system_8hpp_source.html" title="System/CYBSystem.hpp" alt="" coords="5743,177,5912,204"/>
+<area shape="rect" id="node46" href="$_c_y_b_system_8hpp.html" title="Includes platform system headers. " alt="" coords="5743,177,5912,204"/>
 <area shape="rect" id="node47" href="$_c_y_b_modules_8hpp.html" title="Includes Module headers. " alt="" coords="5937,177,6113,204"/>
 <area shape="rect" id="node49" href="$_c_y_b_memory_8hpp.html" title="Contains all headers relating to memory. " alt="" coords="6139,177,6312,204"/>
 <area shape="rect" id="node50" href="$_c_y_b_core_8hpp.html" title="Defines the engine core interface and static pointer as well as the Engine() access function..." alt="" coords="6337,177,6471,204"/>

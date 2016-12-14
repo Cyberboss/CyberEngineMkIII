@@ -92,6 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="class_c_y_b_1_1_platform_1_1_system_1_1_file-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">CYB::Platform::System::File Class Reference</div>  </div>
@@ -107,54 +108,64 @@ Inheritance diagram for CYB::Platform::System::File:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_c_y_b_1_1_platform_1_1_system_1_1_file__inherit__graph.png" border="0" usemap="#_c_y_b_1_1_platform_1_1_system_1_1_file_inherit__map" alt="Inheritance graph"/></div>
 <map name="_c_y_b_1_1_platform_1_1_system_1_1_file_inherit__map" id="_c_y_b_1_1_platform_1_1_system_1_1_file_inherit__map">
-<area shape="rect" id="node2" href="class_c_y_b_1_1_a_p_i_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="29,96,139,123"/><area shape="rect" id="node3" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html" title="Defines the base class for allocatable engine objects. " alt="" coords="16,6,151,47"/></map>
+<area shape="rect" id="node2" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html" title="The file handle manager. " alt="" coords="4,97,163,138"/><area shape="rect" id="node3" href="class_c_y_b_1_1_a_p_i_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="188,104,297,131"/><area shape="rect" id="node4" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html" title="Defines the base class for allocatable engine objects. " alt="" coords="175,6,309,47"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for CYB::Platform::System::File:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_c_y_b_1_1_platform_1_1_system_1_1_file__coll__graph.png" border="0" usemap="#_c_y_b_1_1_platform_1_1_system_1_1_file_coll__map" alt="Collaboration graph"/></div>
 <map name="_c_y_b_1_1_platform_1_1_system_1_1_file_coll__map" id="_c_y_b_1_1_platform_1_1_system_1_1_file_coll__map">
-<area shape="rect" id="node2" href="class_c_y_b_1_1_a_p_i_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="1027,5,1136,32"/><area shape="rect" id="node3" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html" title="Defines the base class for allocatable engine objects. " alt="" coords="479,6,615,47"/><area shape="rect" id="node9" href="class_c_y_b_1_1_a_p_i_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no&#45;op. " alt="" coords="865,47,980,73"/><area shape="rect" id="node4" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no&#45;op. " alt="" coords="1160,83,1320,125"/><area shape="rect" id="node5" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html" title="Adds a UTF16 accompaniment to the UTF8 string of System::Path. " alt="" coords="843,98,1003,139"/><area shape="rect" id="node6" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html" title="UTF&#45;16 String enabled only under windows. " alt="" coords="461,111,632,137"/><area shape="rect" id="node7" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html" title="Used for string of allocated variable length. " alt="" coords="227,147,410,173"/><area shape="rect" id="node10" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html" title="A variable length UTF&#45;8 string. " alt="" coords="656,165,819,192"/><area shape="rect" id="node8" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html" title="A basic char contained string. " alt="" coords="5,147,176,173"/></map>
+<area shape="rect" id="node2" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html" title="The file handle manager. " alt="" coords="1160,5,1320,46"/><area shape="rect" id="node3" href="class_c_y_b_1_1_a_p_i_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="1027,61,1136,88"/><area shape="rect" id="node4" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html" title="Defines the base class for allocatable engine objects. " alt="" coords="479,62,615,103"/><area shape="rect" id="node10" href="class_c_y_b_1_1_a_p_i_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no&#45;op. " alt="" coords="865,103,980,129"/><area shape="rect" id="node5" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no&#45;op. " alt="" coords="1160,139,1320,181"/><area shape="rect" id="node6" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html" title="Adds a UTF16 accompaniment to the UTF8 string of System::Path. " alt="" coords="843,154,1003,195"/><area shape="rect" id="node7" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html" title="UTF&#45;16 String enabled only under windows. " alt="" coords="461,167,632,193"/><area shape="rect" id="node8" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html" title="Used for string of allocated variable length. " alt="" coords="227,203,410,229"/><area shape="rect" id="node11" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html" title="A variable length UTF&#45;8 string. " alt="" coords="656,221,819,248"/><area shape="rect" id="node9" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html" title="A basic char contained string. " alt="" coords="5,203,176,229"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afc3e040dde6a3e5a1c93eeebd558adc9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#afc3e040dde6a3e5a1c93eeebd558adc9">File</a> (const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_path.html">API::Path</a> &amp;APath, const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a66c4a384d44ae9f26745fdf65f116da7">Mode</a> AMode, const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a1ce1f232706ae0dc8ef209dd3ad079a8">Method</a> AMethod)</td></tr>
+<tr class="memitem:afc3e040dde6a3e5a1c93eeebd558adc9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#afc3e040dde6a3e5a1c93eeebd558adc9">File</a> (const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_path.html">API::Path</a> &amp;APath, const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1">Mode</a> AMode, const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82">Method</a> AMethod)</td></tr>
 <tr class="memdesc:afc3e040dde6a3e5a1c93eeebd558adc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a file for access.  <a href="#afc3e040dde6a3e5a1c93eeebd558adc9">More...</a><br/></td></tr>
 <tr class="separator:afc3e040dde6a3e5a1c93eeebd558adc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a541fa24ccd9177e3b7708f2382b7ff60"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a541fa24ccd9177e3b7708f2382b7ff60">File</a> (<a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html">System::Path</a> &amp;&amp;APath, const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a66c4a384d44ae9f26745fdf65f116da7">Mode</a> AMode, const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a1ce1f232706ae0dc8ef209dd3ad079a8">Method</a> AMethod)</td></tr>
-<tr class="memdesc:a541fa24ccd9177e3b7708f2382b7ff60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a file for access.  <a href="#a541fa24ccd9177e3b7708f2382b7ff60">More...</a><br/></td></tr>
-<tr class="separator:a541fa24ccd9177e3b7708f2382b7ff60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38c35deb540c1afea2a60d47bb49c10d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a38c35deb540c1afea2a60d47bb49c10d">File</a> (<a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html">CYB::Platform::System::Path</a> &amp;&amp;APath, const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1">CYB::API::File::Mode</a> AMode, const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82">CYB::API::File::Method</a> AMethod)</td></tr>
+<tr class="memdesc:a38c35deb540c1afea2a60d47bb49c10d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a file for access.  <a href="#a38c35deb540c1afea2a60d47bb49c10d">More...</a><br/></td></tr>
+<tr class="separator:a38c35deb540c1afea2a60d47bb49c10d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5dd311b95c142f062914c710f35bb26e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5dd311b95c142f062914c710f35bb26e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a5dd311b95c142f062914c710f35bb26e">File</a> (const <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html">File</a> &amp;)=delete</td></tr>
 <tr class="memdesc:a5dd311b95c142f062914c710f35bb26e"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="conventions.html#structors">Default Constructors and Destructor</a>. <br/></td></tr>
 <tr class="separator:a5dd311b95c142f062914c710f35bb26e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a1384eb58977a690c8e7c6fb0d8aba5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4a1384eb58977a690c8e7c6fb0d8aba5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a4a1384eb58977a690c8e7c6fb0d8aba5">File</a> (<a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html">File</a> &amp;&amp;AMove) noexcept</td></tr>
-<tr class="memdesc:a4a1384eb58977a690c8e7c6fb0d8aba5"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="conventions.html#structors">Default Constructors and Destructor</a>. <br/></td></tr>
-<tr class="separator:a4a1384eb58977a690c8e7c6fb0d8aba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f1f85f93e299d218f6a633f65934537"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6f1f85f93e299d218f6a633f65934537"></a>
-<a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html">File</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a6f1f85f93e299d218f6a633f65934537">operator=</a> (<a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html">File</a> &amp;&amp;AMove) noexcept=default</td></tr>
-<tr class="memdesc:a6f1f85f93e299d218f6a633f65934537"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="conventions.html#structors">Default Constructors and Destructor</a>. <br/></td></tr>
-<tr class="separator:a6f1f85f93e299d218f6a633f65934537"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18e566666ddd1ecf932d842a805daeda"><td class="memItemLeft" align="right" valign="top">unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a18e566666ddd1ecf932d842a805daeda">Size</a> (void) const noexceptfinaloverride</td></tr>
-<tr class="memdesc:a18e566666ddd1ecf932d842a805daeda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current size of the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>.  <a href="#a18e566666ddd1ecf932d842a805daeda">More...</a><br/></td></tr>
-<tr class="separator:a18e566666ddd1ecf932d842a805daeda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed8be17eaee81bb4d8fb70e445d73326"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aed8be17eaee81bb4d8fb70e445d73326"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#aed8be17eaee81bb4d8fb70e445d73326">File</a> (<a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html">File</a> &amp;&amp;AMove) noexcept=default</td></tr>
+<tr class="memdesc:aed8be17eaee81bb4d8fb70e445d73326"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="conventions.html#structors">Default Constructors and Destructor</a>. <br/></td></tr>
+<tr class="separator:aed8be17eaee81bb4d8fb70e445d73326"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8ac95ffa5897f3776b015b8ef2b3f74"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad8ac95ffa5897f3776b015b8ef2b3f74"></a>
+<a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html">File</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#ad8ac95ffa5897f3776b015b8ef2b3f74">operator=</a> (<a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html">File</a> &amp;&amp;AMove) noexcept</td></tr>
+<tr class="memdesc:ad8ac95ffa5897f3776b015b8ef2b3f74"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="conventions.html#structors">Default Constructors and Destructor</a>. <br/></td></tr>
+<tr class="separator:ad8ac95ffa5897f3776b015b8ef2b3f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac642c9e474634c52f7aa6bbcadabd0d6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac642c9e474634c52f7aa6bbcadabd0d6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#ac642c9e474634c52f7aa6bbcadabd0d6">~File</a> () finaloverride</td></tr>
+<tr class="memdesc:ac642c9e474634c52f7aa6bbcadabd0d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes a file, saving changes. <br/></td></tr>
+<tr class="separator:ac642c9e474634c52f7aa6bbcadabd0d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5703c80108f6c8e5f7b7ed811a34b89f"><td class="memItemLeft" align="right" valign="top">unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a5703c80108f6c8e5f7b7ed811a34b89f">Size</a> (void) const finaloverride</td></tr>
+<tr class="memdesc:a5703c80108f6c8e5f7b7ed811a34b89f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current size of the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>.  <a href="#a5703c80108f6c8e5f7b7ed811a34b89f">More...</a><br/></td></tr>
+<tr class="separator:a5703c80108f6c8e5f7b7ed811a34b89f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab628d5574a2a2a77dc7bff35aea2f9ff"><td class="memItemLeft" align="right" valign="top">unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#ab628d5574a2a2a77dc7bff35aea2f9ff">CursorPosition</a> (void) const noexceptfinaloverride</td></tr>
-<tr class="memdesc:ab628d5574a2a2a77dc7bff35aea2f9ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current position of the read/write cursor in the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>.  <a href="#ab628d5574a2a2a77dc7bff35aea2f9ff">More...</a><br/></td></tr>
+<tr class="memdesc:ab628d5574a2a2a77dc7bff35aea2f9ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current position of the read/write cursor in the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>. Equivalent of Seek(0, SeekLocation::CURSOR)  <a href="#ab628d5574a2a2a77dc7bff35aea2f9ff">More...</a><br/></td></tr>
 <tr class="separator:ab628d5574a2a2a77dc7bff35aea2f9ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95b19780bfaed65370fc9f40eef93abd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a95b19780bfaed65370fc9f40eef93abd">Seek</a> (const long long AOffset, const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818a">SeekLocation</a> ALocation) const finaloverride</td></tr>
-<tr class="memdesc:a95b19780bfaed65370fc9f40eef93abd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the cursor position in the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>.  <a href="#a95b19780bfaed65370fc9f40eef93abd">More...</a><br/></td></tr>
-<tr class="separator:a95b19780bfaed65370fc9f40eef93abd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a476b641baaace2fe4ec72541ce7d32a0"><td class="memItemLeft" align="right" valign="top">unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a476b641baaace2fe4ec72541ce7d32a0">Read</a> (const void *const ABuffer, const unsigned long long AMaxAmount) const finaloverride</td></tr>
-<tr class="memdesc:a476b641baaace2fe4ec72541ce7d32a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read data from a <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a> at the current cursor position and advance the cursor by that amount.  <a href="#a476b641baaace2fe4ec72541ce7d32a0">More...</a><br/></td></tr>
-<tr class="separator:a476b641baaace2fe4ec72541ce7d32a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d74b675a60cd440506835df07d5a084"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a2d74b675a60cd440506835df07d5a084">Write</a> (void *const ABuffer, const unsigned long long AAmount) finaloverride</td></tr>
-<tr class="memdesc:a2d74b675a60cd440506835df07d5a084"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write data to a <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a> at the current cursor position and advance the cursor by that amount.  <a href="#a2d74b675a60cd440506835df07d5a084">More...</a><br/></td></tr>
-<tr class="separator:a2d74b675a60cd440506835df07d5a084"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0dd895816d4ded74d86f1be640b77fce"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_path.html">API::Path</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a0dd895816d4ded74d86f1be640b77fce">Path</a> (void) const noexceptfinaloverride</td></tr>
-<tr class="memdesc:a0dd895816d4ded74d86f1be640b77fce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no-op. ">Path</a> indicating the current <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>.  <a href="#a0dd895816d4ded74d86f1be640b77fce">More...</a><br/></td></tr>
-<tr class="separator:a0dd895816d4ded74d86f1be640b77fce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27886ba90971690f4af5a85c24779ff7"><td class="memItemLeft" align="right" valign="top">unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a27886ba90971690f4af5a85c24779ff7">Seek</a> (const long long AOffset, const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818a">SeekLocation</a> ALocation) const finaloverride</td></tr>
+<tr class="memdesc:a27886ba90971690f4af5a85c24779ff7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the cursor position in the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>.  <a href="#a27886ba90971690f4af5a85c24779ff7">More...</a><br/></td></tr>
+<tr class="separator:a27886ba90971690f4af5a85c24779ff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36be97af3ce389976af84bcbfefd86c0"><td class="memItemLeft" align="right" valign="top">unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a36be97af3ce389976af84bcbfefd86c0">Read</a> (void *const ABuffer, const unsigned long long AMaxAmount) const finaloverride</td></tr>
+<tr class="memdesc:a36be97af3ce389976af84bcbfefd86c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read data from a <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a> at the current cursor position and advance the cursor by that amount.  <a href="#a36be97af3ce389976af84bcbfefd86c0">More...</a><br/></td></tr>
+<tr class="separator:a36be97af3ce389976af84bcbfefd86c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a199277af47e8245557e3ff23e466f2f4"><td class="memItemLeft" align="right" valign="top">unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a199277af47e8245557e3ff23e466f2f4">Write</a> (const void *const ABuffer, const unsigned long long AAmount) finaloverride</td></tr>
+<tr class="memdesc:a199277af47e8245557e3ff23e466f2f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write data to a <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a> at the current cursor position and advance the cursor by that amount.  <a href="#a199277af47e8245557e3ff23e466f2f4">More...</a><br/></td></tr>
+<tr class="separator:a199277af47e8245557e3ff23e466f2f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a784cc66b6c6a9871fee78a6c0a303530"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_path.html">API::Path</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a784cc66b6c6a9871fee78a6c0a303530">GetPath</a> (void) const noexceptfinaloverride</td></tr>
+<tr class="memdesc:a784cc66b6c6a9871fee78a6c0a303530"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no-op. ">Path</a> indicating the current <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>.  <a href="#a784cc66b6c6a9871fee78a6c0a303530">More...</a><br/></td></tr>
+<tr class="separator:a784cc66b6c6a9871fee78a6c0a303530"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5ce0809da6e9c292b4e8ac39e45e7e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#af5ce0809da6e9c292b4e8ac39e45e7e5">OpenMode</a> (void) const noexceptfinaloverride</td></tr>
+<tr class="memdesc:af5ce0809da6e9c292b4e8ac39e45e7e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the opening Mode of the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>.  <a href="#af5ce0809da6e9c292b4e8ac39e45e7e5">More...</a><br/></td></tr>
+<tr class="separator:af5ce0809da6e9c292b4e8ac39e45e7e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09e5a21bfc259a2c78cb7f1f2221abe6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82">Method</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a09e5a21bfc259a2c78cb7f1f2221abe6">OpenMethod</a> (void) const noexceptfinaloverride</td></tr>
+<tr class="memdesc:a09e5a21bfc259a2c78cb7f1f2221abe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the opening method of the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>. Will never be <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a8e1bde3c3d303163521522cf1d62f21f" title="The File may or may not exist. It will be created if it doesn&#39;t. OpenMethod will be set to EXIST or C...">Method::ANY</a>.  <a href="#a09e5a21bfc259a2c78cb7f1f2221abe6">More...</a><br/></td></tr>
+<tr class="separator:a09e5a21bfc259a2c78cb7f1f2221abe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html">CYB::API::Interop::Allocatable</a></td></tr>
 <tr class="memitem:a24a99911680bad2c22c41228eb5e26e0 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a24a99911680bad2c22c41228eb5e26e0"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html#a24a99911680bad2c22c41228eb5e26e0">~Allocatable</a> ()=default</td></tr>
@@ -163,12 +174,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a19efc2b89743a319e01c9bdd7e35e515"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a19efc2b89743a319e01c9bdd7e35e515">Touch</a> (const <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html">System::Path</a> &amp;APath)</td></tr>
-<tr class="memdesc:a19efc2b89743a319e01c9bdd7e35e515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to the statement File(APath, Mode::WRITE, Method::ANY);. Opens/creates a <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a> and updates its access times.  <a href="#a19efc2b89743a319e01c9bdd7e35e515">More...</a><br/></td></tr>
-<tr class="separator:a19efc2b89743a319e01c9bdd7e35e515"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50cceb980a426eeae607ba45fba7f432"><td class="memItemLeft" align="right" valign="top">static unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a50cceb980a426eeae607ba45fba7f432">Size</a> (const <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html">System::Path</a> &amp;APath)</td></tr>
-<tr class="memdesc:a50cceb980a426eeae607ba45fba7f432"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current size of a <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>.  <a href="#a50cceb980a426eeae607ba45fba7f432">More...</a><br/></td></tr>
-<tr class="separator:a50cceb980a426eeae607ba45fba7f432"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22920c30ac6157a4d10ce12bf3ddc01b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a22920c30ac6157a4d10ce12bf3ddc01b">Touch</a> (<a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html">System::Path</a> &amp;&amp;APath)</td></tr>
+<tr class="memdesc:a22920c30ac6157a4d10ce12bf3ddc01b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to the statement File(APath, Mode::WRITE, Method::ANY);. Opens/creates a <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a> and updates its access times.  <a href="#a22920c30ac6157a4d10ce12bf3ddc01b">More...</a><br/></td></tr>
+<tr class="separator:a22920c30ac6157a4d10ce12bf3ddc01b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad485470cf2c79dd7163dfb3f1f8e04dd"><td class="memItemLeft" align="right" valign="top">static unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#ad485470cf2c79dd7163dfb3f1f8e04dd">Size</a> (const <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html">System::Path</a> &amp;APath)</td></tr>
+<tr class="memdesc:ad485470cf2c79dd7163dfb3f1f8e04dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current size of a <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>.  <a href="#ad485470cf2c79dd7163dfb3f1f8e04dd">More...</a><br/></td></tr>
+<tr class="separator:ad485470cf2c79dd7163dfb3f1f8e04dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html">CYB::API::Interop::Allocatable</a></td></tr>
 <tr class="memitem:ae42dc9160c7b29c014141bfff9752930 inherit pub_static_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable"><td class="memTemplParams" colspan="2">template&lt;class AParent &gt; </td></tr>
 <tr class="memitem:ae42dc9160c7b29c014141bfff9752930 inherit pub_static_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable"><td class="memTemplItemLeft" align="right" valign="top">static constexpr <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html#a36fa87df155e8d505b0245744cc2d19c">ID</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html#ae42dc9160c7b29c014141bfff9752930">GetID</a> (void)</td></tr>
@@ -177,34 +188,57 @@ Static Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a2a7b9403faaafa0b1e0602977f2d8a82"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a7b9403faaafa0b1e0602977f2d8a82"></a>
-const <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html">System::Path</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a2a7b9403faaafa0b1e0602977f2d8a82">FPath</a></td></tr>
-<tr class="memdesc:a2a7b9403faaafa0b1e0602977f2d8a82"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no-op. ">Path</a> indicating this <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>. <br/></td></tr>
-<tr class="separator:a2a7b9403faaafa0b1e0602977f2d8a82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae10306d4a4ba0201a5202edafc08cfe5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae10306d4a4ba0201a5202edafc08cfe5"></a>
+<a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html">System::Path</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#ae10306d4a4ba0201a5202edafc08cfe5">FPath</a></td></tr>
+<tr class="memdesc:ae10306d4a4ba0201a5202edafc08cfe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no-op. ">Path</a> indicating this <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>. <br/></td></tr>
+<tr class="separator:ae10306d4a4ba0201a5202edafc08cfe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aded8c3a698b419b66ab532a667f42e0d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aded8c3a698b419b66ab532a667f42e0d"></a>
+<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#aded8c3a698b419b66ab532a667f42e0d">FOpenMode</a></td></tr>
+<tr class="memdesc:aded8c3a698b419b66ab532a667f42e0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The method used to open the file. <br/></td></tr>
+<tr class="separator:aded8c3a698b419b66ab532a667f42e0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60eafccc278c650f2faf0c63a8d83b5e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a60eafccc278c650f2faf0c63a8d83b5e"></a>
+<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82">Method</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a60eafccc278c650f2faf0c63a8d83b5e">FOpenMethod</a></td></tr>
+<tr class="memdesc:a60eafccc278c650f2faf0c63a8d83b5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The method used to open the file. <br/></td></tr>
+<tr class="separator:a60eafccc278c650f2faf0c63a8d83b5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a4bd5d9a8bbf8eb9aeb49223474d72c35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a4bd5d9a8bbf8eb9aeb49223474d72c35">Close</a> (void) const noexcept</td></tr>
+<tr class="memdesc:a4bd5d9a8bbf8eb9aeb49223474d72c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the file's handle if it is valid.  <a href="#a4bd5d9a8bbf8eb9aeb49223474d72c35">More...</a><br/></td></tr>
+<tr class="separator:a4bd5d9a8bbf8eb9aeb49223474d72c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file')"><img src="closed.png" alt="-"/>&#160;Private Member Functions inherited from <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html">CYB::Platform::System::Implementation::File</a></td></tr>
+<tr class="memitem:aa645e1388ec866bbd1f51db25908ab55 inherit pub_methods_class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa645e1388ec866bbd1f51db25908ab55"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa645e1388ec866bbd1f51db25908ab55">File</a> () noexcept=default</td></tr>
+<tr class="memdesc:aa645e1388ec866bbd1f51db25908ab55 inherit pub_methods_class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="conventions.html#structors">Default Constructors and Destructor</a>. <br/></td></tr>
+<tr class="separator:aa645e1388ec866bbd1f51db25908ab55 inherit pub_methods_class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb56c20307046580fbace2d31a29f4d6 inherit pub_methods_class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb56c20307046580fbace2d31a29f4d6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#abb56c20307046580fbace2d31a29f4d6">File</a> (<a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html">File</a> &amp;&amp;AMove) noexcept</td></tr>
+<tr class="memdesc:abb56c20307046580fbace2d31a29f4d6 inherit pub_methods_class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="conventions.html#structors">Default Constructors and Destructor</a>. <br/></td></tr>
+<tr class="separator:abb56c20307046580fbace2d31a29f4d6 inherit pub_methods_class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_types_class_c_y_b_1_1_a_p_i_1_1_file"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_c_y_b_1_1_a_p_i_1_1_file')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html">CYB::API::File</a></td></tr>
-<tr class="memitem:a66c4a384d44ae9f26745fdf65f116da7 inherit pub_types_class_c_y_b_1_1_a_p_i_1_1_file"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a66c4a384d44ae9f26745fdf65f116da7">Mode</a> { <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a66c4a384d44ae9f26745fdf65f116da7a3466fab4975481651940ed328aa990e4">Mode::READ</a>, 
-<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a66c4a384d44ae9f26745fdf65f116da7ad4b9e47f65b6e79b010582f15785867e">Mode::WRITE</a>, 
-<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a66c4a384d44ae9f26745fdf65f116da7aa7b843fb734e3b3fea8e5f902d3f4144">Mode::READ_WRITE</a>
+<tr class="memitem:a486da9b72db9d4c80bfce15f3c0c54a1 inherit pub_types_class_c_y_b_1_1_a_p_i_1_1_file"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1">Mode</a> : byte { <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1a3466fab4975481651940ed328aa990e4">Mode::READ</a>, 
+<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1ad4b9e47f65b6e79b010582f15785867e">Mode::WRITE</a>, 
+<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1aa7b843fb734e3b3fea8e5f902d3f4144">Mode::READ_WRITE</a>
  }</td></tr>
-<tr class="memdesc:a66c4a384d44ae9f26745fdf65f116da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The opening mode for the file.  <a href="class_c_y_b_1_1_a_p_i_1_1_file.html#a66c4a384d44ae9f26745fdf65f116da7">More...</a><br/></td></tr>
-<tr class="separator:a66c4a384d44ae9f26745fdf65f116da7 inherit pub_types_class_c_y_b_1_1_a_p_i_1_1_file"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ce1f232706ae0dc8ef209dd3ad079a8 inherit pub_types_class_c_y_b_1_1_a_p_i_1_1_file"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a1ce1f232706ae0dc8ef209dd3ad079a8">Method</a> { <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a1ce1f232706ae0dc8ef209dd3ad079a8a8e1bde3c3d303163521522cf1d62f21f">Method::ANY</a>, 
-<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a1ce1f232706ae0dc8ef209dd3ad079a8a1274d697fd046a9fbc83cf151ef286a3">Method::EXIST</a>, 
-<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a1ce1f232706ae0dc8ef209dd3ad079a8a294ce20cdefa29be3be0735cb62e715d">Method::CREATE</a>, 
-<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a1ce1f232706ae0dc8ef209dd3ad079a8a0a83d15fde12983f199bdeb76667660f">Method::TRUNCATE</a>
+<tr class="memdesc:a486da9b72db9d4c80bfce15f3c0c54a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The opening mode for the file.  <a href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1">More...</a><br/></td></tr>
+<tr class="separator:a486da9b72db9d4c80bfce15f3c0c54a1 inherit pub_types_class_c_y_b_1_1_a_p_i_1_1_file"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac815688c225d02ec8a984acf8ac4ac82 inherit pub_types_class_c_y_b_1_1_a_p_i_1_1_file"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82">Method</a> : byte { <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a8e1bde3c3d303163521522cf1d62f21f">Method::ANY</a>, 
+<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a1274d697fd046a9fbc83cf151ef286a3">Method::EXIST</a>, 
+<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a294ce20cdefa29be3be0735cb62e715d">Method::CREATE</a>, 
+<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a0a83d15fde12983f199bdeb76667660f">Method::TRUNCATE</a>
  }</td></tr>
-<tr class="memdesc:a1ce1f232706ae0dc8ef209dd3ad079a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The method of handling Files that already exist.  <a href="class_c_y_b_1_1_a_p_i_1_1_file.html#a1ce1f232706ae0dc8ef209dd3ad079a8">More...</a><br/></td></tr>
-<tr class="separator:a1ce1f232706ae0dc8ef209dd3ad079a8 inherit pub_types_class_c_y_b_1_1_a_p_i_1_1_file"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83d5db7dcf8226cb493a2688b050818a inherit pub_types_class_c_y_b_1_1_a_p_i_1_1_file"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818a">SeekLocation</a> { <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818aab463a0d9beb14bdcecd3a50d70655963">SeekLocation::CURSOR</a>, 
-<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818aa19aad9f2fe3ce0023298ab83f7e75775">SeekLocation::BEGIN</a>, 
+<tr class="memdesc:ac815688c225d02ec8a984acf8ac4ac82"><td class="mdescLeft">&#160;</td><td class="mdescRight">The method of handling Files that already exist.  <a href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82">More...</a><br/></td></tr>
+<tr class="separator:ac815688c225d02ec8a984acf8ac4ac82 inherit pub_types_class_c_y_b_1_1_a_p_i_1_1_file"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83d5db7dcf8226cb493a2688b050818a inherit pub_types_class_c_y_b_1_1_a_p_i_1_1_file"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818a">SeekLocation</a> { <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818aa19aad9f2fe3ce0023298ab83f7e75775">SeekLocation::BEGIN</a>, 
+<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818aab463a0d9beb14bdcecd3a50d70655963">SeekLocation::CURSOR</a>, 
 <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818aab1a326c06d88bf042f73d70f50197905">SeekLocation::END</a>
  }</td></tr>
 <tr class="memdesc:a83d5db7dcf8226cb493a2688b050818a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The location to begin a seek operation at.  <a href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818a">More...</a><br/></td></tr>
 <tr class="separator:a83d5db7dcf8226cb493a2688b050818a inherit pub_types_class_c_y_b_1_1_a_p_i_1_1_file"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4193119f3a234dcbeaf6e8810553dd3 inherit pub_types_class_c_y_b_1_1_a_p_i_1_1_file"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#af4193119f3a234dcbeaf6e8810553dd3">Constructor</a> = <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_constructor.html">Interop::Constructor</a>&lt; const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_path.html">Path</a> &amp;, const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a66c4a384d44ae9f26745fdf65f116da7">Mode</a>, const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a1ce1f232706ae0dc8ef209dd3ad079a8">Method</a> &gt;</td></tr>
+<tr class="memitem:af4193119f3a234dcbeaf6e8810553dd3 inherit pub_types_class_c_y_b_1_1_a_p_i_1_1_file"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#af4193119f3a234dcbeaf6e8810553dd3">Constructor</a> = <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_constructor.html">Interop::Constructor</a>&lt; const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_path.html">Path</a> &amp;, const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1">Mode</a>, const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82">Method</a> &gt;</td></tr>
 <tr class="memdesc:af4193119f3a234dcbeaf6e8810553dd3 inherit pub_types_class_c_y_b_1_1_a_p_i_1_1_file"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="conventions.html#interstructors">Interop Construction</a>. Opens a file for access.  <a href="#af4193119f3a234dcbeaf6e8810553dd3">More...</a><br/></td></tr>
 <tr class="separator:af4193119f3a234dcbeaf6e8810553dd3 inherit pub_types_class_c_y_b_1_1_a_p_i_1_1_file"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_types_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html">CYB::API::Interop::Allocatable</a></td></tr>
@@ -215,6 +249,11 @@ Additional Inherited Members</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a36fa87df155e8d505b0245744cc2d19c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the IDs of allocatable engine objects.  <a href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html#a36fa87df155e8d505b0245744cc2d19c">More...</a><br/></td></tr>
 <tr class="separator:a36fa87df155e8d505b0245744cc2d19c inherit pub_types_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_attribs_class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file')"><img src="closed.png" alt="-"/>&#160;Private Attributes inherited from <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html">CYB::Platform::System::Implementation::File</a></td></tr>
+<tr class="memitem:aa5a049223fc1931175cf83e03c1b22cf inherit pub_attribs_class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa5a049223fc1931175cf83e03c1b22cf"></a>
+Win32::HANDLE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa5a049223fc1931175cf83e03c1b22cf">FHandle</a></td></tr>
+<tr class="memdesc:aa5a049223fc1931175cf83e03c1b22cf inherit pub_attribs_class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file"><td class="mdescLeft">&#160;</td><td class="mdescRight">The file handle. <br/></td></tr>
+<tr class="separator:aa5a049223fc1931175cf83e03c1b22cf inherit pub_attribs_class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains the basic <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a> interface. Does not perform locking of any kind, be aware of possible race conditions. </p>
@@ -234,13 +273,13 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a66c4a384d44ae9f26745fdf65f116da7">Mode</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1">Mode</a>&#160;</td>
           <td class="paramname"><em>AMode</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a1ce1f232706ae0dc8ef209dd3ad079a8">Method</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82">Method</a>&#160;</td>
           <td class="paramname"><em>AMethod</em>&#160;</td>
         </tr>
         <tr>
@@ -263,49 +302,45 @@ Additional Inherited Members</h2></td></tr>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8" title="Tried to read/execute a file or enumerate a directory that the current user does not have permissions...">CYB::Exception::SystemData::FILE_NOT_READABLE</a>. Thrown if <code>AMode</code> equals <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a66c4a384d44ae9f26745fdf65f116da7a3466fab4975481651940ed328aa990e4" title="Read only mode. ">Mode::READ</a> and the file could not be opened </td></tr>
-    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa7a735f528e6fab1b5bac18a895d3b097" title="Tried to write/delete a file or create/modify/delete a directory that the current user does not have ...">CYB::Exception::SystemData::FILE_NOT_WRITABLE</a>. Thrown if <code>AMode</code> equals <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a66c4a384d44ae9f26745fdf65f116da7ad4b9e47f65b6e79b010582f15785867e" title="Write only mode. ">Mode::WRITE</a> or <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a66c4a384d44ae9f26745fdf65f116da7aa7b843fb734e3b3fea8e5f902d3f4144" title="Read write mode. ">Mode::READ_WRITE</a> and the file could not be opened </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8" title="Tried to read/execute a file or enumerate a directory that the current user does not have permissions...">CYB::Exception::SystemData::FILE_NOT_READABLE</a>. Thrown if <code>AMode</code> equals <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1a3466fab4975481651940ed328aa990e4" title="Read only mode. ">Mode::READ</a> and the file could not be opened </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa7a735f528e6fab1b5bac18a895d3b097" title="Tried to write/delete a file or create/modify/delete a directory that the current user does not have ...">CYB::Exception::SystemData::FILE_NOT_WRITABLE</a>. Thrown if <code>AMode</code> equals <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1ad4b9e47f65b6e79b010582f15785867e" title="Write only mode. ">Mode::WRITE</a> or <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1aa7b843fb734e3b3fea8e5f902d3f4144" title="Read write mode. ">Mode::READ_WRITE</a> and the file could not be opened </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa8e7bfbb18e1deaf73875d7738a384957" title="A required file was not found in the filesystem. ">CYB::Exception::SystemData::FILE_NOT_FOUND</a>. Thrown if <code>AMethod</code> equals <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a1274d697fd046a9fbc83cf151ef286a3" title="The File must exist. ">Method::EXIST</a> and the file portion of <code>APath</code> does not exist or if it is not valid in other cases </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa64710ee77863b506b958b8a945e0b9c9" title="A file that was to be created exists. ">CYB::Exception::SystemData::FILE_EXISTS</a>. Thrown if <code>AMethod</code> equals <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a294ce20cdefa29be3be0735cb62e715d" title="The File must not exist. It will be created. ">Method::CREATE</a> and the file portion of <code>APath</code> already exists or is a directory </td></tr>
     <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa93eaaf592450d4b08d4088b4b3bba0bc" title="A heap has no block large enough for a requested allocation and expansion failed. ...">CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE</a>. Thrown if the current heap runs out of memory </td></tr>
-    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa01f67a556a3000b3469110c02f76d616" title="A previously valid path has become invalidated, most likely due to deletion. ">CYB::Exception::SystemData::PATH_LOST</a>. Thrown if <code>APath</code> failed to verify </td></tr>
     <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_violation.html" title="Exceptions indicating an API contract violation. Should not be anticipated. ">CYB::Exception::Violation</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08" title="An operation was attempted with an invalid enum code. ">CYB::Exception::Violation::INVALID_ENUM</a>. Thrown if <code>AMode</code>, or <code>AMethod</code> is invalid </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_violation.html" title="Exceptions indicating an API contract violation. Should not be anticipated. ">CYB::Exception::Violation</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6a1c6357cb0000f2a8f2e80e5454e23e5f" title="The current arrangment of arguments passed the function is invalid. ">CYB::Exception::Violation::INVALID_PARAMETERS</a>. Thrown if <code>AMode</code> is <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1a3466fab4975481651940ed328aa990e4" title="Read only mode. ">Mode::READ</a> and <code>AMethod</code> is <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a0a83d15fde12983f199bdeb76667660f" title="Any existing File will be overwritten and an empty file will be created. ">Method::TRUNCATE</a>. Operating systems require write permissions to truncate a file </td></tr>
   </table>
   </dd>
 </dl>
 
 <p>Definition at line <a class="el" href="_c_y_b_file_8cpp_source.html#l00004">4</a> of file <a class="el" href="_c_y_b_file_8cpp_source.html">CYBFile.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                                                                                        :</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a2a7b9403faaafa0b1e0602977f2d8a82">FPath</a>(static_cast&lt;const System::Path&amp;&gt;(APath))</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span><span class="keyword">&gt;</span>(APath);</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span><span class="keyword">&gt;</span>(AMode);</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span><span class="keyword">&gt;</span>(AMethod);</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="_assert_8hpp.html#a8608fe736d309b01e7bf6c4d414e3bf4">UNIMPLEMENTED</a>;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
-<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_html_a2a7b9403faaafa0b1e0602977f2d8a82"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a2a7b9403faaafa0b1e0602977f2d8a82">CYB::Platform::System::File::FPath</a></div><div class="ttdeci">const System::Path FPath</div><div class="ttdoc">The Path indicating this File. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_file_8hpp_source.html#l00008">CYBFile.hpp:8</a></div></div>
-<div class="ttc" id="_assert_8hpp_html_a8608fe736d309b01e7bf6c4d414e3bf4"><div class="ttname"><a href="_assert_8hpp.html#a8608fe736d309b01e7bf6c4d414e3bf4">UNIMPLEMENTED</a></div><div class="ttdeci">#define UNIMPLEMENTED</div><div class="ttdoc">Quick macro for supplying CYB::API::Assert::Unimplemented with the correct parameters. </div><div class="ttdef"><b>Definition:</b> <a href="_assert_8hpp_source.html#l00021">Assert.hpp:21</a></div></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa645e1388ec866bbd1f51db25908ab55">File</a>(System::Path(static_cast&lt;const System::Path&amp;&gt;(APath)), AMode, AMethod)</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{}</div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file_html_aa645e1388ec866bbd1f51db25908ab55"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa645e1388ec866bbd1f51db25908ab55">CYB::Platform::System::Implementation::File::File</a></div><div class="ttdeci">File() noexcept=default</div><div class="ttdoc">See Default Constructors and Destructor. </div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a class="anchor" id="a541fa24ccd9177e3b7708f2382b7ff60"></a>
+<a class="anchor" id="a38c35deb540c1afea2a60d47bb49c10d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">CYB::Platform::System::File::File </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html">System::Path</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html">CYB::Platform::System::Path</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>APath</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a66c4a384d44ae9f26745fdf65f116da7">Mode</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1">CYB::API::File::Mode</a>&#160;</td>
           <td class="paramname"><em>AMode</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a1ce1f232706ae0dc8ef209dd3ad079a8">Method</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82">CYB::API::File::Method</a>&#160;</td>
           <td class="paramname"><em>AMethod</em>&#160;</td>
         </tr>
         <tr>
@@ -328,29 +363,182 @@ Additional Inherited Members</h2></td></tr>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8" title="Tried to read/execute a file or enumerate a directory that the current user does not have permissions...">CYB::Exception::SystemData::FILE_NOT_READABLE</a>. Thrown if <code>AMode</code> equals <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a66c4a384d44ae9f26745fdf65f116da7a3466fab4975481651940ed328aa990e4" title="Read only mode. ">Mode::READ</a> and the file could not be opened </td></tr>
-    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa7a735f528e6fab1b5bac18a895d3b097" title="Tried to write/delete a file or create/modify/delete a directory that the current user does not have ...">CYB::Exception::SystemData::FILE_NOT_WRITABLE</a>. Thrown if <code>AMode</code> equals <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a66c4a384d44ae9f26745fdf65f116da7ad4b9e47f65b6e79b010582f15785867e" title="Write only mode. ">Mode::WRITE</a> or <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a66c4a384d44ae9f26745fdf65f116da7aa7b843fb734e3b3fea8e5f902d3f4144" title="Read write mode. ">Mode::READ_WRITE</a> and the file could not be opened </td></tr>
-    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa93eaaf592450d4b08d4088b4b3bba0bc" title="A heap has no block large enough for a requested allocation and expansion failed. ...">CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE</a>. Thrown if the current heap runs out of memory </td></tr>
-    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa01f67a556a3000b3469110c02f76d616" title="A previously valid path has become invalidated, most likely due to deletion. ">CYB::Exception::SystemData::PATH_LOST</a>. Thrown if <code>APath</code> failed to verify </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8" title="Tried to read/execute a file or enumerate a directory that the current user does not have permissions...">CYB::Exception::SystemData::FILE_NOT_READABLE</a>. Thrown if <code>AMode</code> equals <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1a3466fab4975481651940ed328aa990e4" title="Read only mode. ">Mode::READ</a> and the file could not be opened </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa7a735f528e6fab1b5bac18a895d3b097" title="Tried to write/delete a file or create/modify/delete a directory that the current user does not have ...">CYB::Exception::SystemData::FILE_NOT_WRITABLE</a>. Thrown if <code>AMode</code> equals <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1ad4b9e47f65b6e79b010582f15785867e" title="Write only mode. ">Mode::WRITE</a> or <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1aa7b843fb734e3b3fea8e5f902d3f4144" title="Read write mode. ">Mode::READ_WRITE</a> and the file could not be opened </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa8e7bfbb18e1deaf73875d7738a384957" title="A required file was not found in the filesystem. ">CYB::Exception::SystemData::FILE_NOT_FOUND</a>. Thrown if <code>AMethod</code> equals <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a1274d697fd046a9fbc83cf151ef286a3" title="The File must exist. ">Method::EXIST</a> and the file portion of <code>APath</code> does not exist or if it is not valid in other cases </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa64710ee77863b506b958b8a945e0b9c9" title="A file that was to be created exists. ">CYB::Exception::SystemData::FILE_EXISTS</a>. Thrown if <code>AMethod</code> equals <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a294ce20cdefa29be3be0735cb62e715d" title="The File must not exist. It will be created. ">Method::CREATE</a> and the file portion of <code>APath</code> already exists or is a directory </td></tr>
     <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_violation.html" title="Exceptions indicating an API contract violation. Should not be anticipated. ">CYB::Exception::Violation</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08" title="An operation was attempted with an invalid enum code. ">CYB::Exception::Violation::INVALID_ENUM</a>. Thrown if <code>AMode</code>, or <code>AMethod</code> is invalid </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_violation.html" title="Exceptions indicating an API contract violation. Should not be anticipated. ">CYB::Exception::Violation</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6a1c6357cb0000f2a8f2e80e5454e23e5f" title="The current arrangment of arguments passed the function is invalid. ">CYB::Exception::Violation::INVALID_PARAMETERS</a>. Thrown if <code>AMode</code> is <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1a3466fab4975481651940ed328aa990e4" title="Read only mode. ">Mode::READ</a> and <code>AMethod</code> is <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a0a83d15fde12983f199bdeb76667660f" title="Any existing File will be overwritten and an empty file will be created. ">Method::TRUNCATE</a>. Operating systems require write permissions to truncate a file </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_c_y_b_file_8cpp_source.html#l00013">13</a> of file <a class="el" href="_c_y_b_file_8cpp_source.html">CYBFile.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                                                                                      :</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a2a7b9403faaafa0b1e0602977f2d8a82">FPath</a>(std::move(APath))</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span><span class="keyword">&gt;</span>(AMode);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span><span class="keyword">&gt;</span>(AMethod);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="_assert_8hpp.html#a8608fe736d309b01e7bf6c4d414e3bf4">UNIMPLEMENTED</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_html_a2a7b9403faaafa0b1e0602977f2d8a82"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a2a7b9403faaafa0b1e0602977f2d8a82">CYB::Platform::System::File::FPath</a></div><div class="ttdeci">const System::Path FPath</div><div class="ttdoc">The Path indicating this File. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_file_8hpp_source.html#l00008">CYBFile.hpp:8</a></div></div>
-<div class="ttc" id="_assert_8hpp_html_a8608fe736d309b01e7bf6c4d414e3bf4"><div class="ttname"><a href="_assert_8hpp.html#a8608fe736d309b01e7bf6c4d414e3bf4">UNIMPLEMENTED</a></div><div class="ttdeci">#define UNIMPLEMENTED</div><div class="ttdoc">Quick macro for supplying CYB::API::Assert::Unimplemented with the correct parameters. </div><div class="ttdef"><b>Definition:</b> <a href="_assert_8hpp_source.html#l00021">Assert.hpp:21</a></div></div>
+<p>Definition at line <a class="el" href="_c_y_b_win32_file_8cpp_source.html#l00006">6</a> of file <a class="el" href="_c_y_b_win32_file_8cpp_source.html">CYBWin32File.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                                                                                :</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#ae10306d4a4ba0201a5202edafc08cfe5">FPath</a>(std::move(APath)),</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#aded8c3a698b419b66ab532a667f42e0d">FOpenMode</a>(AMode)</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keywordflow">if</span> (AMode == <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1a3466fab4975481651940ed328aa990e4">Mode::READ</a> &amp;&amp; AMethod == <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a0a83d15fde12983f199bdeb76667660f">Method::TRUNCATE</a>)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="keywordflow">throw</span> Exception::Violation(<a class="code" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6a1c6357cb0000f2a8f2e80e5454e23e5f">Exception::Violation::INVALID_PARAMETERS</a>);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">auto</span>&amp; MM(<a class="code" href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192">Core</a>().FModuleManager);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> DesiredAccess([&amp;]() -&gt; DWORD {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordflow">switch</span> (AMode)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1a3466fab4975481651940ed328aa990e4">Mode::READ</a>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            <span class="keywordflow">return</span> GENERIC_READ;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1ad4b9e47f65b6e79b010582f15785867e">Mode::WRITE</a>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            <span class="keywordflow">return</span> GENERIC_WRITE;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1aa7b843fb734e3b3fea8e5f902d3f4144">Mode::READ_WRITE</a>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            <span class="keywordflow">return</span> GENERIC_READ | GENERIC_WRITE;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            <span class="keywordflow">throw</span> Exception::Violation(<a class="code" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08">Exception::Violation::INVALID_ENUM</a>);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }()), CreationDisposition([&amp;]() -&gt; DWORD {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordflow">switch</span> (AMethod) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a8e1bde3c3d303163521522cf1d62f21f">Method::ANY</a>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <span class="keywordflow">return</span> OPEN_ALWAYS;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a294ce20cdefa29be3be0735cb62e715d">Method::CREATE</a>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keywordflow">return</span> CREATE_NEW;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a1274d697fd046a9fbc83cf151ef286a3">Method::EXIST</a>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keywordflow">return</span> OPEN_EXISTING;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a0a83d15fde12983f199bdeb76667660f">Method::TRUNCATE</a>:</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="keywordflow">return</span> CREATE_ALWAYS;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keywordflow">throw</span> Exception::Violation(<a class="code" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08">Exception::Violation::INVALID_ENUM</a>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }());</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> FilePath(<a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#ae10306d4a4ba0201a5202edafc08cfe5">FPath</a>.<a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html#aa3b9371dd417fe997c05bf30ef6750e1">WidePath</a>().<a class="code" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html#a90212a7c1b5164d18679b9431a9c5562">WString</a>());</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                                                                                                <span class="comment">//Maintain POSIX compatibility, no locking</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa5a049223fc1931175cf83e03c1b22cf">FHandle</a> = MM.Call&lt;Modules::Kernel32::CreateFileW&gt;(FilePath, DesiredAccess, <span class="keyword">static_cast&lt;</span>DWORD<span class="keyword">&gt;</span>(FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE), <span class="keyword">nullptr</span>, CreationDisposition, static_cast&lt;DWORD&gt;(FILE_ATTRIBUTE_NORMAL), <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">if</span> (FHandle == INVALID_HANDLE_VALUE) {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> Error(MM.Call&lt;Modules::Kernel32::GetLastError&gt;());</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        API::Assert::NotEqual&lt;DWORD&gt;(Error, ERROR_INVALID_PARAMETER);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="comment">//I know this could be a switch but CodeCoverage.exe hates it</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">if</span> (Error == ERROR_FILE_NOT_FOUND || Error == ERROR_PATH_NOT_FOUND || Error == ERROR_INVALID_NAME)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordflow">throw</span> Exception::SystemData(<a class="code" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa8e7bfbb18e1deaf73875d7738a384957">Exception::SystemData::FILE_NOT_FOUND</a>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">if</span> (Error == ERROR_FILE_EXISTS)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordflow">throw</span> Exception::SystemData(<a class="code" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa64710ee77863b506b958b8a945e0b9c9">Exception::SystemData::FILE_EXISTS</a>);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">if</span> (Error == ERROR_ACCESS_DENIED) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="comment">//Keep things DRY</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="comment">//Translate properly to the directory error</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="comment">//We don&#39;t care how screwed up FPath is, it has a different exception spec to us</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="comment">//DO NOT LET IT PROPAGATE</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordtype">bool</span> IsDir;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                IsDir = <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#ae10306d4a4ba0201a5202edafc08cfe5">FPath</a>.<a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html#ad8e518054d2c556f7bff4d9a9ed55e2c">IsDirectory</a>();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordflow">catch</span> (<a class="code" href="class_c_y_b_1_1_exception_1_1_base.html">CYB::Exception::Base</a>&amp; AException) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_assert.html#afcd9826793c79329077a4cc928cec268">API::Assert::Equal</a>(AException.<a class="code" href="class_c_y_b_1_1_exception_1_1_base.html#a7a6cb58c40613b5110bb80f78073c46d">FLevel</a>, <a class="code" href="class_c_y_b_1_1_exception_1_1_base.html#a7574334bdd01a9e3b98d1e7b0a6d8deba6443c7afe6c86f661ae6bfe8e33272b8">Exception::Base::Level::SYSTEM_DATA</a>);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                IsDir = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordflow">if</span> (IsDir)</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                <span class="keywordflow">throw</span> Exception::SystemData(<a class="code" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa64710ee77863b506b958b8a945e0b9c9">Exception::SystemData::FILE_EXISTS</a>);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">if</span> (AMode == <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1a3466fab4975481651940ed328aa990e4">Mode::READ</a>)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="keywordflow">throw</span> Exception::SystemData(<a class="code" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8">Exception::SystemData::FILE_NOT_READABLE</a>);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">throw</span> Exception::SystemData(<a class="code" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa7a735f528e6fab1b5bac18a895d3b097">Exception::SystemData::FILE_NOT_WRITABLE</a>);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">if</span> (AMethod == <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a8e1bde3c3d303163521522cf1d62f21f">Method::ANY</a>) {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">if</span> (MM.Call&lt;Modules::Kernel32::GetLastError&gt;() == ERROR_ALREADY_EXISTS)</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a60eafccc278c650f2faf0c63a8d83b5e">FOpenMethod</a> = <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a1274d697fd046a9fbc83cf151ef286a3">Method::EXIST</a>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a60eafccc278c650f2faf0c63a8d83b5e">FOpenMethod</a> = <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a294ce20cdefa29be3be0735cb62e715d">Method::CREATE</a>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a60eafccc278c650f2faf0c63a8d83b5e">FOpenMethod</a> = AMethod;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_html_ae10306d4a4ba0201a5202edafc08cfe5"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#ae10306d4a4ba0201a5202edafc08cfe5">CYB::Platform::System::File::FPath</a></div><div class="ttdeci">System::Path FPath</div><div class="ttdoc">The Path indicating this File. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_file_8hpp_source.html#l00008">CYBFile.hpp:8</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_file_html_a486da9b72db9d4c80bfce15f3c0c54a1ad4b9e47f65b6e79b010582f15785867e"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1ad4b9e47f65b6e79b010582f15785867e">CYB::API::File::Mode::WRITE</a></div><div class="ttdoc">Write only mode. </div></div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_file_html_ac815688c225d02ec8a984acf8ac4ac82a294ce20cdefa29be3be0735cb62e715d"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a294ce20cdefa29be3be0735cb62e715d">CYB::API::File::Method::CREATE</a></div><div class="ttdoc">The File must not exist. It will be created. </div></div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file_html_aa5a049223fc1931175cf83e03c1b22cf"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa5a049223fc1931175cf83e03c1b22cf">CYB::Platform::System::Implementation::File::FHandle</a></div><div class="ttdeci">Win32::HANDLE FHandle</div><div class="ttdoc">The file handle. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_win32_file_8hpp_source.html#l00010">CYBWin32File.hpp:10</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_path_html_ad8e518054d2c556f7bff4d9a9ed55e2c"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html#ad8e518054d2c556f7bff4d9a9ed55e2c">CYB::Platform::System::Path::IsDirectory</a></div><div class="ttdeci">bool IsDirectory(void) const finaloverride</div><div class="ttdoc">Check if the current path is a directory. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_win32_path_8cpp_source.html#l00165">CYBWin32Path.cpp:165</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_file_html_a486da9b72db9d4c80bfce15f3c0c54a1aa7b843fb734e3b3fea8e5f902d3f4144"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1aa7b843fb734e3b3fea8e5f902d3f4144">CYB::API::File::Mode::READ_WRITE</a></div><div class="ttdoc">Read write mode. </div></div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_html_aa3b9371dd417fe997c05bf30ef6750e1"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html#aa3b9371dd417fe997c05bf30ef6750e1">CYB::Platform::System::Implementation::Path::WidePath</a></div><div class="ttdeci">const API::String::UTF16 &amp; WidePath(void) const noexcept</div><div class="ttdoc">Accessor for other Win32 implementations that require the UTF16 Path. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_win32_path_8cpp_source.html#l00276">CYBWin32Path.cpp:276</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_exception_1_1_system_data_html_aec7c068789569f295671e37131d0e8caa8e7bfbb18e1deaf73875d7738a384957"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa8e7bfbb18e1deaf73875d7738a384957">CYB::Exception::SystemData::FILE_NOT_FOUND</a></div><div class="ttdoc">A required file was not found in the filesystem. </div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00071">Exception.hpp:71</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_html_a60eafccc278c650f2faf0c63a8d83b5e"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a60eafccc278c650f2faf0c63a8d83b5e">CYB::Platform::System::File::FOpenMethod</a></div><div class="ttdeci">Method FOpenMethod</div><div class="ttdoc">The method used to open the file. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_file_8hpp_source.html#l00010">CYBFile.hpp:10</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_file_html_ac815688c225d02ec8a984acf8ac4ac82a8e1bde3c3d303163521522cf1d62f21f"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a8e1bde3c3d303163521522cf1d62f21f">CYB::API::File::Method::ANY</a></div><div class="ttdoc">The File may or may not exist. It will be created if it doesn&#39;t. OpenMethod will be set to EXIST or C...</div></div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_assert_html_afcd9826793c79329077a4cc928cec268"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_assert.html#afcd9826793c79329077a4cc928cec268">CYB::API::Assert::Equal</a></div><div class="ttdeci">static void Equal(const AType &amp;ALHS, const AType &amp;ARHS) noexcept</div><div class="ttdoc">Equivalence assertion function. May not be evaluated. </div></div>
+<div class="ttc" id="class_c_y_b_1_1_exception_1_1_violation_html_a5e9d131ab13c9b938b708760974a0cb6a1c6357cb0000f2a8f2e80e5454e23e5f"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6a1c6357cb0000f2a8f2e80e5454e23e5f">CYB::Exception::Violation::INVALID_PARAMETERS</a></div><div class="ttdoc">The current arrangment of arguments passed the function is invalid. </div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00039">Exception.hpp:39</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16_html_a90212a7c1b5164d18679b9431a9c5562"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html#a90212a7c1b5164d18679b9431a9c5562">CYB::API::String::UTF16::WString</a></div><div class="ttdeci">const wchar_t * WString(void) const noexcept</div><div class="ttdoc">Get the underlying const wide char array. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_u_t_f16_string_8cpp_source.html#l00037">CYBUTF16String.cpp:37</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_exception_1_1_base_html_a7a6cb58c40613b5110bb80f78073c46d"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_base.html#a7a6cb58c40613b5110bb80f78073c46d">CYB::Exception::Base::FLevel</a></div><div class="ttdeci">const Level FLevel</div><div class="ttdoc">The type of the exception. </div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00019">Exception.hpp:19</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_file_html_ac815688c225d02ec8a984acf8ac4ac82a0a83d15fde12983f199bdeb76667660f"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a0a83d15fde12983f199bdeb76667660f">CYB::API::File::Method::TRUNCATE</a></div><div class="ttdoc">Any existing File will be overwritten and an empty file will be created. </div></div>
+<div class="ttc" id="class_c_y_b_1_1_exception_1_1_system_data_html_aec7c068789569f295671e37131d0e8caa64710ee77863b506b958b8a945e0b9c9"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa64710ee77863b506b958b8a945e0b9c9">CYB::Exception::SystemData::FILE_EXISTS</a></div><div class="ttdoc">A file that was to be created exists. </div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00070">Exception.hpp:70</a></div></div>
+<div class="ttc" id="namespace_c_y_b_html_ac530f286744fc3b6c07ab8607d6ff192"><div class="ttname"><a href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192">CYB::Core</a></div><div class="ttdeci">Engine::Core &amp; Core(void) noexcept</div><div class="ttdoc">Retrieve the Core singleton. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_core_8cpp_source.html#l00051">CYBCore.cpp:51</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_exception_1_1_system_data_html_aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8">CYB::Exception::SystemData::FILE_NOT_READABLE</a></div><div class="ttdoc">Tried to read/execute a file or enumerate a directory that the current user does not have permissions...</div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00072">Exception.hpp:72</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_file_html_a486da9b72db9d4c80bfce15f3c0c54a1a3466fab4975481651940ed328aa990e4"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1a3466fab4975481651940ed328aa990e4">CYB::API::File::Mode::READ</a></div><div class="ttdoc">Read only mode. </div></div>
+<div class="ttc" id="class_c_y_b_1_1_exception_1_1_system_data_html_aec7c068789569f295671e37131d0e8caa7a735f528e6fab1b5bac18a895d3b097"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa7a735f528e6fab1b5bac18a895d3b097">CYB::Exception::SystemData::FILE_NOT_WRITABLE</a></div><div class="ttdoc">Tried to write/delete a file or create/modify/delete a directory that the current user does not have ...</div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00073">Exception.hpp:73</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_exception_1_1_base_html_a7574334bdd01a9e3b98d1e7b0a6d8deba6443c7afe6c86f661ae6bfe8e33272b8"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_base.html#a7574334bdd01a9e3b98d1e7b0a6d8deba6443c7afe6c86f661ae6bfe8e33272b8">CYB::Exception::Base::Level::SYSTEM_DATA</a></div><div class="ttdoc">System/Data error. </div></div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_file_html_ac815688c225d02ec8a984acf8ac4ac82a1274d697fd046a9fbc83cf151ef286a3"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a1274d697fd046a9fbc83cf151ef286a3">CYB::API::File::Method::EXIST</a></div><div class="ttdoc">The File must exist. </div></div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_html_aded8c3a698b419b66ab532a667f42e0d"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#aded8c3a698b419b66ab532a667f42e0d">CYB::Platform::System::File::FOpenMode</a></div><div class="ttdeci">Mode FOpenMode</div><div class="ttdoc">The method used to open the file. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_file_8hpp_source.html#l00009">CYBFile.hpp:9</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_exception_1_1_base_html"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_base.html">CYB::Exception::Base</a></div><div class="ttdoc">The base exception recognized by the entire engine. </div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00007">Exception.hpp:7</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_exception_1_1_violation_html_a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08">CYB::Exception::Violation::INVALID_ENUM</a></div><div class="ttdoc">An operation was attempted with an invalid enum code. </div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00036">Exception.hpp:36</a></div></div>
 </div><!-- fragment -->
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_c_y_b_1_1_platform_1_1_system_1_1_file_a38c35deb540c1afea2a60d47bb49c10d_cgraph.png" border="0" usemap="#class_c_y_b_1_1_platform_1_1_system_1_1_file_a38c35deb540c1afea2a60d47bb49c10d_cgraph" alt=""/></div>
+<map name="class_c_y_b_1_1_platform_1_1_system_1_1_file_a38c35deb540c1afea2a60d47bb49c10d_cgraph" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_a38c35deb540c1afea2a60d47bb49c10d_cgraph">
+<area shape="rect" id="node2" href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192" title="Retrieve the Core singleton. " alt="" coords="433,86,519,113"/><area shape="rect" id="node4" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html#aa3b9371dd417fe997c05bf30ef6750e1" title="Accessor for other Win32 implementations that require the UTF16 Path. " alt="" coords="219,36,379,92"/><area shape="rect" id="node5" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html#a90212a7c1b5164d18679b9431a9c5562" title="Get the underlying const wide char array. " alt="" coords="213,115,384,156"/><area shape="rect" id="node6" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html#ad8e518054d2c556f7bff4d9a9ed55e2c" title="Check if the current path is a directory. " alt="" coords="219,180,379,222"/><area shape="rect" id="node7" href="class_c_y_b_1_1_a_p_i_1_1_assert.html#afcd9826793c79329077a4cc928cec268" title="Equivalence assertion function. May not be evaluated. " alt="" coords="215,246,382,273"/><area shape="rect" id="node3" href="class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba" title="Retrieve the Core singleton. " alt="" coords="569,79,711,120"/></map>
+</div>
+</p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a4bd5d9a8bbf8eb9aeb49223474d72c35"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CYB::Platform::System::File::Close </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Closes the file's handle if it is valid. </p>
+<dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
+
+<p>Definition at line <a class="el" href="_c_y_b_win32_file_8cpp_source.html#l00094">94</a> of file <a class="el" href="_c_y_b_win32_file_8cpp_source.html">CYBWin32File.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                                                     {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa5a049223fc1931175cf83e03c1b22cf">FHandle</a> != INVALID_HANDLE_VALUE)</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <a class="code" href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192">Core</a>().<a class="code" href="class_c_y_b_1_1_engine_1_1_core.html#a9a8e60668bf5e58142ed4ea1b2569bae">FModuleManager</a>.<a class="code" href="class_c_y_b_1_1_platform_1_1_modules_1_1_manager.html#a68fda1e0198788c3c9df883a0c69cf69">Call</a>&lt;Modules::Kernel32::CloseHandle&gt;(<a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa5a049223fc1931175cf83e03c1b22cf">FHandle</a>);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file_html_aa5a049223fc1931175cf83e03c1b22cf"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa5a049223fc1931175cf83e03c1b22cf">CYB::Platform::System::Implementation::File::FHandle</a></div><div class="ttdeci">Win32::HANDLE FHandle</div><div class="ttdoc">The file handle. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_win32_file_8hpp_source.html#l00010">CYBWin32File.hpp:10</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_engine_1_1_core_html_a9a8e60668bf5e58142ed4ea1b2569bae"><div class="ttname"><a href="class_c_y_b_1_1_engine_1_1_core.html#a9a8e60668bf5e58142ed4ea1b2569bae">CYB::Engine::Core::FModuleManager</a></div><div class="ttdeci">Platform::Modules::Manager FModuleManager</div><div class="ttdoc">Loads and contains required modules. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_core_8hpp_source.html#l00015">CYBCore.hpp:15</a></div></div>
+<div class="ttc" id="namespace_c_y_b_html_ac530f286744fc3b6c07ab8607d6ff192"><div class="ttname"><a href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192">CYB::Core</a></div><div class="ttdeci">Engine::Core &amp; Core(void) noexcept</div><div class="ttdoc">Retrieve the Core singleton. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_core_8cpp_source.html#l00051">CYBCore.cpp:51</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_modules_1_1_manager_html_a68fda1e0198788c3c9df883a0c69cf69"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_modules_1_1_manager.html#a68fda1e0198788c3c9df883a0c69cf69">CYB::Platform::Modules::Manager::Call</a></div><div class="ttdeci">auto Call(AArgs &amp;&amp;...AArguments)</div><div class="ttdoc">Call a loaded function. </div></div>
+</div><!-- fragment -->
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_c_y_b_1_1_platform_1_1_system_1_1_file_a4bd5d9a8bbf8eb9aeb49223474d72c35_cgraph.png" border="0" usemap="#class_c_y_b_1_1_platform_1_1_system_1_1_file_a4bd5d9a8bbf8eb9aeb49223474d72c35_cgraph" alt=""/></div>
+<map name="class_c_y_b_1_1_platform_1_1_system_1_1_file_a4bd5d9a8bbf8eb9aeb49223474d72c35_cgraph" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_a4bd5d9a8bbf8eb9aeb49223474d72c35_cgraph">
+<area shape="rect" id="node2" href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192" title="Retrieve the Core singleton. " alt="" coords="253,12,339,39"/><area shape="rect" id="node4" href="class_c_y_b_1_1_platform_1_1_modules_1_1_manager.html#a68fda1e0198788c3c9df883a0c69cf69" title="Call a loaded function. " alt="" coords="214,63,378,105"/><area shape="rect" id="node3" href="class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba" title="Retrieve the Core singleton. " alt="" coords="427,5,570,46"/></map>
+</div>
+</p>
+
+</div>
+</div>
 <a class="anchor" id="ab628d5574a2a2a77dc7bff35aea2f9ff"></a>
 <div class="memitem">
 <div class="memproto">
@@ -373,22 +561,22 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get the current position of the read/write cursor in the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>. </p>
+<p>Get the current position of the read/write cursor in the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>. Equivalent of Seek(0, SeekLocation::CURSOR) </p>
 <dl class="section return"><dt>Returns</dt><dd>The current position of the read/write cursor in the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a> </dd></dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
 
 <p>Implements <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a044fa2f545a6a3fd1953a2adf7a3f353">CYB::API::File</a>.</p>
 
-<p>Definition at line <a class="el" href="_c_y_b_file_8cpp_source.html#l00032">32</a> of file <a class="el" href="_c_y_b_file_8cpp_source.html">CYBFile.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                                                                            {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="_assert_8hpp.html#a8608fe736d309b01e7bf6c4d414e3bf4">UNIMPLEMENTED</a>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
-<div class="ttc" id="_assert_8hpp_html_a8608fe736d309b01e7bf6c4d414e3bf4"><div class="ttname"><a href="_assert_8hpp.html#a8608fe736d309b01e7bf6c4d414e3bf4">UNIMPLEMENTED</a></div><div class="ttdeci">#define UNIMPLEMENTED</div><div class="ttdoc">Quick macro for supplying CYB::API::Assert::Unimplemented with the correct parameters. </div><div class="ttdef"><b>Definition:</b> <a href="_assert_8hpp_source.html#l00021">Assert.hpp:21</a></div></div>
+<p>Definition at line <a class="el" href="_c_y_b_file_8cpp_source.html#l00016">16</a> of file <a class="el" href="_c_y_b_file_8cpp_source.html">CYBFile.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                                                                            {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a27886ba90971690f4af5a85c24779ff7">Seek</a>(0, <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818aab463a0d9beb14bdcecd3a50d70655963">SeekLocation::CURSOR</a>);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_file_html_a83d5db7dcf8226cb493a2688b050818aab463a0d9beb14bdcecd3a50d70655963"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818aab463a0d9beb14bdcecd3a50d70655963">CYB::API::File::SeekLocation::CURSOR</a></div><div class="ttdoc">Seek from the cursor position. </div></div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_html_a27886ba90971690f4af5a85c24779ff7"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a27886ba90971690f4af5a85c24779ff7">CYB::Platform::System::File::Seek</a></div><div class="ttdeci">unsigned long long Seek(const long long AOffset, const SeekLocation ALocation) const finaloverride</div><div class="ttdoc">Set the cursor position in the File. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_win32_file_8cpp_source.html#l00132">CYBWin32File.cpp:132</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a class="anchor" id="a0dd895816d4ded74d86f1be640b77fce"></a>
+<a class="anchor" id="a784cc66b6c6a9871fee78a6c0a303530"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -396,7 +584,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_path.html">CYB::API::Path</a> &amp; CYB::Platform::System::File::Path </td>
+          <td class="memname">const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_path.html">CYB::API::Path</a> &amp; CYB::Platform::System::File::GetPath </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -414,16 +602,88 @@ Additional Inherited Members</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>A reference to the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no-op. ">Path</a> indicating the current <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a> </dd></dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requres no thread safety </dd></dl>
 
-<p>Implements <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a2610e8622c4580b2afe8e385d1f9a872">CYB::API::File</a>.</p>
+<p>Implements <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ab86a2319c5b56fc17c370ebb924a2ed0">CYB::API::File</a>.</p>
 
-<p>Definition at line <a class="el" href="_c_y_b_file_8cpp_source.html#l00056">56</a> of file <a class="el" href="_c_y_b_file_8cpp_source.html">CYBFile.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                                                 {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a2a7b9403faaafa0b1e0602977f2d8a82">FPath</a>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_html_a2a7b9403faaafa0b1e0602977f2d8a82"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a2a7b9403faaafa0b1e0602977f2d8a82">CYB::Platform::System::File::FPath</a></div><div class="ttdeci">const System::Path FPath</div><div class="ttdoc">The Path indicating this File. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_file_8hpp_source.html#l00008">CYBFile.hpp:8</a></div></div>
+<p>Definition at line <a class="el" href="_c_y_b_file_8cpp_source.html#l00020">20</a> of file <a class="el" href="_c_y_b_file_8cpp_source.html">CYBFile.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                                                                    {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#ae10306d4a4ba0201a5202edafc08cfe5">FPath</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_html_ae10306d4a4ba0201a5202edafc08cfe5"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#ae10306d4a4ba0201a5202edafc08cfe5">CYB::Platform::System::File::FPath</a></div><div class="ttdeci">System::Path FPath</div><div class="ttdoc">The Path indicating this File. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_file_8hpp_source.html#l00008">CYBFile.hpp:8</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a class="anchor" id="a476b641baaace2fe4ec72541ce7d32a0"></a>
+<a class="anchor" id="a09e5a21bfc259a2c78cb7f1f2221abe6"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82">CYB::API::File::Method</a> CYB::Platform::System::File::OpenMethod </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the opening method of the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>. Will never be <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a8e1bde3c3d303163521522cf1d62f21f" title="The File may or may not exist. It will be created if it doesn&#39;t. OpenMethod will be set to EXIST or C...">Method::ANY</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>The opening method of the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>. If it was orginally <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a8e1bde3c3d303163521522cf1d62f21f" title="The File may or may not exist. It will be created if it doesn&#39;t. OpenMethod will be set to EXIST or C...">Method::ANY</a> it will be changed to <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a1274d697fd046a9fbc83cf151ef286a3" title="The File must exist. ">Method::EXIST</a> or <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a294ce20cdefa29be3be0735cb62e715d" title="The File must not exist. It will be created. ">Method::CREATE</a> </dd></dl>
+<dl class="section user"><dt>Thread Safety</dt><dd>This function requres no thread safety </dd></dl>
+
+<p>Implements <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a7167a9557d1b4b2e2acda71f565c1c1d">CYB::API::File</a>.</p>
+
+<p>Definition at line <a class="el" href="_c_y_b_file_8cpp_source.html#l00028">28</a> of file <a class="el" href="_c_y_b_file_8cpp_source.html">CYBFile.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                                                                      {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a60eafccc278c650f2faf0c63a8d83b5e">FOpenMethod</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_html_a60eafccc278c650f2faf0c63a8d83b5e"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a60eafccc278c650f2faf0c63a8d83b5e">CYB::Platform::System::File::FOpenMethod</a></div><div class="ttdeci">Method FOpenMethod</div><div class="ttdoc">The method used to open the file. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_file_8hpp_source.html#l00010">CYBFile.hpp:10</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="af5ce0809da6e9c292b4e8ac39e45e7e5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1">CYB::API::File::Mode</a> CYB::Platform::System::File::OpenMode </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the opening Mode of the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>The opening Mode of the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a> </dd></dl>
+<dl class="section user"><dt>Thread Safety</dt><dd>This function requres no thread safety </dd></dl>
+
+<p>Implements <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#af0cea6f544f8ae28605a097d8a3a134f">CYB::API::File</a>.</p>
+
+<p>Definition at line <a class="el" href="_c_y_b_file_8cpp_source.html#l00024">24</a> of file <a class="el" href="_c_y_b_file_8cpp_source.html">CYBFile.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                                                                  {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#aded8c3a698b419b66ab532a667f42e0d">FOpenMode</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_html_aded8c3a698b419b66ab532a667f42e0d"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#aded8c3a698b419b66ab532a667f42e0d">CYB::Platform::System::File::FOpenMode</a></div><div class="ttdeci">Mode FOpenMode</div><div class="ttdoc">The method used to open the file. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_file_8hpp_source.html#l00009">CYBFile.hpp:9</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a36be97af3ce389976af84bcbfefd86c0"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -433,7 +693,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">unsigned long long CYB::Platform::System::File::Read </td>
           <td>(</td>
-          <td class="paramtype">const void *const&#160;</td>
+          <td class="paramtype">void *const&#160;</td>
           <td class="paramname"><em>ABuffer</em>, </td>
         </tr>
         <tr>
@@ -463,23 +723,44 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of bytes read </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of bytes read. If zero is returned, and the cursor position is not as <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818aab1a326c06d88bf042f73d70f50197905" title="Seek from the endo of the file. ">SeekLocation::END</a> an error has occurred and the read should not be retried </dd></dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requres no thread safety </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_violation.html" title="Exceptions indicating an API contract violation. Should not be anticipated. ">CYB::Exception::Violation</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2495afe190173e034fdbe0597a6db42" title="Illegal call given prexisting conditions. ">CYB::Exception::Violation::INVALID_OPERATION</a>. Thrown if the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a> was opened with <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1ad4b9e47f65b6e79b010582f15785867e" title="Write only mode. ">Mode::WRITE</a> </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>Implements <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a25afac685fde68e35315d9ca8d8a3a99">CYB::API::File</a>.</p>
+<p>Implements <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a27ee83690060539b30e391bcc05f3cbf">CYB::API::File</a>.</p>
 
-<p>Definition at line <a class="el" href="_c_y_b_file_8cpp_source.html#l00043">43</a> of file <a class="el" href="_c_y_b_file_8cpp_source.html">CYBFile.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                                                                                                                   {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span><span class="keyword">&gt;</span>(ABuffer);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span><span class="keyword">&gt;</span>(AMaxAmount);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="_assert_8hpp.html#a8608fe736d309b01e7bf6c4d414e3bf4">UNIMPLEMENTED</a>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
-<div class="ttc" id="_assert_8hpp_html_a8608fe736d309b01e7bf6c4d414e3bf4"><div class="ttname"><a href="_assert_8hpp.html#a8608fe736d309b01e7bf6c4d414e3bf4">UNIMPLEMENTED</a></div><div class="ttdeci">#define UNIMPLEMENTED</div><div class="ttdoc">Quick macro for supplying CYB::API::Assert::Unimplemented with the correct parameters. </div><div class="ttdef"><b>Definition:</b> <a href="_assert_8hpp_source.html#l00021">Assert.hpp:21</a></div></div>
+<p>Definition at line <a class="el" href="_c_y_b_win32_file_8cpp_source.html#l00155">155</a> of file <a class="el" href="_c_y_b_win32_file_8cpp_source.html">CYBWin32File.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                                                                                                             {</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#aded8c3a698b419b66ab532a667f42e0d">FOpenMode</a> == <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1ad4b9e47f65b6e79b010582f15785867e">Mode::WRITE</a>)</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keywordflow">throw</span> Exception::Violation(<a class="code" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2495afe190173e034fdbe0597a6db42">Exception::Violation::INVALID_OPERATION</a>);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    DWORD BytesRead;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192">Core</a>().FModuleManager.Call&lt;Modules::Kernel32::ReadFile&gt;(<a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa5a049223fc1931175cf83e03c1b22cf">FHandle</a>, ABuffer, static_cast&lt;DWORD&gt;(AMaxAmount), &amp;BytesRead, <span class="keyword">nullptr</span>) == 0)</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        BytesRead = 0;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">return</span> BytesRead;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;}</div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_file_html_a486da9b72db9d4c80bfce15f3c0c54a1ad4b9e47f65b6e79b010582f15785867e"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1ad4b9e47f65b6e79b010582f15785867e">CYB::API::File::Mode::WRITE</a></div><div class="ttdoc">Write only mode. </div></div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file_html_aa5a049223fc1931175cf83e03c1b22cf"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa5a049223fc1931175cf83e03c1b22cf">CYB::Platform::System::Implementation::File::FHandle</a></div><div class="ttdeci">Win32::HANDLE FHandle</div><div class="ttdoc">The file handle. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_win32_file_8hpp_source.html#l00010">CYBWin32File.hpp:10</a></div></div>
+<div class="ttc" id="namespace_c_y_b_html_ac530f286744fc3b6c07ab8607d6ff192"><div class="ttname"><a href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192">CYB::Core</a></div><div class="ttdeci">Engine::Core &amp; Core(void) noexcept</div><div class="ttdoc">Retrieve the Core singleton. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_core_8cpp_source.html#l00051">CYBCore.cpp:51</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_exception_1_1_violation_html_a5e9d131ab13c9b938b708760974a0cb6ab2495afe190173e034fdbe0597a6db42"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2495afe190173e034fdbe0597a6db42">CYB::Exception::Violation::INVALID_OPERATION</a></div><div class="ttdoc">Illegal call given prexisting conditions. </div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00038">Exception.hpp:38</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_html_aded8c3a698b419b66ab532a667f42e0d"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#aded8c3a698b419b66ab532a667f42e0d">CYB::Platform::System::File::FOpenMode</a></div><div class="ttdeci">Mode FOpenMode</div><div class="ttdoc">The method used to open the file. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_file_8hpp_source.html#l00009">CYBFile.hpp:9</a></div></div>
 </div><!-- fragment -->
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_c_y_b_1_1_platform_1_1_system_1_1_file_a36be97af3ce389976af84bcbfefd86c0_cgraph.png" border="0" usemap="#class_c_y_b_1_1_platform_1_1_system_1_1_file_a36be97af3ce389976af84bcbfefd86c0_cgraph" alt=""/></div>
+<map name="class_c_y_b_1_1_platform_1_1_system_1_1_file_a36be97af3ce389976af84bcbfefd86c0_cgraph" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_a36be97af3ce389976af84bcbfefd86c0_cgraph">
+<area shape="rect" id="node2" href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192" title="Retrieve the Core singleton. " alt="" coords="214,12,301,39"/><area shape="rect" id="node3" href="class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba" title="Retrieve the Core singleton. " alt="" coords="350,5,493,46"/></map>
+</div>
+</p>
+
 </div>
 </div>
-<a class="anchor" id="a95b19780bfaed65370fc9f40eef93abd"></a>
+<a class="anchor" id="a27886ba90971690f4af5a85c24779ff7"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -487,7 +768,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void CYB::Platform::System::File::Seek </td>
+          <td class="memname">unsigned long long CYB::Platform::System::File::Seek </td>
           <td>(</td>
           <td class="paramtype">const long long&#160;</td>
           <td class="paramname"><em>AOffset</em>, </td>
@@ -519,27 +800,61 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>The current cursor position </dd></dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8" title="Tried to read/execute a file or enumerate a directory that the current user does not have permissions...">CYB::Exception::SystemData::FILE_NOT_READABLE</a>. Thrown if the seek would put the cursor past the bounds of the file </td></tr>
     <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_violation.html" title="Exceptions indicating an API contract violation. Should not be anticipated. ">CYB::Exception::Violation</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08" title="An operation was attempted with an invalid enum code. ">CYB::Exception::Violation::INVALID_ENUM</a>. Thrown if <code>ALocation</code> is invalid </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a21b120780467282ae8103028f75f52e5">CYB::API::File</a>.</p>
+<p>Implements <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a579038a9438eab5c51c7a14aa086a475">CYB::API::File</a>.</p>
 
-<p>Definition at line <a class="el" href="_c_y_b_file_8cpp_source.html#l00037">37</a> of file <a class="el" href="_c_y_b_file_8cpp_source.html">CYBFile.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                                                                                            {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span><span class="keyword">&gt;</span>(AOffset);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span><span class="keyword">&gt;</span>(ALocation);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="_assert_8hpp.html#a8608fe736d309b01e7bf6c4d414e3bf4">UNIMPLEMENTED</a>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
-<div class="ttc" id="_assert_8hpp_html_a8608fe736d309b01e7bf6c4d414e3bf4"><div class="ttname"><a href="_assert_8hpp.html#a8608fe736d309b01e7bf6c4d414e3bf4">UNIMPLEMENTED</a></div><div class="ttdeci">#define UNIMPLEMENTED</div><div class="ttdoc">Quick macro for supplying CYB::API::Assert::Unimplemented with the correct parameters. </div><div class="ttdef"><b>Definition:</b> <a href="_assert_8hpp_source.html#l00021">Assert.hpp:21</a></div></div>
+<p>Definition at line <a class="el" href="_c_y_b_win32_file_8cpp_source.html#l00132">132</a> of file <a class="el" href="_c_y_b_win32_file_8cpp_source.html">CYBWin32File.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                                                                                                          {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    LARGE_INTEGER Distance, Location;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    Distance.QuadPart = AOffset;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> WinLocation([&amp;]() -&gt; DWORD {</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordflow">switch</span> (ALocation) {</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818aa19aad9f2fe3ce0023298ab83f7e75775">SeekLocation::BEGIN</a>:</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            <span class="keywordflow">return</span> FILE_BEGIN;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818aab463a0d9beb14bdcecd3a50d70655963">SeekLocation::CURSOR</a>:</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            <span class="keywordflow">return</span> FILE_CURRENT;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818aab1a326c06d88bf042f73d70f50197905">SeekLocation::END</a>:</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;            <span class="keywordflow">return</span> FILE_END;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            <span class="keywordflow">throw</span> Exception::Violation(<a class="code" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08">Exception::Violation::INVALID_ENUM</a>);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        }</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    }());</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192">Core</a>().FModuleManager.Call&lt;Modules::Kernel32::SetFilePointerEx&gt;(<a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa5a049223fc1931175cf83e03c1b22cf">FHandle</a>, Distance, &amp;Location, WinLocation) == 0)</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <span class="keywordflow">throw</span> Exception::SystemData(<a class="code" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8">Exception::SystemData::FILE_NOT_READABLE</a>);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(Location.QuadPart);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;}</div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_file_html_a83d5db7dcf8226cb493a2688b050818aa19aad9f2fe3ce0023298ab83f7e75775"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818aa19aad9f2fe3ce0023298ab83f7e75775">CYB::API::File::SeekLocation::BEGIN</a></div><div class="ttdoc">Seek from the beginning of the file. </div></div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_file_html_a83d5db7dcf8226cb493a2688b050818aab463a0d9beb14bdcecd3a50d70655963"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818aab463a0d9beb14bdcecd3a50d70655963">CYB::API::File::SeekLocation::CURSOR</a></div><div class="ttdoc">Seek from the cursor position. </div></div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file_html_aa5a049223fc1931175cf83e03c1b22cf"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa5a049223fc1931175cf83e03c1b22cf">CYB::Platform::System::Implementation::File::FHandle</a></div><div class="ttdeci">Win32::HANDLE FHandle</div><div class="ttdoc">The file handle. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_win32_file_8hpp_source.html#l00010">CYBWin32File.hpp:10</a></div></div>
+<div class="ttc" id="namespace_c_y_b_html_ac530f286744fc3b6c07ab8607d6ff192"><div class="ttname"><a href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192">CYB::Core</a></div><div class="ttdeci">Engine::Core &amp; Core(void) noexcept</div><div class="ttdoc">Retrieve the Core singleton. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_core_8cpp_source.html#l00051">CYBCore.cpp:51</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_exception_1_1_system_data_html_aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8">CYB::Exception::SystemData::FILE_NOT_READABLE</a></div><div class="ttdoc">Tried to read/execute a file or enumerate a directory that the current user does not have permissions...</div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00072">Exception.hpp:72</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_file_html_a83d5db7dcf8226cb493a2688b050818aab1a326c06d88bf042f73d70f50197905"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818aab1a326c06d88bf042f73d70f50197905">CYB::API::File::SeekLocation::END</a></div><div class="ttdoc">Seek from the endo of the file. </div></div>
+<div class="ttc" id="class_c_y_b_1_1_exception_1_1_violation_html_a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08">CYB::Exception::Violation::INVALID_ENUM</a></div><div class="ttdoc">An operation was attempted with an invalid enum code. </div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00036">Exception.hpp:36</a></div></div>
 </div><!-- fragment -->
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_c_y_b_1_1_platform_1_1_system_1_1_file_a27886ba90971690f4af5a85c24779ff7_cgraph.png" border="0" usemap="#class_c_y_b_1_1_platform_1_1_system_1_1_file_a27886ba90971690f4af5a85c24779ff7_cgraph" alt=""/></div>
+<map name="class_c_y_b_1_1_platform_1_1_system_1_1_file_a27886ba90971690f4af5a85c24779ff7_cgraph" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_a27886ba90971690f4af5a85c24779ff7_cgraph">
+<area shape="rect" id="node2" href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192" title="Retrieve the Core singleton. " alt="" coords="214,12,301,39"/><area shape="rect" id="node3" href="class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba" title="Retrieve the Core singleton. " alt="" coords="350,5,493,46"/></map>
+</div>
+</p>
+
 </div>
 </div>
-<a class="anchor" id="a50cceb980a426eeae607ba45fba7f432"></a>
+<a class="anchor" id="ad485470cf2c79dd7163dfb3f1f8e04dd"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -547,7 +862,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static unsigned long long CYB::Platform::System::File::Size </td>
+          <td class="memname">unsigned long long CYB::Platform::System::File::Size </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html">System::Path</a> &amp;&#160;</td>
           <td class="paramname"><em>APath</em></td><td>)</td>
@@ -573,14 +888,45 @@ Additional Inherited Members</h2></td></tr>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8" title="Tried to read/execute a file or enumerate a directory that the current user does not have permissions...">CYB::Exception::SystemData::FILE_NOT_READABLE</a>. Thrown if the file size could not be retrieved </td></tr>
-    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa01f67a556a3000b3469110c02f76d616" title="A previously valid path has become invalidated, most likely due to deletion. ">CYB::Exception::SystemData::PATH_LOST</a>. Thrown if <code>APath</code> failed to verify </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa8e7bfbb18e1deaf73875d7738a384957" title="A required file was not found in the filesystem. ">CYB::Exception::SystemData::FILE_NOT_FOUND</a>. Thrown if <code>APath</code> failed to verify or the file does not exist </td></tr>
   </table>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="_c_y_b_win32_file_8cpp_source.html#l00108">108</a> of file <a class="el" href="_c_y_b_win32_file_8cpp_source.html">CYBWin32File.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                                                                      {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">auto</span>&amp; K32(<a class="code" href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192">Core</a>().FModuleManager);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    WIN32_FILE_ATTRIBUTE_DATA Attributes;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">if</span> (K32.Call&lt;Modules::Kernel32::GetFileAttributesExW&gt;(APath.WidePath().WString(), GetFileExInfoStandard, &amp;Attributes) != 0) {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        LARGE_INTEGER <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a5703c80108f6c8e5f7b7ed811a34b89f">Size</a>;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        Size.HighPart = <span class="keyword">static_cast&lt;</span>LONG<span class="keyword">&gt;</span>(Attributes.nFileSizeHigh);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        Size.LowPart = Attributes.nFileSizeLow;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(Size.QuadPart);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    }</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> Error(K32.Call&lt;Modules::Kernel32::GetLastError&gt;());</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">if</span> (Error == ERROR_ACCESS_DENIED || Error == ERROR_SHARING_VIOLATION)</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordflow">throw</span> Exception::SystemData(<a class="code" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8">Exception::SystemData::FILE_NOT_READABLE</a>);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">throw</span> Exception::SystemData(<a class="code" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa8e7bfbb18e1deaf73875d7738a384957">Exception::SystemData::FILE_NOT_FOUND</a>);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;}</div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_html_a5703c80108f6c8e5f7b7ed811a34b89f"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a5703c80108f6c8e5f7b7ed811a34b89f">CYB::Platform::System::File::Size</a></div><div class="ttdeci">unsigned long long Size(void) const finaloverride</div><div class="ttdoc">Get the current size of the File. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_win32_file_8cpp_source.html#l00125">CYBWin32File.cpp:125</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_exception_1_1_system_data_html_aec7c068789569f295671e37131d0e8caa8e7bfbb18e1deaf73875d7738a384957"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa8e7bfbb18e1deaf73875d7738a384957">CYB::Exception::SystemData::FILE_NOT_FOUND</a></div><div class="ttdoc">A required file was not found in the filesystem. </div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00071">Exception.hpp:71</a></div></div>
+<div class="ttc" id="namespace_c_y_b_html_ac530f286744fc3b6c07ab8607d6ff192"><div class="ttname"><a href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192">CYB::Core</a></div><div class="ttdeci">Engine::Core &amp; Core(void) noexcept</div><div class="ttdoc">Retrieve the Core singleton. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_core_8cpp_source.html#l00051">CYBCore.cpp:51</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_exception_1_1_system_data_html_aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8">CYB::Exception::SystemData::FILE_NOT_READABLE</a></div><div class="ttdoc">Tried to read/execute a file or enumerate a directory that the current user does not have permissions...</div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00072">Exception.hpp:72</a></div></div>
+</div><!-- fragment -->
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_c_y_b_1_1_platform_1_1_system_1_1_file_ad485470cf2c79dd7163dfb3f1f8e04dd_cgraph.png" border="0" usemap="#class_c_y_b_1_1_platform_1_1_system_1_1_file_ad485470cf2c79dd7163dfb3f1f8e04dd_cgraph" alt=""/></div>
+<map name="class_c_y_b_1_1_platform_1_1_system_1_1_file_ad485470cf2c79dd7163dfb3f1f8e04dd_cgraph" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_ad485470cf2c79dd7163dfb3f1f8e04dd_cgraph">
+<area shape="rect" id="node2" href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192" title="Retrieve the Core singleton. " alt="" coords="255,12,342,39"/><area shape="rect" id="node4" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html#aa3b9371dd417fe997c05bf30ef6750e1" title="Accessor for other Win32 implementations that require the UTF16 Path. " alt="" coords="219,63,379,119"/><area shape="rect" id="node5" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html#a90212a7c1b5164d18679b9431a9c5562" title="Get the underlying const wide char array. " alt="" coords="213,142,384,183"/><area shape="rect" id="node3" href="class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba" title="Retrieve the Core singleton. " alt="" coords="433,5,575,46"/></map>
+</div>
+</p>
+
 </div>
 </div>
-<a class="anchor" id="a18e566666ddd1ecf932d842a805daeda"></a>
+<a class="anchor" id="a5703c80108f6c8e5f7b7ed811a34b89f"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -597,7 +943,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -605,19 +951,39 @@ Additional Inherited Members</h2></td></tr>
 <p>Get the current size of the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>The current size of the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a> </dd></dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8" title="Tried to read/execute a file or enumerate a directory that the current user does not have permissions...">CYB::Exception::SystemData::FILE_NOT_READABLE</a>. Thrown if the size could not be retrieved </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>Implements <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a8d9e306523428226f698a8ae5a9f9ad8">CYB::API::File</a>.</p>
+<p>Implements <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#aad9a115d00198c76b08df199a187fb69">CYB::API::File</a>.</p>
 
-<p>Definition at line <a class="el" href="_c_y_b_file_8cpp_source.html#l00027">27</a> of file <a class="el" href="_c_y_b_file_8cpp_source.html">CYBFile.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                                                                  {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="_assert_8hpp.html#a8608fe736d309b01e7bf6c4d414e3bf4">UNIMPLEMENTED</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
-<div class="ttc" id="_assert_8hpp_html_a8608fe736d309b01e7bf6c4d414e3bf4"><div class="ttname"><a href="_assert_8hpp.html#a8608fe736d309b01e7bf6c4d414e3bf4">UNIMPLEMENTED</a></div><div class="ttdeci">#define UNIMPLEMENTED</div><div class="ttdoc">Quick macro for supplying CYB::API::Assert::Unimplemented with the correct parameters. </div><div class="ttdef"><b>Definition:</b> <a href="_assert_8hpp_source.html#l00021">Assert.hpp:21</a></div></div>
+<p>Definition at line <a class="el" href="_c_y_b_win32_file_8cpp_source.html#l00125">125</a> of file <a class="el" href="_c_y_b_win32_file_8cpp_source.html">CYBWin32File.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                                                         {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    LARGE_INTEGER <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a5703c80108f6c8e5f7b7ed811a34b89f">Size</a>;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192">Core</a>().FModuleManager.Call&lt;Modules::Kernel32::GetFileSizeEx&gt;(<a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa5a049223fc1931175cf83e03c1b22cf">FHandle</a>, &amp;Size) == 0)</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="keywordflow">throw</span> Exception::SystemData(<a class="code" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8">Exception::SystemData::FILE_NOT_READABLE</a>);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(Size.QuadPart);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file_html_aa5a049223fc1931175cf83e03c1b22cf"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa5a049223fc1931175cf83e03c1b22cf">CYB::Platform::System::Implementation::File::FHandle</a></div><div class="ttdeci">Win32::HANDLE FHandle</div><div class="ttdoc">The file handle. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_win32_file_8hpp_source.html#l00010">CYBWin32File.hpp:10</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_html_a5703c80108f6c8e5f7b7ed811a34b89f"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a5703c80108f6c8e5f7b7ed811a34b89f">CYB::Platform::System::File::Size</a></div><div class="ttdeci">unsigned long long Size(void) const finaloverride</div><div class="ttdoc">Get the current size of the File. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_win32_file_8cpp_source.html#l00125">CYBWin32File.cpp:125</a></div></div>
+<div class="ttc" id="namespace_c_y_b_html_ac530f286744fc3b6c07ab8607d6ff192"><div class="ttname"><a href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192">CYB::Core</a></div><div class="ttdeci">Engine::Core &amp; Core(void) noexcept</div><div class="ttdoc">Retrieve the Core singleton. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_core_8cpp_source.html#l00051">CYBCore.cpp:51</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_exception_1_1_system_data_html_aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8">CYB::Exception::SystemData::FILE_NOT_READABLE</a></div><div class="ttdoc">Tried to read/execute a file or enumerate a directory that the current user does not have permissions...</div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00072">Exception.hpp:72</a></div></div>
 </div><!-- fragment -->
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_c_y_b_1_1_platform_1_1_system_1_1_file_a5703c80108f6c8e5f7b7ed811a34b89f_cgraph.png" border="0" usemap="#class_c_y_b_1_1_platform_1_1_system_1_1_file_a5703c80108f6c8e5f7b7ed811a34b89f_cgraph" alt=""/></div>
+<map name="class_c_y_b_1_1_platform_1_1_system_1_1_file_a5703c80108f6c8e5f7b7ed811a34b89f_cgraph" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_a5703c80108f6c8e5f7b7ed811a34b89f_cgraph">
+<area shape="rect" id="node2" href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192" title="Retrieve the Core singleton. " alt="" coords="214,12,301,39"/><area shape="rect" id="node3" href="class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba" title="Retrieve the Core singleton. " alt="" coords="350,5,493,46"/></map>
+</div>
+</p>
+
 </div>
 </div>
-<a class="anchor" id="a19efc2b89743a319e01c9bdd7e35e515"></a>
+<a class="anchor" id="a22920c30ac6157a4d10ce12bf3ddc01b"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -625,9 +991,9 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void CYB::Platform::System::File::Touch </td>
+          <td class="memname">void CYB::Platform::System::File::Touch </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html">System::Path</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html">System::Path</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>APath</em></td><td>)</td>
           <td></td>
         </tr>
@@ -649,16 +1015,24 @@ Additional Inherited Members</h2></td></tr>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa7a735f528e6fab1b5bac18a895d3b097" title="Tried to write/delete a file or create/modify/delete a directory that the current user does not have ...">CYB::Exception::SystemData::FILE_NOT_WRITABLE</a>. Thrown if the file could not be opened </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa7a735f528e6fab1b5bac18a895d3b097" title="Tried to write/delete a file or create/modify/delete a directory that the current user does not have ...">CYB::Exception::SystemData::FILE_NOT_WRITABLE</a>. Thrown if the file could not be opened for writing </td></tr>
     <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa93eaaf592450d4b08d4088b4b3bba0bc" title="A heap has no block large enough for a requested allocation and expansion failed. ...">CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE</a>. Thrown if the current heap runs out of memory </td></tr>
-    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa01f67a556a3000b3469110c02f76d616" title="A previously valid path has become invalidated, most likely due to deletion. ">CYB::Exception::SystemData::PATH_LOST</a>. Thrown if <code>APath</code> failed to verify </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa8e7bfbb18e1deaf73875d7738a384957" title="A required file was not found in the filesystem. ">CYB::Exception::SystemData::FILE_NOT_FOUND</a>. Thrown if <code>APath</code> is not valid. </td></tr>
   </table>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="_c_y_b_file_8cpp_source.html#l00008">8</a> of file <a class="el" href="_c_y_b_file_8cpp_source.html">CYBFile.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                                                    {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa645e1388ec866bbd1f51db25908ab55">File</a>(std::move(APath), <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1ad4b9e47f65b6e79b010582f15785867e">Mode::WRITE</a>, <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a8e1bde3c3d303163521522cf1d62f21f">Method::ANY</a>);</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;}</div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file_html_aa645e1388ec866bbd1f51db25908ab55"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa645e1388ec866bbd1f51db25908ab55">CYB::Platform::System::Implementation::File::File</a></div><div class="ttdeci">File() noexcept=default</div><div class="ttdoc">See Default Constructors and Destructor. </div></div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_file_html_a486da9b72db9d4c80bfce15f3c0c54a1ad4b9e47f65b6e79b010582f15785867e"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1ad4b9e47f65b6e79b010582f15785867e">CYB::API::File::Mode::WRITE</a></div><div class="ttdoc">Write only mode. </div></div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_file_html_ac815688c225d02ec8a984acf8ac4ac82a8e1bde3c3d303163521522cf1d62f21f"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a8e1bde3c3d303163521522cf1d62f21f">CYB::API::File::Method::ANY</a></div><div class="ttdoc">The File may or may not exist. It will be created if it doesn&#39;t. OpenMethod will be set to EXIST or C...</div></div>
+</div><!-- fragment -->
 </div>
 </div>
-<a class="anchor" id="a2d74b675a60cd440506835df07d5a084"></a>
+<a class="anchor" id="a199277af47e8245557e3ff23e466f2f4"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -666,9 +1040,9 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void CYB::Platform::System::File::Write </td>
+          <td class="memname">unsigned long long CYB::Platform::System::File::Write </td>
           <td>(</td>
-          <td class="paramtype">void *const&#160;</td>
+          <td class="paramtype">const void *const&#160;</td>
           <td class="paramname"><em>ABuffer</em>, </td>
         </tr>
         <tr>
@@ -698,23 +1072,46 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of bytes written. If zero is returned, an error has occurred and the write should not be retried </dd></dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requres no thread safety </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_violation.html" title="Exceptions indicating an API contract violation. Should not be anticipated. ">CYB::Exception::Violation</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2495afe190173e034fdbe0597a6db42" title="Illegal call given prexisting conditions. ">CYB::Exception::Violation::INVALID_OPERATION</a>. Thrown if the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co...">File</a> was opened with <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1a3466fab4975481651940ed328aa990e4" title="Read only mode. ">Mode::READ</a> </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>Implements <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#abe5dc81e63e3cd74d54611a9daca369f">CYB::API::File</a>.</p>
+<p>Implements <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_file.html#ab69760c39bca3d472763f6e1743e1a36">CYB::API::File</a>.</p>
 
-<p>Definition at line <a class="el" href="_c_y_b_file_8cpp_source.html#l00050">50</a> of file <a class="el" href="_c_y_b_file_8cpp_source.html">CYBFile.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                                                                                       {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span><span class="keyword">&gt;</span>(ABuffer);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span><span class="keyword">&gt;</span>(AAmount);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="_assert_8hpp.html#a8608fe736d309b01e7bf6c4d414e3bf4">UNIMPLEMENTED</a>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
-<div class="ttc" id="_assert_8hpp_html_a8608fe736d309b01e7bf6c4d414e3bf4"><div class="ttname"><a href="_assert_8hpp.html#a8608fe736d309b01e7bf6c4d414e3bf4">UNIMPLEMENTED</a></div><div class="ttdeci">#define UNIMPLEMENTED</div><div class="ttdoc">Quick macro for supplying CYB::API::Assert::Unimplemented with the correct parameters. </div><div class="ttdef"><b>Definition:</b> <a href="_assert_8hpp_source.html#l00021">Assert.hpp:21</a></div></div>
+<p>Definition at line <a class="el" href="_c_y_b_win32_file_8cpp_source.html#l00164">164</a> of file <a class="el" href="_c_y_b_win32_file_8cpp_source.html">CYBWin32File.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                                                                                                           {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#aded8c3a698b419b66ab532a667f42e0d">FOpenMode</a> == <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1a3466fab4975481651940ed328aa990e4">Mode::READ</a>)</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">throw</span> Exception::Violation(<a class="code" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2495afe190173e034fdbe0597a6db42">Exception::Violation::INVALID_OPERATION</a>);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    DWORD BytesWritten;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192">Core</a>().FModuleManager.Call&lt;Modules::Kernel32::WriteFile&gt;(<a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa5a049223fc1931175cf83e03c1b22cf">FHandle</a>, ABuffer, static_cast&lt;DWORD&gt;(AAmount), &amp;BytesWritten, <span class="keyword">nullptr</span>) == 0)</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        BytesWritten = 0;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordflow">return</span> BytesWritten;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;}<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file_html_aa5a049223fc1931175cf83e03c1b22cf"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html#aa5a049223fc1931175cf83e03c1b22cf">CYB::Platform::System::Implementation::File::FHandle</a></div><div class="ttdeci">Win32::HANDLE FHandle</div><div class="ttdoc">The file handle. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_win32_file_8hpp_source.html#l00010">CYBWin32File.hpp:10</a></div></div>
+<div class="ttc" id="namespace_c_y_b_html_ac530f286744fc3b6c07ab8607d6ff192"><div class="ttname"><a href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192">CYB::Core</a></div><div class="ttdeci">Engine::Core &amp; Core(void) noexcept</div><div class="ttdoc">Retrieve the Core singleton. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_core_8cpp_source.html#l00051">CYBCore.cpp:51</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_exception_1_1_violation_html_a5e9d131ab13c9b938b708760974a0cb6ab2495afe190173e034fdbe0597a6db42"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2495afe190173e034fdbe0597a6db42">CYB::Exception::Violation::INVALID_OPERATION</a></div><div class="ttdoc">Illegal call given prexisting conditions. </div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00038">Exception.hpp:38</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_file_html_a486da9b72db9d4c80bfce15f3c0c54a1a3466fab4975481651940ed328aa990e4"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_file.html#a486da9b72db9d4c80bfce15f3c0c54a1a3466fab4975481651940ed328aa990e4">CYB::API::File::Mode::READ</a></div><div class="ttdoc">Read only mode. </div></div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_html_aded8c3a698b419b66ab532a667f42e0d"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#aded8c3a698b419b66ab532a667f42e0d">CYB::Platform::System::File::FOpenMode</a></div><div class="ttdeci">Mode FOpenMode</div><div class="ttdoc">The method used to open the file. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_file_8hpp_source.html#l00009">CYBFile.hpp:9</a></div></div>
 </div><!-- fragment -->
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_c_y_b_1_1_platform_1_1_system_1_1_file_a199277af47e8245557e3ff23e466f2f4_cgraph.png" border="0" usemap="#class_c_y_b_1_1_platform_1_1_system_1_1_file_a199277af47e8245557e3ff23e466f2f4_cgraph" alt=""/></div>
+<map name="class_c_y_b_1_1_platform_1_1_system_1_1_file_a199277af47e8245557e3ff23e466f2f4_cgraph" id="class_c_y_b_1_1_platform_1_1_system_1_1_file_a199277af47e8245557e3ff23e466f2f4_cgraph">
+<area shape="rect" id="node2" href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192" title="Retrieve the Core singleton. " alt="" coords="214,12,301,39"/><area shape="rect" id="node3" href="class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba" title="Retrieve the Core singleton. " alt="" coords="350,5,493,46"/></map>
+</div>
+</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>Engine/Platform/System/<a class="el" href="_c_y_b_file_8hpp_source.html">CYBFile.hpp</a></li>
 <li>Engine/Platform/System/<a class="el" href="_c_y_b_file_8cpp_source.html">CYBFile.cpp</a></li>
+<li>Engine/Platform/System/Win32/<a class="el" href="_c_y_b_win32_file_8cpp_source.html">CYBWin32File.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

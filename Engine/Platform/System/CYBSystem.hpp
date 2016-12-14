@@ -1,4 +1,4 @@
-//! @file CYBPlatform.hpp Includes platform system headers
+//! @file CYBSystem.hpp Includes platform system headers
 #pragma once
 
 namespace CYB {

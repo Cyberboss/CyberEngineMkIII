@@ -2,7 +2,7 @@
 <area shape="rect" id="node2" href="$_c_y_b_memory_8hpp.html" title="Contains all headers relating to memory. " alt="" coords="189,80,363,107"/>
 <area shape="rect" id="node6" href="$_c_y_b_core_8hpp.html" title="Defines the engine core interface and static pointer as well as the Engine() access function..." alt="" coords="457,80,591,107"/>
 <area shape="rect" id="node3" href="$_c_y_b_block_8hpp.html" title="Defines the Block class used by the Heap. " alt="" coords="5,155,112,181"/>
-<area shape="rect" id="node4" href="$_c_y_b_large_block_8hpp_source.html" title="CYBLargeBlock.hpp" alt="" coords="137,155,276,181"/>
+<area shape="rect" id="node4" href="$_c_y_b_large_block_8hpp.html" title="Defines the LargeBlock class used by the Heap. " alt="" coords="137,155,276,181"/>
 <area shape="rect" id="node5" href="$_c_y_b_heap_8hpp.html" title="Defines the Heap implementation. " alt="" coords="301,155,408,181"/>
 <area shape="rect" id="node7" href="$_c_y_b_engine_parameters_8hpp.html" title="Engine compilation configuration variables. " alt="" coords="433,155,615,181"/>
 <area shape="rect" id="node8" href="$_c_y_b_interop_8hpp.html" title="Defines the implementations of virtual functions defined in CYB::API::Interop. " alt="" coords="640,155,755,181"/>

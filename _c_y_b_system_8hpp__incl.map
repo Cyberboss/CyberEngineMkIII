@@ -1,0 +1,9 @@
+<map id="Engine/Platform/System/CYBSystem.hpp" name="Engine/Platform/System/CYBSystem.hpp">
+<area shape="rect" id="node2" href="$_c_y_b_syscalls_8hpp.html" title="Defines the System Call interface. " alt="" coords="5,96,131,123"/>
+<area shape="rect" id="node4" href="$_c_y_b_virtual_memory_8hpp.html" title="Contains the platform memory manager functions. " alt="" coords="155,96,313,123"/>
+<area shape="rect" id="node5" href="$_c_y_b_thread_8hpp.html" title="Contains the platform thread definition. " alt="" coords="339,96,453,123"/>
+<area shape="rect" id="node6" href="$_c_y_b_process_8hpp.html" title="Defines the platform process interface. " alt="" coords="477,96,600,123"/>
+<area shape="rect" id="node7" href="$_c_y_b_mutex_8hpp.html" title="Contains the definition for an process unique, fast thread safety mechanism. " alt="" coords="625,96,735,123"/>
+<area shape="rect" id="node8" href="$_c_y_b_path_8hpp.html" title="Defines the Path interface. " alt="" coords="759,96,861,123"/>
+<area shape="rect" id="node9" href="$_c_y_b_file_8hpp.html" title="Defines the filesystem interface. " alt="" coords="887,96,983,123"/>
+</map>

@@ -15,7 +15,6 @@ var searchData=
   ['interopallocation',['InteropAllocation',['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a1137377395bc03089bde7f5a57237c83',1,'CYB::API::Interop::Allocator::InteropAllocation()'],['../class_c_y_b_1_1_engine_1_1_allocator.html#a998cd8d32d0a52d17d2a116a67b95626',1,'CYB::Engine::Allocator::InteropAllocation()']]],
   ['invalid_5fenum',['INVALID_ENUM',['../class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08',1,'CYB::Exception::Violation']]],
   ['invalid_5finterop_5fconstructor',['INVALID_INTEROP_CONSTRUCTOR',['../class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6aeab154d151b5700d865679cc9467d2ff',1,'CYB::Exception::Violation']]],
-  ['invalid_5foperation',['INVALID_OPERATION',['../class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2495afe190173e034fdbe0597a6db42',1,'CYB::Exception::Violation']]],
   ['invalid_5fparameters',['INVALID_PARAMETERS',['../class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6a1c6357cb0000f2a8f2e80e5454e23e5f',1,'CYB::Exception::Violation']]],
   ['is_5falways_5fequal',['is_always_equal',['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_s_t_l_allocator.html#aa64decf92dab32d0ee2ce0bc98a355fb',1,'CYB::API::Interop::STLAllocator']]],
   ['isdebug',['IsDebug',['../class_c_y_b_1_1_a_p_i_1_1_platform.html#acd899a75db3bfc7ca1c470d00a66ef13',1,'CYB::API::Platform']]],

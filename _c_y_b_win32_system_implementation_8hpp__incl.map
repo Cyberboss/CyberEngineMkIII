@@ -1,9 +1,0 @@
-<map id="Engine/Platform/System/Win32/CYBWin32SystemImplementation.hpp" name="Engine/Platform/System/Win32/CYBWin32SystemImplementation.hpp">
-<area shape="rect" id="node2" href="$_c_y_b_win32_syscalls_8hpp.html" title="Contains the Win32 Sys implementation. " alt="" coords="5,96,168,123"/>
-<area shape="rect" id="node3" href="$_c_y_b_win32_thread_8hpp.html" title="Implements CYB::Platform::System::Thread for Win32. " alt="" coords="192,96,344,123"/>
-<area shape="rect" id="node4" href="$_c_y_b_win32_process_8hpp.html" title="Defines the Win32 implementation for CYB::Platform::System::Process. " alt="" coords="368,96,527,123"/>
-<area shape="rect" id="node5" href="$_c_y_b_win32_virtual_memory_8hpp.html" title="Contains the Win32 VirtualMemory implementation. " alt="" coords="553,96,748,123"/>
-<area shape="rect" id="node6" href="$_c_y_b_win32_mutex_8hpp.html" title="Defines the Win32 implementation for CYB::Platform::System::Mutex. " alt="" coords="773,96,920,123"/>
-<area shape="rect" id="node7" href="$_c_y_b_win32_path_8hpp.html" title="Defines the Win32 implementation for CYB::Platform::System::Path. " alt="" coords="945,96,1084,123"/>
-<area shape="rect" id="node8" href="$_c_y_b_win32_file_8hpp.html" title="Defines the Win32 implementation for CYB::Platform::System::File. " alt="" coords="1108,96,1241,123"/>
-</map>

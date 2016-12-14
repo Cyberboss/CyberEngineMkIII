@@ -90,7 +90,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path-members.html">List of all members</a>  </div>
@@ -124,12 +123,6 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses the FindFile <a class="el" href="namespace_c_y_b_1_1_a_p_i.html" title="Namespace containing the public API define EXPLICIT_API_USAGE to prevent automatic &#39;using&#39;...">API</a> to enumerate directories.  <a href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_1_1_directory_entry.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:aa3b9371dd417fe997c05bf30ef6750e1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html">API::String::UTF16</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html#aa3b9371dd417fe997c05bf30ef6750e1">WidePath</a> (void) const noexcept</td></tr>
-<tr class="memdesc:aa3b9371dd417fe997c05bf30ef6750e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accessor for other <a class="el" href="namespace_c_y_b_1_1_platform_1_1_win32.html" title="Includes headers for Windows platforms. ">Win32</a> implementations that require the UTF16 <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html" title="Adds a UTF16 accompaniment to the UTF8 string of System::Path. ">Path</a>.  <a href="#aa3b9371dd417fe997c05bf30ef6750e1">More...</a><br/></td></tr>
-<tr class="separator:aa3b9371dd417fe997c05bf30ef6750e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:aa2481f4da6d6abe4aef81748039353b4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa2481f4da6d6abe4aef81748039353b4"></a>
@@ -148,52 +141,8 @@ Protected Attributes</h2></td></tr>
 <div class="textblock"><p>Adds a UTF16 accompaniment to the UTF8 string of <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no-op. ">System::Path</a>. </p>
 
 <p>Definition at line <a class="el" href="_c_y_b_win32_path_8hpp_source.html#l00010">10</a> of file <a class="el" href="_c_y_b_win32_path_8hpp_source.html">CYBWin32Path.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="aa3b9371dd417fe997c05bf30ef6750e1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html">UTF16</a> &amp; CYB::Platform::System::Implementation::Path::WidePath </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Accessor for other <a class="el" href="namespace_c_y_b_1_1_platform_1_1_win32.html" title="Includes headers for Windows platforms. ">Win32</a> implementations that require the UTF16 <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html" title="Adds a UTF16 accompaniment to the UTF8 string of System::Path. ">Path</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>A reference to the UTF16 string of the <a class="el" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html" title="Adds a UTF16 accompaniment to the UTF8 string of System::Path. ">Path</a> </dd></dl>
-<dl class="section user"><dt>Thread Safety</dt><dd>This function requires synchronization at the object level </dd></dl>
-
-<p>Definition at line <a class="el" href="_c_y_b_win32_path_8cpp_source.html#l00276">276</a> of file <a class="el" href="_c_y_b_win32_path_8cpp_source.html">CYBWin32Path.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;                                                                              {</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html#a0ea7d58584830aa51a562a6ddb8de1f1">FWidePath</a>;</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;}<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_html_a0ea7d58584830aa51a562a6ddb8de1f1"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html#a0ea7d58584830aa51a562a6ddb8de1f1">CYB::Platform::System::Implementation::Path::FWidePath</a></div><div class="ttdeci">API::String::UTF16 FWidePath</div><div class="ttdoc">The UTF16 string. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_win32_path_8hpp_source.html#l00053">CYBWin32Path.hpp:53</a></div></div>
-</div><!-- fragment -->
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_aa3b9371dd417fe997c05bf30ef6750e1_icgraph.png" border="0" usemap="#class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_aa3b9371dd417fe997c05bf30ef6750e1_icgraph" alt=""/></div>
-<map name="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_aa3b9371dd417fe997c05bf30ef6750e1_icgraph" id="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_aa3b9371dd417fe997c05bf30ef6750e1_icgraph">
-<area shape="rect" id="node2" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a38c35deb540c1afea2a60d47bb49c10d" title="Opens a file for access. " alt="" coords="213,5,373,46"/><area shape="rect" id="node3" href="class_c_y_b_1_1_platform_1_1_system_1_1_file.html#ad485470cf2c79dd7163dfb3f1f8e04dd" title="Get the current size of a File. " alt="" coords="213,70,373,111"/></map>
-</div>
-</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>Engine/Platform/System/Win32/<a class="el" href="_c_y_b_win32_path_8hpp_source.html">CYBWin32Path.hpp</a></li>
-<li>Engine/Platform/System/Win32/<a class="el" href="_c_y_b_win32_path_8cpp_source.html">CYBWin32Path.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

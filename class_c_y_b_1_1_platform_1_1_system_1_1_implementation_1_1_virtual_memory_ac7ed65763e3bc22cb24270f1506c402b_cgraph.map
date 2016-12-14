@@ -1,5 +1,4 @@
 <map id="CYB::Platform::System::Implementation::VirtualMemory::SystemPageSize" name="CYB::Platform::System::Implementation::VirtualMemory::SystemPageSize">
-<area shape="rect" id="node2" href="$namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192" title="Retrieve the Core singleton. " alt="" coords="303,12,390,39"/>
-<area shape="rect" id="node4" href="$class_c_y_b_1_1_platform_1_1_modules_1_1_manager.html#a68fda1e0198788c3c9df883a0c69cf69" title="Call a loaded function. " alt="" coords="265,63,429,105"/>
-<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba" title="Retrieve the Core singleton. " alt="" coords="478,5,621,46"/>
+<area shape="rect" id="node2" href="$namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192" title="Retrieve the Core singleton. " alt="" coords="265,19,351,45"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba" title="Retrieve the Core singleton. " alt="" coords="401,11,543,53"/>
 </map>

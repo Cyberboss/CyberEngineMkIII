@@ -14,13 +14,12 @@
 <area shape="rect" id="node14" href="$_c_y_b_process_8cpp.html" title="Shared function implementations for CYB::Platform::Process. " alt="" coords="2182,81,2345,122"/>
 <area shape="rect" id="node15" href="$_c_y_b_thread_8cpp.html" title="Shared function implementations for CYB::Platform::Thread. " alt="" coords="2370,81,2533,122"/>
 <area shape="rect" id="node16" href="$_c_y_b_virtual_memory_8cpp.html" title="Implements shared functions of CYB::Platform::System::VirtualMemory. " alt="" coords="2558,81,2721,122"/>
-<area shape="rect" id="node17" href="$_c_y_b_win32_file_8cpp.html" title="Implements CYB::Platform::System::File for Win32. " alt="" coords="2747,81,2925,122"/>
-<area shape="rect" id="node18" href="$_c_y_b_win32_mutex_8cpp.html" title="Implements CYB::Platform::System::Mutex for Win32. " alt="" coords="2950,81,3143,122"/>
-<area shape="rect" id="node19" href="$_c_y_b_win32_path_8cpp.html" title="Implements CYB::Platform::System::Path for Win32. " alt="" coords="3168,81,3352,122"/>
-<area shape="rect" id="node20" href="$_c_y_b_win32_process_8cpp_source.html" title="Engine/Platform/System\l/Win32/CYBWin32Process.cpp" alt="" coords="3376,81,3581,122"/>
-<area shape="rect" id="node21" href="$_c_y_b_win32_syscalls_8cpp_source.html" title="Engine/Platform/System\l/Win32/CYBWin32Syscalls.cpp" alt="" coords="3606,81,3812,122"/>
-<area shape="rect" id="node22" href="$_c_y_b_win32_thread_8cpp_source.html" title="Engine/Platform/System\l/Win32/CYBWin32Thread.cpp" alt="" coords="3837,81,4035,122"/>
-<area shape="rect" id="node23" href="$_c_y_b_win32_virtual_memory_8cpp_source.html" title="Engine/Platform/System\l/Win32/CYBWin32VirtualMemory.cpp" alt="" coords="4059,81,4300,122"/>
-<area shape="rect" id="node24" href="$_c_y_b_u_t_f16_string_8cpp.html" title="Implements the Win32 only UTF16 converter. " alt="" coords="4325,81,4539,122"/>
-<area shape="rect" id="node25" href="$_c_y_b_entry_8cpp.html" title="The entry point to the program. Sole purpose is to call Main::Entry and return. Also contains excepti..." alt="" coords="4563,88,4737,115"/>
+<area shape="rect" id="node17" href="$_c_y_b_win32_mutex_8cpp.html" title="Implements CYB::Platform::System::Mutex for Win32. " alt="" coords="2746,81,2939,122"/>
+<area shape="rect" id="node18" href="$_c_y_b_win32_path_8cpp.html" title="Implements CYB::Platform::System::Path for Win32. " alt="" coords="2964,81,3148,122"/>
+<area shape="rect" id="node19" href="$_c_y_b_win32_process_8cpp_source.html" title="Engine/Platform/System\l/Win32/CYBWin32Process.cpp" alt="" coords="3172,81,3377,122"/>
+<area shape="rect" id="node20" href="$_c_y_b_win32_syscalls_8cpp_source.html" title="Engine/Platform/System\l/Win32/CYBWin32Syscalls.cpp" alt="" coords="3402,81,3608,122"/>
+<area shape="rect" id="node21" href="$_c_y_b_win32_thread_8cpp_source.html" title="Engine/Platform/System\l/Win32/CYBWin32Thread.cpp" alt="" coords="3633,81,3831,122"/>
+<area shape="rect" id="node22" href="$_c_y_b_win32_virtual_memory_8cpp_source.html" title="Engine/Platform/System\l/Win32/CYBWin32VirtualMemory.cpp" alt="" coords="3855,81,4096,122"/>
+<area shape="rect" id="node23" href="$_c_y_b_u_t_f16_string_8cpp.html" title="Implements the Win32 only UTF16 converter. " alt="" coords="4121,81,4335,122"/>
+<area shape="rect" id="node24" href="$_c_y_b_entry_8cpp.html" title="The entry point to the program. Sole purpose is to call Main::Entry and return. Also contains excepti..." alt="" coords="4359,88,4533,115"/>
 </map>

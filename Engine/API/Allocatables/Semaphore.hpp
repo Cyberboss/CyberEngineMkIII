@@ -1,7 +1,11 @@
 //! @file Semaphore.hpp Contains the declaration of CYB::API::Semaphore
 namespace CYB {
 	namespace API {
-		//! @brief A reliable wait queue
+		/*!
+			@brief A reliable wait queue
+			@par WARNING
+				Using Mutex's incorrectly results in hard to detect undefined behaviour, proceed with caution
+		*/
 		class Semaphore : public Interop::Allocatable {
 		public:
 			/*!

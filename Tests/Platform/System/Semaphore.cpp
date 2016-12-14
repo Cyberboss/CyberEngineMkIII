@@ -30,7 +30,7 @@ SCENARIO("Semaphores can be constructed", "[Platform][System][Semaphore][Unit]")
 		ExpectError();
 	}
 	GIVEN("A bad pthread cond init") {
-		const auto BadMutex(PThread.Redirect<PThread::pthread_mutex_init, BadPThreadInit>());
+		const auto BadMutex(PThread.Redirect<PThread::pthread_cond_init, BadPThreadInit>());
 		ExpectError();
 	}
 #endif

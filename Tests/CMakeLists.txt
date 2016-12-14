@@ -14,6 +14,7 @@ Platform/System/Mutex.cpp
 Platform/System/File.cpp
 Platform/System/Path.cpp
 Platform/System/Process.cpp
+Platform/System/Semaphore.cpp
 
 Engine/Memory/Blocks.cpp
 Engine/Memory/Heap.cpp

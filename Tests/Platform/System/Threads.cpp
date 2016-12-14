@@ -25,7 +25,7 @@ SCENARIO("Thread creation works", "[Platform][System][Threads][Unit][Slow]") {
 			REQUIRE_NOTHROW(TestThread = new CYB::Platform::System::Thread(TestClass));
 			THEN("No errors occur and the thread runs separate from this one") {
 				REQUIRE(TestThread != nullptr);
-				CYB::Platform::System::Thread::Sleep(1000);
+				CYB::Platform::System::Thread::Sleep(5);
 				CHECK(TestClass.FRan);
 			}
 			delete TestThread;
@@ -44,7 +44,7 @@ SCENARIO("Thread Wait and deletion work", "[Platform][System][Threads][Unit][Slo
 		auto TestThread(new CYB::Platform::System::Thread(TestClass));
 
 		//Prevent test from going forever
-		CYB::Platform::System::Thread::Sleep(1000);
+		CYB::Platform::System::Thread::Sleep(5);
 		REQUIRE(TestThread->IsFinished());
 
 		WHEN("The thread is waited upon") {
@@ -88,12 +88,12 @@ SCENARIO("Threaded operations can be cancelled", "[Platform][System][Threads][Un
 	GIVEN("A valid thread that will run forever") {
 		ThreadCancelTest TestClass;
 		CYB::Platform::System::Thread TestThread(TestClass);
-		CYB::Platform::System::Thread::Sleep(1000);
+		CYB::Platform::System::Thread::Sleep(5);
 		REQUIRE(!TestThread.IsFinished());
 		WHEN("The thread is cancelled") {
 			TestThread.Cancel();
 			THEN("The thread will terminate") {
-				CYB::Platform::System::Thread::Sleep(1000);
+				CYB::Platform::System::Thread::Sleep(5);
 				CHECK(TestThread.IsFinished());
 			}
 		}
@@ -111,7 +111,7 @@ SCENARIO("Thread Sleep works", "[Platform][System][Threads][Unit][Slow]") {
 	ModuleDependancy<CYB::Platform::Modules::RT> RT;
 	ModuleDependancy<CYB::Platform::Modules::System> System;
 	GIVEN("A long ass computer time and a current time") {
-		const auto Milliseconds(1000);
+		const auto Milliseconds(5);
 		const auto StartTime(TestGetTime());
 		WHEN("We sleep for that long") {
 			CYB::Platform::System::Thread::Sleep(Milliseconds);

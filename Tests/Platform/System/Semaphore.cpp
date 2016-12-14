@@ -66,13 +66,13 @@ SCENARIO("Semaphores can be waited on and signaled in order", "[Platform][System
 		WHEN("A thread is created to wait on the semaphore") {
 			SemBasicTest Test;
 			Thread SemThread(Test);
-			Thread::Sleep(50);
+			Thread::Sleep(5);
 			THEN("The thread is still running") {
 				CHECK_FALSE(SemThread.IsFinished());
 			}
 			Sem.SignalAll();
 			AND_WHEN("The semaphore is signaled") {
-				Thread::Sleep(50);
+				Thread::Sleep(5);
 				THEN("The thread has finished") {
 					CHECK(SemThread.IsFinished());
 				}
@@ -83,11 +83,11 @@ SCENARIO("Semaphores can be waited on and signaled in order", "[Platform][System
 			unsigned int Return;
 			LastReturn = &Return;
 			Thread SemThread1(Test1);
-			Thread::Sleep(50);
+			Thread::Sleep(5);
 			Thread SemThread2(Test2);
-			Thread::Sleep(50);
+			Thread::Sleep(5);
 			Thread SemThread3(Test3);
-			Thread::Sleep(50);
+			Thread::Sleep(5);
 
 			unsigned int NextExpected(1);
 
@@ -110,7 +110,7 @@ SCENARIO("Semaphores can be waited on and signaled in order", "[Platform][System
 
 			AND_THEN("1 is signaled") {
 				Sem.SignalN(1);
-				Thread::Sleep(50);
+				Thread::Sleep(5);
 				THEN("1 finishes but not 2 and 3") {
 					CHECK(SemThread1.IsFinished());
 					CHECK_FALSE(SemThread2.IsFinished());
@@ -120,7 +120,7 @@ SCENARIO("Semaphores can be waited on and signaled in order", "[Platform][System
 
 			AND_THEN("2 are signaled") {
 				Sem.SignalN(2);
-				Thread::Sleep(50);
+				Thread::Sleep(5);
 				THEN("1 and 2 finish but not 3") {
 					CHECK(SemThread1.IsFinished());
 					CHECK(SemThread2.IsFinished());
@@ -130,7 +130,7 @@ SCENARIO("Semaphores can be waited on and signaled in order", "[Platform][System
 
 			AND_THEN("3 are signaled") {
 				Sem.SignalN(3);
-				Thread::Sleep(50);
+				Thread::Sleep(5);
 				THEN("They all finish") {
 					CHECK(SemThread1.IsFinished());
 					CHECK(SemThread2.IsFinished());

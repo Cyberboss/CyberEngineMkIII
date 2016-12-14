@@ -4,7 +4,7 @@ namespace CYB {
 		/*!
 			@brief A reliable wait queue
 			@par WARNING
-				Using Mutex's incorrectly results in hard to detect undefined behaviour, proceed with caution
+				Using Semaphore's incorrectly results in hard to detect undefined behaviour, proceed with caution
 		*/
 		class Semaphore : public Interop::Allocatable {
 		public:

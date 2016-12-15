@@ -4,6 +4,7 @@ namespace CYB {
 		namespace System {
 			//! @brief A reliable wait queue
 			class Semaphore : private Implementation::Semaphore, public API::Semaphore {
+				ENABLE_TEST_HOOKS
 			private:
 				unsigned long long FServiceCount,	//!< @brief The number the next waiting thread will take
 					FWakeCount,	//!< @brief The number of threads that will be woken

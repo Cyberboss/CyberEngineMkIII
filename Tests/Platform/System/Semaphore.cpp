@@ -92,7 +92,7 @@ REDIRECTED_FUNCTION(BadCondWait, pthread_cond_t* AArg1, pthread_mutex_t* AMutex)
 		DelaySleep = false;
 		HookStruct Hooker{ false, AMutex };
 		Semaphore::Backdoor(Hooker);
-		Thread::Sleep(10);
+		Thread::Sleep(50);
 		Hooker.FLock = true;
 		Semaphore::Backdoor(Hooker);
 	}
@@ -120,8 +120,8 @@ SCENARIO("Semaphores can be waited on and signaled in order", "[Platform][System
 				CHECK_FALSE(SemThread.IsFinished());
 			}
 			Sem.SignalAll();
+			Thread::Sleep(5);
 			AND_WHEN("The semaphore is signaled") {
-				Thread::Sleep(5);
 				THEN("The thread has finished") {
 					CHECK(SemThread.IsFinished());
 				}
@@ -137,7 +137,7 @@ SCENARIO("Semaphores can be waited on and signaled in order", "[Platform][System
 				Thread SemThread2(Test2);
 				Thread::Sleep(5);
 				Thread SemThread3(Test3);
-				Thread::Sleep(5);
+				Thread::Sleep(100);
 
 				unsigned int NextExpected(1);
 

@@ -91,10 +91,10 @@ REDIRECTED_FUNCTION(BadCondWait, pthread_cond_t* AArg1, pthread_mutex_t* AMutex)
 	if (DelaySleep) {
 		DelaySleep = false;
 		HookStruct Hooker{ false, AMutex };
-		Sem.Backdoor(Hooker);
+		Semaphore::Backdoor(Hooker);
 		Thread::Sleep(10);
 		Hooker.FLock = true;
-		Sem.Backdoor(Hooker);
+		Semaphore::Backdoor(Hooker);
 	}
 #ifdef TARGET_OS_WINDOWS
 	return ARedirector::CallOriginal(AArg1, AMutex, AArg3);

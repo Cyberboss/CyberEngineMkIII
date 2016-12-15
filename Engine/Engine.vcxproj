@@ -212,6 +212,7 @@
     <ClInclude Include="API\ExtendedTypes\LockGuard.hpp" />
     <ClInclude Include="API\Interfaces\Heap.hpp" />
     <ClInclude Include="API\Interfaces\Interfaces.hpp" />
+    <ClInclude Include="API\Interfaces\Logger.hpp" />
     <ClInclude Include="API\Interop\Context.hpp" />
     <ClInclude Include="API\Interop\Allocatable.hpp" />
     <ClInclude Include="API\Interop\Allocator.hpp" />

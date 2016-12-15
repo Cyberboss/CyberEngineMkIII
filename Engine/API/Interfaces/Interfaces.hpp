@@ -2,3 +2,4 @@
 #pragma once
 
 #include "Heap.hpp"
+#include "Logger.hpp"

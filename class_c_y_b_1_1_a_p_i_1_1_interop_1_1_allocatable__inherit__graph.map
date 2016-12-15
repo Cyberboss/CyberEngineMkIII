@@ -1,10 +1,12 @@
 <map id="CYB::API::Interop::Allocatable" name="CYB::API::Interop::Allocatable">
-<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="223,20,332,47"/>
-<area shape="rect" id="node4" href="$class_c_y_b_1_1_a_p_i_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. " alt="" coords="215,81,339,108"/>
-<area shape="rect" id="node6" href="$class_c_y_b_1_1_a_p_i_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no&#45;op. " alt="" coords="220,139,335,165"/>
-<area shape="rect" id="node8" href="$class_c_y_b_1_1_a_p_i_1_1_path_1_1_directory_entry.html" title="Iterator for paths in a directory. " alt="" coords="189,197,365,238"/>
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="223,24,332,51"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_a_p_i_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. " alt="" coords="215,85,339,112"/>
+<area shape="rect" id="node6" href="$class_c_y_b_1_1_a_p_i_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no&#45;op. " alt="" coords="220,143,335,169"/>
+<area shape="rect" id="node8" href="$class_c_y_b_1_1_a_p_i_1_1_path_1_1_directory_entry.html" title="Iterator for paths in a directory. " alt="" coords="189,201,365,242"/>
+<area shape="rect" id="node10" href="$class_c_y_b_1_1_a_p_i_1_1_semaphore.html" title="A reliable wait queue. " alt="" coords="200,280,355,307"/>
 <area shape="rect" id="node3" href="$class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="413,5,573,46"/>
 <area shape="rect" id="node5" href="$class_c_y_b_1_1_platform_1_1_system_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. " alt="" coords="413,70,573,111"/>
 <area shape="rect" id="node7" href="$class_c_y_b_1_1_platform_1_1_system_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no&#45;op. " alt="" coords="413,135,573,177"/>
 <area shape="rect" id="node9" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_1_1_directory_entry.html" title="Uses the FindFile API to enumerate directories. " alt="" coords="413,200,573,256"/>
+<area shape="rect" id="node11" href="$class_c_y_b_1_1_platform_1_1_system_1_1_semaphore.html" title="A reliable wait queue. " alt="" coords="413,279,573,321"/>
 </map>

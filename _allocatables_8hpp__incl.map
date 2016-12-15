@@ -2,4 +2,5 @@
 <area shape="rect" id="node2" href="$_mutex_8hpp.html" title="Defines the API for Mutexes. " alt="" coords="5,96,87,123"/>
 <area shape="rect" id="node3" href="$_path_8hpp.html" title="Defines the API for Paths. " alt="" coords="112,96,185,123"/>
 <area shape="rect" id="node4" href="$_file_8hpp.html" title="Defines the API for files. " alt="" coords="211,96,279,123"/>
+<area shape="rect" id="node5" href="$_semaphore_8hpp.html" title="Contains the declaration of CYB::API::Semaphore. " alt="" coords="303,96,416,123"/>
 </map>

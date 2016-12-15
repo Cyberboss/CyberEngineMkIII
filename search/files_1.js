@@ -57,6 +57,8 @@ var searchData=
   ['cybwin32path_2ecpp',['CYBWin32Path.cpp',['../_c_y_b_win32_path_8cpp.html',1,'']]],
   ['cybwin32path_2ehpp',['CYBWin32Path.hpp',['../_c_y_b_win32_path_8hpp.html',1,'']]],
   ['cybwin32process_2ehpp',['CYBWin32Process.hpp',['../_c_y_b_win32_process_8hpp.html',1,'']]],
+  ['cybwin32semaphore_2ecpp',['CYBWin32Semaphore.cpp',['../_c_y_b_win32_semaphore_8cpp.html',1,'']]],
+  ['cybwin32semaphore_2ehpp',['CYBWin32Semaphore.hpp',['../_c_y_b_win32_semaphore_8hpp.html',1,'']]],
   ['cybwin32syscalls_2ehpp',['CYBWin32Syscalls.hpp',['../_c_y_b_win32_syscalls_8hpp.html',1,'']]],
   ['cybwin32systemimplementation_2ehpp',['CYBWin32SystemImplementation.hpp',['../_c_y_b_win32_system_implementation_8hpp.html',1,'']]],
   ['cybwin32thread_2ehpp',['CYBWin32Thread.hpp',['../_c_y_b_win32_thread_8hpp.html',1,'']]],

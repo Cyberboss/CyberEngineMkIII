@@ -201,10 +201,10 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>Function calls should be syncronized </dd></dl>
 
-<p>Definition at line <a class="el" href="_c_y_b_interop_8cpp_source.html#l00055">55</a> of file <a class="el" href="_c_y_b_interop_8cpp_source.html">CYBInterop.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                                                     :</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    API::Interop::Allocator(AHeap)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{}</div><!-- fragment -->
+<p>Definition at line <a class="el" href="_c_y_b_interop_8cpp_source.html#l00056">56</a> of file <a class="el" href="_c_y_b_interop_8cpp_source.html">CYBInterop.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                                     :</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    API::Interop::Allocator(AHeap)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;{}</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -363,11 +363,12 @@ Here is the call graph for this function:</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">case</span> Allocatable::ID::File: <span class="keywordflow">return</span> DoAllocation&lt;Platform::System::File&gt;(AConstructor);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">case</span> Allocatable::ID::Mutex: <span class="keywordflow">return</span> DoAllocation&lt;Platform::System::Mutex&gt;(AConstructor);</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">case</span> Allocatable::ID::Path: <span class="keywordflow">return</span> DoAllocation&lt;Platform::System::Path&gt;(AConstructor);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">case</span> Allocatable::ID::NULL_ID:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">throw</span> Exception::Violation(<a class="code" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08">Exception::Violation::INVALID_ENUM</a>);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">case</span> Allocatable::ID::Semaphore: <span class="keywordflow">return</span> DoAllocation&lt;Platform::System::Semaphore&gt;(AConstructor);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">case</span> Allocatable::ID::NULL_ID:</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">throw</span> Exception::Violation(<a class="code" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08">Exception::Violation::INVALID_ENUM</a>);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
 <div class="ttc" id="class_c_y_b_1_1_exception_1_1_violation_html_a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08">CYB::Exception::Violation::INVALID_ENUM</a></div><div class="ttdoc">An operation was attempted with an invalid enum code. </div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00036">Exception.hpp:36</a></div></div>
 </div><!-- fragment -->
 </div>

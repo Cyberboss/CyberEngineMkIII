@@ -14,6 +14,7 @@ var searchData=
   ['_7eobject',['~Object',['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html#a6c7da0257d706804fc6ce73040ead614',1,'CYB::API::Interop::Object']]],
   ['_7epath',['~Path',['../class_c_y_b_1_1_platform_1_1_system_1_1_path.html#aeadfc2d63b7ba8094986944b8707c9f9',1,'CYB::Platform::System::Path']]],
   ['_7eprocess',['~Process',['../class_c_y_b_1_1_platform_1_1_system_1_1_process.html#a875a9b9e41ab034af85aa8acaabffdf7',1,'CYB::Platform::System::Process']]],
+  ['_7esemaphore',['~Semaphore',['../class_c_y_b_1_1_a_p_i_1_1_semaphore.html#ac695173f8b8c1f542944ac4cc533941e',1,'CYB::API::Semaphore::~Semaphore()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_semaphore.html#ab65680444f63131c673438f6d587931c',1,'CYB::Platform::System::Semaphore::~Semaphore()']]],
   ['_7esingleton',['~Singleton',['../class_c_y_b_1_1_a_p_i_1_1_singleton.html#a8bdb5b13586bcd2a651292bf4e615690',1,'CYB::API::Singleton']]],
   ['_7ethread',['~Thread',['../class_c_y_b_1_1_platform_1_1_system_1_1_thread.html#abe2afd99271827a3da8de82daba419e7',1,'CYB::Platform::System::Thread::~Thread()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_thread.html#a3f6414ffc8670297203464bb4436c0c0',1,'CYB::Platform::System::Implementation::Thread::~Thread()']]],
   ['_7evirtualmemory',['~VirtualMemory',['../class_c_y_b_1_1_platform_1_1_system_1_1_virtual_memory.html#ab37e16fe8820121af7e0dc0f88ca303b',1,'CYB::Platform::System::VirtualMemory']]]

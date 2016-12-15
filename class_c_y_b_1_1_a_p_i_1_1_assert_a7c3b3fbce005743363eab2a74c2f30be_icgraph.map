@@ -1,3 +1,4 @@
 <map id="CYB::API::Assert::NotEqual" name="CYB::API::Assert::NotEqual">
-<area shape="rect" id="node2" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_process.html#a12d312f73b5678971fff374896f2f0db" title="Spawn a process with the specified command line. " alt="" coords="243,4,418,60"/>
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_platform_1_1_system_1_1_semaphore.html#aa9ee39981195514db3f668de8cef78c7" title="Wait indefinitely for a signal from this semaphore. Will be placed last into the queue. " alt="" coords="251,5,411,46"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_process.html#a12d312f73b5678971fff374896f2f0db" title="Spawn a process with the specified command line. " alt="" coords="243,69,418,125"/>
 </map>

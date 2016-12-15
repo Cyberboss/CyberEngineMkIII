@@ -7,5 +7,6 @@
 <area shape="rect" id="node7" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a9daf8e91a1b56e54956f8c827d06b0f9" title="Allocates a Block. " alt="" coords="278,318,431,359"/>
 <area shape="rect" id="node8" href="$class_c_y_b_1_1_platform_1_1_system_1_1_path.html#a9454caef35bf8d2f3c32592b07785a29" title="Append a directory/file to the path. " alt="" coords="275,383,435,425"/>
 <area shape="rect" id="node9" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_process.html#a12d312f73b5678971fff374896f2f0db" title="Spawn a process with the specified command line. " alt="" coords="267,448,442,504"/>
-<area shape="rect" id="node10" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html#a3684dc76d131ed27cccfc547d73e5ec3" title="Construct a new UTF16 from a UTF8 string. " alt="" coords="269,527,440,569"/>
+<area shape="rect" id="node10" href="$class_c_y_b_1_1_platform_1_1_system_1_1_semaphore.html#a0c1db824af787bbba4c3a09d99114c8f" title="Enter the condition variable. " alt="" coords="275,527,435,569"/>
+<area shape="rect" id="node11" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html#a3684dc76d131ed27cccfc547d73e5ec3" title="Construct a new UTF16 from a UTF8 string. " alt="" coords="269,593,440,634"/>
 </map>

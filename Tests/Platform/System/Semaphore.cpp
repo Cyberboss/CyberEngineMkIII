@@ -79,24 +79,15 @@ template <> void CYB::Platform::System::Semaphore::Backdoor<HookStruct>(HookStru
 		AHooker.FSemaphore->Unlock();
 }
 
-//These two functions are assuming the gender (layout) of Implementation::Semaphore
+//This assumes the gender (layout) of Implementation::Semaphore
 #ifdef TARGET_OS_WINDOWS
 using namespace CYB::Platform::Win32;
-REDIRECTED_FUNCTION(BadSleepCondVarCS, PCONDITION_VARIABLE AArg1, PCRITICAL_SECTION ACritSec, DWORD AArg3) {
-	if (DelaySleep) {
-		DelaySleep = false;
-		auto& Sem(static_cast<Semaphore&>(*reinterpret_cast<CYB::Platform::System::Implementation::Semaphore*>(ACritSec)));
-		HookStruct Hooker{ false, &Sem };
-		Sem.Backdoor(Hooker);
-		Thread::Sleep(10);
-		Hooker.FLock = true;
-		Sem.Backdoor(Hooker);
-	}
-	return ARedirector::CallOriginal(AArg1, ACritSec, AArg3);
-}
+REDIRECTED_FUNCTION(BadCondWait, PCONDITION_VARIABLE AArg1, PCRITICAL_SECTION AMutex, DWORD AArg3)
 #else
 using namespace CYB::Platform::Posix;
-REDIRECTED_FUNCTION(BadPThreadCondWait, pthread_cond_t* AArg1, pthread_mutex_t* AMutex) {
+REDIRECTED_FUNCTION(BadCondWait, pthread_cond_t* AArg1, pthread_mutex_t* AMutex)
+#endif
+{
 	if (DelaySleep) {
 		DelaySleep = false;
 		auto& Sem(static_cast<Semaphore&>(*reinterpret_cast<CYB::Platform::System::Implementation::Semaphore*>(AMutex)));
@@ -106,9 +97,12 @@ REDIRECTED_FUNCTION(BadPThreadCondWait, pthread_cond_t* AArg1, pthread_mutex_t* 
 		Hooker.FLock = true;
 		Sem.Backdoor(Hooker);
 	}
+#ifdef TARGET_OS_WINDOWS
+	return ARedirector::CallOriginal(AArg1, AMutex, AArg3);
+#else
 	return ARedirector::CallOriginal(AArg1, AArg2);
-}
 #endif
+}
 
 SCENARIO("Semaphores can be waited on and signaled in order", "[Platform][System][Semaphore][Unit]") {
 	ModuleDependancy<Kernel32> K32;
@@ -203,13 +197,8 @@ SCENARIO("Semaphores can be waited on and signaled in order", "[Platform][System
 		
 		AND_WHEN("We do some crazy hacks to beat the OS scheduler") {
 			DelaySleep = true;
-			const auto Thing(
-#ifdef TARGET_OS_WINDOWS
-				K32.Redirect<Kernel32::SleepConditionVariableCS, BadSleepCondVarCS>()
-#else
-				PT.Redirect<PThread::pthread_cond_wait, BadPThreadCondWait>()
-#endif
-			);
+			const auto Thing1(K32.Redirect<Kernel32::SleepConditionVariableCS, BadCondWait>());
+			const auto Thing2(PT.Redirect<PThread::pthread_cond_wait, BadCondWait>());
 			DoTest();
 		}
 

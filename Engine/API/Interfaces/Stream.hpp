@@ -43,7 +43,7 @@ namespace CYB {
 			@return The current cursor position
 			@par Thread Safety
 				This function requires synchronization at the object level
-			@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if the seek would put the cursor past the bounds of the stream
+			@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if an error occurs during the seek
 			@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p ALocation is invalid
 			@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_OPERATION. Thrown if the Stream cannot be seeked
 		*/

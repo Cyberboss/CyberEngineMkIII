@@ -142,7 +142,7 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 	}());
 
 	unsigned long long Result(Core().FModuleManager.Call<Modules::LibC::lseek>(FDescriptor, static_cast<off_t>(AOffset), PosixLocation));
-	//See http://man7.org/linux/man-pages/man2/lseek.2.html, there is no way besides the user seeking past
+	//See http://man7.org/linux/man-pages/man2/lseek.2.html, my research seems to indicate that seeking past produces no error
 	if (Result == static_cast<decltype(Result)>(-1))
 		throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 

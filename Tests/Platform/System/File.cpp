@@ -381,6 +381,7 @@ SCENARIO("Files can have their cursor position set and retrieved", "[Platform][S
 	TestStartup TestData;
 	GIVEN("A file with some data") {
 		TestData.Data1(10);
+		TestData.Data2(10);
 		WHEN("It is opened") {
 			File TF(TestData.Path1(), File::Mode::READ_WRITE, File::Method::EXIST);
 			AND_THEN("It's cursor position is retrieved") {
@@ -423,6 +424,19 @@ SCENARIO("Files can have their cursor position set and retrieved", "[Platform][S
 				const auto Result(TF.Seek(-5, File::SeekLocation::END));
 				THEN("It is there") {
 					CHECK(Result == 5U);
+				}
+			}
+			AND_THEN("It's cursor position is set past the end") {
+				const auto Result(TF.Seek(5, File::SeekLocation::END));
+				THEN("It is there, and nothing happens?") {
+					CHECK(Result == 15U);
+				}
+				AND_WHEN("We do the same thing but in read-only mode"){
+					File TF2(TestData.Path2(), File::Mode::READ, File::Method::EXIST);
+					const auto Result2(TF2.Seek(5, File::SeekLocation::END));
+					THEN("It is there, and nothing happens?") {
+						CHECK(Result2 == 15U);
+					}
 				}
 			}
 			AND_WHEN("We seek up a bit") {

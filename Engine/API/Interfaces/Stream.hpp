@@ -32,6 +32,7 @@ namespace CYB {
 			@return The current position of the cursor in the Stream
 			@par Thread Safety
 				This function requires synchronization at the object level
+			@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_OPERATION. Thrown if the Stream cannot be seeked
 		*/
 		virtual unsigned long long CursorPosition(void) const = 0;
 

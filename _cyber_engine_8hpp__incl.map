@@ -16,7 +16,7 @@
 <area shape="rect" id="node22" href="$_typename_8hpp.html" title="Defines the Typename template prototype. " alt="" coords="1231,200,1339,227"/>
 <area shape="rect" id="node23" href="$_singleton_8hpp.html" title="Defines the singleton template class. " alt="" coords="1364,200,1465,227"/>
 <area shape="rect" id="node25" href="$_parameter_pack_8hpp.html" title="Defines the template for working with parameter packed template arguments. " alt="" coords="1490,200,1627,227"/>
-<area shape="rect" id="node27" href="$_engine_information_8hpp_source.html" title="EngineInformation.hpp" alt="" coords="1652,200,1804,227"/>
+<area shape="rect" id="node27" href="$_engine_information_8hpp.html" title="Defines the CYB::API::EngineInformation class. " alt="" coords="1652,200,1804,227"/>
 <area shape="rect" id="node28" href="$_exception_8hpp.html" title="Defines the exception classes of the engine. " alt="" coords="1829,200,1933,227"/>
 <area shape="rect" id="node30" href="$_threadable_8hpp.html" title="The multithreading API used by the CyberEngine. " alt="" coords="1958,200,2068,227"/>
 <area shape="rect" id="node31" href="$_threadable_taskset_8hpp.html" title="Defines CYB::API::ThreadableTaskset. " alt="" coords="2093,200,2251,227"/>

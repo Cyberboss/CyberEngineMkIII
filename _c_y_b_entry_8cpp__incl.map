@@ -20,7 +20,7 @@
 <area shape="rect" id="node24" href="$_typename_8hpp.html" title="Defines the Typename template prototype. " alt="" coords="1231,349,1339,376"/>
 <area shape="rect" id="node25" href="$_singleton_8hpp.html" title="Defines the singleton template class. " alt="" coords="1364,349,1465,376"/>
 <area shape="rect" id="node27" href="$_parameter_pack_8hpp.html" title="Defines the template for working with parameter packed template arguments. " alt="" coords="1490,349,1627,376"/>
-<area shape="rect" id="node29" href="$_engine_information_8hpp_source.html" title="EngineInformation.hpp" alt="" coords="1652,349,1804,376"/>
+<area shape="rect" id="node29" href="$_engine_information_8hpp.html" title="Defines the CYB::API::EngineInformation class. " alt="" coords="1652,349,1804,376"/>
 <area shape="rect" id="node30" href="$_exception_8hpp.html" title="Defines the exception classes of the engine. " alt="" coords="1829,349,1933,376"/>
 <area shape="rect" id="node32" href="$_threadable_8hpp.html" title="The multithreading API used by the CyberEngine. " alt="" coords="1958,349,2068,376"/>
 <area shape="rect" id="node33" href="$_threadable_taskset_8hpp.html" title="Defines CYB::API::ThreadableTaskset. " alt="" coords="2093,349,2251,376"/>
@@ -50,7 +50,7 @@
 <area shape="rect" id="node72" href="$_c_y_b_thread_8hpp.html" title="Contains the platform thread definition. " alt="" coords="6513,349,6628,376"/>
 <area shape="rect" id="node73" href="$_c_y_b_process_8hpp.html" title="Defines the platform process interface. " alt="" coords="6652,349,6775,376"/>
 <area shape="rect" id="node74" href="$_c_y_b_mutex_8hpp.html" title="Contains the definition for an process unique, fast thread safety mechanism. " alt="" coords="6799,349,6909,376"/>
-<area shape="rect" id="node75" href="$_c_y_b_semaphore_8hpp_source.html" title="CYBSemaphore.hpp" alt="" coords="6935,349,7075,376"/>
+<area shape="rect" id="node75" href="$_c_y_b_semaphore_8hpp.html" title="Contains the declaration of CYB::Platform::System::Semaphore. " alt="" coords="6935,349,7075,376"/>
 <area shape="rect" id="node76" href="$_c_y_b_path_8hpp.html" title="Defines the Path interface. " alt="" coords="7101,349,7203,376"/>
 <area shape="rect" id="node77" href="$_c_y_b_file_8hpp.html" title="Defines the filesystem interface. " alt="" coords="7228,349,7324,376"/>
 <area shape="rect" id="node80" href="$_c_y_b_module_8hpp.html" title="Defines the interface for loading module functions. " alt="" coords="7649,349,7765,376"/>

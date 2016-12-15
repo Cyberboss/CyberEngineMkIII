@@ -15,7 +15,7 @@
 <area shape="rect" id="node15" href="$_c_y_b_file_8cpp.html" title="Implements CYB::Platform::System::File shared functions. " alt="" coords="1806,305,1969,346"/>
 <area shape="rect" id="node16" href="$_c_y_b_path_8cpp.html" title="Implements CYB::Platform::System::Path shared functions. " alt="" coords="1994,305,2157,346"/>
 <area shape="rect" id="node17" href="$_c_y_b_process_8cpp.html" title="Shared function implementations for CYB::Platform::Process. " alt="" coords="2182,305,2345,346"/>
-<area shape="rect" id="node18" href="$_c_y_b_semaphore_8cpp_source.html" title="Engine/Platform/System\l/CYBSemaphore.cpp" alt="" coords="2370,305,2533,346"/>
+<area shape="rect" id="node18" href="$_c_y_b_semaphore_8cpp.html" title="Implements CYB::Platform::System::Semaphore logic and alogorithms. " alt="" coords="2370,305,2533,346"/>
 <area shape="rect" id="node19" href="$_c_y_b_thread_8cpp.html" title="Shared function implementations for CYB::Platform::Thread. " alt="" coords="2558,305,2721,346"/>
 <area shape="rect" id="node20" href="$_c_y_b_virtual_memory_8cpp.html" title="Implements shared functions of CYB::Platform::System::VirtualMemory. " alt="" coords="2746,305,2909,346"/>
 <area shape="rect" id="node21" href="$_c_y_b_win32_file_8cpp.html" title="Implements CYB::Platform::System::File for Win32. " alt="" coords="2935,305,3113,346"/>

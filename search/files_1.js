@@ -38,6 +38,8 @@ var searchData=
   ['cybplatform_2ehpp',['CYBPlatform.hpp',['../_c_y_b_platform_8hpp.html',1,'']]],
   ['cybprocess_2ecpp',['CYBProcess.cpp',['../_c_y_b_process_8cpp.html',1,'']]],
   ['cybprocess_2ehpp',['CYBProcess.hpp',['../_c_y_b_process_8hpp.html',1,'']]],
+  ['cybsemaphore_2ecpp',['CYBSemaphore.cpp',['../_c_y_b_semaphore_8cpp.html',1,'']]],
+  ['cybsemaphore_2ehpp',['CYBSemaphore.hpp',['../_c_y_b_semaphore_8hpp.html',1,'']]],
   ['cybsyscalls_2ehpp',['CYBSyscalls.hpp',['../_c_y_b_syscalls_8hpp.html',1,'']]],
   ['cybsystem_2ehpp',['CYBSystem.hpp',['../_c_y_b_system_8hpp.html',1,'']]],
   ['cybsystemheaders_2ehpp',['CYBSystemHeaders.hpp',['../_c_y_b_system_headers_8hpp.html',1,'']]],

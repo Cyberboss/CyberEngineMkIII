@@ -9,7 +9,6 @@
 #include <limits>
 #include <new>
 #include <algorithm>
-#include <functional>
 
 //containers
 #include <deque>

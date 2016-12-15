@@ -57,7 +57,7 @@ public:
 
 struct HookStruct {
 	bool FLock;
-	Semaphore* FSemaphore;
+	void* FImplMutex;
 };
 
 /*
@@ -73,13 +73,13 @@ struct HookStruct {
 */
 
 template <> void CYB::Platform::System::Semaphore::Backdoor<HookStruct>(HookStruct& AHooker) {
+	auto& Sem(static_cast<Semaphore&>(*reinterpret_cast<CYB::Platform::System::Implementation::Semaphore*>(AHooker.FImplMutex)));
 	if (AHooker.FLock)
-		AHooker.FSemaphore->Lock();
+		Sem.Lock();
 	else
-		AHooker.FSemaphore->Unlock();
+		Sem.Unlock();
 }
 
-//This assumes the gender (layout) of Implementation::Semaphore
 #ifdef TARGET_OS_WINDOWS
 using namespace CYB::Platform::Win32;
 REDIRECTED_FUNCTION(BadCondWait, PCONDITION_VARIABLE AArg1, PCRITICAL_SECTION AMutex, DWORD AArg3)
@@ -90,8 +90,7 @@ REDIRECTED_FUNCTION(BadCondWait, pthread_cond_t* AArg1, pthread_mutex_t* AMutex)
 {
 	if (DelaySleep) {
 		DelaySleep = false;
-		auto& Sem(static_cast<Semaphore&>(*reinterpret_cast<CYB::Platform::System::Implementation::Semaphore*>(AMutex)));
-		HookStruct Hooker{ false, &Sem };
+		HookStruct Hooker{ false, AMutex };
 		Sem.Backdoor(Hooker);
 		Thread::Sleep(10);
 		Hooker.FLock = true;
@@ -100,7 +99,7 @@ REDIRECTED_FUNCTION(BadCondWait, pthread_cond_t* AArg1, pthread_mutex_t* AMutex)
 #ifdef TARGET_OS_WINDOWS
 	return ARedirector::CallOriginal(AArg1, AMutex, AArg3);
 #else
-	return ARedirector::CallOriginal(AArg1, AArg2);
+	return ARedirector::CallOriginal(AArg1, AMutex);
 #endif
 }
 

@@ -127,8 +127,8 @@ unsigned long long CYB::Platform::System::File::Size(void) const {
 	return static_cast<unsigned long long>(StatFD().st_size);
 }
 
-unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, const SeekLocation ALocation) const {
-	const auto PosixLocation([&]() {
+unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, const SeekLocation ALocation) const
+{	const auto PosixLocation([&]() {
 		switch (ALocation) {
 		case SeekLocation::BEGIN:
 			return SEEK_SET;
@@ -149,8 +149,8 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 	return Result;
 }
 
-unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const unsigned long long AMaxAmount) const {
-	if (FOpenMode == Mode::WRITE)
+unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const unsigned long long AMaxAmount) const
+{	if (FOpenMode == Mode::WRITE)
 		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
 	unsigned long long Result(Core().FModuleManager.Call<Modules::LibC::read>(FDescriptor, ABuffer, static_cast<size_t>(AMaxAmount)));
 	if (Result == static_cast<decltype(Result)>(-1))
@@ -158,8 +158,8 @@ unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const 
 	return Result;
 }
 
-unsigned long long CYB::Platform::System::File::Write(const void* const ABuffer, const unsigned long long AAmount) {
-	if (FOpenMode == Mode::READ)
+unsigned long long CYB::Platform::System::File::Write(const void* const ABuffer, const unsigned long long AAmount)
+{	if (FOpenMode == Mode::READ)
 		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
 	unsigned long long Result(Core().FModuleManager.Call<Modules::LibC::write>(FDescriptor, ABuffer, static_cast<size_t>(AAmount)));
 	if (Result == static_cast<decltype(Result)>(-1))

@@ -46,6 +46,7 @@ void* CYB::Engine::Allocator::InteropAllocation(const API::Interop::Allocatable:
 	case Allocatable::ID::File: return DoAllocation<Platform::System::File>(AConstructor);
 	case Allocatable::ID::Mutex: return DoAllocation<Platform::System::Mutex>(AConstructor);
 	case Allocatable::ID::Path: return DoAllocation<Platform::System::Path>(AConstructor);
+	case Allocatable::ID::Semaphore: return DoAllocation<Platform::System::Semaphore>(AConstructor);
 	case Allocatable::ID::NULL_ID:
 	default:
 		throw Exception::Violation(Exception::Violation::INVALID_ENUM);

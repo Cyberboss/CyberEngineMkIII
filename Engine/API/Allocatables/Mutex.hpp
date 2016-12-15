@@ -9,7 +9,11 @@ namespace CYB {
 		*/
 		class Mutex : public Interop::Allocatable {
 		public:
-			using Constructor = Interop::EmptyConstructor;	//!< @brief See @ref interstructors
+			/*!
+				@brief See @ref interstructors
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE Thrown if the mutex could not be initialized
+			*/
+			using Constructor = Interop::EmptyConstructor;
 		public:
 			//! @brief Destroy a Mutex. Mutex must be unlocked
 			virtual ~Mutex() = default;

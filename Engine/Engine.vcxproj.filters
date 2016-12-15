@@ -113,6 +113,15 @@
     <ClCompile Include="Platform\System\Posix\CYBPosixFile.cpp">
       <Filter>Platform\System\Posix</Filter>
     </ClCompile>
+    <ClCompile Include="Platform\System\CYBSemaphore.cpp">
+      <Filter>Platform\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\System\Win32\CYBWin32Semaphore.cpp">
+      <Filter>Platform\System\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\System\Posix\CYBPosixSemaphore.cpp">
+      <Filter>Platform\System\Posix</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -412,9 +421,6 @@
     <ClInclude Include="API\Interop\STLAllocator.hpp">
       <Filter>API\Interop</Filter>
     </ClInclude>
-    <ClInclude Include="API\Types\Containers.hpp">
-      <Filter>API\Types</Filter>
-    </ClInclude>
     <ClInclude Include="Platform\System\Win32\CYBWin32Path.hpp">
       <Filter>Platform\System\Win32</Filter>
     </ClInclude>
@@ -447,6 +453,21 @@
     </ClInclude>
     <ClInclude Include="Platform\System\Posix\CYBPosixFile.hpp">
       <Filter>Platform\System\Posix</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Allocatables\Semaphore.hpp">
+      <Filter>API\Allocatables</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\System\CYBSemaphore.hpp">
+      <Filter>Platform\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\System\Win32\CYBWin32Semaphore.hpp">
+      <Filter>Platform\System\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\System\Posix\CYBPosixSemaphore.hpp">
+      <Filter>Platform\System\Posix</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\Containers.hpp">
+      <Filter>API\Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

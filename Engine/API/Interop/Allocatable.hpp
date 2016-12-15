@@ -12,6 +12,7 @@ namespace CYB {
 					File,	//!< @brief CYB::API::File
 					Mutex,	//!< @brief CYB::API::Mutex
 					Path,	//!< @brief CYB::API::Path
+					Semaphore,	//!< @brief CYB::API::Semaphore
 				};
 			public:
 				/*!

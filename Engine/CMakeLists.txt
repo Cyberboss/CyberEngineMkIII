@@ -19,6 +19,7 @@ Platform/System/CYBPath.cpp
 Platform/System/CYBFile.cpp
 Platform/System/CYBProcess.cpp
 Platform/System/CYBVirtualMemory.cpp
+Platform/System/CYBSemaphore.cpp
 
 ${CYB_PLATFORM_CODE_FILES}
 
@@ -28,6 +29,7 @@ Platform/System/Posix/CYBPosixThread.cpp
 Platform/System/Posix/CYBPosixProcess.cpp
 Platform/System/Posix/CYBPosixVirtualMemory.cpp
 Platform/System/Posix/CYBPosixMutex.cpp
+Platform/System/Posix/CYBPosixSemaphore.cpp
 Platform/System/Posix/CYBPosixPath.cpp
 Platform/System/Posix/CYBPosixFile.cpp
 

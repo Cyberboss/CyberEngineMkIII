@@ -119,6 +119,7 @@
     <ClCompile Include="Platform\System\Mutex.cpp" />
     <ClCompile Include="Platform\System\Path.cpp" />
     <ClCompile Include="Platform\System\Process.cpp" />
+    <ClCompile Include="Platform\System\Semaphore.cpp" />
     <ClCompile Include="Platform\System\Threads.cpp" />
     <ClCompile Include="Platform\System\VirtualMemory.cpp" />
     <ClCompile Include="PosixMain.cpp">

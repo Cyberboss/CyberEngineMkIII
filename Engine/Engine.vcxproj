@@ -123,6 +123,7 @@
     <ClCompile Include="Platform\System\CYBFile.cpp" />
     <ClCompile Include="Platform\System\CYBPath.cpp" />
     <ClCompile Include="Platform\System\CYBProcess.cpp" />
+    <ClCompile Include="Platform\System\CYBSemaphore.cpp" />
     <ClCompile Include="Platform\System\CYBThread.cpp" />
     <ClCompile Include="Platform\System\CYBVirtualMemory.cpp" />
     <ClCompile Include="Platform\System\Linux\CYBLinuxPath.cpp">
@@ -165,6 +166,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Platform\System\Posix\CYBPosixSemaphore.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Platform\System\Posix\CYBPosixSyscalls.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -181,6 +186,7 @@
     <ClCompile Include="Platform\System\Win32\CYBWin32Mutex.cpp" />
     <ClCompile Include="Platform\System\Win32\CYBWin32Path.cpp" />
     <ClCompile Include="Platform\System\Win32\CYBWin32Process.cpp" />
+    <ClCompile Include="Platform\System\Win32\CYBWin32Semaphore.cpp" />
     <ClCompile Include="Platform\System\Win32\CYBWin32Syscalls.cpp" />
     <ClCompile Include="Platform\System\Win32\CYBWin32Thread.cpp" />
     <ClCompile Include="Platform\System\Win32\CYBWin32VirtualMemory.cpp" />
@@ -193,6 +199,7 @@
     <ClInclude Include="API\Allocatables\File.hpp" />
     <ClInclude Include="API\Allocatables\Mutex.hpp" />
     <ClInclude Include="API\Allocatables\Path.hpp" />
+    <ClInclude Include="API\Allocatables\Semaphore.hpp" />
     <ClInclude Include="API\CyberEngine.hpp" />
     <ClInclude Include="API\Declarations\Assert.hpp" />
     <ClInclude Include="API\Declarations\Declarations.hpp" />
@@ -255,6 +262,7 @@
     <ClInclude Include="Platform\System\CYBMutex.hpp" />
     <ClInclude Include="Platform\System\CYBPath.hpp" />
     <ClInclude Include="Platform\System\CYBProcess.hpp" />
+    <ClInclude Include="Platform\System\CYBSemaphore.hpp" />
     <ClInclude Include="Platform\System\CYBSyscalls.hpp" />
     <ClInclude Include="Platform\System\CYBSystem.hpp" />
     <ClInclude Include="Platform\System\CYBThread.hpp" />
@@ -265,6 +273,7 @@
     <ClInclude Include="Platform\System\OSX\CYBOSXSyscalls.hpp" />
     <ClInclude Include="Platform\System\Posix\CYBPosixFile.hpp" />
     <ClInclude Include="Platform\System\Posix\CYBPosixPath.hpp" />
+    <ClInclude Include="Platform\System\Posix\CYBPosixSemaphore.hpp" />
     <ClInclude Include="Platform\System\Posix\CYBPosixSystemImplementation.hpp" />
     <ClInclude Include="Platform\System\Posix\CYBPosixMutex.hpp" />
     <ClInclude Include="Platform\System\Posix\CYBPosixProcess.hpp" />
@@ -272,6 +281,7 @@
     <ClInclude Include="Platform\System\Posix\CYBPosixVirtualMemory.hpp" />
     <ClInclude Include="Platform\System\Win32\CYBWin32File.hpp" />
     <ClInclude Include="Platform\System\Win32\CYBWin32Path.hpp" />
+    <ClInclude Include="Platform\System\Win32\CYBWin32Semaphore.hpp" />
     <ClInclude Include="Platform\System\Win32\CYBWin32SystemImplementation.hpp" />
     <ClInclude Include="Platform\System\Win32\CYBWin32Mutex.hpp" />
     <ClInclude Include="Platform\System\Win32\CYBWin32Process.hpp" />

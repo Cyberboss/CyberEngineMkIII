@@ -58,6 +58,9 @@
     <ClCompile Include="Utils\HCF.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Platform\System\Semaphore.cpp">
+      <Filter>Platform\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />

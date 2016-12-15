@@ -5,7 +5,7 @@ namespace CYB {
 	//! @brief The interface for streaming reads and writes
 	class Stream {
 	public:
-		//! @brief The available operations for the stream. Bitset
+		//! @brief The available operations for the Stream. Bitset
 		enum class Mode : byte {
 			READ = 1,	//!< @brief Read only mode
 			WRITE,	//!< @brief Write only mode
@@ -13,9 +13,9 @@ namespace CYB {
 		};
 		//! @brief The location to begin a seek operation at
 		enum class SeekLocation {
-			BEGIN,	//!< @brief Seek from the beginning of the file
+			BEGIN,	//!< @brief Seek from the beginning of the Stream
 			CURSOR,	//!< @brief Seek from the cursor position
-			END,	//!< @brief Seek from the endo of the file
+			END,	//!< @brief Seek from the end of the Stream
 		};
 	public:
 		/*!
@@ -43,14 +43,14 @@ namespace CYB {
 			@return The current cursor position
 			@par Thread Safety
 				This function requires synchronization at the object level
-			@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if the seek would put the cursor past the bounds of the file
+			@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if the seek would put the cursor past the bounds of the stream
 			@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p ALocation is invalid
 			@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_OPERATION. Thrown if the Stream cannot be seeked
 		*/
 		virtual unsigned long long Seek(const long long AOffset, const SeekLocation ALocation) const = 0;
 
 		/*!
-			@brief Read data from a File at the current cursor position and advance the cursor by that amount
+			@brief Read data from a Stream at the current cursor position and advance the cursor by that amount
 			@param[out] ABuffer The location to store the read data
 			@param AMaxAmount The maximum number of bytes to be read
 			@return The number of bytes read. If zero is returned, and the cursor position is not as SeekLocation::END an error has occurred and the read should not be retried
@@ -84,7 +84,7 @@ namespace CYB {
 		*/
 		virtual unsigned long long CursorPosition(void) const noexcept = 0;
 		/*! 
-			@copydoc CYB::API::Stream::CursorPosition()
+			@copydoc CYB::API::Stream::Seek()
 			This version does not throw exceptions
 		*/
 		virtual unsigned long long Seek(const long long AOffset, const SeekLocation ALocation) const noexcept = 0;

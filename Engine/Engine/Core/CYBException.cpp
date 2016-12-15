@@ -43,10 +43,10 @@ CYB::API::String::Static CYB::Exception::SystemData::ErrorMessage(const ErrorCod
 		ErrorMessage = API::String::Static(u8"Tried to exclusively create a file that exists");
 	case FILE_NOT_FOUND:
 		ErrorMessage = API::String::Static(u8"A required file was not found.");
-	case FILE_NOT_READABLE:
-		ErrorMessage = API::String::Static(u8"The requested file/directory cannot be read/executed.");
-	case FILE_NOT_WRITABLE:
-		ErrorMessage = API::String::Static(u8"The requested file/directory cannot be written to/deleted/created.");
+	case STREAM_NOT_READABLE:
+		ErrorMessage = API::String::Static(u8"Generic error for read failures. See functions for further documentation");
+	case STREAM_NOT_WRITABLE:
+		ErrorMessage = API::String::Static(u8"Generic error for write failures. See functions for further documentation");
 	case HEAP_ALLOCATION_FAILURE:
 		ErrorMessage = API::String::Static(u8"Current heap has no block large enough for a requested allocation and expansion failed");
 	case MUTEX_INITIALIZATION_FAILURE:

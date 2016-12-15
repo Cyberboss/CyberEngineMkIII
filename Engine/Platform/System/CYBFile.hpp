@@ -21,7 +21,7 @@ namespace CYB {
 					@param APath The Path of the File to open
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the file could not be opened for writing
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if the file could not be opened for writing
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_FOUND. Thrown if @p APath is not valid.
 				*/
@@ -32,7 +32,7 @@ namespace CYB {
 					@return The current size of the File indicated by @p APath
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if the file size could not be retrieved
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if the file size could not be retrieved
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_FOUND. Thrown if @p APath failed to verify or the file does not exist
 				*/
 				static unsigned long long Size(const System::Path& APath);
@@ -44,8 +44,8 @@ namespace CYB {
 					@param AMethod The Method of handling preexisting files
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if @p AMode equals Mode::READ and the file could not be opened
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if @p AMode equals Mode::WRITE or Mode::READ_WRITE and the file could not be opened
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if @p AMode equals Mode::READ and the file could not be opened
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if @p AMode equals Mode::WRITE or Mode::READ_WRITE and the file could not be opened
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_FOUND. Thrown if @p AMethod equals Method::EXIST and the file portion of @p APath does not exist or if it is not valid in other cases
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_EXISTS. Thrown if @p AMethod equals Method::CREATE and the file portion of @p APath already exists or is a directory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
@@ -60,8 +60,8 @@ namespace CYB {
 					@param AMethod The Method of handling preexisting files
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if @p AMode equals Mode::READ and the file could not be opened
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if @p AMode equals Mode::WRITE or Mode::READ_WRITE and the file could not be opened
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if @p AMode equals Mode::READ and the file could not be opened
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if @p AMode equals Mode::WRITE or Mode::READ_WRITE and the file could not be opened
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_FOUND. Thrown if @p AMethod equals Method::EXIST and the file portion of @p APath does not exist or if it is not valid in other cases
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_EXISTS. Thrown if @p AMethod equals Method::CREATE and the file portion of @p APath already exists or is a directory
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if @p AMode, or @p AMethod is invalid
@@ -77,23 +77,23 @@ namespace CYB {
 				//! @brief Closes a file, saving changes
 				~File() final override;
 
+				//! @copydoc CYB::API::Stream::Capabilities()
+				void Capabilities(Mode& AMode, bool& ASeek) const noexcept final override;
+
 				//! @copydoc CYB::API::File::Size()
 				unsigned long long Size(void) const final override;
 				//! @copydoc CYB::API::File::CursorPosition()
 				unsigned long long CursorPosition(void) const noexcept final override;
-
-				//! @copydoc CYB::API::File::Seek()
+				//! @copydoc CYB::API::Stream::Seek()
 				unsigned long long Seek(const long long AOffset, const SeekLocation ALocation) const final override;
 
-				//! @copydoc CYB::API::File::Read()
+				//! @copydoc CYB::API::Stream::Read()
 				unsigned long long Read(void* const ABuffer, const unsigned long long AMaxAmount) const final override;
-				//! @copydoc CYB::API::File::Write()
-				unsigned long long  Write(const void* const ABuffer, const unsigned long long AAmount) final override;
+				//! @copydoc CYB::API::Stream::Write()
+				unsigned long long Write(const void* const ABuffer, const unsigned long long AAmount) final override;
 
 				//! @copydoc CYB::API::File::GetPath()
 				const API::Path& GetPath(void) const noexcept final override;
-				//! @copydoc CYB::API::File::OpenMode();
-				Mode OpenMode(void) const noexcept final override;
 				//! @copydoc CYB::API::File::OpenMethod();
 				Method OpenMethod(void) const noexcept final override;
 			};

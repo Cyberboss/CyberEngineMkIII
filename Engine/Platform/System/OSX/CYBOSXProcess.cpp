@@ -13,7 +13,7 @@ void CYB::Platform::System::Implementation::Process::HandleSpawnError[[noreturn]
 	case EINVAL:
 	case EACCES:
 	case ETXTBSY:
-		throw CYB::Exception::SystemData(CYB::Exception::SystemData::FILE_NOT_READABLE);
+		throw CYB::Exception::SystemData(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 	default:
 		throw CYB::Exception::Internal(CYB::Exception::Internal::PROCESS_CREATION_ERROR);
 	}

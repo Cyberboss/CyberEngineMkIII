@@ -29,7 +29,7 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 			CreateDirectory(Result);
 		}
 		catch (Exception::SystemData AException) {
-			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::FILE_NOT_WRITABLE);
+			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::STREAM_NOT_WRITABLE);
 			Throw = true;
 		}
 		if (Throw)
@@ -83,7 +83,7 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 void CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath) {
 	const auto Result(Core().FModuleManager.Call<Modules::LibC::mkdir>(APath.CString(), 0777));
 	if (!(Result == 0 || errno == EEXIST))
-		throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+		throw Exception::SystemData(Exception::SystemData::STREAM_NOT_WRITABLE);
 }
 
 void CYB::Platform::System::Path::DeleteFile(const API::String::UTF8& APath) {
@@ -95,7 +95,7 @@ void CYB::Platform::System::Path::DeleteFile(const API::String::UTF8& APath) {
 		case ENOENT:
 			break;	//contract fufilled
 		default:
-			throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+			throw Exception::SystemData(Exception::SystemData::STREAM_NOT_WRITABLE);
 		}
 	}
 }
@@ -110,7 +110,7 @@ void CYB::Platform::System::Path::DeleteDirectory(const API::String::UTF8& APath
 		case ENOTEMPTY:
 			throw Exception::SystemData(Exception::SystemData::DIRECTORY_NOT_EMPTY);
 		default:
-			throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+			throw Exception::SystemData(Exception::SystemData::STREAM_NOT_WRITABLE);
 		}
 	}
 }
@@ -143,7 +143,7 @@ void CYB::Platform::System::Path::NavigateToParentDirectory(void) {
 	//we will ALWAYS be '/' delimited, so this is safe
 	const auto Slash(GetIndexOfLastSeperator(FPath, *DirectorySeparatorChar()));
 	if (Slash < 2)
-		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+		throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 	auto NewPath(static_cast<Dynamic&>(FPath).SubString(0, Slash));
 	SetPath(std::move(NewPath));
 }
@@ -171,7 +171,7 @@ CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry(cons
 		const auto Error(errno);
 		switch (Error) {
 		case EACCES:
-			throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+			throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 		default:
 			throw Exception::SystemData(Exception::SystemData::PATH_LOST);
 		}

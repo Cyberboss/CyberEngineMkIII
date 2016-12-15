@@ -67,7 +67,7 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 			FinalComponent = UTF8(static_cast<const Dynamic&>(NewPath).SubString(I, NewPath.RawLength() - I));
 			NewPath = UTF8(static_cast<const Dynamic&>(NewPath).SubString(0, I));
 			if (!Verify(NewPath))
-				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+				throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 		}
 	}
 	else {
@@ -92,13 +92,13 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 				Tokens.emplace_back(UTF8(static_cast<const Dynamic&>(AAppendage).SubString(I + 1, AAppendage.RawLength() - I - 1)));
 				WorkingPath = UTF8(static_cast<const Dynamic&>(AAppendage).SubString(0, AAppendage.RawLength()));
 				if (!Verify(WorkingPath))
-					throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+					throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 			}
 		}
 		const Static Ascender(u8"..");
 		for (auto& Tok : Tokens)
 			if (Tok == Ascender)
-				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+				throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 
 		//and try to create them
 		CreateDirectories(std::move(WorkingPath), Tokens);
@@ -112,7 +112,7 @@ void CYB::Platform::System::Path::Append(const API::String::UTF8& AAppendage, co
 		Throw = true;
 	}
 	if (Throw)
-		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+		throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 	NewPath += std::move(FinalComponent);
 	SetPath(std::move(NewPath));
 }
@@ -134,7 +134,7 @@ void CYB::Platform::System::Path::Delete(bool ARecursive) {
 		}
 	}
 	catch (Exception::SystemData AException) {
-		API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::HEAP_ALLOCATION_FAILURE, Exception::SystemData::DIRECTORY_NOT_EMPTY, Exception::SystemData::FILE_NOT_WRITABLE, Exception::SystemData::PATH_LOST, Exception::SystemData::STRING_VALIDATION_FAILURE);
+		API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::HEAP_ALLOCATION_FAILURE, Exception::SystemData::DIRECTORY_NOT_EMPTY, Exception::SystemData::STREAM_NOT_WRITABLE, Exception::SystemData::PATH_LOST, Exception::SystemData::STRING_VALIDATION_FAILURE);
 		Throw = true;
 		ThrowCode = static_cast<Exception::SystemData::ErrorCode>(AException.FErrorCode);
 		if (!ARecursive && ThrowCode == CYB::Exception::SystemData::PATH_LOST)

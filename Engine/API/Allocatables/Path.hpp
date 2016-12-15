@@ -82,8 +82,8 @@ namespace CYB {
 					@par Thread Safety
 						This function requires synchronization at the object level
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if a directory component of @p AAppendage could not be read
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if @p ACreateIfNonExistant is true and the new path could not be created. Filesystem state will be reverted even while doing recursive creation
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if a directory component of @p AAppendage could not be read
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if @p ACreateIfNonExistant is true and the new path could not be created. Filesystem state will be reverted even while doing recursive creation
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_TOO_LONG. Thrown if the new path would exceed the limitation
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if the current path failed to verify
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
@@ -95,7 +95,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires synchronization at the object level
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if access to parent directory is denied or the Path is currently the root directory.
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if access to parent directory is denied or the Path is currently the root directory.
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				virtual void NavigateToParentDirectory(void) = 0;
@@ -107,7 +107,7 @@ namespace CYB {
 						This function requires synchronization at the object level
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::DIRECTORY_NOT_EMPTY. Thrown if the directory is not empty
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the file/directory could not be deleted
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if the file/directory could not be deleted
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				virtual void Delete(bool ARecursive) = 0;
@@ -117,7 +117,7 @@ namespace CYB {
 					@return true if the current path is a directory, false otherwise
 					@par Thread Safety
 						This function requires synchronization at the object level
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if a directory component of the path could not be read
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if a directory component of the path could not be read
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if the current path failed to verify
 				*/
 				virtual bool IsDirectory(void) const = 0;
@@ -126,7 +126,7 @@ namespace CYB {
 					@return true if the current path is a directory, false otherwise
 					@par Thread Safety
 						This function requires synchronization at the object level
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if a directory component of the path could not be read
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if a directory component of the path could not be read
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if the current path failed to verify
 				*/
 				virtual bool IsFile(void) const = 0;
@@ -136,7 +136,7 @@ namespace CYB {
 					@return The name of the file without any directory prefixes
 					@par Thread Safety
 						This function requires synchronization at the object level
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if a directory component of the path could not be read
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if a directory component of the path could not be read
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				virtual String::UTF8 FullName(void) const = 0;
@@ -153,7 +153,7 @@ namespace CYB {
 					@return The extension of the file without the leading period
 					@par Thread Safety
 						This function requires synchronization at the object level
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if a directory component of the path could not be read
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if a directory component of the path could not be read
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				virtual String::UTF8 Extension(void) const = 0;
@@ -171,7 +171,7 @@ namespace CYB {
 					@return The first directory entry iterator in the path
 					@par Thread Safety
 						This function requires synchronization at the object level
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if enumeration permission was denied
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if enumeration permission was denied
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if the current path failed to verify or is not a directory
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate

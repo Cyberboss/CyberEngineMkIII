@@ -78,25 +78,40 @@ namespace CYB {
 	*/
 	class SafeStream : public Stream {
 	public:
-		/*! 
-			@copydoc CYB::API::Stream::CursorPosition()
-			This version does not throw exceptions
+		/*!
+			@brief Get the current position of the read/write cursor in the Stream. Equivalent of Seek(0, SeekLocation::CURSOR)
+			@return The current position of the cursor in the Stream
+			@par Thread Safety
+				This function requires synchronization at the object level
 		*/
 		virtual unsigned long long CursorPosition(void) const noexcept = 0;
-		/*! 
-			@copydoc CYB::API::Stream::Seek()
-			This version does not throw exceptions
+		/*!
+			@brief Set the cursor position in the Stream
+			@param AOffset The offset from ALocation to set the cursor to
+			@param ALocation The initial location to begin the offset
+			@return The current cursor position
+			@par Thread Safety
+				This function requires synchronization at the object level
 		*/
 		virtual unsigned long long Seek(const long long AOffset, const SeekLocation ALocation) const noexcept = 0;
-		
-		/*! 
-			@copydoc CYB::API::Stream::Read()
-			This version does not throw exceptions
+
+		/*!
+			@brief Read data from a Stream at the current cursor position and advance the cursor by that amount
+			@param[out] ABuffer The location to store the read data
+			@param AMaxAmount The maximum number of bytes to be read
+			@return The number of bytes read. If zero is returned, and the cursor position is not as SeekLocation::END an error has occurred and the read should not be retried
+			@par Thread Safety
+				This function requires synchronization at the object level
 		*/
+
 		virtual unsigned long long Read(void* const ABuffer, const unsigned long long AMaxAmount) const noexcept = 0;
-		/*! 
-			@copydoc CYB::API::Stream::Write()
-			This version does not throw exceptions
+		/*!
+			@brief Write data to the Stream at the current cursor position and advance the cursor by that amount
+			@param ABuffer The location to get the data to write
+			@param AAmount The number of bytes to be written
+			@return The number of bytes written. If zero is returned, an error has occurred and the write should not be retried
+			@par Thread Safety
+				This function requires synchronization at the object level
 		*/
 		virtual unsigned long long Write(const void* const ABuffer, const unsigned long long AAmount) noexcept = 0;
 	};

@@ -41,10 +41,7 @@ namespace CYB {
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if the size could not be retrieved
 			*/
 			virtual unsigned long long Size(void) const = 0;
-			/*!
-				@copydoc CYB::API::Stream::CursorPosition()
-				This version does not throw exceptions
-			*/
+			//! @copydoc CYB::API::SafeStream::CursorPosition()
 			virtual unsigned long long CursorPosition(void) const noexcept = 0;
 
 			/*!

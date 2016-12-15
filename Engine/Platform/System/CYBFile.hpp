@@ -82,7 +82,7 @@ namespace CYB {
 
 				//! @copydoc CYB::API::File::Size()
 				unsigned long long Size(void) const final override;
-				//! @copydoc CYB::API::File::CursorPosition()
+				//! @copydoc CYB::API::SafeStream::CursorPosition()
 				unsigned long long CursorPosition(void) const noexcept final override;
 				//! @copydoc CYB::API::Stream::Seek()
 				unsigned long long Seek(const long long AOffset, const SeekLocation ALocation) const final override;

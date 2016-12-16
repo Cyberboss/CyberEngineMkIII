@@ -3,6 +3,7 @@
 
 #include "CYBEngineParameters.hpp"
 #include "CYBInterop.hpp"
+#include "CYBLogger.hpp"
 
 namespace CYB {
 	namespace Engine {

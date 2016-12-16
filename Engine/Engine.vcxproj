@@ -111,6 +111,7 @@
     <ClCompile Include="Engine\Core\CYBCore.cpp" />
     <ClCompile Include="Engine\Core\CYBEngineParameters.cpp" />
     <ClCompile Include="Engine\Core\CYBException.cpp" />
+    <ClCompile Include="Engine\Core\CYBLogger.cpp" />
     <ClCompile Include="Engine\Memory\CYBBlock.cpp" />
     <ClCompile Include="Engine\Memory\CYBHeap.cpp" />
     <ClCompile Include="Engine\Memory\CYBLargeBlock.cpp" />
@@ -238,6 +239,7 @@
     <ClInclude Include="Engine\Core\CYBInterop.hpp" />
     <ClInclude Include="Engine\Core\CYBCore.hpp" />
     <ClInclude Include="Engine\Core\CYBEngineParameters.hpp" />
+    <ClInclude Include="Engine\Core\CYBLogger.hpp" />
     <ClInclude Include="Engine\CYBEngine.hpp" />
     <ClInclude Include="Engine\Memory\CYBBlock.hpp" />
     <ClInclude Include="Engine\Memory\CYBHeap.hpp" />

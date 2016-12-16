@@ -15,6 +15,8 @@ namespace CYB {
 
 			Platform::Modules::Manager FModuleManager;	//!< @brief Loads and contains required modules
 		private:
+			static thread_local Context* FCurrentContext; //!< @brief The current Context in use
+
 				//User
 				//GDI
 				//Winsock
@@ -26,7 +28,7 @@ namespace CYB {
 				//Heap
 			Memory::Heap FHeap;	//!< @brief The engine's primary Heap
 			Allocator FEngineAllocator;	//!< @brief The engine's primary Allocator
-			API::Interop::Context FEngineContext;	//!< @brief The engine Context
+			Context FEngineContext;	//!< @brief The engine Context
 
 			//ThreadPool
 			//Steam
@@ -78,12 +80,21 @@ namespace CYB {
 
 
 			/*!
-				@brief Get the current Context
+			@brief Get the current Context
+			@return A reference to the current context
+			@par Thread Safety
+			This function should only be called once
+			*/
+			Context& CurrentContext(void) noexcept;
+
+			/*!
+				@brief Set the current Context
+				@param ANewContext The new context
 				@return A reference to the current context
 				@par Thread Safety
 					This function should only be called once
 			*/
-			API::Interop::Context& CurrentContext(void) noexcept;
+			void SetCurrentContext(Context& ANewContext) noexcept;
 		};
 	};
 

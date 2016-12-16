@@ -1,12 +1,6 @@
 //! @file CYBInterop.cpp Implements various engine interop functions
 #include "CYB.hpp"
 
-//Context
-
-CYB::API::Interop::Context& CYB::API::Interop::Context::GetContext(void) noexcept {
-	return Core().CurrentContext();
-}
-
 //Allocator
 template <class AAllocatable> AAllocatable* CYB::Engine::Allocator::DoAllocation(API::Interop::Constructor<void>& AConstructor) {
 	if (!AConstructor.Valid<AAllocatable>())
@@ -56,3 +50,30 @@ void* CYB::Engine::Allocator::InteropAllocation(const API::Interop::Allocatable:
 CYB::Engine::Allocator::Allocator(API::Heap& AHeap) noexcept :
 	API::Interop::Allocator(AHeap)
 {}
+
+//Context
+
+CYB::API::Interop::Context& CYB::API::Interop::Context::GetContext(void) noexcept {
+	return Core().CurrentContext();
+}
+
+CYB::Engine::Context::Context(Allocator& AAllocator, const bool AMakeCurrent) noexcept :
+	API::Interop::Context(AAllocator)
+{
+	if (AMakeCurrent)
+		MakeCurrent();
+}
+
+void CYB::Engine::Context::MakeCurrent(void) noexcept {
+	Core::GetCore().SetCurrentContext(*this);
+}
+
+CYB::Engine::PushContext::PushContext(Context& ANewContext) noexcept :
+	FOldContext(static_cast<Context&>(Context::GetContext()))
+{
+	ANewContext.MakeCurrent();
+}
+
+CYB::Engine::PushContext::~PushContext() {
+	FOldContext.MakeCurrent();
+}

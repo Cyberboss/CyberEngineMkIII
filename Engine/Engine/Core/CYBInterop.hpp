@@ -23,5 +23,41 @@ namespace CYB {
 			//! @copydoc CYB::API::Interop::Allocator::Allocator(CYB::API::Heap&)
 			Allocator(API::Heap& AHeap) noexcept;
 		};
+
+		//! @brief Implements the engine level functions for API::Interop::Contexts
+		class Context : public API::Interop::Context {
+		public:
+			/*!
+				@brief Setup the Context, optionally making it the current one
+				@param AAllocator The allocator to use
+				@param AMakeCurrent If true, MakeCurrent will be called during the constructor
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			Context(Allocator& AAllocator, const bool AMakeCurrent) noexcept;
+
+			/*!
+				@brief Set the current thread's Context singleton to this Context
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			void MakeCurrent(void) noexcept;
+		};
+
+		//! @brief Context switching RAII helper
+		class PushContext {
+		private:
+			Context& FOldContext;	//!< @brief The context to pop upon destruction
+		public:
+			/*!
+				@brief Saves the current Context and calls MakeCurrent on @p ANewContext
+				@param ANewContext The new Context to push
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			PushContext(Context& ANewContext) noexcept;
+			//! @brief Calls MakeCurrent on FOldContext
+			~PushContext();
+		};
 	};
 };

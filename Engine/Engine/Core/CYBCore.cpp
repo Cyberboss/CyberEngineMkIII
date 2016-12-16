@@ -21,12 +21,14 @@
 
 */
 
-CYB::Engine::Core::Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments):
+thread_local CYB::Engine::Context* CYB::Engine::Core::FCurrentContext;
+
+CYB::Engine::Core::Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments) :
 	Singleton<Core>(true),
 	FEngineInformation(Parameters::CreateEngineInformation()),
 	FHeap(Parameters::ENGINE_HEAP_INITIAL_COMMIT_SIZE),
 	FEngineAllocator(FHeap),
-	FEngineContext(FEngineAllocator)
+	FEngineContext(FEngineAllocator, true)
 {
 	static_cast<void>(ANumArguments);
 	static_cast<void>(AArguments);
@@ -44,9 +46,12 @@ void CYB::Engine::Core::Run(const unsigned int ANumArguments, const oschar_t* co
 	Platform::System::Process::GetSelf().Terminate();
 }
 
-CYB::API::Interop::Context& CYB::Engine::Core::CurrentContext(void) noexcept {
-	//! @todo Allow the unit to have a context and enable switching
-	return FEngineContext;
+CYB::Engine::Context& CYB::Engine::Core::CurrentContext(void) noexcept {
+	return *FCurrentContext;
+}
+
+void CYB::Engine::Core::SetCurrentContext(Context& ANewContext) noexcept {
+	FCurrentContext = &ANewContext;
 }
 
 CYB::Engine::Core& CYB::Core(void) noexcept {

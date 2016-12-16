@@ -122,6 +122,9 @@
     <ClCompile Include="Platform\System\Posix\CYBPosixSemaphore.cpp">
       <Filter>Platform\System\Posix</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Core\CYBLogger.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -471,6 +474,9 @@
     </ClInclude>
     <ClInclude Include="API\Interfaces\Logger.hpp">
       <Filter>API\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Core\CYBLogger.hpp">
+      <Filter>Engine\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

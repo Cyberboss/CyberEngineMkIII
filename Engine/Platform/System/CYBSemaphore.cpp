@@ -1,4 +1,4 @@
-//! @file CYBFile.cpp Implements CYB::Platform::System::Semaphore logic and alogorithms
+//! @file CYBSemaphore.cpp Implements CYB::Platform::System::Semaphore logic and alogorithms
 #include "CYB.hpp"
 
 void CYB::Platform::System::Semaphore::SignalAll(void) noexcept {

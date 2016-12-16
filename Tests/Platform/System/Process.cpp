@@ -254,7 +254,7 @@ SCENARIO("Process errors work", "[Platform][System][Process][Unit]") {
 #endif
 			REQUIRE_THROWS_AS(InitProcess(), CYB::Exception::SystemData);
 			THEN("The apporopriate error occurs") {
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 			}
 		}
 		WHEN("A file not found error occurs") {

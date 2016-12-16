@@ -20,7 +20,7 @@ namespace CYB {
 						@par Thread Safety
 							This function requires no thread safety
 						@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::FILE_NOT_FOUND. Thrown if @p APath does not exist in the filesystem
-						@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if @p APath isn't accessible by the current user
+						@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if @p APath isn't accessible by the current user
 						@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap ran out of memory
 						@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 						@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::PROCESS_CREATION_ERROR. Thrown if the process could not be created
@@ -32,7 +32,7 @@ namespace CYB {
 						@par Thread Safety
 							This function requires no thread safety
 						@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::FILE_NOT_FOUND. Thrown if APath from a call to SpawnProcess  does not exist in the filesystem
-						@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if APath from a call to SpawnProcess isn't accessible by the 
+						@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if APath from a call to SpawnProcess isn't accessible by the 
 						@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::PROCESS_CREATION_ERROR. Thrown if the process from a call to SpawnProcess could not be created
 					*/
 					static void HandleSpawnError[[noreturn]](void);
@@ -50,7 +50,7 @@ namespace CYB {
 						@par Thread Safety
 							This function requires no thread safety
 						@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::FILE_NOT_FOUND. Thrown if @p APath does not exist in the filesystem
-						@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if @p APath isn't accessible by the current user
+						@throws CYB::Exception::SystemData Error Code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if @p APath isn't accessible by the current user
 						@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap ran out of memory
 						@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 						@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::PROCESS_CREATION_ERROR. Thrown if the process could not be created

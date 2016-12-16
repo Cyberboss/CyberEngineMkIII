@@ -135,13 +135,13 @@ SCENARIO("Path Append works", "[Platform][System][Path][Unit]") {
 		WHEN("A folder is appended onto it that doesn't exist") {
 			REQUIRE_THROWS_AS(TestPath.Append(UTF8(Static(u8"TestPath/Recurse")), false, false), CYB::Exception::SystemData);
 			THEN("It will have failed") {
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 			}
 		}
 		WHEN("A recursive folder is appended onto it that doesn't exist and is created, but not recursively") {
 			REQUIRE_THROWS_AS(TestPath.Append(UTF8(Static(u8"TestPath2/Recurse/Recurse")), true, false), CYB::Exception::SystemData);
 			THEN("It will have failed") {
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 			}
 		}
 		WHEN("A folder is appended onto it that does exist") {
@@ -171,7 +171,7 @@ SCENARIO("Path Append works", "[Platform][System][Path][Unit]") {
 		WHEN("A recusive create is attempted but it contains a ..") {
 			REQUIRE_THROWS_AS(TestPath.Append(UTF8(Static(u8"TestPath2/Recurse/../recurseagain")), true, true), CYB::Exception::SystemData);
 			THEN("It will have failed") {
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 			}
 		}
 	}
@@ -336,7 +336,7 @@ SCENARIO("Path ascending works", "[Platform][System][Path][Unit]") {
 			});
 			REQUIRE_THROWS_AS(Lambda(), CYB::Exception::SystemData);
 			THEN("The correct error is thrown") {
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 			}
 		}
 	}
@@ -434,7 +434,7 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 					const auto BRP(LibC.Redirect<CYB::Platform::Modules::LibC::realpath, BadRealPath>());
 					REQUIRE_THROWS_AS(TestPath.Append(Appendage, false, false), CYB::Exception::SystemData);
 					THEN("It fails") {
-						CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+						CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 					}
 				}
 				AND_THEN("The pre-verification fails") {
@@ -474,14 +474,14 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 					const auto BSFA(K32.Redirect<CYB::Platform::Modules::Kernel32::SetFileAttributesW, BadSetFileAttributes>());
 					REQUIRE_THROWS_AS(Setup.Delete(false), CYB::Exception::SystemData);
 					THEN("The function call fails") {
-						CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+						CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
 					}
 				}
 				AND_WHEN("Deleting the file fails again") {
 					const auto GSFA(K32.Redirect<CYB::Platform::Modules::Kernel32::SetFileAttributesW, GoodSetFileAttributes>());
 					REQUIRE_THROWS_AS(Setup.Delete(false), CYB::Exception::SystemData);
 					THEN("The function call fails") {
-						CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+						CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
 					}
 				}
 				AND_WHEN("Deleting the file succeeds afterwards again") {
@@ -496,7 +496,7 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 				const auto Error(OverrideError(K32, 0));
 				REQUIRE_THROWS_AS(Setup.Delete(false), CYB::Exception::SystemData);
 				THEN("The function call fails") {
-					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
 				}
 			}
 		}
@@ -536,7 +536,7 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 			const auto Thing(OverrideError(K32, ERROR_ACCESS_DENIED));
 			REQUIRE_THROWS_AS(TestPath.IsDirectory(), CYB::Exception::SystemData);
 			THEN("The correct error is thrown") {
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 			}
 	}
 #else
@@ -565,7 +565,7 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 			const auto Error(OverrideError(K32, 0));
 			REQUIRE_THROWS_AS(Setup.Delete(false), CYB::Exception::SystemData);
 			THEN("All is well") {
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
 			}
 		}
 		WHEN("Enumeration is attempted but access is denied") {
@@ -578,7 +578,7 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 #endif
 			REQUIRE_THROWS_AS(Setup.Contents(), CYB::Exception::SystemData);
 			THEN("All is well") {
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 			}
 		}
 #ifdef TARGET_OS_WINDOWS
@@ -595,7 +595,7 @@ SCENARIO("Path whitebox", "[Platform][System][Path][Unit]") {
 			const auto BPRFS(ShellAPI.Redirect<CYB::Platform::Modules::ShellAPI::PathRemoveFileSpecW, BadPathRemoveFileSpec>());
 			REQUIRE_THROWS_AS(Setup.NavigateToParentDirectory(), CYB::Exception::SystemData);
 			THEN("The correct error is thrown") {
-				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 			}
 		}
 #endif

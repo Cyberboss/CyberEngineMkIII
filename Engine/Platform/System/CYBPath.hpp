@@ -51,7 +51,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the directory could not be created
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if the directory could not be created
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				static void CreateDirectory(const API::String::UTF8& APath);
@@ -62,7 +62,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the directories could not be created
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if the directories could not be created
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				static void CreateDirectories(API::String::UTF8&& AExistingPath, const API::Container::Deque<API::String::UTF8>& APaths);
@@ -73,7 +73,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the directory could not be deleted
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if the directory could not be deleted
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/
 				static void DeleteFile(const API::String::UTF8& APath);
@@ -83,7 +83,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the directory could not be deleted
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if the directory could not be deleted
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::DIRECTORY_NOT_EMPTY. Thrown if the directory is not empty
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if the path string does not validate
 				*/

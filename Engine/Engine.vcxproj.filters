@@ -469,6 +469,9 @@
     <ClInclude Include="API\Types\Containers.hpp">
       <Filter>API\Types</Filter>
     </ClInclude>
+    <ClInclude Include="API\Interfaces\Stream.hpp">
+      <Filter>API\Interfaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DoxyPages\Contexts.dox">

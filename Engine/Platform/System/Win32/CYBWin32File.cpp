@@ -70,8 +70,8 @@ CYB::Platform::System::File::File(Path&& APath, const Mode AMode, const Method A
 				throw Exception::SystemData(Exception::SystemData::FILE_EXISTS);
 		}
 		if (AMode == Mode::READ)
-			throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
-		throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+			throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
+		throw Exception::SystemData(Exception::SystemData::STREAM_NOT_WRITABLE);
 
 	}
 	
@@ -118,14 +118,14 @@ unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) 
 
 	const auto Error(K32.Call<Modules::Kernel32::GetLastError>());
 	if (Error == ERROR_ACCESS_DENIED || Error == ERROR_SHARING_VIOLATION)
-		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+		throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 	throw Exception::SystemData(Exception::SystemData::FILE_NOT_FOUND);
 }
 
 unsigned long long CYB::Platform::System::File::Size(void) const {
 	LARGE_INTEGER Size;
 	if (Core().FModuleManager.Call<Modules::Kernel32::GetFileSizeEx>(FHandle, &Size) == 0)
-		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+		throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 	return static_cast<unsigned long long>(Size.QuadPart);
 }
 
@@ -147,7 +147,7 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 	}());
 
 	if (Core().FModuleManager.Call<Modules::Kernel32::SetFilePointerEx>(FHandle, Distance, &Location, WinLocation) == 0)
-		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+		throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 
 	return static_cast<unsigned long long>(Location.QuadPart);
 }

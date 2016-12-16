@@ -2,7 +2,7 @@ var searchData=
 [
   ['eatleftblock',['EatLeftBlock',['../class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#af58464f0a7374799a0c6f9b48be8a18e',1,'CYB::Engine::Memory::Block::EatLeftBlock()'],['../class_c_y_b_1_1_engine_1_1_memory_1_1_large_block.html#ac37ff4747fd76f1a5a5a0214d7cd32b5',1,'CYB::Engine::Memory::LargeBlock::EatLeftBlock()']]],
   ['emptyconstructor',['EmptyConstructor',['../namespace_c_y_b_1_1_a_p_i_1_1_interop.html#a7ddf2868580eaea2606bcfb3a3e5a0a3',1,'CYB::API::Interop']]],
-  ['end',['END',['../class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818aab1a326c06d88bf042f73d70f50197905',1,'CYB::API::File']]],
+  ['end',['END',['../class_c_y_b_1_1_a_p_i_1_1_stream.html#ab2cc5268e74efc468f8101e280aa0336ab1a326c06d88bf042f73d70f50197905',1,'CYB::API::Stream']]],
   ['endianess',['Endianess',['../class_c_y_b_1_1_a_p_i_1_1_endianess.html',1,'CYB::API']]],
   ['endianess_2ehpp',['Endianess.hpp',['../_endianess_8hpp.html',1,'']]],
   ['engine_5fheap_5finitial_5fcommit_5fsize',['ENGINE_HEAP_INITIAL_COMMIT_SIZE',['../class_c_y_b_1_1_engine_1_1_parameters.html#acf79c60e273824e703dfffff79aa85b9aa3b6e9377c9124f0af88e6a00cb46ea6',1,'CYB::Engine::Parameters']]],

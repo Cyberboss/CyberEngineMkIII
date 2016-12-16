@@ -31,8 +31,6 @@ var searchData=
   ['file_2ehpp',['File.hpp',['../_file_8hpp.html',1,'']]],
   ['file_5fexists',['FILE_EXISTS',['../class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa64710ee77863b506b958b8a945e0b9c9',1,'CYB::Exception::SystemData']]],
   ['file_5fnot_5ffound',['FILE_NOT_FOUND',['../class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa8e7bfbb18e1deaf73875d7738a384957',1,'CYB::Exception::SystemData']]],
-  ['file_5fnot_5freadable',['FILE_NOT_READABLE',['../class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa28395b76ba755920ce45c9c148d0c2e8',1,'CYB::Exception::SystemData']]],
-  ['file_5fnot_5fwritable',['FILE_NOT_WRITABLE',['../class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa7a735f528e6fab1b5bac18a895d3b097',1,'CYB::Exception::SystemData']]],
   ['finished',['FINISHED',['../class_c_y_b_1_1_platform_1_1_system_1_1_thread.html#ad04681de3b2365896838cae4de12b69da2c616b2713e2e0aed04b4c4752c88133',1,'CYB::Platform::System::Thread']]],
   ['firstblock',['FirstBlock',['../class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#abf2798aefd94db831054ce1e4093e862',1,'CYB::Engine::Memory::Heap::FirstBlock(void) noexcept'],['../class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#afedb790c570b019904233f8f0a3d4ddb',1,'CYB::Engine::Memory::Heap::FirstBlock(void) const noexcept']]],
   ['flargeblock',['FLargeBlock',['../class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a25f051766eb872a42803e595f32b339d',1,'CYB::Engine::Memory::Heap']]],

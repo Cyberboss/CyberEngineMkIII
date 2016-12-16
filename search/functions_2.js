@@ -8,6 +8,7 @@ var searchData=
   ['callredirected',['CallRedirected',['../class_c_y_b_1_1_platform_1_1_system_1_1_sys.html#ab3b1cf4c3338eb2d96480d0828cbf3b5',1,'CYB::Platform::System::Sys']]],
   ['cancel',['Cancel',['../class_c_y_b_1_1_platform_1_1_system_1_1_thread.html#a085c9e320ce856e4b89d8e268073b962',1,'CYB::Platform::System::Thread']]],
   ['cancelthreadedoperation',['CancelThreadedOperation',['../class_c_y_b_1_1_a_p_i_1_1_threadable.html#a368e82f3b192857d0ea62791e2e60310',1,'CYB::API::Threadable::CancelThreadedOperation()'],['../class_c_y_b_1_1_a_p_i_1_1_threadable_taskset.html#af17175f0189277fea080c1f740e6167a',1,'CYB::API::ThreadableTaskset::CancelThreadedOperation()']]],
+  ['capabilities',['Capabilities',['../class_c_y_b_1_1_a_p_i_1_1_stream.html#a241171ac91441b855a4bbd557087adf7',1,'CYB::API::Stream::Capabilities()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_file.html#afca84af8cde01bed70d4530174f0610b',1,'CYB::Platform::System::File::Capabilities()']]],
   ['close',['Close',['../class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a4bd5d9a8bbf8eb9aeb49223474d72c35',1,'CYB::Platform::System::File']]],
   ['commit',['Commit',['../class_c_y_b_1_1_platform_1_1_system_1_1_virtual_memory.html#afd70a4b05a2147d38396e22264053cc1',1,'CYB::Platform::System::VirtualMemory']]],
   ['commitsize',['CommitSize',['../class_c_y_b_1_1_platform_1_1_system_1_1_virtual_memory.html#a7d3278f812668f114f4707375974a4f3',1,'CYB::Platform::System::VirtualMemory']]],
@@ -28,5 +29,5 @@ var searchData=
   ['currentamountofmemorycommitted',['CurrentAmountOfMemoryCommitted',['../class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#abad2501fcbebca29d32bd1eee4c50b42',1,'CYB::Engine::Memory::Heap']]],
   ['currentcontext',['CurrentContext',['../class_c_y_b_1_1_engine_1_1_core.html#ae8061a6326f150cf358eab6d853e6786',1,'CYB::Engine::Core']]],
   ['currentnumberofallocations',['CurrentNumberOfAllocations',['../class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a7c61a36144034cca33a8c047d3e010dc',1,'CYB::Engine::Memory::Heap']]],
-  ['cursorposition',['CursorPosition',['../class_c_y_b_1_1_a_p_i_1_1_file.html#a044fa2f545a6a3fd1953a2adf7a3f353',1,'CYB::API::File::CursorPosition()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_file.html#ab628d5574a2a2a77dc7bff35aea2f9ff',1,'CYB::Platform::System::File::CursorPosition()']]]
+  ['cursorposition',['CursorPosition',['../class_c_y_b_1_1_a_p_i_1_1_file.html#a044fa2f545a6a3fd1953a2adf7a3f353',1,'CYB::API::File::CursorPosition()'],['../class_c_y_b_1_1_a_p_i_1_1_stream.html#ab693083f763a88797d5a80be65120b6e',1,'CYB::API::Stream::CursorPosition()'],['../class_c_y_b_1_1_a_p_i_1_1_safe_stream.html#a948c3057ff32a0ab8c550f777abae152',1,'CYB::API::SafeStream::CursorPosition()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_file.html#ab628d5574a2a2a77dc7bff35aea2f9ff',1,'CYB::Platform::System::File::CursorPosition()']]]
 ];

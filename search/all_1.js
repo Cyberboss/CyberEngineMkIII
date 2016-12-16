@@ -2,7 +2,7 @@ var searchData=
 [
   ['base',['Base',['../class_c_y_b_1_1_exception_1_1_base.html',1,'CYB::Exception']]],
   ['base',['Base',['../class_c_y_b_1_1_exception_1_1_base.html#a7cb099f696d8f3c9656f0745483f457c',1,'CYB::Exception::Base']]],
-  ['begin',['BEGIN',['../class_c_y_b_1_1_a_p_i_1_1_file.html#a83d5db7dcf8226cb493a2688b050818aa19aad9f2fe3ce0023298ab83f7e75775',1,'CYB::API::File']]],
+  ['begin',['BEGIN',['../class_c_y_b_1_1_a_p_i_1_1_stream.html#ab2cc5268e74efc468f8101e280aa0336a19aad9f2fe3ce0023298ab83f7e75775',1,'CYB::API::Stream']]],
   ['beginthreadedoperation',['BeginThreadedOperation',['../class_c_y_b_1_1_a_p_i_1_1_threadable.html#a8fce6ce9f1ed6e12e0982a49e20004c3',1,'CYB::API::Threadable::BeginThreadedOperation()'],['../class_c_y_b_1_1_a_p_i_1_1_threadable_taskset.html#a4ed6bb65e6a7b7ce0f88b4952e4c634b',1,'CYB::API::ThreadableTaskset::BeginThreadedOperation()']]],
   ['block',['Block',['../class_c_y_b_1_1_engine_1_1_memory_1_1_block.html',1,'CYB::Engine::Memory']]],
   ['block',['Block',['../class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#af87f0152588d6c8e13d226c61e5fca70',1,'CYB::Engine::Memory::Block::Block(const unsigned int ASpaceAvailable, const Block &amp;ALeftBlock, const bool AFree) noexcept'],['../class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#a4a5a23d5591f320e456ceae0bfcc28cf',1,'CYB::Engine::Memory::Block::Block(const Block &amp;)=delete']]],

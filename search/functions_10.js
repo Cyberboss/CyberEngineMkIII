@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['seek',['Seek',['../class_c_y_b_1_1_a_p_i_1_1_file.html#a579038a9438eab5c51c7a14aa086a475',1,'CYB::API::File::Seek()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a27886ba90971690f4af5a85c24779ff7',1,'CYB::Platform::System::File::Seek()']]],
+  ['seek',['Seek',['../class_c_y_b_1_1_a_p_i_1_1_stream.html#ae3cd49e24a923dfc9b31564dc4bd142d',1,'CYB::API::Stream::Seek()'],['../class_c_y_b_1_1_a_p_i_1_1_safe_stream.html#aa0c7fd851ff85b938177a3a540768744',1,'CYB::API::SafeStream::Seek()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a27886ba90971690f4af5a85c24779ff7',1,'CYB::Platform::System::File::Seek()']]],
   ['semaphore',['Semaphore',['../class_c_y_b_1_1_platform_1_1_system_1_1_semaphore.html#a77a71796fee6a8e9334449e905eb1d6b',1,'CYB::Platform::System::Semaphore::Semaphore()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_semaphore.html#a8ebd302708f1b32e5257c4e268153670',1,'CYB::Platform::System::Implementation::Semaphore::Semaphore()']]],
   ['setfree',['SetFree',['../class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#ac205194cd5aef846158366f5dd3a9a9f',1,'CYB::Engine::Memory::Block']]],
   ['setpath',['SetPath',['../class_c_y_b_1_1_platform_1_1_system_1_1_path.html#ad02aaca35d0641e25995a8d6581bd000',1,'CYB::Platform::System::Path']]],

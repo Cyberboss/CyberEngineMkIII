@@ -1,7 +1,7 @@
 var searchData=
 [
   ['rawlength',['RawLength',['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html#a6d93af0af6a1dc59cabc371c79a25ce1',1,'CYB::API::String::CStyle']]],
-  ['read',['Read',['../class_c_y_b_1_1_a_p_i_1_1_file.html#a27ee83690060539b30e391bcc05f3cbf',1,'CYB::API::File::Read()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a36be97af3ce389976af84bcbfefd86c0',1,'CYB::Platform::System::File::Read()']]],
+  ['read',['Read',['../class_c_y_b_1_1_a_p_i_1_1_stream.html#a81831a3b10a268e4bbfd8cef3ad60e91',1,'CYB::API::Stream::Read()'],['../class_c_y_b_1_1_a_p_i_1_1_safe_stream.html#a60d1223986fec4d8c3cd2eab97dc0969',1,'CYB::API::SafeStream::Read()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a36be97af3ce389976af84bcbfefd86c0',1,'CYB::Platform::System::File::Read()']]],
   ['realloc',['Realloc',['../class_c_y_b_1_1_a_p_i_1_1_heap.html#a10d92cfce58ba4bebee7e884ec0706cd',1,'CYB::API::Heap::Realloc()'],['../class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a156864e7a58c35e4d00c67a60c992b33',1,'CYB::Engine::Memory::Heap::Realloc()']]],
   ['reallocimpl',['ReallocImpl',['../class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a617b9703a4f90dc71cca12e22231e659',1,'CYB::Engine::Memory::Heap']]],
   ['redirectedcall',['RedirectedCall',['../class_c_y_b_1_1_platform_1_1_system_1_1_sys.html#a71771524248bb87beb985d6f0e0fc62a',1,'CYB::Platform::System::Sys']]],

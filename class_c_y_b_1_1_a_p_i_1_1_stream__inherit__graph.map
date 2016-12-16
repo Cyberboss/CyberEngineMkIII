@@ -1,0 +1,5 @@
+<map id="CYB::API::Stream" name="CYB::API::Stream">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="29,80,139,107"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_a_p_i_1_1_safe_stream.html" title="A Stream guaranteed to not throw exceptions. " alt="" coords="163,80,320,107"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="4,155,163,197"/>
+</map>

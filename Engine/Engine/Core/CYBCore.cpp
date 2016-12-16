@@ -22,6 +22,7 @@
 */
 
 CYB::Engine::Core::Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments):
+	Singleton<Core>(true),
 	FEngineInformation(Parameters::CreateEngineInformation()),
 	FHeap(Parameters::ENGINE_HEAP_INITIAL_COMMIT_SIZE),
 	FEngineAllocator(FHeap),

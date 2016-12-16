@@ -6,7 +6,7 @@ namespace CYB {
 			//! @brief Class which gives access to the engine
 			class Context {
 			private:
-				static Context* FContext;	//!< @brief The context reference for the unit
+				static thread_local Context* FContext;	//!< @brief The context reference for the unit
 			public:
 				Allocator& FAllocator;	//!< @brief The Allocator
 			public:

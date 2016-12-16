@@ -117,6 +117,7 @@ namespace CYB {
 					@param AInitialCommitSize The amount of memory to initalize the heap with, must be smaller than @p AReservationSize
 					@par Thread Safety
 						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE. Thrown if the Mutex could not be initialized
 					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_RESERVATION_FAILURE. Thrown if the memory could not be reserved
 					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_COMMITAL_FAILURE. Thrown if the memory could not be committed
 				*/

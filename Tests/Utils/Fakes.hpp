@@ -9,7 +9,10 @@ namespace Fake {
 		void Free(void* const AOld) noexcept final override;
 	};
 	class Logger : public CYB::API::Logger {
+	private:
+		const CYB::API::String::Static FLogPath;
 	public:
+		Logger();
 		void Log(const CYB::API::String::CStyle& AMessage, const Level ALevel) noexcept final override;
 		const CYB::API::String::CStyle& CurrentLog(void) const noexcept final override;
 	};

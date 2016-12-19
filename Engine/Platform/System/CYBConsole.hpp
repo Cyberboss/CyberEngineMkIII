@@ -5,7 +5,7 @@ namespace CYB {
 			//! @brief Contains the basic File interface. Does not perform locking of any kind, be aware of possible race conditions
 			class Console : public API::Logger {
 			private:
-				API::String::Static FConsolePath;	//!< @brief The 'path' of the console
+				const API::String::Static FConsolePath;	//!< @brief The 'path' of the console
 			public:
 				/*!
 					@brief Contructs a console interface and sets up the fake Path and Logger

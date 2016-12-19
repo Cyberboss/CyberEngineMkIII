@@ -14,6 +14,10 @@ template <> void CYB::Engine::Core::Backdoor<Fake::Core>(Fake::Core& AHooker) {
 	new (&(reinterpret_cast<Core*>(AHooker.FBytes)->FEngineContext)) CYB::Engine::Context(AHooker.FHeap, AHooker.FLogger, true);	//this hurts you
 }
 
+Fake::Logger::Logger() :
+	FLogPath(u8"Catch test suite")
+{}
+
 void Fake::Logger::Log(const CYB::API::String::CStyle& AMessage, const Level ALevel) noexcept {
 	char* LevelString;
 	switch (ALevel) {
@@ -33,6 +37,10 @@ void Fake::Logger::Log(const CYB::API::String::CStyle& AMessage, const Level ALe
 		CYB::API::Assert::HCF();
 	}
 	INFO(std::string("Logged: L: ") + LevelString + ": " + AMessage.CString());
+}
+
+const CYB::API::String::CStyle& Fake::Logger::CurrentLog(void) const noexcept {
+	return FLogPath;
 }
 
 Fake::Core::Core() {

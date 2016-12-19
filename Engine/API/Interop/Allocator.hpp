@@ -71,12 +71,12 @@ namespace CYB {
 				template <typename AType, typename... AArgs> static AType* InPlaceAllocation(void* const ALocation, AArgs&&... AArguments);
 
 				/*!
-					@brief Allocates the Object specified by AAllocatable
-					@tparam AAllocatable The type of object to allocate
-					@tparam AConstructor The constructor for AAllocatable to use. Defaults to AAllocatable::Constructor
-					@tparam AArgs The arguments types of AAllocatable's constructor
-					@param AArguments The arguments of AAllocatable's constructor
-					@return An Object specialized on AAllocatable containing the allocated object
+					@brief Allocates the Object specified by AObject
+					@tparam AObject The type of object to allocate
+					@tparam AConstructor The constructor for AObject to use. Defaults to AObject::Constructor
+					@tparam AArgs The arguments types of AObject's constructor
+					@param AArguments The arguments of AObject's constructor
+					@return An Object specialized on AObject containing the allocated object
 					@par Thread Safety
 						This function requires no thread safety
 					@attention Throws dependant on called constructor
@@ -84,9 +84,9 @@ namespace CYB {
 				*/
 				template <class AObject, class AConstructor = AObject::Constructor, typename... AArgs> Object<AObject> NewObject(AArgs&&... AArguments);
 				/*!
-					@brief Allocates the Object specified by AAllocatable
-					@tparam AAllocatable The type of object to allocate
-					@return An Object specialized on AAllocatable containing the allocated object
+					@brief Allocates the Object specified by AObject
+					@tparam AObject The type of object to allocate
+					@return An Object specialized on AObject containing the allocated object
 					@par Thread Safety
 						This function requires no thread safety
 					@attention Throws dependant on called constructor
@@ -95,10 +95,10 @@ namespace CYB {
 				template <class AObject> Object<AObject> NewObject(void);
 
 				/*!
-					@brief Copys an Object of type AAllocatable
-					@tparam AAllocatable The type of object to copy
+					@brief Copys an Object of type AObject
+					@tparam AObject The type of object to copy
 					@param ACopy The original object to copy from
-					@return An Object specialized on AAllocatable containing the copies object
+					@return An Object specialized on AObject containing the copies object
 					@par Thread Safety
 						This function requires no thread safety
 					@attention Throws dependant on called constructor
@@ -108,11 +108,11 @@ namespace CYB {
 
 				/*!
 					@brief Deletes an object allocated with the Allocator
-					@param AAllocatable A pointer to the allocated object
+					@param AObject A pointer to the allocated object
 					@par Thread Safety
 						This function requires no thread safety
 				*/
-				template <class AObject> void DeleteObject(AObject* const AAllocatable) noexcept;
+				template <class AObject> void DeleteObject(AObject* const AAllocated) noexcept;
 			};
 		};
 	};

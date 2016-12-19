@@ -83,11 +83,10 @@ template <class AObject> CYB::API::Interop::Object<AObject> CYB::API::Interop::A
 	return Result;
 }
 
-template <class AObject> void CYB::API::Interop::Allocator::DeleteObject(AObject* const AAllocatable) noexcept {
-	if (AAllocatable != nullptr) {
-		AAllocatable->~AObject();
-		FHeap.Free(AAllocatable);
+template <class AObject> void CYB::API::Interop::Allocator::DeleteObject(AObject* const AAllocated) noexcept {
+	if (AAllocated != nullptr) {
+		AAllocated->~AObject();
+		FHeap.Free(AAllocated);
 	}
 }
-
 #undef AFB

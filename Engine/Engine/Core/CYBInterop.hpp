@@ -22,6 +22,19 @@ namespace CYB {
 		public:
 			//! @copydoc CYB::API::Interop::Allocator::Allocator(CYB::API::Heap&)
 			Allocator(API::Heap& AHeap) noexcept;
+
+			/*!
+				@brief Allocates the Object specified by AAllocatable and returns a raw pointer which must be deleted using the Delete method of this object
+				@tparam AObject The type of object to allocate
+				@tparam AArgs The arguments types of AObject's constructor
+				@param AArguments The arguments of AObject's constructor
+				@return A pointer to an AObject allocated on this allocator's Heap
+				@par Thread Safety
+					This function requires no thread safety
+				@attention Throws dependant on called constructor
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the Heap does not have the space for the allocation and more system memory cannot be requested
+			*/
+			template <class AObject, typename... AArgs> AObject* RawObject(AArgs&&... AArguments);
 		};
 
 		//! @brief Implements the engine level functions for API::Interop::Contexts

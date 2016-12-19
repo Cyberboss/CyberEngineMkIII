@@ -1,4 +1,4 @@
-//! @file Semaphore.hpp Contains the declaration of CYB::API::Semaphore
+//! @file CYBSemaphore.hpp Contains the declaration of CYB::Platform::System::Semaphore
 namespace CYB {
 	namespace Platform {
 		namespace System {

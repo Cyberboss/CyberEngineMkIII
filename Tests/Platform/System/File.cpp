@@ -307,13 +307,13 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 			WHEN("We try to open a file for reading") {
 				CHECK_THROWS_AS(File(TestData.Path1(), File::Mode::READ, File::Method::EXIST), CYB::Exception::SystemData);
 				THEN("The correct exception is thrown") {
-					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 				}
 			}
 			WHEN("We try to open a file for writing") {
 				CHECK_THROWS_AS(File(TestData.Path1(), File::Mode::WRITE, File::Method::EXIST), CYB::Exception::SystemData);
 				THEN("The correct exception is thrown") {
-					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
 				}
 			}
 #ifdef TARGET_OS_WINDOWS
@@ -322,7 +322,7 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 				WHEN("We try to open a file") {
 					CHECK_THROWS_AS(File(TestData.Path1(), File::Mode::READ_WRITE, File::Method::ANY), CYB::Exception::SystemData);
 					THEN("The correct exception is thrown") {
-						CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+						CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
 					}
 				}
 			}
@@ -342,13 +342,13 @@ SCENARIO("File constructors work", "[Platform][System][File][Unit]") {
 			CheckThis(ERROR_PATH_NOT_FOUND, CYB::Exception::SystemData::FILE_NOT_FOUND);
 			CheckThis(ERROR_INVALID_NAME, CYB::Exception::SystemData::FILE_NOT_FOUND);
 			CheckThis(ERROR_FILE_EXISTS, CYB::Exception::SystemData::FILE_EXISTS);
-			CheckThis(ERROR_ACCESS_DENIED, CYB::Exception::SystemData::FILE_NOT_WRITABLE);
-			CheckThis(ERROR_SHARING_VIOLATION, CYB::Exception::SystemData::FILE_NOT_WRITABLE);
-			CheckThis(0, CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+			CheckThis(ERROR_ACCESS_DENIED, CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
+			CheckThis(ERROR_SHARING_VIOLATION, CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
+			CheckThis(0, CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
 			Mo2 = File::Mode::READ;
-			CheckThis(ERROR_ACCESS_DENIED, CYB::Exception::SystemData::FILE_NOT_READABLE);
-			CheckThis(ERROR_SHARING_VIOLATION, CYB::Exception::SystemData::FILE_NOT_READABLE);
-			CheckThis(0, CYB::Exception::SystemData::FILE_NOT_READABLE);
+			CheckThis(ERROR_ACCESS_DENIED, CYB::Exception::SystemData::STREAM_NOT_READABLE);
+			CheckThis(ERROR_SHARING_VIOLATION, CYB::Exception::SystemData::STREAM_NOT_READABLE);
+			CheckThis(0, CYB::Exception::SystemData::STREAM_NOT_READABLE);
 #endif
 		}
 	}
@@ -370,7 +370,7 @@ SCENARIO("Files sizes can be retrieved after opening them", "[Platform][System][
 				const auto Thing(TestData.FK32.Redirect<CYB::Platform::Modules::Kernel32::GetFileSizeEx, BadGetFileSizeEx>());
 				THEN("The correct error is thrown") {
 					CHECK_THROWS_AS(TF.Size(), CYB::Exception::SystemData);
-					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 				}
 			}
 		}
@@ -381,6 +381,7 @@ SCENARIO("Files can have their cursor position set and retrieved", "[Platform][S
 	TestStartup TestData;
 	GIVEN("A file with some data") {
 		TestData.Data1(10);
+		TestData.Data2(10);
 		WHEN("It is opened") {
 			File TF(TestData.Path1(), File::Mode::READ_WRITE, File::Method::EXIST);
 			AND_THEN("It's cursor position is retrieved") {
@@ -425,6 +426,19 @@ SCENARIO("Files can have their cursor position set and retrieved", "[Platform][S
 					CHECK(Result == 5U);
 				}
 			}
+			AND_THEN("It's cursor position is set past the end") {
+				const auto Result(TF.Seek(5, File::SeekLocation::END));
+				THEN("It is there, and nothing happens?") {
+					CHECK(Result == 15U);
+				}
+				AND_WHEN("We do the same thing but in read-only mode"){
+					File TF2(TestData.Path2(), File::Mode::READ, File::Method::EXIST);
+					const auto Result2(TF2.Seek(5, File::SeekLocation::END));
+					THEN("It is there, and nothing happens?") {
+						CHECK(Result2 == 15U);
+					}
+				}
+			}
 			AND_WHEN("We seek up a bit") {
 				REQUIRE(TF.Seek(1, File::SeekLocation::CURSOR));
 				AND_THEN("Some stuff is read") {
@@ -461,7 +475,7 @@ SCENARIO("Files can have their cursor position set and retrieved", "[Platform][S
 #endif
 				REQUIRE_THROWS_AS(TF.Seek(-5, File::SeekLocation::END), CYB::Exception::SystemData);
 				THEN("The correct error is thrown") {
-					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::FILE_NOT_READABLE);
+					CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 				}
 			}
 		}
@@ -681,11 +695,11 @@ SCENARIO("Files sizes can be retrieved without opening them", "[Platform][System
 			const auto BPC(TestData.FK32.Redirect<CYB::Platform::Modules::Kernel32::GetFileAttributesExW, BadGetFileAttributesEx>());
 			WHEN("The error is set to ACCESS_DENIED") {
 				const auto Thing(OverrideError(TestData.FK32, ERROR_ACCESS_DENIED));
-				DoCheck(CYB::Exception::SystemData::FILE_NOT_READABLE);
+				DoCheck(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 			}
 			WHEN("The error is set to SHARING_VIOLATION") {
 				const auto Thing(OverrideError(TestData.FK32, ERROR_SHARING_VIOLATION));
-				DoCheck(CYB::Exception::SystemData::FILE_NOT_READABLE);
+				DoCheck(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 			}
 			WHEN("The error is set to anything other than SHARING_VIOLATION and ACCESS_DENIED") {
 				const auto Thing(OverrideError(TestData.FK32, 0));
@@ -695,7 +709,7 @@ SCENARIO("Files sizes can be retrieved without opening them", "[Platform][System
 			SysCallOverride BS(Sys::CallNumber::LSTAT, FakeStat2);
 			WHEN("The error is set to EACCES") {
 				FakeStatReturn = EACCES;
-				DoCheck(CYB::Exception::SystemData::FILE_NOT_READABLE);
+				DoCheck(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 			}
 			WHEN("The error is set to anything other that EACCES") {
 				FakeStatReturn = EAGAIN;
@@ -795,15 +809,18 @@ SCENARIO("Files' OpenMethod can be retrieved", "[Platform][System][File][Unit]")
 	}
 }
 
-SCENARIO("Files' OpenMode can be retrieved", "[Platform][System][File][Unit]") {
+SCENARIO("Files' Capabilites work", "[Platform][System][File][Unit]") {
 	TestStartup TestData;
 	GIVEN("A pre-existing file opened with Mode::READ") {
 		TestData.Data1(5);
 		File TF(TestData.Path1(), File::Mode::READ, File::Method::ANY);
 		WHEN("The open mode is checked") {
-			const auto Result(TF.OpenMode());
+			File::Mode Result;
+			bool Seek;
+			TF.Capabilities(Result, Seek);
 			THEN("It is Mode::READ") {
 				CHECK(Result == File::Mode::READ);
+				CHECK(Seek);
 			}
 		}
 	}
@@ -811,9 +828,12 @@ SCENARIO("Files' OpenMode can be retrieved", "[Platform][System][File][Unit]") {
 		TestData.Data1(5);
 		File TF(TestData.Path1(), File::Mode::WRITE, File::Method::ANY);
 		WHEN("The open mode is checked") {
-			const auto Result(TF.OpenMode());
+			File::Mode Result;
+			bool Seek;
+			TF.Capabilities(Result, Seek);
 			THEN("It is Mode::WRITE") {
 				CHECK(Result == File::Mode::WRITE);
+				CHECK(Seek);
 			}
 		}
 	}
@@ -821,9 +841,12 @@ SCENARIO("Files' OpenMode can be retrieved", "[Platform][System][File][Unit]") {
 		TestData.Data1(5);
 		File TF(TestData.Path1(), File::Mode::READ_WRITE, File::Method::ANY);
 		WHEN("The open mode is checked") {
-			const auto Result(TF.OpenMode());
+			File::Mode Result;
+			bool Seek;
+			TF.Capabilities(Result, Seek);
 			THEN("It is Mode::READ_WRITE") {
 				CHECK(Result == File::Mode::READ_WRITE);
+				CHECK(Seek);
 			}
 		}
 	}

@@ -48,8 +48,8 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 		catch (Exception::SystemData AException) {
 			Throw = true;
 			ThrowCode = static_cast<Exception::SystemData::ErrorCode>(AException.FErrorCode);
-			API::Assert::Equal<unsigned int>(ThrowCode, Exception::SystemData::FILE_NOT_WRITABLE, Exception::SystemData::HEAP_ALLOCATION_FAILURE);
-			if(ThrowCode == Exception::SystemData::FILE_NOT_WRITABLE)
+			API::Assert::Equal<unsigned int>(ThrowCode, Exception::SystemData::STREAM_NOT_WRITABLE, Exception::SystemData::HEAP_ALLOCATION_FAILURE);
+			if(ThrowCode == Exception::SystemData::STREAM_NOT_WRITABLE)
 				ThrowCode = Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE;
 		}
 		if(Throw)
@@ -95,7 +95,7 @@ void CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath
 	API::String::UTF16 As16(APath);
 	if (Core().FModuleManager.Call<Modules::Kernel32::CreateDirectoryW>(As16.WString(), nullptr) == 0
 		&& Core().FModuleManager.Call<Modules::Kernel32::GetLastError>() != ERROR_ALREADY_EXISTS)
-		throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+		throw Exception::SystemData(Exception::SystemData::STREAM_NOT_WRITABLE);
 }
 
 void CYB::Platform::System::Path::DeleteDirectory(const API::String::UTF8& APath) {
@@ -108,7 +108,7 @@ void CYB::Platform::System::Path::DeleteDirectory(const API::String::UTF8& APath
 		case ERROR_DIR_NOT_EMPTY:
 			throw Exception::SystemData(Exception::SystemData::DIRECTORY_NOT_EMPTY);
 		default:
-			throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+			throw Exception::SystemData(Exception::SystemData::STREAM_NOT_WRITABLE);
 		}
 	}
 }
@@ -131,10 +131,10 @@ void CYB::Platform::System::Path::DeleteFile(const API::String::UTF8& APath) {
 				if (MM.Call<Modules::Kernel32::SetFileAttributesW>(As16.WString(), Attributes.dwFileAttributes) != FALSE && MM.Call<Modules::Kernel32::DeleteFileW>(As16.WString()) != FALSE)
 					break;
 			}
-			throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+			throw Exception::SystemData(Exception::SystemData::STREAM_NOT_WRITABLE);
 		}
 		default:
-			throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+			throw Exception::SystemData(Exception::SystemData::STREAM_NOT_WRITABLE);
 		}
 	}
 }
@@ -168,7 +168,7 @@ bool CYB::Platform::System::Path::IsDirectory(void) const {
 	if (Result == 0) {
 		const auto Error(Core().FModuleManager.Call<Modules::Kernel32::GetLastError>());
 		if (Error == ERROR_ACCESS_DENIED || Error == ERROR_SHARING_VIOLATION)
-			throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+			throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
 	}
 	return (Attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) > 0;
@@ -191,11 +191,11 @@ void CYB::Platform::System::Path::NavigateToParentDirectory(void) {
 	auto& MM(Core().FModuleManager);
 	const auto Result1(MM.Call<Modules::ShellAPI::PathIsRootW>(Buffer));
 	if (Result1 != FALSE)
-		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+		throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 
 	const auto Result2(MM.Call<Modules::ShellAPI::PathRemoveFileSpecW>(Buffer));
 	if (Result2 == 0)
-		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);	//this doesn't seem to happen irl but whatever
+		throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);	//this doesn't seem to happen irl but whatever
 	SetPath(UTF16::ToUTF8(Buffer));
 }
 
@@ -239,7 +239,7 @@ CYB::Platform::System::Implementation::Path::DirectoryEntry::DirectoryEntry(cons
 		case ERROR_FILE_NOT_FOUND:
 			break;	//can really only happen if a drive is enumed and is empty
 		case ERROR_ACCESS_DENIED:
-			throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+			throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 		default:
 			throw Exception::SystemData(Exception::SystemData::PATH_LOST);
 		}

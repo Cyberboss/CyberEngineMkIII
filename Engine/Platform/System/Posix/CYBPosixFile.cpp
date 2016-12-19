@@ -54,9 +54,9 @@ void CYB::Platform::System::Implementation::File::Init(const System::Path& APath
 		case EACCES:
 		default:
 			if (AMode == API::File::Mode::READ)
-				throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+				throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 			else
-				throw Exception::SystemData(Exception::SystemData::FILE_NOT_WRITABLE);
+				throw Exception::SystemData(Exception::SystemData::STREAM_NOT_WRITABLE);
 		}
 	}
 
@@ -78,7 +78,7 @@ CYB::Platform::System::File::File(Path&& APath, const Mode AMode, const Method A
 	}
 	catch (Exception::SystemData& AException) {
 		if (FDescriptor != -1) {
-			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::FILE_EXISTS, Exception::SystemData::FILE_NOT_READABLE);
+			API::Assert::Equal<unsigned int>(AException.FErrorCode, Exception::SystemData::FILE_EXISTS, Exception::SystemData::STREAM_NOT_READABLE);
 			Close();
 		}
 		throw;
@@ -110,7 +110,7 @@ unsigned long long CYB::Platform::System::File::Size(const System::Path& APath) 
 	if(Result == 0)
 		return static_cast<unsigned long long>(Stat.st_size);
 	else if(Result == EACCES)
-		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+		throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 	throw Exception::SystemData(Exception::SystemData::FILE_NOT_FOUND);
 }
 
@@ -119,7 +119,7 @@ StatStruct CYB::Platform::System::Implementation::File::StatFD(void) const {
 	StatStruct Stat;
 	const auto Result(static_cast<int>(System::Sys::Call(Sys::FSTAT, FDescriptor, &Stat)));
 	if (Result != 0)
-		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+		throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 	return Stat;
 }
 
@@ -127,8 +127,7 @@ unsigned long long CYB::Platform::System::File::Size(void) const {
 	return static_cast<unsigned long long>(StatFD().st_size);
 }
 
-unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, const SeekLocation ALocation) const {
-	const auto PosixLocation([&]() {
+unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, const SeekLocation ALocation) const {	const auto PosixLocation([&]() {
 		switch (ALocation) {
 		case SeekLocation::BEGIN:
 			return SEEK_SET;
@@ -142,15 +141,14 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 	}());
 
 	unsigned long long Result(Core().FModuleManager.Call<Modules::LibC::lseek>(FDescriptor, static_cast<off_t>(AOffset), PosixLocation));
-	//See http://man7.org/linux/man-pages/man2/lseek.2.html, there is no way besides the user seeking past
+	//See http://man7.org/linux/man-pages/man2/lseek.2.html, my research seems to indicate that seeking past produces no error
 	if (Result == static_cast<decltype(Result)>(-1))
-		throw Exception::SystemData(Exception::SystemData::FILE_NOT_READABLE);
+		throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 
 	return Result;
 }
 
-unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const unsigned long long AMaxAmount) const {
-	if (FOpenMode == Mode::WRITE)
+unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const unsigned long long AMaxAmount) const {	if (FOpenMode == Mode::WRITE)
 		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
 	unsigned long long Result(Core().FModuleManager.Call<Modules::LibC::read>(FDescriptor, ABuffer, static_cast<size_t>(AMaxAmount)));
 	if (Result == static_cast<decltype(Result)>(-1))
@@ -158,8 +156,7 @@ unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const 
 	return Result;
 }
 
-unsigned long long CYB::Platform::System::File::Write(const void* const ABuffer, const unsigned long long AAmount) {
-	if (FOpenMode == Mode::READ)
+unsigned long long CYB::Platform::System::File::Write(const void* const ABuffer, const unsigned long long AAmount) {	if (FOpenMode == Mode::READ)
 		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
 	unsigned long long Result(Core().FModuleManager.Call<Modules::LibC::write>(FDescriptor, ABuffer, static_cast<size_t>(AAmount)));
 	if (Result == static_cast<decltype(Result)>(-1))

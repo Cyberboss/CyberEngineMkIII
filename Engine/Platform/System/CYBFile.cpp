@@ -13,16 +13,17 @@ CYB::Platform::System::File::~File() {
 	Close();
 }
 
+void CYB::Platform::System::File::Capabilities(Mode& AMode, bool& ASeek) const noexcept {
+	ASeek = true;
+	AMode = FOpenMode;
+}
+
 unsigned long long CYB::Platform::System::File::CursorPosition(void) const noexcept {
 	return Seek(0, SeekLocation::CURSOR);
 }
 
 const CYB::API::Path& CYB::Platform::System::File::GetPath(void) const noexcept {
 	return FPath;
-}
-
-CYB::API::File::Mode CYB::Platform::System::File::OpenMode(void) const noexcept {
-	return FOpenMode;
 }
 
 CYB::API::File::Method CYB::Platform::System::File::OpenMethod(void) const noexcept {

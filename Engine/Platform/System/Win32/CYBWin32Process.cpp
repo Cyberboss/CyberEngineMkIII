@@ -43,7 +43,7 @@ HANDLE CYB::Platform::System::Implementation::Process::CreateProcess(const CYB::
 	if (Result == 0)
 		switch (MM.Call<CYB::Platform::Modules::Kernel32::GetLastError>()) {
 		case ERROR_ACCESS_DENIED:
-			throw CYB::Exception::SystemData(CYB::Exception::SystemData::FILE_NOT_READABLE);
+			throw CYB::Exception::SystemData(CYB::Exception::SystemData::STREAM_NOT_READABLE);
 		case ERROR_FILE_NOT_FOUND:
 			throw CYB::Exception::SystemData(CYB::Exception::SystemData::FILE_NOT_FOUND);
 		case ERROR_ELEVATION_REQUIRED:

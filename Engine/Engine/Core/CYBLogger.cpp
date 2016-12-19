@@ -72,7 +72,7 @@ void CYB::Engine::Logger::EmptyQueue(void) {
 		do {
 			const auto CurrentWrite(FFile.Write(Node->FMessage.CString() + Written, Len - Written));
 			if (CurrentWrite == 0)
-				throw CYB::Exception::SystemData(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+				throw CYB::Exception::SystemData(CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
 		} while (Written < Len);
 		API::Assert::Equal(Written, Len);
 	}

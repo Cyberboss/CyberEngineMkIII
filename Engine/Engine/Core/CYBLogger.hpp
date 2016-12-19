@@ -17,7 +17,7 @@ namespace CYB {
 			Context FContext;	//!< @brief The Context to be used when calling the Logger
 
 			Platform::System::File FFile;	//!< @brief The file being written to
-			Platform::System::Mutex FLock,	//!< @brief The lock used to acquire access to FQueue
+			Platform::System::Mutex FQueueLock,	//!< @brief The lock used to acquire access to FQueue
 				FFileLock;	//!< @brief The lock used to acquire access to FFile
 			
 			LogEntry* FQueue;	//!< @brief The message queue
@@ -43,13 +43,15 @@ namespace CYB {
 				@brief Empty FQueue and write it into FFile
 				@par Thread Safety
 					This function requires no thread safety
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the log File could not be written to
 			*/
-			void EmptyQueue(void) noexcept;
+			void EmptyQueue(void);
 
 			/*!
 				@brief Writer thread. Runs in a loop until CancelThreadedOperation is called
 				@par Thread Safety
 					This function requires no thread safety
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the log File could not be written to
 			*/
 			void BeginThreadedOperation(void) override;
 			/*!

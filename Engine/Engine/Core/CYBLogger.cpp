@@ -5,6 +5,7 @@
 #include <ctime>
 
 CYB::Platform::System::File CYB::Engine::Logger::OpenFile(void) {
+	//All allocation is done using the Logger's Allocator
 	Platform::System::Path LogPath(API::Path::SystemPath::TEMPORARY);
 
 	auto Time(time(0));   // get time now
@@ -30,7 +31,7 @@ CYB::Platform::System::File CYB::Engine::Logger::OpenFile(void) {
 	LogPath.Append(std::move(Formatted), false, false);
 
 	do {
-		try {							//Yes, copy it, if it throws it won't be valid anymore
+		try {							//Yes, copy LogPath, if it throws it won't be valid anymore
 			return Platform::System::File(LogPath, API::File::Mode::WRITE, API::File::Method::CREATE);
 		}
 		catch (CYB::Exception::SystemData& AException) {
@@ -57,8 +58,24 @@ CYB::Engine::Logger::~Logger() {
 	EmptyQueue();
 }
 
-void CYB::Engine::Logger::EmptyQueue(void) noexcept {
-
+void CYB::Engine::Logger::EmptyQueue(void) {
+	LogEntry* Queue;
+	{
+		API::LockGuard Lock(FQueueLock);
+		Queue = FQueue;
+		FQueue = nullptr;
+	}
+	API::LockGuard LockFile(FFileLock);
+	for (auto Node(Queue); Node != nullptr; Node = Node->FNext) {
+		const auto Len(static_cast<unsigned int>(Node->FMessage.RawLength()));
+		auto Written(0U);
+		do {
+			const auto CurrentWrite(FFile.Write(Node->FMessage.CString() + Written, Len - Written));
+			if (CurrentWrite == 0)
+				throw CYB::Exception::SystemData(CYB::Exception::SystemData::FILE_NOT_WRITABLE);
+		} while (Written < Len);
+		API::Assert::Equal(Written, Len);
+	}
 }
 
 void CYB::Engine::Logger::BeginThreadedOperation(void) {

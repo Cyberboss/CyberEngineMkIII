@@ -128,8 +128,38 @@ void CYB::Engine::Logger::CancelThreadedOperation(void) {
 
 void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level ALevel) noexcept {
 	PushContext Push(FContext);	//Use ourselves for allocation
-	static_cast<void>(AMessage);
-	static_cast<void>(ALevel);
+	bool CritFail(false);
+	while (!CritFail) {
+		try {
+
+			//! @todo Format this
+
+			auto Entry(static_cast<Allocator&>(Context::GetContext().FAllocator).RawObject<LogEntry>());
+			Entry->FNext = nullptr;
+			Entry->FMessage = AMessage;
+			Entry->FLevel = ALevel;
+
+			API::LockGuard Lock(FQueueLock);
+			if (FQueueTail)
+				FQueueTail->FNext = Entry;
+			else
+				FQueueHead = Entry;
+			FQueueTail = Entry;
+			break;
+		}
+		catch (CYB::Exception::SystemData& AException) {
+			API::Assert::Equal<unsigned int>(AException.FErrorCode, CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE);
+			try {
+				//Empty the queue, free the memory, and try again
+				EmptyQueue();
+			}
+			catch(CYB::Exception::SystemData& AInnerException){
+				API::Assert::Equal<unsigned int>(AException.FErrorCode, CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
+				//Now give up
+				CritFail = true;
+			}
+		}
+	}
 }
 
 const CYB::API::String::CStyle& CYB::Engine::Logger::CurrentLog(void) const noexcept {

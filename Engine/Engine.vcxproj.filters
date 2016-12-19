@@ -570,6 +570,9 @@
     <None Include="Platform\Modules\CYBModuleManager.inl">
       <Filter>Platform\Modules</Filter>
     </None>
+    <None Include="Engine\Core\CYBInterop.inl">
+      <Filter>Engine\Core</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DoxyPages\DoxygenLayout.xml">

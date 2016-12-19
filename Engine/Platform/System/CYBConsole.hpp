@@ -25,7 +25,7 @@ namespace CYB {
 				void Show(void) noexcept;
 
 				//! @copydoc CYB::API::Logger::Log()
-				void Log(const API::String::CStyle& AMessage, const Level ALevel) noexcept final override;
+				void Log(const API::String::CStyle& AMessage, const Level ALevel) final override;
 
 				/*!
 					@brief Returns the console path

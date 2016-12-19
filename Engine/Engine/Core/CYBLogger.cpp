@@ -4,6 +4,29 @@
 #include <cstdio>
 #include <ctime>
 
+CYB::API::String::Dynamic CYB::Engine::Logger::TimeString(const int AHour, const int AMinute, const int ASecond) {
+	char Buffer[50];
+	const auto Length(sprintf(Buffer, u8"%02d:%02d:%02d", AHour, AMinute, ASecond));
+
+	API::Assert::LessThan(-1, Length);
+	API::Assert::LessThan(Length, 50);
+
+#ifdef TARGET_OS_WINDOWS
+	//Code analysis is stupid
+	__assume(-1 < Length && Length < 50);
+#endif
+	Buffer[Length] = 0;
+
+	return API::String::Dynamic(API::String::Static(Buffer));
+}
+
+CYB::API::String::Dynamic CYB::Engine::Logger::TimeString(void) {
+	auto Time(time(0));   // get time now
+	auto Now = localtime(&Time);
+	const auto Hour(Now->tm_hour), Min(Now->tm_min), Sec(Now->tm_sec);
+	return TimeString(Hour, Min, Sec);
+}
+
 CYB::Platform::System::File CYB::Engine::Logger::OpenFile(void) {
 	//All allocation is done using the Logger's Allocator
 	Platform::System::Path LogPath(API::Path::SystemPath::TEMPORARY);
@@ -14,7 +37,7 @@ CYB::Platform::System::File CYB::Engine::Logger::OpenFile(void) {
 	const int Year(Now->tm_year + 1900), Month(Now->tm_mon + 1), Day(Now->tm_mday), Hour(Now->tm_hour), Min(Now->tm_min), Sec(Now->tm_sec);
 
 	char Buffer[50];
-	const auto Length(sprintf(Buffer, u8"LogFile %d-%d-%d %d:%d:%d.txt", Year, Month, Day, Hour, Min, Sec));
+	const auto Length(sprintf(Buffer, u8"LogFile %d-%d-%d %s.txt", Year, Month, Day, TimeString(Hour, Min, Sec).CString()));
 
 	API::Assert::LessThan(-1, Length);
 	API::Assert::LessThan(Length, 50);
@@ -126,17 +149,33 @@ void CYB::Engine::Logger::CancelThreadedOperation(void) {
 	FCancelled.store(true, std::memory_order_relaxed);
 }
 
-void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level ALevel) noexcept {
+void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level ALevel) {
 	PushContext Push(FContext);	//Use ourselves for allocation
+
+	char* LevelString;
+	switch (ALevel) {
+	case Level::DEV:
+		LevelString = ": Debug: ";
+		break;
+	case Level::INFO:
+		LevelString = ": Info: ";
+		break;
+	case Level::WARN:
+		LevelString = ": Warning: ";
+		break;
+	case Level::ERR:
+		LevelString = ": ERROR: ";
+		break;
+	default:
+		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
+	}
+
 	bool CritFail(false);
 	while (!CritFail) {
 		try {
-
-			//! @todo Format this
-
 			auto Entry(static_cast<Allocator&>(Context::GetContext().FAllocator).RawObject<LogEntry>());
 			Entry->FNext = nullptr;
-			Entry->FMessage = AMessage;
+			Entry->FMessage = TimeString() + API::String::Static(LevelString) + AMessage;
 			Entry->FLevel = ALevel;
 
 			API::LockGuard Lock(FQueueLock);
@@ -154,7 +193,7 @@ void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level A
 				EmptyQueue();
 			}
 			catch(CYB::Exception::SystemData& AInnerException){
-				API::Assert::Equal<unsigned int>(AException.FErrorCode, CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
+				API::Assert::Equal<unsigned int>(AInnerException.FErrorCode, CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
 				//Now give up
 				CritFail = true;
 			}

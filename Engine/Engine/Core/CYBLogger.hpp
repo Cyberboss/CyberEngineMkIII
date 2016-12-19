@@ -27,6 +27,26 @@ namespace CYB {
 			std::atomic_bool FCancelled;	//!< @brief Cancel flag for FThread
 		private:
 			/*!
+				@brief Retrieve a string of the given time
+				@param AHour The hour to display
+				@param AMinute The minute to display
+				@param ASecond The second to display
+				@return An API::String::Dynamic with the given time in the format "HH:MM:SS"
+				@par Thread Safety
+					This function requires no thread safety
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+			*/
+			static API::String::Dynamic TimeString(const int AHour, const int AMinute, const int ASecond);
+			/*!
+				@brief Retrieve a string of the current time
+				@return An API::String::Dynamic with the current time in the format "HH:MM:SS"
+				@par Thread Safety
+					This function requires no thread safety
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+			*/
+			static API::String::Dynamic TimeString(void);
+
+			/*!
 				@brief Prepares the logging file for writing. May block for one millisecond if the preferred file name is taken in order to generate a new one
 				@return The file to be used for logging
 				@par Thread Safety
@@ -36,7 +56,7 @@ namespace CYB {
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if Path errors occured while setting up the file
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_TOO_LONG. Thrown if the new Path would exceed the limitation
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if Path errors occured while setting up the file
-
+				Theoretically this could throw CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE on some string allocations, but given the initial empty Heap this is practiacally impossible
 			*/
 			static Platform::System::File OpenFile(void);
 
@@ -75,14 +95,14 @@ namespace CYB {
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE. Thrown if one of the Mutexes could not be initialized
 				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_RESERVATION_FAILURE. Thrown if the Heap memory could not be reserved
 				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_COMMITAL_FAILURE. Thrown if the Heap memory could not be committed
-				@attention If this function does not throw a CYB::Exception::Internal then the current Context has been switched and should be reverted
+				Theoretically this could throw CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE on some string allocations, but given the initial empty Heap this is practiacally impossible
 			*/
 			Logger(API::Logger& AEmergencyLogger);
 			//! @brief Shutdown the Logger and empty the queue
 			~Logger();
 
 			//! @copydoc CYB::API::Logger::Log()
-			void Log(const API::String::CStyle& AMessage, const Level ALevel) noexcept final override;
+			void Log(const API::String::CStyle& AMessage, const Level ALevel) final override;
 
 			//! @copydoc CYB::API::Logger::CurrentLog()
 			const API::String::CStyle& CurrentLog(void) const noexcept final override;

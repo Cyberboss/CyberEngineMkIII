@@ -5,9 +5,27 @@ CYB::Platform::System::Console::Console() :
 	FConsolePath(u8"stdout")
 {}
 
-void CYB::Platform::System::Console::Log(const API::String::CStyle& AMessage, const Level ALevel) noexcept {
+void CYB::Platform::System::Console::Log(const API::String::CStyle& AMessage, const Level ALevel) {
 	static_cast<void>(AMessage);
-	static_cast<void>(ALevel);
+
+	char* LevelString;
+	switch (ALevel) {
+	case Level::DEV:
+		LevelString = ": Debug: ";
+		break;
+	case Level::INFO:
+		LevelString = ": Info: ";
+		break;
+	case Level::WARN:
+		LevelString = ": Warning: ";
+		break;
+	case Level::ERR:
+		LevelString = ": ERROR: ";
+		break;
+	default:
+		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
+	}
+	static_cast<void>(LevelString);
 }
 
 const CYB::API::String::CStyle& CYB::Platform::System::Console::CurrentLog(void) const noexcept {

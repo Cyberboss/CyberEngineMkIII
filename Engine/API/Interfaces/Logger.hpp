@@ -21,10 +21,11 @@ namespace CYB {
 				@param ALevel The Level of the message
 				@par Thread Safety
 					This function requires no thread safety
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_OPERATION. Thrown if the @p ALevel is invalid
 				In the near impossible case that the isolated Heap the Logger uses runs out of memory, this function will block and flush the write queue to free space
 				This function may silently fail in the case that the log cannot be written to
 			*/
-			virtual void Log(const String::CStyle& AMessage, const Level ALevel) noexcept = 0;
+			virtual void Log(const String::CStyle& AMessage, const Level ALevel) = 0;
 
 			/*!
 				@brief Retrieve the string reprentation of the Path of the File the Logger is currently writing to

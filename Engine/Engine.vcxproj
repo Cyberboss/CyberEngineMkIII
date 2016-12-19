@@ -319,6 +319,7 @@
     <None Include="DoxyPages\Contexts.dox" />
     <None Include="DoxyPages\Conventions.dox" />
     <None Include="DoxyPages\Main.dox" />
+    <None Include="Engine\Core\CYBInterop.inl" />
     <None Include="Platform\Modules\CYBAutoModule.inl" />
     <None Include="Platform\Modules\CYBModuleDefinitions.hpp" />
     <ClCompile Include="Platform\SystemHeaders\CYBUTF16String.cpp">

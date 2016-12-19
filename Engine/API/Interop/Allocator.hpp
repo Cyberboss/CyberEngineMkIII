@@ -23,6 +23,14 @@ namespace CYB {
 					@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_INTEROP_CONSTRUCTOR. Thrown if @p AConstructor is malformed
 				*/
 				virtual void* InteropAllocation(const Allocatable::ID AID, Constructor<void>& AConstructor) = 0;
+			protected:
+				/*!
+					@brief Construct an Allocator
+					@param AHeap The Heap the allocator will use
+					@par Thread Safety
+						Function calls should be syncronized
+				*/
+				Allocator(Heap& AHeap) noexcept;
 				/*!
 					@brief Drop in replacement for placement new with successful abstraction checking
 					@tparam AType The type to be constructed
@@ -43,19 +51,11 @@ namespace CYB {
 					@param ALocation Ignored
 					@param AIgnored Ignored
 					@param AArguments Ignored
-					@return A pointer to the new AType which will be equivalent to ALocation
+					@return Never returns
 					@par Thread Safety
 						This function requires no thread safety
 				*/
 				template <typename AType, typename... AArgs> static AType* InPlaceAllocation(void* const ALocation, std::true_type AIgnored, AArgs&&... AArguments) noexcept;
-			protected:
-				/*!
-					@brief Construct an Allocator
-					@param AHeap The Heap the allocator will use
-					@par Thread Safety
-						Function calls should be syncronized
-				*/
-				Allocator(Heap& AHeap) noexcept;
 			public:
 				/*!
 					@brief Drop in replacement for placement new. Used for code coverage

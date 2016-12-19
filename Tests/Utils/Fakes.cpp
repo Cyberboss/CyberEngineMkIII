@@ -18,7 +18,7 @@ Fake::Logger::Logger() :
 	FLogPath(u8"Catch test suite")
 {}
 
-void Fake::Logger::Log(const CYB::API::String::CStyle& AMessage, const Level ALevel) noexcept {
+void Fake::Logger::Log(const CYB::API::String::CStyle& AMessage, const Level ALevel) {
 	char* LevelString;
 	switch (ALevel) {
 	case Level::DEV:
@@ -34,7 +34,7 @@ void Fake::Logger::Log(const CYB::API::String::CStyle& AMessage, const Level ALe
 		LevelString = "ERR";
 		break;
 	default:
-		CYB::API::Assert::HCF();
+		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
 	}
 	INFO(std::string("Logged: L: ") + LevelString + ": " + AMessage.CString());
 }

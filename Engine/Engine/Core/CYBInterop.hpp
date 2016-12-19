@@ -77,3 +77,5 @@ namespace CYB {
 		};
 	};
 };
+
+#include "CYBInterop.inl"

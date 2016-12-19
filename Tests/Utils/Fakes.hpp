@@ -13,7 +13,7 @@ namespace Fake {
 		const CYB::API::String::Static FLogPath;
 	public:
 		Logger();
-		void Log(const CYB::API::String::CStyle& AMessage, const Level ALevel) noexcept final override;
+		void Log(const CYB::API::String::CStyle& AMessage, const Level ALevel) final override;
 		const CYB::API::String::CStyle& CurrentLog(void) const noexcept final override;
 	};
 	class Core {

@@ -13,19 +13,35 @@ namespace CYB {
 				Level FLevel;	//!< @brief The Level of the message
 			};
 		private:
+			Memory::Heap FHeap;	//!< @brief The isolated Heap
+			Allocator FAllocator;	//!< @brief The Allocator for FHeap
+			Context FContext;	//!< @brief The Context to be used when calling the Logger
+
 			Platform::System::File FFile;	//!< @brief The file being written to
 			Platform::System::Mutex FLock,	//!< @brief The lock used to acquire access to FQueue
 				FFileLock;	//!< @brief The lock used to acquire access to FFile
-
-			Memory::Heap FHeap;	//!< @brief The isolated Heap
 			
 			LogEntry* FQueue;	//!< @brief The message queue
+			Platform::System::Thread* FThread;	//!< @brief The thread used for writing to the log file
 
-			Platform::System::Thread FThread;	//!< @brief The thread used for writing to the log file
 			std::atomic_bool FCancelled;	//!< @brief Cancel flag for FThread
 		private:
 			/*!
-				@brief Initializes and starts the Logger. May block for one millisecond if the preferred file name is taken in order to generate a new one
+				@brief Prepares the logging file for writing. May block for one millisecond if the preferred file name is taken in order to generate a new one
+				@return The file to be used for logging
+				@par Thread Safety
+					This function requires no thread safety
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the log File could not be opened
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE. Thrown if the temporary Path could not be retrieved
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if Path errors occured while setting up the file
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_TOO_LONG. Thrown if the new Path would exceed the limitation
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if Path errors occured while setting up the file
+
+			*/
+			static Platform::System::File OpenFile(void);
+
+			/*!
+				@brief Initializes and starts the Logger. Changes the current Context. May block for one millisecond if the preferred file name is taken in order to generate a new one
 				@par Thread Safety
 					This function requires no thread safety
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the log File could not be opened
@@ -36,8 +52,12 @@ namespace CYB {
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE. Thrown if one of the Mutexes could not be initialized
 				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_RESERVATION_FAILURE. Thrown if the Heap memory could not be reserved
 				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_COMMITAL_FAILURE. Thrown if the Heap memory could not be committed
+				@attention If this function does not throw a CYB::Exception::Internal then the current Context has been switched and should be reverted
 			*/
 			Logger();
+			//! @brief Shutdown the Logger and empty the queue
+			~Logger();
+
 			/*!
 				@brief Empty FQueue and write it into FFile
 				@par Thread Safety

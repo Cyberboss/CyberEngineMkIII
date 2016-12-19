@@ -71,8 +71,14 @@ void CYB::Engine::Logger::EmptyQueue(void) {
 		auto Written(0U);
 		do {
 			const auto CurrentWrite(FFile.Write(Node->FMessage.CString() + Written, Len - Written));
-			if (CurrentWrite == 0)
+			if (CurrentWrite == 0) {
+				//CurrentContext will most certainly be FContext at this point
+				//but just in case we add some weird behaviour overrides in the future....
+				auto& EmergencyLogger(Context::GetContext().FLogger);
+				EmergencyLogger.Log(API::String::Static(u8"Failed to write to primary log. Message follows:"), Level::ERR);
+				EmergencyLogger.Log(Node->FMessage, Node->FLevel);
 				throw CYB::Exception::SystemData(CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
+			}
 		} while (Written < Len);
 		API::Assert::Equal(Written, Len);
 	}

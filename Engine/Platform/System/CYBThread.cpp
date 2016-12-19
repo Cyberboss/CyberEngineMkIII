@@ -1,9 +1,13 @@
 //! @file CYBThread.cpp Shared function implementations for CYB::Platform::Thread
 #include "CYB.hpp"
 
-void CYB::Platform::System::Thread::CallThreadable(API::Threadable& AThreadable) noexcept {
+void CYB::Platform::System::Thread::RunThread(API::Threadable& AThreadable) noexcept {
+	Core().DefaultContext();
 	try {
+		auto& Logger(Engine::Context::GetContext().FLogger);
+		Logger.Log(API::String::Static(u8"Thread finished."), API::Logger::Level::DEV);
 		AThreadable.BeginThreadedOperation();
+		Logger.Log(API::String::Static(u8"Thread finished."), API::Logger::Level::DEV);
 	}
 	catch (CYB::Exception::Base AException) {
 		auto& Logger(Engine::Context::GetContext().FLogger);

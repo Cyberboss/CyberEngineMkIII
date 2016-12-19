@@ -74,21 +74,26 @@ namespace CYB {
 
 
 			/*!
-			@brief Get the current Context
-			@return A reference to the current context
-			@par Thread Safety
-			This function should only be called once
+				@brief Get the current Context
+				@return A reference to the current context
+				@par Thread Safety
+					This function requires no thread safety
 			*/
 			Context& CurrentContext(void) noexcept;
-
 			/*!
 				@brief Set the current Context
 				@param ANewContext The new context
 				@return A reference to the current context
 				@par Thread Safety
-					This function should only be called once
+					This function requires no thread safety
 			*/
 			void SetCurrentContext(Context& ANewContext) noexcept;
+			/*!
+				@brief Set the current Context to FEngineContext
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			void DefaultContext(void) noexcept;
 		};
 	};
 

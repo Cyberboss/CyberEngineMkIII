@@ -14,7 +14,7 @@ CYB::Platform::System::Implementation::Thread::Thread(API::Threadable& AThreadab
 void* CYB::Platform::System::Implementation::Thread::ThreadProc(void* const AThread) noexcept {
 	auto& Me(*static_cast<Thread*>(AThread));
 
-	System::Thread::CallThreadable(Me.FThreadable);
+	System::Thread::RunThread(Me.FThreadable);
 
 	Me.FRunning.store(false, std::memory_order_release);
 

@@ -54,6 +54,10 @@ void CYB::Engine::Core::SetCurrentContext(Context& ANewContext) noexcept {
 	FCurrentContext = &ANewContext;
 }
 
+void CYB::Engine::Core::DefaultContext(void) noexcept {
+	FEngineContext.MakeCurrent();
+}
+
 CYB::Engine::Core& CYB::Core(void) noexcept {
 	return Engine::Core::GetCore();
 }

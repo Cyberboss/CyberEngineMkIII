@@ -13,7 +13,7 @@ CYB::Platform::System::Implementation::Thread::~Thread() {
 }
 
 unsigned long __stdcall CYB::Platform::System::Implementation::Thread::ThreadProc(void* const AThreadable) noexcept {
-	System::Thread::CallThreadable(*static_cast<API::Threadable*>(AThreadable));
+	System::Thread::RunThread(*static_cast<API::Threadable*>(AThreadable));
 	return 0;
 }
 bool CYB::Platform::System::Thread::IsFinished(void) const noexcept {

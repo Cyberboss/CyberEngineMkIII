@@ -45,7 +45,8 @@ CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 	FHeap(Parameters::LOGGER_HEAP_INITIAL_COMMIT_SIZE),
 	FContext(FHeap, AEmergencyLogger, true),
 	FFile(OpenFile()),
-	FQueue(nullptr),
+	FQueueHead(nullptr),
+	FQueueTail(nullptr),
 	FCancelled(false),
 	FThread(nullptr)
 {
@@ -59,14 +60,38 @@ CYB::Engine::Logger::~Logger() {
 }
 
 void CYB::Engine::Logger::EmptyQueue(void) {
-	LogEntry* Queue;
+	LogEntry* Queue, *NextNode;
 	{
 		API::LockGuard Lock(FQueueLock);
-		Queue = FQueue;
-		FQueue = nullptr;
+		Queue = FQueueHead;
+		FQueueHead = nullptr;
+		FQueueTail = nullptr;
 	}
+
+	class CleanLogEntry {
+	private:
+		LogEntry* const FLogEntry;
+	public:
+		CleanLogEntry(LogEntry* const ALogEntry, const bool ARecursiveShutdown) :
+			FLogEntry(ALogEntry)
+		{
+			if (ARecursiveShutdown) {
+				//Emergency log the message
+				Context::GetContext().FLogger.Log(ALogEntry->FMessage, ALogEntry->FLevel);
+				if (FLogEntry->FNext != nullptr)
+					CleanLogEntry(FLogEntry->FNext, true);
+			}
+		}
+		~CleanLogEntry() {
+			Context::GetContext().FAllocator.DeleteObject<LogEntry>(FLogEntry);
+		}
+	};
+
+
 	API::LockGuard LockFile(FFileLock);
-	for (auto Node(Queue); Node != nullptr; Node = Node->FNext) {
+	for (auto Node(Queue); Node != nullptr; Node = NextNode) {
+		NextNode = Node->FNext;
+		CleanLogEntry Cleanup(Node, false);
 		const auto Len(static_cast<unsigned int>(Node->FMessage.RawLength()));
 		auto Written(0U);
 		do {
@@ -77,8 +102,13 @@ void CYB::Engine::Logger::EmptyQueue(void) {
 				auto& EmergencyLogger(Context::GetContext().FLogger);
 				EmergencyLogger.Log(API::String::Static(u8"Failed to write to primary log. Message follows:"), Level::ERR);
 				EmergencyLogger.Log(Node->FMessage, Node->FLevel);
+				if (NextNode != nullptr) {
+					EmergencyLogger.Log(API::String::Static(u8"Remaining entries follow:"), Level::ERR);
+					CleanLogEntry(NextNode, true);
+				}
 				throw CYB::Exception::SystemData(CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
 			}
+
 		} while (Written < Len);
 		API::Assert::Equal(Written, Len);
 	}
@@ -97,6 +127,7 @@ void CYB::Engine::Logger::CancelThreadedOperation(void) {
 }
 
 void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level ALevel) noexcept {
+	PushContext Push(FContext);	//Use ourselves for allocation
 	static_cast<void>(AMessage);
 	static_cast<void>(ALevel);
 }

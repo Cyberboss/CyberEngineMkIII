@@ -125,6 +125,9 @@
     <ClCompile Include="Engine\Core\CYBLogger.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Platform\System\CYBConsole.cpp">
+      <Filter>Platform\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -477,6 +480,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Core\CYBLogger.hpp">
       <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\System\CYBConsole.hpp">
+      <Filter>Platform\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

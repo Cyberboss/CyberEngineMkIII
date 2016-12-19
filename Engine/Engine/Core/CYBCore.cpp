@@ -26,8 +26,9 @@ thread_local CYB::Engine::Context* CYB::Engine::Core::FCurrentContext;
 CYB::Engine::Core::Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments) :
 	Singleton<Core>(true),
 	FEngineInformation(Parameters::CreateEngineInformation()),
+	FLogger(FConsole),
 	FHeap(Parameters::ENGINE_HEAP_INITIAL_COMMIT_SIZE),
-	FEngineContext(FHeap, true)
+	FEngineContext(FHeap, FLogger, true)
 {
 	static_cast<void>(ANumArguments);
 	static_cast<void>(AArguments);

@@ -26,12 +26,12 @@ namespace CYB {
 			virtual void Log(const String::CStyle& AMessage, const Level ALevel) noexcept = 0;
 
 			/*!
-				@brief Retrieve the Path of the File the Logger is currently writing to
-				@return The Path of the File the Logger is currently writing to
+				@brief Retrieve the string reprentation of the Path of the File the Logger is currently writing to
+				@return The string reprentation of the Path of the File the Logger is currently writing to
 				@par Thread Safety
 					This function requires no thread safety
 			*/
-			virtual const Path& CurrentLog(void) const noexcept = 0;
+			virtual const String::CStyle& CurrentLog(void) const noexcept = 0;
 		};
 	};
 };

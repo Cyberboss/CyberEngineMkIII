@@ -73,6 +73,7 @@ template <typename AType, typename... AArgs> AType* CYB::API::Interop::Allocator
 }
 
 template <typename AType, typename... AArgs> AType* CYB::API::Interop::Allocator::InPlaceAllocation(void* const, std::true_type, AArgs&&...) noexcept {
+	//TODO: Log this error
 	Assert::HCF();
 }
 

@@ -8,8 +8,9 @@ inline CYB::API::Interop::Context& CYB::API::Context(void) noexcept {
 	return Interop::Context::GetContext();
 }
 
-inline CYB::API::Interop::Context::Context(Allocator& AAllocator) noexcept :
-	FAllocator(AAllocator)
+inline CYB::API::Interop::Context::Context(Allocator& AAllocator, Logger& ALogger) noexcept :
+	FAllocator(AAllocator),
+	FLogger(ALogger)
 {}
 
 #ifndef CORE_DEFINED_CONTEXT

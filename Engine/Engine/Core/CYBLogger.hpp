@@ -40,24 +40,6 @@ namespace CYB {
 			static Platform::System::File OpenFile(void);
 
 			/*!
-				@brief Initializes and starts the Logger. Changes the current Context. May block for one millisecond if the preferred file name is taken in order to generate a new one
-				@par Thread Safety
-					This function requires no thread safety
-				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the log File could not be opened
-				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE. Thrown if the temporary Path could not be retrieved
-				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if Path errors occured while setting up the file
-				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_TOO_LONG. Thrown if the new Path would exceed the limitation
-				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if Path errors occured while setting up the file
-				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE. Thrown if one of the Mutexes could not be initialized
-				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_RESERVATION_FAILURE. Thrown if the Heap memory could not be reserved
-				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_COMMITAL_FAILURE. Thrown if the Heap memory could not be committed
-				@attention If this function does not throw a CYB::Exception::Internal then the current Context has been switched and should be reverted
-			*/
-			Logger();
-			//! @brief Shutdown the Logger and empty the queue
-			~Logger();
-
-			/*!
 				@brief Empty FQueue and write it into FFile
 				@par Thread Safety
 					This function requires no thread safety
@@ -77,11 +59,30 @@ namespace CYB {
 			*/
 			void CancelThreadedOperation(void) override;
 		public:
+			/*!
+				@brief Initializes and starts the Logger. Changes the current Context. May block for one millisecond if the preferred file name is taken in order to generate a new one
+				@param AEmergencyLogger The Logger to use when this one fails
+				@par Thread Safety
+					This function requires no thread safety
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_WRITABLE. Thrown if the log File could not be opened
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE. Thrown if the temporary Path could not be retrieved
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::FILE_NOT_READABLE. Thrown if Path errors occured while setting up the file
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_TOO_LONG. Thrown if the new Path would exceed the limitation
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if Path errors occured while setting up the file
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE. Thrown if one of the Mutexes could not be initialized
+				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_RESERVATION_FAILURE. Thrown if the Heap memory could not be reserved
+				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_COMMITAL_FAILURE. Thrown if the Heap memory could not be committed
+				@attention If this function does not throw a CYB::Exception::Internal then the current Context has been switched and should be reverted
+			*/
+			Logger(API::Logger& AEmergencyLogger);
+			//! @brief Shutdown the Logger and empty the queue
+			~Logger();
+
 			//! @copydoc CYB::API::Logger::Log()
 			void Log(const API::String::CStyle& AMessage, const Level ALevel) noexcept final override;
 
 			//! @copydoc CYB::API::Logger::CurrentLog()
-			const API::Path& CurrentLog(void) const noexcept final override;
+			const API::String::CStyle& CurrentLog(void) const noexcept final override;
 		};
 	};
 };

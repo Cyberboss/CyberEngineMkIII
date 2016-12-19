@@ -10,22 +10,17 @@ namespace CYB {
 		//! @brief An instance of this object is the entirety of the engine
 		class Core : public API::Singleton<Core> {
 			ENABLE_TEST_HOOKS
+		private:
+			static thread_local Context* FCurrentContext; //!< @brief The current Context in use
+
 		public:
 			API::EngineInformation FEngineInformation;	//!< @brief Information describing the engine
 
 			Platform::Modules::Manager FModuleManager;	//!< @brief Loads and contains required modules
 		private:
-			static thread_local Context* FCurrentContext; //!< @brief The current Context in use
+			Platform::System::Console FConsole;	//!< @brief The console
+			Logger FLogger;	//!< @brief The engine's primary Logger
 
-				//User
-				//GDI
-				//Winsock
-				//Vulkan
-				//OpenAL
-				//Optional
-					//XInput
-			//Logger
-				//Heap
 			Memory::Heap FHeap;	//!< @brief The engine's primary Heap
 			Context FEngineContext;	//!< @brief The engine Context
 

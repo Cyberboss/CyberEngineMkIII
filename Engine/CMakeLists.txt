@@ -20,6 +20,7 @@ Platform/System/CYBFile.cpp
 Platform/System/CYBProcess.cpp
 Platform/System/CYBVirtualMemory.cpp
 Platform/System/CYBSemaphore.cpp
+Platform/System/CYBConsole.cpp
 
 ${CYB_PLATFORM_CODE_FILES}
 

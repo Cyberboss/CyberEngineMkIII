@@ -1,9 +1,9 @@
 //! @file CYBLogger.cpp Implements CYB::Engine::Logger
 #include "CYB.hpp"
 
-CYB::Engine::Logger::Logger() :
+CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 	FHeap(Parameters::LOGGER_HEAP_INITIAL_COMMIT_SIZE),
-	FContext(FHeap, true),
+	FContext(FHeap, AEmergencyLogger, true),
 	FFile(OpenFile()),
 	FQueue(nullptr),
 	FCancelled(false),
@@ -33,6 +33,11 @@ void CYB::Engine::Logger::CancelThreadedOperation(void) {
 	FCancelled.store(true, std::memory_order_relaxed);
 }
 
-const CYB::API::Path& CYB::Engine::Logger::CurrentLog(void) const noexcept {
-	return FFile.GetPath();
+void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level ALevel) noexcept {
+	static_cast<void>(AMessage);
+	static_cast<void>(ALevel);
+}
+
+const CYB::API::String::CStyle& CYB::Engine::Logger::CurrentLog(void) const noexcept {
+	return FFile.GetPath()();
 }

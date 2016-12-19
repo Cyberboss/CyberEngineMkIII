@@ -32,11 +32,12 @@ namespace CYB {
 			/*!
 				@brief Setup the Context, optionally making it the current one
 				@param AHeap The Heap for the Allocator to use
+				@param ALogger The Logger to use
 				@param AMakeCurrent If true, MakeCurrent will be called during the constructor
 				@par Thread Safety
 					This function requires no thread safety
 			*/
-			Context(API::Heap& AHeap, const bool AMakeCurrent) noexcept;
+			Context(API::Heap& AHeap, API::Logger& ALogger, const bool AMakeCurrent) noexcept;
 
 			/*!
 				@brief Set the current thread's Context singleton to this Context

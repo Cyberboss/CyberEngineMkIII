@@ -1,6 +1,20 @@
 //! @file CYBThread.cpp Shared function implementations for CYB::Platform::Thread
 #include "CYB.hpp"
 
+void CYB::Platform::System::Thread::CallThreadable(API::Threadable& AThreadable) noexcept {
+	try {
+		AThreadable.BeginThreadedOperation();
+	}
+	catch (CYB::Exception::Base AException) {
+		auto& Logger(Engine::Context::GetContext().FLogger);
+		Logger.Log(API::String::Static(u8"Unhandled CYB exception crashed this thread. Error message follows:"), API::Logger::Level::ERR);
+		Logger.Log(AException.FMessage, API::Logger::Level::ERR);
+	}
+	catch (...) {
+		Engine::Context::GetContext().FLogger.Log(API::String::Static(u8"Unhandled unknown exception crashed this thread with no survivors."), API::Logger::Level::ERR);
+	}
+}
+
 CYB::Platform::System::Thread::Thread(API::Threadable& AThreadable) :
 	Implementation::Thread(AThreadable),
 	FCancelSubmitted(false)

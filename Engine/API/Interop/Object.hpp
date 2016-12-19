@@ -8,7 +8,6 @@ namespace CYB {
 				@tparam AInterface The interface to wrap
 			*/
 			template <class AInterface> class Object {
-				static_assert(std::is_base_of<Allocatable, AInterface>::value, "Objects can only be used with engine allocatables");
 			private:
 				AInterface* FPointer;	//!< @brief The pointer to the managed object
 			public:

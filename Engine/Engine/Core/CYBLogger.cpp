@@ -48,11 +48,12 @@ CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 	FCancelled(false),
 	FThread(nullptr)
 {
+	FThread = FContext.FAllocator.NewObject<Platform::System::Thread, API::Interop::NullConstructor>(static_cast<API::Threadable&>(*this));
 }
 
 CYB::Engine::Logger::~Logger() {
 	CancelThreadedOperation();
-	FThread->Wait();
+	FThread().Wait();
 	EmptyQueue();
 }
 

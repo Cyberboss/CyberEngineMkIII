@@ -21,7 +21,7 @@ namespace CYB {
 				FFileLock;	//!< @brief The lock used to acquire access to FFile
 			
 			LogEntry* FQueue;	//!< @brief The message queue
-			Platform::System::Thread* FThread;	//!< @brief The thread used for writing to the log file
+			API::Interop::Object<Platform::System::Thread> FThread;	//!< @brief The thread used for writing to the log file
 
 			std::atomic_bool FCancelled;	//!< @brief Cancel flag for FThread
 		private:

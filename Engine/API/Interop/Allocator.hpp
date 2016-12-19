@@ -82,11 +82,7 @@ namespace CYB {
 					@attention Throws dependant on called constructor
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the heap does not have the space for the allocation and more system memory cannot be requested
 				*/
-				template <class AAllocatable, class AConstructor
-#ifdef TARGET_OS_WINDOWS	//I think theres a clang bug that I really should report going on here
-					= typename AAllocatable::Constructor
-#endif
-					, typename... AArgs> Object<AAllocatable> NewObject(AArgs&&... AArguments);
+				template <class AObject, class AConstructor = AObject::Constructor, typename... AArgs> Object<AObject> NewObject(AArgs&&... AArguments);
 				/*!
 					@brief Allocates the Object specified by AAllocatable
 					@tparam AAllocatable The type of object to allocate
@@ -96,7 +92,7 @@ namespace CYB {
 					@attention Throws dependant on called constructor
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the heap does not have the space for the allocation and more system memory cannot be requested
 				*/
-				template <class AAllocatable> Object<AAllocatable> NewObject(void);
+				template <class AObject> Object<AObject> NewObject(void);
 
 				/*!
 					@brief Copys an Object of type AAllocatable
@@ -108,7 +104,7 @@ namespace CYB {
 					@attention Throws dependant on called constructor
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the heap does not have the space for the allocation and more system memory cannot be requested
 				*/
-				template <class AAllocatable> Object<AAllocatable> CopyObject(const AAllocatable& ACopy);
+				template <class AObject> Object<AObject> CopyObject(const AObject& ACopy);
 
 				/*!
 					@brief Deletes an object allocated with the Allocator
@@ -116,7 +112,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires no thread safety
 				*/
-				void Delete(Allocatable* const AAllocatable) noexcept;
+				template <class AObject> void DeleteObject(AObject* const AAllocatable) noexcept;
 			};
 		};
 	};

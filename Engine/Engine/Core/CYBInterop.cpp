@@ -57,8 +57,9 @@ CYB::API::Interop::Context& CYB::API::Interop::Context::GetContext(void) noexcep
 	return Core().CurrentContext();
 }
 
-CYB::Engine::Context::Context(Allocator& AAllocator, const bool AMakeCurrent) noexcept :
-	API::Interop::Context(AAllocator)
+CYB::Engine::Context::Context(API::Heap& AHeap, const bool AMakeCurrent) noexcept :
+	API::Interop::Context(FAllocatorObject),
+	FAllocatorObject(AHeap)
 {
 	if (AMakeCurrent)
 		MakeCurrent();

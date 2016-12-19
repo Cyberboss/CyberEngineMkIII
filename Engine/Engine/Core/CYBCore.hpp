@@ -27,7 +27,6 @@ namespace CYB {
 			//Logger
 				//Heap
 			Memory::Heap FHeap;	//!< @brief The engine's primary Heap
-			Allocator FEngineAllocator;	//!< @brief The engine's primary Allocator
 			Context FEngineContext;	//!< @brief The engine Context
 
 			//ThreadPool

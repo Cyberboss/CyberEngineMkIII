@@ -14,7 +14,6 @@ namespace CYB {
 			};
 		private:
 			Memory::Heap FHeap;	//!< @brief The isolated Heap
-			Allocator FAllocator;	//!< @brief The Allocator for FHeap
 			Context FContext;	//!< @brief The Context to be used when calling the Logger
 
 			Platform::System::File FFile;	//!< @brief The file being written to

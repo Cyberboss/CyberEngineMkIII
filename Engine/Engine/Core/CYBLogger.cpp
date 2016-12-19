@@ -3,8 +3,7 @@
 
 CYB::Engine::Logger::Logger() :
 	FHeap(Parameters::LOGGER_HEAP_INITIAL_COMMIT_SIZE),
-	FAllocator(FHeap),
-	FContext(FAllocator, true),
+	FContext(FHeap, true),
 	FFile(OpenFile()),
 	FQueue(nullptr),
 	FCancelled(false),

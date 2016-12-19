@@ -26,15 +26,17 @@ namespace CYB {
 
 		//! @brief Implements the engine level functions for API::Interop::Contexts
 		class Context : public API::Interop::Context {
+		private:
+			Allocator FAllocatorObject;	//!< @brief The Allocator for this Context
 		public:
 			/*!
 				@brief Setup the Context, optionally making it the current one
-				@param AAllocator The allocator to use
+				@param AHeap The Heap for the Allocator to use
 				@param AMakeCurrent If true, MakeCurrent will be called during the constructor
 				@par Thread Safety
 					This function requires no thread safety
 			*/
-			Context(Allocator& AAllocator, const bool AMakeCurrent) noexcept;
+			Context(API::Heap& AHeap, const bool AMakeCurrent) noexcept;
 
 			/*!
 				@brief Set the current thread's Context singleton to this Context

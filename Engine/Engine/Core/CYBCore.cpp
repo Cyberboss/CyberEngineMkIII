@@ -27,8 +27,7 @@ CYB::Engine::Core::Core(const unsigned int ANumArguments, const oschar_t* const*
 	Singleton<Core>(true),
 	FEngineInformation(Parameters::CreateEngineInformation()),
 	FHeap(Parameters::ENGINE_HEAP_INITIAL_COMMIT_SIZE),
-	FEngineAllocator(FHeap),
-	FEngineContext(FEngineAllocator, true)
+	FEngineContext(FHeap, true)
 {
 	static_cast<void>(ANumArguments);
 	static_cast<void>(AArguments);

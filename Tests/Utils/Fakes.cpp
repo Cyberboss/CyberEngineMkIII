@@ -11,12 +11,31 @@ template <> template <> void CYB::API::Singleton<CYB::Engine::Core>::Backdoor<vo
 	FSingleton = static_cast<CYB::Engine::Core*>(AHooker);
 }
 template <> void CYB::Engine::Core::Backdoor<Fake::Core>(Fake::Core& AHooker) {
-	new (&(reinterpret_cast<Core*>(AHooker.FBytes)->FEngineContext)) CYB::API::Interop::Context(AHooker.FAllocator);	//this hurts you
+	new (&(reinterpret_cast<Core*>(AHooker.FBytes)->FEngineContext)) CYB::Engine::Context(AHooker.FHeap, AHooker.FLogger, true);	//this hurts you
 }
 
-Fake::Core::Core() :
-	FAllocator(FHeap)
-{
+void Fake::Logger::Log(const CYB::API::String::CStyle& AMessage, const Level ALevel) noexcept {
+	char* LevelString;
+	switch (ALevel) {
+	case Level::DEV:
+		LevelString = "DEV";
+		break;
+	case Level::INFO:
+		LevelString = "INFO";
+		break;
+	case Level::WARN:
+		LevelString = "WARN";
+		break;
+	case Level::ERR:
+		LevelString = "ERR";
+		break;
+	default:
+		CYB::API::Assert::HCF();
+	}
+	INFO(std::string("Logged: L: ") + LevelString + ": " + AMessage.CString());
+}
+
+Fake::Core::Core() {
 	CYB::Engine::Core::Backdoor(*this);
 	ResetToFakeCorePointer();
 }

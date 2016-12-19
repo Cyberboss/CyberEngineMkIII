@@ -8,12 +8,17 @@ namespace Fake {
 		void* Realloc(void* const AOld, const int ANewSize) final override;
 		void Free(void* const AOld) noexcept final override;
 	};
+	class Logger : public CYB::API::Logger {
+	public:
+		void Log(const CYB::API::String::CStyle& AMessage, const Level ALevel) noexcept final override;
+		const CYB::API::String::CStyle& CurrentLog(void) const noexcept final override;
+	};
 	class Core {
 		friend class CYB::Engine::Core;
 	private:
 		byte FBytes[sizeof(CYB::Engine::Core)];
+		Logger FLogger;
 		Heap FHeap;
-		CYB::Engine::Allocator FAllocator;
 	public:
 		Core();
 

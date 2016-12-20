@@ -73,6 +73,16 @@ CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 	FCancelled(false),
 	FThread(nullptr)
 {
+	auto InitEntry(static_cast<Allocator&>(Context::GetContext().FAllocator).RawObject<LogEntry>());
+	InitEntry->FLevel = Level::INFO;
+	InitEntry->FMessage = FormatLogMessage(API::String::Static("CyberEngineMkIII logging started..."), Level::INFO);
+	InitEntry->FNext = nullptr;
+
+	FQueueHead = InitEntry;
+	FQueueTail = InitEntry;
+
+	EmptyQueue();
+	
 	FThread = FContext.FAllocator.NewObject<Platform::System::Thread, API::Interop::NullConstructor>(static_cast<API::Threadable&>(*this));
 }
 
@@ -149,9 +159,7 @@ void CYB::Engine::Logger::CancelThreadedOperation(void) {
 	FCancelled.store(true, std::memory_order_relaxed);
 }
 
-void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level ALevel) {
-	PushContext Push(FContext);	//Use ourselves for allocation
-
+CYB::API::String::Dynamic CYB::Engine::Logger::FormatLogMessage(const API::String::CStyle& AMessage, const Level ALevel) {
 	char* LevelString;
 	switch (ALevel) {
 	case Level::DEV:
@@ -169,13 +177,18 @@ void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level A
 	default:
 		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
 	}
+	return TimeString() + API::String::Static(LevelString) + AMessage;
+}
+
+void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level ALevel) {
+	PushContext Push(FContext);	//Use ourselves for allocation
 
 	bool CritFail(false);
 	while (!CritFail) {
 		try {
 			auto Entry(static_cast<Allocator&>(Context::GetContext().FAllocator).RawObject<LogEntry>());
 			Entry->FNext = nullptr;
-			Entry->FMessage = API::String::Dynamic(u8"\n") + TimeString() + API::String::Static(LevelString) + AMessage;
+			Entry->FMessage = API::String::Dynamic(u8"\n") + FormatLogMessage(AMessage, ALevel);
 			Entry->FLevel = ALevel;
 
 			API::LockGuard Lock(FQueueLock);

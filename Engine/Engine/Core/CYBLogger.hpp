@@ -47,6 +47,18 @@ namespace CYB {
 			static API::String::Dynamic TimeString(void);
 
 			/*!
+				@brief Prepend the level and time to a log message
+				@param AMessage The message to format
+				@param ALevel The Level of @p AMessage
+				@return @p AMessage prepended with the current time and Level string
+				@par Thread Safety
+					This function requires no thread safety
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if the @p ALevel is invalid
+			*/
+			static API::String::Dynamic FormatLogMessage(const API::String::CStyle& AMessage, const Level ALevel);
+
+			/*!
 				@brief Prepares the logging file for writing. May block for one millisecond if the preferred file name is taken in order to generate a new one
 				@return The file to be used for logging
 				@par Thread Safety
@@ -90,6 +102,7 @@ namespace CYB {
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if the log File could not be opened
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE. Thrown if the temporary Path could not be retrieved
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if Path errors occured while setting up the file
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if the log File could not be written to
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_TOO_LONG. Thrown if the new Path would exceed the limitation
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if Path errors occured while setting up the file
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE. Thrown if one of the Mutexes could not be initialized

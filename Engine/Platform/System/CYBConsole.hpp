@@ -24,7 +24,10 @@ namespace CYB {
 				*/
 				void Show(void) noexcept;
 
-				//! @copydoc CYB::API::Logger::Log()
+				/*!
+					@copydoc CYB::API::Logger::Log()
+					Errors will be written to stderr, everything else will be written to stdout
+				*/
 				void Log(const API::String::CStyle& AMessage, const Level ALevel) final override;
 
 				/*!

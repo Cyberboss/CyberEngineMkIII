@@ -175,11 +175,11 @@ void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level A
 		try {
 			auto Entry(static_cast<Allocator&>(Context::GetContext().FAllocator).RawObject<LogEntry>());
 			Entry->FNext = nullptr;
-			Entry->FMessage = TimeString() + API::String::Static(LevelString) + AMessage;
+			Entry->FMessage = API::String::Dynamic(u8"\n") + TimeString() + API::String::Static(LevelString) + AMessage;
 			Entry->FLevel = ALevel;
 
 			API::LockGuard Lock(FQueueLock);
-			if (FQueueTail)
+			if (FQueueTail != nullptr)
 				FQueueTail->FNext = Entry;
 			else
 				FQueueHead = Entry;

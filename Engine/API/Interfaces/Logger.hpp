@@ -9,7 +9,7 @@ namespace CYB {
 		public:
 			//! @brief The severity of the log
 			enum class Level : byte {
-				DEV,	//!< @brief Debug messages
+				DEV,	//!< @brief Debug messages, will not be shown if DEBUG is not defined
 				INFO,	//!< @brief Generic information
 				WARN,	//!< @brief Recoverable warnings
 				ERR,	//!< @brief Hard errors

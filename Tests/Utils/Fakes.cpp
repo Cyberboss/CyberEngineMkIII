@@ -39,6 +39,8 @@ void Fake::Logger::Log(const CYB::API::String::CStyle& AMessage, const Level ALe
 	INFO(std::string("Logged: L: ") + LevelString + ": " + AMessage.CString());
 }
 
+void Fake::Logger::Flush(void) const noexcept {}
+
 const CYB::API::String::CStyle& Fake::Logger::CurrentLog(void) const noexcept {
 	return FLogPath;
 }

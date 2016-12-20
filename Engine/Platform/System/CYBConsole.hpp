@@ -31,6 +31,12 @@ namespace CYB {
 				void Log(const API::String::CStyle& AMessage, const Level ALevel) final override;
 
 				/*!
+					@copydoc CYB::API::Logger::Flush()
+					This version always returns immediately
+				*/
+				void Flush(void) const noexcept final override;
+
+				/*!
 					@brief Returns the console path
 					@return "stdout"
 					@par Thread Safety

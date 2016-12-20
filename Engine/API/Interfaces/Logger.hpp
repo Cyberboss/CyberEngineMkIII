@@ -28,6 +28,13 @@ namespace CYB {
 			virtual void Log(const String::CStyle& AMessage, const Level ALevel) = 0;
 
 			/*!
+				@brief Delays execution until all pending logs from the current thread have been written to the output
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			virtual void Flush(void) const noexcept = 0;
+
+			/*!
 				@brief Retrieve the string reprentation of the Path of the File the Logger is currently writing to
 				@return The string reprentation of the Path of the File the Logger is currently writing to
 				@par Thread Safety

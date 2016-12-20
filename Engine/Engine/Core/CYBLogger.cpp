@@ -218,6 +218,15 @@ void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level A
 	}
 }
 
+void CYB::Engine::Logger::Flush(void) const noexcept {
+	do {
+		API::LockGuard FileLock(FFileLock), QueueLock(FQueueLock);
+		if (FQueueHead == nullptr)
+			break;
+		Platform::System::Thread::Sleep(1);
+	} while (true);
+}
+
 const CYB::API::String::CStyle& CYB::Engine::Logger::CurrentLog(void) const noexcept {
 	return FFile.GetPath()();
 }

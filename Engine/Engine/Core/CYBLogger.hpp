@@ -17,7 +17,7 @@ namespace CYB {
 			Context FContext;	//!< @brief The Context to be used when calling the Logger
 
 			Platform::System::File FFile;	//!< @brief The file being written to
-			Platform::System::Mutex FQueueLock,	//!< @brief The lock used to acquire access to FQueue
+			mutable Platform::System::Mutex FQueueLock,	//!< @brief The lock used to acquire access to FQueue
 				FFileLock;	//!< @brief The lock used to acquire access to FFile
 			
 			LogEntry* FQueueHead,	//!< @brief The message queue head
@@ -116,6 +116,9 @@ namespace CYB {
 
 			//! @copydoc CYB::API::Logger::Log()
 			void Log(const API::String::CStyle& AMessage, const Level ALevel) final override;
+
+			//! @copydoc CYB::API::Logger::Flush()
+			void Flush(void) const noexcept final override;
 
 			//! @copydoc CYB::API::Logger::CurrentLog()
 			const API::String::CStyle& CurrentLog(void) const noexcept final override;

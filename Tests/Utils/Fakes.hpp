@@ -14,6 +14,7 @@ namespace Fake {
 	public:
 		Logger();
 		void Log(const CYB::API::String::CStyle& AMessage, const Level ALevel) final override;
+		void Flush(void) const noexcept final override;
 		const CYB::API::String::CStyle& CurrentLog(void) const noexcept final override;
 	};
 	class Core {

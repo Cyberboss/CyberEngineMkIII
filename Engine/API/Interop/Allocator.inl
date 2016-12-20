@@ -22,8 +22,7 @@ inline CYB::API::Interop::Allocator::Allocator(Heap& AHeap) noexcept :
 {}
 
 template <class AObject, class AConstructor, typename... AArgs> CYB::API::Interop::Object<AObject> CYB::API::Interop::Allocator::NewObject(AArgs&&... AArguments) {
-	static_assert(!std::is_abstract<AObject>::value
-		|| std::is_same<Constructor<AArgs...>, AConstructor>::value,
+	static_assert(!std::is_abstract<AObject>::value	|| std::is_same<Constructor<AArgs...>, AConstructor>::value,
 		"Allocatable arguments do not match");
 	if (std::is_abstract<AObject>::value) {
 		AConstructor Construction(std::forward<AArgs>(AArguments)...);
@@ -38,8 +37,7 @@ template <class AObject, class AConstructor, typename... AArgs> CYB::API::Intero
 }
 
 template <class AObject> CYB::API::Interop::Object<AObject> CYB::API::Interop::Allocator::NewObject(void) {
-	static_assert(!std::is_abstract<AObject>::value
-		|| std::is_same<EmptyConstructor, typename AObject::Constructor>::value,
+	static_assert(!std::is_abstract<AObject>::value	|| std::is_same<EmptyConstructor, typename AObject::Constructor>::value,
 		"Allocatable arguments do not match");
 	if (std::is_abstract<AObject>::value) {
 		Constructor<void> Construction;
@@ -60,7 +58,6 @@ template <typename AType, typename... AArgs> AType* CYB::API::Interop::Allocator
 }
 
 template <typename AType, typename... AArgs> AType* CYB::API::Interop::Allocator::InPlaceAllocation(void* const, std::true_type, AArgs&&...) noexcept {
-	//TODO: Log this error
 	Assert::HCF();
 }
 

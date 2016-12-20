@@ -28,6 +28,8 @@ void CYB::Platform::System::Console::Log(const API::String::CStyle& AMessage, co
 	static_cast<void>(LevelString);
 }
 
+void CYB::Platform::System::Console::Flush(void) const noexcept {}
+
 const CYB::API::String::CStyle& CYB::Platform::System::Console::CurrentLog(void) const noexcept {
 	return FConsolePath;
 }

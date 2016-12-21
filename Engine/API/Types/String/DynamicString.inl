@@ -5,11 +5,11 @@ inline CYB::API::String::Dynamic::Dynamic() noexcept :
 {}
 
 inline CYB::API::String::Dynamic::Dynamic(const unsigned long long AValue) :
-	Dynamic(MakeNumberString(AValue))
+	Dynamic(MakeNumberString(AValue, false))
 {}
 
 inline CYB::API::String::Dynamic::Dynamic(const long long AValue) :
-	Dynamic(Dynamic(AValue >= 0 ? "" : "-") + Dynamic(static_cast<unsigned long long>(AValue)), 0)
+	Dynamic(MakeNumberString(static_cast<unsigned long long>(AValue < 0 ? -AValue : AValue), AValue < 0))
 {}
 
 inline CYB::API::String::Dynamic::Dynamic(char* const AData) noexcept :
@@ -61,10 +61,10 @@ inline char* CYB::API::String::Dynamic::CopyCStyle(const CStyle& AData, int ALen
 	return nullptr;
 }
 
-inline CYB::API::String::Dynamic CYB::API::String::Dynamic::MakeNumberString(const unsigned long long AValue) {
+inline CYB::API::String::Dynamic CYB::API::String::Dynamic::MakeNumberString(const unsigned long long AValue, const bool ANegative) {
 	const auto BufferLength(24); //Max possible size is 20 or something, up it to 64 bits
 	char Buffer[BufferLength];
-	const auto Length(sprintf(Buffer, "%" PRIu64, AValue));
+	const auto Length(sprintf(Buffer, u8"-%" PRIu64, AValue));
 	API::Assert::LessThan(0, Length);
 	API::Assert::LessThan(Length, BufferLength);
 #ifdef TARGET_OS_WINDOWS
@@ -72,7 +72,10 @@ inline CYB::API::String::Dynamic CYB::API::String::Dynamic::MakeNumberString(con
 	__assume(0 < Length && Length < BufferLength);
 #endif
 	Buffer[Length] = 0;
-	return Dynamic(Buffer, Length);
+	//single buffer trickery
+	if(ANegative)
+		return Dynamic(Buffer, Length);
+	return Dynamic(Buffer + 1, Length - 1);
 }
 
 template <typename ALambda> bool CYB::API::String::Dynamic::BuildAndPopulateBuffer(const int ASize, const ALambda APopulateData, Dynamic& ADynamic) {

@@ -20,12 +20,13 @@ namespace CYB {
 				/*!
 					@brief Allocates data for a string that represents AValue
 					@param AValue The value to make a string
+					@param ANegative True if AValue was originally negative, false otherwise
 					@return A string representation of @p AValue
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current hep runs out of memory
 				*/
-				static Dynamic MakeNumberString(const unsigned long long AValue);
+				static Dynamic MakeNumberString(const unsigned long long AValue, const bool ANegative);
 
 				/*!
 					@brief Frees the data of the current string

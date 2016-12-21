@@ -85,8 +85,6 @@ CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 
 	FQueueHead = InitEntry;
 	FQueueTail = InitEntry;
-
-	EmptyQueue();
 	
 	FThread = FContext.FAllocator.NewObject<Platform::System::Thread, API::Interop::NullConstructor>(static_cast<API::Threadable&>(*this));
 }

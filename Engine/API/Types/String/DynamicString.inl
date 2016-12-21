@@ -62,9 +62,9 @@ inline char* CYB::API::String::Dynamic::CopyCStyle(const CStyle& AData, int ALen
 }
 
 inline CYB::API::String::Dynamic CYB::API::String::Dynamic::MakeNumberString(const unsigned long long AValue, const bool ANegative) {
-	const auto BufferLength(24); //Max possible size is 20 or something, up it to 64 bits
+	const auto BufferLength(24); //Max possible size is 20 or something, up it to the 64 bit boundary
 	char Buffer[BufferLength];
-	const auto Length(sprintf(Buffer, u8"-%" PRIu64, AValue));
+	const auto Length(sprintf(Buffer, u8"-%llu", AValue));
 	API::Assert::LessThan(0, Length);
 	API::Assert::LessThan(Length, BufferLength);
 #ifdef TARGET_OS_WINDOWS

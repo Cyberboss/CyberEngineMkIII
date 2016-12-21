@@ -13,6 +13,8 @@ namespace CYB {
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE. Thrown if the Mutex could not be initialized
 				*/
 				Mutex();
+				//! @brief See @ref structors
+				Mutex(const Mutex&) = delete;
 				//! @copydoc CYB::API::Mutex::~Mutex
 				~Mutex() final override;
 

@@ -18,6 +18,16 @@ namespace CYB {
 				static char* CopyCStyle(const CStyle& AData, int ALength);
 
 				/*!
+					@brief Allocates data for a string that represents AValue
+					@param AValue The value to make a string
+					@return A string representation of @p AValue
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current hep runs out of memory
+				*/
+				static Dynamic MakeNumberString(const unsigned long long AValue);
+
+				/*!
 					@brief Frees the data of the current string
 					@par Thread Safety
 						This function requires synchronization at the object level
@@ -60,6 +70,22 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				Dynamic() noexcept;
+				/*!
+					@brief Contstruct a Dynamic from a number
+					@param AValue The value to translate to a string
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+				*/
+				Dynamic(const unsigned long long AValue);
+				/*!
+					@brief Contstruct a Dynamic from a number
+					@param AValue The value to translate to a string
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+				*/
+				Dynamic(const long long AValue);
 				/*!
 					@brief Construct a Dynamic string from a char array
 					@param AData The char array

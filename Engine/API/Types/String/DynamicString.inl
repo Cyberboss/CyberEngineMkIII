@@ -9,7 +9,7 @@ inline CYB::API::String::Dynamic::Dynamic(const unsigned long long AValue) :
 {}
 
 inline CYB::API::String::Dynamic::Dynamic(const long long AValue) :
-	Dynamic(API::String::Dynamic(AValue >= 0 ? "" : "-") + Dynamic(static_cast<const unsigned long long>(AValue)), 0)
+	Dynamic(Dynamic(AValue >= 0 ? "" : "-") + Dynamic(static_cast<const unsigned long long>(AValue)), 0)
 {}
 
 inline CYB::API::String::Dynamic::Dynamic(char* const AData) noexcept :

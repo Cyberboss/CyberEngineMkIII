@@ -20,6 +20,7 @@ Engine/Memory/Blocks.cpp
 Engine/Memory/Heap.cpp
 
 Engine/Core/Core.cpp
+Engine/Core/Logger.cpp
 
 API/String/StaticAndCStyleString.cpp
 API/String/DynamicString.cpp

@@ -31,20 +31,22 @@ namespace CYB {
 				@param AHour The hour to display
 				@param AMinute The minute to display
 				@param ASecond The second to display
+				@param AColons Print with brackets and colons
 				@return An API::String::Dynamic with the given time in the format "HH:MM:SS"
 				@par Thread Safety
 					This function requires no thread safety
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 			*/
-			static API::String::Dynamic TimeString(const int AHour, const int AMinute, const int ASecond);
+			static API::String::Dynamic TimeString(const int AHour, const int AMinute, const int ASecond, const bool AColons);
 			/*!
 				@brief Retrieve a string of the current time
+				@param AColons Print with brackets and colons
 				@return An API::String::Dynamic with the current time in the format "HH:MM:SS"
 				@par Thread Safety
 					This function requires no thread safety
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 			*/
-			static API::String::Dynamic TimeString(void);
+			static API::String::Dynamic TimeString(const bool AColons);
 
 			/*!
 				@brief Prepend the level and time to a log message

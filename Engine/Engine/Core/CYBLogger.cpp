@@ -4,9 +4,14 @@
 #include <cstdio>
 #include <ctime>
 
-CYB::API::String::Dynamic CYB::Engine::Logger::TimeString(const int AHour, const int AMinute, const int ASecond) {
+CYB::API::String::Dynamic CYB::Engine::Logger::TimeString(const int AHour, const int AMinute, const int ASecond, const bool AColons) {
 	char Buffer[50];
-	const auto Length(sprintf(Buffer, u8"%02d:%02d:%02d", AHour, AMinute, ASecond));
+
+	int Length;
+	if (AColons)
+		Length = sprintf(Buffer, u8"[%02d:%02d:%02d]", AHour, AMinute, ASecond);
+	else
+		Length = sprintf(Buffer, u8"%02d-%02d-%02d", AHour, AMinute, ASecond);
 
 	API::Assert::LessThan(-1, Length);
 	API::Assert::LessThan(Length, 50);
@@ -20,11 +25,11 @@ CYB::API::String::Dynamic CYB::Engine::Logger::TimeString(const int AHour, const
 	return API::String::Dynamic(API::String::Static(Buffer));
 }
 
-CYB::API::String::Dynamic CYB::Engine::Logger::TimeString(void) {
+CYB::API::String::Dynamic CYB::Engine::Logger::TimeString(const bool AColons) {
 	auto Time(time(0));   // get time now
 	auto Now = localtime(&Time);
 	const auto Hour(Now->tm_hour), Min(Now->tm_min), Sec(Now->tm_sec);
-	return TimeString(Hour, Min, Sec);
+	return TimeString(Hour, Min, Sec, AColons);
 }
 
 CYB::Platform::System::File CYB::Engine::Logger::OpenFile(void) {
@@ -37,7 +42,7 @@ CYB::Platform::System::File CYB::Engine::Logger::OpenFile(void) {
 	const int Year(Now->tm_year + 1900), Month(Now->tm_mon + 1), Day(Now->tm_mday), Hour(Now->tm_hour), Min(Now->tm_min), Sec(Now->tm_sec);
 
 	char Buffer[50];
-	const auto Length(sprintf(Buffer, u8"LogFile %d-%d-%d %s.txt", Year, Month, Day, TimeString(Hour, Min, Sec).CString()));
+	const auto Length(sprintf(Buffer, u8"Engine Log %d-%d-%d %s.txt", Year, Month, Day, TimeString(Hour, Min, Sec, false).CString()));
 
 	API::Assert::LessThan(-1, Length);
 	API::Assert::LessThan(Length, 50);
@@ -126,7 +131,7 @@ void CYB::Engine::Logger::EmptyQueue(void) {
 		NextNode = Node->FNext;
 		CleanLogEntry Cleanup(Node, false);
 		const auto Len(static_cast<unsigned int>(Node->FMessage.RawLength()));
-		auto Written(0U);
+		auto Written(0ULL);
 		do {
 			const auto CurrentWrite(FFile.Write(Node->FMessage.CString() + Written, Len - Written));
 			if (CurrentWrite == 0) {
@@ -141,9 +146,9 @@ void CYB::Engine::Logger::EmptyQueue(void) {
 				}
 				throw CYB::Exception::SystemData(CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
 			}
-
+			Written += CurrentWrite;
 		} while (Written < Len);
-		API::Assert::Equal(Written, Len);
+		API::Assert::Equal<unsigned long long>(Written, Len);
 	}
 }
 
@@ -177,7 +182,7 @@ CYB::API::String::Dynamic CYB::Engine::Logger::FormatLogMessage(const API::Strin
 	default:
 		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
 	}
-	return TimeString() + API::String::Static(LevelString) + AMessage;
+	return TimeString(true) + API::String::Static(LevelString) + AMessage;
 }
 
 void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level ALevel) {

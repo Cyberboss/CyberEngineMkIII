@@ -33,33 +33,36 @@ CYB::API::String::Dynamic CYB::Engine::Logger::TimeString(const bool AColons) {
 }
 
 CYB::Platform::System::File CYB::Engine::Logger::OpenFile(void) {
+
 	//All allocation is done using the Logger's Allocator
-	Platform::System::Path LogPath(API::Path::SystemPath::TEMPORARY);
+	const Platform::System::Path BaseLogPath(API::Path::SystemPath::TEMPORARY);
+	do {
+		try {
 
-	auto Time(time(0));   // get time now
-	auto Now = localtime(&Time);
+			auto Time(time(0));   // get time now
+			auto Now = localtime(&Time);
 
-	const int Year(Now->tm_year + 1900), Month(Now->tm_mon + 1), Day(Now->tm_mday), Hour(Now->tm_hour), Min(Now->tm_min), Sec(Now->tm_sec);
+			const int Year(Now->tm_year + 1900), Month(Now->tm_mon + 1), Day(Now->tm_mday), Hour(Now->tm_hour), Min(Now->tm_min), Sec(Now->tm_sec);
 
-	char Buffer[50];
-	const auto Length(sprintf(Buffer, u8"Engine Log %d-%d-%d %s.txt", Year, Month, Day, TimeString(Hour, Min, Sec, false).CString()));
+			char Buffer[50];
+			const auto Length(sprintf(Buffer, u8"Engine Log %d-%d-%d %s.txt", Year, Month, Day, TimeString(Hour, Min, Sec, false).CString()));
 
-	API::Assert::LessThan(-1, Length);
-	API::Assert::LessThan(Length, 50);
+			API::Assert::LessThan(-1, Length);
+			API::Assert::LessThan(Length, 50);
 
 #ifdef TARGET_OS_WINDOWS
-	//Code analysis is stupid
-	__assume(-1 < Length && Length < 50);
+			//Code analysis is stupid
+			__assume(-1 < Length && Length < 50);
 #endif
 
-	Buffer[Length] = 0;
-	API::String::Static AsStatic(Buffer);
-	API::String::UTF8 Formatted(AsStatic);
+			Buffer[Length] = 0;
+			API::String::Static AsStatic(Buffer);
+			API::String::UTF8 Formatted(AsStatic);
 
-	LogPath.Append(std::move(Formatted), false, false);
+			auto LogPath(BaseLogPath);
+			LogPath.Append(std::move(Formatted), false, false);
 
-	do {
-		try {							//Yes, copy LogPath, if it throws it won't be valid anymore
+				//Yes, copy LogPath, if it throws it won't be valid anymore
 			return Platform::System::File(LogPath, API::File::Mode::WRITE, API::File::Method::CREATE);
 		}
 		catch (CYB::Exception::SystemData& AException) {
@@ -90,6 +93,8 @@ CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 }
 
 CYB::Engine::Logger::~Logger() {
+	FContext.MakeCurrent();	//At this point, Core's Context is dead and we won't use it again
+	//using PushContext won't help as we'll try to dealloc strings in FFile with the wrong allocator
 	CancelThreadedOperation();
 	FThread().Wait();
 	EmptyQueue();
@@ -151,7 +156,7 @@ void CYB::Engine::Logger::EmptyQueue(void) {
 }
 
 void CYB::Engine::Logger::BeginThreadedOperation(void) {
-	FContext.MakeCurrent();
+	PushContext Push(FContext);
 	while (!FCancelled.load(std::memory_order_relaxed)) {
 		EmptyQueue();
 		Platform::System::Thread::Sleep(1);

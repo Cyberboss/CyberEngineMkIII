@@ -8,6 +8,11 @@ private:
 	ModuleDependancy<CYB::Platform::Modules::Ole32> FOLE;
 	ModuleDependancy<CYB::Platform::Modules::LibC> FC;
 	ModuleDependancy<CYB::Platform::Modules::PThread> FPThread;
+public:
+	~TestDependancies() {
+		//loggers fuck with the context
+		Fake::Core::ResetToFakeCorePointer();
+	}
 };
 
 SCENARIO("Logger construction works", "[Engine][Logger][Functional]") {

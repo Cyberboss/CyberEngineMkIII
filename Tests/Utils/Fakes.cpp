@@ -19,24 +19,8 @@ Fake::Logger::Logger() :
 {}
 
 void Fake::Logger::Log(const CYB::API::String::CStyle& AMessage, const Level ALevel) {
-	char* LevelString;
-	switch (ALevel) {
-	case Level::DEV:
-		LevelString = "DEV";
-		break;
-	case Level::INFO:
-		LevelString = "INFO";
-		break;
-	case Level::WARN:
-		LevelString = "WARN";
-		break;
-	case Level::ERR:
-		LevelString = "ERR";
-		break;
-	default:
-		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
-	}
-	INFO(std::string("Logged: L: ") + LevelString + ": " + AMessage.CString());
+	static_cast<void>(AMessage);
+	static_cast<void>(ALevel);
 }
 
 void Fake::Logger::Flush(void) const noexcept {}
@@ -55,6 +39,7 @@ Fake::Core FFakeCore;
 void Fake::Core::ResetToFakeCorePointer(void) {
 	auto ref(static_cast<void*>(FFakeCore.FBytes));
 	CYB::API::Singleton<CYB::Engine::Core>::Backdoor(ref);
+	CYB::Engine::Core::GetCore().DefaultContext();
 }
 
 void Fake::Core::NullifySingleton(void) {

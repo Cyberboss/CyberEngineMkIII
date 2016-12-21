@@ -54,8 +54,9 @@ namespace CYB {
 					@brief Cancel a thread. Calls CancelThreadedOperation on the assigned Threadable in the current thread if IsFinished returns false
 					@par Thread Safety
 						This function requires synchronized access at the object level
+					@attention Throws dependant on called Threadable's CancelThreadedOperation
 				*/
-				void Cancel(void) noexcept;
+				void Cancel(void);
 				/*!
 					@brief Check whether or not the owned thread is terminated
 					@return true if a call to Wait will immediately return, false otherwise

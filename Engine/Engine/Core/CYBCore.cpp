@@ -30,8 +30,13 @@ CYB::Engine::Core::Core(const unsigned int ANumArguments, const oschar_t* const*
 	FHeap(Parameters::ENGINE_HEAP_INITIAL_COMMIT_SIZE),
 	FEngineContext(FHeap, FLogger, true)
 {
+	FLogger.Log(API::String::Static(u8"Core created"), Logger::Level::DEV);
 	static_cast<void>(ANumArguments);
 	static_cast<void>(AArguments);
+}
+
+CYB::Engine::Core::~Core() {
+	FLogger.Log(API::String::Static(u8"Core shutdown"), Logger::Level::DEV);
 }
 
 CYB::Engine::Core& CYB::Engine::Core::GetCore(void) noexcept {

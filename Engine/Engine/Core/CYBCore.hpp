@@ -45,7 +45,7 @@ namespace CYB {
 			*/
 			Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments);
 			//! @brief Cleans up the engine and terminates the process
-			~Core() = default;
+			~Core();
 
 			/*!
 				@brief Run the main unit

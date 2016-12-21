@@ -22,8 +22,7 @@ inline CYB::API::Interop::Allocator::Allocator(Heap& AHeap) noexcept :
 {}
 
 template <class AObject, class AConstructor, typename... AArgs> CYB::API::Interop::Object<AObject> CYB::API::Interop::Allocator::NewObject(AArgs&&... AArguments) {
-	static_assert(!std::is_abstract<AObject>::value	|| std::is_same<Constructor<AArgs...>, AConstructor>::value,
-		"Allocatable arguments do not match");
+	static_assert(!std::is_abstract<AObject>::value || std::is_same<Constructor<AArgs...>, AConstructor>::value, "Allocatable arguments do not match");
 	if (std::is_abstract<AObject>::value) {
 		AConstructor Construction(std::forward<AArgs>(AArguments)...);
 		return Object<AObject>(static_cast<AObject*>(InteropAllocation(Allocatable::GetID<AObject>(), Construction)));
@@ -37,8 +36,7 @@ template <class AObject, class AConstructor, typename... AArgs> CYB::API::Intero
 }
 
 template <class AObject> CYB::API::Interop::Object<AObject> CYB::API::Interop::Allocator::NewObject(void) {
-	static_assert(!std::is_abstract<AObject>::value	|| std::is_same<EmptyConstructor, typename AObject::Constructor>::value,
-		"Allocatable arguments do not match");
+	static_assert(!std::is_abstract<AObject>::value	|| std::is_same<EmptyConstructor, typename AObject::Constructor>::value, "Allocatable arguments do not match");
 	if (std::is_abstract<AObject>::value) {
 		Constructor<void> Construction;
 		return Object<AObject>(static_cast<AObject*>(InteropAllocation(Allocatable::GetID<AObject>(), Construction)));
@@ -66,9 +64,7 @@ template <typename AType, typename... AArgs> AType* CYB::API::Interop::Allocator
 }
 
 template <class AObject> CYB::API::Interop::Object<AObject> CYB::API::Interop::Allocator::CopyObject(const AObject& ACopy) {
-	static_assert(!std::is_abstract<AObject>::value
-		|| std::is_same<Constructor<const AObject&>, typename AObject::CopyConstructor>::value,
-		"Allocatable not copyable");
+	static_assert(!std::is_abstract<AObject>::value	|| std::is_same<NullConstructor, typename AObject::CopyConstructor>::value, "Allocatable not copyable");
 	if (std::is_abstract<AObject>::value) {
 		typename AObject::CopyConstructor Construction(ACopy);
 		return Object<AObject>(InteropAllocation(Allocatable::GetID<AObject>(), Construction));

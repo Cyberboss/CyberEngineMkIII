@@ -14,6 +14,11 @@ namespace CYB {
 					Path,	//!< @brief CYB::API::Path
 					Semaphore,	//!< @brief CYB::API::Semaphore
 				};
+
+				//! @brief Override in descendants
+				using Constructor = NullConstructor;
+				//! @brief Override in descendants
+				using CopyConstructor = NullConstructor;
 			public:
 				/*!
 					@brief Returns the ID of an allocatable object

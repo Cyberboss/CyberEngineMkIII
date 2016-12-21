@@ -10,14 +10,33 @@ private:
 	ModuleDependancy<CYB::Platform::Modules::PThread> FPThread;
 };
 
-SCENARIO("Logger construction works", "[Engine][Logger][Unit]") {
+SCENARIO("Logger construction works", "[Engine][Logger][Functional]") {
 	GIVEN("The correct dependancies") {
 		TestDependancies Deps;
+		CYB::Platform::System::Console Emergency;
 		WHEN("A logger is constructed") {
-			CYB::Platform::System::Console Emergency;
 			CYB::Engine::Logger Log(Emergency);
 			THEN("The log file exists") {
 				CHECK(CYB::Platform::System::Path(Log.CurrentLog()).IsFile());
+			}
+		}
+	}
+}
+
+SCENARIO("Logger logging works", "[Engine][Logger][Funtional]") {
+	using namespace CYB::API::String;
+	TestDependancies Deps;
+	CYB::Platform::System::Console Emergency;
+	GIVEN("A logger") {
+		CYB::Engine::Logger Log(Emergency);
+		WHEN("Some logs are written to it") {
+			Log.Log(Static(u8"A dev log"), CYB::API::Logger::Level::DEV);
+			Log.Log(Static(u8"An info log"), CYB::API::Logger::Level::INFO);
+			Log.Log(Static(u8"A warning log"), CYB::API::Logger::Level::WARN);
+			Log.Log(Static(u8"An error log!"), CYB::API::Logger::Level::ERR);
+			Log.Flush();
+			THEN("All is well") {
+				CHECK(true);
 			}
 		}
 	}

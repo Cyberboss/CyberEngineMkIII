@@ -128,6 +128,12 @@
     <ClCompile Include="Platform\System\CYBConsole.cpp">
       <Filter>Platform\System</Filter>
     </ClCompile>
+    <ClCompile Include="Platform\System\Win32\CYBWin32Console.cpp">
+      <Filter>Platform\System\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\System\Posix\CYBPosixConsole.cpp">
+      <Filter>Platform\System\Posix</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">

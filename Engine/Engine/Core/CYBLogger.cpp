@@ -27,7 +27,7 @@ CYB::API::String::Dynamic CYB::Engine::Logger::TimeString(const int AHour, const
 
 CYB::API::String::Dynamic CYB::Engine::Logger::TimeString(const bool AColons) {
 	auto Time(time(0));   // get time now
-	auto Now = localtime(&Time);
+	auto Now(localtime(&Time));
 	const auto Hour(Now->tm_hour), Min(Now->tm_min), Sec(Now->tm_sec);
 	return TimeString(Hour, Min, Sec, AColons);
 }
@@ -40,7 +40,7 @@ CYB::Platform::System::File CYB::Engine::Logger::OpenFile(void) {
 		try {
 
 			auto Time(time(0));   // get time now
-			auto Now = localtime(&Time);
+			auto Now(localtime(&Time));
 
 			const int Year(Now->tm_year + 1900), Month(Now->tm_mon + 1), Day(Now->tm_mday), Hour(Now->tm_hour), Min(Now->tm_min), Sec(Now->tm_sec);
 

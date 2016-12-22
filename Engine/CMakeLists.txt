@@ -33,6 +33,7 @@ Platform/System/Posix/CYBPosixMutex.cpp
 Platform/System/Posix/CYBPosixSemaphore.cpp
 Platform/System/Posix/CYBPosixPath.cpp
 Platform/System/Posix/CYBPosixFile.cpp
+Platform/System/Posix/CYBPosixConsole.cpp
 
 
 #Modules

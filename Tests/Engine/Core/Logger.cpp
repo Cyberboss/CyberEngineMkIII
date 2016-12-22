@@ -28,7 +28,7 @@ SCENARIO("Logger construction works", "[Engine][Logger][Functional]") {
 	}
 }
 
-SCENARIO("Logger logging works", "[Engine][Logger][Funtional]") {
+SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 	using namespace CYB::API::String;
 	TestDependancies Deps;
 	CYB::Platform::System::Console Emergency;

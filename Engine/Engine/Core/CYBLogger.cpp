@@ -168,7 +168,7 @@ void CYB::Engine::Logger::CancelThreadedOperation(void) {
 }
 
 CYB::API::String::Dynamic CYB::Engine::Logger::FormatLogMessage(const API::String::CStyle& AMessage, const Level ALevel) {
-	char* LevelString;
+	const char* LevelString;
 	switch (ALevel) {
 	case Level::DEV:
 		LevelString = ": Debug: ";

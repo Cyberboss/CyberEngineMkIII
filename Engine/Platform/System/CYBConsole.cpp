@@ -8,7 +8,7 @@ CYB::Platform::System::Console::Console() :
 {}
 
 void CYB::Platform::System::Console::Log(const API::String::CStyle& AMessage, const Level ALevel) {
-	char* LevelString;
+	const char* LevelString;
 	bool IsError(false);
 	switch (ALevel) {
 	case Level::DEV:

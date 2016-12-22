@@ -67,11 +67,6 @@ inline CYB::API::String::Dynamic CYB::API::String::Dynamic::MakeNumberString(con
 	const auto Length(sprintf(Buffer, u8"-%llu", AValue));
 	API::Assert::LessThan(0, Length);
 	API::Assert::LessThan(Length, BufferLength);
-#ifdef TARGET_OS_WINDOWS
-	//Code analysis is dumb
-	__assume(0 < Length && Length < BufferLength);
-#endif
-	Buffer[Length] = 0;
 	//single buffer trickery
 	if(ANegative)
 		return Dynamic(Buffer, Length);

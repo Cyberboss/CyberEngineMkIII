@@ -82,7 +82,7 @@ namespace CYB {
 					@attention Throws dependant on called constructor
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the heap does not have the space for the allocation and more system memory cannot be requested
 				*/
-				template <class AObject, class AConstructor = AObject::Constructor, typename... AArgs> Object<AObject> NewObject(AArgs&&... AArguments);
+				template <class AObject, class AConstructor = typename AObject::Constructor, typename... AArgs> Object<AObject> NewObject(AArgs&&... AArguments);
 				/*!
 					@brief Allocates the Object specified by AObject
 					@tparam AObject The type of object to allocate
@@ -108,7 +108,7 @@ namespace CYB {
 
 				/*!
 					@brief Deletes an object allocated with the Allocator
-					@param AObject A pointer to the allocated object
+					@param AAllocated A pointer to the allocated object
 					@par Thread Safety
 						This function requires no thread safety
 				*/

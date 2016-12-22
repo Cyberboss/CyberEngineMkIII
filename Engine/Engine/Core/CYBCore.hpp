@@ -83,7 +83,6 @@ namespace CYB {
 			/*!
 				@brief Set the current Context
 				@param ANewContext The new context
-				@return A reference to the current context
 				@par Thread Safety
 					This function requires no thread safety
 			*/

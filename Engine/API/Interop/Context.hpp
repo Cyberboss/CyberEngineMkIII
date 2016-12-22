@@ -1,10 +1,10 @@
-//! @file Context.hpp Defines the class which is given to access the engine either inside it or within a unit
+//! @file Context.hpp Defines CYB::API::Interop::Context
 #pragma once
 namespace CYB {
 	namespace API {
 		class Logger;
 		namespace Interop {
-			//! @brief Class which gives access to the engine
+			//! @brief Class which is used as an API for the engine
 			class Context {
 			private:
 				static Context* FContext;	//!< @brief The context reference for the unit. This is not used inside the engine
@@ -15,7 +15,7 @@ namespace CYB {
 				/*!
 					@brief Setup the context
 					@param AAllocator The Allocator
-					@param AAllocator The Logger
+					@param ALogger The Logger
 					@par Thread Safety
 						This function requires no thread safety
 				*/

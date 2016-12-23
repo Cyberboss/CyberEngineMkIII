@@ -13,9 +13,20 @@ namespace CYB {
 					@return An allocated char array that contains the contents of AData
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current hep runs out of memory
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				*/
 				static char* CopyCStyle(const CStyle& AData, int ALength);
+
+				/*!
+					@brief Allocates data for a string that represents AValue
+					@param AValue The value to make a string
+					@param ANegative true if AValue was originally negative, false otherwise
+					@return A string representation of @p AValue
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+				*/
+				static Dynamic MakeNumberString(const unsigned long long AValue, const bool ANegative);
 
 				/*!
 					@brief Frees the data of the current string
@@ -60,6 +71,22 @@ namespace CYB {
 						This function requires no thread safety
 				*/
 				Dynamic() noexcept;
+				/*!
+					@brief Construct a Dynamic from a number
+					@param AValue The value to translate to a string
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+				*/
+				Dynamic(const unsigned long long AValue);
+				/*!
+					@brief Construct a Dynamic from a number
+					@param AValue The value to translate to a string
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+				*/
+				Dynamic(const long long AValue);
 				/*!
 					@brief Construct a Dynamic string from a char array
 					@param AData The char array

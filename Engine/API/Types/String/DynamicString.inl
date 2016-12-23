@@ -66,7 +66,7 @@ inline CYB::API::String::Dynamic CYB::API::String::Dynamic::MakeNumberString(con
 	char Buffer[BufferLength];
 	const auto Length(sprintf(Buffer, u8"-%llu", AValue));
 	API::Assert::LessThan(0, Length);
-	API::Assert::LessThan(Length, BufferLength);
+	API::Assert::LessThanOrEqual(Length, BufferLength);
 	//single buffer trickery
 	if(ANegative)
 		return Dynamic(Buffer, Length);

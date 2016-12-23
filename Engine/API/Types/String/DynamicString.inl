@@ -65,8 +65,8 @@ inline CYB::API::String::Dynamic CYB::API::String::Dynamic::MakeNumberString(con
 	const auto BufferLength(24); //Max possible size is 20 or something, up it to the 64 bit boundary
 	char Buffer[BufferLength];
 	const auto Length(sprintf(Buffer, u8"-%llu", AValue));
-	API::Assert::LessThan(0, Length);
-	API::Assert::LessThanOrEqual(Length, BufferLength);
+	Assert::LessThan(0, Length);
+	Assert::LessThanOrEqual(Length, BufferLength);
 	//single buffer trickery
 	if(ANegative)
 		return Dynamic(Buffer, Length);

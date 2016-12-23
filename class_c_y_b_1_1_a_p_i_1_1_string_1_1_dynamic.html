@@ -125,6 +125,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa6bc04067aecf66247b7b993a279c89d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html#aa6bc04067aecf66247b7b993a279c89d">Dynamic</a> () noexcept</td></tr>
 <tr class="memdesc:aa6bc04067aecf66247b7b993a279c89d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an empty <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html" title="Used for string of allocated variable length. ">Dynamic</a> string.  <a href="#aa6bc04067aecf66247b7b993a279c89d">More...</a><br/></td></tr>
 <tr class="separator:aa6bc04067aecf66247b7b993a279c89d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c2f8c070ac803d944c39c558150028b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html#a1c2f8c070ac803d944c39c558150028b">Dynamic</a> (const unsigned long long AValue)</td></tr>
+<tr class="memdesc:a1c2f8c070ac803d944c39c558150028b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html" title="Used for string of allocated variable length. ">Dynamic</a> from a number.  <a href="#a1c2f8c070ac803d944c39c558150028b">More...</a><br/></td></tr>
+<tr class="separator:a1c2f8c070ac803d944c39c558150028b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d7e859c558ad708996a273100c6b3dc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html#a1d7e859c558ad708996a273100c6b3dc">Dynamic</a> (const long long AValue)</td></tr>
+<tr class="memdesc:a1d7e859c558ad708996a273100c6b3dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html" title="Used for string of allocated variable length. ">Dynamic</a> from a number.  <a href="#a1d7e859c558ad708996a273100c6b3dc">More...</a><br/></td></tr>
+<tr class="separator:a1d7e859c558ad708996a273100c6b3dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2487bf21ee6a7a3ad6deb21c1cc98bb3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html#a2487bf21ee6a7a3ad6deb21c1cc98bb3">Dynamic</a> (const char *const AData, const int ALength=-1)</td></tr>
 <tr class="memdesc:a2487bf21ee6a7a3ad6deb21c1cc98bb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html" title="Used for string of allocated variable length. ">Dynamic</a> string from a char array.  <a href="#a2487bf21ee6a7a3ad6deb21c1cc98bb3">More...</a><br/></td></tr>
 <tr class="separator:a2487bf21ee6a7a3ad6deb21c1cc98bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -218,6 +224,9 @@ Static Private Member Functions</h2></td></tr>
 <tr class="memitem:a296f8f3e6782be336f553aee40221574"><td class="memItemLeft" align="right" valign="top">static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html#a296f8f3e6782be336f553aee40221574">CopyCStyle</a> (const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html">CStyle</a> &amp;AData, int ALength)</td></tr>
 <tr class="memdesc:a296f8f3e6782be336f553aee40221574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates data for and initializes a copy of a <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html" title="A basic char contained string. ">CStyle</a> string.  <a href="#a296f8f3e6782be336f553aee40221574">More...</a><br/></td></tr>
 <tr class="separator:a296f8f3e6782be336f553aee40221574"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a291ff8f61a8811c5672f1bc45e36f109"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html">Dynamic</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html#a291ff8f61a8811c5672f1bc45e36f109">MakeNumberString</a> (const unsigned long long AValue, const bool ANegative)</td></tr>
+<tr class="memdesc:a291ff8f61a8811c5672f1bc45e36f109"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates data for a string that represents AValue.  <a href="#a291ff8f61a8811c5672f1bc45e36f109">More...</a><br/></td></tr>
+<tr class="separator:a291ff8f61a8811c5672f1bc45e36f109"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -292,6 +301,68 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 
 <p>Construct an empty <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html" title="Used for string of allocated variable length. ">Dynamic</a> string. </p>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1c2f8c070ac803d944c39c558150028b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CYB::API::String::Dynamic::Dynamic </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned long long&#160;</td>
+          <td class="paramname"><em>AValue</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html" title="Used for string of allocated variable length. ">Dynamic</a> from a number. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AValue</td><td>The value to translate to a string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa93eaaf592450d4b08d4088b4b3bba0bc" title="A heap has no block large enough for a requested allocation and expansion failed. ...">CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE</a>. Thrown if the current heap runs out of memory </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a1d7e859c558ad708996a273100c6b3dc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CYB::API::String::Dynamic::Dynamic </td>
+          <td>(</td>
+          <td class="paramtype">const long long&#160;</td>
+          <td class="paramname"><em>AValue</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html" title="Used for string of allocated variable length. ">Dynamic</a> from a number. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AValue</td><td>The value to translate to a string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa93eaaf592450d4b08d4088b4b3bba0bc" title="A heap has no block large enough for a requested allocation and expansion failed. ...">CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE</a>. Thrown if the current heap runs out of memory </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -525,7 +596,7 @@ template&lt;typename ALambda &gt; </div>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa93eaaf592450d4b08d4088b4b3bba0bc" title="A heap has no block large enough for a requested allocation and expansion failed. ...">CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE</a>. Thrown if the current hep runs out of memory </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa93eaaf592450d4b08d4088b4b3bba0bc" title="A heap has no block large enough for a requested allocation and expansion failed. ...">CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE</a>. Thrown if the current heap runs out of memory </td></tr>
   </table>
   </dd>
 </dl>
@@ -622,6 +693,57 @@ template&lt;typename ALambda &gt; </div>
 <p>Implements <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html#a812483f580183611b72f5c5546aa6bb3">CYB::API::String::CStyle</a>.</p>
 
 <p>Reimplemented in <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html#a966838c0f913ac101fb7840ff0de1d6b">CYB::API::String::UTF8</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a291ff8f61a8811c5672f1bc45e36f109"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html">Dynamic</a> CYB::API::String::Dynamic::MakeNumberString </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned long long&#160;</td>
+          <td class="paramname"><em>AValue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>ANegative</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Allocates data for a string that represents AValue. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AValue</td><td>The value to make a string </td></tr>
+    <tr><td class="paramname">ANegative</td><td>true if AValue was originally negative, false otherwise </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A string representation of <code>AValue</code> </dd></dl>
+<dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa93eaaf592450d4b08d4088b4b3bba0bc" title="A heap has no block large enough for a requested allocation and expansion failed. ...">CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE</a>. Thrown if the current heap runs out of memory </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

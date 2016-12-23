@@ -1,8 +1,9 @@
 var searchData=
 [
   ['main',['main',['../_c_y_b_entry_8cpp.html#a4658b1e05671ee35546d4c8ccff6c46d',1,'CYBEntry.cpp']]],
-  ['manager',['Manager',['../class_c_y_b_1_1_platform_1_1_modules_1_1_manager.html',1,'CYB::Platform::Modules']]],
+  ['makenumberstring',['MakeNumberString',['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html#a291ff8f61a8811c5672f1bc45e36f109',1,'CYB::API::String::Dynamic']]],
   ['manager',['Manager',['../class_c_y_b_1_1_platform_1_1_modules_1_1_manager.html#a98ca037d1ecd7b5fc27bf56923d3a095',1,'CYB::Platform::Modules::Manager']]],
+  ['manager',['Manager',['../class_c_y_b_1_1_platform_1_1_modules_1_1_manager.html',1,'CYB::Platform::Modules']]],
   ['megabytes',['Megabytes',['../class_c_y_b_1_1_a_p_i_1_1_byte_converters.html#a1d0a18efdec32153b10590ceead1a55b',1,'CYB::API::ByteConverters']]],
   ['memory_5fcommital_5ffailure',['MEMORY_COMMITAL_FAILURE',['../class_c_y_b_1_1_exception_1_1_internal.html#a710ed917a589d4325fec85c3be07e8c6adc9dc49a6a7bc953e3e1c1e9b095d7bf',1,'CYB::Exception::Internal']]],
   ['memory_5fprotect_5ffailure',['MEMORY_PROTECT_FAILURE',['../class_c_y_b_1_1_exception_1_1_internal.html#a710ed917a589d4325fec85c3be07e8c6abd50f754dc98ef83fc1d070e3052a954',1,'CYB::Exception::Internal']]],
@@ -17,8 +18,8 @@ var searchData=
   ['module_5fload_5ffailure',['MODULE_LOAD_FAILURE',['../class_c_y_b_1_1_exception_1_1_internal.html#a710ed917a589d4325fec85c3be07e8c6a22b263f52ba6e8057f06c2c796ade27a',1,'CYB::Exception::Internal']]],
   ['modulename',['ModuleName',['../class_c_y_b_1_1_platform_1_1_modules_1_1_auto_module.html#ae47c9893cd21f21cfd9494b66f330c2a',1,'CYB::Platform::Modules::AutoModule']]],
   ['mutex',['Mutex',['../class_c_y_b_1_1_a_p_i_1_1_mutex.html',1,'CYB::API']]],
-  ['mutex',['Mutex',['../class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_mutex.html',1,'CYB::Platform::System::Implementation']]],
   ['mutex',['Mutex',['../class_c_y_b_1_1_platform_1_1_system_1_1_mutex.html',1,'CYB::Platform::System']]],
+  ['mutex',['Mutex',['../class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_mutex.html',1,'CYB::Platform::System::Implementation']]],
   ['mutex',['Mutex',['../class_c_y_b_1_1_platform_1_1_system_1_1_mutex.html#a02068ce5b46f1bc8f7cc6958d954b5da',1,'CYB::Platform::System::Mutex::Mutex()'],['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html#a36fa87df155e8d505b0245744cc2d19ca648c65b85d6dae62ee3d0130b0da2f01',1,'CYB::API::Interop::Allocatable::Mutex()']]],
   ['mutex_2ehpp',['Mutex.hpp',['../_mutex_8hpp.html',1,'']]],
   ['mutex_5finitialization_5ffailure',['MUTEX_INITIALIZATION_FAILURE',['../class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa7fbcc9ad4e49092ab842aa44d040fe2e',1,'CYB::Exception::SystemData']]]

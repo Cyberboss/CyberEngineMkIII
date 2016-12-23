@@ -1,6 +1,7 @@
 var searchData=
 [
   ['main',['main',['../_c_y_b_entry_8cpp.html#a4658b1e05671ee35546d4c8ccff6c46d',1,'CYBEntry.cpp']]],
+  ['makenumberstring',['MakeNumberString',['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html#a291ff8f61a8811c5672f1bc45e36f109',1,'CYB::API::String::Dynamic']]],
   ['manager',['Manager',['../class_c_y_b_1_1_platform_1_1_modules_1_1_manager.html#a98ca037d1ecd7b5fc27bf56923d3a095',1,'CYB::Platform::Modules::Manager']]],
   ['megabytes',['Megabytes',['../class_c_y_b_1_1_a_p_i_1_1_byte_converters.html#a1d0a18efdec32153b10590ceead1a55b',1,'CYB::API::ByteConverters']]],
   ['mergeblockifpossible',['MergeBlockIfPossible',['../class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a5533d1d9f1bed19c3e22ab96cd01215b',1,'CYB::Engine::Memory::Heap']]],

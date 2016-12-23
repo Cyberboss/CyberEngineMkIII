@@ -78,8 +78,8 @@ CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 	FFile(OpenFile()),
 	FQueueHead(nullptr),
 	FQueueTail(nullptr),
-	FCancelled(false),
-	FThread(nullptr)
+	FThread(nullptr),
+	FCancelled(false)
 {
 	auto InitEntry(static_cast<Allocator&>(Context::GetContext().FAllocator).RawObject<LogEntry>());
 	InitEntry->FLevel = Level::INFO;

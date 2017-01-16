@@ -220,7 +220,7 @@
     <ClInclude Include="API\Interop\Interop.hpp" />
     <ClInclude Include="API\Interop\Object.hpp" />
     <ClInclude Include="API\Interop\STLAllocator.hpp" />
-    <ClInclude Include="API\Types\Containers.hpp" />
+    <ClInclude Include="API\Types\STLPrototypes.hpp" />
     <ClInclude Include="API\Types\EngineInformation.hpp" />
     <ClInclude Include="API\Types\Exception.hpp" />
     <ClInclude Include="API\Types\ParameterPack.hpp" />
@@ -306,6 +306,7 @@
     <None Include="API\Types\Exception.inl" />
     <None Include="API\Types\ParameterPack.inl" />
     <None Include="API\Types\Singleton.inl" />
+    <None Include="API\Types\STLPrototypes.inl" />
     <None Include="API\Types\String\CStyleString.inl" />
     <None Include="API\Types\String\DynamicString.inl" />
     <None Include="API\Types\String\StaticString.inl" />

@@ -44,7 +44,11 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 #endif
 			Log.Flush();
 			THEN("All is well") {
+#ifdef DEBUG
 				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
+#else
+				CHECK(true);
+#endif
 			}
 		}
 	}

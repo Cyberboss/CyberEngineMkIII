@@ -28,34 +28,12 @@ namespace CYB {
 					@brief Construct an Allocator
 					@param AHeap The Heap the allocator will use
 					@par Thread Safety
-						Function calls should be syncronized
+						Function calls should be synchronized
 				*/
-				Allocator(Heap& AHeap) noexcept;
-				/*!
-					@brief Drop in replacement for placement new with successful abstraction checking
-					@tparam AType The type to be constructed
-					@tparam AArgs The arguments types of AType's constructor
-					@param ALocation An area of memory not nullptr and at least sizof(AType) where AType will be constructed
-					@param AIgnored Used for overloading
-					@param AArguments Arguments to AType's constructor
-					@return A pointer to the new AType which will be equivalent to ALocation
-					@par Thread Safety
-						This function requires no thread safety
-					@attention Throws dependant on called constructor
-				*/
-				template <typename AType, typename... AArgs> static AType* InPlaceAllocation(void* const ALocation, std::false_type AIgnored, AArgs&&... AArguments);
-				/*!
-					@brief Drop in replacement for placement new with failed abstraction checking. Calls HCF
-					@tparam AType Ignored
-					@tparam AArgs Ignored
-					@param ALocation Ignored
-					@param AIgnored Ignored
-					@param AArguments Ignored
-					@return Never returns
-					@par Thread Safety
-						This function requires no thread safety
-				*/
-				template <typename AType, typename... AArgs> static AType* InPlaceAllocation(void* const ALocation, std::true_type AIgnored, AArgs&&... AArguments) noexcept;
+				Allocator(Heap& AHeap) noexcept;				
+
+				template <class AObject, typename AConstructor, typename... AArgs> AObject* AllocateObject(const std::true_type AIgnored, AArgs&&... AArguments);
+				template <class AObject, typename AConstructor, typename... AArgs> AObject* AllocateObject(const std::false_type AIgnored, AArgs&&... AArguments);
 			public:
 				/*!
 					@brief Drop in replacement for placement new. Used for code coverage
@@ -69,11 +47,11 @@ namespace CYB {
 					@attention Throws dependant on called constructor
 				*/
 				template <typename AType, typename... AArgs> static AType* InPlaceAllocation(void* const ALocation, AArgs&&... AArguments);
-
+				
 				/*!
-					@brief Allocates the Object specified by AObject
+					@brief Allocates the Object specified by AObject using a specified Constructor
 					@tparam AObject The type of object to allocate
-					@tparam AConstructor The constructor for AObject to use. Defaults to AObject::Constructor
+					@tparam AConstructor The constructor for AObject to use
 					@tparam AArgs The arguments types of AObject's constructor
 					@param AArguments The arguments of AObject's constructor
 					@return An Object specialized on AObject containing the allocated object
@@ -82,9 +60,21 @@ namespace CYB {
 					@attention Throws dependant on called constructor
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the heap does not have the space for the allocation and more system memory cannot be requested
 				*/
-				template <class AObject, class AConstructor = typename AObject::Constructor, typename... AArgs> Object<AObject> NewObject(AArgs&&... AArguments);
+				template <class AObject, class AConstructor, typename... AArgs> Object<AObject> ConstructObject(AArgs&&... AArguments);
 				/*!
-					@brief Allocates the Object specified by AObject
+					@brief Allocates the Object specified by AObject using the default constructor
+					@tparam AObject The type of object to allocate
+					@tparam AArgs The arguments types of AObject's constructor
+					@param AArguments The arguments of AObject's constructor
+					@return An Object specialized on AObject containing the allocated object
+					@par Thread Safety
+						This function requires no thread safety
+					@attention Throws dependant on called constructor
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the heap does not have the space for the allocation and more system memory cannot be requested
+				*/
+				template <class AObject, typename... AArgs> Object<AObject> NewObject(AArgs&&... AArguments);
+				/*!
+					@brief Allocates the Object specified by AObject using the empty constructor
 					@tparam AObject The type of object to allocate
 					@return An Object specialized on AObject containing the allocated object
 					@par Thread Safety

@@ -18,7 +18,7 @@ template <class AObject, typename... AArgs> AObject* CYB::Engine::Allocator::Raw
 
 	AutoFreeBuffer Buf(FHeap.Alloc(sizeof(AObject)), *this);
 	using namespace std;
-	auto Result(InPlaceAllocation<AObject>(Buf.FBuffer, typename is_abstract<AObject>::type(), std::forward<AArgs>(AArguments)...));
+	auto Result(InPlaceAllocation<AObject>(Buf.FBuffer, std::forward<AArgs>(AArguments)...));
 	Buf.FBuffer = nullptr;
 	return Result;
 }

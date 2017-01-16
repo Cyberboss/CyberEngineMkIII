@@ -154,14 +154,7 @@ namespace CYB {
 			//! @brief Used for object which aren't allocatables
 			class NullConstructor : public EmptyConstructor {
 			public:
-				/*!
-					@brief Placement function
-					@tparam AArgs The types of the objects arguments
-					@param AArguments The object's constructor arguments
-					@par Thread Safety
-						This function should never be called
-				*/
-				template <typename... AArgs> NullConstructor(AArgs&&... AArguments) noexcept;
+				template <typename... AArgs> NullConstructor(AArgs&&... AArguments) = delete;
 			};
 		};
 	};

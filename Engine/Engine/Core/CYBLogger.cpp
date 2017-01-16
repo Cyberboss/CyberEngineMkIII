@@ -89,7 +89,7 @@ CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 	FQueueHead = InitEntry;
 	FQueueTail = InitEntry;
 	
-	FThread = FContext.FAllocator.NewObject<Platform::System::Thread, API::Interop::NullConstructor>(static_cast<API::Threadable&>(*this));
+	FThread = FContext.FAllocator.ConstructObject<Platform::System::Thread, API::Interop::NullConstructor>(static_cast<API::Threadable&>(*this));
 }
 
 CYB::Engine::Logger::~Logger() {

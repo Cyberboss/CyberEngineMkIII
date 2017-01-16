@@ -13,6 +13,7 @@ namespace CYB {
 					RUNNING,	//!< @brief The thread is running
 					FINISHED,	//!< @brief The thread has finished running
 				};
+
 			private:
 				bool FCancelSubmitted;	//!< @brief A check to make sure FThreadable.CancelThreadedOperation is not called more than once
 			private:

@@ -56,7 +56,3 @@ template <class AAllocatable> void CYB::API::Interop::Constructor<void>::Constru
 template <class AAllocatable> bool CYB::API::Interop::Constructor<void>::Valid(void) const noexcept {
 	return std::is_base_of<Allocatable, AAllocatable>::value && FSize == sizeof(typename AAllocatable::Constructor);
 }
-
-template <typename... AArgs> CYB::API::Interop::NullConstructor::NullConstructor(AArgs&&...) noexcept {
-	Assert::HCF();
-}

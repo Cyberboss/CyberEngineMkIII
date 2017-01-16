@@ -39,9 +39,12 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 			Log.Log(Static(u8"An info log"), CYB::API::Logger::Level::INFO);
 			Log.Log(Static(u8"A warning log"), CYB::API::Logger::Level::WARN);
 			Log.Log(Static(u8"An error log!"), CYB::API::Logger::Level::ERR);
+#ifdef DEBUG
+			REQUIRE_THROWS_AS(Log.Log(Static(u8"A bad enum log!"), static_cast<CYB::API::Logger::Level>(54)), CYB::Exception::Violation);
+#endif
 			Log.Flush();
 			THEN("All is well") {
-				CHECK(true);
+				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
 			}
 		}
 	}

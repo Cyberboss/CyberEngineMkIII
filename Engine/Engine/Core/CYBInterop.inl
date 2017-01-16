@@ -11,8 +11,7 @@ template <class AObject, typename... AArgs> AObject* CYB::Engine::Allocator::Raw
 			FBuffer(ABuffer)
 		{}
 		~AutoFreeBuffer() {
-			if (FBuffer != nullptr)
-				FAllocator.FHeap.Free(FBuffer);
+			FAllocator.FHeap.Free(FBuffer);
 		}
 	};
 

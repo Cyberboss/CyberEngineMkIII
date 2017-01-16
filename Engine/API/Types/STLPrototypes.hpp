@@ -24,7 +24,7 @@ namespace CYB {
 			*/
 			static void Delete(AType* const APointer) noexcept;
 		public:
-			using unique_ptr<AType>::unique_ptr;
+			using std::unique_ptr<AType>::unique_ptr;
 
 			/*!
 				@brief Initialize an empty UniquePointer

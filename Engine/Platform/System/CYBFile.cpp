@@ -1,42 +1,42 @@
 //! @file CYBFile.cpp Implements CYB::Platform::System::File shared functions
 #include "CYB.hpp"
 
-CYB::Platform::System::File::File(const API::Path& APath, const Mode AMode, const Method AMethod) :
+CYB::Platform::System::File::File(const API::Path& APath, const Mode AMode, Method AMethod) :
 	File(System::Path(static_cast<const System::Path&>(APath)), AMode, AMethod)
 {
-#ifdef DEBUG
 	using namespace API::String;
 	Dynamic Message(u8"Opened file: ");
 	Message += APath();
 	Message += Static(" in mode: ");
-	switch (AMode) {
-	case Mode::READ:
+
+	//weird ifs because coverage and we can guarantee no default case
+	if (AMode == Mode::READ) 
 		Message += Static("READ");
-		break;
-	case Mode::WRITE:
+	else if (AMode == Mode::WRITE)
 		Message += Static("WRITE");
-		break;
-	case Mode::READ_WRITE:
+	else{
+		API::Assert::Equal(AMode, Mode::READ_WRITE);
 		Message += Static("READ_WRITE");
-		break;
-	}	//default handled by base
-	Message += Static(" with method: ");
-	switch (AMethod) {
-	case Method::ANY:
-		Message += Static("ANY");
-		break;
-	case Method::CREATE:
-		Message += Static("CREATE");
-		break;
-	case Method::EXIST:
-		Message += Static("EXIST");
-		break;
-	case Method::TRUNCATE:
-		Message += Static("TRUNCATE");
-		break;
 	}
+
+	Message += Static(" with method: ");
+
+	if (AMethod == Method::ANY) {
+		Message += Static("ANY to ");
+		AMethod = FOpenMethod;
+	}
+
+	if (AMethod == Method::CREATE)
+		Message += Static("CREATE");
+	else if (AMethod == Method::EXIST)
+		Message += Static("EXIST");
+	else {
+		API::Assert::NotEqual(AMethod, Method::ANY);
+		if (AMethod == Method::TRUNCATE)
+			Message += Static("TRUNCATE");
+	}
+
 	API::Context().FLogger.Log(Message, API::Logger::Level::DEV);
-#endif
 }
 
 void CYB::Platform::System::File::Touch(System::Path&& APath) {

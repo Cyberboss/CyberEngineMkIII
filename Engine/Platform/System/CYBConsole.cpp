@@ -32,16 +32,12 @@ void CYB::Platform::System::Console::Log(const API::String::CStyle& AMessage, co
 	auto Now(localtime(&Time));
 	const auto Hour(Now->tm_hour), Min(Now->tm_min), Sec(Now->tm_sec);
 	char Buffer[50];
+	memset(Buffer, 0, 50);	//memset instead of Buffer[Length] = 0 because coverage
+
 	const auto Length(sprintf(Buffer, u8"[%02d:%02d:%02d]", Hour, Min, Sec));
 
 	API::Assert::LessThan(-1, Length);
 	API::Assert::LessThan(Length, 50);
-
-#ifdef TARGET_OS_WINDOWS
-	//Code analysis is stupid
-	__assume(-1 < Length && Length < 50);
-#endif
-	Buffer[Length] = 0;
 
 	WriteOut(API::String::Static(Buffer), IsError);
 	WriteOut(API::String::Static(LevelString), IsError);

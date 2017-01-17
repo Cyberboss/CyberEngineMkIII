@@ -32,15 +32,39 @@ namespace CYB {
 				*/
 				Allocator(Heap& AHeap) noexcept;				
 
+				/*!
+					@brief Allocate an Allocatable object through interop
+					@tparam AObject The object to allocate, must be an Allocatable
+					@tparam AConstructor The Constructor of AObject to use
+					@tparam AArgs The arguments types of AConstructor
+					@param AIgnored Used for overloading, ignored
+					@param AArguments Arguments to AConstructor
+					@return A pointer to the constructed object, allocated on this Allocator's Heap
+					@par Thread Safety
+						This function requires no thread safety
+					@attention Throws dependant on called constructor
+				*/
 				template <class AObject, typename AConstructor, typename... AArgs> AObject* AllocateObject(const std::true_type AIgnored, AArgs&&... AArguments);
-				template <class AObject, typename AConstructor, typename... AArgs> AObject* AllocateObject(const std::false_type AIgnored, AArgs&&... AArguments);
+				/*!
+					@brief Allocate a concrete object
+					@tparam AObject The object to allocate, must be an Allocatable
+					@tparam AIgnoredConstructor Used for overloading, ignored
+					@tparam AArgs The arguments types of AConstructor
+					@param AIgnored Used for overloading, unused
+					@param AArguments Arguments to AConstructor
+					@return A pointer to the constructed object, allocated on this Allocator's Heap
+					@par Thread Safety
+						This function requires no thread safety
+					@attention Throws dependant on called constructor
+				*/
+				template <class AObject, typename AIgnoredConstructor, typename... AArgs> AObject* AllocateObject(const std::false_type AIgnored, AArgs&&... AArguments);
 			public:
 				/*!
 					@brief Drop in replacement for placement new. Used for code coverage
-					@param ALocation An area of memory not nullptr and at least sizof(AType) where AType will be constructed
-					@param AArguments Arguments to AType's constructor
 					@tparam AType The type to be constructed
 					@tparam AArgs The arguments types of AType's constructor
+					@param ALocation An area of memory not nullptr and at least sizof(AType) where AType will be constructed
+					@param AArguments Arguments to AType's constructor
 					@return A pointer to the new AType which will be equivalent to ALocation
 					@par Thread Safety
 						This function requires no thread safety

@@ -154,6 +154,7 @@ namespace CYB {
 			//! @brief Used for object which aren't allocatables
 			class NullConstructor : public EmptyConstructor {
 			public:
+				//! @brief NullConstructors should never be instantiated
 				template <typename... AArgs> NullConstructor(AArgs&&... AArguments) = delete;
 			};
 		};

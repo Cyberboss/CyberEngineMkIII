@@ -228,9 +228,11 @@ void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level A
 
 void CYB::Engine::Logger::Flush(void) const noexcept {
 	do {
-		API::LockGuard FileLock(FFileLock), QueueLock(FQueueLock);
-		if (FQueueHead == nullptr)
-			break;
+		{	//lock in reverse order so we know there are no dangling entry references
+			API::LockGuard FileLock(FFileLock), QueueLock(FQueueLock);
+			if (FQueueHead == nullptr)
+				break;
+		}
 		Platform::System::Thread::Sleep(1);
 	} while (true);
 }

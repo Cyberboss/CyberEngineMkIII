@@ -15,6 +15,7 @@ Platform/System/File.cpp
 Platform/System/Path.cpp
 Platform/System/Process.cpp
 Platform/System/Semaphore.cpp
+Platform/System/Console.cpp
 
 Engine/Memory/Blocks.cpp
 Engine/Memory/Heap.cpp

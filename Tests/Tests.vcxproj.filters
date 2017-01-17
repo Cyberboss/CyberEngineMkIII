@@ -64,6 +64,9 @@
     <ClCompile Include="Engine\Core\Logger.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Platform\System\Console.cpp">
+      <Filter>Platform\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />

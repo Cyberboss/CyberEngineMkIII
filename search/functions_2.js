@@ -9,6 +9,7 @@ var searchData=
   ['cancel',['Cancel',['../class_c_y_b_1_1_platform_1_1_system_1_1_thread.html#a085c9e320ce856e4b89d8e268073b962',1,'CYB::Platform::System::Thread']]],
   ['cancelthreadedoperation',['CancelThreadedOperation',['../class_c_y_b_1_1_a_p_i_1_1_threadable.html#a368e82f3b192857d0ea62791e2e60310',1,'CYB::API::Threadable::CancelThreadedOperation()'],['../class_c_y_b_1_1_a_p_i_1_1_threadable_taskset.html#af17175f0189277fea080c1f740e6167a',1,'CYB::API::ThreadableTaskset::CancelThreadedOperation()']]],
   ['capabilities',['Capabilities',['../class_c_y_b_1_1_a_p_i_1_1_stream.html#a241171ac91441b855a4bbd557087adf7',1,'CYB::API::Stream::Capabilities()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_file.html#afca84af8cde01bed70d4530174f0610b',1,'CYB::Platform::System::File::Capabilities()']]],
+  ['checkdirectoryexists',['CheckDirectoryExists',['../class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html#a6c7ac80f463812bcc17441ad42dfc992',1,'CYB::Platform::System::Implementation::Path']]],
   ['close',['Close',['../class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a4bd5d9a8bbf8eb9aeb49223474d72c35',1,'CYB::Platform::System::File']]],
   ['commit',['Commit',['../class_c_y_b_1_1_platform_1_1_system_1_1_virtual_memory.html#afd70a4b05a2147d38396e22264053cc1',1,'CYB::Platform::System::VirtualMemory']]],
   ['commitsize',['CommitSize',['../class_c_y_b_1_1_platform_1_1_system_1_1_virtual_memory.html#a7d3278f812668f114f4707375974a4f3',1,'CYB::Platform::System::VirtualMemory']]],

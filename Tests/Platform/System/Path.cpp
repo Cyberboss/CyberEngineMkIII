@@ -662,7 +662,9 @@ SCENARIO("Paths can be created by the system", "[Platform][System][Path][Unit]")
 		}
 		WHEN("The temporary directory is retrieved") {
 			//for code coverage purposes, fake the directory creation
+#ifdef TARGET_OS_WINDOWS
 			const auto BGFA(K32.Redirect<CYB::Platform::Modules::Kernel32::GetFileAttributesExW, BadGetFileAttributesEx>());
+#endif
 			const auto DoTest([&]() {
 				REQUIRE_NOTHROW(TestPath = new Path(Path::SystemPath::TEMPORARY));
 				THEN("All is well") {
@@ -860,7 +862,9 @@ SCENARIO("Path errors work", "[Platform][System][Path][Unit]") {
 			}
 		}
 		{
+#ifdef TARGET_OS_WINDOWS
 			const auto BGFA(K32.Redirect<CYB::Platform::Modules::Kernel32::GetFileAttributesExW, BadGetFileAttributesEx>());
+#endif
 			const auto BCD(K32.Redirect<CYB::Platform::Modules::Kernel32::CreateDirectoryW, BadCreateDirectory>());
 			const auto BGLE(K32.Redirect<CYB::Platform::Modules::Kernel32::GetLastError, BadGetLastError>());
 			const auto BMD(LibC.Redirect<CYB::Platform::Modules::LibC::mkdir, BadMkDir>());

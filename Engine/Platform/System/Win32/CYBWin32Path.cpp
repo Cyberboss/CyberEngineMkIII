@@ -87,7 +87,7 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 		return Result;
 	}
 	default:
-		__assume(false);	//HCF is too indirect for coverage
+		UNREACHABLE;	//HCF is too indirect for coverage
 	}
 }
 

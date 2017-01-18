@@ -17,6 +17,12 @@
 #endif
 #endif
 
+#ifdef TARGET_OS_WINDOWS
+#define UNREACHABLE __assume(false)
+#else
+#define UNREACHABLE __builtin_unreachable()
+#endif
+
 //! @brief Quick macro for supplying CYB::API::Assert::Unimplemented with the correct parameters
 #define UNIMPLEMENTED CYB::API::Assert::Unimplemented(__FUNCTION__, __FILE__, __LINE__)
 

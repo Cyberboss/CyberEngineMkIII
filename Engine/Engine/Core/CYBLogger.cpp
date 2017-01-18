@@ -6,7 +6,7 @@
 
 CYB::API::String::Dynamic CYB::Engine::Logger::TimeString(const int AHour, const int AMinute, const int ASecond, const bool AColons) {
 	char Buffer[50];
-
+	memset(Buffer, 0, 50);
 	int Length;
 	if (AColons)
 		Length = sprintf(Buffer, u8"[%02d:%02d:%02d]", AHour, AMinute, ASecond);
@@ -15,12 +15,6 @@ CYB::API::String::Dynamic CYB::Engine::Logger::TimeString(const int AHour, const
 
 	API::Assert::LessThan(-1, Length);
 	API::Assert::LessThan(Length, 50);
-
-#ifdef TARGET_OS_WINDOWS
-	//Code analysis is stupid
-	__assume(-1 < Length && Length < 50);
-#endif
-	Buffer[Length] = 0;
 
 	return API::String::Dynamic(API::String::Static(Buffer));
 }
@@ -45,17 +39,12 @@ CYB::Platform::System::File CYB::Engine::Logger::OpenFile(void) {
 			const int Year(Now->tm_year + 1900), Month(Now->tm_mon + 1), Day(Now->tm_mday), Hour(Now->tm_hour), Min(Now->tm_min), Sec(Now->tm_sec);
 
 			char Buffer[50];
+			memset(Buffer, 0, 50);
 			const auto Length(sprintf(Buffer, u8"Engine Log %d-%d-%d %s.txt", Year, Month, Day, TimeString(Hour, Min, Sec, false).CString()));
 
 			API::Assert::LessThan(-1, Length);
 			API::Assert::LessThan(Length, 50);
 
-#ifdef TARGET_OS_WINDOWS
-			//Code analysis is stupid
-			__assume(-1 < Length && Length < 50);
-#endif
-
-			Buffer[Length] = 0;
 			API::String::Static AsStatic(Buffer);
 			API::String::UTF8 Formatted(AsStatic);
 

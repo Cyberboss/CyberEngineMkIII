@@ -34,6 +34,14 @@ REDIRECTED_FUNCTION(BadCreateFile, const void* const, const unsigned long, const
 	return INVALID_HANDLE_VALUE;
 }
 #endif
+REDIRECTED_FUNCTION(BadWrite, const long long, const void* const, const unsigned long long) {
+	return static_cast<unsigned long long>(-1);
+}
+
+REDIRECTED_FUNCTION(BadWriteFile, const void* const, const void* const, const unsigned long, const void* const, const void* const) {
+	return 0;
+}
+
 
 template <> void CYB::Engine::Logger::Backdoor<int>(int& AIgnored) {
 	static_cast<void>(AIgnored);
@@ -71,13 +79,27 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 			Log.Log(Static(u8"An info log"), CYB::API::Logger::Level::INFO);
 			Log.Log(Static(u8"A warning log"), CYB::API::Logger::Level::WARN);
 			Log.Log(Static(u8"An error log!"), CYB::API::Logger::Level::ERR);
-			Log.Flush();
-			THEN("All is well") {
+			AND_THEN("Oh no, we can't write to the log file anymore!") {
+				const auto BWF(Deps.FK32.Redirect<CYB::Platform::Modules::Kernel32::WriteFile, BadWriteFile>());
+				const auto BW(Deps.FC.Redirect<CYB::Platform::Modules::LibC::write, BadWrite>());
+				Log.Flush();
+				THEN("It terminates and logs to the console") {
 #ifdef DEBUG
-				CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
+					CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
 #else
-				CHECK(true);
+					CHECK(true);
 #endif
+				}
+			}
+			AND_THEN("Things proceed normally") {
+				Log.Flush();
+				THEN("All is well") {
+#ifdef DEBUG
+					CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
+#else
+					CHECK(true);
+#endif
+				}
 			}
 		}
 		WHEN("We try to open another") {

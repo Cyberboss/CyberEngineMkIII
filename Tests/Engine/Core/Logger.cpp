@@ -80,6 +80,15 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 				CHECK_NOTHROW(Kajigger());
 			}
 		}
+		WHEN("We check the current log") {
+			UTF8 Result(Log.CurrentLog());
+			AND_THEN("Convert it to a path") {
+				CYB::Platform::System::Path ThePath(std::move(Result));
+				THEN("It is valid") {
+					CHECK(ThePath.IsFile());
+				}
+			}
+		}
 	}
 	GIVEN("A bad file opener") {
 		const auto BCF(Deps.FK32.Redirect<CYB::Platform::Modules::Kernel32::CreateFileW, BadCreateFile>());

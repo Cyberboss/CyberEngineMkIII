@@ -51,8 +51,7 @@ CYB::Platform::System::File CYB::Engine::Logger::OpenFile(void) {
 			auto LogPath(BaseLogPath);
 			LogPath.Append(std::move(Formatted), false, false);
 
-				//Yes, copy LogPath, if it throws it won't be valid anymore
-			return Platform::System::File(LogPath, API::File::Mode::WRITE, API::File::Method::CREATE);
+			return Platform::System::File(std::move(LogPath), API::File::Mode::WRITE, API::File::Method::CREATE);
 		}
 		catch (CYB::Exception::SystemData& AException) {
 			if (AException.FErrorCode != CYB::Exception::SystemData::FILE_EXISTS)

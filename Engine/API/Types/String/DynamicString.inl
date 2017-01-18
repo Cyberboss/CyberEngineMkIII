@@ -4,6 +4,14 @@ inline CYB::API::String::Dynamic::Dynamic() noexcept :
 	CStyle(nullptr, -1)
 {}
 
+inline CYB::API::String::Dynamic::Dynamic(const unsigned long long AValue) :
+	Dynamic(MakeNumberString(AValue, false))
+{}
+
+inline CYB::API::String::Dynamic::Dynamic(const long long AValue) :
+	Dynamic(MakeNumberString(static_cast<unsigned long long>(AValue < 0 ? -AValue : AValue), AValue < 0))
+{}
+
 inline CYB::API::String::Dynamic::Dynamic(char* const AData) noexcept :
 	CStyle(AData, -1)
 {}
@@ -51,6 +59,18 @@ inline char* CYB::API::String::Dynamic::CopyCStyle(const CStyle& AData, int ALen
 		return Data;
 	}
 	return nullptr;
+}
+
+inline CYB::API::String::Dynamic CYB::API::String::Dynamic::MakeNumberString(const unsigned long long AValue, const bool ANegative) {
+	const auto BufferLength(24); //Max possible size is 20 or something, up it to the 64 bit boundary
+	char Buffer[BufferLength];
+	const auto Length(sprintf(Buffer, u8"-%llu", AValue));
+	Assert::LessThan(0, Length);
+	Assert::LessThanOrEqual(Length, BufferLength);
+	//single buffer trickery
+	if(ANegative)
+		return Dynamic(Buffer, Length);
+	return Dynamic(Buffer + 1, Length - 1);
 }
 
 template <typename ALambda> bool CYB::API::String::Dynamic::BuildAndPopulateBuffer(const int ASize, const ALambda APopulateData, Dynamic& ADynamic) {

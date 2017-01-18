@@ -49,6 +49,15 @@ namespace CYB {
 				protected:
 					API::String::UTF16 FWidePath;	//!< @brief The UTF16 string
 				protected:
+					/*!
+						@brief Try to check for the existence of a directory
+						@param APath The path of the directory to check
+						@return -1 if an error occured. 0 if @p APath is not a directory. 1 if @p APath is a directory
+						@par Thread Safety
+							This function requires no thread safety
+					*/
+					static int CheckDirectoryExists(const API::String::UTF16& APath) noexcept;
+
 					Path() noexcept = default;	//!< @brief See @ref structors
 				public:
 					/*!

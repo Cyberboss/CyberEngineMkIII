@@ -161,3 +161,27 @@ SCENARIO("Dynamic copies maintain the correct length", "[API][String][Dynamic][U
 		}
 	}
 }
+
+SCENARIO("Dynamic numbers work", "[API][String][Dynamic][Unit]") {
+	const auto Handle([](const auto ANumber, const char* const AResult) {
+		WHEN("It is made into a number string") {
+			Dynamic AsNumber(ANumber);
+			THEN("The result is correct") {
+				CHECK(AsNumber == Static(AResult));
+			}
+		}
+	});
+
+	GIVEN("A positive unsinged number") {
+		unsigned long long A(142U);
+		Handle(A, "142");
+	}
+	GIVEN("A negative signed number") {
+		long long B(-8384);
+		Handle(B, "-8384");
+	}
+	GIVEN("A positive signed number") {
+		long long B(438384);
+		Handle(B, "438384");
+	}
+}

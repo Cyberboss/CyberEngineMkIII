@@ -1,7 +1,7 @@
 #include "TestHeader.hpp"
 
 class TestDependancies {
-private:
+public:
 	ModuleDependancy<CYB::Platform::Modules::Kernel32> FK32;
 	ModuleDependancy<CYB::Platform::Modules::Shell> FShell;
 	ModuleDependancy<CYB::Platform::Modules::ShellAPI> FShellAPI;
@@ -28,6 +28,13 @@ SCENARIO("Logger construction works", "[Engine][Logger][Functional]") {
 	}
 }
 
+#ifdef TARGET_OS_WINDOWS
+REDIRECTED_FUNCTION(BadCreateFile, const void* const, const unsigned long, const unsigned long, const void* const, const unsigned long, const unsigned long, const void* const) {
+	using namespace CYB::Platform::Win32;
+	return INVALID_HANDLE_VALUE;
+}
+#endif
+
 SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 	using namespace CYB::API::String;
 	TestDependancies Deps;
@@ -35,13 +42,28 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 	GIVEN("A logger") {
 		CYB::Engine::Logger Log(Emergency);
 		WHEN("Some logs are written to it") {
+#ifdef DEBUG
+			REQUIRE_THROWS_AS(Log.Log(Static(u8"A bad enum log!"), static_cast<CYB::API::Logger::Level>(54)), CYB::Exception::Violation);
+#endif
+
+#ifdef TARGET_OS_WINDOWS
+			//do some scheduling trickery to make sure we hit the code coverage line in Flush
+			class ThreadPriority {
+			public:
+				ThreadPriority() {
+					CYB::Platform::Win32::SetThreadPriority(CYB::Platform::Win32::GetCurrentThread(), THREAD_PRIORITY_HIGHEST);
+				}
+				~ThreadPriority() {
+					CYB::Platform::Win32::SetThreadPriority(CYB::Platform::Win32::GetCurrentThread(), THREAD_PRIORITY_NORMAL);
+				}
+			};
+			ThreadPriority GiveItToMe;
+#endif
+
 			Log.Log(Static(u8"A dev log"), CYB::API::Logger::Level::DEV);
 			Log.Log(Static(u8"An info log"), CYB::API::Logger::Level::INFO);
 			Log.Log(Static(u8"A warning log"), CYB::API::Logger::Level::WARN);
 			Log.Log(Static(u8"An error log!"), CYB::API::Logger::Level::ERR);
-#ifdef DEBUG
-			REQUIRE_THROWS_AS(Log.Log(Static(u8"A bad enum log!"), static_cast<CYB::API::Logger::Level>(54)), CYB::Exception::Violation);
-#endif
 			Log.Flush();
 			THEN("All is well") {
 #ifdef DEBUG
@@ -49,6 +71,27 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 #else
 				CHECK(true);
 #endif
+			}
+		}
+		WHEN("We try to open another") {
+			CYB::Engine::Logger Log2(static_cast<CYB::API::Logger&>(Log));
+			THEN("It delays for a bit, but works") {
+				const auto Kajigger([&]() { Log2.Log(Static(u8"Hoi!"), CYB::API::Logger::Level::INFO); });
+				CHECK_NOTHROW(Kajigger());
+			}
+		}
+	}
+	GIVEN("A bad file opener") {
+		const auto BCF(Deps.FK32.Redirect<CYB::Platform::Modules::Kernel32::CreateFileW, BadCreateFile>());
+#ifdef TARGET_OS_WINDOWS
+		const auto Thing(OverrideError(Deps.FK32, ERROR_ACCESS_DENIED));
+#else
+		errno = EACCES;
+#endif
+		WHEN("We try to open the log") {
+			REQUIRE_THROWS_AS(CYB::Engine::Logger(static_cast<CYB::API::Logger&>(Emergency)), CYB::Exception::SystemData);
+			THEN("The correct error is thrown") {
+				CHECK_EXCEPTION_CODE(CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
 			}
 		}
 	}

@@ -24,8 +24,6 @@ namespace CYB {
 			*/
 			static void Delete(AType* const APointer) noexcept;
 		public:
-			using std::unique_ptr<AType>::unique_ptr;
-
 			/*!
 				@brief Initialize an empty UniquePointer
 				@par Thread Safety
@@ -38,14 +36,14 @@ namespace CYB {
 				@par Thread Safety
 					This function requires no thread safety
 			*/
-			constexpr UniquePointer(const nullptr_t AIgnored) noexcept;
+			constexpr UniquePointer(const std::nullptr_t AIgnored) noexcept;
 			/*!
 				@brief Initialize a UniquePointer with @p APointer
 				@param APointer The pointer the UniquePointer will contain
 				@par Thread Safety
 					This function requires no thread safety
 			*/
-			explicit UniquePointer(pointer const APointer) noexcept;
+			explicit UniquePointer(AType* const APointer) noexcept;
 		};
 	};
 };

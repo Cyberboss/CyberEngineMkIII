@@ -1,7 +1,7 @@
 #include "TestHeader.hpp"
 #include <cstring>
 
-SCENARIO("CStyle strings work", "[API][String][CStyle][Unit]") {
+SCENARIO("CStyle strings work", "[API][Types][String][CStyle][Unit]") {
 	GIVEN("A valid CStyle string") {
 		const char* const TestData(u8"asdf");
 		WHEN("It is used to instantiate a Static") {
@@ -28,7 +28,7 @@ SCENARIO("CStyle strings work", "[API][String][CStyle][Unit]") {
 	}
 }
 
-SCENARIO("Static strings work", "[API][String][Static][Unit]") {
+SCENARIO("Static strings work", "[API][Types][String][Static][Unit]") {
 	GIVEN("A valid Static string") {
 		const char* const TestData(u8"asdf");
 		WHEN("It is used to instantiate a Static") {
@@ -61,7 +61,7 @@ SCENARIO("Static strings work", "[API][String][Static][Unit]") {
 	}
 }
 
-SCENARIO("String Equivalance works", "[API][String][CStyle][Unit]") {
+SCENARIO("String Equivalance works", "[API][Types][String][CStyle][Unit]") {
 	GIVEN("Two valid Static strings") {
 		CYB::API::String::Static S1("asdf"), S2("asdf"), S3("1234"), S4("12345");
 		WHEN("S1 and S2 are compared") {

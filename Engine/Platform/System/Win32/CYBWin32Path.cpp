@@ -93,9 +93,11 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::LocateDirectory(const System
 
 void CYB::Platform::System::Path::CreateDirectory(const API::String::UTF8& APath) {
 	API::String::UTF16 As16(APath);
-	if (Core().FModuleManager.Call<Modules::Kernel32::CreateDirectoryW>(As16.WString(), nullptr) == 0
-		&& Core().FModuleManager.Call<Modules::Kernel32::GetLastError>() != ERROR_ALREADY_EXISTS)
-		throw Exception::SystemData(Exception::SystemData::STREAM_NOT_WRITABLE);
+	if (CheckDirectoryExists(As16) != 1) {
+		if (Core().FModuleManager.Call<Modules::Kernel32::CreateDirectoryW>(As16.WString(), nullptr) == 0
+			&& Core().FModuleManager.Call<Modules::Kernel32::GetLastError>() != ERROR_ALREADY_EXISTS)
+			throw Exception::SystemData(Exception::SystemData::STREAM_NOT_WRITABLE);
+	}
 }
 
 void CYB::Platform::System::Path::DeleteDirectory(const API::String::UTF8& APath) {
@@ -112,7 +114,6 @@ void CYB::Platform::System::Path::DeleteDirectory(const API::String::UTF8& APath
 		}
 	}
 }
-
 
 void CYB::Platform::System::Path::DeleteFile(const API::String::UTF8& APath) {
 	API::String::UTF16 As16(APath);
@@ -162,16 +163,23 @@ void CYB::Platform::System::Path::SetPath(API::String::UTF8&& APath) {
 	FPath = std::move(APath);
 }
 
-bool CYB::Platform::System::Path::IsDirectory(void) const {
+int CYB::Platform::System::Implementation::Path::CheckDirectoryExists(const API::String::UTF16& APath) noexcept {
 	WIN32_FILE_ATTRIBUTE_DATA Attributes;
-	const auto Result(Core().FModuleManager.Call<Modules::Kernel32::GetFileAttributesExW>(FWidePath.WString(), GetFileExInfoStandard, &Attributes));
-	if (Result == 0) {
+	const auto Result(Core().FModuleManager.Call<Modules::Kernel32::GetFileAttributesExW>(APath.WString(), GetFileExInfoStandard, &Attributes));
+	if (Result == 0)
+		return -1;
+	return ((Attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) > 0) ? 1 : 0;
+}
+
+bool CYB::Platform::System::Path::IsDirectory(void) const {
+	const auto Result(CheckDirectoryExists(FWidePath));
+	if (Result == -1) {
 		const auto Error(Core().FModuleManager.Call<Modules::Kernel32::GetLastError>());
 		if (Error == ERROR_ACCESS_DENIED || Error == ERROR_SHARING_VIOLATION)
 			throw Exception::SystemData(Exception::SystemData::STREAM_NOT_READABLE);
 		throw Exception::SystemData(Exception::SystemData::PATH_LOST);
 	}
-	return (Attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) > 0;
+	return Result == 1;
 }
 
 void CYB::Platform::System::Path::NavigateToParentDirectory(void) {

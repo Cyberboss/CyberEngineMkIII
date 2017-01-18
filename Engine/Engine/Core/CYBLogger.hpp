@@ -5,6 +5,7 @@ namespace CYB {
 	namespace Engine {
 		//! @brief The threaded, queued engine logger
 		class Logger : public API::Logger, private API::Threadable {
+			ENABLE_TEST_HOOKS
 		private:
 			//! @brief Log entries to be inserted into the queue
 			struct LogEntry {
@@ -81,6 +82,14 @@ namespace CYB {
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if the log File could not be written to
 			*/
 			void EmptyQueue(void);
+
+			/*!
+				@brief Returns the current object as a Threadable reference. Used to get around some weird VS construction issues
+				@return *this;
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			API::Threadable& SelfAsThreadable(void) noexcept;
 
 			/*!
 				@brief Writer thread. Runs in a loop until CancelThreadedOperation is called

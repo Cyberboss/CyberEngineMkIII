@@ -35,6 +35,13 @@ REDIRECTED_FUNCTION(BadCreateFile, const void* const, const unsigned long, const
 }
 #endif
 
+template <> void CYB::Engine::Logger::Backdoor<int>(int& AIgnored) {
+	static_cast<void>(AIgnored);
+#if defined(DEBUG) && defined(TARGET_OS_WINDOWS)
+	static_cast<Logger*>(nullptr)->SelfAsThreadable();
+#endif
+}
+
 SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 	using namespace CYB::API::String;
 	TestDependancies Deps;
@@ -88,6 +95,10 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 					CHECK(ThePath.IsFile());
 				}
 			}
+		}
+		WHEN("The things I do for code coverage") {
+			int bluh;
+			CHECK_NOTHROW(CYB::Engine::Logger::Backdoor(bluh));
 		}
 	}
 	GIVEN("A bad file opener") {

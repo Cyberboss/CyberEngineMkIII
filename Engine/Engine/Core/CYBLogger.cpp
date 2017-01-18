@@ -77,8 +77,8 @@ CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 
 	FQueueHead = InitEntry;
 	FQueueTail = InitEntry;
-	
-	FThread = FContext.FAllocator.ConstructObject<Platform::System::Thread, API::Interop::NullConstructor>(static_cast<API::Threadable&>(*this));
+
+	FThread = FContext.FAllocator.ConstructObject<Platform::System::Thread, API::Interop::NullConstructor>(SelfAsThreadable());
 }
 
 CYB::Engine::Logger::~Logger() {
@@ -142,6 +142,10 @@ void CYB::Engine::Logger::EmptyQueue(void) {
 		} while (Written < Len);
 		API::Assert::Equal<unsigned long long>(Written, Len);
 	}
+}
+
+CYB::API::Threadable& CYB::Engine::Logger::SelfAsThreadable(void) noexcept {
+	return *this;
 }
 
 void CYB::Engine::Logger::BeginThreadedOperation(void) {

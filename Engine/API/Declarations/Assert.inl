@@ -6,11 +6,7 @@ inline void CYB::API::Assert::HCF[[noreturn]](void) noexcept {
 #ifdef DEBUG
 	BREAK;
 #endif
-#ifdef TARGET_OS_WINDOWS
-	__assume(false);
-#else
-	__builtin_unreachable();
-#endif
+	UNREACHABLE;
 }
 
 inline void CYB::API::Assert::Unimplemented(const char* const AFunction, const char* const AFile, const unsigned int ALine) noexcept {

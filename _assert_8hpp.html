@@ -140,6 +140,14 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_assert_8hpp.html#abe022c8f09db1f0680a92293523f25dd">BREAK</a>&#160;&#160;&#160;<a class="el" href="_assert_8hpp.html#a700f88377bf36711b711f69b06c52f5d">NOP</a></td></tr>
 <tr class="memdesc:abe022c8f09db1f0680a92293523f25dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Breaks code execution at line used if DEBUG is defined. Must be defined by user otherwise. <br/></td></tr>
 <tr class="separator:abe022c8f09db1f0680a92293523f25dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3af99897b60119951af8961dbd52dd3f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3af99897b60119951af8961dbd52dd3f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_assert_8hpp.html#a3af99897b60119951af8961dbd52dd3f">UNREACHABLE</a></td></tr>
+<tr class="memdesc:a3af99897b60119951af8961dbd52dd3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used for hardcore unreachable code paths when Assert::HCF is not enough. Should generally be avoided in units. <br/></td></tr>
+<tr class="separator:a3af99897b60119951af8961dbd52dd3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3af99897b60119951af8961dbd52dd3f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3af99897b60119951af8961dbd52dd3f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_assert_8hpp.html#a3af99897b60119951af8961dbd52dd3f">UNREACHABLE</a>&#160;&#160;&#160;__builtin_unreachable()</td></tr>
+<tr class="memdesc:a3af99897b60119951af8961dbd52dd3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used for hardcore unreachable code paths when Assert::HCF is not enough. Should generally be avoided in units. <br/></td></tr>
+<tr class="separator:a3af99897b60119951af8961dbd52dd3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8608fe736d309b01e7bf6c4d414e3bf4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8608fe736d309b01e7bf6c4d414e3bf4"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_assert_8hpp.html#a8608fe736d309b01e7bf6c4d414e3bf4">UNIMPLEMENTED</a>&#160;&#160;&#160;<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_assert.html#aded6f72fabafc53506cd3426d490d6f7">CYB::API::Assert::Unimplemented</a>(__FUNCTION__, __FILE__, __LINE__)</td></tr>
 <tr class="memdesc:a8608fe736d309b01e7bf6c4d414e3bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quick macro for supplying <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_assert.html#aded6f72fabafc53506cd3426d490d6f7" title="Indicates an unimplemented function, calls HCF if ASSERTION_OVERRIDE is not defined. ">CYB::API::Assert::Unimplemented</a> with the correct parameters. <br/></td></tr>

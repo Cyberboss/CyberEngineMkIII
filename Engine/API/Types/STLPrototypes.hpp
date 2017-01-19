@@ -1,4 +1,4 @@
-//! @file Containers.hpp Aliasings of STL containers to use the correct allocator types
+//! @file STLPrototypes.hpp Aliasings of STL containers to use the correct allocator types
 #pragma once
 
 namespace CYB {

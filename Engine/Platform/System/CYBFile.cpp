@@ -19,7 +19,9 @@ CYB::Platform::System::File::File(const API::Path& APath, const Mode AMode, cons
 	case Mode::READ_WRITE:
 		Message += Static("READ_WRITE");
 		break;
-	}	//default handled by base
+	default:
+		UNREACHABLE;
+	}
 	Message += Static(" with method: ");
 	switch (AMethod) {
 	case Method::ANY:
@@ -34,6 +36,8 @@ CYB::Platform::System::File::File(const API::Path& APath, const Mode AMode, cons
 	case Method::TRUNCATE:
 		Message += Static("TRUNCATE");
 		break;
+	default:
+		UNREACHABLE;
 	}
 	API::Context().FLogger.Log(Message, API::Logger::Level::DEV);
 #endif

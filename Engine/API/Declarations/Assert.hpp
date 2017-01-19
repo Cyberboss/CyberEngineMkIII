@@ -19,6 +19,7 @@
 
 //! @brief Used for hardcore unreachable code paths when Assert::HCF is not enough. Should generally be avoided in units
 #define UNREACHABLE
+#undef UNREACHABLE
 
 #ifdef TARGET_OS_WINDOWS
 #define UNREACHABLE __assume(false)

@@ -29,7 +29,7 @@ DEFINE_WINDOWS_MODULE(Kernel32, u8"kernel32", Win32, false, true,
 	FindFirstFileW, FindNextFileW, FindClose,
 	CreateDirectoryW, RemoveDirectoryW, GetFileAttributesExW, SetFileAttributesW, DeleteFileW,
 	CreateFileW, GetFileSizeEx, SetFilePointerEx, ReadFile, WriteFile,
-	AllocConsole, FreeConsole, AttachConsole, WriteConsoleW, SetConsoleMode, GetStdHandle)
+	AllocConsole, FreeConsole, AttachConsole, WriteConsoleA, GetStdHandle, SetConsoleOutputCP)
 DEFINE_WINDOWS_MODULE(Kernel32Extended, u8"kernel32", Win32, true, true, DiscardVirtualMemory)
 DEFINE_WINDOWS_MODULE(Shell, u8"shell32", Win32, false, true, ShellExecuteExW, SHGetKnownFolderPath)
 DEFINE_WINDOWS_MODULE(Ole32, u8"Ole32", Win32, false, true, CoTaskMemFree)

@@ -5,6 +5,7 @@ using namespace CYB::Platform::Win32;
 
 void CYB::Platform::System::Console::Show(void) noexcept {
 	Core().FModuleManager.Call<Modules::Kernel32::AllocConsole>();
+	Core().FModuleManager.Call<Modules::Kernel32::SetConsoleOutputCP>(static_cast<UINT>(CP_UTF8));
 	//! @todo when command line is implemnted, refork another process which holds onto this console so it doesn't close when the program exits. See http://stackoverflow.com/a/979116
 }
 
@@ -12,5 +13,5 @@ void CYB::Platform::System::Console::WriteOut(const CYB::API::String::CStyle& AM
 	//fire and forget approach
 	auto& MM(Core().FModuleManager);
 	DWORD OutWritten;
-	MM.Call<Modules::Kernel32::WriteConsoleW>(MM.Call<Modules::Kernel32::GetStdHandle>(AError ? STD_ERROR_HANDLE : STD_OUTPUT_HANDLE), AMessage.CString(), static_cast<DWORD>(AMessage.RawLength()), &OutWritten, nullptr);
+	MM.Call<Modules::Kernel32::WriteConsoleA>(MM.Call<Modules::Kernel32::GetStdHandle>(AError ? STD_ERROR_HANDLE : STD_OUTPUT_HANDLE), AMessage.CString(), static_cast<DWORD>(AMessage.RawLength()), &OutWritten, nullptr);
 }

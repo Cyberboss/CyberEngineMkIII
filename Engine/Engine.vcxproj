@@ -210,6 +210,7 @@
     <ClInclude Include="API\Declarations\SystemChecks.hpp" />
     <ClInclude Include="API\ExtendedTypes\ExtendedTypes.hpp" />
     <ClInclude Include="API\ExtendedTypes\LockGuard.hpp" />
+    <ClInclude Include="API\ExtendedTypes\UniquePointer.hpp" />
     <ClInclude Include="API\Interfaces\Heap.hpp" />
     <ClInclude Include="API\Interfaces\Interfaces.hpp" />
     <ClInclude Include="API\Interfaces\Stream.hpp" />
@@ -220,7 +221,7 @@
     <ClInclude Include="API\Interop\Interop.hpp" />
     <ClInclude Include="API\Interop\Object.hpp" />
     <ClInclude Include="API\Interop\STLAllocator.hpp" />
-    <ClInclude Include="API\Types\STLPrototypes.hpp" />
+    <ClInclude Include="API\Types\Containers.hpp" />
     <ClInclude Include="API\Types\EngineInformation.hpp" />
     <ClInclude Include="API\Types\Exception.hpp" />
     <ClInclude Include="API\Types\ParameterPack.hpp" />
@@ -296,6 +297,7 @@
     <None Include="API\Declarations\Expressions.inl" />
     <None Include="API\Declarations\OSDeclaration.inl" />
     <None Include="API\ExtendedTypes\LockGuard.inl" />
+    <None Include="API\ExtendedTypes\UniquePointer.inl" />
     <None Include="API\Interop\Context.inl" />
     <None Include="API\Interop\Allocatable.inl" />
     <None Include="API\Interop\Allocator.inl" />
@@ -306,7 +308,6 @@
     <None Include="API\Types\Exception.inl" />
     <None Include="API\Types\ParameterPack.inl" />
     <None Include="API\Types\Singleton.inl" />
-    <None Include="API\Types\STLPrototypes.inl" />
     <None Include="API\Types\String\CStyleString.inl" />
     <None Include="API\Types\String\DynamicString.inl" />
     <None Include="API\Types\String\StaticString.inl" />

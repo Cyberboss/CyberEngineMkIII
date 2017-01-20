@@ -469,7 +469,10 @@
     <ClInclude Include="API\Interfaces\Stream.hpp">
       <Filter>API\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="API\Types\STLPrototypes.hpp">
+    <ClInclude Include="API\ExtendedTypes\UniquePointer.hpp">
+      <Filter>API\ExtendedTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\Containers.hpp">
       <Filter>API\Types</Filter>
     </ClInclude>
   </ItemGroup>
@@ -555,8 +558,8 @@
     <None Include="Platform\Modules\CYBModuleManager.inl">
       <Filter>Platform\Modules</Filter>
     </None>
-    <None Include="API\Types\STLPrototypes.inl">
-      <Filter>API\Types</Filter>
+    <None Include="API\ExtendedTypes\UniquePointer.inl">
+      <Filter>API\ExtendedTypes</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

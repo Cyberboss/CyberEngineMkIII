@@ -6,6 +6,7 @@ namespace CYB {
 		//! @brief UniquePointer that uses our Allocator
 		template <typename AType> class UniquePointer : public std::unique_ptr<AType, void(*)(AType* const)> {
 		private:
+			//! @brief For readibility and fighting a bug with namespaced template base class constructors
 			using BaseType = std::unique_ptr<AType, void(*)(AType* const)>;
 		private:
 			/*!

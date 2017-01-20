@@ -7,15 +7,15 @@ template <typename AType> void CYB::API::UniquePointer<AType>::Delete(AType* con
 }
 
 template <typename AType> constexpr CYB::API::UniquePointer<AType>::UniquePointer() noexcept :
-	unique_ptr<AType, void(*)(AType* const)>(nullptr, Delete)
+	BaseType(nullptr, Delete)
 {}
 
 template <typename AType> constexpr CYB::API::UniquePointer<AType>::UniquePointer(const std::nullptr_t AIgnored) noexcept :
-	unique_ptr<AType, void(*)(AType* const)>(nullptr, Delete)
+	BaseType(nullptr, Delete)
 {
 	static_cast<void>(AIgnored);
 }
 
 template <typename AType> CYB::API::UniquePointer<AType>::UniquePointer(AType* const APointer) noexcept :
-	unique_ptr<AType, void(*)(AType* const)>(APointer, Delete)
+	BaseType(APointer, Delete)
 {}

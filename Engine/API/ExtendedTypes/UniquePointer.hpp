@@ -6,6 +6,8 @@ namespace CYB {
 		//! @brief UniquePointer that uses our Allocator
 		template <typename AType> class UniquePointer : public std::unique_ptr<AType, void(*)(AType* const)> {
 		private:
+			using BaseType = std::unique_ptr<AType, void(*)(AType* const)>;
+		private:
 			/*!
 				@brief Deletes @p APointer using the Allocator
 				@param APointer The pointer to delete

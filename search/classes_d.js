@@ -1,8 +1,8 @@
 var searchData=
 [
   ['safestream',['SafeStream',['../class_c_y_b_1_1_a_p_i_1_1_safe_stream.html',1,'CYB::API']]],
-  ['semaphore',['Semaphore',['../class_c_y_b_1_1_a_p_i_1_1_semaphore.html',1,'CYB::API']]],
   ['semaphore',['Semaphore',['../class_c_y_b_1_1_platform_1_1_system_1_1_semaphore.html',1,'CYB::Platform::System']]],
+  ['semaphore',['Semaphore',['../class_c_y_b_1_1_a_p_i_1_1_semaphore.html',1,'CYB::API']]],
   ['semaphore',['Semaphore',['../class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_semaphore.html',1,'CYB::Platform::System::Implementation']]],
   ['singleton',['Singleton',['../class_c_y_b_1_1_a_p_i_1_1_singleton.html',1,'CYB::API']]],
   ['singleton_3c_20core_20_3e',['Singleton&lt; Core &gt;',['../class_c_y_b_1_1_a_p_i_1_1_singleton.html',1,'CYB::API']]],

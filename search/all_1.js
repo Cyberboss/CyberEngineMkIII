@@ -2,6 +2,7 @@ var searchData=
 [
   ['base',['Base',['../class_c_y_b_1_1_exception_1_1_base.html',1,'CYB::Exception']]],
   ['base',['Base',['../class_c_y_b_1_1_exception_1_1_base.html#a7cb099f696d8f3c9656f0745483f457c',1,'CYB::Exception::Base']]],
+  ['basetype',['BaseType',['../class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html#a90faa79c624dc47119eacb09358ddec8',1,'CYB::API::UniquePointer']]],
   ['begin',['BEGIN',['../class_c_y_b_1_1_a_p_i_1_1_stream.html#ab2cc5268e74efc468f8101e280aa0336a19aad9f2fe3ce0023298ab83f7e75775',1,'CYB::API::Stream']]],
   ['beginthreadedoperation',['BeginThreadedOperation',['../class_c_y_b_1_1_a_p_i_1_1_threadable.html#a8fce6ce9f1ed6e12e0982a49e20004c3',1,'CYB::API::Threadable::BeginThreadedOperation()'],['../class_c_y_b_1_1_a_p_i_1_1_threadable_taskset.html#a4ed6bb65e6a7b7ce0f88b4952e4c634b',1,'CYB::API::ThreadableTaskset::BeginThreadedOperation()']]],
   ['block',['Block',['../class_c_y_b_1_1_engine_1_1_memory_1_1_block.html',1,'CYB::Engine::Memory']]],

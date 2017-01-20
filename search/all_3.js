@@ -4,7 +4,7 @@ var searchData=
   ['deallocatedata',['DeallocateData',['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html#ac7ef1e3297aaf02e32fcccdb40cd9838',1,'CYB::API::String::Dynamic']]],
   ['debug',['DEBUG',['../_o_s_declaration_8hpp.html#ad72dbcf6d0153db1b8d8a58001feed83',1,'OSDeclaration.hpp']]],
   ['declarations_2ehpp',['Declarations.hpp',['../_declarations_8hpp.html',1,'']]],
-  ['delete',['Delete',['../class_c_y_b_1_1_a_p_i_1_1_path.html#a87cdd42256b2efcc0a09a9ba266585bd',1,'CYB::API::Path::Delete()'],['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a84f20f5780d949843e5a141233e2a1e8',1,'CYB::API::Interop::Allocator::Delete()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_path.html#a65316fd7adfaee16a4ce7e8e8b648536',1,'CYB::Platform::System::Path::Delete()']]],
+  ['delete',['Delete',['../class_c_y_b_1_1_a_p_i_1_1_path.html#a87cdd42256b2efcc0a09a9ba266585bd',1,'CYB::API::Path::Delete()'],['../class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html#a613d63b95c8a6d0c2f2fc03eb28a8306',1,'CYB::API::UniquePointer::Delete()'],['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a84f20f5780d949843e5a141233e2a1e8',1,'CYB::API::Interop::Allocator::Delete()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_path.html#a65316fd7adfaee16a4ce7e8e8b648536',1,'CYB::Platform::System::Path::Delete()']]],
   ['deletedirectory',['DeleteDirectory',['../class_c_y_b_1_1_platform_1_1_system_1_1_path.html#a9236971e02b7f5c17ce9b4950b74f04a',1,'CYB::Platform::System::Path']]],
   ['deletefile',['DeleteFile',['../class_c_y_b_1_1_platform_1_1_system_1_1_path.html#ad3f1f4cc0c60367d59a6944dd5b4f556',1,'CYB::Platform::System::Path']]],
   ['deque',['Deque',['../namespace_c_y_b_1_1_a_p_i_1_1_container.html#af5392fe8baf7ae1607f9964da8339056',1,'CYB::API::Container']]],

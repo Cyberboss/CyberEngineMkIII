@@ -1,13 +1,13 @@
 <map id="Engine/CYB.hpp" name="Engine/CYB.hpp">
-<area shape="rect" id="node2" href="$_cyber_engine_8hpp.html" title="Precompiled header for engine API. " alt="" coords="3943,80,4091,107"/>
-<area shape="rect" id="node61" href="$_c_y_b_platform_8hpp.html" title="Includes platform headers. " alt="" coords="6759,80,6936,107"/>
-<area shape="rect" id="node87" href="$_c_y_b_engine_8hpp.html" title="Includes headers for platform agnostic engine functions. " alt="" coords="8883,80,9041,107"/>
+<area shape="rect" id="node2" href="$_cyber_engine_8hpp.html" title="Precompiled header for engine API. " alt="" coords="4067,80,4215,107"/>
+<area shape="rect" id="node63" href="$_c_y_b_platform_8hpp.html" title="Includes platform headers. " alt="" coords="6643,80,6820,107"/>
+<area shape="rect" id="node89" href="$_c_y_b_engine_8hpp.html" title="Includes headers for platform agnostic engine functions. " alt="" coords="8767,80,8925,107"/>
 <area shape="rect" id="node3" href="$_declarations_8hpp.html" title="Includes the headers needed before anything else in the engine. " alt="" coords="391,177,588,204"/>
 <area shape="rect" id="node14" href="$_types_8hpp.html" title="Defines global level basic types. " alt="" coords="1583,177,1705,204"/>
 <area shape="rect" id="node34" href="$_interop_8hpp.html" title="Includes files that contain classes required for communitcation between the engine and the unit..." alt="" coords="2643,177,2772,204"/>
-<area shape="rect" id="node41" href="$_interfaces_8hpp.html" title="Includes headers that define non&#45;allocatable engine objects. " alt="" coords="3017,177,3183,204"/>
-<area shape="rect" id="node44" href="$_allocatables_8hpp.html" title="Includes engine allocatable types. " alt="" coords="3207,177,3400,204"/>
-<area shape="rect" id="node58" href="$_extended_types_8hpp.html" title="Includes headers that define types with certain dependancies. " alt="" coords="5451,177,5684,204"/>
+<area shape="rect" id="node41" href="$_interfaces_8hpp.html" title="Includes headers that define non&#45;allocatable engine objects. " alt="" coords="3110,177,3276,204"/>
+<area shape="rect" id="node44" href="$_allocatables_8hpp.html" title="Includes engine allocatable types. " alt="" coords="3305,177,3497,204"/>
+<area shape="rect" id="node49" href="$_extended_types_8hpp.html" title="Includes headers that define types with certain dependancies. " alt="" coords="3522,177,3755,204"/>
 <area shape="rect" id="node4" href="$_o_s_declaration_8hpp.html" title="Defines the TARGET_OS_XXX macro for identifying the operating system the program is being compiled fo..." alt="" coords="5,275,136,301"/>
 <area shape="rect" id="node6" href="$_endianess_8hpp.html" title="Ensures the engine/unit is being compiled on a little endian architecture. " alt="" coords="161,275,268,301"/>
 <area shape="rect" id="node8" href="$_system_checks_8hpp.html" title="Checks the platform that the engine and unit is being compiled on is appropriate. ..." alt="" coords="293,275,429,301"/>
@@ -39,30 +39,31 @@
 <area shape="rect" id="node46" href="$_path_8hpp.html" title="Defines the API for Paths. " alt="" coords="3369,275,3443,301"/>
 <area shape="rect" id="node47" href="$_file_8hpp.html" title="Defines the API for files. " alt="" coords="3469,275,3536,301"/>
 <area shape="rect" id="node48" href="$_semaphore_8hpp.html" title="Contains the declaration of CYB::API::Semaphore. " alt="" coords="3561,275,3673,301"/>
-<area shape="rect" id="node59" href="$_lock_guard_8hpp.html" title="Defines the LockGuard class. " alt="" coords="5387,275,5497,301"/>
-<area shape="rect" id="node62" href="$_c_y_b_system_headers_8hpp.html" title="Includes files which include Platform specific headers. " alt="" coords="5833,177,6100,204"/>
-<area shape="rect" id="node68" href="$_c_y_b_system_8hpp.html" title="Includes platform system headers. " alt="" coords="6763,177,6932,204"/>
-<area shape="rect" id="node78" href="$_c_y_b_modules_8hpp.html" title="Includes Module headers. " alt="" coords="7921,177,8097,204"/>
-<area shape="rect" id="node63" href="$_c_y_b_win32_headers_8hpp.html" title="Includes headers for Windows platforms. " alt="" coords="5522,275,5683,301"/>
-<area shape="rect" id="node64" href="$_c_y_b_u_t_f16_string_8hpp.html" title="Defines the Win32 only UTF16 converter. " alt="" coords="5528,349,5676,376"/>
-<area shape="rect" id="node69" href="$_c_y_b_syscalls_8hpp.html" title="Defines the System Call interface. " alt="" coords="6244,275,6369,301"/>
-<area shape="rect" id="node71" href="$_c_y_b_virtual_memory_8hpp.html" title="Contains the platform memory manager functions. " alt="" coords="6394,275,6552,301"/>
-<area shape="rect" id="node72" href="$_c_y_b_thread_8hpp.html" title="Contains the platform thread definition. " alt="" coords="6577,275,6692,301"/>
-<area shape="rect" id="node73" href="$_c_y_b_process_8hpp.html" title="Defines the platform process interface. " alt="" coords="6716,275,6839,301"/>
-<area shape="rect" id="node74" href="$_c_y_b_mutex_8hpp.html" title="Contains the definition for an process unique, fast thread safety mechanism. " alt="" coords="6863,275,6973,301"/>
-<area shape="rect" id="node75" href="$_c_y_b_semaphore_8hpp.html" title="Contains the declaration of CYB::Platform::System::Semaphore. " alt="" coords="6999,275,7139,301"/>
-<area shape="rect" id="node76" href="$_c_y_b_path_8hpp.html" title="Defines the Path interface. " alt="" coords="7165,275,7267,301"/>
-<area shape="rect" id="node77" href="$_c_y_b_file_8hpp.html" title="Defines the filesystem interface. " alt="" coords="7292,275,7388,301"/>
-<area shape="rect" id="node80" href="$_c_y_b_module_8hpp.html" title="Defines the interface for loading module functions. " alt="" coords="7713,275,7829,301"/>
-<area shape="rect" id="node81" href="$_c_y_b_auto_module_8hpp.html" title="Defines the interface for creating templates that are modules as objects. " alt="" coords="7855,275,7999,301"/>
-<area shape="rect" id="node83" href="$_c_y_b_module_macros_8hpp.html" title="Defines the DEFINE_MODULE macro for easily adding modules. " alt="" coords="8183,275,8341,301"/>
-<area shape="rect" id="node84" href="$_c_y_b_module_definitions_8hpp.html" title="uses the module macros to define AutoModules that will be used by the engine " alt="" coords="8367,275,8545,301"/>
-<area shape="rect" id="node85" href="$_c_y_b_module_manager_8hpp.html" title="Contains the declaration of CYB::Platform::Manager. " alt="" coords="8570,275,8736,301"/>
-<area shape="rect" id="node88" href="$_c_y_b_memory_8hpp.html" title="Contains all headers relating to memory. " alt="" coords="8876,177,9049,204"/>
-<area shape="rect" id="node92" href="$_c_y_b_core_8hpp.html" title="Defines the engine core interface and static pointer as well as the Engine() access function..." alt="" coords="9213,177,9347,204"/>
-<area shape="rect" id="node89" href="$_c_y_b_block_8hpp.html" title="Defines the Block class used by the Heap. " alt="" coords="8761,275,8868,301"/>
-<area shape="rect" id="node90" href="$_c_y_b_large_block_8hpp.html" title="Defines the LargeBlock class used by the Heap. " alt="" coords="8893,275,9032,301"/>
-<area shape="rect" id="node91" href="$_c_y_b_heap_8hpp.html" title="Defines the Heap implementation. " alt="" coords="9057,275,9164,301"/>
-<area shape="rect" id="node93" href="$_c_y_b_engine_parameters_8hpp.html" title="Engine compilation configuration variables. " alt="" coords="9189,275,9371,301"/>
-<area shape="rect" id="node94" href="$_c_y_b_interop_8hpp.html" title="Defines the implementations of virtual functions defined in CYB::API::Interop. " alt="" coords="9396,275,9511,301"/>
+<area shape="rect" id="node50" href="$_unique_pointer_8hpp.html" title="Defines the CYB extension of std::unique_ptr. " alt="" coords="3698,275,3827,301"/>
+<area shape="rect" id="node52" href="$_lock_guard_8hpp.html" title="Defines the LockGuard class. " alt="" coords="3851,275,3961,301"/>
+<area shape="rect" id="node64" href="$_c_y_b_system_headers_8hpp.html" title="Includes files which include Platform specific headers. " alt="" coords="5807,177,6073,204"/>
+<area shape="rect" id="node70" href="$_c_y_b_system_8hpp.html" title="Includes platform system headers. " alt="" coords="6647,177,6816,204"/>
+<area shape="rect" id="node80" href="$_c_y_b_modules_8hpp.html" title="Includes Module headers. " alt="" coords="7805,177,7981,204"/>
+<area shape="rect" id="node65" href="$_c_y_b_win32_headers_8hpp.html" title="Includes headers for Windows platforms. " alt="" coords="5406,275,5567,301"/>
+<area shape="rect" id="node66" href="$_c_y_b_u_t_f16_string_8hpp.html" title="Defines the Win32 only UTF16 converter. " alt="" coords="5412,349,5560,376"/>
+<area shape="rect" id="node71" href="$_c_y_b_syscalls_8hpp.html" title="Defines the System Call interface. " alt="" coords="6128,275,6253,301"/>
+<area shape="rect" id="node73" href="$_c_y_b_virtual_memory_8hpp.html" title="Contains the platform memory manager functions. " alt="" coords="6278,275,6436,301"/>
+<area shape="rect" id="node74" href="$_c_y_b_thread_8hpp.html" title="Contains the platform thread definition. " alt="" coords="6461,275,6576,301"/>
+<area shape="rect" id="node75" href="$_c_y_b_process_8hpp.html" title="Defines the platform process interface. " alt="" coords="6600,275,6723,301"/>
+<area shape="rect" id="node76" href="$_c_y_b_mutex_8hpp.html" title="Contains the definition for an process unique, fast thread safety mechanism. " alt="" coords="6747,275,6857,301"/>
+<area shape="rect" id="node77" href="$_c_y_b_semaphore_8hpp.html" title="Contains the declaration of CYB::Platform::System::Semaphore. " alt="" coords="6883,275,7023,301"/>
+<area shape="rect" id="node78" href="$_c_y_b_path_8hpp.html" title="Defines the Path interface. " alt="" coords="7049,275,7151,301"/>
+<area shape="rect" id="node79" href="$_c_y_b_file_8hpp.html" title="Defines the filesystem interface. " alt="" coords="7176,275,7272,301"/>
+<area shape="rect" id="node82" href="$_c_y_b_module_8hpp.html" title="Defines the interface for loading module functions. " alt="" coords="7597,275,7713,301"/>
+<area shape="rect" id="node83" href="$_c_y_b_auto_module_8hpp.html" title="Defines the interface for creating templates that are modules as objects. " alt="" coords="7739,275,7883,301"/>
+<area shape="rect" id="node85" href="$_c_y_b_module_macros_8hpp.html" title="Defines the DEFINE_MODULE macro for easily adding modules. " alt="" coords="8067,275,8225,301"/>
+<area shape="rect" id="node86" href="$_c_y_b_module_definitions_8hpp.html" title="uses the module macros to define AutoModules that will be used by the engine " alt="" coords="8251,275,8429,301"/>
+<area shape="rect" id="node87" href="$_c_y_b_module_manager_8hpp.html" title="Contains the declaration of CYB::Platform::Manager. " alt="" coords="8454,275,8620,301"/>
+<area shape="rect" id="node90" href="$_c_y_b_memory_8hpp.html" title="Contains all headers relating to memory. " alt="" coords="8760,177,8933,204"/>
+<area shape="rect" id="node94" href="$_c_y_b_core_8hpp.html" title="Defines the engine core interface and static pointer as well as the Engine() access function..." alt="" coords="9097,177,9231,204"/>
+<area shape="rect" id="node91" href="$_c_y_b_block_8hpp.html" title="Defines the Block class used by the Heap. " alt="" coords="8645,275,8752,301"/>
+<area shape="rect" id="node92" href="$_c_y_b_large_block_8hpp.html" title="Defines the LargeBlock class used by the Heap. " alt="" coords="8777,275,8916,301"/>
+<area shape="rect" id="node93" href="$_c_y_b_heap_8hpp.html" title="Defines the Heap implementation. " alt="" coords="8941,275,9048,301"/>
+<area shape="rect" id="node95" href="$_c_y_b_engine_parameters_8hpp.html" title="Engine compilation configuration variables. " alt="" coords="9073,275,9255,301"/>
+<area shape="rect" id="node96" href="$_c_y_b_interop_8hpp.html" title="Defines the implementations of virtual functions defined in CYB::API::Interop. " alt="" coords="9280,275,9395,301"/>
 </map>

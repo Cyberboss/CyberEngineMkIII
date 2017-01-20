@@ -1,3 +1,4 @@
 <map id="Engine/API/ExtendedTypes/ExtendedTypes.hpp" name="Engine/API/ExtendedTypes/ExtendedTypes.hpp">
-<area shape="rect" id="node2" href="$_lock_guard_8hpp.html" title="Defines the LockGuard class. " alt="" coords="41,96,151,123"/>
+<area shape="rect" id="node2" href="$_unique_pointer_8hpp.html" title="Defines the CYB extension of std::unique_ptr. " alt="" coords="5,96,133,123"/>
+<area shape="rect" id="node4" href="$_lock_guard_8hpp.html" title="Defines the LockGuard class. " alt="" coords="158,96,268,123"/>
 </map>

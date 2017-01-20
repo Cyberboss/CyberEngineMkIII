@@ -51,7 +51,7 @@ namespace CYB {
 				/*!
 					@brief Get the @p ASkip'th index of byte @p AByte in the string
 					@param AByte The byte to check for
-					@param ASkip The number of occurances to skip
+					@param ASkip The number of occurences to skip
 					@return The @p ASkip'th index of @p AByte in the string or -1 if it doesn't exist
 					@par Thread Safety
 						This function requires synchronization at the object level

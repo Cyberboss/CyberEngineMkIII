@@ -8,29 +8,9 @@ template <class AAllocatable> AAllocatable* CYB::Engine::Allocator::DoAllocation
 
 	auto& TrueConstructor(static_cast<typename AAllocatable::Constructor&>(AConstructor));
 	
-	class AutoCleanup {
-	private:
-		API::Heap& FHeap;
-	public:
-		void* FLocation;
-	public:
-		AutoCleanup(API::Heap& AHeap) :
-			FHeap(AHeap),
-			FLocation(AHeap.Alloc(sizeof(AAllocatable)))
-		{}
-		~AutoCleanup() {
-			FHeap.Free(FLocation);
-		}
-		void* Release(void) noexcept {
-			auto Result(FLocation);
-			FLocation = nullptr;
-			return Result;
-		}
-	};
-
-	AutoCleanup Location(FHeap);
-	TrueConstructor.template Construct<AAllocatable>(Location.FLocation);
-	auto Result(static_cast<AAllocatable*>(Location.Release()));
+	API::UniquePointer<void> Location(FHeap.Alloc(sizeof(AAllocatable)));
+	TrueConstructor.template Construct<AAllocatable>(Location.get());
+	auto Result(static_cast<AAllocatable*>(Location.release()));
 	return Result;
 }
 

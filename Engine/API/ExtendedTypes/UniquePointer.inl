@@ -1,9 +1,7 @@
 #pragma once
 
 template <typename AType> void CYB::API::UniquePointer<AType>::Delete(AType* const APointer) noexcept {
-	//! @todo Make this use Allocator::Delete after the refactor
-	APointer->~AType();
-	Context().FAllocator.FHeap.Free(APointer);
+	Context().FAllocator.DeleteObject(APointer);
 }
 
 template <typename AType> constexpr CYB::API::UniquePointer<AType>::UniquePointer() noexcept :

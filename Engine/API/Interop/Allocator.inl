@@ -14,25 +14,9 @@ template <class AObject, class AConstructor, typename... AArgs> AObject* CYB::AP
 
 template <class AObject, class AConstructor, typename... AArgs> AObject* CYB::API::Interop::Allocator::AllocateObject(const std::false_type AIgnored, AArgs&&... AArguments) {
 	static_cast<void>(AIgnored);
-	class AutoFreeBuffer {
-	public:
-		Allocator& FAllocator;
-		void* FBuffer;
-	public:
-		AutoFreeBuffer(void* const ABuffer, Allocator& AAllocator) :
-			FAllocator(AAllocator),
-			FBuffer(ABuffer)
-		{}
-		~AutoFreeBuffer() {
-
-			if (FBuffer != nullptr)
-				FAllocator.FHeap.Free(FBuffer);
-		}
-	};
-	AutoFreeBuffer Buf(FHeap.Alloc(sizeof(AObject)), *this);
-	using namespace std;
-	auto Result(InPlaceAllocation<AObject>(Buf.FBuffer, forward<AArgs>(AArguments)...));
-	Buf.FBuffer = nullptr;
+	UniquePointer<void> Buf(FHeap.Alloc(sizeof(AObject)));
+	auto Result(InPlaceAllocation<AObject>(Buf.get(), std::forward<AArgs>(AArguments)...));
+	Buf.release();
 	return Result;
 }
 

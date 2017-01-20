@@ -2,7 +2,7 @@
 
 using namespace CYB::API::String;
 
-SCENARIO("Dynamic string constructors work","[API][String][Dynamic][Unit]") {
+SCENARIO("Dynamic string constructors work","[API][Types][String][Dynamic][Unit]") {
 	GIVEN("Two static strings") {
 		CYB::API::String::Static S1("asdf"), S2("qwerty"), S3;
 		WHEN("A basic Dynamic string is constructed") {
@@ -45,7 +45,7 @@ SCENARIO("Dynamic string constructors work","[API][String][Dynamic][Unit]") {
 	}
 }
 
-SCENARIO("Dynamic string Length works", "[API][String][Dynamic][Unit]") {
+SCENARIO("Dynamic string Length works", "[API][Types][String][Dynamic][Unit]") {
 	GIVEN("A valid Dynamic string") {
 		CYB::API::String::Dynamic D7("asdf");
 		WHEN("The length is checked") {
@@ -57,7 +57,7 @@ SCENARIO("Dynamic string Length works", "[API][String][Dynamic][Unit]") {
 	}
 }
 
-SCENARIO("Dynamic string Shrink works", "[API][String][Dynamic][Unit]") {
+SCENARIO("Dynamic string Shrink works", "[API][Types][String][Dynamic][Unit]") {
 	GIVEN("A valid Dynamic string") {
 		CYB::API::String::Dynamic D7("asdf");
 		WHEN("It is shrunk normally") {
@@ -83,7 +83,7 @@ SCENARIO("Dynamic string Shrink works", "[API][String][Dynamic][Unit]") {
 	}
 }
 
-SCENARIO("Dynamic string Tokenize works", "[API][String][Dynamic][Unit]") {
+SCENARIO("Dynamic string Tokenize works", "[API][Types][String][Dynamic][Unit]") {
 	Dynamic Work;
 	GIVEN("A valid string") {
 		Work = Dynamic("I/am/a/delimited/string");
@@ -116,7 +116,7 @@ SCENARIO("Dynamic string Tokenize works", "[API][String][Dynamic][Unit]") {
 	}
 }
 
-SCENARIO("Dynamic string addition works", "[API][String][Dynamic][Unit]") {
+SCENARIO("Dynamic string addition works", "[API][Types][String][Dynamic][Unit]") {
 	GIVEN("Two empty strings") {
 		Dynamic A, B;
 		WHEN("The are added") {
@@ -149,7 +149,7 @@ SCENARIO("Dynamic string addition works", "[API][String][Dynamic][Unit]") {
 	}
 }
 
-SCENARIO("Dynamic copies maintain the correct length", "[API][String][Dynamic][Unit]") {
+SCENARIO("Dynamic copies maintain the correct length", "[API][Types][String][Dynamic][Unit]") {
 	GIVEN("A valid UTF8 string") {
 		Dynamic Source(u8"私は自分のベストを尽くします");
 		WHEN("It is copies") {
@@ -162,7 +162,7 @@ SCENARIO("Dynamic copies maintain the correct length", "[API][String][Dynamic][U
 	}
 }
 
-SCENARIO("Dynamic numbers work", "[API][String][Dynamic][Unit]") {
+SCENARIO("Dynamic numbers work", "[API][Types][String][Dynamic][Unit]") {
 	const auto Handle([](const auto ANumber, const char* const AResult) {
 		WHEN("It is made into a number string") {
 			Dynamic AsNumber(ANumber);

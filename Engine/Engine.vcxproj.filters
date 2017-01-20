@@ -466,11 +466,14 @@
     <ClInclude Include="Platform\System\Posix\CYBPosixSemaphore.hpp">
       <Filter>Platform\System\Posix</Filter>
     </ClInclude>
-    <ClInclude Include="API\Types\Containers.hpp">
-      <Filter>API\Types</Filter>
-    </ClInclude>
     <ClInclude Include="API\Interfaces\Stream.hpp">
       <Filter>API\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="API\ExtendedTypes\UniquePointer.hpp">
+      <Filter>API\ExtendedTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Types\Containers.hpp">
+      <Filter>API\Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -554,6 +557,9 @@
     </None>
     <None Include="Platform\Modules\CYBModuleManager.inl">
       <Filter>Platform\Modules</Filter>
+    </None>
+    <None Include="API\ExtendedTypes\UniquePointer.inl">
+      <Filter>API\ExtendedTypes</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

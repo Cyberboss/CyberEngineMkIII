@@ -5,7 +5,7 @@
 using namespace CYB::API::String;
 using namespace CYB::Platform::Win32;
 
-SCENARIO("UTF16 - UTF8 Conversions work", "[Platform][String][UTF16][Unit]") {
+SCENARIO("UTF16 - UTF8 Conversions work", "[API][Types][String][UTF16][Unit]") {
 	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
 #ifdef TARGET_OS_WINDOWS	//We use the MultiByteToWideChar/WideCharToMultiByte functions on windows, the only system where we need UTF16
 	UTF8 Dyn(Static(u8"私は自分のベストを尽くします"));
@@ -57,7 +57,7 @@ REDIRECTED_FUNCTION(BadWCTMB, UINT AArg1, DWORD AArg2, LPCWCH AArg3, int AArg4, 
 }
 #endif
 
-SCENARIO("UTF16 errors work", "[Platform][String][UTF16][Unit]") {
+SCENARIO("UTF16 errors work", "[API][Types][String][UTF16][Unit]") {
 	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
 #ifdef TARGET_OS_WINDOWS	//We use the MultiByteToWideChar/WideCharToMultiByte functions on windows, the only system where we need UTF16
 	GIVEN("Bad conversion calls and valid strings") {
@@ -86,7 +86,7 @@ SCENARIO("UTF16 errors work", "[Platform][String][UTF16][Unit]") {
 #endif
 }
 
-SCENARIO("UTF16 copies maintain the correct length", "[Platform][String][UTF16][Unit]") {
+SCENARIO("UTF16 copies maintain the correct length", "[API][Types][String][UTF16][Unit]") {
 	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
 #ifdef TARGET_OS_WINDOWS	//We use the MultiByteToWideChar/WideCharToMultiByte functions on windows, the only system where we need UTF16
 	GIVEN("A valid UTF16 string") {

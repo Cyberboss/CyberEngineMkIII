@@ -107,10 +107,11 @@
   <ItemGroup>
     <ClCompile Include="API\Interop\Allocator.cpp" />
     <ClCompile Include="API\Interop\STLAllocator.cpp" />
-    <ClCompile Include="API\String\DynamicString.cpp" />
-    <ClCompile Include="API\String\StaticAndCStyleString.cpp" />
-    <ClCompile Include="API\String\UTF16String.cpp" />
-    <ClCompile Include="API\String\UTF8String.cpp" />
+    <ClCompile Include="API\Types\DynamicString.cpp" />
+    <ClCompile Include="API\Types\StaticAndCStyleString.cpp" />
+    <ClCompile Include="API\Types\STLPrototypes.cpp" />
+    <ClCompile Include="API\Types\UTF16String.cpp" />
+    <ClCompile Include="API\Types\UTF8String.cpp" />
     <ClCompile Include="Engine\Core\Core.cpp" />
     <ClCompile Include="Engine\Memory\Blocks.cpp" />
     <ClCompile Include="Engine\Memory\Heap.cpp" />

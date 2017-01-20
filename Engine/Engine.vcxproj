@@ -210,6 +210,7 @@
     <ClInclude Include="API\Declarations\SystemChecks.hpp" />
     <ClInclude Include="API\ExtendedTypes\ExtendedTypes.hpp" />
     <ClInclude Include="API\ExtendedTypes\LockGuard.hpp" />
+    <ClInclude Include="API\ExtendedTypes\UniquePointer.hpp" />
     <ClInclude Include="API\Interfaces\Heap.hpp" />
     <ClInclude Include="API\Interfaces\Interfaces.hpp" />
     <ClInclude Include="API\Interfaces\Stream.hpp" />
@@ -296,6 +297,7 @@
     <None Include="API\Declarations\Expressions.inl" />
     <None Include="API\Declarations\OSDeclaration.inl" />
     <None Include="API\ExtendedTypes\LockGuard.inl" />
+    <None Include="API\ExtendedTypes\UniquePointer.inl" />
     <None Include="API\Interop\Context.inl" />
     <None Include="API\Interop\Allocatable.inl" />
     <None Include="API\Interop\Allocator.inl" />

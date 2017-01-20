@@ -23,10 +23,11 @@ Engine/Memory/Heap.cpp
 Engine/Core/Core.cpp
 Engine/Core/Logger.cpp
 
-API/String/StaticAndCStyleString.cpp
-API/String/DynamicString.cpp
-API/String/UTF8String.cpp
-API/String/UTF16String.cpp
+API/Types/StaticAndCStyleString.cpp
+API/Types/DynamicString.cpp
+API/Types/UTF8String.cpp
+API/Types/UTF16String.cpp
+API/Types/STLPrototypes.cpp
 
 API/Interop/Allocator.cpp
 API/Interop/STLAllocator.cpp

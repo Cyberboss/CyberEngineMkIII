@@ -31,20 +31,8 @@
     <ClCompile Include="Engine\Core\Core.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="API\String\StaticAndCStyleString.cpp">
-      <Filter>API\String</Filter>
-    </ClCompile>
-    <ClCompile Include="API\String\DynamicString.cpp">
-      <Filter>API\String</Filter>
-    </ClCompile>
-    <ClCompile Include="API\String\UTF8String.cpp">
-      <Filter>API\String</Filter>
-    </ClCompile>
     <ClCompile Include="Platform\System\Path.cpp">
       <Filter>Platform\System</Filter>
-    </ClCompile>
-    <ClCompile Include="API\String\UTF16String.cpp">
-      <Filter>API\String</Filter>
     </ClCompile>
     <ClCompile Include="API\Interop\STLAllocator.cpp">
       <Filter>API\Interop</Filter>
@@ -66,6 +54,21 @@
     </ClCompile>
     <ClCompile Include="Platform\System\Console.cpp">
       <Filter>Platform\System</Filter>
+    </ClCompile>
+    <ClCompile Include="API\Types\DynamicString.cpp">
+      <Filter>API\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="API\Types\StaticAndCStyleString.cpp">
+      <Filter>API\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="API\Types\STLPrototypes.cpp">
+      <Filter>API\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="API\Types\UTF8String.cpp">
+      <Filter>API\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="API\Types\UTF16String.cpp">
+      <Filter>API\Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,9 +111,6 @@
     <Filter Include="API">
       <UniqueIdentifier>{5796917a-7159-452d-b820-cb9d8b1c0a94}</UniqueIdentifier>
     </Filter>
-    <Filter Include="API\String">
-      <UniqueIdentifier>{05252be5-da06-4c86-96ee-1329faf80680}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Core">
       <UniqueIdentifier>{5fcaeb86-f9ff-48ad-aa0b-32d95a8a36ca}</UniqueIdentifier>
     </Filter>
@@ -122,6 +122,9 @@
     </Filter>
     <Filter Include="API\Interop">
       <UniqueIdentifier>{95737c7a-da0f-40d3-bc58-871a28cf5bfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\Types">
+      <UniqueIdentifier>{05252be5-da06-4c86-96ee-1329faf80680}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

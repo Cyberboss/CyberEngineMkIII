@@ -10,6 +10,7 @@
 #include <new>
 #include <algorithm>
 #include <cinttypes>
+#include <memory>
 
 //containers
 #include <deque>

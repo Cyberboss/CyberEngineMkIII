@@ -4,7 +4,7 @@
 
 using namespace CYB::API::String;
 
-SCENARIO("UTF8 string constructors work","[API][String][UTF8][Unit]") {
+SCENARIO("UTF8 string constructors work","[API][Types][String][UTF8][Unit]") {
 	GIVEN("Two static strings") {
 		CYB::API::String::Static S1(u8"asdf"), S2(u8"qwerty"), S3;
 		WHEN("A basic UTF8 string is constructed") {
@@ -48,7 +48,7 @@ SCENARIO("UTF8 string constructors work","[API][String][UTF8][Unit]") {
 		}
 	}
 }
-SCENARIO("UTF8 string Length and validation works", "[API][String][UTF8][Unit]") {
+SCENARIO("UTF8 string Length and validation works", "[API][Types][String][UTF8][Unit]") {
 	GIVEN("A valid UTF8 string") {
 		auto Data(u8"私は自分のベストを尽くします");
 		CYB::API::String::Static S4(Data);
@@ -102,7 +102,7 @@ SCENARIO("UTF8 string Length and validation works", "[API][String][UTF8][Unit]")
 		}
 	}
 }
-SCENARIO("UTF8 Shrink works", "[API][String][UTF8][Unit]") {
+SCENARIO("UTF8 Shrink works", "[API][Types][String][UTF8][Unit]") {
 	GIVEN("A valid UTF8 String"){
 		CYB::API::String::UTF8 Data(CYB::API::String::Static(u8"私は自分のベストを尽くします")), Expected(CYB::API::String::Static(u8"私は自分の")), Backup(Data), Empty;
 		WHEN("It is overshrunk") {
@@ -126,7 +126,7 @@ SCENARIO("UTF8 Shrink works", "[API][String][UTF8][Unit]") {
 	}
 }
 
-SCENARIO("UTF8 copies maintain the correct length", "[API][String][UTF8][Unit]") {
+SCENARIO("UTF8 copies maintain the correct length", "[API][Types][String][UTF8][Unit]") {
 	GIVEN("A valid UTF8 string") {
 		UTF8 Source(Static(u8"私は自分のベストを尽くします"));
 		WHEN("It is copies") {

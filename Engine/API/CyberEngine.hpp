@@ -17,6 +17,6 @@ namespace CYB {
 #include "Interop/Interop.hpp"
 #include "Interfaces/Interfaces.hpp"
 #include "Allocatables/Allocatables.hpp"
-#include "Interop/Interop.inl"
-
 #include "ExtendedTypes/ExtendedTypes.hpp"
+
+#include "Interop/Interop.inl"

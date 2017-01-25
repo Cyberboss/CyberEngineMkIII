@@ -1,9 +1,9 @@
 #include "TestHeader.hpp"
 
-
 SCENARIO("Console logging works", "[Platform][System][Console][Unit]") {
 	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
 	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
+	ModuleDependancy<CYB::Platform::Modules::PThread> PThread;
 	GIVEN("A console and message") {
 		CYB::Platform::System::Console Con;
 		CYB::API::String::Static Msg(u8"Hello world");

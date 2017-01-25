@@ -28,12 +28,12 @@ SCENARIO("Logger construction works", "[Engine][Logger][Functional]") {
 	}
 }
 
-#ifdef TARGET_OS_WINDOWS
 REDIRECTED_FUNCTION(BadCreateFile, const void* const, const unsigned long, const unsigned long, const void* const, const unsigned long, const unsigned long, const void* const) {
+#ifdef TARGET_OS_WINDOWS
 	using namespace CYB::Platform::Win32;
 	return INVALID_HANDLE_VALUE;
-}
 #endif
+}
 REDIRECTED_FUNCTION(BadWrite, const long long, const void* const, const unsigned long long) {
 	return static_cast<unsigned long long>(-1);
 }

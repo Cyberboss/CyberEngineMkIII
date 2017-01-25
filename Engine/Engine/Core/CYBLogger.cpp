@@ -186,11 +186,6 @@ CYB::API::String::Dynamic CYB::Engine::Logger::FormatLogMessage(const API::Strin
 }
 
 void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level ALevel) {
-#ifndef DEBUG
-	if (ALevel == Level::DEV)
-		return;
-#endif
-
 	PushContext Push(FContext);	//Use ourselves for allocation
 	bool CritFail(false);
 	while (!CritFail) {

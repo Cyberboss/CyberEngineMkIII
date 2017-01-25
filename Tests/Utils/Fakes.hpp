@@ -53,6 +53,7 @@ namespace Fake {
 		static void OverrideCall(const CYB::Platform::System::Sys::CallNumber ACallNumber, CallPointer ACallPointer);
 		static void ResetCall(const CYB::Platform::System::Sys::CallNumber ACallNumber);
 	};
+	extern unsigned long long FailedAllocationCount;
 };
 
 class SysCallOverride {

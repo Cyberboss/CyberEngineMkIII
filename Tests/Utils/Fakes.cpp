@@ -61,6 +61,15 @@ void Fake::Heap::Free(void* const AOld) noexcept {
 	free(AOld);
 }
 
+unsigned long long Fake::FailedAllocationCount(0);
+
+void CYB::Engine::Memory::Heap::AllocCheck(void) {
+	if (Fake::FailedAllocationCount > 0) {
+		--Fake::FailedAllocationCount;
+		throw CYB::Exception::SystemData(CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE);
+	}
+}
+
 static bool _CallRedirected(const CYB::Platform::System::Sys::CallNumber ACallNumber) noexcept {
 	for (auto Current(Fake::SysCalls::FMapList); Current != nullptr; Current = Current->FNext)
 		if (Current->FCallNumber == ACallNumber)

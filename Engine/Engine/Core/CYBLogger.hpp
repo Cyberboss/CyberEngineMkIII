@@ -25,7 +25,8 @@ namespace CYB {
 				*FQueueTail;	//!< @brief The message queue tail
 			API::Interop::Object<Platform::System::Thread> FThread;	//!< @brief The thread used for writing to the log file
 
-			std::atomic_bool FCancelled;	//!< @brief Cancel flag for FThread
+			std::atomic_bool FCancelled,	//!< @brief Cancel flag for FThread
+				FDevLog;	//!< @brief Flag for enabling/disabling DEV logs
 		private:
 			/*!
 				@brief Retrieve a string of the given time
@@ -133,6 +134,9 @@ namespace CYB {
 
 			//! @copydoc CYB::API::Logger::CurrentLog()
 			const API::String::CStyle& CurrentLog(void) const noexcept final override;
+
+			//! @copydoc CYB::API::Logger::SetDebugLogging()
+			void SetDebugLogging(const bool AEnable) noexcept final override;
 		};
 	};
 };

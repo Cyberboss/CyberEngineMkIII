@@ -29,6 +29,10 @@ const CYB::API::String::CStyle& Fake::Logger::CurrentLog(void) const noexcept {
 	return FLogPath;
 }
 
+void Fake::Logger::SetDebugLogging(const bool AIgnored) noexcept {
+	static_cast<void>(AIgnored);
+}
+
 Fake::Core::Core() {
 	CYB::Engine::Core::Backdoor(*this);
 	ResetToFakeCorePointer();

@@ -7,6 +7,7 @@ namespace CYB {
 			private:
 				Mutex FLock;	//!< @brief To prevent simultaneous writes
 				const API::String::Static FConsolePath;	//!< @brief The 'path' of the console
+				std::atomic_bool FDevLog; 	//!< @brief Flag for enabling/disabling DEV logs
 			private:
 				/*!
 					@brief Write to either stdout or stderr depending on @p AError
@@ -53,6 +54,9 @@ namespace CYB {
 						This function requires no thread saftey
 				*/
 				const API::String::CStyle& CurrentLog(void) const noexcept final override;
+
+				//! @copydoc CYB::API::Logger::SetDebugLogging()
+				void SetDebugLogging(const bool AEnable) noexcept final override;
 			};
 		};
 	};

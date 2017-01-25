@@ -7,6 +7,9 @@ SCENARIO("Console logging works", "[Platform][System][Console]") {
 		CYB::Platform::System::Console Con;
 		CYB::API::String::Static Msg(u8"Hello world");
 		WHEN("We log debug") {
+			Con.SetDebugLogging(false);
+			REQUIRE_NOTHROW(Con.Log(Msg, CYB::API::Logger::Level::DEV));
+			Con.SetDebugLogging(true);
 			REQUIRE_NOTHROW(Con.Log(Msg, CYB::API::Logger::Level::DEV));
 			THEN("All is well") {
 				CHECK(true);

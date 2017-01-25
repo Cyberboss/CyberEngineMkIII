@@ -102,11 +102,20 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 				}
 			}
 		}
-		WHEN("We try to open another") {
+		WHEN("We try immediately to open another") {
 			CYB::Engine::Logger Log2(static_cast<CYB::API::Logger&>(Log));
 			THEN("It delays for a bit, but works") {
 				const auto Kajigger([&]() { Log2.Log(Static(u8"Hoi!"), CYB::API::Logger::Level::INFO); });
 				CHECK_NOTHROW(Kajigger());
+			}
+		}
+		WHEN("We mess with debug logging") {
+			Log.SetDebugLogging(false);
+			Log.Log(Static(u8"A dev log"), CYB::API::Logger::Level::DEV);
+			Log.SetDebugLogging(true);
+			Log.Log(Static(u8"Another dev log"), CYB::API::Logger::Level::DEV);
+			THEN("All is well") {
+				CHECK(true);
 			}
 		}
 		WHEN("We check the current log") {

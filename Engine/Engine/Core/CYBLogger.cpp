@@ -67,7 +67,14 @@ CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 	FQueueHead(nullptr),
 	FQueueTail(nullptr),
 	FThread(nullptr),
-	FCancelled(false)
+	FCancelled(false),
+	FDevLog(
+#ifdef DEBUG
+		true
+#else
+		false
+#endif
+	)
 {
 	auto InitEntry(static_cast<Allocator&>(Context::GetContext().FAllocator).RawObject<LogEntry>());
 	InitEntry->FLevel = Level::INFO;
@@ -134,6 +141,7 @@ void CYB::Engine::Logger::EmptyQueue(void) {
 				//CurrentContext will most certainly be FContext at this point
 				//but just in case we add some weird behaviour overrides in the future....
 				auto& EmergencyLogger(Context::GetContext().FLogger);
+				EmergencyLogger.SetDebugLogging(true);
 				EmergencyLogger.Log(API::String::Static(u8"Failed to write to primary log. Message follows:"), Level::ERR);
 				EmergencyLogger.Log(Node->FMessage, Node->FLevel);
 				if (NextNode != nullptr) {
@@ -186,33 +194,35 @@ CYB::API::String::Dynamic CYB::Engine::Logger::FormatLogMessage(const API::Strin
 }
 
 void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level ALevel) {
-	PushContext Push(FContext);	//Use ourselves for allocation
-	bool CritFail(false);
-	while (!CritFail) {
-		try {
-			auto Entry(static_cast<Allocator&>(Context::GetContext().FAllocator).RawObject<LogEntry>());
-			Entry->FNext = nullptr;
-			Entry->FMessage = API::String::Dynamic(u8"\n") + FormatLogMessage(AMessage, ALevel);
-			Entry->FLevel = ALevel;
-
-			API::LockGuard Lock(FQueueLock);
-			if (FQueueTail != nullptr)
-				FQueueTail->FNext = Entry;
-			else
-				FQueueHead = Entry;
-			FQueueTail = Entry;
-			break;
-		}
-		catch (CYB::Exception::SystemData& AException) {
-			API::Assert::Equal<unsigned int>(AException.FErrorCode, CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE);
+	if (ALevel != Level::DEV || FDevLog.load(std::memory_order_relaxed)) {
+		PushContext Push(FContext);	//Use ourselves for allocation
+		bool CritFail(false);
+		while (!CritFail) {
 			try {
-				//Empty the queue, free the memory, and try again
-				EmptyQueue();
+				auto Entry(static_cast<Allocator&>(Context::GetContext().FAllocator).RawObject<LogEntry>());
+				Entry->FNext = nullptr;
+				Entry->FMessage = API::String::Dynamic(u8"\n") + FormatLogMessage(AMessage, ALevel);
+				Entry->FLevel = ALevel;
+
+				API::LockGuard Lock(FQueueLock);
+				if (FQueueTail != nullptr)
+					FQueueTail->FNext = Entry;
+				else
+					FQueueHead = Entry;
+				FQueueTail = Entry;
+				break;
 			}
-			catch(CYB::Exception::SystemData& AInnerException){
-				API::Assert::Equal<unsigned int>(AInnerException.FErrorCode, CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
-				//Now give up
-				CritFail = true;
+			catch (CYB::Exception::SystemData& AException) {
+				API::Assert::Equal<unsigned int>(AException.FErrorCode, CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE);
+				try {
+					//Empty the queue, free the memory, and try again
+					EmptyQueue();
+				}
+				catch (CYB::Exception::SystemData& AInnerException) {
+					API::Assert::Equal<unsigned int>(AInnerException.FErrorCode, CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
+					//Now give up
+					CritFail = true;
+				}
 			}
 		}
 	}
@@ -231,4 +241,8 @@ void CYB::Engine::Logger::Flush(void) const noexcept {
 
 const CYB::API::String::CStyle& CYB::Engine::Logger::CurrentLog(void) const noexcept {
 	return FFile.GetPath()();
+}
+
+void CYB::Engine::Logger::SetDebugLogging(const bool AEnable) noexcept {
+	FDevLog.store(AEnable, std::memory_order_release);
 }

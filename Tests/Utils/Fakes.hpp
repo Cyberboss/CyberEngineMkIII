@@ -16,6 +16,7 @@ namespace Fake {
 		void Log(const CYB::API::String::CStyle& AMessage, const Level ALevel) final override;
 		void Flush(void) const noexcept final override;
 		const CYB::API::String::CStyle& CurrentLog(void) const noexcept final override;
+		void SetDebugLogging(const bool AIgnored) noexcept final override;
 	};
 	class Core {
 		friend class CYB::Engine::Core;

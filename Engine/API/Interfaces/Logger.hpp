@@ -9,7 +9,7 @@ namespace CYB {
 		public:
 			//! @brief The severity of the log
 			enum class Level : byte {
-				DEV,	//!< @brief Debug messages, will not be shown if DEBUG is not defined
+				DEV,	//!< @brief Debug messages, enabled/disabled by default in engine debug/release builds respectively
 				INFO,	//!< @brief Generic information
 				WARN,	//!< @brief Recoverable warnings
 				ERR,	//!< @brief Hard errors
@@ -41,6 +41,14 @@ namespace CYB {
 					This function requires no thread safety
 			*/
 			virtual const String::CStyle& CurrentLog(void) const noexcept = 0;
+
+			/*!
+				@brief Enable/Disable filtering of Level::DEV logs
+				@param AEnable Enables DEV logs if true, disables them otherwise
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			virtual void SetDebugLogging(const bool AEnable) noexcept = 0;
 		};
 	};
 };

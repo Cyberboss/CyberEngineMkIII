@@ -71,7 +71,7 @@ CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 {
 	auto InitEntry(static_cast<Allocator&>(Context::GetContext().FAllocator).RawObject<LogEntry>());
 	InitEntry->FLevel = Level::INFO;
-	InitEntry->FMessage = FormatLogMessage(API::String::Static("CyberEngineMkIII logging started..."), Level::INFO);
+	InitEntry->FMessage = FormatLogMessage(API::String::Static(u8"CyberEngineMkIII logger started..."), Level::INFO);
 	InitEntry->FNext = nullptr;
 
 	FQueueHead = InitEntry;
@@ -81,6 +81,7 @@ CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 }
 
 CYB::Engine::Logger::~Logger() {
+	Log(API::String::Static(u8"Logger shutting down"), Level::INFO);
 	FContext.MakeCurrent();	//At this point, Core's Context is dead and we won't use it again
 	//using PushContext won't help as we'll try to dealloc strings in FFile with the wrong allocator
 	CancelThreadedOperation();
@@ -106,7 +107,11 @@ void CYB::Engine::Logger::EmptyQueue(void) {
 		{
 			if (ARecursiveShutdown) {
 				//Emergency log the message
-				Context::GetContext().FLogger.Log(ALogEntry->FMessage, ALogEntry->FLevel);
+				auto& Message(ALogEntry->FMessage);
+				const auto ByteIndex(Message.IndexOfByte(':', 3) + 1);	//+1 to comp for the space
+				API::Assert::LessThan(0, ByteIndex);
+				API::Assert::LessThan(ByteIndex, Message.RawLength());
+				Context::GetContext().FLogger.Log(API::String::Static(Message.CString() + ByteIndex), ALogEntry->FLevel);
 				if (FLogEntry->FNext != nullptr)
 					CleanLogEntry(FLogEntry->FNext, true);
 			}
@@ -163,16 +168,16 @@ CYB::API::String::Dynamic CYB::Engine::Logger::FormatLogMessage(const API::Strin
 	const char* LevelString;
 	switch (ALevel) {
 	case Level::DEV:
-		LevelString = ": Debug: ";
+		LevelString = u8": Debug: ";
 		break;
 	case Level::INFO:
-		LevelString = ": Info: ";
+		LevelString = u8": Info: ";
 		break;
 	case Level::WARN:
-		LevelString = ": Warning: ";
+		LevelString = u8": Warning: ";
 		break;
 	case Level::ERR:
-		LevelString = ": ERROR: ";
+		LevelString = u8": ERROR: ";
 		break;
 	default:
 		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);

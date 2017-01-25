@@ -121,6 +121,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6d93af0af6a1dc59cabc371c79a25ce1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html#a6d93af0af6a1dc59cabc371c79a25ce1">RawLength</a> (void) const noexcept</td></tr>
 <tr class="memdesc:a6d93af0af6a1dc59cabc371c79a25ce1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the byte length of the contained CString.  <a href="#a6d93af0af6a1dc59cabc371c79a25ce1">More...</a><br/></td></tr>
 <tr class="separator:a6d93af0af6a1dc59cabc371c79a25ce1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29c7af6c3273d0c0c04f72c2fe35bcc9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html#a29c7af6c3273d0c0c04f72c2fe35bcc9">IndexOfByte</a> (const <a class="el" href="_types_8hpp.html#a7528222f65ad403ee1a88ff2b56f9fb7">byte</a> AByte, int ASkip=0) const noexcept</td></tr>
+<tr class="memdesc:a29c7af6c3273d0c0c04f72c2fe35bcc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <code>ASkip'th</code> index of byte <code>AByte</code> in the string.  <a href="#a29c7af6c3273d0c0c04f72c2fe35bcc9">More...</a><br/></td></tr>
+<tr class="separator:a29c7af6c3273d0c0c04f72c2fe35bcc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49304e9e9f714682ba320222028f4e6c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html#a49304e9e9f714682ba320222028f4e6c">operator==</a> (const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html">CStyle</a> &amp;ARHS) const noexcept</td></tr>
 <tr class="memdesc:a49304e9e9f714682ba320222028f4e6c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespace_c_y_b_1_1_a_p_i_1_1_string.html" title="Contains all string implementations. ">String</a> equivalence check.  <a href="#a49304e9e9f714682ba320222028f4e6c">More...</a><br/></td></tr>
 <tr class="separator:a49304e9e9f714682ba320222028f4e6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -263,6 +266,51 @@ Here is the caller graph for this function:</div>
 <area shape="rect" id="node2" href="class_c_y_b_1_1_platform_1_1_modules_1_1_module.html#a034035d8d568cf4f2186534db72f1085" title="Load a pointer to a function from a module. Pointer valid for as long as one reference to the owned m..." alt="" coords="227,5,391,46"/><area shape="rect" id="node3" href="class_c_y_b_1_1_platform_1_1_system_1_1_sys.html#ac4661d31b504b90f65565585b202c3a9" title="Do linked call for ACallNumber. The number of arguments must match system specification. " alt="" coords="229,70,389,111"/><area shape="rect" id="node4" href="class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html#a7ceff5935b24e110f21141980885191b" title="Construct a raw allocated UTF16 wide char array casted to a char array given a UTF8 string..." alt="" coords="224,135,395,177"/></map>
 </div>
 </p>
+
+</div>
+</div>
+<a class="anchor" id="a29c7af6c3273d0c0c04f72c2fe35bcc9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CYB::API::String::CStyle::IndexOfByte </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="_types_8hpp.html#a7528222f65ad403ee1a88ff2b56f9fb7">byte</a>&#160;</td>
+          <td class="paramname"><em>AByte</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ASkip</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the <code>ASkip'th</code> index of byte <code>AByte</code> in the string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AByte</td><td>The byte to check for </td></tr>
+    <tr><td class="paramname">ASkip</td><td>The number of occurences to skip </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The <code>ASkip'th</code> index of <code>AByte</code> in the string or -1 if it doesn't exist </dd></dl>
+<dl class="section user"><dt>Thread Safety</dt><dd>This function requires synchronization at the object level </dd></dl>
 
 </div>
 </div>

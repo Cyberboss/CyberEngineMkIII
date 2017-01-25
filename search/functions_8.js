@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['indexofbyte',['IndexOfByte',['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html#a29c7af6c3273d0c0c04f72c2fe35bcc9',1,'CYB::API::String::CStyle']]],
   ['initializedata',['InitializeData',['../class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#a51bf4f263c0d164049023adf6f4c6229',1,'CYB::Engine::Memory::Block']]],
   ['initreservation',['InitReservation',['../class_c_y_b_1_1_platform_1_1_system_1_1_virtual_memory.html#ab39cefb14bd5aaceea8884746cd14011',1,'CYB::Platform::System::VirtualMemory']]],
   ['inplaceallocation',['InPlaceAllocation',['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#aa5e32d9f175648784cca97e07c171f80',1,'CYB::API::Interop::Allocator::InPlaceAllocation(void *const ALocation, std::false_type AIgnored, AArgs &amp;&amp;...AArguments)'],['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a511bc641e306b498ddaa4ac68b43d09f',1,'CYB::API::Interop::Allocator::InPlaceAllocation(void *const ALocation, std::true_type AIgnored, AArgs &amp;&amp;...AArguments) noexcept'],['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#ad066f396e4a9228a06ede3e4d73d7b4b',1,'CYB::API::Interop::Allocator::InPlaceAllocation(void *const ALocation, AArgs &amp;&amp;...AArguments)']]],

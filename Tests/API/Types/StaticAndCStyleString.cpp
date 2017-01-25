@@ -1,6 +1,8 @@
 #include "TestHeader.hpp"
 #include <cstring>
 
+using namespace CYB::API::String;
+
 SCENARIO("CStyle strings work", "[API][Types][String][CStyle][Unit]") {
 	GIVEN("A valid CStyle string") {
 		const char* const TestData(u8"asdf");
@@ -87,6 +89,30 @@ SCENARIO("String Equivalance works", "[API][Types][String][CStyle][Unit]") {
 		WHEN("S3 and S4 are compared") {
 			THEN("They are not equal") {
 				CHECK_FALSE(S3 == S4);
+			}
+		}
+	}
+}
+
+SCENARIO("CStyle IndexOfByte works", "[API][Types][String][CStyle][Unit]") {
+	GIVEN("A valid string") {
+		Static Test(u8"abcabcdabcde");
+		WHEN("We get the index of a byte that exists") {
+			const auto Index(Test.IndexOfByte('b'));
+			THEN("It is correct") {
+				CHECK(Index == 1);
+			}
+		}
+		WHEN("We get the index of a byte that exists, but we skip a few") {
+			const auto Index(Test.IndexOfByte('b', 2));
+			THEN("It is correct") {
+				CHECK(Index == 8);
+			}
+		}
+		WHEN("We get the index of a byte that doesn't exist") {
+			const auto Index(Test.IndexOfByte('f'));
+			THEN("It is correct") {
+				CHECK(Index == -1);
 			}
 		}
 	}

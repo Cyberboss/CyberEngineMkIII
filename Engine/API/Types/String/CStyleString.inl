@@ -23,6 +23,17 @@ inline int CYB::API::String::CStyle::RawLength(void) const noexcept {
 	return FLength;
 }
 
+inline int CYB::API::String::CStyle::IndexOfByte(const byte AByte, int ASkip) const noexcept {
+	Assert::LessThanOrEqual(0, ASkip);
+	for (auto I(0); I < RawLength(); ++I) 
+		if (FData[I] == AByte) {
+			if (ASkip == 0)
+				return I;
+			--ASkip;
+		}
+	return -1;
+}
+
 inline bool CYB::API::String::CStyle::operator==(const CStyle& ARHS) const noexcept {
 	if (FLength == ARHS.FLength) {
 		for (int I(0); I < FLength; ++I)

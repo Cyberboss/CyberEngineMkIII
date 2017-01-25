@@ -2,6 +2,7 @@
 #include "CYB.hpp"
 
 #include <ctime>
+#include <cstring>
 
 CYB::Platform::System::Console::Console() :
 	FConsolePath(u8"stdout/stderr"),

@@ -1,7 +1,7 @@
 #include "TestHeader.hpp"
 
 
-SCENARIO("Console logging works", "[Platform][System][Console]") {
+SCENARIO("Console logging works", "[Platform][System][Console][Unit]") {
 	ModuleDependancy<CYB::Platform::Modules::Kernel32> K32;
 	GIVEN("A console and message") {
 		CYB::Platform::System::Console Con;

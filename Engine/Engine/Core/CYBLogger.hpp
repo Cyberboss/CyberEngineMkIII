@@ -61,7 +61,21 @@ namespace CYB {
 				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_ENUM. Thrown if the @p ALevel is invalid
 			*/
 			static API::String::Dynamic FormatLogMessage(const API::String::CStyle& AMessage, const Level ALevel);
-
+			
+			/*!
+				@brief Prepares the logging file for writing. May block for one millisecond if the preferred file name is taken in order to generate a new one
+				@param ABasePath A path to the directory to log in
+				@return The file to be used for logging
+				@par Thread Safety
+					This function requires no thread safety
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if the log File could not be opened
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE. Thrown if the temporary Path could not be retrieved
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if Path errors occured while setting up the file
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_TOO_LONG. Thrown if the new Path would exceed the limitation
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if Path errors occured while setting up the file
+				Theoretically this could throw CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE on some string allocations, but given the initial empty Heap this is practically impossible
+			*/
+			static Platform::System::File OpenFileImpl(const Platform::System::Path& ABasePath);
 			/*!
 				@brief Prepares the logging file for writing. May block for one millisecond if the preferred file name is taken in order to generate a new one
 				@return The file to be used for logging
@@ -72,7 +86,7 @@ namespace CYB {
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_READABLE. Thrown if Path errors occured while setting up the file
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_TOO_LONG. Thrown if the new Path would exceed the limitation
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if Path errors occured while setting up the file
-				Theoretically this could throw CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE on some string allocations, but given the initial empty Heap this is practiacally impossible
+				Theoretically this could throw CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE on some string allocations, but given the initial empty Heap this is practically impossible
 			*/
 			static Platform::System::File OpenFile(void);
 

@@ -3,6 +3,7 @@
 
 #include <cstdio>
 #include <ctime>
+#include <cstring>
 
 CYB::API::String::Dynamic CYB::Engine::Logger::TimeString(const int AHour, const int AMinute, const int ASecond, const bool AColons) {
 	char Buffer[50];

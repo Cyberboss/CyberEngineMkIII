@@ -19,15 +19,15 @@ template <typename AType> void CYB::API::UniquePointer<AType>::Delete(AType* con
 }
 
 template <typename AType> constexpr CYB::API::UniquePointer<AType>::UniquePointer() noexcept :
-	BaseType(InitBase(nullptr, std::is_destructible<AType>::type()))
+	BaseType(InitBase(nullptr, typename std::is_destructible<AType>::type()))
 {}
 
 template <typename AType> constexpr CYB::API::UniquePointer<AType>::UniquePointer(const std::nullptr_t AIgnored) noexcept :
-	BaseType(InitBase(nullptr, std::is_destructible<AType>::type()))
+	BaseType(InitBase(nullptr, typename std::is_destructible<AType>::type()))
 {
 	static_cast<void>(AIgnored);
 }
 
 template <typename AType> CYB::API::UniquePointer<AType>::UniquePointer(AType* const APointer) noexcept :
-	BaseType(InitBase(APointer, std::is_destructible<AType>::type()))
+	BaseType(InitBase(APointer, typename std::is_destructible<AType>::type()))
 {}

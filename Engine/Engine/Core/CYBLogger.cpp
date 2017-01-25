@@ -197,7 +197,7 @@ void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level A
 	if (ALevel != Level::DEV || FDevLog.load(std::memory_order_relaxed)) {
 		PushContext Push(FContext);	//Use ourselves for allocation
 		bool CritFail(false);
-		while (!CritFail) {
+		for (auto I(0U); I < (Parameters::LOGGER_HEAP_RETRY_COUNT + 1) && !CritFail; ++I) {
 			try {
 				auto Entry(static_cast<Allocator&>(Context::GetContext().FAllocator).RawObject<LogEntry>());
 				Entry->FNext = nullptr;

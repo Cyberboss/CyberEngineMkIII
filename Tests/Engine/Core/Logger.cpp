@@ -50,6 +50,19 @@ template <> void CYB::Engine::Logger::Backdoor<int>(int& AIgnored) {
 #endif
 }
 
+//do some scheduling trickery to make sure we hit the code coverage line in Flush
+class ThreadPriority {
+public:
+#ifdef TARGET_OS_WINDOWS
+	ThreadPriority() {
+		CYB::Platform::Win32::SetThreadPriority(CYB::Platform::Win32::GetCurrentThread(), THREAD_PRIORITY_HIGHEST);
+	}
+	~ThreadPriority() {
+		CYB::Platform::Win32::SetThreadPriority(CYB::Platform::Win32::GetCurrentThread(), THREAD_PRIORITY_NORMAL);
+	}
+#endif
+};
+
 SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 	using namespace CYB::API::String;
 	TestDependancies Deps;
@@ -61,19 +74,7 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 			REQUIRE_THROWS_AS(Log.Log(Static(u8"A bad enum log!"), static_cast<CYB::API::Logger::Level>(54)), CYB::Exception::Violation);
 #endif
 
-#ifdef TARGET_OS_WINDOWS
-			//do some scheduling trickery to make sure we hit the code coverage line in Flush
-			class ThreadPriority {
-			public:
-				ThreadPriority() {
-					CYB::Platform::Win32::SetThreadPriority(CYB::Platform::Win32::GetCurrentThread(), THREAD_PRIORITY_HIGHEST);
-				}
-				~ThreadPriority() {
-					CYB::Platform::Win32::SetThreadPriority(CYB::Platform::Win32::GetCurrentThread(), THREAD_PRIORITY_NORMAL);
-				}
-			};
 			ThreadPriority GiveItToMe;
-#endif
 
 			Log.Log(Static(u8"A dev log"), CYB::API::Logger::Level::DEV);
 			Log.Log(Static(u8"An info log"), CYB::API::Logger::Level::INFO);
@@ -127,9 +128,26 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 				}
 			}
 		}
-		WHEN("The things I do for code coverage") {
-			int bluh;
-			CHECK_NOTHROW(CYB::Engine::Logger::Backdoor(bluh));
+		WHEN("We intentionally overload the logger") {
+			ThreadPriority GiveItToMe;
+			Fake::FailedAllocationCount = 5;
+			const auto ToDo([&]() {
+				Log.Log(Static(u8"No, Mr. Logger, I expect you to die"), CYB::API::Logger::Level::INFO);
+				THEN("All is well") {
+					CHECK(true);
+				}
+			});
+
+			AND_THEN("Oh no, we can't write to the log file anymore!") {
+				const auto BWF(Deps.FK32.Redirect<CYB::Platform::Modules::Kernel32::WriteFile, BadWriteFile>());
+				const auto BW(Deps.FC.Redirect<CYB::Platform::Modules::LibC::write, BadWrite>());
+				ToDo();
+			}
+			AND_THEN("Things proceed normally") {
+				ToDo();
+			}
+
+			Fake::FailedAllocationCount = 0;
 		}
 	}
 	GIVEN("A bad file opener") {

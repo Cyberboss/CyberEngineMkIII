@@ -36,6 +36,7 @@ REDIRECTED_FUNCTION(BadCreateFile, const void* const, const unsigned long, const
 }
 
 REDIRECTED_FUNCTION(BadOpen, const unsigned long long, const void* const, const unsigned long long) {
+	errno = EACCES;
 	return -1;
 }
 
@@ -160,8 +161,6 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 		const auto BO(Deps.FC.Redirect<CYB::Platform::Modules::LibC::open, BadOpen>());
 #ifdef TARGET_OS_WINDOWS
 		const auto Thing(OverrideError(Deps.FK32, ERROR_ACCESS_DENIED));
-#else
-		errno = EACCES;
 #endif
 		WHEN("We try to open the log") {
 			REQUIRE_THROWS_AS(CYB::Engine::Logger(static_cast<CYB::API::Logger&>(Emergency)), CYB::Exception::SystemData);

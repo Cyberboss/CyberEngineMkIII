@@ -126,15 +126,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires no thread safety
 				*/
-				template <typename AObject> void DeleteObject(AObject* const AAllocated) noexcept;
-
-				/*!
-					@brief Deallocates a pointer created with the allocator
-					@param AAllocated A pointer to the allocated memory
-					@par Thread Safety
-						This function requires no thread safety
-				*/
-				template <> void DeleteObject(void* const AAllocated) noexcept;
+				template <class AObject> void DeleteObject(AObject* const AAllocated) noexcept;
 			};
 		};
 	};

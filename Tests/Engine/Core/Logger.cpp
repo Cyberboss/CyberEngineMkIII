@@ -35,7 +35,7 @@ REDIRECTED_FUNCTION(BadCreateFile, const void* const, const unsigned long, const
 #endif
 }
 
-REDIRECTED_FUNCTION(BadOpen, const unsigned long long, const void* const, const unsigned long long) {
+REDIRECTED_FUNCTION(BadOpen26, const unsigned long long, const void* const, const unsigned long long) {
 	errno = EACCES;
 	return -1;
 }
@@ -158,7 +158,7 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 	}
 	GIVEN("A bad file opener") {
 		const auto BCF(Deps.FK32.Redirect<CYB::Platform::Modules::Kernel32::CreateFileW, BadCreateFile>());
-		const auto BO(Deps.FC.Redirect<CYB::Platform::Modules::LibC::open, BadOpen>());
+		const auto BO(Deps.FC.Redirect<CYB::Platform::Modules::LibC::open, BadOpen26>());
 #ifdef TARGET_OS_WINDOWS
 		const auto Thing(OverrideError(Deps.FK32, ERROR_ACCESS_DENIED));
 #endif

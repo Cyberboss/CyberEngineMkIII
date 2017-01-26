@@ -13,6 +13,7 @@ namespace CYB {
 				@brief Used by this type's constructors
 				@param APointer The pointer the UniquePointer will contain
 				@param AIsDestructible Used for overloading. Ignored
+				@return An std::unique_ptr of AType with the properly set Deleter
 				@par Thread Safety
 					This function requires no thread safety
 			*/
@@ -21,6 +22,7 @@ namespace CYB {
 				@brief Used by this type's constructors
 				@param APointer The pointer the UniquePointer will contain
 				@param AIsDestructible Used for overloading. Ignored
+				@return An std::unique_ptr of AType with the properly set Deleter
 				@par Thread Safety
 					This function requires no thread safety
 			*/

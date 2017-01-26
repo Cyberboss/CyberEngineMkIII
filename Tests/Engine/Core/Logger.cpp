@@ -135,15 +135,16 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 			}
 		}
 		WHEN("We intentionally overload the logger") {
-			ThreadPriority GiveItToMe;
-			Fake::FailedAllocationCount = 5;
 			const auto ToDo([&]() {
-				Log.Log(Static(u8"No, Mr. Logger, I expect you to die"), CYB::API::Logger::Level::INFO);
+				ThreadPriority GiveItToMe;
+				const Static Kajigger(u8"No, Mr. Logger, I expect you to die");
+				for(auto I(0U); I < 50; ++I)
+					Log.Log(Kajigger, CYB::API::Logger::Level::INFO);
 				THEN("All is well") {
 					CHECK(true);
 				}
 			});
-
+			Fake::FailedAllocationCount = std::numeric_limits<unsigned long long>::max();
 			AND_THEN("Oh no, we can't write to the log file anymore!") {
 				const auto BWF(Deps.FK32.Redirect<CYB::Platform::Modules::Kernel32::WriteFile, BadWriteFile>());
 				const auto BW(Deps.FC.Redirect<CYB::Platform::Modules::LibC::write, BadWrite>());

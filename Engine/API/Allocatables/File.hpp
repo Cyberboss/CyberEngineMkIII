@@ -1,7 +1,7 @@
 //! @file File.hpp Defines the API for files
 namespace CYB {
 	namespace API {
-		//! @brief Contains the basic File interface. Does not perform locking of any kind, be aware of possible race conditions
+		//! @brief Contains the basic File interface. Does not perform locking of any kind, be aware of possible race conditions. Note that reads and writes that fail should not be retried
 		class File : public Interop::Allocatable, public Stream {
 		public:
 			//! @brief The method of handling Files that already exist

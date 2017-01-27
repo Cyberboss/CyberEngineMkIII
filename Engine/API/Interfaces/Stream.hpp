@@ -54,18 +54,17 @@ namespace CYB {
 				@brief Read data from a Stream at the current cursor position and advance the cursor by that amount
 				@param[out] ABuffer The location to store the read data
 				@param AMaxAmount The maximum number of bytes to be read
-				@return The number of bytes read. If zero is returned, and the cursor position is not as SeekLocation::END an error has occurred and the read should not be retried
+				@return The number of bytes read. If zero is returned and the cursor position is not SeekLocation::END an error has occurred. If the return value does not equal @p AMaxAmount, assume the underlying medium is currently out of readable data
 				@par Thread Safety
 					This function requires synchronization at the object level
 				@throw CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_OPERATION. Thrown if the Stream mode is Mode::WRITE
 			*/
-
 			virtual unsigned long long Read(void* const ABuffer, const unsigned long long AMaxAmount) const = 0;
 			/*!
 				@brief Write data to the Stream at the current cursor position and advance the cursor by that amount
 				@param ABuffer The location to get the data to write
 				@param AAmount The number of bytes to be written
-				@return The number of bytes written. If zero is returned, an error has occurred and the write should not be retried
+				@return The number of bytes written. If zero is returned, an error has occurred. If the return value does not equal @p AMaxAmount, assume the underlying medium is currently out of space
 				@par Thread Safety
 					This function requires synchronization at the object level
 				@throw CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_OPERATION. Thrown if the Stream mode is Mode::READ

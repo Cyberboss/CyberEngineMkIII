@@ -158,6 +158,7 @@ unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const 
 
 unsigned long long CYB::Platform::System::File::Write(const void* const ABuffer, const unsigned long long AAmount) {	if (FOpenMode == Mode::READ)
 		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
+	//See http://yarchive.net/comp/linux/write_error_return.html
 	unsigned long long Result(Core().FModuleManager.Call<Modules::LibC::write>(FDescriptor, ABuffer, static_cast<size_t>(AAmount)));
 	if (Result == static_cast<decltype(Result)>(-1))
 		Result = 0;

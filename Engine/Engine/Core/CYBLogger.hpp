@@ -9,7 +9,7 @@ namespace CYB {
 		private:
 			//! @brief Log entries to be inserted into the queue
 			struct LogEntry {
-				LogEntry* FNext;	//!< @brief Next item in the linked list
+				API::UniquePointer<LogEntry> FNext;	//!< @brief Next item in the linked list
 				API::String::Dynamic FMessage;	//!< @brief The pre-formatted text of the log
 				Level FLevel;	//!< @brief The Level of the message
 			};
@@ -17,12 +17,12 @@ namespace CYB {
 			Memory::Heap FHeap;	//!< @brief The isolated Heap
 			Context FContext;	//!< @brief The Context to be used when calling the Logger
 
-			Platform::System::File FFile;	//!< @brief The file being written to
+			Platform::System::File FFile;	//!< @brief The File being written to
 			mutable Platform::System::Mutex FQueueLock,	//!< @brief The lock used to acquire access to FQueue
 				FFileLock;	//!< @brief The lock used to acquire access to FFile
 			
-			LogEntry* FQueueHead,	//!< @brief The message queue head
-				*FQueueTail;	//!< @brief The message queue tail
+			API::UniquePointer<LogEntry> FQueueHead;	//!< @brief The message queue head
+			LogEntry* FQueueTail;	//!< @brief The message queue tail
 			API::Interop::Object<Platform::System::Thread> FThread;	//!< @brief The thread used for writing to the log file
 
 			std::atomic_bool FCancelled,	//!< @brief Cancel flag for FThread

@@ -79,13 +79,11 @@ CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 #endif
 	)
 {
-	auto InitEntry(static_cast<Allocator&>(Context::GetContext().FAllocator).RawObject<LogEntry>());
-	InitEntry->FLevel = Level::INFO;
-	InitEntry->FMessage = FormatLogMessage(API::String::Static(u8"CyberEngineMkIII logger started..."), Level::INFO);
-	InitEntry->FNext = nullptr;
+	FQueueHead.reset(static_cast<Allocator&>(Context::GetContext().FAllocator).RawObject<LogEntry>());
+	FQueueHead->FLevel = Level::INFO;
+	FQueueHead->FMessage = FormatLogMessage(API::String::Static(u8"CyberEngineMkIII logger started..."), Level::INFO);
 
-	FQueueHead = InitEntry;
-	FQueueTail = InitEntry;
+	FQueueTail = FQueueHead.get();
 
 	FThread = FContext.FAllocator.ConstructObject<Platform::System::Thread, API::Interop::NullConstructor>(SelfAsThreadable());
 }
@@ -100,56 +98,41 @@ CYB::Engine::Logger::~Logger() {
 }
 
 void CYB::Engine::Logger::EmptyQueue(void) {
-	LogEntry* Queue, *NextNode;
+	const auto LogShutdownForEntry([&](API::UniquePointer<LogEntry>&& ALogEntry, auto& Self) {
+		//Emergency log the message
+		auto& Message(ALogEntry->FMessage);
+		const auto ByteIndex(Message.IndexOfByte(':', 3) + 1);	//+1 to comp for the space
+		API::Assert::LessThan(0, ByteIndex);
+		API::Assert::LessThan(ByteIndex, Message.RawLength());
+		Context::GetContext().FLogger.Log(API::String::Static(Message.CString() + ByteIndex), ALogEntry->FLevel);
+		if (ALogEntry->FNext != nullptr)
+			Self(std::move(ALogEntry->FNext), true);
+	});
+
+	API::UniquePointer<LogEntry> Queue, NextNode;
 	{
 		API::LockGuard Lock(FQueueLock);
-		Queue = FQueueHead;
-		FQueueHead = nullptr;
+		Queue = std::move(FQueueHead);
 		FQueueTail = nullptr;
 	}
 
-	class CleanLogEntry {
-	private:
-		LogEntry* const FLogEntry;
-	public:
-		CleanLogEntry(LogEntry* const ALogEntry, const bool ARecursiveShutdown) :
-			FLogEntry(ALogEntry)
-		{
-			if (ARecursiveShutdown) {
-				//Emergency log the message
-				auto& Message(ALogEntry->FMessage);
-				const auto ByteIndex(Message.IndexOfByte(':', 3) + 1);	//+1 to comp for the space
-				API::Assert::LessThan(0, ByteIndex);
-				API::Assert::LessThan(ByteIndex, Message.RawLength());
-				Context::GetContext().FLogger.Log(API::String::Static(Message.CString() + ByteIndex), ALogEntry->FLevel);
-				if (FLogEntry->FNext != nullptr)
-					CleanLogEntry(FLogEntry->FNext, true);
-			}
-		}
-		~CleanLogEntry() {
-			Context::GetContext().FAllocator.DeleteObject<LogEntry>(FLogEntry);
-		}
-	};
-
-
 	API::LockGuard LockFile(FFileLock);
-	for (auto Node(Queue); Node != nullptr; Node = NextNode) {
-		NextNode = Node->FNext;
-		CleanLogEntry Cleanup(Node, false);
-		const auto Len(static_cast<unsigned int>(Node->FMessage.RawLength()));
+	for (; Queue.get() != nullptr; Queue = std::move(NextNode)) {
+		NextNode = std::move(Queue->FNext);
+		const auto Len(static_cast<unsigned int>(Queue->FMessage.RawLength()));
 		auto Written(0ULL);
 		do {
-			const auto CurrentWrite(FFile.Write(Node->FMessage.CString() + Written, Len - Written));
+			const auto CurrentWrite(FFile.Write(Queue->FMessage.CString() + Written, Len - Written));
 			if (CurrentWrite == 0) {
 				//CurrentContext will most certainly be FContext at this point
 				//but just in case we add some weird behaviour overrides in the future....
 				auto& EmergencyLogger(Context::GetContext().FLogger);
 				EmergencyLogger.SetDebugLogging(true);
 				EmergencyLogger.Log(API::String::Static(u8"Failed to write to primary log. Message follows:"), Level::ERR);
-				EmergencyLogger.Log(Node->FMessage, Node->FLevel);
+				EmergencyLogger.Log(Queue->FMessage, Queue->FLevel);
 				if (NextNode != nullptr) {
-					EmergencyLogger.Log(API::String::Static(u8"Remaining entries follow:"), Level::ERR);
-					CleanLogEntry(NextNode, true);
+					EmergencyLogger.Log(API::String::Static(u8"Remaining entries follow:"), Level::INFO);
+					LogShutdownForEntry(std::move(NextNode), LogShutdownForEntry);
 				}
 				throw CYB::Exception::SystemData(CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
 			}
@@ -202,17 +185,16 @@ void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level A
 		bool CritFail(false);
 		for (auto I(0U); I < (Parameters::LOGGER_HEAP_RETRY_COUNT + 1) && !CritFail; ++I) {
 			try {
-				auto Entry(static_cast<Allocator&>(Context::GetContext().FAllocator).RawObject<LogEntry>());
-				Entry->FNext = nullptr;
+				API::UniquePointer<LogEntry> Entry(static_cast<Allocator&>(Context::GetContext().FAllocator).RawObject<LogEntry>());
 				Entry->FMessage = API::String::Dynamic(u8"\n") + FormatLogMessage(AMessage, ALevel);
 				Entry->FLevel = ALevel;
 
 				API::LockGuard Lock(FQueueLock);
 				if (FQueueTail != nullptr)
-					FQueueTail->FNext = Entry;
-				else
-					FQueueHead = Entry;
-				FQueueTail = Entry;
+					FQueueTail->FNext = std::move(Entry);
+				else 
+					FQueueHead = std::move(Entry);
+				FQueueTail = Entry.get();
 				break;
 			}
 			catch (CYB::Exception::SystemData& AException) {

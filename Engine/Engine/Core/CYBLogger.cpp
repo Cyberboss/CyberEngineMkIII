@@ -239,6 +239,7 @@ void CYB::Engine::Logger::SetDebugLogging(const bool AEnable) noexcept {
 }
 
 void CYB::Engine::Logger::Pause(void) noexcept {
+	API::LockGuard QueueLock(FQueueLock), FileLock(FFileLock);
 	FPaused.store(true, std::memory_order_relaxed);
 }
 

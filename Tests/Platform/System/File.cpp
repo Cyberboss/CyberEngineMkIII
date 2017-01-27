@@ -94,7 +94,8 @@ REDIRECTED_FUNCTION(BadRead, const unsigned long long, const void* const, const 
 	return static_cast<unsigned long long>(-1);
 }
 
-REDIRECTED_FUNCTION(BadReadFile, const void* const, const void* const, const unsigned long, const void* const, const void* const) {
+REDIRECTED_FUNCTION(BadReadFile, const void* const, const void* const, const unsigned long, const unsigned long* AOut const, const void* const) {
+	*AOut = 0;
 	return 0;
 }
 
@@ -103,7 +104,8 @@ REDIRECTED_FUNCTION(BadWrite, const long long, const void* const, const unsigned
 	return static_cast<unsigned long long>(-1);
 }
 
-REDIRECTED_FUNCTION(BadWriteFile, const void* const, const void* const, const unsigned long, const void* const, const void* const) {
+REDIRECTED_FUNCTION(BadWriteFile, const void* const, const void* const, const unsigned long, const unsigned long* AOut const, const void* const) {
+	*AOut = 0;
 	return 0;
 }
 

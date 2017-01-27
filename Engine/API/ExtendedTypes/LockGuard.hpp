@@ -6,12 +6,12 @@ namespace CYB {
 		//! @brief A RAII locking mechanism
 		class LockGuard {
 		private:
-			Mutex* FMutex;	//!< @brief A reference to the owned mutex
+			Mutex* FMutex;	//!< @brief A reference to the owned Mutex
 		public:
 			/*! 
 				@brief Construct a LockGuard that will hold a lock on @p AMutex
-				@param AMutex The mutex to lock
-				@param APreLocked If the mutex is already locked by the calling thread this should be true, false otherwise
+				@param AMutex The Mutex to lock
+				@param APreLocked If the Mutex is already locked by the calling thread this should be true, false otherwise
 				@par Thread Safety
 					This function will attempt to lock AMutex
 			*/

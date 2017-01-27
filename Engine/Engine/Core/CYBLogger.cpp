@@ -67,8 +67,6 @@ CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 	FHeap(Parameters::LOGGER_HEAP_INITIAL_COMMIT_SIZE),
 	FContext(FHeap, AEmergencyLogger, true),
 	FFile(OpenFile()),
-	FQueueHead(nullptr),
-	FQueueTail(nullptr),
 	FThread(nullptr),
 	FCancelled(false),
 	FDevLog(
@@ -90,7 +88,6 @@ CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 
 CYB::Engine::Logger::~Logger() {
 	Log(API::String::Static(u8"Logger shutting down"), Level::INFO);
-
 	FContext.MakeCurrent();	//At this point, Core's Context is dead and we won't use it again
 	//using PushContext won't help as we'll try to dealloc strings in FFile with the wrong allocator
 	CancelThreadedOperation();
@@ -110,7 +107,6 @@ void CYB::Engine::Logger::LogShutdownForEntry(API::UniquePointer<LogEntry>&& AEn
 }
 
 void CYB::Engine::Logger::EmptyQueue(void) {
-
 	API::UniquePointer<LogEntry> Queue, NextNode;
 	{
 		API::LockGuard Lock(FQueueLock);
@@ -198,7 +194,7 @@ void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level A
 				API::LockGuard Lock(FQueueLock);
 				if (FQueueTail != nullptr)
 					FQueueTail->FNext = std::move(Entry);
-				else 
+				else
 					FQueueHead = std::move(Entry);
 				FQueueTail = Tmp;
 				break;

@@ -35,8 +35,8 @@ namespace CYB {
 			virtual void Flush(void) const noexcept = 0;
 
 			/*!
-				@brief Retrieve the string reprentation of the Path of the File the Logger is currently writing to
-				@return The string reprentation of the Path of the File the Logger is currently writing to
+				@brief Retrieve the string representation of the Path of the File the Logger is currently writing to
+				@return The string representation of the Path of the File the Logger is currently writing to
 				@par Thread Safety
 					This function requires no thread safety
 			*/

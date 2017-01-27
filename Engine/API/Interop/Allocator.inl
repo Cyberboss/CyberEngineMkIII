@@ -1,7 +1,5 @@
 #pragma once
 
-//keep it function local
-
 inline CYB::API::Interop::Allocator::Allocator(Heap& AHeap) noexcept :
 	FHeap(AHeap)
 {}

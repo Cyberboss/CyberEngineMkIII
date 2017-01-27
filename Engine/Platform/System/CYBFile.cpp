@@ -4,7 +4,6 @@
 CYB::Platform::System::File::File(const API::Path& APath, const Mode AMode, const Method AMethod) :
 	File(System::Path(static_cast<const System::Path&>(APath)), AMode, AMethod)
 {
-#ifdef DEBUG
 	using namespace API::String;
 	Dynamic Message(u8"Opened file: ");
 	Message += APath();
@@ -40,7 +39,6 @@ CYB::Platform::System::File::File(const API::Path& APath, const Mode AMode, cons
 		UNREACHABLE;
 	}
 	API::Context().FLogger.Log(Message, API::Logger::Level::DEV);
-#endif
 }
 
 void CYB::Platform::System::File::Touch(System::Path&& APath) {

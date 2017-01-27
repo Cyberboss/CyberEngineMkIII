@@ -29,7 +29,6 @@ SCENARIO("Allocatables can be allocated", "[API][Interop][Allocator][Unit]") {
 		WHEN("We try to allocate a Mutex") {
 			using TestAllocatable = Mutex;
 			REQUIRE_NOTHROW(Alloc.NewObject<TestAllocatable>());
-			//REQUIRE_NOTHROW(Alloc.RawObject<TestAllocatable>());
 			THEN("All is well") {
 				CHECK(true);
 			}
@@ -37,7 +36,6 @@ SCENARIO("Allocatables can be allocated", "[API][Interop][Allocator][Unit]") {
 		WHEN("We try to allocate a Path") {
 			using TestAllocatable = Path;
 			REQUIRE_NOTHROW(Alloc.NewObject<TestAllocatable>(Path::SystemPath::TEMPORARY));
-			//REQUIRE_NOTHROW(Alloc.RawObject<TestAllocatable>(Path::SystemPath::TEMPORARY));
 			THEN("All is well") {
 				CHECK(true);
 			}

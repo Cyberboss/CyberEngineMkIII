@@ -97,17 +97,18 @@ CYB::Engine::Logger::~Logger() {
 	EmptyQueue();
 }
 
+void CYB::Engine::Logger::LogShutdownForEntry(API::UniquePointer<LogEntry>&& AEntry, API::Logger& AEmergency) noexcept {
+	//Emergency log the message
+	auto& Message(AEntry->FMessage);
+	const auto ByteIndex(Message.IndexOfByte(':', 3) + 1);	//+1 to comp for the space
+	API::Assert::LessThan(0, ByteIndex);
+	API::Assert::LessThan(ByteIndex, Message.RawLength());
+	AEmergency.Log(API::String::Static(Message.CString() + ByteIndex), AEntry->FLevel);
+	if (AEntry->FNext != nullptr)
+		LogShutdownForEntry(std::move(AEntry->FNext), AEmergency);
+}
+
 void CYB::Engine::Logger::EmptyQueue(void) {
-	const auto LogShutdownForEntry([&](API::UniquePointer<LogEntry>&& ALogEntry, auto& Self) {
-		//Emergency log the message
-		auto& Message(ALogEntry->FMessage);
-		const auto ByteIndex(Message.IndexOfByte(':', 3) + 1);	//+1 to comp for the space
-		API::Assert::LessThan(0, ByteIndex);
-		API::Assert::LessThan(ByteIndex, Message.RawLength());
-		Context::GetContext().FLogger.Log(API::String::Static(Message.CString() + ByteIndex), ALogEntry->FLevel);
-		if (ALogEntry->FNext != nullptr)
-			Self(std::move(ALogEntry->FNext), true);
-	});
 
 	API::UniquePointer<LogEntry> Queue, NextNode;
 	{
@@ -132,7 +133,7 @@ void CYB::Engine::Logger::EmptyQueue(void) {
 				EmergencyLogger.Log(Queue->FMessage, Queue->FLevel);
 				if (NextNode != nullptr) {
 					EmergencyLogger.Log(API::String::Static(u8"Remaining entries follow:"), Level::INFO);
-					LogShutdownForEntry(std::move(NextNode), LogShutdownForEntry);
+					LogShutdownForEntry(std::move(NextNode), EmergencyLogger);
 				}
 				throw CYB::Exception::SystemData(CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
 			}

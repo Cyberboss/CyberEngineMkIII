@@ -28,7 +28,7 @@ namespace CYB {
 					@brief Construct an Allocator
 					@param AHeap The Heap the allocator will use
 					@par Thread Safety
-						Function calls should be synchronized
+						This function requires no thread safety
 				*/
 				Allocator(Heap& AHeap) noexcept;				
 
@@ -48,9 +48,9 @@ namespace CYB {
 				/*!
 					@brief Allocate a concrete object
 					@tparam AObject The object to allocate, must be an Allocatable
-					@tparam AIgnoredConstructor Used for overloading, ignored
+					@tparam AIgnoredConstructor Ignored
 					@tparam AArgs The arguments types of AConstructor
-					@param AIgnored Used for overloading, unused
+					@param AIgnored Used for overloading, ignored
 					@param AArguments Arguments to AConstructor
 					@return A pointer to the constructed object, allocated on this Allocator's Heap
 					@par Thread Safety
@@ -60,7 +60,7 @@ namespace CYB {
 				template <class AObject, typename AIgnoredConstructor, typename... AArgs> AObject* AllocateObject(const std::false_type AIgnored, AArgs&&... AArguments);
 			public:
 				/*!
-					@brief Drop in replacement for placement new. Used for code coverage
+					@brief Wrapper for placement new
 					@tparam AType The type to be constructed
 					@tparam AArgs The arguments types of AType's constructor
 					@param ALocation An area of memory not nullptr and at least sizof(AType) where AType will be constructed

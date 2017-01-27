@@ -42,6 +42,7 @@ void CYB::Platform::System::Console::Log(const API::String::CStyle& AMessage, co
 		API::Assert::LessThan(-1, Length);
 		API::Assert::LessThan(Length, 50);
 
+		API::LockGuard Lock(FLock);
 		WriteOut(API::String::Static(Buffer), IsError);
 		WriteOut(API::String::Static(LevelString), IsError);
 		WriteOut(AMessage, IsError);

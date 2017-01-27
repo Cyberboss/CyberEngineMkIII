@@ -19,7 +19,7 @@ namespace CYB {
 					@brief Used by the testing suite to fail allocations at will
 					@par Thread Safety
 						This function requires no thread safety
-					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the test demands it
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if a test demands it
 				*/
 				static void AllocCheck(void);
 

@@ -33,8 +33,8 @@ namespace CYB {
 				@param AHour The hour to display
 				@param AMinute The minute to display
 				@param ASecond The second to display
-				@param AColons Print with brackets and colons
-				@return An API::String::Dynamic with the given time in the format "HH:MM:SS"
+				@param AColons If true, print with brackets and colons. Otherwise use dashes
+				@return An API::String::Dynamic with the given time in the format "[HH:MM:SS]" or "HH-MM-SS" depending on @p AColons
 				@par Thread Safety
 					This function requires no thread safety
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
@@ -42,8 +42,8 @@ namespace CYB {
 			static API::String::Dynamic TimeString(const int AHour, const int AMinute, const int ASecond, const bool AColons);
 			/*!
 				@brief Retrieve a string of the current time
-				@param AColons Print with brackets and colons
-				@return An API::String::Dynamic with the current time in the format "HH:MM:SS"
+				@param AColons If true, print with brackets and colons. Otherwise use dashes
+				@return An API::String::Dynamic with the given time in the format "[HH:MM:SS]" or "HH-MM-SS" depending on @p AColons
 				@par Thread Safety
 					This function requires no thread safety
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
@@ -63,9 +63,9 @@ namespace CYB {
 			static API::String::Dynamic FormatLogMessage(const API::String::CStyle& AMessage, const Level ALevel);
 			
 			/*!
-				@brief Prepares the logging file for writing. May block for one millisecond if the preferred file name is taken in order to generate a new one
-				@param ABasePath A path to the directory to log in
-				@return The file to be used for logging
+				@brief Prepares the logging File for writing. May block for one second if the preferred filename is taken in order to generate a new one
+				@param ABasePath A Path to the directory to log in
+				@return The File to be used for logging
 				@par Thread Safety
 					This function requires no thread safety
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if the log File could not be opened
@@ -77,8 +77,8 @@ namespace CYB {
 			*/
 			static Platform::System::File OpenFileImpl(const Platform::System::Path& ABasePath);
 			/*!
-				@brief Prepares the logging file for writing. May block for one millisecond if the preferred file name is taken in order to generate a new one
-				@return The file to be used for logging
+				@brief Prepares the logging File for writing. May block for one second if the preferred filename is taken in order to generate a new one
+				@return The File to be used for logging
 				@par Thread Safety
 					This function requires no thread safety
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if the log File could not be opened
@@ -89,6 +89,15 @@ namespace CYB {
 				Theoretically this could throw CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE on some string allocations, but given the initial empty Heap this is practically impossible
 			*/
 			static Platform::System::File OpenFile(void);
+
+			/*!
+				@brief Takes a LogEntry Queue and logs it out to the current given emergency logger
+				@param AEntry An xvalue of a LogEntry. All its contents will be logged and deleted
+				@param AEmergency the current emergency logger
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			static void LogShutdownForEntry(API::UniquePointer<LogEntry>&& AEntry, API::Logger& AEmergency) noexcept;
 
 			/*!
 				@brief Empty FQueue and write it into FFile
@@ -114,15 +123,15 @@ namespace CYB {
 			*/
 			void BeginThreadedOperation(void) override;
 			/*!
-				@brief Stops the writer thread
+				@brief Stops the writer thread. Does not guarantee an empty queue
 				@par Thread Safety
 					This function requires no thread safety
 			*/
 			void CancelThreadedOperation(void) override;
 		public:
 			/*!
-				@brief Initializes and starts the Logger. Changes the current Context. May block for one millisecond if the preferred file name is taken in order to generate a new one
-				@param AEmergencyLogger The Logger to use when this one fails
+				@brief Initializes and starts the Logger. Changes the current Context. May block for one second if the preferred file name is taken in order to generate a new one
+				@param AEmergencyLogger The Logger to write errors to if this one fails
 				@par Thread Safety
 					This function requires no thread safety
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if the log File could not be opened

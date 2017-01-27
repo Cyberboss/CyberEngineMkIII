@@ -13,8 +13,7 @@ CYB::Platform::System::Mutex::Mutex() {
 }
 
 CYB::Platform::System::Mutex::~Mutex() {
-	const auto Result(Core().FModuleManager.Call<Modules::PThread::pthread_mutex_destroy>(&FMutex));
-	API::Assert::Equal(Result, 0);
+	Core().FModuleManager.Call<Modules::PThread::pthread_mutex_destroy>(&FMutex);
 }
 
 void CYB::Platform::System::Mutex::Lock(void) noexcept {

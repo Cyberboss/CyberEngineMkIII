@@ -26,7 +26,8 @@ namespace CYB {
 			API::Interop::Object<Platform::System::Thread> FThread;	//!< @brief The thread used for writing to the log file
 
 			std::atomic_bool FCancelled,	//!< @brief Cancel flag for FThread
-				FDevLog;	//!< @brief Flag for enabling/disabling DEV logs
+				FDevLog,	//!< @brief Flag for enabling/disabling DEV logs
+				FPaused;	//!< @brief Flag for sleeping the logging thread
 		private:
 			/*!
 				@brief Retrieve a string of the given time
@@ -149,10 +150,26 @@ namespace CYB {
 			//! @brief Shutdown the Logger and empty the queue
 			~Logger();
 
+			/*!
+				@brief Put the logging thread to sleep
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			void Pause(void) noexcept;
+			/*!
+				@brief Wake the logging thread
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			void Resume(void) noexcept;
+
 			//! @copydoc CYB::API::Logger::Log()
 			void Log(const API::String::CStyle& AMessage, const Level ALevel) final override;
 
-			//! @copydoc CYB::API::Logger::Flush()
+			/*!
+				@copydoc CYB::API::Logger::Flush()
+				@attention This does not call Resume and may result in a deadlock if called while paused
+			*/
 			void Flush(void) const noexcept final override;
 
 			//! @copydoc CYB::API::Logger::CurrentLog()

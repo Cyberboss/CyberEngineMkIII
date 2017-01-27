@@ -11,10 +11,11 @@ namespace CYB {
 			/*! 
 				@brief Construct a LockGuard that will hold a lock on @p AMutex
 				@param AMutex The mutex to lock
+				@param APreLocked If the mutex is already locked by the calling thread this should be true, false otherwise
 				@par Thread Safety
 					This function will attempt to lock AMutex
 			*/
-			LockGuard(Mutex& AMutex) noexcept;
+			LockGuard(Mutex& AMutex, const bool APreLocked = false) noexcept;
 			LockGuard(const LockGuard&) = delete;	//!< @brief See @ref structors
 			LockGuard(LockGuard&& AMove) noexcept;	//!< @brief See @ref structors
 			LockGuard& operator=(LockGuard&& AMove) noexcept;	//!< @brief See @ref structors

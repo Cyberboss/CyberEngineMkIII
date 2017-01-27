@@ -56,19 +56,6 @@ template <> void CYB::Engine::Logger::Backdoor<int>(int& AIgnored) {
 #endif
 }
 
-//do some scheduling trickery to make sure we hit the code coverage line in Flush
-class ThreadPriority {
-public:
-#ifdef TARGET_OS_WINDOWS
-	ThreadPriority() {
-		CYB::Platform::Win32::SetThreadPriority(CYB::Platform::Win32::GetCurrentThread(), THREAD_PRIORITY_HIGHEST);
-	}
-	~ThreadPriority() {
-		CYB::Platform::Win32::SetThreadPriority(CYB::Platform::Win32::GetCurrentThread(), THREAD_PRIORITY_NORMAL);
-	}
-#endif
-};
-
 SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 	using namespace CYB::API::String;
 	TestDependancies Deps;
@@ -80,15 +67,15 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 			REQUIRE_THROWS_AS(Log.Log(Static(u8"A bad enum log!"), static_cast<CYB::API::Logger::Level>(54)), CYB::Exception::Violation);
 #endif
 
-			ThreadPriority GiveItToMe;
+			Log.Pause();
 
 			Log.Log(Static(u8"A dev log"), CYB::API::Logger::Level::DEV);
 			Log.Log(Static(u8"An info log"), CYB::API::Logger::Level::INFO);
 			Log.Log(Static(u8"A warning log"), CYB::API::Logger::Level::WARN);
 			Log.Log(Static(u8"An error log!"), CYB::API::Logger::Level::ERR);
-			AND_THEN("Oh no, we can't write to the log file anymore!") {
-				const auto BWF(Deps.FK32.Redirect<CYB::Platform::Modules::Kernel32::WriteFile, BadWriteFile>());
-				const auto BW(Deps.FC.Redirect<CYB::Platform::Modules::LibC::write, BadWrite>());
+
+			const auto Continue([&]() {
+				Log.Resume();
 				Log.Flush();
 				THEN("It terminates and logs to the console") {
 #ifdef DEBUG
@@ -97,16 +84,15 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 					CHECK(true);
 #endif
 				}
+			});
+
+			AND_THEN("Oh no, we can't write to the log file anymore!") {
+				const auto BWF(Deps.FK32.Redirect<CYB::Platform::Modules::Kernel32::WriteFile, BadWriteFile>());
+				const auto BW(Deps.FC.Redirect<CYB::Platform::Modules::LibC::write, BadWrite>());
+				Continue();
 			}
 			AND_THEN("Things proceed normally") {
-				Log.Flush();
-				THEN("All is well") {
-#ifdef DEBUG
-					CHECK_EXCEPTION_CODE(CYB::Exception::Violation::INVALID_ENUM);
-#else
-					CHECK(true);
-#endif
-				}
+				Continue();
 			}
 		}
 		WHEN("We try immediately to open another") {
@@ -136,14 +122,15 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 		}
 		WHEN("We intentionally overload the logger") {
 			const auto ToDo([&]() {
-				ThreadPriority GiveItToMe;
 				const Static Kajigger(u8"No, Mr. Logger, I expect you to die");
-				for(auto I(0U); I < 50; ++I)
+				for(auto I(0U); I < 10; ++I)
 					Log.Log(Kajigger, CYB::API::Logger::Level::INFO);
 				THEN("All is well") {
 					CHECK(true);
 				}
 			});
+			Log.Pause();
+			Log.Log(Static("Do you expect me to log, Cyberboss?"), CYB::API::Logger::Level::INFO);
 			Fake::FailedAllocationCount = std::numeric_limits<unsigned long long>::max();
 			AND_THEN("Oh no, we can't write to the log file anymore!") {
 				const auto BWF(Deps.FK32.Redirect<CYB::Platform::Modules::Kernel32::WriteFile, BadWriteFile>());
@@ -153,7 +140,6 @@ SCENARIO("Logger logging works", "[Engine][Logger][Functional]") {
 			AND_THEN("Things proceed normally") {
 				ToDo();
 			}
-
 			Fake::FailedAllocationCount = 0;
 		}
 	}

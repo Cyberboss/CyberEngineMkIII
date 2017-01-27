@@ -90,6 +90,7 @@ CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 
 CYB::Engine::Logger::~Logger() {
 	Log(API::String::Static(u8"Logger shutting down"), Level::INFO);
+
 	FContext.MakeCurrent();	//At this point, Core's Context is dead and we won't use it again
 	//using PushContext won't help as we'll try to dealloc strings in FFile with the wrong allocator
 	CancelThreadedOperation();
@@ -115,9 +116,11 @@ void CYB::Engine::Logger::EmptyQueue(void) {
 		API::LockGuard Lock(FQueueLock);
 		Queue = std::move(FQueueHead);
 		FQueueTail = nullptr;
+		FFileLock.Lock();
 	}
 
-	API::LockGuard LockFile(FFileLock);
+	API::LockGuard FLock(FFileLock, true);
+
 	for (; Queue.get() != nullptr; Queue = std::move(NextNode)) {
 		NextNode = std::move(Queue->FNext);
 		const auto Len(static_cast<unsigned int>(Queue->FMessage.RawLength()));
@@ -150,7 +153,8 @@ CYB::API::Threadable& CYB::Engine::Logger::SelfAsThreadable(void) noexcept {
 void CYB::Engine::Logger::BeginThreadedOperation(void) {
 	PushContext Push(FContext);
 	while (!FCancelled.load(std::memory_order_relaxed)) {
-		EmptyQueue();
+		if(!FPaused.load(std::memory_order_acquire))
+			EmptyQueue();
 		Platform::System::Thread::Sleep(1);
 	}
 }
@@ -189,13 +193,14 @@ void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level A
 				API::UniquePointer<LogEntry> Entry(static_cast<Allocator&>(Context::GetContext().FAllocator).RawObject<LogEntry>());
 				Entry->FMessage = API::String::Dynamic(u8"\n") + FormatLogMessage(AMessage, ALevel);
 				Entry->FLevel = ALevel;
+				auto Tmp(Entry.get());
 
 				API::LockGuard Lock(FQueueLock);
 				if (FQueueTail != nullptr)
 					FQueueTail->FNext = std::move(Entry);
 				else 
 					FQueueHead = std::move(Entry);
-				FQueueTail = Entry.get();
+				FQueueTail = Tmp;
 				break;
 			}
 			catch (CYB::Exception::SystemData& AException) {
@@ -216,8 +221,8 @@ void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level A
 
 void CYB::Engine::Logger::Flush(void) const noexcept {
 	do {
-		{	//lock in reverse order so we know there are no dangling entry references
-			API::LockGuard FileLock(FFileLock), QueueLock(FQueueLock);
+		{
+			API::LockGuard QueueLock(FQueueLock), FileLock(FFileLock);
 			if (FQueueHead == nullptr)
 				break;
 		}
@@ -231,4 +236,12 @@ const CYB::API::String::CStyle& CYB::Engine::Logger::CurrentLog(void) const noex
 
 void CYB::Engine::Logger::SetDebugLogging(const bool AEnable) noexcept {
 	FDevLog.store(AEnable, std::memory_order_release);
+}
+
+void CYB::Engine::Logger::Pause(void) noexcept {
+	FPaused.store(true, std::memory_order_relaxed);
+}
+
+void CYB::Engine::Logger::Resume(void) noexcept {
+	FPaused.store(false, std::memory_order_relaxed);
 }

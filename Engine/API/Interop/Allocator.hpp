@@ -2,7 +2,6 @@
 #pragma once
 namespace CYB {
 	namespace API {
-		class Heap;
 		namespace Interop {
 			//! @brief Used for allocating objects within and without the engine
 			class Allocator {

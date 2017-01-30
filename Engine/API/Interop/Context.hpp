@@ -2,7 +2,6 @@
 #pragma once
 namespace CYB {
 	namespace API {
-		class Logger;
 		namespace Interop {
 			//! @brief Class which is used as an API for the engine
 			class Context {

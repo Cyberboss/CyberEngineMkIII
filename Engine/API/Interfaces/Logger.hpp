@@ -3,7 +3,6 @@
 
 namespace CYB {
 	namespace API {
-		class Path;
 		//! @brief The interface for writing safe logs
 		class Logger {
 		public:

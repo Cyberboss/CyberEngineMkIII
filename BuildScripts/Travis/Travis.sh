@@ -21,3 +21,5 @@ else
 	fi
 fi
 cmake --build . && ctest -V
+#cat the log files
+cat /tmp/CyberEngineMkIII/*txt 

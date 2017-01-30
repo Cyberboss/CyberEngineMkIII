@@ -1,4 +1,5 @@
 <map id="CYB::Platform::System::File::Write" name="CYB::Platform::System::File::Write">
-<area shape="rect" id="node2" href="$namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192" title="Retrieve the Core singleton. " alt="" coords="214,12,301,39"/>
-<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba" title="Retrieve the Core singleton. " alt="" coords="350,5,493,46"/>
+<area shape="rect" id="node2" href="$namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192" title="Retrieve the Core singleton. " alt="" coords="253,12,339,39"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_platform_1_1_modules_1_1_manager.html#a68fda1e0198788c3c9df883a0c69cf69" title="Call a loaded function. " alt="" coords="214,63,378,105"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba" title="Retrieve the Core singleton. " alt="" coords="427,5,570,46"/>
 </map>

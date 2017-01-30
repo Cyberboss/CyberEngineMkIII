@@ -349,7 +349,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of bytes read. If zero is returned, and the cursor position is not as <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_stream.html#ab2cc5268e74efc468f8101e280aa0336ab1a326c06d88bf042f73d70f50197905" title="Seek from the end of the Stream. ">SeekLocation::END</a> an error has occurred and the read should not be retried </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of bytes read. If zero is returned and the cursor position is not <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_stream.html#ab2cc5268e74efc468f8101e280aa0336ab1a326c06d88bf042f73d70f50197905" title="Seek from the end of the Stream. ">SeekLocation::END</a> an error has occurred. If the return value does not equal <code>AMaxAmount</code>, assume the underlying medium is currently out of readable data </dd></dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires synchronization at the object level </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
@@ -457,7 +457,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of bytes written. If zero is returned, an error has occurred and the write should not be retried </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of bytes written. If zero is returned, an error has occurred. If the return value does not equal <code>AMaxAmount</code>, assume the underlying medium is currently out of space </dd></dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires synchronization at the object level </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">

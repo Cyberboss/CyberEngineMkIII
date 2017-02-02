@@ -120,20 +120,25 @@ void CYB::Engine::Logger::EmptyQueue(void) {
 	for (; Queue.get() != nullptr; Queue = std::move(NextNode)) {
 		NextNode = std::move(Queue->FNext);
 		const auto Len(static_cast<unsigned int>(Queue->FMessage.RawLength()));
-		const auto WriteLen(FFile.Write(Queue->FMessage.CString(), Len));
-		if (WriteLen != Len) {
-			//CurrentContext will most certainly be FContext at this point
-			//but just in case we add some weird behaviour overrides in the future....
-			auto& EmergencyLogger(Context::GetContext().FLogger);
-			EmergencyLogger.SetDebugLogging(true);
-			EmergencyLogger.Log(API::String::Static(u8"Failed to write to primary log. Message follows:"), Level::ERR);
-			EmergencyLogger.Log(Queue->FMessage, Queue->FLevel);
-			if (NextNode != nullptr) {
-				EmergencyLogger.Log(API::String::Static(u8"Remaining entries follow:"), Level::INFO);
-				LogShutdownForEntry(std::move(NextNode), EmergencyLogger);
+		auto Written(0ULL);
+		do {
+			const auto CurrentWrite(FFile.Write(Queue->FMessage.CString() + Written, Len - Written));
+			if (CurrentWrite == 0) {
+				//CurrentContext will most certainly be FContext at this point
+				//but just in case we add some weird behaviour overrides in the future....
+				auto& EmergencyLogger(Context::GetContext().FLogger);
+				EmergencyLogger.SetDebugLogging(true);
+				EmergencyLogger.Log(API::String::Static(u8"Failed to write to primary log. Message follows:"), Level::ERR);
+				EmergencyLogger.Log(Queue->FMessage, Queue->FLevel);
+				if (NextNode != nullptr) {
+					EmergencyLogger.Log(API::String::Static(u8"Remaining entries follow:"), Level::INFO);
+					LogShutdownForEntry(std::move(NextNode), EmergencyLogger);
+				}
+				throw CYB::Exception::SystemData(CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
 			}
-			throw CYB::Exception::SystemData(CYB::Exception::SystemData::STREAM_NOT_WRITABLE);
-		}
+			Written += CurrentWrite;
+		} while (Written < Len);
+		API::Assert::Equal<unsigned long long>(Written, Len);
 	}
 }
 

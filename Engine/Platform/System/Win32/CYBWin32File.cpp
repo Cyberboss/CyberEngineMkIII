@@ -155,7 +155,7 @@ unsigned long long CYB::Platform::System::File::Seek(const long long AOffset, co
 unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const unsigned long long AMaxAmount) const {
 	if (FOpenMode == Mode::WRITE)
 		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
-	DWORD BytesRead;
+	DWORD BytesRead(0);
 	//error checks not required, see msdn return conditions
 	Core().FModuleManager.Call<Modules::Kernel32::ReadFile>(FHandle, ABuffer, static_cast<DWORD>(AMaxAmount), &BytesRead, nullptr);
 	return BytesRead;
@@ -164,7 +164,7 @@ unsigned long long CYB::Platform::System::File::Read(void* const ABuffer, const 
 unsigned long long CYB::Platform::System::File::Write(const void* const ABuffer, const unsigned long long AAmount) {
 	if (FOpenMode == Mode::READ)
 		throw Exception::Violation(Exception::Violation::INVALID_OPERATION);
-	DWORD BytesWritten;
+	DWORD BytesWritten(0);
 	//error checks not required, see msdn return conditions
 	Core().FModuleManager.Call<Modules::Kernel32::WriteFile>(FHandle, ABuffer, static_cast<DWORD>(AAmount), &BytesWritten, nullptr);	
 	return BytesWritten;

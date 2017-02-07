@@ -27,40 +27,38 @@ CYB::API::String::Dynamic CYB::Engine::Logger::TimeString(const bool AColons) {
 	return TimeString(Hour, Min, Sec, AColons);
 }
 
-CYB::Platform::System::File CYB::Engine::Logger::OpenFileImpl(const Platform::System::Path& ABaseLogPath) {
-	try {
-
-		auto Time(time(0));   // get time now
-		auto Now(localtime(&Time));
-
-		const int Year(Now->tm_year + 1900), Month(Now->tm_mon + 1), Day(Now->tm_mday), Hour(Now->tm_hour), Min(Now->tm_min), Sec(Now->tm_sec);
-
-		char Buffer[50];
-		memset(Buffer, 0, 50);
-		const auto Length(sprintf(Buffer, u8"Engine Log %d-%d-%d %s.txt", Year, Month, Day, TimeString(Hour, Min, Sec, false).CString()));
-
-		API::Assert::LessThan(-1, Length);
-		API::Assert::LessThan(Length, 50);
-
-		API::String::Static AsStatic(Buffer);
-		API::String::UTF8 Formatted(AsStatic);
-
-		auto LogPath(ABaseLogPath);
-		LogPath.Append(std::move(Formatted), false, false);
-
-		return Platform::System::File(std::move(LogPath), API::File::Mode::WRITE, API::File::Method::CREATE);
-	}
-	catch (CYB::Exception::SystemData& AException) {
-		if (AException.FErrorCode != CYB::Exception::SystemData::FILE_EXISTS)
-			throw;
-	}
-	Platform::System::Thread::Sleep(1000);
-	return OpenFileImpl(ABaseLogPath);
-}
 CYB::Platform::System::File CYB::Engine::Logger::OpenFile(void) {
+
 	//All allocation is done using the Logger's Allocator
-	Platform::System::Path ThePath(API::Path::SystemPath::TEMPORARY);
-	return OpenFileImpl(ThePath);
+	const Platform::System::Path BaseLogPath(API::Path::SystemPath::TEMPORARY);
+	do {
+		try {
+
+			auto Time(time(0));   // get time now
+			auto Now(localtime(&Time));
+
+			const int Year(Now->tm_year + 1900), Month(Now->tm_mon + 1), Day(Now->tm_mday), Hour(Now->tm_hour), Min(Now->tm_min), Sec(Now->tm_sec);
+
+			char Buffer[50];
+			memset(Buffer, 0, 50);
+			const auto Length(sprintf(Buffer, u8"Engine Log %d-%d-%d %s.txt", Year, Month, Day, TimeString(Hour, Min, Sec, false).CString()));
+
+			API::Assert::LessThan(-1, Length);
+			API::Assert::LessThan(Length, 50);
+
+			API::String::Static AsStatic(Buffer);
+			API::String::UTF8 Formatted(AsStatic);
+
+			auto LogPath(BaseLogPath);
+			LogPath.Append(std::move(Formatted), false, false);
+
+			return Platform::System::File(std::move(LogPath), API::File::Mode::WRITE, API::File::Method::CREATE);
+		}
+		catch (CYB::Exception::SystemData& AException) {
+			if (AException.FErrorCode != CYB::Exception::SystemData::FILE_EXISTS)
+				throw;
+		}
+	} while (true);
 }
 
 CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :

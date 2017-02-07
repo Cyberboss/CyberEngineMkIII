@@ -81,6 +81,9 @@ CYB::Engine::Logger::Logger(API::Logger& AEmergencyLogger) :
 
 	FQueueTail = FQueueHead.get();
 
+	//Flush this message in case it all goes downhill from here
+	EmptyQueue();
+
 	FThread = FContext.FAllocator.ConstructObject<Platform::System::Thread, API::Interop::NullConstructor>(SelfAsThreadable());
 }
 

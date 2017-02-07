@@ -8,12 +8,22 @@ namespace Fake {
 		void* Realloc(void* const AOld, const int ANewSize) final override;
 		void Free(void* const AOld) noexcept final override;
 	};
+	class Logger : public CYB::API::Logger {
+	private:
+		const CYB::API::String::Static FLogPath;
+	public:
+		Logger();
+		void Log(const CYB::API::String::CStyle& AMessage, const Level ALevel) final override;
+		void Flush(void) const noexcept final override;
+		const CYB::API::String::CStyle& CurrentLog(void) const noexcept final override;
+		void SetDebugLogging(const bool AIgnored) noexcept final override;
+	};
 	class Core {
 		friend class CYB::Engine::Core;
 	private:
 		byte FBytes[sizeof(CYB::Engine::Core)];
+		Logger FLogger;
 		Heap FHeap;
-		CYB::Engine::Allocator FAllocator;
 	public:
 		Core();
 
@@ -43,6 +53,7 @@ namespace Fake {
 		static void OverrideCall(const CYB::Platform::System::Sys::CallNumber ACallNumber, CallPointer ACallPointer);
 		static void ResetCall(const CYB::Platform::System::Sys::CallNumber ACallNumber);
 	};
+	extern unsigned long long FailedAllocationCount;
 };
 
 class SysCallOverride {

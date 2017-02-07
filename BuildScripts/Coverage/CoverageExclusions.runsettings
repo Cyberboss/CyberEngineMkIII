@@ -49,6 +49,7 @@ Included items must then not match any entries in the exclude list to remain inc
                 <Function>^CYB::Platform::Modules::AutoModuleOptionalHelper.*</Function>
                 <Function>^CYB::Platform::Modules::AutoModule.*::ModuleName</Function>
                 <Function>^CYB::Platform::System::Sys.*</Function>
+                <Function>^CYB::Engine::Logger::SelfAsThreadable.*</Function>
               </Exclude>
             </Functions>
 

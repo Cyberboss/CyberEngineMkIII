@@ -111,6 +111,7 @@
     <ClCompile Include="Engine\Core\CYBCore.cpp" />
     <ClCompile Include="Engine\Core\CYBEngineParameters.cpp" />
     <ClCompile Include="Engine\Core\CYBException.cpp" />
+    <ClCompile Include="Engine\Core\CYBLogger.cpp" />
     <ClCompile Include="Engine\Memory\CYBBlock.cpp" />
     <ClCompile Include="Engine\Memory\CYBHeap.cpp" />
     <ClCompile Include="Engine\Memory\CYBLargeBlock.cpp" />
@@ -120,6 +121,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Platform\Modules\Win32\CYBWin32Module.cpp" />
+    <ClCompile Include="Platform\System\CYBConsole.cpp" />
     <ClCompile Include="Platform\System\CYBFile.cpp" />
     <ClCompile Include="Platform\System\CYBPath.cpp" />
     <ClCompile Include="Platform\System\CYBProcess.cpp" />
@@ -147,6 +149,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Platform\System\OSX\CYBOSXProcess.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Platform\System\Posix\CYBPosixConsole.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -182,6 +188,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Platform\System\Win32\CYBWin32Console.cpp" />
     <ClCompile Include="Platform\System\Win32\CYBWin32File.cpp" />
     <ClCompile Include="Platform\System\Win32\CYBWin32Mutex.cpp" />
     <ClCompile Include="Platform\System\Win32\CYBWin32Path.cpp" />
@@ -214,6 +221,7 @@
     <ClInclude Include="API\Interfaces\Heap.hpp" />
     <ClInclude Include="API\Interfaces\Interfaces.hpp" />
     <ClInclude Include="API\Interfaces\Stream.hpp" />
+    <ClInclude Include="API\Interfaces\Logger.hpp" />
     <ClInclude Include="API\Interop\Context.hpp" />
     <ClInclude Include="API\Interop\Allocatable.hpp" />
     <ClInclude Include="API\Interop\Allocator.hpp" />
@@ -239,6 +247,7 @@
     <ClInclude Include="Engine\Core\CYBInterop.hpp" />
     <ClInclude Include="Engine\Core\CYBCore.hpp" />
     <ClInclude Include="Engine\Core\CYBEngineParameters.hpp" />
+    <ClInclude Include="Engine\Core\CYBLogger.hpp" />
     <ClInclude Include="Engine\CYBEngine.hpp" />
     <ClInclude Include="Engine\Memory\CYBBlock.hpp" />
     <ClInclude Include="Engine\Memory\CYBHeap.hpp" />
@@ -260,6 +269,7 @@
     <ClInclude Include="Platform\SystemHeaders\CYBSystemHeaders.hpp" />
     <ClInclude Include="Platform\SystemHeaders\CYBUTF16String.hpp" />
     <ClInclude Include="Platform\SystemHeaders\CYBWin32Headers.hpp" />
+    <ClInclude Include="Platform\System\CYBConsole.hpp" />
     <ClInclude Include="Platform\System\CYBFile.hpp" />
     <ClInclude Include="Platform\System\CYBMutex.hpp" />
     <ClInclude Include="Platform\System\CYBPath.hpp" />
@@ -316,6 +326,7 @@
     <None Include="DoxyPages\Contexts.dox" />
     <None Include="DoxyPages\Conventions.dox" />
     <None Include="DoxyPages\Main.dox" />
+    <None Include="Engine\Core\CYBInterop.inl" />
     <None Include="Platform\Modules\CYBAutoModule.inl" />
     <None Include="Platform\Modules\CYBModuleDefinitions.hpp" />
     <ClCompile Include="Platform\SystemHeaders\CYBUTF16String.cpp">

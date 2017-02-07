@@ -161,9 +161,7 @@ CYB::API::String::UTF8 CYB::Platform::System::Path::Extension(void) const {
 }
 
 CYB::API::Interop::Object<CYB::API::Path::DirectoryEntry> CYB::Platform::System::Path::Contents(void) const {
-	return API::Interop::Object<Implementation::Path::DirectoryEntry>::Upcast<API::Path::DirectoryEntry>(
-		API::Context().FAllocator.NewObject<Implementation::Path::DirectoryEntry, Implementation::Path::DirectoryEntry::Constructor>(*this)
-		);
+	return API::Interop::Object<Implementation::Path::DirectoryEntry>::Upcast<API::Path::DirectoryEntry>(API::Context().FAllocator.ConstructObject<Implementation::Path::DirectoryEntry, API::Interop::NullConstructor>(*this));
 }
 
 CYB::API::Interop::Object<CYB::API::Path>& CYB::Platform::System::Implementation::Path::DirectoryEntry::operator*(void) noexcept {

@@ -177,15 +177,7 @@ public:
 		while (!FCancelled.load(std::memory_order_relaxed))
 			CYB::Platform::System::Thread::Yield();
 	}
-	void CancelThreadedOperation(void) final override {
-		FCancelled.store(true, std::memory_order_relaxed);
-		if (FThrowOnCancellation) {
-			if (FThrowKnownException)
-				throw CYB::Exception::ThreadExceptionTester();
-			else
-				throw std::exception();
-		}
-	}
+	void CancelThreadedOperation(void) final override {	}
 };
 
 REDIRECTED_FUNCTION(BadPThreadMutexInit, const void* const, const void* const) {
@@ -224,26 +216,6 @@ SCENARIO("Thread errors work", "[Platform][System][Threads][Unit]") {
 		ThreadErrorTest Test(true, false);
 		WHEN("A thread is run created using it") {
 			CYB::Platform::System::Thread TestThread(Test);
-			THEN("Nothing bad happens") {
-				CHECK(true);
-			}
-		}
-	}
-	GIVEN("A Threadable that will throw an unknown exception on cancel") {
-		ThreadErrorTest Test(false, true);
-		CYB::Platform::System::Thread TestThread(Test);
-		WHEN("A thread is cancelled created using it") {
-			TestThread.Cancel();
-			THEN("Nothing bad happens") {
-				CHECK(true);
-			}
-		}
-	}
-	GIVEN("A Threadable that will throw a known exception on cancel") {
-		ThreadErrorTest Test(true, true);
-		CYB::Platform::System::Thread TestThread(Test);
-		WHEN("A thread is cancelled created using it") {
-			TestThread.Cancel();
 			THEN("Nothing bad happens") {
 				CHECK(true);
 			}

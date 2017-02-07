@@ -6,18 +6,19 @@ SCENARIO("Allocatables can be allocated", "[API][Interop][Allocator][Unit]") {
 	ModuleDependancy<CYB::Platform::Modules::LibC> LibC;
 	ModuleDependancy<CYB::Platform::Modules::RT> RT;
 	ModuleDependancy<CYB::Platform::Modules::System> System;
+	auto& Alloc(static_cast<CYB::Engine::Allocator&>(CYB::API::Context().FAllocator));
 	GIVEN("Abstract allocatables") {
 		using namespace CYB::API;
 		WHEN("We try to allocate a Mutex") {
 			using TestAllocatable = Mutex;
-			REQUIRE_NOTHROW(CYB::API::Context().FAllocator.NewObject<TestAllocatable>());
+			REQUIRE_NOTHROW(Alloc.NewObject<TestAllocatable>());
 			THEN("All is well") {
 				CHECK(true);
 			}
 		}
 		WHEN("We try to allocate a Path") {
 			using TestAllocatable = Path;
-			REQUIRE_NOTHROW(CYB::API::Context().FAllocator.NewObject<TestAllocatable>(Path::SystemPath::TEMPORARY));
+			REQUIRE_NOTHROW(Alloc.NewObject<TestAllocatable>(Path::SystemPath::TEMPORARY));
 			THEN("All is well") {
 				CHECK(true);
 			}
@@ -27,14 +28,16 @@ SCENARIO("Allocatables can be allocated", "[API][Interop][Allocator][Unit]") {
 		using namespace CYB::Platform::System;
 		WHEN("We try to allocate a Mutex") {
 			using TestAllocatable = Mutex;
-			REQUIRE_NOTHROW(CYB::API::Context().FAllocator.NewObject<TestAllocatable>());
+			REQUIRE_NOTHROW(Alloc.NewObject<TestAllocatable>());
+			//REQUIRE_NOTHROW(Alloc.RawObject<TestAllocatable>());
 			THEN("All is well") {
 				CHECK(true);
 			}
 		}
 		WHEN("We try to allocate a Path") {
 			using TestAllocatable = Path;
-			REQUIRE_NOTHROW(CYB::API::Context().FAllocator.NewObject<TestAllocatable>(Path::SystemPath::TEMPORARY));
+			REQUIRE_NOTHROW(Alloc.NewObject<TestAllocatable>(Path::SystemPath::TEMPORARY));
+			//REQUIRE_NOTHROW(Alloc.RawObject<TestAllocatable>(Path::SystemPath::TEMPORARY));
 			THEN("All is well") {
 				CHECK(true);
 			}

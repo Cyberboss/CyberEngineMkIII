@@ -113,9 +113,11 @@
     <ClCompile Include="API\Types\UTF16String.cpp" />
     <ClCompile Include="API\Types\UTF8String.cpp" />
     <ClCompile Include="Engine\Core\Core.cpp" />
+    <ClCompile Include="Engine\Core\Logger.cpp" />
     <ClCompile Include="Engine\Memory\Blocks.cpp" />
     <ClCompile Include="Engine\Memory\Heap.cpp" />
     <ClCompile Include="Platform\Modules.cpp" />
+    <ClCompile Include="Platform\System\Console.cpp" />
     <ClCompile Include="Platform\System\File.cpp" />
     <ClCompile Include="Platform\System\Mutex.cpp" />
     <ClCompile Include="Platform\System\Path.cpp" />

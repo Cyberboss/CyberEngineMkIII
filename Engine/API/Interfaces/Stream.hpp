@@ -57,7 +57,7 @@ namespace CYB {
 				@return The number of bytes read. If zero is returned and the cursor position is not SeekLocation::END an error has occurred. If the return value does not equal @p AMaxAmount, assume the underlying medium is currently out of readable data
 				@par Thread Safety
 					This function requires synchronization at the object level
-				@throw CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_OPERATION. Thrown if the Stream mode is Mode::WRITE
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_OPERATION. Thrown if the Stream mode is Mode::WRITE
 			*/
 			virtual unsigned long long Read(void* const ABuffer, const unsigned long long AMaxAmount) const = 0;
 			/*!
@@ -67,7 +67,7 @@ namespace CYB {
 				@return The number of bytes written. If zero is returned, an error has occurred. If the return value does not equal @p AMaxAmount, assume the underlying medium is currently out of space
 				@par Thread Safety
 					This function requires synchronization at the object level
-				@throw CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_OPERATION. Thrown if the Stream mode is Mode::READ
+				@throws CYB::Exception::Violation Error code: CYB::Exception::Violation::INVALID_OPERATION. Thrown if the Stream mode is Mode::READ
 			*/
 			virtual unsigned long long Write(const void* const ABuffer, const unsigned long long AAmount) = 0;
 		};

@@ -16,6 +16,14 @@ namespace CYB {
 				bool FLocked; //!< @brief Whether or not the Heap is currently locked
 			private:
 				/*!
+					@brief Used by the testing suite to fail allocations at will
+					@par Thread Safety
+						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the test demands it
+				*/
+				static void AllocCheck(void);
+
+				/*!
 					@brief A small max comparison of @p AInitialCommitSize and sizeof(Block) + 1
 					@param AInitialCommitSize The wanted initial commit size
 					@return The minimum valid initial commit size
@@ -117,6 +125,7 @@ namespace CYB {
 					@param AInitialCommitSize The amount of memory to initalize the heap with, must be smaller than @p AReservationSize
 					@par Thread Safety
 						This function requires no thread safety
+					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE. Thrown if the Mutex could not be initialized
 					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_RESERVATION_FAILURE. Thrown if the memory could not be reserved
 					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_COMMITAL_FAILURE. Thrown if the memory could not be committed
 				*/

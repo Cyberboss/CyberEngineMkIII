@@ -15,11 +15,13 @@ Platform/System/File.cpp
 Platform/System/Path.cpp
 Platform/System/Process.cpp
 Platform/System/Semaphore.cpp
+Platform/System/Console.cpp
 
 Engine/Memory/Blocks.cpp
 Engine/Memory/Heap.cpp
 
 Engine/Core/Core.cpp
+Engine/Core/Logger.cpp
 
 API/Types/StaticAndCStyleString.cpp
 API/Types/DynamicString.cpp

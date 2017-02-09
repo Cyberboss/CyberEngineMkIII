@@ -89,15 +89,17 @@ inline void CYB::API::String::Dynamic::DeallocateData(void) {
 }
 
 inline CYB::API::String::Dynamic CYB::API::String::Dynamic::operator+(const CStyle& ARHS) const {
+	if (ARHS.CString() == nullptr)
+		return *this;
+	else if (CString() == nullptr)
+		return Dynamic(ARHS);
+
 	const auto TotalLength(static_cast<unsigned long long>(RawLength() + ARHS.RawLength()));
-	if (TotalLength > 0) {
-		Assert::LessThanOrEqual(TotalLength + 1, static_cast<unsigned long long>(std::numeric_limits<int>::max()));
-		auto Data(static_cast<char*>(Context().FAllocator.FHeap.Alloc(static_cast<int>(TotalLength + 1))));
-		std::copy(CString(), CString() + RawLength(), Data);
-		std::copy(ARHS.CString(), ARHS.CString() + ARHS.RawLength() + 1, Data + RawLength());
-		return Dynamic(Data);
-	}
-	return Dynamic();
+	Assert::LessThanOrEqual(TotalLength + 1, static_cast<unsigned long long>(std::numeric_limits<int>::max()));
+	auto Data(static_cast<char*>(Context().FAllocator.FHeap.Alloc(static_cast<int>(TotalLength + 1))));
+	std::copy(CString(), CString() + RawLength(), Data);
+	std::copy(ARHS.CString(), ARHS.CString() + ARHS.RawLength() + 1, Data + RawLength());
+	return Dynamic(Data);
 }
 
 inline CYB::API::String::Dynamic& CYB::API::String::Dynamic::operator+=(const CStyle& ARHS) {

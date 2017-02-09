@@ -4,10 +4,14 @@
 void CYB::Platform::System::Thread::RunThread(API::Threadable& AThreadable) noexcept {
 	Core().DefaultContext();
 	try {
-		auto& Logger(Engine::Context::GetContext().FLogger);
-		Logger.Log(API::String::Static(u8"Thread started."), API::Logger::Level::DEV);
+		const auto ThreadID(Core().ThreadID());
+		API::Assert::NotEqual(ThreadID, 0ULL);	//That's the main thread, if we've overflowed, someone screwed up somewhere
+		if(ThreadID > 1)	//not 
+			Engine::Context::GetContext().FLogger.Log(API::String::Static(u8"Thread started."), API::Logger::Level::DEV);
+
 		AThreadable.BeginThreadedOperation();
-		Logger.Log(API::String::Static(u8"Thread finished."), API::Logger::Level::DEV);
+
+		Engine::Context::GetContext().FLogger.Log(API::String::Static(u8"Thread finished."), API::Logger::Level::DEV);
 	}
 	catch (CYB::Exception::Base AException) {
 		auto& Logger(Engine::Context::GetContext().FLogger);

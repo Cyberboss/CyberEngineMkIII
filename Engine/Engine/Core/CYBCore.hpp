@@ -12,6 +12,7 @@ namespace CYB {
 			ENABLE_TEST_HOOKS
 		private:
 			static thread_local Context* FCurrentContext; //!< @brief The current Context in use
+			static thread_local unsigned long long FThreadID;	//!< @brief ID of the checking thread
 
 		public:
 			API::EngineInformation FEngineInformation;	//!< @brief Information describing the engine
@@ -19,6 +20,9 @@ namespace CYB {
 			Platform::Modules::Manager FModuleManager;	//!< @brief Loads and contains required modules
 		private:
 			Platform::System::Console FConsole;	//!< @brief The console
+
+			std::atomic_uint_fast64_t FThreadCounter;	//!< @brief The number of threads created
+
 			Logger FLogger;	//!< @brief The engine's primary Logger
 
 			Memory::Heap FHeap;	//!< @brief The engine's primary Heap
@@ -93,6 +97,14 @@ namespace CYB {
 					This function requires no thread safety
 			*/
 			void DefaultContext(void) noexcept;
+
+			/*!
+				@brief Possibly assign and return the current thread's serial ID for this execution
+				@return The current thread's serial ID for this execution
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			unsigned long long ThreadID(void) noexcept;
 		};
 	};
 

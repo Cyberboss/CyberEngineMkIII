@@ -22,10 +22,12 @@
 */
 
 thread_local CYB::Engine::Context* CYB::Engine::Core::FCurrentContext;
+thread_local unsigned long long CYB::Engine::Core::FThreadID(0);
 
 CYB::Engine::Core::Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments) :
 	Singleton<Core>(true),
 	FEngineInformation(Parameters::CreateEngineInformation()),
+	FThreadCounter(0),
 	FLogger(FConsole),
 	FHeap(Parameters::ENGINE_HEAP_INITIAL_COMMIT_SIZE),
 	FEngineContext(FHeap, FLogger, true)
@@ -65,4 +67,10 @@ void CYB::Engine::Core::DefaultContext(void) noexcept {
 
 CYB::Engine::Core& CYB::Core(void) noexcept {
 	return Engine::Core::GetCore();
+}
+
+unsigned long long CYB::Engine::Core::ThreadID(void) noexcept {
+	if (FThreadID == 0)
+		FThreadID = FThreadCounter.fetch_add(1, std::memory_order_relaxed);
+	return FThreadID;
 }

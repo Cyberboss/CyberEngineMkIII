@@ -180,7 +180,16 @@ CYB::API::String::Dynamic CYB::Engine::Logger::FormatLogMessage(const API::Strin
 	default:
 		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
 	}
-	return TimeString(true) + API::String::Static(LevelString) + AMessage;
+
+	const auto ThreadID(Core::GetCore().ThreadID());
+	API::String::Dynamic Tabs;
+	if (ThreadID > 0) {
+		const API::String::Static Tab(u8"\t");
+		for (auto I(0ULL); I < ThreadID; ++I)
+			Tabs += Tab;	//This is pretty performant considering the allocater works in chunks
+	}
+
+	return TimeString(true) + Tabs + API::String::Static(LevelString) + AMessage;
 }
 
 void CYB::Engine::Logger::Log(const API::String::CStyle& AMessage, const Level ALevel) {

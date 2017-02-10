@@ -89,9 +89,9 @@ inline void CYB::API::String::Dynamic::DeallocateData(void) {
 }
 
 inline CYB::API::String::Dynamic CYB::API::String::Dynamic::operator+(const CStyle& ARHS) const {
-	if (ARHS.CString() == nullptr)
+	if (ARHS.RawLength() <= 0)
 		return *this;
-	else if (CString() == nullptr)
+	else if (RawLength() <= 0)
 		return Dynamic(ARHS);
 
 	const auto TotalLength(static_cast<unsigned long long>(RawLength() + ARHS.RawLength()));

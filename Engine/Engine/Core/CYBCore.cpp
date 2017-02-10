@@ -71,6 +71,6 @@ CYB::Engine::Core& CYB::Core(void) noexcept {
 
 unsigned long long CYB::Engine::Core::ThreadID(void) noexcept {
 	if (FThreadID == 0)
-		FThreadID = FThreadCounter.fetch_add(1, std::memory_order_relaxed);
+		FThreadID = FThreadCounter.fetch_add(1, std::memory_order_relaxed) + 1;
 	return FThreadID;
 }

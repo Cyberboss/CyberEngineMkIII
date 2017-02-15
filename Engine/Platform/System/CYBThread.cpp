@@ -5,7 +5,7 @@ void CYB::Platform::System::Thread::RunThread(API::Threadable& AThreadable) noex
 	Core().DefaultContext();
 	try {
 		const auto ThreadID(Core().ThreadID());
-		API::Assert::LessThan(ThreadID, 2ULL);	//1 is the main thread, and if we've overflowed, someone screwed up somewhere
+		API::Assert::LessThan(1ULL, ThreadID);	//1 is the main thread, and if we've overflowed, someone screwed up somewhere
 		if(ThreadID > 2)	//not 
 			Engine::Context::GetContext().FLogger.Log(API::String::Static(u8"Thread started."), API::Logger::Level::DEV);
 

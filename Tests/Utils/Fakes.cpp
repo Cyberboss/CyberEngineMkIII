@@ -11,7 +11,10 @@ template <> template <> void CYB::API::Singleton<CYB::Engine::Core>::Backdoor<vo
 	FSingleton = static_cast<CYB::Engine::Core*>(AHooker);
 }
 template <> void CYB::Engine::Core::Backdoor<Fake::Core>(Fake::Core& AHooker) {
-	new (&(reinterpret_cast<Core*>(AHooker.FBytes)->FEngineContext)) CYB::Engine::Context(AHooker.FHeap, AHooker.FLogger, true);	//this hurts you
+	auto core(reinterpret_cast<Core*>(AHooker.FBytes));
+	new (&(core->FEngineContext)) CYB::Engine::Context(AHooker.FHeap, AHooker.FLogger, true);	//this hurts you
+	core->FThreadCounter = 0;
+	FThreadID = 0;
 }
 
 Fake::Logger::Logger() :

@@ -166,28 +166,30 @@ CYB::API::String::Dynamic CYB::Engine::Logger::FormatLogMessage(const API::Strin
 	const char* LevelString;
 	switch (ALevel) {
 	case Level::DEV:
-		LevelString = u8": Debug: ";
+		LevelString = u8"Debug: ";
 		break;
 	case Level::INFO:
-		LevelString = u8": Info: ";
+		LevelString = u8"Info: ";
 		break;
 	case Level::WARN:
-		LevelString = u8": Warning: ";
+		LevelString = u8"Warning: ";
 		break;
 	case Level::ERR:
-		LevelString = u8": ERROR: ";
+		LevelString = u8"ERROR: ";
 		break;
 	default:
 		throw CYB::Exception::Violation(CYB::Exception::Violation::INVALID_ENUM);
 	}
 
 	const auto ThreadID(Core::GetCore().ThreadID());
-	API::String::Dynamic Tabs;
-	if (ThreadID > 0) {
+	API::String::Dynamic Tabs(":");
+	if (ThreadID > 1) {
 		const API::String::Static Tab(u8"\t");
-		for (auto I(0ULL); I < ThreadID; ++I)
+		for (auto I(1ULL); I < ThreadID; ++I)
 			Tabs += Tab;	//This is pretty performant considering the allocater works in chunks
 	}
+	else
+		Tabs += API::String::Static(" ");
 
 	return TimeString(true) + Tabs + API::String::Static(LevelString) + AMessage;
 }

@@ -15,7 +15,7 @@ template <> void CYB::Engine::Core::Backdoor<Fake::Core>(Fake::Core& AHooker) {
 	new (&(core->FEngineContext)) CYB::Engine::Context(AHooker.FHeap, AHooker.FLogger, true);	//this hurts you
 }
 template <> void CYB::Engine::Core::Backdoor(void*& AHooker) {
-	static_cast<Core*>(AHooker)->FThreadCounter = 5;
+	static_cast<Core*>(AHooker)->FThreadCounter = 1;
 	FThreadID = 0;
 }
 

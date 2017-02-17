@@ -29,6 +29,7 @@ SCENARIO("Mutex basic functions work", "[Platform][System][Mutex][Unit]") {
 	ModuleDependancy<CYB::Platform::Modules::PThread> PThread;
 	ModuleDependancy<CYB::Platform::Modules::RT> RT;
 	ModuleDependancy<CYB::Platform::Modules::System> System;
+	Fake::Core::ResetToFakeCorePointer();
 	GIVEN("An empty Mutex pointer") {
 		CYB::Platform::System::Mutex* TestMutex(nullptr);
 		WHEN("The mutex is initialized") {

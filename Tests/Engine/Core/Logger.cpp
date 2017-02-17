@@ -9,6 +9,10 @@ public:
 	ModuleDependancy<CYB::Platform::Modules::LibC> FC;
 	ModuleDependancy<CYB::Platform::Modules::PThread> FPThread;
 public:
+	TestDependancies() {
+		//loggers fuck with the context
+		Fake::Core::ResetToFakeCorePointer();
+	}
 	~TestDependancies() {
 		//loggers fuck with the context
 		Fake::Core::ResetToFakeCorePointer();

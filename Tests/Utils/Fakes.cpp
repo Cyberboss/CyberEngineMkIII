@@ -13,7 +13,9 @@ template <> template <> void CYB::API::Singleton<CYB::Engine::Core>::Backdoor<vo
 template <> void CYB::Engine::Core::Backdoor<Fake::Core>(Fake::Core& AHooker) {
 	auto core(reinterpret_cast<Core*>(AHooker.FBytes));
 	new (&(core->FEngineContext)) CYB::Engine::Context(AHooker.FHeap, AHooker.FLogger, true);	//this hurts you
-	core->FThreadCounter = 0;
+}
+template <> void CYB::Engine::Core::Backdoor(void*& AHooker) {
+	static_cast<Core*>(AHooker)->FThreadCounter = 5;
 	FThreadID = 0;
 }
 
@@ -46,6 +48,7 @@ Fake::Core FFakeCore;
 void Fake::Core::ResetToFakeCorePointer(void) {
 	auto ref(static_cast<void*>(FFakeCore.FBytes));
 	CYB::API::Singleton<CYB::Engine::Core>::Backdoor(ref);
+	CYB::Engine::Core::Backdoor(ref);
 	CYB::Engine::Core::GetCore().DefaultContext();
 }
 

@@ -102,11 +102,13 @@ namespace CYB {
 				*/
 				template <class AAllocatable> bool Valid(void) const noexcept;
 			};
+			//! @brief Constructor<void> alias
+			using EmptyConstructor = Constructor<void>;
 			/*!
 				@brief Template for defining the types of parameters for engine object constructors
 				@tparam AType The last in the series of types
 			*/
-			template <typename AType> class Constructor<AType> : public Constructor<void> {
+			template <typename AType> class Constructor<AType> : public EmptyConstructor {
 			public:
 				AType FParam;	//!< @brief The pointer to the parameter
 			protected:
@@ -148,8 +150,13 @@ namespace CYB {
 				*/
 				template <class AAllocatable> void Construct(void* const ALocation);
 			};
-			//! @brief Constructor<void> alias
-			using EmptyConstructor = Constructor<void>;
+
+			//! @brief Used for object which aren't allocatables
+			class NullConstructor : public EmptyConstructor {
+			public:
+				//! @brief NullConstructors should never be instantiated
+				template <typename... AArgs> NullConstructor(AArgs&&... AArguments) = delete;
+			};
 		};
 	};
 };

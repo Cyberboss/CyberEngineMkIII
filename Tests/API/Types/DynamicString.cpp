@@ -132,6 +132,28 @@ SCENARIO("Dynamic string addition works", "[API][Types][String][Dynamic][Unit]")
 			}
 		}
 	}
+	GIVEN("A string and an empty string") {
+		Dynamic A, B("asdf");
+		const auto Checks([&]() {
+			WHEN("The are added") {
+				const auto Result(A + B);
+				THEN("The Result is correct") {
+					CHECK(Result == Static("asdf"));
+				}
+			}
+			WHEN("The are plus added") {
+				A += B;
+				THEN("The Result is correct") {
+					CHECK(A == Static("asdf"));
+				}
+			}
+		});
+		Checks();
+		AND_THEN("They are swapped") {
+			std::swap(A, B);
+			Checks();
+		}
+	}
 	GIVEN("Two strings") {
 		Dynamic A("asdf"), B("qwer");
 		WHEN("The are added") {

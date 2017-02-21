@@ -66,3 +66,5 @@ void TestLog(const char* AMsg) noexcept {
 void TestLogNum(const long long ANumber) noexcept {
 	static_cast<void>(ANumber);
 }
+
+void CYB::Engine::Memory::Heap::AllocCheck(void) {}

@@ -193,6 +193,6 @@ void CYB::Platform::System::Implementation::Path::DirectoryEntry::operator++(voi
 		if (Addition == Static(u8".") || Addition == Static(u8"..") || (Result->d_type != DT_REG && Result->d_type != DT_DIR && Result->d_type != DT_LNK))
 			operator++();
 		else
-			FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Context().FAllocator.NewObject<System::Path, System::Path::InternalConstructor>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Addition));
+			FPathListing = API::Interop::Object<System::Path>::Upcast<API::Path>(API::Context().FAllocator.ConstructObject<System::Path, System::Path::InternalConstructor>(FOriginalPath() + API::Path::DirectorySeparatorChar() + Addition));
 	}
 }

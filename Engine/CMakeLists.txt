@@ -20,6 +20,7 @@ Platform/System/CYBFile.cpp
 Platform/System/CYBProcess.cpp
 Platform/System/CYBVirtualMemory.cpp
 Platform/System/CYBSemaphore.cpp
+Platform/System/CYBConsole.cpp
 
 ${CYB_PLATFORM_CODE_FILES}
 
@@ -32,6 +33,7 @@ Platform/System/Posix/CYBPosixMutex.cpp
 Platform/System/Posix/CYBPosixSemaphore.cpp
 Platform/System/Posix/CYBPosixPath.cpp
 Platform/System/Posix/CYBPosixFile.cpp
+Platform/System/Posix/CYBPosixConsole.cpp
 
 
 #Modules
@@ -51,6 +53,7 @@ Engine/Memory/CYBHeap.cpp
 
 #Core
 Engine/Core/CYBEngineParameters.cpp
+Engine/Core/CYBLogger.cpp
 Engine/Core/CYBException.cpp
 Engine/Core/CYBInterop.cpp
 Engine/Core/CYBCore.cpp

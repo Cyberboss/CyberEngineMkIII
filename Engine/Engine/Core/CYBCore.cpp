@@ -21,14 +21,24 @@
 
 */
 
-CYB::Engine::Core::Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments):
+thread_local CYB::Engine::Context* CYB::Engine::Core::FCurrentContext;
+thread_local unsigned long long CYB::Engine::Core::FThreadID(0);
+
+CYB::Engine::Core::Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments) :
+	Singleton<Core>(true),
 	FEngineInformation(Parameters::CreateEngineInformation()),
+	FThreadCounter(0),
+	FLogger(FConsole),
 	FHeap(Parameters::ENGINE_HEAP_INITIAL_COMMIT_SIZE),
-	FEngineAllocator(FHeap),
-	FEngineContext(FEngineAllocator)
+	FEngineContext(FHeap, FLogger, true)
 {
+	FLogger.Log(API::String::Static(u8"Core created"), Logger::Level::DEV);
 	static_cast<void>(ANumArguments);
 	static_cast<void>(AArguments);
+}
+
+CYB::Engine::Core::~Core() {
+	FLogger.Log(API::String::Static(u8"Core shutdown"), Logger::Level::DEV);
 }
 
 CYB::Engine::Core& CYB::Engine::Core::GetCore(void) noexcept {
@@ -43,11 +53,24 @@ void CYB::Engine::Core::Run(const unsigned int ANumArguments, const oschar_t* co
 	Platform::System::Process::GetSelf().Terminate();
 }
 
-CYB::API::Interop::Context& CYB::Engine::Core::CurrentContext(void) noexcept {
-	//! @todo Allow the unit to have a context and enable switching
-	return FEngineContext;
+CYB::Engine::Context& CYB::Engine::Core::CurrentContext(void) noexcept {
+	return *FCurrentContext;
+}
+
+void CYB::Engine::Core::SetCurrentContext(Context& ANewContext) noexcept {
+	FCurrentContext = &ANewContext;
+}
+
+void CYB::Engine::Core::DefaultContext(void) noexcept {
+	FEngineContext.MakeCurrent();
 }
 
 CYB::Engine::Core& CYB::Core(void) noexcept {
 	return Engine::Core::GetCore();
+}
+
+unsigned long long CYB::Engine::Core::ThreadID(void) noexcept {
+	if (FThreadID == 0)
+		FThreadID = FThreadCounter.fetch_add(1, std::memory_order_relaxed) + 1;
+	return FThreadID;
 }

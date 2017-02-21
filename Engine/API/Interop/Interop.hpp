@@ -8,8 +8,8 @@ namespace CYB {
 	};
 };
 
-#include "Allocatable.hpp"
 #include "Constructor.hpp"
+#include "Allocatable.hpp"
 #include "Object.hpp"
 #include "Allocator.hpp"
 #include "STLAllocator.hpp"

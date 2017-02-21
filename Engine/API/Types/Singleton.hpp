@@ -13,11 +13,12 @@ namespace CYB {
 			static AParent* FSingleton;	//!< @brief The singleton object
 		protected:
 			/*!
-				@brief Construct a singleton and initialize it's pointer
+				@brief Optionally initialize the singleton with the current object
+				@param AInit If set to true, FSingleton will be set to this
 				@par Thread Safety
 					Access to this function must be synchronized per template instantiation
 			*/
-			Singleton() noexcept;
+			Singleton(const bool AInit) noexcept;
 			//! @brief Destroy a singleton and nullify it's pointer
 			~Singleton();
 		};

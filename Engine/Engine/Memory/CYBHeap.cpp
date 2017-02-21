@@ -180,6 +180,7 @@ void CYB::Engine::Memory::Heap::Walk(void) const {
 }
 
 void* CYB::Engine::Memory::Heap::Alloc(const int ANumBytes) {
+	AllocCheck();
 	if (ANumBytes != 0) {
 		if (ANumBytes > 0) {
 			if (static_cast<unsigned int>(ANumBytes) <= API::ByteConverters::Megabytes(2047)) {
@@ -194,6 +195,7 @@ void* CYB::Engine::Memory::Heap::Alloc(const int ANumBytes) {
 }
 
 void* CYB::Engine::Memory::Heap::Realloc(void* const APreviousAllocation, const int ANumBytes) {
+	AllocCheck();
 	if (APreviousAllocation != nullptr) {
 
 		auto& WorkingBlock(Block::FromData(APreviousAllocation));

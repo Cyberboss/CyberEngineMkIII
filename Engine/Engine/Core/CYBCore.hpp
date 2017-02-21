@@ -3,29 +3,30 @@
 
 #include "CYBEngineParameters.hpp"
 #include "CYBInterop.hpp"
+#include "CYBLogger.hpp"
 
 namespace CYB {
 	namespace Engine {
 		//! @brief An instance of this object is the entirety of the engine
 		class Core : public API::Singleton<Core> {
 			ENABLE_TEST_HOOKS
+		private:
+			static thread_local Context* FCurrentContext; //!< @brief The current Context in use
+			static thread_local unsigned long long FThreadID;	//!< @brief ID of the checking thread
+
 		public:
 			API::EngineInformation FEngineInformation;	//!< @brief Information describing the engine
 
 			Platform::Modules::Manager FModuleManager;	//!< @brief Loads and contains required modules
 		private:
-				//User
-				//GDI
-				//Winsock
-				//Vulkan
-				//OpenAL
-				//Optional
-					//XInput
-			//Logger
-				//Heap
+			Platform::System::Console FConsole;	//!< @brief The console
+
+			std::atomic_uint_fast64_t FThreadCounter;	//!< @brief The number of threads created
+
+			Logger FLogger;	//!< @brief The engine's primary Logger
+
 			Memory::Heap FHeap;	//!< @brief The engine's primary Heap
-			Allocator FEngineAllocator;	//!< @brief The engine's primary Allocator
-			API::Interop::Context FEngineContext;	//!< @brief The engine Context
+			Context FEngineContext;	//!< @brief The engine Context
 
 			//ThreadPool
 			//Steam
@@ -48,7 +49,7 @@ namespace CYB {
 			*/
 			Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments);
 			//! @brief Cleans up the engine and terminates the process
-			~Core() = default;
+			~Core();
 
 			/*!
 				@brief Run the main unit
@@ -80,9 +81,30 @@ namespace CYB {
 				@brief Get the current Context
 				@return A reference to the current context
 				@par Thread Safety
-					This function should only be called once
+					This function requires no thread safety
 			*/
-			API::Interop::Context& CurrentContext(void) noexcept;
+			Context& CurrentContext(void) noexcept;
+			/*!
+				@brief Set the current Context
+				@param ANewContext The new context
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			void SetCurrentContext(Context& ANewContext) noexcept;
+			/*!
+				@brief Set the current Context to FEngineContext
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			void DefaultContext(void) noexcept;
+
+			/*!
+				@brief Possibly assign and return the current thread's serial ID for this execution
+				@return The current thread's serial ID for this execution
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			unsigned long long ThreadID(void) noexcept;
 		};
 	};
 

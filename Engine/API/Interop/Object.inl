@@ -21,7 +21,7 @@ template <class AInterface> CYB::API::Interop::Object<AInterface>& CYB::API::Int
 }
 
 template <class AInterface> CYB::API::Interop::Object<AInterface>::~Object() {
-	Context::GetContext().FAllocator.Delete(FPointer);
+	Context::GetContext().FAllocator.DeleteObject<AInterface>(FPointer);
 }
 
 template <class AInterface> AInterface& CYB::API::Interop::Object<AInterface>::operator()(void) noexcept {

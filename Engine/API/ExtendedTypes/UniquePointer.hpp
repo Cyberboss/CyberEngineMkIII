@@ -10,6 +10,32 @@ namespace CYB {
 			using BaseType = std::unique_ptr<AType, void(*)(AType* const)>;
 		private:
 			/*!
+				@brief Used by this type's constructors
+				@param APointer The pointer the UniquePointer will contain
+				@param AIsDestructible Used for overloading. Ignored
+				@return An std::unique_ptr of AType with the properly set Deleter
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			static BaseType InitBase(AType* const APointer, std::true_type AIsDestructible) noexcept;
+			/*!
+				@brief Used by this type's constructors
+				@param APointer The pointer the UniquePointer will contain
+				@param AIsDestructible Used for overloading. Ignored
+				@return An std::unique_ptr of AType with the properly set Deleter
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			static BaseType InitBase(AType* const APointer, std::false_type AIsDestructible) noexcept;
+
+			/*!
+				@brief Deallocates @p APointer using the Allocator's Heap
+				@param APointer The pointer to deallocate
+				@par Thread Safety
+					This function requires no thread safety
+			*/
+			static void Deallocate(AType* const APointer) noexcept;
+			/*!
 				@brief Deletes @p APointer using the Allocator
 				@param APointer The pointer to delete
 				@par Thread Safety

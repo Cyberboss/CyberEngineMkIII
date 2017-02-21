@@ -35,3 +35,4 @@ namespace CYB {
 #include "CYBSemaphore.hpp"
 #include "CYBPath.hpp"
 #include "CYBFile.hpp"
+#include "CYBConsole.hpp"

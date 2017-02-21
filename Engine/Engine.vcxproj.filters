@@ -122,6 +122,18 @@
     <ClCompile Include="Platform\System\Posix\CYBPosixSemaphore.cpp">
       <Filter>Platform\System\Posix</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Core\CYBLogger.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\System\CYBConsole.cpp">
+      <Filter>Platform\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\System\Win32\CYBWin32Console.cpp">
+      <Filter>Platform\System\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\System\Posix\CYBPosixConsole.cpp">
+      <Filter>Platform\System\Posix</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -475,6 +487,18 @@
     <ClInclude Include="API\Types\Containers.hpp">
       <Filter>API\Types</Filter>
     </ClInclude>
+    <ClInclude Include="API\Interfaces\Logger.hpp">
+      <Filter>API\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Core\CYBLogger.hpp">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\System\CYBConsole.hpp">
+      <Filter>Platform\System</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Interfaces\Stream.hpp">
+      <Filter>API\Interfaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DoxyPages\Contexts.dox">
@@ -560,6 +584,9 @@
     </None>
     <None Include="API\ExtendedTypes\UniquePointer.inl">
       <Filter>API\ExtendedTypes</Filter>
+    </None>
+    <None Include="Engine\Core\CYBInterop.inl">
+      <Filter>Engine\Core</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

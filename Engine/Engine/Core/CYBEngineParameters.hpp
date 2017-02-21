@@ -14,7 +14,11 @@ namespace CYB {
 				COPYRIGHT_YEAR = 2016,	//!< @brief The engine's copyright year
 
 				ENGINE_HEAP_INITIAL_COMMIT_SIZE = API::ByteConverters::Megabytes(5),	//!< @brief The inital amount of memory to be commited by the engine heap
-				HEAP_RESERVATION_SIZE = API::ByteConverters::Terabytes(1),	//!< @brief The amount of address space reserved by CYB::Engine::Heap
+				LOGGER_HEAP_INITIAL_COMMIT_SIZE = API::ByteConverters::Megabytes(1),	//!< @brief The inital amount of memory to be commited by the Logger heap
+
+				HEAP_RESERVATION_SIZE = API::ByteConverters::Terabytes(1) / 4,	//!< @brief The amount of address space reserved by CYB::Engine::Heaps
+
+				LOGGER_HEAP_RETRY_COUNT	= 2,	//!< @brief The number of times to try and log again after a failed allocation before giving up
 			};
 		public:
 			static const char* const FTempPathName;	//!< @brief The directory in the temp folder to use

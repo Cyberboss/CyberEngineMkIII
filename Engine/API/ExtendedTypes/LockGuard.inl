@@ -1,9 +1,10 @@
 #pragma once
 
-inline CYB::API::LockGuard::LockGuard(Mutex& AMutex) noexcept :
+inline CYB::API::LockGuard::LockGuard(Mutex& AMutex, const bool APreLocked) noexcept :
 	FMutex(&AMutex)
 {
-	FMutex->Lock();
+	if(!APreLocked)
+		FMutex->Lock();
 }
 
 inline CYB::API::LockGuard::LockGuard(LockGuard&& AMove) noexcept :

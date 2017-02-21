@@ -6,15 +6,16 @@ namespace CYB {
 		//! @brief A RAII locking mechanism
 		class LockGuard {
 		private:
-			Mutex* FMutex;	//!< @brief A reference to the owned mutex
+			Mutex* FMutex;	//!< @brief A reference to the owned Mutex
 		public:
 			/*! 
 				@brief Construct a LockGuard that will hold a lock on @p AMutex
-				@param AMutex The mutex to lock
+				@param AMutex The Mutex to lock
+				@param APreLocked If the Mutex is already locked by the calling thread this should be true, false otherwise
 				@par Thread Safety
 					This function will attempt to lock AMutex
 			*/
-			LockGuard(Mutex& AMutex) noexcept;
+			LockGuard(Mutex& AMutex, const bool APreLocked = false) noexcept;
 			LockGuard(const LockGuard&) = delete;	//!< @brief See @ref structors
 			LockGuard(LockGuard&& AMove) noexcept;	//!< @brief See @ref structors
 			LockGuard& operator=(LockGuard&& AMove) noexcept;	//!< @brief See @ref structors

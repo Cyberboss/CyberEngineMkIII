@@ -11,12 +11,34 @@ template <> template <> void CYB::API::Singleton<CYB::Engine::Core>::Backdoor<vo
 	FSingleton = static_cast<CYB::Engine::Core*>(AHooker);
 }
 template <> void CYB::Engine::Core::Backdoor<Fake::Core>(Fake::Core& AHooker) {
-	new (&(reinterpret_cast<Core*>(AHooker.FBytes)->FEngineContext)) CYB::API::Interop::Context(AHooker.FAllocator);	//this hurts you
+	auto core(reinterpret_cast<Core*>(AHooker.FBytes));
+	new (&(core->FEngineContext)) CYB::Engine::Context(AHooker.FHeap, AHooker.FLogger, true);	//this hurts you
+}
+template <> void CYB::Engine::Core::Backdoor(void*& AHooker) {
+	static_cast<Core*>(AHooker)->FThreadCounter = 1;
+	FThreadID = 0;
 }
 
-Fake::Core::Core() :
-	FAllocator(FHeap)
-{
+Fake::Logger::Logger() :
+	FLogPath(u8"Catch test suite")
+{}
+
+void Fake::Logger::Log(const CYB::API::String::CStyle& AMessage, const Level ALevel) {
+	static_cast<void>(AMessage);
+	static_cast<void>(ALevel);
+}
+
+void Fake::Logger::Flush(void) const noexcept {}
+
+const CYB::API::String::CStyle& Fake::Logger::CurrentLog(void) const noexcept {
+	return FLogPath;
+}
+
+void Fake::Logger::SetDebugLogging(const bool AIgnored) noexcept {
+	static_cast<void>(AIgnored);
+}
+
+Fake::Core::Core() {
 	CYB::Engine::Core::Backdoor(*this);
 	ResetToFakeCorePointer();
 }
@@ -26,6 +48,8 @@ Fake::Core FFakeCore;
 void Fake::Core::ResetToFakeCorePointer(void) {
 	auto ref(static_cast<void*>(FFakeCore.FBytes));
 	CYB::API::Singleton<CYB::Engine::Core>::Backdoor(ref);
+	CYB::Engine::Core::Backdoor(ref);
+	CYB::Engine::Core::GetCore().DefaultContext();
 }
 
 void Fake::Core::NullifySingleton(void) {
@@ -41,6 +65,15 @@ void* Fake::Heap::Realloc(void* const AOld, const int ANewSize) {
 }
 void Fake::Heap::Free(void* const AOld) noexcept {
 	free(AOld);
+}
+
+unsigned long long Fake::FailedAllocationCount(0);
+
+void CYB::Engine::Memory::Heap::AllocCheck(void) {
+	if (Fake::FailedAllocationCount > 0) {
+		--Fake::FailedAllocationCount;
+		throw CYB::Exception::SystemData(CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE);
+	}
 }
 
 static bool _CallRedirected(const CYB::Platform::System::Sys::CallNumber ACallNumber) noexcept {

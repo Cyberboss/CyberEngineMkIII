@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html" title="A unit of memory allocation. " alt="" coords="6,5,159,46"/>
-<area shape="rect" id="node2" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_large_block.html" title="Used to identify the end of a Heap. " alt="" coords="209,5,362,46"/>
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html" title="UniquePointer that uses our Allocator. " alt="" coords="136,5,307,46"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html" title="CYB::API::UniquePointer\l\&lt; CYB::Engine::Logger\l::LogEntry \&gt;" alt="" coords="136,69,307,125"/>
 </map>

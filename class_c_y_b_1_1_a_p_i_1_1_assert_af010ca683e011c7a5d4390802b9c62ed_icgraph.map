@@ -1,12 +1,16 @@
 <map id="CYB::API::Assert::LessThan" name="CYB::API::Assert::LessThan">
-<area shape="rect" id="node2" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#a02df86224a15e0ca2b937d430b07e119" title="Get the size of the Block. " alt="" coords="278,5,431,46"/>
-<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a617b9703a4f90dc71cca12e22231e659" title="Reallocates a Block. " alt="" coords="513,34,666,75"/>
-<area shape="rect" id="node4" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#ac0ddb27e1f7dc3bbed9df78d42dc91ad" title="Set the Block&#39;s size. " alt="" coords="278,122,431,163"/>
-<area shape="rect" id="node5" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#a658800066c409de68df02ac34d5c06d4" title="Separate this block into two. " alt="" coords="278,187,431,229"/>
-<area shape="rect" id="node6" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a985e2277784db5a9a3d7bd5c2f86df81" title="Ensures that FLargeBlock has at least ARequiredNumBytes of Size by committing more memory if necessar..." alt="" coords="246,253,463,294"/>
-<area shape="rect" id="node7" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a9daf8e91a1b56e54956f8c827d06b0f9" title="Allocates a Block. " alt="" coords="278,318,431,359"/>
-<area shape="rect" id="node8" href="$class_c_y_b_1_1_platform_1_1_system_1_1_path.html#a9454caef35bf8d2f3c32592b07785a29" title="Append a directory/file to the path. " alt="" coords="275,383,435,425"/>
-<area shape="rect" id="node9" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_process.html#a12d312f73b5678971fff374896f2f0db" title="Spawn a process with the specified command line. " alt="" coords="267,448,442,504"/>
-<area shape="rect" id="node10" href="$class_c_y_b_1_1_platform_1_1_system_1_1_semaphore.html#a0c1db824af787bbba4c3a09d99114c8f" title="Enter the condition variable. " alt="" coords="275,527,435,569"/>
-<area shape="rect" id="node11" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html#a3684dc76d131ed27cccfc547d73e5ec3" title="Construct a new UTF16 from a UTF8 string. " alt="" coords="269,593,440,634"/>
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_engine_1_1_logger.html#aebb351dbec00c6288b1e4a49826c1a2c" title="Retrieve a string of the given time. " alt="" coords="282,5,427,46"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_logger.html#aee9d9c43660257cf7ba453fa652d302d" title="Prepares the logging File for writing. May block for one second if the preferred filename is taken in..." alt="" coords="282,70,427,111"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_engine_1_1_logger.html#abcdf607318870d1c9b695cbd9a11f1c6" title="Takes a LogEntry Queue and logs it out to the current given emergency logger. " alt="" coords="275,135,434,177"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#a02df86224a15e0ca2b937d430b07e119" title="Get the size of the Block. " alt="" coords="278,201,431,242"/>
+<area shape="rect" id="node6" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a617b9703a4f90dc71cca12e22231e659" title="Reallocates a Block. " alt="" coords="513,230,666,271"/>
+<area shape="rect" id="node7" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#ac0ddb27e1f7dc3bbed9df78d42dc91ad" title="Set the Block&#39;s size. " alt="" coords="278,318,431,359"/>
+<area shape="rect" id="node8" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#a658800066c409de68df02ac34d5c06d4" title="Separate this block into two. " alt="" coords="278,383,431,425"/>
+<area shape="rect" id="node9" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a985e2277784db5a9a3d7bd5c2f86df81" title="Ensures that FLargeBlock has at least ARequiredNumBytes of Size by committing more memory if necessar..." alt="" coords="246,449,463,490"/>
+<area shape="rect" id="node10" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a9daf8e91a1b56e54956f8c827d06b0f9" title="Allocates a Block. " alt="" coords="278,514,431,555"/>
+<area shape="rect" id="node11" href="$class_c_y_b_1_1_platform_1_1_system_1_1_console.html#a793fe0e2caeaf14e700d7109c405e61c" title="Log a message. Will be written to a text file on the Path returned by CurrentLog. ..." alt="" coords="275,579,435,621"/>
+<area shape="rect" id="node12" href="$class_c_y_b_1_1_platform_1_1_system_1_1_path.html#a9454caef35bf8d2f3c32592b07785a29" title="Append a directory/file to the path. " alt="" coords="275,645,435,686"/>
+<area shape="rect" id="node13" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_process.html#a12d312f73b5678971fff374896f2f0db" title="Spawn a process with the specified command line. " alt="" coords="267,709,442,765"/>
+<area shape="rect" id="node14" href="$class_c_y_b_1_1_platform_1_1_system_1_1_semaphore.html#a0c1db824af787bbba4c3a09d99114c8f" title="Enter the condition variable. " alt="" coords="275,789,435,830"/>
+<area shape="rect" id="node15" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html#a3684dc76d131ed27cccfc547d73e5ec3" title="Construct a new UTF16 from a UTF8 string. " alt="" coords="269,854,440,895"/>
 </map>

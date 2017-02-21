@@ -7,4 +7,5 @@
 <area shape="rect" id="node8" href="$_c_y_b_semaphore_8hpp.html" title="Contains the declaration of CYB::Platform::System::Semaphore. " alt="" coords="760,96,900,123"/>
 <area shape="rect" id="node9" href="$_c_y_b_path_8hpp.html" title="Defines the Path interface. " alt="" coords="926,96,1028,123"/>
 <area shape="rect" id="node10" href="$_c_y_b_file_8hpp.html" title="Defines the filesystem interface. " alt="" coords="1053,96,1149,123"/>
+<area shape="rect" id="node11" href="$_c_y_b_console_8hpp.html" title="Defines the stdout interface. " alt="" coords="1173,96,1296,123"/>
 </map>

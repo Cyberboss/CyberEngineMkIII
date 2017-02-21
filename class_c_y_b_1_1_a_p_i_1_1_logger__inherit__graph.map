@@ -1,0 +1,4 @@
+<map id="CYB::API::Logger" name="CYB::API::Logger">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_engine_1_1_logger.html" title="The threaded, queued engine logger. " alt="" coords="5,88,149,115"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_platform_1_1_system_1_1_console.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="175,81,333,122"/>
+</map>

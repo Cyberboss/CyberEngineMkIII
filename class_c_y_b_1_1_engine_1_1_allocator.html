@@ -121,22 +121,31 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6d2e8cda7f4af343b46ab06cb9fc5586"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_engine_1_1_allocator.html#a6d2e8cda7f4af343b46ab06cb9fc5586">Allocator</a> (<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_heap.html">API::Heap</a> &amp;AHeap) noexcept</td></tr>
 <tr class="memdesc:a6d2e8cda7f4af343b46ab06cb9fc5586"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an <a class="el" href="class_c_y_b_1_1_engine_1_1_allocator.html" title="Implements InteropAllocation for the public allocator. ">Allocator</a>.  <a href="#a6d2e8cda7f4af343b46ab06cb9fc5586">More...</a><br/></td></tr>
 <tr class="separator:a6d2e8cda7f4af343b46ab06cb9fc5586"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab27ee6b7a497c2f07cf28117d2a9e518"><td class="memTemplParams" colspan="2">template&lt;class AObject , typename... AArgs&gt; </td></tr>
+<tr class="memitem:ab27ee6b7a497c2f07cf28117d2a9e518"><td class="memTemplItemLeft" align="right" valign="top">AObject *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_engine_1_1_allocator.html#ab27ee6b7a497c2f07cf28117d2a9e518">RawObject</a> (AArgs &amp;&amp;...AArguments)</td></tr>
+<tr class="memdesc:ab27ee6b7a497c2f07cf28117d2a9e518"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the Object specified by AAllocatable and returns a raw pointer which must be deleted using the Delete method of this object.  <a href="#ab27ee6b7a497c2f07cf28117d2a9e518">More...</a><br/></td></tr>
+<tr class="separator:ab27ee6b7a497c2f07cf28117d2a9e518"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html">CYB::API::Interop::Allocator</a></td></tr>
-<tr class="memitem:ab58301e9a8fd21fdd2d56ca996f73eba inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplParams" colspan="2">template&lt;class AAllocatable , class AConstructor , typename... AArgs&gt; </td></tr>
-<tr class="memitem:ab58301e9a8fd21fdd2d56ca996f73eba inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt; AAllocatable &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#ab58301e9a8fd21fdd2d56ca996f73eba">NewObject</a> (AArgs &amp;&amp;...AArguments)</td></tr>
-<tr class="memdesc:ab58301e9a8fd21fdd2d56ca996f73eba inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specified by AAllocatable.  <a href="#ab58301e9a8fd21fdd2d56ca996f73eba">More...</a><br/></td></tr>
-<tr class="separator:ab58301e9a8fd21fdd2d56ca996f73eba inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab16aa4850864cb1018fd62f18d2df43 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplParams" colspan="2">template&lt;class AAllocatable &gt; </td></tr>
-<tr class="memitem:aab16aa4850864cb1018fd62f18d2df43 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt; AAllocatable &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#aab16aa4850864cb1018fd62f18d2df43">NewObject</a> (void)</td></tr>
-<tr class="memdesc:aab16aa4850864cb1018fd62f18d2df43 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specified by AAllocatable.  <a href="#aab16aa4850864cb1018fd62f18d2df43">More...</a><br/></td></tr>
-<tr class="separator:aab16aa4850864cb1018fd62f18d2df43 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cbc1f2bfbcd8f5d916f09f9a3b259ca inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplParams" colspan="2">template&lt;class AAllocatable &gt; </td></tr>
-<tr class="memitem:a6cbc1f2bfbcd8f5d916f09f9a3b259ca inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt; AAllocatable &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a6cbc1f2bfbcd8f5d916f09f9a3b259ca">CopyObject</a> (const AAllocatable &amp;ACopy)</td></tr>
-<tr class="memdesc:a6cbc1f2bfbcd8f5d916f09f9a3b259ca inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copys an <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> of type AAllocatable.  <a href="#a6cbc1f2bfbcd8f5d916f09f9a3b259ca">More...</a><br/></td></tr>
-<tr class="separator:a6cbc1f2bfbcd8f5d916f09f9a3b259ca inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84f20f5780d949843e5a141233e2a1e8 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a84f20f5780d949843e5a141233e2a1e8">Delete</a> (<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html">Allocatable</a> *const AAllocatable) noexcept</td></tr>
-<tr class="memdesc:a84f20f5780d949843e5a141233e2a1e8 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes an object allocated with the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html" title="Used for allocating objects within and without the engine. ">Allocator</a>.  <a href="#a84f20f5780d949843e5a141233e2a1e8">More...</a><br/></td></tr>
-<tr class="separator:a84f20f5780d949843e5a141233e2a1e8 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41bc62c189e2c15ce6db705c116b0d31 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplParams" colspan="2">template&lt;class AObject , class AConstructor , typename... AArgs&gt; </td></tr>
+<tr class="memitem:a41bc62c189e2c15ce6db705c116b0d31 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt; AObject &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a41bc62c189e2c15ce6db705c116b0d31">ConstructObject</a> (AArgs &amp;&amp;...AArguments)</td></tr>
+<tr class="memdesc:a41bc62c189e2c15ce6db705c116b0d31 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specified by AObject using a specified <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_constructor.html" title="Template for defining the types of parameters for engine object constructors with multiple arguments...">Constructor</a>.  <a href="#a41bc62c189e2c15ce6db705c116b0d31">More...</a><br/></td></tr>
+<tr class="separator:a41bc62c189e2c15ce6db705c116b0d31 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae24e9dc8d55bd91844417ad96cf992ff inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplParams" colspan="2">template&lt;class AObject , typename... AArgs&gt; </td></tr>
+<tr class="memitem:ae24e9dc8d55bd91844417ad96cf992ff inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt; AObject &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#ae24e9dc8d55bd91844417ad96cf992ff">NewObject</a> (AArgs &amp;&amp;...AArguments)</td></tr>
+<tr class="memdesc:ae24e9dc8d55bd91844417ad96cf992ff inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specified by AObject using the default constructor.  <a href="#ae24e9dc8d55bd91844417ad96cf992ff">More...</a><br/></td></tr>
+<tr class="separator:ae24e9dc8d55bd91844417ad96cf992ff inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0121327da38a4734a134045400f607e3 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplParams" colspan="2">template&lt;class AObject &gt; </td></tr>
+<tr class="memitem:a0121327da38a4734a134045400f607e3 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt; AObject &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a0121327da38a4734a134045400f607e3">NewObject</a> (void)</td></tr>
+<tr class="memdesc:a0121327da38a4734a134045400f607e3 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specified by AObject using the empty constructor.  <a href="#a0121327da38a4734a134045400f607e3">More...</a><br/></td></tr>
+<tr class="separator:a0121327da38a4734a134045400f607e3 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d75457aee839b386e48111229624c3e inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplParams" colspan="2">template&lt;class AObject &gt; </td></tr>
+<tr class="memitem:a1d75457aee839b386e48111229624c3e inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt; AObject &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a1d75457aee839b386e48111229624c3e">CopyObject</a> (const AObject &amp;ACopy)</td></tr>
+<tr class="memdesc:a1d75457aee839b386e48111229624c3e inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copys an <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> of type AObject.  <a href="#a1d75457aee839b386e48111229624c3e">More...</a><br/></td></tr>
+<tr class="separator:a1d75457aee839b386e48111229624c3e inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d00029939461d86b03cc61a70db5a63 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplParams" colspan="2">template&lt;class AObject &gt; </td></tr>
+<tr class="memitem:a5d00029939461d86b03cc61a70db5a63 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a5d00029939461d86b03cc61a70db5a63">DeleteObject</a> (AObject *const AAllocated) noexcept</td></tr>
+<tr class="memdesc:a5d00029939461d86b03cc61a70db5a63 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes an object allocated with the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html" title="Used for allocating objects within and without the engine. ">Allocator</a>.  <a href="#a5d00029939461d86b03cc61a70db5a63">More...</a><br/></td></tr>
+<tr class="separator:a5d00029939461d86b03cc61a70db5a63 inherit pub_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -153,7 +162,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_static_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html">CYB::API::Interop::Allocator</a></td></tr>
 <tr class="memitem:ad066f396e4a9228a06ede3e4d73d7b4b inherit pub_static_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplParams" colspan="2">template&lt;typename AType , typename... AArgs&gt; </td></tr>
 <tr class="memitem:ad066f396e4a9228a06ede3e4d73d7b4b inherit pub_static_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplItemLeft" align="right" valign="top">static AType *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#ad066f396e4a9228a06ede3e4d73d7b4b">InPlaceAllocation</a> (void *const ALocation, AArgs &amp;&amp;...AArguments)</td></tr>
-<tr class="memdesc:ad066f396e4a9228a06ede3e4d73d7b4b inherit pub_static_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drop in replacement for placement new. Used for code coverage.  <a href="#ad066f396e4a9228a06ede3e4d73d7b4b">More...</a><br/></td></tr>
+<tr class="memdesc:ad066f396e4a9228a06ede3e4d73d7b4b inherit pub_static_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for placement new.  <a href="#ad066f396e4a9228a06ede3e4d73d7b4b">More...</a><br/></td></tr>
 <tr class="separator:ad066f396e4a9228a06ede3e4d73d7b4b inherit pub_static_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html">CYB::API::Interop::Allocator</a></td></tr>
 <tr class="memitem:aecb396ab4d801779e72a468ff318b7d4 inherit pub_attribs_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aecb396ab4d801779e72a468ff318b7d4"></a>
@@ -164,6 +173,14 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a4582ea025d40fe57ff485f39ea30e21b inherit pro_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a4582ea025d40fe57ff485f39ea30e21b">Allocator</a> (<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_heap.html">Heap</a> &amp;AHeap) noexcept</td></tr>
 <tr class="memdesc:a4582ea025d40fe57ff485f39ea30e21b inherit pro_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html" title="Used for allocating objects within and without the engine. ">Allocator</a>.  <a href="#a4582ea025d40fe57ff485f39ea30e21b">More...</a><br/></td></tr>
 <tr class="separator:a4582ea025d40fe57ff485f39ea30e21b inherit pro_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e0eb45a56a58bfd425c12d134460a18 inherit pro_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplParams" colspan="2">template&lt;class AObject , typename AConstructor , typename... AArgs&gt; </td></tr>
+<tr class="memitem:a3e0eb45a56a58bfd425c12d134460a18 inherit pro_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplItemLeft" align="right" valign="top">AObject *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a3e0eb45a56a58bfd425c12d134460a18">AllocateObject</a> (const std::true_type AIgnored, AArgs &amp;&amp;...AArguments)</td></tr>
+<tr class="memdesc:a3e0eb45a56a58bfd425c12d134460a18 inherit pro_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate an <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html" title="Defines the base class for allocatable engine objects. ">Allocatable</a> object through interop.  <a href="#a3e0eb45a56a58bfd425c12d134460a18">More...</a><br/></td></tr>
+<tr class="separator:a3e0eb45a56a58bfd425c12d134460a18 inherit pro_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e52f3c2631812faae7f6830813ec102 inherit pro_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplParams" colspan="2">template&lt;class AObject , typename AIgnoredConstructor , typename... AArgs&gt; </td></tr>
+<tr class="memitem:a0e52f3c2631812faae7f6830813ec102 inherit pro_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memTemplItemLeft" align="right" valign="top">AObject *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a0e52f3c2631812faae7f6830813ec102">AllocateObject</a> (const std::false_type AIgnored, AArgs &amp;&amp;...AArguments)</td></tr>
+<tr class="memdesc:a0e52f3c2631812faae7f6830813ec102 inherit pro_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate a concrete object.  <a href="#a0e52f3c2631812faae7f6830813ec102">More...</a><br/></td></tr>
+<tr class="separator:a0e52f3c2631812faae7f6830813ec102 inherit pro_methods_class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implements InteropAllocation for the public allocator. </p>
@@ -199,12 +216,13 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Thread Safety</dt><dd>Function calls should be syncronized </dd></dl>
+<dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
 
-<p>Definition at line <a class="el" href="_c_y_b_interop_8cpp_source.html#l00056">56</a> of file <a class="el" href="_c_y_b_interop_8cpp_source.html">CYBInterop.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                                     :</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    API::Interop::Allocator(AHeap)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;{}</div><!-- fragment -->
+<p>Definition at line <a class="el" href="_c_y_b_interop_8cpp_source.html#l00030">30</a> of file <a class="el" href="_c_y_b_interop_8cpp_source.html">CYBInterop.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                                                     :</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    API::Interop::Allocator(AHeap)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -255,41 +273,21 @@ template&lt;class AAllocatable &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_c_y_b_interop_8cpp_source.html#l00011">11</a> of file <a class="el" href="_c_y_b_interop_8cpp_source.html">CYBInterop.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                                                                                                                      {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">if</span> (!AConstructor.Valid&lt;AAllocatable&gt;())</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keywordflow">throw</span> Exception::Violation(<a class="code" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6aeab154d151b5700d865679cc9467d2ff">Exception::Violation::INVALID_INTEROP_CONSTRUCTOR</a>);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">auto</span>&amp; TrueConstructor(static_cast&lt;typename AAllocatable::Constructor&amp;&gt;(AConstructor));</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">class </span>AutoCleanup {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        API::Heap&amp; <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#aecb396ab4d801779e72a468ff318b7d4">FHeap</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordtype">void</span>* FLocation;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        AutoCleanup(API::Heap&amp; AHeap) :</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;            <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#aecb396ab4d801779e72a468ff318b7d4">FHeap</a>(AHeap),</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            FLocation(AHeap.Alloc(sizeof(AAllocatable)))</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        {}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        ~AutoCleanup() {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <a class="code" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#aecb396ab4d801779e72a468ff318b7d4">FHeap</a>.<a class="code" href="class_c_y_b_1_1_a_p_i_1_1_heap.html#a92b5dec988d49858ea9a70bddb2ae4b0">Free</a>(FLocation);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordtype">void</span>* Release(<span class="keywordtype">void</span>) noexcept {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keyword">auto</span> Result(FLocation);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            FLocation = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="keywordflow">return</span> Result;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    };</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    AutoCleanup Location(<a class="code" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#aecb396ab4d801779e72a468ff318b7d4">FHeap</a>);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    TrueConstructor.template Construct&lt;AAllocatable&gt;(Location.FLocation);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">auto</span> Result(static_cast&lt;AAllocatable*&gt;(Location.Release()));</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">return</span> Result;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
-<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator_html_aecb396ab4d801779e72a468ff318b7d4"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#aecb396ab4d801779e72a468ff318b7d4">CYB::API::Interop::Allocator::FHeap</a></div><div class="ttdeci">Heap &amp; FHeap</div><div class="ttdoc">The Heap this allocator uses. </div><div class="ttdef"><b>Definition:</b> <a href="_allocator_8hpp_source.html#l00011">Allocator.hpp:11</a></div></div>
-<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_heap_html_a92b5dec988d49858ea9a70bddb2ae4b0"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_heap.html#a92b5dec988d49858ea9a70bddb2ae4b0">CYB::API::Heap::Free</a></div><div class="ttdeci">virtual void Free(void *const APreviousAllocation) noexcept=0</div><div class="ttdoc">Return memory to the heap. Data in allocated range will be lost. </div></div>
+<p>Definition at line <a class="el" href="_c_y_b_interop_8cpp_source.html#l00005">5</a> of file <a class="el" href="_c_y_b_interop_8cpp_source.html">CYBInterop.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                                                                                                                      {</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    <span class="keywordflow">if</span> (!AConstructor.Valid&lt;AAllocatable&gt;())</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        <span class="keywordflow">throw</span> Exception::Violation(<a class="code" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6aeab154d151b5700d865679cc9467d2ff">Exception::Violation::INVALID_INTEROP_CONSTRUCTOR</a>);</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="keyword">auto</span>&amp; TrueConstructor(static_cast&lt;typename AAllocatable::Constructor&amp;&gt;(AConstructor));</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    API::UniquePointer&lt;void&gt; Location(<a class="code" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#aecb396ab4d801779e72a468ff318b7d4">FHeap</a>.<a class="code" href="class_c_y_b_1_1_a_p_i_1_1_heap.html#a9ca319c373d3e566b6c06f8bd9474a63">Alloc</a>(<span class="keyword">sizeof</span>(AAllocatable)));</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    TrueConstructor.template Construct&lt;AAllocatable&gt;(Location.get());</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">auto</span> Result(static_cast&lt;AAllocatable*&gt;(Location.release()));</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">return</span> Result;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator_html_aecb396ab4d801779e72a468ff318b7d4"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#aecb396ab4d801779e72a468ff318b7d4">CYB::API::Interop::Allocator::FHeap</a></div><div class="ttdeci">Heap &amp; FHeap</div><div class="ttdoc">The Heap this allocator uses. </div><div class="ttdef"><b>Definition:</b> <a href="_allocator_8hpp_source.html#l00010">Allocator.hpp:10</a></div></div>
 <div class="ttc" id="class_c_y_b_1_1_exception_1_1_violation_html_a5e9d131ab13c9b938b708760974a0cb6aeab154d151b5700d865679cc9467d2ff"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6aeab154d151b5700d865679cc9467d2ff">CYB::Exception::Violation::INVALID_INTEROP_CONSTRUCTOR</a></div><div class="ttdoc">A contructor passed to the engine was malformed. </div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00037">Exception.hpp:37</a></div></div>
+<div class="ttc" id="class_c_y_b_1_1_a_p_i_1_1_heap_html_a9ca319c373d3e566b6c06f8bd9474a63"><div class="ttname"><a href="class_c_y_b_1_1_a_p_i_1_1_heap.html#a9ca319c373d3e566b6c06f8bd9474a63">CYB::API::Heap::Alloc</a></div><div class="ttdeci">virtual void * Alloc(const int ASize)=0</div><div class="ttdoc">Allocate memory from the heap for use. </div></div>
 </div><!-- fragment -->
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -356,21 +354,63 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a1137377395bc03089bde7f5a57237c83">CYB::API::Interop::Allocator</a>.</p>
 
-<p>Definition at line <a class="el" href="_c_y_b_interop_8cpp_source.html#l00043">43</a> of file <a class="el" href="_c_y_b_interop_8cpp_source.html">CYBInterop.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                                                                                                                        {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">using namespace </span>API::Interop;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">switch</span> (AID) {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">case</span> Allocatable::ID::File: <span class="keywordflow">return</span> DoAllocation&lt;Platform::System::File&gt;(AConstructor);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">case</span> Allocatable::ID::Mutex: <span class="keywordflow">return</span> DoAllocation&lt;Platform::System::Mutex&gt;(AConstructor);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">case</span> Allocatable::ID::Path: <span class="keywordflow">return</span> DoAllocation&lt;Platform::System::Path&gt;(AConstructor);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">case</span> Allocatable::ID::Semaphore: <span class="keywordflow">return</span> DoAllocation&lt;Platform::System::Semaphore&gt;(AConstructor);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">case</span> Allocatable::ID::NULL_ID:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">throw</span> Exception::Violation(<a class="code" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08">Exception::Violation::INVALID_ENUM</a>);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
+<p>Definition at line <a class="el" href="_c_y_b_interop_8cpp_source.html#l00017">17</a> of file <a class="el" href="_c_y_b_interop_8cpp_source.html">CYBInterop.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                                                                                                                        {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">using namespace </span>API::Interop;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">switch</span> (AID) {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">case</span> Allocatable::ID::File: <span class="keywordflow">return</span> DoAllocation&lt;Platform::System::File&gt;(AConstructor);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">case</span> Allocatable::ID::Mutex: <span class="keywordflow">return</span> DoAllocation&lt;Platform::System::Mutex&gt;(AConstructor);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">case</span> Allocatable::ID::Path: <span class="keywordflow">return</span> DoAllocation&lt;Platform::System::Path&gt;(AConstructor);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">case</span> Allocatable::ID::Semaphore: <span class="keywordflow">return</span> DoAllocation&lt;Platform::System::Semaphore&gt;(AConstructor);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">case</span> Allocatable::ID::NULL_ID:</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordflow">throw</span> Exception::Violation(<a class="code" href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08">Exception::Violation::INVALID_ENUM</a>);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
 <div class="ttc" id="class_c_y_b_1_1_exception_1_1_violation_html_a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_violation.html#a5e9d131ab13c9b938b708760974a0cb6ab2084d5d7652947b26aec1c7e239ca08">CYB::Exception::Violation::INVALID_ENUM</a></div><div class="ttdoc">An operation was attempted with an invalid enum code. </div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00036">Exception.hpp:36</a></div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="ab27ee6b7a497c2f07cf28117d2a9e518"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class AObject , typename... AArgs&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">AObject* CYB::Engine::Allocator::RawObject </td>
+          <td>(</td>
+          <td class="paramtype">AArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>AArguments</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates the Object specified by AAllocatable and returns a raw pointer which must be deleted using the Delete method of this object. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">AObject</td><td>The type of object to allocate </td></tr>
+    <tr><td class="paramname">AArgs</td><td>The arguments types of AObject's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AArguments</td><td>The arguments of AObject's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to an AObject allocated on this allocator's Heap </dd></dl>
+<dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>Throws dependant on called constructor </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa93eaaf592450d4b08d4088b4b3bba0bc" title="A heap has no block large enough for a requested allocation and expansion failed. ...">CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE</a>. Thrown if the Heap does not have the space for the allocation and more system memory cannot be requested </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>

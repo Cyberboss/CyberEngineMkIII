@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$union_c_y_b_1_1_platform_1_1_system_1_1_sys_1_1_union64.html" title="Used for passing arguments to calls to this class. If the call in question requires const..." alt="" coords="5,5,165,46"/>
+<area shape="rect" id="node1" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_sys.html" title="Used for Linked calls only. " alt="" coords="5,5,165,46"/>
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_platform_1_1_system_1_1_sys.html" title="Contains the functionality for making asm syscalls and linked calls. " alt="" coords="214,12,405,39"/>
 </map>

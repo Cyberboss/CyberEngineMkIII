@@ -1,0 +1,7 @@
+<map id="CYB::Engine::Core::CurrentContext" name="CYB::Engine::Core::CurrentContext">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_context.html#a129b23a0aca6ad0032205bac9f5bade6" title="Get the API&#39;s Context. " alt="" coords="198,34,341,75"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_logger.html#a2a2c95da10ea1a7351da14570907863f" title="Initializes and starts the Logger. Changes the current Context. May block for one second if the prefe..." alt="" coords="626,5,771,46"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_engine_1_1_logger.html#a14f974dc026cac916bdf725fd71aebde" title="Empty FQueue and write it into FFile. " alt="" coords="405,34,550,75"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_engine_1_1_logger.html#a3fbca867c6e5ac1ddc7ca2bb48b8561e" title="Log a message. Will be written to a text file on the Path returned by CurrentLog. ..." alt="" coords="390,100,565,127"/>
+<area shape="rect" id="node6" href="$class_c_y_b_1_1_engine_1_1_core.html#ad4cf9164a09a97fca7b0adb1271d7314" title="Constructs the engine components. " alt="" coords="613,100,784,127"/>
+</map>

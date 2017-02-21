@@ -1,0 +1,4 @@
+<map id="CYB::Platform::System::File::File" name="CYB::Platform::System::File::File">
+<area shape="rect" id="node2" href="$namespace_c_y_b_1_1_a_p_i.html#a2090a9daea48ab2e9013bcac1ee8b515" title="Get the API&#39;s Context. " alt="" coords="225,5,359,32"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_a_p_i_1_1_logger.html#a241c8a0389b19ce052b18824a3fdc73b" title="Log a message. Will be written to a text file on the Path returned by CurrentLog. ..." alt="" coords="214,56,370,83"/>
+</map>

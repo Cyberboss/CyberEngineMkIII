@@ -94,7 +94,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">CYB::API::Interop::Allocator Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -122,27 +121,32 @@ Collaboration diagram for CYB::API::Interop::Allocator:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab58301e9a8fd21fdd2d56ca996f73eba"><td class="memTemplParams" colspan="2">template&lt;class AAllocatable , class AConstructor , typename... AArgs&gt; </td></tr>
-<tr class="memitem:ab58301e9a8fd21fdd2d56ca996f73eba"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt; AAllocatable &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#ab58301e9a8fd21fdd2d56ca996f73eba">NewObject</a> (AArgs &amp;&amp;...AArguments)</td></tr>
-<tr class="memdesc:ab58301e9a8fd21fdd2d56ca996f73eba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specified by AAllocatable.  <a href="#ab58301e9a8fd21fdd2d56ca996f73eba">More...</a><br/></td></tr>
-<tr class="separator:ab58301e9a8fd21fdd2d56ca996f73eba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab16aa4850864cb1018fd62f18d2df43"><td class="memTemplParams" colspan="2">template&lt;class AAllocatable &gt; </td></tr>
-<tr class="memitem:aab16aa4850864cb1018fd62f18d2df43"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt; AAllocatable &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#aab16aa4850864cb1018fd62f18d2df43">NewObject</a> (void)</td></tr>
-<tr class="memdesc:aab16aa4850864cb1018fd62f18d2df43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specified by AAllocatable.  <a href="#aab16aa4850864cb1018fd62f18d2df43">More...</a><br/></td></tr>
-<tr class="separator:aab16aa4850864cb1018fd62f18d2df43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cbc1f2bfbcd8f5d916f09f9a3b259ca"><td class="memTemplParams" colspan="2">template&lt;class AAllocatable &gt; </td></tr>
-<tr class="memitem:a6cbc1f2bfbcd8f5d916f09f9a3b259ca"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt; AAllocatable &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a6cbc1f2bfbcd8f5d916f09f9a3b259ca">CopyObject</a> (const AAllocatable &amp;ACopy)</td></tr>
-<tr class="memdesc:a6cbc1f2bfbcd8f5d916f09f9a3b259ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copys an <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> of type AAllocatable.  <a href="#a6cbc1f2bfbcd8f5d916f09f9a3b259ca">More...</a><br/></td></tr>
-<tr class="separator:a6cbc1f2bfbcd8f5d916f09f9a3b259ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84f20f5780d949843e5a141233e2a1e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a84f20f5780d949843e5a141233e2a1e8">Delete</a> (<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html">Allocatable</a> *const AAllocatable) noexcept</td></tr>
-<tr class="memdesc:a84f20f5780d949843e5a141233e2a1e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes an object allocated with the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html" title="Used for allocating objects within and without the engine. ">Allocator</a>.  <a href="#a84f20f5780d949843e5a141233e2a1e8">More...</a><br/></td></tr>
-<tr class="separator:a84f20f5780d949843e5a141233e2a1e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41bc62c189e2c15ce6db705c116b0d31"><td class="memTemplParams" colspan="2">template&lt;class AObject , class AConstructor , typename... AArgs&gt; </td></tr>
+<tr class="memitem:a41bc62c189e2c15ce6db705c116b0d31"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt; AObject &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a41bc62c189e2c15ce6db705c116b0d31">ConstructObject</a> (AArgs &amp;&amp;...AArguments)</td></tr>
+<tr class="memdesc:a41bc62c189e2c15ce6db705c116b0d31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specified by AObject using a specified <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_constructor.html" title="Template for defining the types of parameters for engine object constructors with multiple arguments...">Constructor</a>.  <a href="#a41bc62c189e2c15ce6db705c116b0d31">More...</a><br/></td></tr>
+<tr class="separator:a41bc62c189e2c15ce6db705c116b0d31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae24e9dc8d55bd91844417ad96cf992ff"><td class="memTemplParams" colspan="2">template&lt;class AObject , typename... AArgs&gt; </td></tr>
+<tr class="memitem:ae24e9dc8d55bd91844417ad96cf992ff"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt; AObject &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#ae24e9dc8d55bd91844417ad96cf992ff">NewObject</a> (AArgs &amp;&amp;...AArguments)</td></tr>
+<tr class="memdesc:ae24e9dc8d55bd91844417ad96cf992ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specified by AObject using the default constructor.  <a href="#ae24e9dc8d55bd91844417ad96cf992ff">More...</a><br/></td></tr>
+<tr class="separator:ae24e9dc8d55bd91844417ad96cf992ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0121327da38a4734a134045400f607e3"><td class="memTemplParams" colspan="2">template&lt;class AObject &gt; </td></tr>
+<tr class="memitem:a0121327da38a4734a134045400f607e3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt; AObject &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a0121327da38a4734a134045400f607e3">NewObject</a> (void)</td></tr>
+<tr class="memdesc:a0121327da38a4734a134045400f607e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specified by AObject using the empty constructor.  <a href="#a0121327da38a4734a134045400f607e3">More...</a><br/></td></tr>
+<tr class="separator:a0121327da38a4734a134045400f607e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d75457aee839b386e48111229624c3e"><td class="memTemplParams" colspan="2">template&lt;class AObject &gt; </td></tr>
+<tr class="memitem:a1d75457aee839b386e48111229624c3e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt; AObject &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a1d75457aee839b386e48111229624c3e">CopyObject</a> (const AObject &amp;ACopy)</td></tr>
+<tr class="memdesc:a1d75457aee839b386e48111229624c3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copys an <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> of type AObject.  <a href="#a1d75457aee839b386e48111229624c3e">More...</a><br/></td></tr>
+<tr class="separator:a1d75457aee839b386e48111229624c3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d00029939461d86b03cc61a70db5a63"><td class="memTemplParams" colspan="2">template&lt;class AObject &gt; </td></tr>
+<tr class="memitem:a5d00029939461d86b03cc61a70db5a63"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a5d00029939461d86b03cc61a70db5a63">DeleteObject</a> (AObject *const AAllocated) noexcept</td></tr>
+<tr class="memdesc:a5d00029939461d86b03cc61a70db5a63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes an object allocated with the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html" title="Used for allocating objects within and without the engine. ">Allocator</a>.  <a href="#a5d00029939461d86b03cc61a70db5a63">More...</a><br/></td></tr>
+<tr class="separator:a5d00029939461d86b03cc61a70db5a63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ad066f396e4a9228a06ede3e4d73d7b4b"><td class="memTemplParams" colspan="2">template&lt;typename AType , typename... AArgs&gt; </td></tr>
 <tr class="memitem:ad066f396e4a9228a06ede3e4d73d7b4b"><td class="memTemplItemLeft" align="right" valign="top">static AType *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#ad066f396e4a9228a06ede3e4d73d7b4b">InPlaceAllocation</a> (void *const ALocation, AArgs &amp;&amp;...AArguments)</td></tr>
-<tr class="memdesc:ad066f396e4a9228a06ede3e4d73d7b4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drop in replacement for placement new. Used for code coverage.  <a href="#ad066f396e4a9228a06ede3e4d73d7b4b">More...</a><br/></td></tr>
+<tr class="memdesc:ad066f396e4a9228a06ede3e4d73d7b4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for placement new.  <a href="#ad066f396e4a9228a06ede3e4d73d7b4b">More...</a><br/></td></tr>
 <tr class="separator:ad066f396e4a9228a06ede3e4d73d7b4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -157,28 +161,25 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a4582ea025d40fe57ff485f39ea30e21b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a4582ea025d40fe57ff485f39ea30e21b">Allocator</a> (<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_heap.html">Heap</a> &amp;AHeap) noexcept</td></tr>
 <tr class="memdesc:a4582ea025d40fe57ff485f39ea30e21b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html" title="Used for allocating objects within and without the engine. ">Allocator</a>.  <a href="#a4582ea025d40fe57ff485f39ea30e21b">More...</a><br/></td></tr>
 <tr class="separator:a4582ea025d40fe57ff485f39ea30e21b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e0eb45a56a58bfd425c12d134460a18"><td class="memTemplParams" colspan="2">template&lt;class AObject , typename AConstructor , typename... AArgs&gt; </td></tr>
+<tr class="memitem:a3e0eb45a56a58bfd425c12d134460a18"><td class="memTemplItemLeft" align="right" valign="top">AObject *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a3e0eb45a56a58bfd425c12d134460a18">AllocateObject</a> (const std::true_type AIgnored, AArgs &amp;&amp;...AArguments)</td></tr>
+<tr class="memdesc:a3e0eb45a56a58bfd425c12d134460a18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate an <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html" title="Defines the base class for allocatable engine objects. ">Allocatable</a> object through interop.  <a href="#a3e0eb45a56a58bfd425c12d134460a18">More...</a><br/></td></tr>
+<tr class="separator:a3e0eb45a56a58bfd425c12d134460a18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e52f3c2631812faae7f6830813ec102"><td class="memTemplParams" colspan="2">template&lt;class AObject , typename AIgnoredConstructor , typename... AArgs&gt; </td></tr>
+<tr class="memitem:a0e52f3c2631812faae7f6830813ec102"><td class="memTemplItemLeft" align="right" valign="top">AObject *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a0e52f3c2631812faae7f6830813ec102">AllocateObject</a> (const std::false_type AIgnored, AArgs &amp;&amp;...AArguments)</td></tr>
+<tr class="memdesc:a0e52f3c2631812faae7f6830813ec102"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate a concrete object.  <a href="#a0e52f3c2631812faae7f6830813ec102">More...</a><br/></td></tr>
+<tr class="separator:a0e52f3c2631812faae7f6830813ec102"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a1137377395bc03089bde7f5a57237c83"><td class="memItemLeft" align="right" valign="top">virtual void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a1137377395bc03089bde7f5a57237c83">InteropAllocation</a> (const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html#a36fa87df155e8d505b0245744cc2d19c">Allocatable::ID</a> AID, <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_constructor.html">Constructor</a>&lt; void &gt; &amp;AConstructor)=0</td></tr>
 <tr class="memdesc:a1137377395bc03089bde7f5a57237c83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the object specified by <code>AID</code> into FHeap.  <a href="#a1137377395bc03089bde7f5a57237c83">More...</a><br/></td></tr>
 <tr class="separator:a1137377395bc03089bde7f5a57237c83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
-Static Private Member Functions</h2></td></tr>
-<tr class="memitem:aa5e32d9f175648784cca97e07c171f80"><td class="memTemplParams" colspan="2">template&lt;typename AType , typename... AArgs&gt; </td></tr>
-<tr class="memitem:aa5e32d9f175648784cca97e07c171f80"><td class="memTemplItemLeft" align="right" valign="top">static AType *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#aa5e32d9f175648784cca97e07c171f80">InPlaceAllocation</a> (void *const ALocation, std::false_type AIgnored, AArgs &amp;&amp;...AArguments)</td></tr>
-<tr class="memdesc:aa5e32d9f175648784cca97e07c171f80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drop in replacement for placement new with successful abstraction checking.  <a href="#aa5e32d9f175648784cca97e07c171f80">More...</a><br/></td></tr>
-<tr class="separator:aa5e32d9f175648784cca97e07c171f80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a511bc641e306b498ddaa4ac68b43d09f"><td class="memTemplParams" colspan="2">template&lt;typename AType , typename... AArgs&gt; </td></tr>
-<tr class="memitem:a511bc641e306b498ddaa4ac68b43d09f"><td class="memTemplItemLeft" align="right" valign="top">static AType *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a511bc641e306b498ddaa4ac68b43d09f">InPlaceAllocation</a> (void *const ALocation, std::true_type AIgnored, AArgs &amp;&amp;...AArguments) noexcept</td></tr>
-<tr class="memdesc:a511bc641e306b498ddaa4ac68b43d09f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drop in replacement for placement new with failed abstraction checking. Calls HCF.  <a href="#a511bc641e306b498ddaa4ac68b43d09f">More...</a><br/></td></tr>
-<tr class="separator:a511bc641e306b498ddaa4ac68b43d09f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Used for allocating objects within and without the engine. </p>
 
-<p>Definition at line <a class="el" href="_allocator_8hpp_source.html#l00008">8</a> of file <a class="el" href="_allocator_8hpp_source.html">Allocator.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_allocator_8hpp_source.html#l00007">7</a> of file <a class="el" href="_allocator_8hpp_source.html">Allocator.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a4582ea025d40fe57ff485f39ea30e21b"></a>
 <div class="memitem">
@@ -209,31 +210,195 @@ Static Private Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Thread Safety</dt><dd>Function calls should be syncronized </dd></dl>
+<dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a6cbc1f2bfbcd8f5d916f09f9a3b259ca"></a>
+<a class="anchor" id="a3e0eb45a56a58bfd425c12d134460a18"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class AAllocatable &gt; </div>
+template&lt;class AObject , typename AConstructor , typename... AArgs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt;AAllocatable&gt; CYB::API::Interop::Allocator::CopyObject </td>
+          <td class="memname">AObject* CYB::API::Interop::Allocator::AllocateObject </td>
           <td>(</td>
-          <td class="paramtype">const AAllocatable &amp;&#160;</td>
+          <td class="paramtype">const std::true_type&#160;</td>
+          <td class="paramname"><em>AIgnored</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>AArguments</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Allocate an <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html" title="Defines the base class for allocatable engine objects. ">Allocatable</a> object through interop. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">AObject</td><td>The object to allocate, must be an <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html" title="Defines the base class for allocatable engine objects. ">Allocatable</a> </td></tr>
+    <tr><td class="paramname">AConstructor</td><td>The <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_constructor.html" title="Template for defining the types of parameters for engine object constructors with multiple arguments...">Constructor</a> of AObject to use </td></tr>
+    <tr><td class="paramname">AArgs</td><td>The arguments types of AConstructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AIgnored</td><td>Used for overloading, ignored </td></tr>
+    <tr><td class="paramname">AArguments</td><td>Arguments to AConstructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the constructed object, allocated on this <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html" title="Used for allocating objects within and without the engine. ">Allocator</a>'s <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_heap.html" title="An interface which can allocate memory. ">Heap</a> </dd></dl>
+<dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>Throws dependant on called constructor </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0e52f3c2631812faae7f6830813ec102"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class AObject , typename AIgnoredConstructor , typename... AArgs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">AObject* CYB::API::Interop::Allocator::AllocateObject </td>
+          <td>(</td>
+          <td class="paramtype">const std::false_type&#160;</td>
+          <td class="paramname"><em>AIgnored</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>AArguments</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Allocate a concrete object. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">AObject</td><td>The object to allocate, must be an <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html" title="Defines the base class for allocatable engine objects. ">Allocatable</a> </td></tr>
+    <tr><td class="paramname">AIgnoredConstructor</td><td>Ignored </td></tr>
+    <tr><td class="paramname">AArgs</td><td>The arguments types of AConstructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AIgnored</td><td>Used for overloading, ignored </td></tr>
+    <tr><td class="paramname">AArguments</td><td>Arguments to AConstructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the constructed object, allocated on this <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html" title="Used for allocating objects within and without the engine. ">Allocator</a>'s <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_heap.html" title="An interface which can allocate memory. ">Heap</a> </dd></dl>
+<dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>Throws dependant on called constructor </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a41bc62c189e2c15ce6db705c116b0d31"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class AObject , class AConstructor , typename... AArgs&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt;AObject&gt; CYB::API::Interop::Allocator::ConstructObject </td>
+          <td>(</td>
+          <td class="paramtype">AArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>AArguments</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specified by AObject using a specified <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_constructor.html" title="Template for defining the types of parameters for engine object constructors with multiple arguments...">Constructor</a>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">AObject</td><td>The type of object to allocate </td></tr>
+    <tr><td class="paramname">AConstructor</td><td>The constructor for AObject to use </td></tr>
+    <tr><td class="paramname">AArgs</td><td>The arguments types of AObject's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AArguments</td><td>The arguments of AObject's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specialized on AObject containing the allocated object </dd></dl>
+<dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>Throws dependant on called constructor </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html" title="Exceptions caused by external call failures or invalid external data. Only classifies ones that can p...">CYB::Exception::SystemData</a></td><td>Error code: <a class="el" href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caa93eaaf592450d4b08d4088b4b3bba0bc" title="A heap has no block large enough for a requested allocation and expansion failed. ...">CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE</a>. Thrown if the heap does not have the space for the allocation and more system memory cannot be requested </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator_a41bc62c189e2c15ce6db705c116b0d31_icgraph.png" border="0" usemap="#class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator_a41bc62c189e2c15ce6db705c116b0d31_icgraph" alt=""/></div>
+<map name="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator_a41bc62c189e2c15ce6db705c116b0d31_icgraph" id="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator_a41bc62c189e2c15ce6db705c116b0d31_icgraph">
+<area shape="rect" id="node2" href="class_c_y_b_1_1_engine_1_1_logger.html#a2a2c95da10ea1a7351da14570907863f" title="Initializes and starts the Logger. Changes the current Context. May block for one second if the prefe..." alt="" coords="270,5,415,46"/><area shape="rect" id="node3" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html#aaa94a9bdba28db084bafa6dcfed00255" title="Get the first directory entry iterator in the path. Always valid. " alt="" coords="263,70,423,111"/><area shape="rect" id="node4" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_1_1_directory_entry.html#a6b2898452dedbd8336f2bff3a4ee876b" title="Assign the current data to FPathListing if it is not &#39;.&#39; or &#39;..&#39;. " alt="" coords="230,135,455,191"/><area shape="rect" id="node5" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_1_1_directory_entry.html#a9d32568f80084efbd9513d92948fe682" title="Begin the directory listing operation of APath. " alt="" coords="505,135,711,191"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a1d75457aee839b386e48111229624c3e"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class AObject &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt;AObject&gt; CYB::API::Interop::Allocator::CopyObject </td>
+          <td>(</td>
+          <td class="paramtype">const AObject &amp;&#160;</td>
           <td class="paramname"><em>ACopy</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copys an <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> of type AAllocatable. </p>
+<p>Copys an <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> of type AObject. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">AAllocatable</td><td>The type of object to copy </td></tr>
+    <tr><td class="paramname">AObject</td><td>The type of object to copy </td></tr>
   </table>
   </dd>
 </dl>
@@ -243,7 +408,7 @@ template&lt;class AAllocatable &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specialized on AAllocatable containing the copies object </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specialized on AObject containing the copies object </dd></dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
 <dl class="section attention"><dt>Attention</dt><dd>Throws dependant on called constructor </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
@@ -255,18 +420,20 @@ template&lt;class AAllocatable &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a84f20f5780d949843e5a141233e2a1e8"></a>
+<a class="anchor" id="a5d00029939461d86b03cc61a70db5a63"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class AObject &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void CYB::API::Interop::Allocator::Delete </td>
+          <td class="memname">void CYB::API::Interop::Allocator::DeleteObject </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html">Allocatable</a> *const&#160;</td>
-          <td class="paramname"><em>AAllocatable</em></td><td>)</td>
+          <td class="paramtype">AObject *const&#160;</td>
+          <td class="paramname"><em>AAllocated</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -280,133 +447,10 @@ template&lt;class AAllocatable &gt; </div>
 <p>Deletes an object allocated with the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html" title="Used for allocating objects within and without the engine. ">Allocator</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">AAllocatable</td><td>A pointer to the allocated object </td></tr>
+    <tr><td class="paramname">AAllocated</td><td>A pointer to the allocated object </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aa5e32d9f175648784cca97e07c171f80"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename AType , typename... AArgs&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static AType* CYB::API::Interop::Allocator::InPlaceAllocation </td>
-          <td>(</td>
-          <td class="paramtype">void *const&#160;</td>
-          <td class="paramname"><em>ALocation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::false_type&#160;</td>
-          <td class="paramname"><em>AIgnored</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">AArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>AArguments</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Drop in replacement for placement new with successful abstraction checking. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">AType</td><td>The type to be constructed </td></tr>
-    <tr><td class="paramname">AArgs</td><td>The arguments types of AType's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ALocation</td><td>An area of memory not nullptr and at least sizof(AType) where AType will be constructed </td></tr>
-    <tr><td class="paramname">AIgnored</td><td>Used for overloading </td></tr>
-    <tr><td class="paramname">AArguments</td><td>Arguments to AType's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the new AType which will be equivalent to ALocation </dd></dl>
-<dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
-<dl class="section attention"><dt>Attention</dt><dd>Throws dependant on called constructor </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a511bc641e306b498ddaa4ac68b43d09f"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename AType , typename... AArgs&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static AType* CYB::API::Interop::Allocator::InPlaceAllocation </td>
-          <td>(</td>
-          <td class="paramtype">void *const&#160;</td>
-          <td class="paramname"><em>ALocation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::true_type&#160;</td>
-          <td class="paramname"><em>AIgnored</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">AArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>AArguments</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Drop in replacement for placement new with failed abstraction checking. Calls HCF. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">AType</td><td>Ignored </td></tr>
-    <tr><td class="paramname">AArgs</td><td>Ignored </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ALocation</td><td>Ignored </td></tr>
-    <tr><td class="paramname">AIgnored</td><td>Ignored </td></tr>
-    <tr><td class="paramname">AArguments</td><td>Ignored </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the new AType which will be equivalent to ALocation </dd></dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
 
 </div>
@@ -445,18 +489,18 @@ template&lt;typename AType , typename... AArgs&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Drop in replacement for placement new. Used for code coverage. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ALocation</td><td>An area of memory not nullptr and at least sizof(AType) where AType will be constructed </td></tr>
-    <tr><td class="paramname">AArguments</td><td>Arguments to AType's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Wrapper for placement new. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">AType</td><td>The type to be constructed </td></tr>
     <tr><td class="paramname">AArgs</td><td>The arguments types of AType's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ALocation</td><td>An area of memory not nullptr and at least sizof(AType) where AType will be constructed </td></tr>
+    <tr><td class="paramname">AArguments</td><td>Arguments to AType's constructor </td></tr>
   </table>
   </dd>
 </dl>
@@ -522,14 +566,14 @@ template&lt;typename AType , typename... AArgs&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ab58301e9a8fd21fdd2d56ca996f73eba"></a>
+<a class="anchor" id="ae24e9dc8d55bd91844417ad96cf992ff"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class AAllocatable , class AConstructor , typename... AArgs&gt; </div>
+template&lt;class AObject , typename... AArgs&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt;AAllocatable&gt; CYB::API::Interop::Allocator::NewObject </td>
+          <td class="memname"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt;AObject&gt; CYB::API::Interop::Allocator::NewObject </td>
           <td>(</td>
           <td class="paramtype">AArgs &amp;&amp;...&#160;</td>
           <td class="paramname"><em>AArguments</em></td><td>)</td>
@@ -538,22 +582,21 @@ template&lt;class AAllocatable , class AConstructor , typename... AArgs&gt; </di
       </table>
 </div><div class="memdoc">
 
-<p>Allocates the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specified by AAllocatable. </p>
+<p>Allocates the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specified by AObject using the default constructor. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">AAllocatable</td><td>The type of object to allocate </td></tr>
-    <tr><td class="paramname">AConstructor</td><td>The constructor for AAllocatable to use. Defaults to AAllocatable::Constructor </td></tr>
-    <tr><td class="paramname">AArgs</td><td>The arguments types of AAllocatable's constructor </td></tr>
+    <tr><td class="paramname">AObject</td><td>The type of object to allocate </td></tr>
+    <tr><td class="paramname">AArgs</td><td>The arguments types of AObject's constructor </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">AArguments</td><td>The arguments of AAllocatable's constructor </td></tr>
+    <tr><td class="paramname">AArguments</td><td>The arguments of AObject's constructor </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specialized on AAllocatable containing the allocated object </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specialized on AObject containing the allocated object </dd></dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
 <dl class="section attention"><dt>Attention</dt><dd>Throws dependant on called constructor </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
@@ -563,25 +606,16 @@ template&lt;class AAllocatable , class AConstructor , typename... AArgs&gt; </di
   </dd>
 </dl>
 
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator_ab58301e9a8fd21fdd2d56ca996f73eba_icgraph.png" border="0" usemap="#class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator_ab58301e9a8fd21fdd2d56ca996f73eba_icgraph" alt=""/></div>
-<map name="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator_ab58301e9a8fd21fdd2d56ca996f73eba_icgraph" id="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator_ab58301e9a8fd21fdd2d56ca996f73eba_icgraph">
-<area shape="rect" id="node2" href="class_c_y_b_1_1_platform_1_1_system_1_1_path.html#aaa94a9bdba28db084bafa6dcfed00255" title="Get the first directory entry iterator in the path. Always valid. " alt="" coords="233,5,393,46"/><area shape="rect" id="node3" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_1_1_directory_entry.html#a6b2898452dedbd8336f2bff3a4ee876b" title="Assign the current data to FPathListing if it is not &#39;.&#39; or &#39;..&#39;. " alt="" coords="201,69,426,125"/><area shape="rect" id="node4" href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_1_1_directory_entry.html#a9d32568f80084efbd9513d92948fe682" title="Begin the directory listing operation of APath. " alt="" coords="475,69,682,125"/></map>
-</div>
-</p>
-
 </div>
 </div>
-<a class="anchor" id="aab16aa4850864cb1018fd62f18d2df43"></a>
+<a class="anchor" id="a0121327da38a4734a134045400f607e3"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class AAllocatable &gt; </div>
+template&lt;class AObject &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt;AAllocatable&gt; CYB::API::Interop::Allocator::NewObject </td>
+          <td class="memname"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html">Object</a>&lt;AObject&gt; CYB::API::Interop::Allocator::NewObject </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -590,14 +624,14 @@ template&lt;class AAllocatable &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Allocates the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specified by AAllocatable. </p>
+<p>Allocates the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specified by AObject using the empty constructor. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">AAllocatable</td><td>The type of object to allocate </td></tr>
+    <tr><td class="paramname">AObject</td><td>The type of object to allocate </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specialized on AAllocatable containing the allocated object </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa...">Object</a> specialized on AObject containing the allocated object </dd></dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
 <dl class="section attention"><dt>Attention</dt><dd>Throws dependant on called constructor </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>

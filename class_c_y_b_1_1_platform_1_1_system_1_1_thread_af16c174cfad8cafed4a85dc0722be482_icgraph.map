@@ -1,0 +1,5 @@
+<map id="CYB::Platform::System::Thread::Sleep" name="CYB::Platform::System::Thread::Sleep">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_engine_1_1_logger.html#aee9d9c43660257cf7ba453fa652d302d" title="Prepares the logging File for writing. May block for one second if the preferred filename is taken in..." alt="" coords="227,5,373,46"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_logger.html#a2c40a447c699995e4a929183e46e318a" title="Writer thread. Runs in a loop until CancelThreadedOperation is called. " alt="" coords="213,70,387,111"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_engine_1_1_logger.html#ab86b3c1e504477852790c14af2643817" title="Delays execution until all pending logs from the current thread have been written to the output..." alt="" coords="227,135,373,177"/>
+</map>

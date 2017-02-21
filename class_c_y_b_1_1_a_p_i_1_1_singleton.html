@@ -118,9 +118,9 @@ Collaboration diagram for CYB::API::Singleton&lt; AParent &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a621cb577c43666baa0c9573fcec4abbf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_singleton.html#a621cb577c43666baa0c9573fcec4abbf">Singleton</a> () noexcept</td></tr>
-<tr class="memdesc:a621cb577c43666baa0c9573fcec4abbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a singleton and initialize it's pointer.  <a href="#a621cb577c43666baa0c9573fcec4abbf">More...</a><br/></td></tr>
-<tr class="separator:a621cb577c43666baa0c9573fcec4abbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b7fe2faba950e2f439fbf6a6711d77d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_singleton.html#a3b7fe2faba950e2f439fbf6a6711d77d">Singleton</a> (const bool AInit) noexcept</td></tr>
+<tr class="memdesc:a3b7fe2faba950e2f439fbf6a6711d77d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optionally initialize the singleton with the current object.  <a href="#a3b7fe2faba950e2f439fbf6a6711d77d">More...</a><br/></td></tr>
+<tr class="separator:a3b7fe2faba950e2f439fbf6a6711d77d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bdb5b13586bcd2a651292bf4e615690"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8bdb5b13586bcd2a651292bf4e615690"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_singleton.html#a8bdb5b13586bcd2a651292bf4e615690">~Singleton</a> ()</td></tr>
 <tr class="memdesc:a8bdb5b13586bcd2a651292bf4e615690"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a singleton and nullify it's pointer. <br/></td></tr>
@@ -147,7 +147,7 @@ class CYB::API::Singleton&lt; AParent &gt;</h3>
 
 <p>Definition at line <a class="el" href="_singleton_8hpp_source.html#l00010">10</a> of file <a class="el" href="_singleton_8hpp_source.html">Singleton.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a621cb577c43666baa0c9573fcec4abbf"></a>
+<a class="anchor" id="a3b7fe2faba950e2f439fbf6a6711d77d"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -159,7 +159,8 @@ template&lt;class AParent&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_singleton.html">CYB::API::Singleton</a>&lt; AParent &gt;::<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_singleton.html">Singleton</a> </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>AInit</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -170,7 +171,13 @@ template&lt;class AParent&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a singleton and initialize it's pointer. </p>
+<p>Optionally initialize the singleton with the current object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AInit</td><td>If set to true, FSingleton will be set to this </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>Access to this function must be synchronized per template instantiation </dd></dl>
 
 </div>

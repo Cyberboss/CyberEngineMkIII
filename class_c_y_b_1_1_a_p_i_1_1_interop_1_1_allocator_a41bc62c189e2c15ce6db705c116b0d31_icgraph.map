@@ -1,0 +1,6 @@
+<map id="CYB::API::Interop::Allocator::ConstructObject" name="CYB::API::Interop::Allocator::ConstructObject">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_engine_1_1_logger.html#a2a2c95da10ea1a7351da14570907863f" title="Initializes and starts the Logger. Changes the current Context. May block for one second if the prefe..." alt="" coords="270,5,415,46"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_platform_1_1_system_1_1_path.html#aaa94a9bdba28db084bafa6dcfed00255" title="Get the first directory entry iterator in the path. Always valid. " alt="" coords="263,70,423,111"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_1_1_directory_entry.html#a6b2898452dedbd8336f2bff3a4ee876b" title="Assign the current data to FPathListing if it is not &#39;.&#39; or &#39;..&#39;. " alt="" coords="230,135,455,191"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_1_1_directory_entry.html#a9d32568f80084efbd9513d92948fe682" title="Begin the directory listing operation of APath. " alt="" coords="505,135,711,191"/>
+</map>

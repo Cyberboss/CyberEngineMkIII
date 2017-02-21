@@ -111,9 +111,9 @@ Collaboration diagram for CYB::API::LockGuard:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4120b418d686a4eecaa77e9333f1bba4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_lock_guard.html#a4120b418d686a4eecaa77e9333f1bba4">LockGuard</a> (<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_mutex.html">Mutex</a> &amp;AMutex) noexcept</td></tr>
-<tr class="memdesc:a4120b418d686a4eecaa77e9333f1bba4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_lock_guard.html" title="A RAII locking mechanism. ">LockGuard</a> that will hold a lock on <code>AMutex</code>.  <a href="#a4120b418d686a4eecaa77e9333f1bba4">More...</a><br/></td></tr>
-<tr class="separator:a4120b418d686a4eecaa77e9333f1bba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9be6bcb8f2472885452ae56583a39e6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_lock_guard.html#aa9be6bcb8f2472885452ae56583a39e6">LockGuard</a> (<a class="el" href="class_c_y_b_1_1_a_p_i_1_1_mutex.html">Mutex</a> &amp;AMutex, const bool APreLocked=false) noexcept</td></tr>
+<tr class="memdesc:aa9be6bcb8f2472885452ae56583a39e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_lock_guard.html" title="A RAII locking mechanism. ">LockGuard</a> that will hold a lock on <code>AMutex</code>.  <a href="#aa9be6bcb8f2472885452ae56583a39e6">More...</a><br/></td></tr>
+<tr class="separator:aa9be6bcb8f2472885452ae56583a39e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51ad1ca4d14c4f86ae7df3d6c213047b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a51ad1ca4d14c4f86ae7df3d6c213047b"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_lock_guard.html#a51ad1ca4d14c4f86ae7df3d6c213047b">LockGuard</a> (const <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_lock_guard.html">LockGuard</a> &amp;)=delete</td></tr>
 <tr class="memdesc:a51ad1ca4d14c4f86ae7df3d6c213047b"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="conventions.html#structors">Default Constructors and Destructor</a>. <br/></td></tr>
@@ -138,7 +138,7 @@ Public Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:ae0de820cbae5655ef390931f76c1d093"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae0de820cbae5655ef390931f76c1d093"></a>
 <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_mutex.html">Mutex</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_lock_guard.html#ae0de820cbae5655ef390931f76c1d093">FMutex</a></td></tr>
-<tr class="memdesc:ae0de820cbae5655ef390931f76c1d093"><td class="mdescLeft">&#160;</td><td class="mdescRight">A reference to the owned mutex. <br/></td></tr>
+<tr class="memdesc:ae0de820cbae5655ef390931f76c1d093"><td class="mdescLeft">&#160;</td><td class="mdescRight">A reference to the owned <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. ">Mutex</a>. <br/></td></tr>
 <tr class="separator:ae0de820cbae5655ef390931f76c1d093"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -146,7 +146,7 @@ Private Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="_lock_guard_8hpp_source.html#l00007">7</a> of file <a class="el" href="_lock_guard_8hpp_source.html">LockGuard.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a4120b418d686a4eecaa77e9333f1bba4"></a>
+<a class="anchor" id="aa9be6bcb8f2472885452ae56583a39e6"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -157,8 +157,18 @@ Private Attributes</h2></td></tr>
           <td class="memname">CYB::API::LockGuard::LockGuard </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_mutex.html">Mutex</a> &amp;&#160;</td>
-          <td class="paramname"><em>AMutex</em></td><td>)</td>
+          <td class="paramname"><em>AMutex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>APreLocked</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -171,7 +181,8 @@ Private Attributes</h2></td></tr>
 <p>Construct a <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_lock_guard.html" title="A RAII locking mechanism. ">LockGuard</a> that will hold a lock on <code>AMutex</code>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">AMutex</td><td>The mutex to lock </td></tr>
+    <tr><td class="paramname">AMutex</td><td>The <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. ">Mutex</a> to lock </td></tr>
+    <tr><td class="paramname">APreLocked</td><td>If the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. ">Mutex</a> is already locked by the calling thread this should be true, false otherwise </td></tr>
   </table>
   </dd>
 </dl>

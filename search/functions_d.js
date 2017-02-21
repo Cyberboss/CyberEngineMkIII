@@ -1,6 +1,8 @@
 var searchData=
 [
   ['object',['Object',['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html#a82d43f5388ae01bd9019859317de83f8',1,'CYB::API::Interop::Object::Object(AInterface *const APointer) noexcept'],['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html#ae95badc2877b918c8a46f01aa1d3583c',1,'CYB::API::Interop::Object::Object(const Object&lt; AInterface &gt; &amp;ACopy)'],['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html#aa8b128f213e81978b38f321d2e5dbc4f',1,'CYB::API::Interop::Object::Object(Object &amp;&amp;AMove) noexcept']]],
+  ['openfile',['OpenFile',['../class_c_y_b_1_1_engine_1_1_logger.html#a5ac875da4cf2ef9030582592494c2c4d',1,'CYB::Engine::Logger']]],
+  ['openfileimpl',['OpenFileImpl',['../class_c_y_b_1_1_engine_1_1_logger.html#aee9d9c43660257cf7ba453fa652d302d',1,'CYB::Engine::Logger']]],
   ['openmethod',['OpenMethod',['../class_c_y_b_1_1_a_p_i_1_1_file.html#a7167a9557d1b4b2e2acda71f565c1c1d',1,'CYB::API::File::OpenMethod()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a09e5a21bfc259a2c78cb7f1f2221abe6',1,'CYB::Platform::System::File::OpenMethod()']]],
   ['operator_20const_20char_20_2a',['operator const char *',['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html#afa02a046519bec65165053cced116592',1,'CYB::API::String::CStyle']]],
   ['operator_21_3d',['operator!=',['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_s_t_l_allocator.html#a19d83e91fa1860b13eac95f7c06a568d',1,'CYB::API::Interop::STLAllocator::operator!=()'],['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html#ad5b394e637b9f0cfb8c3575bccca34c4',1,'CYB::API::String::CStyle::operator!=()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_process.html#aa22fe5ea84076d235fd1b0db43c90c74',1,'CYB::Platform::System::Process::operator!=()']]],

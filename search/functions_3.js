@@ -1,10 +1,12 @@
 var searchData=
 [
-  ['deallocate',['deallocate',['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_s_t_l_allocator.html#ae9c8ba221fa2ac786bd48d711b5ebba0',1,'CYB::API::Interop::STLAllocator']]],
+  ['deallocate',['Deallocate',['../class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html#af9a7f70b0a1946b78a41575c5d2c8600',1,'CYB::API::UniquePointer::Deallocate()'],['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_s_t_l_allocator.html#ae9c8ba221fa2ac786bd48d711b5ebba0',1,'CYB::API::Interop::STLAllocator::deallocate()']]],
   ['deallocatedata',['DeallocateData',['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html#ac7ef1e3297aaf02e32fcccdb40cd9838',1,'CYB::API::String::Dynamic']]],
-  ['delete',['Delete',['../class_c_y_b_1_1_a_p_i_1_1_path.html#a87cdd42256b2efcc0a09a9ba266585bd',1,'CYB::API::Path::Delete()'],['../class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html#a613d63b95c8a6d0c2f2fc03eb28a8306',1,'CYB::API::UniquePointer::Delete()'],['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a84f20f5780d949843e5a141233e2a1e8',1,'CYB::API::Interop::Allocator::Delete()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_path.html#a65316fd7adfaee16a4ce7e8e8b648536',1,'CYB::Platform::System::Path::Delete()']]],
+  ['defaultcontext',['DefaultContext',['../class_c_y_b_1_1_engine_1_1_core.html#ada4c1b9b33127f958f4bd39eaadcdcb4',1,'CYB::Engine::Core']]],
+  ['delete',['Delete',['../class_c_y_b_1_1_a_p_i_1_1_path.html#a87cdd42256b2efcc0a09a9ba266585bd',1,'CYB::API::Path::Delete()'],['../class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html#a613d63b95c8a6d0c2f2fc03eb28a8306',1,'CYB::API::UniquePointer::Delete()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_path.html#a65316fd7adfaee16a4ce7e8e8b648536',1,'CYB::Platform::System::Path::Delete()']]],
   ['deletedirectory',['DeleteDirectory',['../class_c_y_b_1_1_platform_1_1_system_1_1_path.html#a9236971e02b7f5c17ce9b4950b74f04a',1,'CYB::Platform::System::Path']]],
   ['deletefile',['DeleteFile',['../class_c_y_b_1_1_platform_1_1_system_1_1_path.html#ad3f1f4cc0c60367d59a6944dd5b4f556',1,'CYB::Platform::System::Path']]],
+  ['deleteobject',['DeleteObject',['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a5d00029939461d86b03cc61a70db5a63',1,'CYB::API::Interop::Allocator']]],
   ['destroy',['destroy',['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_s_t_l_allocator.html#a28b426dfda1b032b348b0dd1958dbc42',1,'CYB::API::Interop::STLAllocator']]],
   ['directoryentry',['DirectoryEntry',['../class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_1_1_directory_entry.html#a9d32568f80084efbd9513d92948fe682',1,'CYB::Platform::System::Implementation::Path::DirectoryEntry']]],
   ['directoryseparatorchar',['DirectorySeparatorChar',['../class_c_y_b_1_1_a_p_i_1_1_path.html#ae6081b25674e3ad36901811b9a433a7b',1,'CYB::API::Path']]],

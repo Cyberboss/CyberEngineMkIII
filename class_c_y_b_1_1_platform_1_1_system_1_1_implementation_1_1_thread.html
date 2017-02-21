@@ -197,7 +197,7 @@ Static Private Member Functions</h2></td></tr>
 <div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_thread_html_a8eef07d50cc084c844b21a938b6e5dfa"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_thread.html#a8eef07d50cc084c844b21a938b6e5dfa">CYB::Platform::System::Implementation::Thread::ThreadProc</a></div><div class="ttdeci">static unsigned long __stdcall ThreadProc(void *const AThreadable) noexcept</div><div class="ttdoc">The thread startup function called by the kernel. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_win32_thread_8cpp_source.html#l00015">CYBWin32Thread.cpp:15</a></div></div>
 <div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_thread_html_ab0054e617e2c9b0f863d4934543f1538"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_thread.html#ab0054e617e2c9b0f863d4934543f1538">CYB::Platform::System::Implementation::Thread::FThreadable</a></div><div class="ttdeci">API::Threadable &amp; FThreadable</div><div class="ttdoc">A reference to the Threadable object this Thread will run. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_win32_thread_8hpp_source.html#l00010">CYBWin32Thread.hpp:10</a></div></div>
 <div class="ttc" id="class_c_y_b_1_1_exception_1_1_system_data_html_aec7c068789569f295671e37131d0e8caae0bb0e073900687ffa9eae30291239b6"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_system_data.html#aec7c068789569f295671e37131d0e8caae0bb0e073900687ffa9eae30291239b6">CYB::Exception::SystemData::THREAD_CREATION_FAILURE</a></div><div class="ttdoc">Thread could not be created. </div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00080">Exception.hpp:80</a></div></div>
-<div class="ttc" id="namespace_c_y_b_html_ac530f286744fc3b6c07ab8607d6ff192"><div class="ttname"><a href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192">CYB::Core</a></div><div class="ttdeci">Engine::Core &amp; Core(void) noexcept</div><div class="ttdoc">Retrieve the Core singleton. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_core_8cpp_source.html#l00051">CYBCore.cpp:51</a></div></div>
+<div class="ttc" id="namespace_c_y_b_html_ac530f286744fc3b6c07ab8607d6ff192"><div class="ttname"><a href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192">CYB::Core</a></div><div class="ttdeci">Engine::Core &amp; Core(void) noexcept</div><div class="ttdoc">Retrieve the Core singleton. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_core_8cpp_source.html#l00068">CYBCore.cpp:68</a></div></div>
 <div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_thread_html_a927e9a511f49f1b3a988754e16a8a13b"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_thread.html#a927e9a511f49f1b3a988754e16a8a13b">CYB::Platform::System::Implementation::Thread::FThread</a></div><div class="ttdeci">Win32::HANDLE FThread</div><div class="ttdoc">The thread handle. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_win32_thread_8hpp_source.html#l00011">CYBWin32Thread.hpp:11</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -235,23 +235,23 @@ Static Private Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>0 </dd></dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
 <dl class="section attention"><dt>Attention</dt><dd>Do not call this function directly </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>Log error </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>Log error </dd></dl>
 
 <p>Definition at line <a class="el" href="_c_y_b_win32_thread_8cpp_source.html#l00015">15</a> of file <a class="el" href="_c_y_b_win32_thread_8cpp_source.html">CYBWin32Thread.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                                                                                          {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">try</span> {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keyword">static_cast&lt;</span>API::Threadable*<span class="keyword">&gt;</span>(AThreadable)-&gt;BeginThreadedOperation();</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    }</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">catch</span> (<a class="code" href="class_c_y_b_1_1_exception_1_1_base.html">CYB::Exception::Base</a> AException) {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span><span class="keyword">&gt;</span>(AException);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    }</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">catch</span> (...) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    }</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
-<div class="ttc" id="class_c_y_b_1_1_exception_1_1_base_html"><div class="ttname"><a href="class_c_y_b_1_1_exception_1_1_base.html">CYB::Exception::Base</a></div><div class="ttdoc">The base exception recognized by the entire engine. </div><div class="ttdef"><b>Definition:</b> <a href="_exception_8hpp_source.html#l00007">Exception.hpp:7</a></div></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="class_c_y_b_1_1_platform_1_1_system_1_1_thread.html#a7b960f300716f532158546d15e8af13b">System::Thread::RunThread</a>(*static_cast&lt;API::Threadable*&gt;(AThreadable));</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="ttc" id="class_c_y_b_1_1_platform_1_1_system_1_1_thread_html_a7b960f300716f532158546d15e8af13b"><div class="ttname"><a href="class_c_y_b_1_1_platform_1_1_system_1_1_thread.html#a7b960f300716f532158546d15e8af13b">CYB::Platform::System::Thread::RunThread</a></div><div class="ttdeci">static void RunThread(API::Threadable &amp;AThreadable) noexcept</div><div class="ttdoc">Properly traps and logs exceptions generated by threads. And runs AThreadable. </div><div class="ttdef"><b>Definition:</b> <a href="_c_y_b_thread_8cpp_source.html#l00004">CYBThread.cpp:4</a></div></div>
 </div><!-- fragment -->
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_thread_a8eef07d50cc084c844b21a938b6e5dfa_cgraph.png" border="0" usemap="#class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_thread_a8eef07d50cc084c844b21a938b6e5dfa_cgraph" alt=""/></div>
+<map name="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_thread_a8eef07d50cc084c844b21a938b6e5dfa_cgraph" id="class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_thread_a8eef07d50cc084c844b21a938b6e5dfa_cgraph">
+<area shape="rect" id="node2" href="class_c_y_b_1_1_platform_1_1_system_1_1_thread.html#a7b960f300716f532158546d15e8af13b" title="Properly traps and logs exceptions generated by threads. And runs AThreadable. " alt="" coords="221,63,381,105"/><area shape="rect" id="node3" href="namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192" title="Retrieve the Core singleton. " alt="" coords="465,12,551,39"/><area shape="rect" id="node5" href="class_c_y_b_1_1_engine_1_1_core.html#ada4c1b9b33127f958f4bd39eaadcdcb4" title="Set the current Context to FEngineContext. " alt="" coords="437,63,579,105"/><area shape="rect" id="node6" href="class_c_y_b_1_1_a_p_i_1_1_logger.html#a241c8a0389b19ce052b18824a3fdc73b" title="Log a message. Will be written to a text file on the Path returned by CurrentLog. ..." alt="" coords="430,129,586,156"/><area shape="rect" id="node4" href="class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba" title="Retrieve the Core singleton. " alt="" coords="635,5,778,46"/></map>
+</div>
+</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>

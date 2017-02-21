@@ -107,7 +107,7 @@ Inheritance diagram for CYB::API::UniquePointer&lt; AType &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_c_y_b_1_1_a_p_i_1_1_unique_pointer__inherit__graph.png" border="0" usemap="#_c_y_b_1_1_a_p_i_1_1_unique_pointer_3_01_a_type_01_4_inherit__map" alt="Inheritance graph"/></div>
 <map name="_c_y_b_1_1_a_p_i_1_1_unique_pointer_3_01_a_type_01_4_inherit__map" id="_c_y_b_1_1_a_p_i_1_1_unique_pointer_3_01_a_type_01_4_inherit__map">
-</map>
+<area shape="rect" id="node3" href="class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html" title="CYB::API::UniquePointer\l\&lt; CYB::Engine::Logger\l::LogEntry \&gt;" alt="" coords="5,219,176,275"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for CYB::API::UniquePointer&lt; AType &gt;:</div>
@@ -138,6 +138,15 @@ using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a702a8a1b03bd88519463271daa20fdf8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html#a90faa79c624dc47119eacb09358ddec8">BaseType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html#a702a8a1b03bd88519463271daa20fdf8">InitBase</a> (AType *const APointer, std::true_type AIsDestructible) noexcept</td></tr>
+<tr class="memdesc:a702a8a1b03bd88519463271daa20fdf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by this type's constructors.  <a href="#a702a8a1b03bd88519463271daa20fdf8">More...</a><br/></td></tr>
+<tr class="separator:a702a8a1b03bd88519463271daa20fdf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfe8e2b6530fd120af2b592579322373"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html#a90faa79c624dc47119eacb09358ddec8">BaseType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html#acfe8e2b6530fd120af2b592579322373">InitBase</a> (AType *const APointer, std::false_type AIsDestructible) noexcept</td></tr>
+<tr class="memdesc:acfe8e2b6530fd120af2b592579322373"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by this type's constructors.  <a href="#acfe8e2b6530fd120af2b592579322373">More...</a><br/></td></tr>
+<tr class="separator:acfe8e2b6530fd120af2b592579322373"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9a7f70b0a1946b78a41575c5d2c8600"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html#af9a7f70b0a1946b78a41575c5d2c8600">Deallocate</a> (AType *const APointer) noexcept</td></tr>
+<tr class="memdesc:af9a7f70b0a1946b78a41575c5d2c8600"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates <code>APointer</code> using the Allocator's <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_heap.html" title="An interface which can allocate memory. ">Heap</a>.  <a href="#af9a7f70b0a1946b78a41575c5d2c8600">More...</a><br/></td></tr>
+<tr class="separator:af9a7f70b0a1946b78a41575c5d2c8600"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a613d63b95c8a6d0c2f2fc03eb28a8306"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html#a613d63b95c8a6d0c2f2fc03eb28a8306">Delete</a> (AType *const APointer) noexcept</td></tr>
 <tr class="memdesc:a613d63b95c8a6d0c2f2fc03eb28a8306"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes <code>APointer</code> using the Allocator.  <a href="#a613d63b95c8a6d0c2f2fc03eb28a8306">More...</a><br/></td></tr>
 <tr class="separator:a613d63b95c8a6d0c2f2fc03eb28a8306"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,7 +163,7 @@ class CYB::API::UniquePointer&lt; AType &gt;</h3>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename AType &gt; </div>
+template&lt;typename AType&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -182,7 +191,7 @@ template&lt;typename AType &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename AType &gt; </div>
+template&lt;typename AType&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -217,7 +226,7 @@ template&lt;typename AType &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename AType &gt; </div>
+template&lt;typename AType&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -249,11 +258,46 @@ template&lt;typename AType &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="af9a7f70b0a1946b78a41575c5d2c8600"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename AType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html">CYB::API::UniquePointer</a>&lt; AType &gt;::Deallocate </td>
+          <td>(</td>
+          <td class="paramtype">AType *const&#160;</td>
+          <td class="paramname"><em>APointer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deallocates <code>APointer</code> using the Allocator's <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_heap.html" title="An interface which can allocate memory. ">Heap</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">APointer</td><td>The pointer to deallocate </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a613d63b95c8a6d0c2f2fc03eb28a8306"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename AType &gt; </div>
+template&lt;typename AType&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -280,6 +324,100 @@ template&lt;typename AType &gt; </div>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a702a8a1b03bd88519463271daa20fdf8"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename AType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html#a90faa79c624dc47119eacb09358ddec8">BaseType</a> <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html">CYB::API::UniquePointer</a>&lt; AType &gt;::InitBase </td>
+          <td>(</td>
+          <td class="paramtype">AType *const&#160;</td>
+          <td class="paramname"><em>APointer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::true_type&#160;</td>
+          <td class="paramname"><em>AIsDestructible</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Used by this type's constructors. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">APointer</td><td>The pointer the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html" title="UniquePointer that uses our Allocator. ">UniquePointer</a> will contain </td></tr>
+    <tr><td class="paramname">AIsDestructible</td><td>Used for overloading. Ignored </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An std::unique_ptr of AType with the properly set Deleter </dd></dl>
+<dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="acfe8e2b6530fd120af2b592579322373"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename AType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html#a90faa79c624dc47119eacb09358ddec8">BaseType</a> <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html">CYB::API::UniquePointer</a>&lt; AType &gt;::InitBase </td>
+          <td>(</td>
+          <td class="paramtype">AType *const&#160;</td>
+          <td class="paramname"><em>APointer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::false_type&#160;</td>
+          <td class="paramname"><em>AIsDestructible</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Used by this type's constructors. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">APointer</td><td>The pointer the <a class="el" href="class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html" title="UniquePointer that uses our Allocator. ">UniquePointer</a> will contain </td></tr>
+    <tr><td class="paramname">AIsDestructible</td><td>Used for overloading. Ignored </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An std::unique_ptr of AType with the properly set Deleter </dd></dl>
 <dl class="section user"><dt>Thread Safety</dt><dd>This function requires no thread safety </dd></dl>
 
 </div>

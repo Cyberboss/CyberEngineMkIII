@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['violation',['Violation',['../class_c_y_b_1_1_exception_1_1_violation.html',1,'CYB::Exception']]],
-  ['virtualmemory',['VirtualMemory',['../class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_virtual_memory.html',1,'CYB::Platform::System::Implementation']]],
-  ['virtualmemory',['VirtualMemory',['../class_c_y_b_1_1_platform_1_1_system_1_1_virtual_memory.html',1,'CYB::Platform::System']]]
+  ['union64',['Union64',['../union_c_y_b_1_1_platform_1_1_system_1_1_sys_1_1_union64.html',1,'CYB::Platform::System::Sys']]],
+  ['uniquepointer',['UniquePointer',['../class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html',1,'CYB::API']]],
+  ['uniquepointer_3c_20cyb_3a_3aengine_3a_3alogger_3a_3alogentry_20_3e',['UniquePointer&lt; CYB::Engine::Logger::LogEntry &gt;',['../class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html',1,'CYB::API']]],
+  ['utf16',['UTF16',['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html',1,'CYB::API::String']]],
+  ['utf8',['UTF8',['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html',1,'CYB::API::String']]]
 ];

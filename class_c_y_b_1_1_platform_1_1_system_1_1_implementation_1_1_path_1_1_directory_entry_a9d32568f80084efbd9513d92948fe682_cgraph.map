@@ -5,6 +5,6 @@
 <area shape="rect" id="node6" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html#a90212a7c1b5164d18679b9431a9c5562" title="Get the underlying const wide char array. " alt="" coords="289,179,460,221"/>
 <area shape="rect" id="node7" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_1_1_directory_entry.html#a6b2898452dedbd8336f2bff3a4ee876b" title="Assign the current data to FPathListing if it is not &#39;.&#39; or &#39;..&#39;. " alt="" coords="262,244,487,300"/>
 <area shape="rect" id="node4" href="$class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba" title="Retrieve the Core singleton. " alt="" coords="553,5,695,46"/>
-<area shape="rect" id="node8" href="$namespace_c_y_b_1_1_a_p_i.html#a2090a9daea48ab2e9013bcac1ee8b515" title="Get the API Context. " alt="" coords="557,229,691,256"/>
-<area shape="rect" id="node9" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#ab58301e9a8fd21fdd2d56ca996f73eba" title="Allocates the Object specified by AAllocatable. " alt="" coords="551,281,697,322"/>
+<area shape="rect" id="node8" href="$namespace_c_y_b_1_1_a_p_i.html#a2090a9daea48ab2e9013bcac1ee8b515" title="Get the API&#39;s Context. " alt="" coords="557,229,691,256"/>
+<area shape="rect" id="node9" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a41bc62c189e2c15ce6db705c116b0d31" title="Allocates the Object specified by AObject using a specified Constructor. " alt="" coords="536,281,712,322"/>
 </map>

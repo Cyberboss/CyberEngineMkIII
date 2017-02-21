@@ -1,7 +1,7 @@
 <map id="Engine/Platform/CYBPlatform.hpp" name="Engine/Platform/CYBPlatform.hpp">
 <area shape="rect" id="node2" href="$_c_y_b_system_headers_8hpp.html" title="Includes files which include Platform specific headers. " alt="" coords="316,80,583,107"/>
-<area shape="rect" id="node8" href="$_c_y_b_system_8hpp.html" title="Includes platform system headers. " alt="" coords="1246,80,1415,107"/>
-<area shape="rect" id="node18" href="$_c_y_b_modules_8hpp.html" title="Includes Module headers. " alt="" coords="2402,80,2579,107"/>
+<area shape="rect" id="node8" href="$_c_y_b_system_8hpp.html" title="Includes platform system headers. " alt="" coords="1317,80,1485,107"/>
+<area shape="rect" id="node19" href="$_c_y_b_modules_8hpp.html" title="Includes Module headers. " alt="" coords="2549,80,2725,107"/>
 <area shape="rect" id="node3" href="$_c_y_b_win32_headers_8hpp.html" title="Includes headers for Windows platforms. " alt="" coords="5,155,165,181"/>
 <area shape="rect" id="node4" href="$_c_y_b_u_t_f16_string_8hpp.html" title="Defines the Win32 only UTF16 converter. " alt="" coords="11,229,159,256"/>
 <area shape="rect" id="node9" href="$_c_y_b_syscalls_8hpp.html" title="Defines the System Call interface. " alt="" coords="727,155,852,181"/>
@@ -12,9 +12,10 @@
 <area shape="rect" id="node15" href="$_c_y_b_semaphore_8hpp.html" title="Contains the declaration of CYB::Platform::System::Semaphore. " alt="" coords="1481,155,1621,181"/>
 <area shape="rect" id="node16" href="$_c_y_b_path_8hpp.html" title="Defines the Path interface. " alt="" coords="1647,155,1749,181"/>
 <area shape="rect" id="node17" href="$_c_y_b_file_8hpp.html" title="Defines the filesystem interface. " alt="" coords="1775,155,1871,181"/>
-<area shape="rect" id="node20" href="$_c_y_b_module_8hpp.html" title="Defines the interface for loading module functions. " alt="" coords="2196,155,2312,181"/>
-<area shape="rect" id="node21" href="$_c_y_b_auto_module_8hpp.html" title="Defines the interface for creating templates that are modules as objects. " alt="" coords="2337,155,2481,181"/>
-<area shape="rect" id="node23" href="$_c_y_b_module_macros_8hpp.html" title="Defines the DEFINE_MODULE macro for easily adding modules. " alt="" coords="2665,155,2824,181"/>
-<area shape="rect" id="node24" href="$_c_y_b_module_definitions_8hpp.html" title="uses the module macros to define AutoModules that will be used by the engine " alt="" coords="2849,155,3028,181"/>
-<area shape="rect" id="node25" href="$_c_y_b_module_manager_8hpp.html" title="Contains the declaration of CYB::Platform::Manager. " alt="" coords="3053,155,3219,181"/>
+<area shape="rect" id="node18" href="$_c_y_b_console_8hpp.html" title="Defines the stdout interface. " alt="" coords="1895,155,2017,181"/>
+<area shape="rect" id="node21" href="$_c_y_b_module_8hpp.html" title="Defines the interface for loading module functions. " alt="" coords="2343,155,2459,181"/>
+<area shape="rect" id="node22" href="$_c_y_b_auto_module_8hpp.html" title="Defines the interface for creating templates that are modules as objects. " alt="" coords="2484,155,2628,181"/>
+<area shape="rect" id="node24" href="$_c_y_b_module_macros_8hpp.html" title="Defines the DEFINE_MODULE macro for easily adding modules. " alt="" coords="2812,155,2971,181"/>
+<area shape="rect" id="node25" href="$_c_y_b_module_definitions_8hpp.html" title="uses the module macros to define AutoModules that will be used by the engine " alt="" coords="2996,155,3175,181"/>
+<area shape="rect" id="node26" href="$_c_y_b_module_manager_8hpp.html" title="Contains the declaration of CYB::Platform::Manager. " alt="" coords="3199,155,3365,181"/>
 </map>

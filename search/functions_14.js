@@ -8,5 +8,6 @@ var searchData=
   ['widedata',['WideData',['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html#ab1e6e8defdafe4440aeaa028a7da843a',1,'CYB::API::String::UTF16']]],
   ['widepath',['WidePath',['../class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html#aa3b9371dd417fe997c05bf30ef6750e1',1,'CYB::Platform::System::Implementation::Path']]],
   ['write',['Write',['../class_c_y_b_1_1_a_p_i_1_1_stream.html#a7ac0d9e664921e600c19b475c57293ec',1,'CYB::API::Stream::Write()'],['../class_c_y_b_1_1_a_p_i_1_1_safe_stream.html#a7501e454c3cb0ea90bd5f7ce3824c665',1,'CYB::API::SafeStream::Write()'],['../class_c_y_b_1_1_platform_1_1_system_1_1_file.html#a199277af47e8245557e3ff23e466f2f4',1,'CYB::Platform::System::File::Write()']]],
+  ['writeout',['WriteOut',['../class_c_y_b_1_1_platform_1_1_system_1_1_console.html#a3af3468af9244e2ade72c567aa6edbb3',1,'CYB::Platform::System::Console']]],
   ['wstring',['WString',['../class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html#a90212a7c1b5164d18679b9431a9c5562',1,'CYB::API::String::UTF16']]]
 ];

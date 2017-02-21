@@ -1,3 +1,4 @@
 <map id="CYB::API::Threadable" name="CYB::API::Threadable">
 <area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_threadable_taskset.html" title="A mutlithreading interface with a number of jobs in mind. " alt="" coords="5,80,203,107"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_engine_1_1_logger.html" title="The threaded, queued engine logger. " alt="" coords="227,80,372,107"/>
 </map>

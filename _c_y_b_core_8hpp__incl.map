@@ -1,4 +1,5 @@
 <map id="Engine/Engine/Core/CYBCore.hpp" name="Engine/Engine/Core/CYBCore.hpp">
 <area shape="rect" id="node2" href="$_c_y_b_engine_parameters_8hpp.html" title="Engine compilation configuration variables. " alt="" coords="5,96,187,123"/>
 <area shape="rect" id="node3" href="$_c_y_b_interop_8hpp.html" title="Defines the implementations of virtual functions defined in CYB::API::Interop. " alt="" coords="212,96,327,123"/>
+<area shape="rect" id="node5" href="$_c_y_b_logger_8hpp.html" title="Defines CYB::Engine::Logger. " alt="" coords="351,96,465,123"/>
 </map>

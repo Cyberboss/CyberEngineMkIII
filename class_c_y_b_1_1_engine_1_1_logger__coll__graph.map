@@ -1,0 +1,34 @@
+<map id="CYB::Engine::Logger" name="CYB::Engine::Logger">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_logger.html" title="The interface for writing safe logs. " alt="" coords="885,28,1011,55"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_context.html" title="Class which is used as an API for the engine. " alt="" coords="1260,90,1396,132"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_a_p_i_1_1_threadable.html" title="The basic multithreading interface. " alt="" coords="1612,880,1764,907"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_engine_1_1_context.html" title="Implements the engine level functions for API::Interop::Contexts. " alt="" coords="1612,156,1764,183"/>
+<area shape="rect" id="node6" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html" title="Used for allocating objects within and without the engine. " alt="" coords="880,142,1016,184"/>
+<area shape="rect" id="node8" href="$class_c_y_b_1_1_engine_1_1_allocator.html" title="Implements InteropAllocation for the public allocator. " alt="" coords="1249,156,1407,183"/>
+<area shape="rect" id="node7" href="$class_c_y_b_1_1_a_p_i_1_1_heap.html" title="An interface which can allocate memory. " alt="" coords="487,356,606,383"/>
+<area shape="rect" id="node27" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html" title="A memory pool manager and allocator. " alt="" coords="1611,364,1765,405"/>
+<area shape="rect" id="node9" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="CYB::API::Interop::\lObject\&lt; CYB::API::Platform\l::System::Thread \&gt;" alt="" coords="1595,956,1781,1012"/>
+<area shape="rect" id="node10" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa..." alt="" coords="1256,990,1400,1032"/>
+<area shape="rect" id="node11" href="$class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html" title="CYB::API::UniquePointer\l\&lt; CYB::Engine::Logger\l::LogEntry \&gt;" alt="" coords="1243,788,1413,844"/>
+<area shape="rect" id="node35" href="$struct_c_y_b_1_1_engine_1_1_logger_1_1_log_entry.html" title="Log entries to be inserted into the queue. " alt="" coords="1615,814,1761,856"/>
+<area shape="rect" id="node13" href="$class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html" title="UniquePointer that uses our Allocator. " alt="" coords="863,872,1033,913"/>
+<area shape="rect" id="node15" href="$class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="1608,653,1768,694"/>
+<area shape="rect" id="node16" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html" title="The file handle manager. " alt="" coords="1248,653,1408,694"/>
+<area shape="rect" id="node17" href="$class_c_y_b_1_1_a_p_i_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="893,726,1003,752"/>
+<area shape="rect" id="node18" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html" title="Defines the base class for allocatable engine objects. " alt="" coords="479,668,615,709"/>
+<area shape="rect" id="node25" href="$class_c_y_b_1_1_a_p_i_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no&#45;op. " alt="" coords="891,675,1005,702"/>
+<area shape="rect" id="node32" href="$class_c_y_b_1_1_a_p_i_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. " alt="" coords="886,558,1010,584"/>
+<area shape="rect" id="node19" href="$class_c_y_b_1_1_a_p_i_1_1_stream.html" title="The interface for streaming reads and writes. " alt="" coords="481,742,612,768"/>
+<area shape="rect" id="node20" href="$class_c_y_b_1_1_platform_1_1_system_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no&#45;op. " alt="" coords="1248,588,1408,629"/>
+<area shape="rect" id="node21" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html" title="Adds a UTF16 accompaniment to the UTF8 string of System::Path. " alt="" coords="868,609,1028,650"/>
+<area shape="rect" id="node22" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html" title="UTF&#45;16 String enabled only under windows. " alt="" coords="461,616,632,643"/>
+<area shape="rect" id="node23" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html" title="Used for string of allocated variable length. " alt="" coords="227,616,410,643"/>
+<area shape="rect" id="node26" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html" title="A variable length UTF&#45;8 string. " alt="" coords="656,516,819,543"/>
+<area shape="rect" id="node24" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html" title="A basic char contained string. " alt="" coords="5,616,176,643"/>
+<area shape="rect" id="node28" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html" title="A unit of memory allocation. " alt="" coords="871,312,1025,353"/>
+<area shape="rect" id="node29" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_large_block.html" title="Used to identify the end of a Heap. " alt="" coords="1251,273,1405,314"/>
+<area shape="rect" id="node30" href="$class_c_y_b_1_1_platform_1_1_system_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. " alt="" coords="1248,462,1408,504"/>
+<area shape="rect" id="node31" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_mutex.html" title="Contains the CRITICAL_SECTION struct. " alt="" coords="867,429,1029,470"/>
+<area shape="rect" id="node33" href="$class_c_y_b_1_1_platform_1_1_system_1_1_virtual_memory.html" title="Access and abstraction to the basic OS memory functions. " alt="" coords="1248,208,1408,249"/>
+<area shape="rect" id="node34" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_virtual_memory.html" title="Various aligment functions. " alt="" coords="843,208,1053,249"/>
+</map>

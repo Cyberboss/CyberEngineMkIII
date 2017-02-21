@@ -1,6 +1,7 @@
 var searchData=
 [
   ['eatleftblock',['EatLeftBlock',['../class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#af58464f0a7374799a0c6f9b48be8a18e',1,'CYB::Engine::Memory::Block::EatLeftBlock()'],['../class_c_y_b_1_1_engine_1_1_memory_1_1_large_block.html#ac37ff4747fd76f1a5a5a0214d7cd32b5',1,'CYB::Engine::Memory::LargeBlock::EatLeftBlock()']]],
+  ['emptyqueue',['EmptyQueue',['../class_c_y_b_1_1_engine_1_1_logger.html#a14f974dc026cac916bdf725fd71aebde',1,'CYB::Engine::Logger']]],
   ['entercv',['EnterCV',['../class_c_y_b_1_1_platform_1_1_system_1_1_semaphore.html#a0c1db824af787bbba4c3a09d99114c8f',1,'CYB::Platform::System::Semaphore']]],
   ['equal',['Equal',['../class_c_y_b_1_1_a_p_i_1_1_assert.html#afcd9826793c79329077a4cc928cec268',1,'CYB::API::Assert::Equal(const AType &amp;ALHS, const AType &amp;ARHS) noexcept'],['../class_c_y_b_1_1_a_p_i_1_1_assert.html#a53073c69d92d884cdef500bc3352d57f',1,'CYB::API::Assert::Equal(const AType &amp;ALHS, const AType &amp;ARHS, AOtherTypes &amp;&amp;...ARHSs) noexcept'],['../class_c_y_b_1_1_a_p_i_1_1_parameter_pack.html#aac2bb927c9d679413f95e2a29b18e526',1,'CYB::API::ParameterPack::Equal()']]],
   ['errormessage',['ErrorMessage',['../class_c_y_b_1_1_exception_1_1_violation.html#a2cdc197dad428e115cebb4192f902e53',1,'CYB::Exception::Violation::ErrorMessage()'],['../class_c_y_b_1_1_exception_1_1_system_data.html#a44b0d9d88763ca67b9d58b278cab25e4',1,'CYB::Exception::SystemData::ErrorMessage()'],['../class_c_y_b_1_1_exception_1_1_internal.html#a8c239937f085f7b4ea4bf3040711b348',1,'CYB::Exception::Internal::ErrorMessage()']]],

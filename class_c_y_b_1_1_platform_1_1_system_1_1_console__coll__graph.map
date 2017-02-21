@@ -1,0 +1,9 @@
+<map id="CYB::Platform::System::Console" name="CYB::Platform::System::Console">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_logger.html" title="The interface for writing safe logs. " alt="" coords="433,5,559,32"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_static.html" title="A string pointing to unchanging data in the stack above it or the data segment. Must have UTF&#45;8 encod..." alt="" coords="414,56,578,83"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html" title="A basic char contained string. " alt="" coords="192,56,363,83"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_platform_1_1_system_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. " alt="" coords="416,107,576,149"/>
+<area shape="rect" id="node6" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_mutex.html" title="Contains the CRITICAL_SECTION struct. " alt="" coords="196,107,359,149"/>
+<area shape="rect" id="node7" href="$class_c_y_b_1_1_a_p_i_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. " alt="" coords="215,173,339,200"/>
+<area shape="rect" id="node8" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html" title="Defines the base class for allocatable engine objects. " alt="" coords="5,166,141,207"/>
+</map>

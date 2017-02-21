@@ -12,10 +12,12 @@ var searchData=
   ['allocatables_2ehpp',['Allocatables.hpp',['../_allocatables_8hpp.html',1,'']]],
   ['allocate',['allocate',['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_s_t_l_allocator.html#ad8ee5ab55573dd0a943884f9075bc47d',1,'CYB::API::Interop::STLAllocator']]],
   ['allocateblock',['AllocateBlock',['../class_c_y_b_1_1_engine_1_1_memory_1_1_large_block.html#aaf4258db4e6be52e402337adadb9373b',1,'CYB::Engine::Memory::LargeBlock']]],
+  ['allocateobject',['AllocateObject',['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a3e0eb45a56a58bfd425c12d134460a18',1,'CYB::API::Interop::Allocator::AllocateObject(const std::true_type AIgnored, AArgs &amp;&amp;...AArguments)'],['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a0e52f3c2631812faae7f6830813ec102',1,'CYB::API::Interop::Allocator::AllocateObject(const std::false_type AIgnored, AArgs &amp;&amp;...AArguments)']]],
   ['allocator',['Allocator',['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html',1,'CYB::API::Interop']]],
   ['allocator',['Allocator',['../class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a4582ea025d40fe57ff485f39ea30e21b',1,'CYB::API::Interop::Allocator::Allocator()'],['../class_c_y_b_1_1_engine_1_1_allocator.html#a6d2e8cda7f4af343b46ab06cb9fc5586',1,'CYB::Engine::Allocator::Allocator()']]],
   ['allocator',['Allocator',['../class_c_y_b_1_1_engine_1_1_allocator.html',1,'CYB::Engine']]],
   ['allocator_2ehpp',['Allocator.hpp',['../_allocator_8hpp.html',1,'']]],
+  ['alloccheck',['AllocCheck',['../class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a37d1a4da09d1979e15ab910b7a724ae4',1,'CYB::Engine::Memory::Heap']]],
   ['allocimpl',['AllocImpl',['../class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html#a9daf8e91a1b56e54956f8c827d06b0f9',1,'CYB::Engine::Memory::Heap']]],
   ['amfake',['AMFake',['../class_c_y_b_1_1_platform_1_1_modules_1_1_a_m_fake.html',1,'CYB::Platform::Modules']]],
   ['any',['ANY',['../class_c_y_b_1_1_a_p_i_1_1_file.html#ac815688c225d02ec8a984acf8ac4ac82a8e1bde3c3d303163521522cf1d62f21f',1,'CYB::API::File']]],
@@ -23,7 +25,7 @@ var searchData=
   ['assert',['Assert',['../class_c_y_b_1_1_a_p_i_1_1_assert.html',1,'CYB::API']]],
   ['assert_2ehpp',['Assert.hpp',['../_assert_8hpp.html',1,'']]],
   ['assignorrecurse',['AssignOrRecurse',['../class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path_1_1_directory_entry.html#a6b2898452dedbd8336f2bff3a4ee876b',1,'CYB::Platform::System::Implementation::Path::DirectoryEntry']]],
-  ['automodule',['AutoModule',['../class_c_y_b_1_1_platform_1_1_modules_1_1_auto_module.html',1,'CYB::Platform::Modules']]],
   ['automodule',['AutoModule',['../class_c_y_b_1_1_platform_1_1_modules_1_1_auto_module.html#a501e1d53cec49f93910ce0de03b6d705',1,'CYB::Platform::Modules::AutoModule::AutoModule()'],['../class_c_y_b_1_1_platform_1_1_modules_1_1_auto_module.html#aeba1ffaf942203dddf186609f97094ba',1,'CYB::Platform::Modules::AutoModule::AutoModule(AutoModule &amp;&amp;AMove)']]],
+  ['automodule',['AutoModule',['../class_c_y_b_1_1_platform_1_1_modules_1_1_auto_module.html',1,'CYB::Platform::Modules']]],
   ['automoduleoptionalhelpers',['AutoModuleOptionalHelpers',['../class_c_y_b_1_1_platform_1_1_modules_1_1_auto_module_optional_helpers.html',1,'CYB::Platform::Modules']]]
 ];

@@ -1,0 +1,10 @@
+<map id="CYB::Engine::Logger::Logger" name="CYB::Engine::Logger::Logger">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_context.html#a129b23a0aca6ad0032205bac9f5bade6" title="Get the API&#39;s Context. " alt="" coords="426,25,569,66"/>
+<area shape="rect" id="node6" href="$class_c_y_b_1_1_engine_1_1_logger.html#a05ce5069095912cd9b832e8c933b7611" title="Prepend the level and time to a log message. " alt="" coords="425,115,570,157"/>
+<area shape="rect" id="node7" href="$class_c_y_b_1_1_engine_1_1_logger.html#a14f974dc026cac916bdf725fd71aebde" title="Empty FQueue and write it into FFile. " alt="" coords="215,57,361,98"/>
+<area shape="rect" id="node8" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html#a41bc62c189e2c15ce6db705c116b0d31" title="Allocates the Object specified by AObject using a specified Constructor. " alt="" coords="200,174,376,215"/>
+<area shape="rect" id="node9" href="$class_c_y_b_1_1_engine_1_1_logger.html#a3d99537005a8c4a9636799221154b8fd" title="Returns the current object as a Threadable reference. Used to get around some weird VS construction i..." alt="" coords="215,239,361,281"/>
+<area shape="rect" id="node3" href="$namespace_c_y_b.html#ac530f286744fc3b6c07ab8607d6ff192" title="Retrieve the Core singleton. " alt="" coords="647,5,734,32"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_engine_1_1_core.html#a307e3044f8ae6a0d45e46bcd314ff981" title="Get the current Context. " alt="" coords="619,57,762,98"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_engine_1_1_core.html#a29017648ebe13e113db7645d3b45c3ba" title="Retrieve the Core singleton. " alt="" coords="811,57,954,98"/>
+</map>

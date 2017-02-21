@@ -1,0 +1,8 @@
+<map id="CYB::Engine::PushContext" name="CYB::Engine::PushContext">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_engine_1_1_context.html" title="Implements the engine level functions for API::Interop::Contexts. " alt="" coords="149,309,301,336"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_context.html" title="Class which is used as an API for the engine. " alt="" coords="5,203,140,245"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_a_p_i_1_1_logger.html" title="The interface for writing safe logs. " alt="" coords="10,104,136,131"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html" title="Used for allocating objects within and without the engine. " alt="" coords="167,97,301,138"/>
+<area shape="rect" id="node7" href="$class_c_y_b_1_1_engine_1_1_allocator.html" title="Implements InteropAllocation for the public allocator. " alt="" coords="248,211,405,237"/>
+<area shape="rect" id="node6" href="$class_c_y_b_1_1_a_p_i_1_1_heap.html" title="An interface which can allocate memory. " alt="" coords="175,5,293,32"/>
+</map>

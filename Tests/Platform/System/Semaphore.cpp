@@ -92,7 +92,7 @@ REDIRECTED_FUNCTION(BadCondWait, pthread_cond_t* AArg1, pthread_mutex_t* AMutex)
 		DelaySleep = false;
 		HookStruct Hooker{ false, AMutex };
 		Semaphore::Backdoor(Hooker);
-		Thread::Sleep(50);
+		Thread::Sleep(100);
 		Hooker.FLock = true;
 		Semaphore::Backdoor(Hooker);
 	}

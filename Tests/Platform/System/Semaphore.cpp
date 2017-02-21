@@ -92,7 +92,7 @@ REDIRECTED_FUNCTION(BadCondWait, pthread_cond_t* AArg1, pthread_mutex_t* AMutex)
 		DelaySleep = false;
 		HookStruct Hooker{ false, AMutex };
 		Semaphore::Backdoor(Hooker);
-		Thread::Sleep(50);
+		Thread::Sleep(100);
 		Hooker.FLock = true;
 		Semaphore::Backdoor(Hooker);
 	}
@@ -115,12 +115,12 @@ SCENARIO("Semaphores can be waited on and signaled in order", "[Platform][System
 		WHEN("A thread is created to wait on the semaphore") {
 			SemBasicTest Test;
 			Thread SemThread(Test);
-			Thread::Sleep(5);
+			Thread::Sleep(50);
 			THEN("The thread is still running") {
 				CHECK_FALSE(SemThread.IsFinished());
 			}
 			Sem.SignalAll();
-			Thread::Sleep(5);
+			Thread::Sleep(50);
 			AND_WHEN("The semaphore is signaled") {
 				THEN("The thread has finished") {
 					CHECK(SemThread.IsFinished());
@@ -133,9 +133,9 @@ SCENARIO("Semaphores can be waited on and signaled in order", "[Platform][System
 				unsigned int Return;
 				LastReturn = &Return;
 				Thread SemThread1(Test1);
-				Thread::Sleep(5);
+				Thread::Sleep(50);
 				Thread SemThread2(Test2);
-				Thread::Sleep(5);
+				Thread::Sleep(50);
 				Thread SemThread3(Test3);
 				Thread::Sleep(100);
 
@@ -160,7 +160,7 @@ SCENARIO("Semaphores can be waited on and signaled in order", "[Platform][System
 
 				AND_THEN("1 is signaled") {
 					Sem.SignalN(1);
-					Thread::Sleep(5);
+					Thread::Sleep(50);
 					THEN("1 finishes but not 2 and 3") {
 						CHECK(SemThread1.IsFinished());
 						CHECK_FALSE(SemThread2.IsFinished());
@@ -170,7 +170,7 @@ SCENARIO("Semaphores can be waited on and signaled in order", "[Platform][System
 
 				AND_THEN("2 are signaled") {
 					Sem.SignalN(2);
-					Thread::Sleep(5);
+					Thread::Sleep(50);
 					THEN("1 and 2 finish but not 3") {
 						CHECK(SemThread1.IsFinished());
 						CHECK(SemThread2.IsFinished());
@@ -180,7 +180,7 @@ SCENARIO("Semaphores can be waited on and signaled in order", "[Platform][System
 
 				AND_THEN("3 are signaled") {
 					Sem.SignalN(3);
-					Thread::Sleep(5);
+					Thread::Sleep(50);
 					THEN("They all finish") {
 						CHECK(SemThread1.IsFinished());
 						CHECK(SemThread2.IsFinished());

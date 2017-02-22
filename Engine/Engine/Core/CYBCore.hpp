@@ -28,6 +28,8 @@ namespace CYB {
 			Memory::Heap FHeap;	//!< @brief The engine's primary Heap
 			Context FEngineContext;	//!< @brief The engine Context
 
+			CYB::Engine::Helpers::CommandLine FCommandLine;
+
 			//ThreadPool
 			//Steam
 			//Command Line

@@ -134,6 +134,9 @@
     <ClCompile Include="Engine\Core\CYBLogger.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Helpers\CYBCommandLine.cpp">
+      <Filter>Engine\Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -503,6 +506,9 @@
       <Filter>Engine\Core</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Helpers\CYBHelpers.hpp">
+      <Filter>Engine\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Helpers\CYBCommandLine.hpp">
       <Filter>Engine\Helpers</Filter>
     </ClInclude>
   </ItemGroup>

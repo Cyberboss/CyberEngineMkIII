@@ -7,3 +7,5 @@ namespace CYB {
 		namespace Helpers {};
 	};
 };
+
+#include "CYBCommandLine.hpp"

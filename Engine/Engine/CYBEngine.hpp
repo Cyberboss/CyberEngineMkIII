@@ -8,4 +8,6 @@ namespace CYB {
 
 #include "Memory/CYBMemory.hpp"
 
+#include "Helpers/CYBHelpers.hpp"
+
 #include "Core/CYBCore.hpp"

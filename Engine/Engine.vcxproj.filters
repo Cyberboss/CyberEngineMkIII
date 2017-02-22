@@ -122,9 +122,6 @@
     <ClCompile Include="Platform\System\Posix\CYBPosixSemaphore.cpp">
       <Filter>Platform\System\Posix</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Core\CYBLogger.cpp">
-      <Filter>Engine\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Platform\System\CYBConsole.cpp">
       <Filter>Platform\System</Filter>
     </ClCompile>
@@ -133,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="Platform\System\Posix\CYBPosixConsole.cpp">
       <Filter>Platform\System\Posix</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Core\CYBLogger.cpp">
+      <Filter>Engine\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +201,9 @@
     </Filter>
     <Filter Include="Engine\Core">
       <UniqueIdentifier>{7d357251-032e-4d44-8752-b9dd099ec944}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Helpers">
+      <UniqueIdentifier>{54084128-8da7-4b0f-971f-c440c8e037bb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -490,14 +493,17 @@
     <ClInclude Include="API\Interfaces\Logger.hpp">
       <Filter>API\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Core\CYBLogger.hpp">
-      <Filter>Engine\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Platform\System\CYBConsole.hpp">
       <Filter>Platform\System</Filter>
     </ClInclude>
     <ClInclude Include="API\Interfaces\Stream.hpp">
       <Filter>API\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Core\CYBLogger.hpp">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Helpers\CYBHelpers.hpp">
+      <Filter>Engine\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

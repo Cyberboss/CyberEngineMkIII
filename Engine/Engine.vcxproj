@@ -249,6 +249,7 @@
     <ClInclude Include="Engine\Core\CYBEngineParameters.hpp" />
     <ClInclude Include="Engine\Core\CYBLogger.hpp" />
     <ClInclude Include="Engine\CYBEngine.hpp" />
+    <ClInclude Include="Engine\Helpers\CYBHelpers.hpp" />
     <ClInclude Include="Engine\Memory\CYBBlock.hpp" />
     <ClInclude Include="Engine\Memory\CYBHeap.hpp" />
     <ClInclude Include="Engine\Memory\CYBLargeBlock.hpp" />

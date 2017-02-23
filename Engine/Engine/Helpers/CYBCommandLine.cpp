@@ -19,23 +19,25 @@ CYB::API::Container::Vector<CYB::Engine::Helpers::CommandLine::Token> CYB::Engin
 #endif
 		);
 		TokenType TT;
-		if (AsUTF.CString()[0] == '-') {
-			if (AsUTF.CString()[1] == '-') {
-				TT = TokenType::EXTENDED_KEY;
-				AsUTF = AsUTF.SubString(2, -1);
+		if (AsUTF.RawLength() > 0) {
+			if (AsUTF.CString()[0] == '-') {
+				if (AsUTF.CString()[1] == '-') {
+					TT = TokenType::EXTENDED_KEY;
+					AsUTF = AsUTF.SubString(2, -1);
+				}
+				else {
+					TT = TokenType::SINGLE_LETTER_KEY;
+					AsUTF = AsUTF.SubString(1, -1);
+				}
 			}
-			else {
+			else if (AsUTF.CString()[0] == '/') {
 				TT = TokenType::SINGLE_LETTER_KEY;
 				AsUTF = AsUTF.SubString(1, -1);
 			}
+			else
+				TT = TokenType::NORMAL;
+			Result.emplace_back(Token{ std::move(AsUTF), TT });
 		}
-		else if (AsUTF.CString()[0] == '/') {
-			TT = TokenType::SINGLE_LETTER_KEY;
-			AsUTF = AsUTF.SubString(1, -1);
-		}
-		else
-			TT = TokenType::NORMAL;
-		Result.emplace_back(Token{ std::move(AsUTF), TT });
 	}
 
 	return Result;

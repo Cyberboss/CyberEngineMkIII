@@ -43,6 +43,7 @@ CYB::API::Container::Vector<CYB::Engine::Helpers::CommandLine::Token> CYB::Engin
 
 void CYB::Engine::Helpers::CommandLine::RunHandler(Callback ACallback, const int AFullNameKey, const int ADescriptionKey, const API::String::CStyle& AShortFlag, const API::String::CStyle& ALongFlag, const unsigned int ANumExpectedTokens, const unsigned int ANumOptionalTokens, unsigned long long AMaxInvocations) const {
 	API::Container::Deque<const API::String::Dynamic*> Work;
+	API::String::Dynamic NotEnoughParams(u8"Not enough parameters for command: ");
 	for (auto I(FTokens.begin()); AMaxInvocations > 0 && I != FTokens.end(); ++I) {
 		if ((I->FType == TokenType::SINGLE_LETTER_KEY && I->FEntry == AShortFlag) 
 			|| (I->FType == TokenType::EXTENDED_KEY && I->FEntry == ALongFlag)) {
@@ -56,11 +57,15 @@ void CYB::Engine::Helpers::CommandLine::RunHandler(Callback ACallback, const int
 				Remaining = ANumOptionalTokens;
 				for (; Remaining > 0 && J->FType == TokenType::NORMAL && J != FTokens.end(); ++J, --Remaining)
 					Work.emplace_back(&(J->FEntry));
-				if(!ACallback(Work))
+				if (!ACallback(Work))
 					Platform::System::Process::GetSelf().Terminate();	//Stop immediately, no consideration
 				--AMaxInvocations;
 			}
+			else
+				API::Context().FLogger.Log(NotEnoughParams + I->FEntry, API::Logger::Level::WARN);
 			Work.clear();
 		}
 	}
+	static_cast<void>(AFullNameKey);
+	static_cast<void>(ADescriptionKey);
 }

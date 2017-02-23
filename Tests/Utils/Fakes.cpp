@@ -58,13 +58,20 @@ void Fake::Core::NullifySingleton(void) {
 }
 
 void* Fake::Heap::Alloc(const int AAmount) {
+	if (AAmount == 0)
+		return nullptr;
 	return malloc(static_cast<size_t>(AAmount));
 }
 void* Fake::Heap::Realloc(void* const AOld, const int ANewSize) {
+	if (AOld != nullptr && ANewSize == 0) {
+		free(AOld);
+		return nullptr;
+	}
 	return realloc(AOld, static_cast<size_t>(ANewSize));
 }
 void Fake::Heap::Free(void* const AOld) noexcept {
-	free(AOld);
+	if(AOld != nullptr)
+		free(AOld);
 }
 
 unsigned long long Fake::FailedAllocationCount(0);

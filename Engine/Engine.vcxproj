@@ -219,6 +219,7 @@
     <ClInclude Include="API\ExtendedTypes\ExtendedTypes.hpp" />
     <ClInclude Include="API\ExtendedTypes\LockGuard.hpp" />
     <ClInclude Include="API\ExtendedTypes\UniquePointer.hpp" />
+    <ClInclude Include="API\Interfaces\CommandLine.hpp" />
     <ClInclude Include="API\Interfaces\Heap.hpp" />
     <ClInclude Include="API\Interfaces\Interfaces.hpp" />
     <ClInclude Include="API\Interfaces\Stream.hpp" />

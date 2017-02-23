@@ -511,6 +511,9 @@
     <ClInclude Include="Engine\Helpers\CYBCommandLine.hpp">
       <Filter>Engine\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="API\Interfaces\CommandLine.hpp">
+      <Filter>API\Interfaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DoxyPages\Contexts.dox">

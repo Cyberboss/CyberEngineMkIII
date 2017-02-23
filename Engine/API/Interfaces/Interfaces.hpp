@@ -4,3 +4,4 @@
 #include "Heap.hpp"
 #include "Stream.hpp"
 #include "Logger.hpp"
+#include "CommandLine.hpp"

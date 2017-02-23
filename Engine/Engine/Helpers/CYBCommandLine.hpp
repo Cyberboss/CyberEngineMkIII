@@ -26,7 +26,6 @@ namespace CYB {
 					NORMAL,	//!< @brief Simple string
 					SINGLE_LETTER_KEY,	//!< @brief '-' or '/' prefix
 					EXTENDED_KEY,	//!< @brief '--' prefix
-					QUOTED,	//!< @brief String is quoted and may contain spaces
 				};
 				//! @brief A parsed command line token
 				struct Token {
@@ -43,6 +42,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if Windows failed to convert a string
 				*/
 				static API::Container::Vector<Token> ParseTokens(const unsigned int ANumArguments, const oschar_t* const* const AArguments);
 			public:
@@ -53,6 +53,7 @@ namespace CYB {
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if Windows failed to convert a string
 				*/
 				CommandLine(const unsigned int ANumArguments, const oschar_t* const* const AArguments);
 
@@ -62,8 +63,8 @@ namespace CYB {
 					@param ACallback A callback to run for each valid invocation of this flag
 					@param AFullNameKey The translation key of the functional name of the command
 					@param ADescriptionKey The translation key of a descriptive text for this command
-					@param AShortFlag The short flag to activate this command
-					@param ALongFlag The long flag to activate this command
+					@param AShortFlag The short, case-sensitive flag to activate this command
+					@param ALongFlag The long, case-sensitive flag to activate this command
 					@param ANumExpectedTokens The number of expected required tokens
 					@param ANumOptionalTokens The number of possible optional tokens after expected tokens
 					@param AMaxInvocations The number of times this command can be validly repeated

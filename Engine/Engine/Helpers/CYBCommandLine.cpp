@@ -56,7 +56,8 @@ void CYB::Engine::Helpers::CommandLine::RunHandler(Callback ACallback, const int
 				Remaining = ANumOptionalTokens;
 				for (; Remaining > 0 && J->FType == TokenType::NORMAL && J != FTokens.end(); ++J, --Remaining)
 					Work.emplace_back(&(J->FEntry));
-				ACallback(Work);
+				if(!ACallback(Work))
+					Platform::System::Process::GetSelf().Terminate();	//Stop immediately, no consideration
 				--AMaxInvocations;
 			}
 		}

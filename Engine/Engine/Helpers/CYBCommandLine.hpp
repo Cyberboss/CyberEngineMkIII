@@ -71,7 +71,6 @@ namespace CYB {
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
-					@throws CYB::Exception::Fatal Error code: CYB::Exception::Fatal::SHUTDOWN. Thrown if a run handler requests an engine shutdown
 					@attention Throws dependant on called Callback
 				*/
 				void RunHandler(Callback ACallback, const int AFullNameKey, const int ADescriptionKey, const API::String::CStyle& AShortFlag, const API::String::CStyle& ALongFlag, const unsigned int ANumExpectedTokens, const unsigned int ANumOptionalTokens, unsigned long long AMaxInvocations) const;

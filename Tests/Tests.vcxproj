@@ -114,6 +114,7 @@
     <ClCompile Include="API\Types\UTF8String.cpp" />
     <ClCompile Include="Engine\Core\Core.cpp" />
     <ClCompile Include="Engine\Core\Logger.cpp" />
+    <ClCompile Include="Engine\Helpers\CommandLine.cpp" />
     <ClCompile Include="Engine\Memory\Blocks.cpp" />
     <ClCompile Include="Engine\Memory\Heap.cpp" />
     <ClCompile Include="Platform\Modules.cpp" />

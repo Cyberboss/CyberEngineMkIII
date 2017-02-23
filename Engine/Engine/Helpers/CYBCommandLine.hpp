@@ -6,6 +6,7 @@ namespace CYB {
 		namespace Helpers {
 			//! @brief Command line string parser and manager
 			class CommandLine : public API::CommandLine {
+				ENABLE_TEST_HOOKS
 			private:
 				//! @brief Recognized token variation
 				enum class TokenType : unsigned char {

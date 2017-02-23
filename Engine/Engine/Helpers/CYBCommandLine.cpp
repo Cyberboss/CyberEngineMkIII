@@ -40,3 +40,26 @@ CYB::API::Container::Vector<CYB::Engine::Helpers::CommandLine::Token> CYB::Engin
 
 	return Result;
 }
+
+void CYB::Engine::Helpers::CommandLine::RunHandler(Callback ACallback, const int AFullNameKey, const int ADescriptionKey, const API::String::CStyle& AShortFlag, const API::String::CStyle& ALongFlag, const unsigned int ANumExpectedTokens, const unsigned int ANumOptionalTokens, unsigned long long AMaxInvocations) const {
+	API::Container::Deque<const API::String::Dynamic*> Work;
+	for (auto I(FTokens.begin()); AMaxInvocations > 0 && I != FTokens.end(); ++I) {
+		if ((I->FType == TokenType::SINGLE_LETTER_KEY && I->FEntry == AShortFlag) 
+			|| (I->FType == TokenType::EXTENDED_KEY && I->FEntry == ALongFlag)) {
+			auto Remaining(ANumExpectedTokens);
+			//Make sure we have enough normal tokens to fill requirements
+			auto J(I + 1);
+			for (; Remaining > 0 && J->FType == TokenType::NORMAL && J != FTokens.end(); ++J, --Remaining)
+				Work.emplace_back(&(J->FEntry));
+			if (Remaining == 0) {
+				//found all required, check for optional
+				Remaining = ANumOptionalTokens;
+				for (; Remaining > 0 && J->FType == TokenType::NORMAL && J != FTokens.end(); ++J, --Remaining)
+					Work.emplace_back(&(J->FEntry));
+				ACallback(Work);
+				--AMaxInvocations;
+			}
+		}
+		Work.clear();
+	}
+}

@@ -30,7 +30,7 @@ namespace CYB {
 				//! @brief A parsed command line token
 				struct Token {
 					API::String::Dynamic FEntry;	//!< @brief The string
-					TokenType FKeyType;	//!< @brief The type of prefix the string is if any
+					TokenType FType;	//!< @brief The type of prefix the string is if any
 				};
 			private:
 				API::Container::Vector<Token> FTokens;	//!< @brief The ordered array of tokens
@@ -74,7 +74,7 @@ namespace CYB {
 					@throws CYB::Exception::Fatal Error code: CYB::Exception::Fatal::SHUTDOWN. Thrown if a run handler requests an engine shutdown
 					@attention Throws dependant on called Callback
 				*/
-				void RunHandler(Callback ACallback, const int AFullNameKey, const int ADescriptionKey, const API::String::CStyle& AShortFlag, const API::String::CStyle& ALongFlag, const unsigned int ANumExpectedTokens, const unsigned int ANumOptionalTokens, const unsigned long long AMaxInvocations) const;
+				void RunHandler(Callback ACallback, const int AFullNameKey, const int ADescriptionKey, const API::String::CStyle& AShortFlag, const API::String::CStyle& ALongFlag, const unsigned int ANumExpectedTokens, const unsigned int ANumOptionalTokens, unsigned long long AMaxInvocations) const;
 			};
 		};
 	};

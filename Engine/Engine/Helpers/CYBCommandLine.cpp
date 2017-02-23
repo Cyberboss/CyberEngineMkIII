@@ -60,7 +60,7 @@ void CYB::Engine::Helpers::CommandLine::RunHandler(Callback ACallback, const int
 					Platform::System::Process::GetSelf().Terminate();	//Stop immediately, no consideration
 				--AMaxInvocations;
 			}
+			Work.clear();
 		}
-		Work.clear();
 	}
 }

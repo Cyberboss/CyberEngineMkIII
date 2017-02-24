@@ -21,7 +21,7 @@ CYB::API::Container::Vector<CYB::Engine::Helpers::CommandLine::Token> CYB::Engin
 		TokenType TT;
 		if (AsUTF.RawLength() > 0) {
 			if (AsUTF.CString()[0] == '-') {
-				if (AsUTF.CString()[1] == '-') {
+				if (AsUTF.RawLength() > 1 && AsUTF.CString()[1] == '-') {
 					TT = TokenType::EXTENDED_KEY;
 					AsUTF = AsUTF.SubString(2, -1);
 				}

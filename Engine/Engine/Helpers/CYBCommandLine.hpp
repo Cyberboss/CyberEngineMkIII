@@ -1,4 +1,4 @@
-//! @file CYBCommandLine.hpp Contains the Comm
+//! @file CYBCommandLine.hpp Contains the definition of CYB::Engine::Helpers::CommandLine
 #pragma once
 
 namespace CYB {
@@ -8,7 +8,7 @@ namespace CYB {
 			class CommandLine : public API::CommandLine {
 				ENABLE_TEST_HOOKS
 			private:
-				//! @brief Recognized token variation
+				//! @brief Recognized token variations
 				enum class TokenType : unsigned char {
 					NORMAL,	//!< @brief Simple string
 					SINGLE_LETTER_KEY,	//!< @brief '-' or '/' prefix

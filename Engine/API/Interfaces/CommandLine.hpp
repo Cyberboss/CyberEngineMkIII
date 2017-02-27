@@ -10,7 +10,7 @@ namespace CYB {
 				@par AParameters
 					The expected parameters followed by any optional parameters
 				@par Return Value
-					true to continue execution, false to exit the process. Returning false will cause the call to add the handler to throw a CYB::Exception::Fatal with the SHUTDOWN flag
+					true to continue execution, false to exit the process
 				@par Thread Safety
 					This will be called on the same thread it was added during the call that adds it
 				@par Exception Safety

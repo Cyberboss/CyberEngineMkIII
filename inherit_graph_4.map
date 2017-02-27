@@ -1,4 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_c_y_b_1_1_a_p_i_1_1_heap.html" title="An interface which can allocate memory. " alt="" coords="6,12,125,39"/>
-<area shape="rect" id="node2" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html" title="A memory pool manager and allocator. " alt="" coords="174,5,327,46"/>
+<area shape="rect" id="node1" href="$class_c_y_b_1_1_a_p_i_1_1_engine_information.html" title="Infomation about the running engine version. " alt="" coords="6,5,199,32"/>
 </map>

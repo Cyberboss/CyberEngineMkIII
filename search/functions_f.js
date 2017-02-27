@@ -12,5 +12,6 @@ var searchData=
   ['resume',['Resume',['../class_c_y_b_1_1_engine_1_1_logger.html#a68058b4d88fd93468a1f908cad5aa990',1,'CYB::Engine::Logger']]],
   ['rightblock',['RightBlock',['../class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#abd6a084e7af34b02d51b0be2de603f28',1,'CYB::Engine::Memory::Block::RightBlock(void) noexcept'],['../class_c_y_b_1_1_engine_1_1_memory_1_1_block.html#a2293b4618f74c9cb40311a63045c4be5',1,'CYB::Engine::Memory::Block::RightBlock(void) const noexcept']]],
   ['run',['Run',['../class_c_y_b_1_1_engine_1_1_core.html#ad48404a5eaaeb1285c0a0819bd0cd22e',1,'CYB::Engine::Core']]],
+  ['runhandler',['RunHandler',['../class_c_y_b_1_1_a_p_i_1_1_command_line.html#addebaeb10bb7ea53b351dcf31c733bb2',1,'CYB::API::CommandLine::RunHandler()'],['../class_c_y_b_1_1_engine_1_1_helpers_1_1_command_line.html#a22ee68212cc03bcf648d6d096c2b15b5',1,'CYB::Engine::Helpers::CommandLine::RunHandler()']]],
   ['runthread',['RunThread',['../class_c_y_b_1_1_platform_1_1_system_1_1_thread.html#a7b960f300716f532158546d15e8af13b',1,'CYB::Platform::System::Thread']]]
 ];

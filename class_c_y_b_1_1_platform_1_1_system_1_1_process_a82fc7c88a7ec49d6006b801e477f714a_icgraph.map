@@ -1,4 +1,5 @@
 <map id="CYB::Platform::System::Process::Terminate" name="CYB::Platform::System::Process::Terminate">
-<area shape="rect" id="node2" href="$class_c_y_b_1_1_engine_1_1_core.html#ad48404a5eaaeb1285c0a0819bd0cd22e" title="Runs the engine and self terminates. " alt="" coords="214,12,381,39"/>
-<area shape="rect" id="node3" href="$_c_y_b_entry_8cpp.html#a4658b1e05671ee35546d4c8ccff6c46d" title="Program entry point. Call CYB::Engine::Init::Run. " alt="" coords="429,12,480,39"/>
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_engine_1_1_core.html#ad48404a5eaaeb1285c0a0819bd0cd22e" title="Runs the engine and self terminates. " alt="" coords="226,5,393,32"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_engine_1_1_helpers_1_1_command_line.html#a22ee68212cc03bcf648d6d096c2b15b5" title="Adds a command line flag handler. " alt="" coords="214,57,405,98"/>
+<area shape="rect" id="node3" href="$_c_y_b_entry_8cpp.html#a4658b1e05671ee35546d4c8ccff6c46d" title="Program entry point. Call CYB::Engine::Init::Run. " alt="" coords="453,5,504,32"/>
 </map>

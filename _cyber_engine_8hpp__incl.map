@@ -1,10 +1,10 @@
 <map id="Engine/API/CyberEngine.hpp" name="Engine/API/CyberEngine.hpp">
 <area shape="rect" id="node2" href="$_declarations_8hpp.html" title="Includes the headers needed before anything else in the engine. " alt="" coords="391,103,588,129"/>
 <area shape="rect" id="node13" href="$_types_8hpp.html" title="Defines global level basic types. " alt="" coords="1581,103,1704,129"/>
-<area shape="rect" id="node33" href="$_interfaces_8hpp.html" title="Includes headers that define non&#45;allocatable engine objects. " alt="" coords="2395,103,2561,129"/>
-<area shape="rect" id="node37" href="$_interop_8hpp.html" title="Includes files that contain classes required for communitcation between the engine and the unit..." alt="" coords="2971,103,3100,129"/>
-<area shape="rect" id="node44" href="$_allocatables_8hpp.html" title="Includes engine allocatable types. " alt="" coords="3369,103,3561,129"/>
-<area shape="rect" id="node49" href="$_extended_types_8hpp.html" title="Includes headers that define types with certain dependancies. " alt="" coords="3586,103,3819,129"/>
+<area shape="rect" id="node33" href="$_interfaces_8hpp.html" title="Includes headers that define non&#45;allocatable engine objects. " alt="" coords="2451,103,2617,129"/>
+<area shape="rect" id="node38" href="$_interop_8hpp.html" title="Includes files that contain classes required for communitcation between the engine and the unit..." alt="" coords="3125,103,3255,129"/>
+<area shape="rect" id="node45" href="$_allocatables_8hpp.html" title="Includes engine allocatable types. " alt="" coords="3523,103,3716,129"/>
+<area shape="rect" id="node50" href="$_extended_types_8hpp.html" title="Includes headers that define types with certain dependancies. " alt="" coords="3741,103,3973,129"/>
 <area shape="rect" id="node3" href="$_o_s_declaration_8hpp.html" title="Defines the TARGET_OS_XXX macro for identifying the operating system the program is being compiled fo..." alt="" coords="5,200,136,227"/>
 <area shape="rect" id="node5" href="$_endianess_8hpp.html" title="Ensures the engine/unit is being compiled on a little endian architecture. " alt="" coords="161,200,268,227"/>
 <area shape="rect" id="node7" href="$_system_checks_8hpp.html" title="Checks the platform that the engine and unit is being compiled on is appropriate. ..." alt="" coords="293,200,429,227"/>
@@ -27,16 +27,17 @@
 <area shape="rect" id="node34" href="$_heap_8hpp.html" title="Defines the Heap interface. " alt="" coords="2275,200,2353,227"/>
 <area shape="rect" id="node35" href="$_stream_8hpp.html" title="Defines CYB::API::Stream Interface. " alt="" coords="2378,200,2467,227"/>
 <area shape="rect" id="node36" href="$_logger_8hpp.html" title="Defines CYB::API::Logger. " alt="" coords="2491,200,2577,227"/>
-<area shape="rect" id="node38" href="$_constructor_8hpp.html" title="Defines CYB::API::Interop::Constructor. " alt="" coords="2603,200,2717,227"/>
-<area shape="rect" id="node39" href="$_allocatable_8hpp.html" title="Defines CYB::API::Allocatable. " alt="" coords="2742,200,2852,227"/>
-<area shape="rect" id="node40" href="$_object_8hpp.html" title="Defines CYB::API::Interop::Object. " alt="" coords="2877,200,2963,227"/>
-<area shape="rect" id="node41" href="$_allocator_8hpp.html" title="Defines CYB::API::Allocator. " alt="" coords="2987,200,3085,227"/>
-<area shape="rect" id="node42" href="$_s_t_l_allocator_8hpp.html" title="Defines CYB::API::STLAllocator. " alt="" coords="3109,200,3232,227"/>
-<area shape="rect" id="node43" href="$_context_8hpp.html" title="Defines CYB::API::Interop::Context. " alt="" coords="3256,200,3349,227"/>
-<area shape="rect" id="node45" href="$_mutex_8hpp.html" title="Defines the API for Mutexes. " alt="" coords="3373,200,3455,227"/>
-<area shape="rect" id="node46" href="$_path_8hpp.html" title="Defines the API for Paths. " alt="" coords="3480,200,3553,227"/>
-<area shape="rect" id="node47" href="$_file_8hpp.html" title="Defines the API for files. " alt="" coords="3579,200,3647,227"/>
-<area shape="rect" id="node48" href="$_semaphore_8hpp.html" title="Contains the declaration of CYB::API::Semaphore. " alt="" coords="3671,200,3784,227"/>
-<area shape="rect" id="node50" href="$_unique_pointer_8hpp.html" title="Defines the CYB extension of std::unique_ptr. " alt="" coords="3809,200,3937,227"/>
-<area shape="rect" id="node52" href="$_lock_guard_8hpp.html" title="Defines the LockGuard class. " alt="" coords="3962,200,4072,227"/>
+<area shape="rect" id="node37" href="$_command_line_8hpp.html" title="Defines the CommandLine interface. " alt="" coords="2603,200,2732,227"/>
+<area shape="rect" id="node39" href="$_constructor_8hpp.html" title="Defines CYB::API::Interop::Constructor. " alt="" coords="2757,200,2872,227"/>
+<area shape="rect" id="node40" href="$_allocatable_8hpp.html" title="Defines CYB::API::Allocatable. " alt="" coords="2897,200,3007,227"/>
+<area shape="rect" id="node41" href="$_object_8hpp.html" title="Defines CYB::API::Interop::Object. " alt="" coords="3032,200,3117,227"/>
+<area shape="rect" id="node42" href="$_allocator_8hpp.html" title="Defines CYB::API::Allocator. " alt="" coords="3141,200,3240,227"/>
+<area shape="rect" id="node43" href="$_s_t_l_allocator_8hpp.html" title="Defines CYB::API::STLAllocator. " alt="" coords="3264,200,3387,227"/>
+<area shape="rect" id="node44" href="$_context_8hpp.html" title="Defines CYB::API::Interop::Context. " alt="" coords="3411,200,3504,227"/>
+<area shape="rect" id="node46" href="$_mutex_8hpp.html" title="Defines the API for Mutexes. " alt="" coords="3528,200,3609,227"/>
+<area shape="rect" id="node47" href="$_path_8hpp.html" title="Defines the API for Paths. " alt="" coords="3635,200,3708,227"/>
+<area shape="rect" id="node48" href="$_file_8hpp.html" title="Defines the API for files. " alt="" coords="3734,200,3801,227"/>
+<area shape="rect" id="node49" href="$_semaphore_8hpp.html" title="Contains the declaration of CYB::API::Semaphore. " alt="" coords="3826,200,3939,227"/>
+<area shape="rect" id="node51" href="$_unique_pointer_8hpp.html" title="Defines the CYB extension of std::unique_ptr. " alt="" coords="3963,200,4092,227"/>
+<area shape="rect" id="node53" href="$_lock_guard_8hpp.html" title="Defines the LockGuard class. " alt="" coords="4117,200,4227,227"/>
 </map>

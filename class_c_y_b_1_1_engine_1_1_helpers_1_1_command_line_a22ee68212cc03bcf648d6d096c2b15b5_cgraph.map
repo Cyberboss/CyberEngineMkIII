@@ -1,0 +1,6 @@
+<map id="CYB::Engine::Helpers::CommandLine::RunHandler" name="CYB::Engine::Helpers::CommandLine::RunHandler">
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_platform_1_1_system_1_1_process.html#a035de00f0f360ee411d3b139ae9aa143" title="Get&#39;s the Process representing the current execution. " alt="" coords="245,5,405,46"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_platform_1_1_system_1_1_process.html#a82fc7c88a7ec49d6006b801e477f714a" title="Terminates the Process with exit code 0. " alt="" coords="245,70,405,111"/>
+<area shape="rect" id="node4" href="$namespace_c_y_b_1_1_a_p_i.html#a2090a9daea48ab2e9013bcac1ee8b515" title="Get the API&#39;s Context. " alt="" coords="258,136,393,163"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_a_p_i_1_1_logger.html#a241c8a0389b19ce052b18824a3fdc73b" title="Log a message. Will be written to a text file on the Path returned by CurrentLog. ..." alt="" coords="247,187,403,213"/>
+</map>

@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_c_y_b_1_1_a_p_i_1_1_typename.html" title="Gets the typename of a type. " alt="" coords="5,5,155,46"/>
+<area shape="rect" id="node1" href="$class_c_y_b_1_1_a_p_i_1_1_logger.html" title="The interface for writing safe logs. " alt="" coords="18,29,145,56"/>
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_engine_1_1_logger.html" title="The threaded, queued engine logger. " alt="" coords="233,71,378,97"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_platform_1_1_system_1_1_console.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="225,5,385,46"/>
+<area shape="rect" id="node4" href="$class_c_y_b_1_1_a_p_i_1_1_threadable.html" title="The basic multithreading interface. " alt="" coords="5,96,157,123"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_a_p_i_1_1_threadable_taskset.html" title="A mutlithreading interface with a number of jobs in mind. " alt="" coords="206,121,405,148"/>
 </map>

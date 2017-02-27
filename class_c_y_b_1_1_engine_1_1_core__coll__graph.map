@@ -1,41 +1,43 @@
 <map id="CYB::Engine::Core" name="CYB::Engine::Core">
-<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_singleton.html" title="CYB::API::Singleton\l\&lt; Core \&gt;" alt="" coords="2609,726,2751,767"/>
-<area shape="rect" id="node3" href="$class_c_y_b_1_1_a_p_i_1_1_singleton.html" title="A class for creating static singletons. " alt="" coords="2350,899,2493,941"/>
-<area shape="rect" id="node5" href="$class_c_y_b_1_1_platform_1_1_modules_1_1_manager.html" title="Encapsulates the engine&#39;s loaded modules. " alt="" coords="2030,883,2194,925"/>
-<area shape="rect" id="node6" href="$class_c_y_b_1_1_engine_1_1_context.html" title="Implements the engine level functions for API::Interop::Contexts. " alt="" coords="1617,833,1769,860"/>
-<area shape="rect" id="node12" href="$class_c_y_b_1_1_engine_1_1_logger.html" title="The threaded, queued engine logger. " alt="" coords="2039,699,2185,725"/>
-<area shape="rect" id="node7" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_context.html" title="Class which is used as an API for the engine. " alt="" coords="1260,814,1396,855"/>
-<area shape="rect" id="node8" href="$class_c_y_b_1_1_a_p_i_1_1_logger.html" title="The interface for writing safe logs. " alt="" coords="885,659,1011,685"/>
-<area shape="rect" id="node43" href="$class_c_y_b_1_1_platform_1_1_system_1_1_console.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="1613,251,1773,293"/>
-<area shape="rect" id="node9" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html" title="Used for allocating objects within and without the engine. " alt="" coords="880,783,1016,825"/>
-<area shape="rect" id="node11" href="$class_c_y_b_1_1_engine_1_1_allocator.html" title="Implements InteropAllocation for the public allocator. " alt="" coords="1249,880,1407,907"/>
-<area shape="rect" id="node10" href="$class_c_y_b_1_1_a_p_i_1_1_heap.html" title="An interface which can allocate memory. " alt="" coords="487,612,606,639"/>
-<area shape="rect" id="node32" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html" title="A memory pool manager and allocator. " alt="" coords="1617,475,1770,517"/>
-<area shape="rect" id="node13" href="$class_c_y_b_1_1_a_p_i_1_1_threadable.html" title="The basic multithreading interface. " alt="" coords="1617,783,1769,809"/>
-<area shape="rect" id="node14" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="CYB::API::Interop::\lObject\&lt; CYB::API::Platform\l::System::Thread \&gt;" alt="" coords="1600,703,1787,759"/>
-<area shape="rect" id="node15" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa..." alt="" coords="1256,710,1400,751"/>
-<area shape="rect" id="node16" href="$class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html" title="CYB::API::UniquePointer\l\&lt; CYB::Engine::Logger\l::LogEntry \&gt;" alt="" coords="1243,931,1413,987"/>
-<area shape="rect" id="node40" href="$struct_c_y_b_1_1_engine_1_1_logger_1_1_log_entry.html" title="Log entries to be inserted into the queue. " alt="" coords="1621,962,1766,1003"/>
-<area shape="rect" id="node18" href="$class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html" title="UniquePointer that uses our Allocator. " alt="" coords="863,943,1033,985"/>
-<area shape="rect" id="node20" href="$class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="1613,162,1773,203"/>
-<area shape="rect" id="node21" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html" title="The file handle manager. " alt="" coords="1248,158,1408,199"/>
-<area shape="rect" id="node22" href="$class_c_y_b_1_1_a_p_i_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="893,224,1003,251"/>
-<area shape="rect" id="node23" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html" title="Defines the base class for allocatable engine objects. " alt="" coords="479,258,615,299"/>
-<area shape="rect" id="node30" href="$class_c_y_b_1_1_a_p_i_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no&#45;op. " alt="" coords="891,173,1005,200"/>
-<area shape="rect" id="node37" href="$class_c_y_b_1_1_a_p_i_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. " alt="" coords="886,275,1010,301"/>
-<area shape="rect" id="node24" href="$class_c_y_b_1_1_a_p_i_1_1_stream.html" title="The interface for streaming reads and writes. " alt="" coords="481,207,612,233"/>
-<area shape="rect" id="node25" href="$class_c_y_b_1_1_platform_1_1_system_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no&#45;op. " alt="" coords="1248,93,1408,134"/>
-<area shape="rect" id="node26" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html" title="Adds a UTF16 accompaniment to the UTF8 string of System::Path. " alt="" coords="868,107,1028,149"/>
-<area shape="rect" id="node27" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html" title="UTF&#45;16 String enabled only under windows. " alt="" coords="461,109,632,136"/>
-<area shape="rect" id="node28" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html" title="Used for string of allocated variable length. " alt="" coords="227,81,410,108"/>
-<area shape="rect" id="node31" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html" title="A variable length UTF&#45;8 string. " alt="" coords="656,48,819,75"/>
-<area shape="rect" id="node29" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html" title="A basic char contained string. " alt="" coords="5,28,176,55"/>
-<area shape="rect" id="node42" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_static.html" title="A string pointing to unchanging data in the stack above it or the data segment. Must have UTF&#45;8 encod..." alt="" coords="1246,41,1410,68"/>
-<area shape="rect" id="node33" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html" title="A unit of memory allocation. " alt="" coords="871,443,1025,485"/>
-<area shape="rect" id="node34" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_large_block.html" title="Used to identify the end of a Heap. " alt="" coords="1251,475,1405,517"/>
-<area shape="rect" id="node35" href="$class_c_y_b_1_1_platform_1_1_system_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. " alt="" coords="1248,295,1408,337"/>
-<area shape="rect" id="node36" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_mutex.html" title="Contains the CRITICAL_SECTION struct. " alt="" coords="867,326,1029,367"/>
-<area shape="rect" id="node38" href="$class_c_y_b_1_1_platform_1_1_system_1_1_virtual_memory.html" title="Access and abstraction to the basic OS memory functions. " alt="" coords="1248,593,1408,634"/>
-<area shape="rect" id="node39" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_virtual_memory.html" title="Various aligment functions. " alt="" coords="843,593,1053,634"/>
-<area shape="rect" id="node41" href="$class_c_y_b_1_1_a_p_i_1_1_engine_information.html" title="Infomation about the running engine version. " alt="" coords="1811,87,2005,113"/>
+<area shape="rect" id="node2" href="$class_c_y_b_1_1_a_p_i_1_1_singleton.html" title="CYB::API::Singleton\l\&lt; Core \&gt;" alt="" coords="2609,189,2751,230"/>
+<area shape="rect" id="node3" href="$class_c_y_b_1_1_a_p_i_1_1_singleton.html" title="A class for creating static singletons. " alt="" coords="2350,19,2493,61"/>
+<area shape="rect" id="node5" href="$class_c_y_b_1_1_platform_1_1_modules_1_1_manager.html" title="Encapsulates the engine&#39;s loaded modules. " alt="" coords="2030,122,2194,163"/>
+<area shape="rect" id="node6" href="$class_c_y_b_1_1_engine_1_1_context.html" title="Implements the engine level functions for API::Interop::Contexts. " alt="" coords="1617,329,1769,356"/>
+<area shape="rect" id="node14" href="$class_c_y_b_1_1_engine_1_1_logger.html" title="The threaded, queued engine logger. " alt="" coords="2039,655,2185,681"/>
+<area shape="rect" id="node7" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_context.html" title="Class which is used as an API for the engine. " alt="" coords="1260,306,1396,347"/>
+<area shape="rect" id="node8" href="$class_c_y_b_1_1_a_p_i_1_1_logger.html" title="The interface for writing safe logs. " alt="" coords="885,283,1011,309"/>
+<area shape="rect" id="node45" href="$class_c_y_b_1_1_platform_1_1_system_1_1_console.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="1613,233,1773,274"/>
+<area shape="rect" id="node9" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocator.html" title="Used for allocating objects within and without the engine. " alt="" coords="880,398,1016,439"/>
+<area shape="rect" id="node11" href="$class_c_y_b_1_1_engine_1_1_allocator.html" title="Implements InteropAllocation for the public allocator. " alt="" coords="1249,423,1407,449"/>
+<area shape="rect" id="node10" href="$class_c_y_b_1_1_a_p_i_1_1_heap.html" title="An interface which can allocate memory. " alt="" coords="487,435,606,461"/>
+<area shape="rect" id="node34" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_heap.html" title="A memory pool manager and allocator. " alt="" coords="1617,545,1770,586"/>
+<area shape="rect" id="node12" href="$class_c_y_b_1_1_engine_1_1_helpers_1_1_command_line.html" title="Command line string parser and manager. " alt="" coords="2037,57,2187,98"/>
+<area shape="rect" id="node13" href="$class_c_y_b_1_1_a_p_i_1_1_command_line.html" title="An interface for running callbacks based on command line parameters. " alt="" coords="1607,64,1779,91"/>
+<area shape="rect" id="node15" href="$class_c_y_b_1_1_a_p_i_1_1_threadable.html" title="The basic multithreading interface. " alt="" coords="1617,768,1769,795"/>
+<area shape="rect" id="node16" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="CYB::API::Interop::\lObject\&lt; CYB::API::Platform\l::System::Thread \&gt;" alt="" coords="1600,688,1787,744"/>
+<area shape="rect" id="node17" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_object.html" title="Template type for wrapping pointers and treating them as objects. Only works with CyberEngine interfa..." alt="" coords="1256,785,1400,826"/>
+<area shape="rect" id="node18" href="$class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html" title="CYB::API::UniquePointer\l\&lt; CYB::Engine::Logger\l::LogEntry \&gt;" alt="" coords="1243,1043,1413,1099"/>
+<area shape="rect" id="node42" href="$struct_c_y_b_1_1_engine_1_1_logger_1_1_log_entry.html" title="Log entries to be inserted into the queue. " alt="" coords="1621,1077,1766,1118"/>
+<area shape="rect" id="node20" href="$class_c_y_b_1_1_a_p_i_1_1_unique_pointer.html" title="UniquePointer that uses our Allocator. " alt="" coords="863,1033,1033,1074"/>
+<area shape="rect" id="node22" href="$class_c_y_b_1_1_platform_1_1_system_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="1613,887,1773,929"/>
+<area shape="rect" id="node23" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_file.html" title="The file handle manager. " alt="" coords="1248,915,1408,957"/>
+<area shape="rect" id="node24" href="$class_c_y_b_1_1_a_p_i_1_1_file.html" title="Contains the basic File interface. Does not perform locking of any kind, be aware of possible race co..." alt="" coords="893,981,1003,1008"/>
+<area shape="rect" id="node25" href="$class_c_y_b_1_1_a_p_i_1_1_interop_1_1_allocatable.html" title="Defines the base class for allocatable engine objects. " alt="" coords="479,919,615,961"/>
+<area shape="rect" id="node32" href="$class_c_y_b_1_1_a_p_i_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no&#45;op. " alt="" coords="891,931,1005,957"/>
+<area shape="rect" id="node39" href="$class_c_y_b_1_1_a_p_i_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. " alt="" coords="886,647,1010,673"/>
+<area shape="rect" id="node26" href="$class_c_y_b_1_1_a_p_i_1_1_stream.html" title="The interface for streaming reads and writes. " alt="" coords="481,993,612,1020"/>
+<area shape="rect" id="node27" href="$class_c_y_b_1_1_platform_1_1_system_1_1_path.html" title="Used for manipulating Paths. Paths will always exist either as a file or directory. Paths are &#39;/&#39; delimited when forming though may not be while retrieving. File names &quot;..&quot; will ascend a directory and &#39;.&#39; represents a no&#45;op. " alt="" coords="1248,850,1408,891"/>
+<area shape="rect" id="node28" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_path.html" title="Adds a UTF16 accompaniment to the UTF8 string of System::Path. " alt="" coords="868,802,1028,843"/>
+<area shape="rect" id="node29" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f16.html" title="UTF&#45;16 String enabled only under windows. " alt="" coords="461,809,632,836"/>
+<area shape="rect" id="node30" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_dynamic.html" title="Used for string of allocated variable length. " alt="" coords="227,839,410,865"/>
+<area shape="rect" id="node33" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_u_t_f8.html" title="A variable length UTF&#45;8 string. " alt="" coords="656,860,819,887"/>
+<area shape="rect" id="node31" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_c_style.html" title="A basic char contained string. " alt="" coords="5,355,176,381"/>
+<area shape="rect" id="node44" href="$class_c_y_b_1_1_a_p_i_1_1_string_1_1_static.html" title="A string pointing to unchanging data in the stack above it or the data segment. Must have UTF&#45;8 encod..." alt="" coords="1246,165,1410,192"/>
+<area shape="rect" id="node35" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_block.html" title="A unit of memory allocation. " alt="" coords="871,737,1025,778"/>
+<area shape="rect" id="node36" href="$class_c_y_b_1_1_engine_1_1_memory_1_1_large_block.html" title="Used to identify the end of a Heap. " alt="" coords="1251,655,1405,697"/>
+<area shape="rect" id="node37" href="$class_c_y_b_1_1_platform_1_1_system_1_1_mutex.html" title="A fast locking, no order guaranteed, mutex. " alt="" coords="1248,590,1408,631"/>
+<area shape="rect" id="node38" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_mutex.html" title="Contains the CRITICAL_SECTION struct. " alt="" coords="867,581,1029,622"/>
+<area shape="rect" id="node40" href="$class_c_y_b_1_1_platform_1_1_system_1_1_virtual_memory.html" title="Access and abstraction to the basic OS memory functions. " alt="" coords="1248,525,1408,566"/>
+<area shape="rect" id="node41" href="$class_c_y_b_1_1_platform_1_1_system_1_1_implementation_1_1_virtual_memory.html" title="Various aligment functions. " alt="" coords="843,515,1053,557"/>
+<area shape="rect" id="node43" href="$class_c_y_b_1_1_a_p_i_1_1_engine_information.html" title="Infomation about the running engine version. " alt="" coords="1811,159,2005,185"/>
 </map>

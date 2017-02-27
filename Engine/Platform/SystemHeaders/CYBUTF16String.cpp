@@ -15,7 +15,7 @@ char* CYB::API::String::UTF16::SetupData(const UTF8& AUTF8, unsigned long long& 
 CYB::API::String::UTF8 CYB::API::String::UTF16::ToUTF8(const wchar_t* AWString) {
 	const auto BufferSize(CYB::Core().FModuleManager.Call<CYB::Platform::Modules::Kernel32::WideCharToMultiByte>(CYB::Platform::Win32::UINT(CP_UTF8), CYB::Platform::Win32::DWORD(0), AWString, -1, nullptr, 0, nullptr, nullptr));
 	auto NewData(static_cast<char*>(Context().FAllocator.FHeap.Alloc(BufferSize)));
-	if (Core().FModuleManager.Call<CYB::Platform::Modules::Kernel32::WideCharToMultiByte>(CYB::Platform::Win32::UINT(CP_UTF8), CYB::Platform::Win32::DWORD(0), AWString, -1, NewData, BufferSize, nullptr, nullptr) == 0)
+	if (NewData != nullptr && Core().FModuleManager.Call<CYB::Platform::Modules::Kernel32::WideCharToMultiByte>(CYB::Platform::Win32::UINT(CP_UTF8), CYB::Platform::Win32::DWORD(0), AWString, -1, NewData, BufferSize, nullptr, nullptr) == 0)
 		throw Exception::SystemData(Exception::SystemData::STRING_VALIDATION_FAILURE);
 	return UTF8(FromData(NewData));
 }

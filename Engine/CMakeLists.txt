@@ -51,6 +51,9 @@ Engine/Memory/CYBBlock.cpp
 Engine/Memory/CYBLargeBlock.cpp
 Engine/Memory/CYBHeap.cpp
 
+#Helpers
+Engine/Helpers/CYBCommandLine.cpp
+
 #Core
 Engine/Core/CYBEngineParameters.cpp
 Engine/Core/CYBLogger.cpp

@@ -70,6 +70,9 @@
     <ClCompile Include="API\Types\UTF16String.cpp">
       <Filter>API\Types</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Helpers\CommandLine.cpp">
+      <Filter>Engine\Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHeader.hpp" />
@@ -125,6 +128,9 @@
     </Filter>
     <Filter Include="API\Types">
       <UniqueIdentifier>{05252be5-da06-4c86-96ee-1329faf80680}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Helpers">
+      <UniqueIdentifier>{7605bd93-627c-471b-9045-79622b3ce58c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

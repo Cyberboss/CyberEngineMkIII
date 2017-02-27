@@ -112,6 +112,7 @@
     <ClCompile Include="Engine\Core\CYBEngineParameters.cpp" />
     <ClCompile Include="Engine\Core\CYBException.cpp" />
     <ClCompile Include="Engine\Core\CYBLogger.cpp" />
+    <ClCompile Include="Engine\Helpers\CYBCommandLine.cpp" />
     <ClCompile Include="Engine\Memory\CYBBlock.cpp" />
     <ClCompile Include="Engine\Memory\CYBHeap.cpp" />
     <ClCompile Include="Engine\Memory\CYBLargeBlock.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="API\ExtendedTypes\ExtendedTypes.hpp" />
     <ClInclude Include="API\ExtendedTypes\LockGuard.hpp" />
     <ClInclude Include="API\ExtendedTypes\UniquePointer.hpp" />
+    <ClInclude Include="API\Interfaces\CommandLine.hpp" />
     <ClInclude Include="API\Interfaces\Heap.hpp" />
     <ClInclude Include="API\Interfaces\Interfaces.hpp" />
     <ClInclude Include="API\Interfaces\Stream.hpp" />
@@ -249,6 +251,8 @@
     <ClInclude Include="Engine\Core\CYBEngineParameters.hpp" />
     <ClInclude Include="Engine\Core\CYBLogger.hpp" />
     <ClInclude Include="Engine\CYBEngine.hpp" />
+    <ClInclude Include="Engine\Helpers\CYBCommandLine.hpp" />
+    <ClInclude Include="Engine\Helpers\CYBHelpers.hpp" />
     <ClInclude Include="Engine\Memory\CYBBlock.hpp" />
     <ClInclude Include="Engine\Memory\CYBHeap.hpp" />
     <ClInclude Include="Engine\Memory\CYBLargeBlock.hpp" />

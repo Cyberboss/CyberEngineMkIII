@@ -20,6 +20,8 @@ Platform/System/Console.cpp
 Engine/Memory/Blocks.cpp
 Engine/Memory/Heap.cpp
 
+Engine/Helpers/CommandLine.cpp
+
 Engine/Core/Core.cpp
 Engine/Core/Logger.cpp
 

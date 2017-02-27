@@ -26,6 +26,7 @@ namespace CYB {
 					@brief Parse the command line into tokens
 					@param ANumArguments The number of provided command line arguments
 					@param AArguments The array of command line arguments
+					@return The parsed tokens list
 					@par Thread Safety
 						This function requires no thread safety
 					@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory

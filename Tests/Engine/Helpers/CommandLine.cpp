@@ -55,6 +55,7 @@ static unsigned long long FakeProcExit2(Fake::SysCalls::Args&) {
 
 SCENARIO("CommandLine callbacks work", "[Engine][Helpers][CommandLine][Functional]") {
 	ModuleDependancy<CYB::Platform::Modules::Kernel32> FK32;
+	ModuleDependancy<CYB::Platform::Modules::LibC> FC;
 	GIVEN("A command line") {
 		const char* Command[7]{ u8"/s", u8"Hello world", u8"How are you", u8"asdf", u8"-ad", nullptr, u8"--extended" };
 		const wchar_t* CommandWide[7]{ L"/s", L"Hello world", L"How are you", L"asdf", L"-ad", nullptr, L"--extended" };

@@ -43,10 +43,11 @@ CYB::API::Container::Vector<CYB::Engine::Helpers::CommandLine::Token> CYB::Engin
 	return Result;
 }
 
-void CYB::Engine::Helpers::CommandLine::RunHandler(Callback ACallback, const int AFullNameKey, const int ADescriptionKey, const API::String::CStyle& AShortFlag, const API::String::CStyle& ALongFlag, const unsigned int ANumExpectedTokens, const unsigned int ANumOptionalTokens, unsigned long long AMaxInvocations) const {
+unsigned int CYB::Engine::Helpers::CommandLine::RunHandler(Callback ACallback, const int AFullNameKey, const int ADescriptionKey, const API::String::CStyle& AShortFlag, const API::String::CStyle& ALongFlag, const unsigned int ANumExpectedTokens, const unsigned int ANumOptionalTokens, const unsigned long long AMaxInvocations) const {
 	API::Container::Deque<const API::String::Dynamic*> Work;
 	API::String::Dynamic NotEnoughParams(u8"Not enough parameters for command: ");
-	for (auto I(FTokens.begin()); AMaxInvocations > 0 && I != FTokens.end(); ++I) {
+	auto InvocationCount(0U);
+	for (auto I(FTokens.begin()); InvocationCount < AMaxInvocations && I != FTokens.end(); ++I) {
 		if ((I->FType == TokenType::SINGLE_LETTER_KEY && I->FEntry == AShortFlag) 
 			|| (I->FType == TokenType::EXTENDED_KEY && I->FEntry == ALongFlag)) {
 			auto Remaining(ANumExpectedTokens);
@@ -61,7 +62,7 @@ void CYB::Engine::Helpers::CommandLine::RunHandler(Callback ACallback, const int
 					Work.emplace_back(&(J->FEntry));
 				if (!ACallback(Work))
 					Platform::System::Process::GetSelf().Terminate();	//Stop immediately, no consideration
-				--AMaxInvocations;
+				++InvocationCount;
 			}
 			else
 				API::Context().FLogger.Log(NotEnoughParams + I->FEntry, API::Logger::Level::WARN);
@@ -70,4 +71,5 @@ void CYB::Engine::Helpers::CommandLine::RunHandler(Callback ACallback, const int
 	}
 	static_cast<void>(AFullNameKey);
 	static_cast<void>(ADescriptionKey);
+	return InvocationCount;
 }

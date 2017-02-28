@@ -29,12 +29,13 @@ namespace CYB {
 				@param ANumExpectedTokens The number of expected required tokens
 				@param ANumOptionalTokens The number of possible optional tokens after expected tokens
 				@param AMaxInvocations The number of times this command can be validly repeated
+				@return The number of times this command was invoked
 				@par Thread Safety
 					This function requires no thread safety
 				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
 				@attention Throws dependant on called Callback
 			*/
-			virtual void RunHandler(Callback ACallback, const int AFullNameKey, const int ADescriptionKey, const API::String::CStyle& AShortFlag, const API::String::CStyle& ALongFlag, const unsigned int ANumExpectedTokens, const unsigned int ANumOptionalTokens, unsigned long long AMaxInvocations) const = 0;
+			virtual unsigned int RunHandler(Callback ACallback, const int AFullNameKey, const int ADescriptionKey, const API::String::CStyle& AShortFlag, const API::String::CStyle& ALongFlag, const unsigned int ANumExpectedTokens, const unsigned int ANumOptionalTokens, const unsigned long long AMaxInvocations) const = 0;
 		};
 	};
 };

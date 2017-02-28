@@ -47,7 +47,6 @@ SCENARIO("CommandLine parsing works", "[Engine][Helpers][CommandLine][Unit]") {
 	}
 }
 static bool FCommandLineExpectedRun, FFakeExit2Ran;
-static int RunCount;
 static unsigned long long FakeProcExit2(Fake::SysCalls::Args&) {
 	FFakeExit2Ran = true;
 	return 1;
@@ -78,33 +77,36 @@ SCENARIO("CommandLine callbacks work", "[Engine][Helpers][CommandLine][Functiona
 #endif
 				, FakeProcExit2);
 			WHEN("We test short invocation for '/'") {
-				CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>&) {
+				const auto Count(CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>&) {
 					FCommandLineExpectedRun = true;
 					return true;
-				}, 0, 0, CYB::API::String::Static(u8"s"), CYB::API::String::Static(u8"ajksdfhjk"), 0, 0, 1);
+				}, 0, 0, CYB::API::String::Static(u8"s"), CYB::API::String::Static(u8"ajksdfhjk"), 0, 0, 1));
 				THEN("It ran") {
 					CHECK(FCommandLineExpectedRun);
 					CHECK_FALSE(FFakeExit2Ran);
+					CHECK(Count == 1);
 				}
 			}
 			WHEN("We test short invocation for '-'") {
-				CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>&) {
+				const auto Count(CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>&) {
 					FCommandLineExpectedRun = true;
 					return true;
-			}, 0, 0, CYB::API::String::Static(u8"ad"), CYB::API::String::Static(u8"ajksdfhjk"), 0, 0, 1);
+			}, 0, 0, CYB::API::String::Static(u8"ad"), CYB::API::String::Static(u8"ajksdfhjk"), 0, 0, 1));
 				THEN("It ran") {
 					CHECK(FCommandLineExpectedRun);
 					CHECK_FALSE(FFakeExit2Ran);
+					CHECK(Count == 1);
 				}
 			}
 			WHEN("We test long invocation") {
-				CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>&) {
+				const auto Count(CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>&) {
 					FCommandLineExpectedRun = true;
 					return true;
-				}, 0, 0, CYB::API::String::Static(u8"aasdfased"), CYB::API::String::Static(u8"extended"), 0, 0, 1);
+				}, 0, 0, CYB::API::String::Static(u8"aasdfased"), CYB::API::String::Static(u8"extended"), 0, 0, 1));
 				THEN("It ran") {
 					CHECK(FCommandLineExpectedRun);
 					CHECK_FALSE(FFakeExit2Ran);
+					CHECK(Count == 1);
 				}
 			}
 			WHEN("We test required arguments") {
@@ -118,70 +120,72 @@ SCENARIO("CommandLine callbacks work", "[Engine][Helpers][CommandLine][Functiona
 				}
 			}
 			WHEN("We test lack of required arguments") {
-				CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>&) {
+				const auto Count(CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>&) {
 					FCommandLineExpectedRun = true;
 					return true;
-				}, 0, 0, CYB::API::String::Static(u8"aasdfased"), CYB::API::String::Static(u8"extended"), 1, 0, 1);
+				}, 0, 0, CYB::API::String::Static(u8"aasdfased"), CYB::API::String::Static(u8"extended"), 1, 0, 1));
 				THEN("It didn't run") {
 					CHECK_FALSE(FCommandLineExpectedRun);
 					CHECK_FALSE(FFakeExit2Ran);
+					CHECK(Count == 0);
 				}
 			}
 			WHEN("We test optional arguments") {
-				CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>& thing) {
+				const auto Count(CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>& thing) {
 					FCommandLineExpectedRun = thing.size() == 1 && *thing[0] == CYB::API::String::Static(u8"Hello world");
 					return true;
-				}, 0, 0, CYB::API::String::Static(u8"s"), CYB::API::String::Static(u8"sdfgsdfgs"), 0, 1, 1);
+				}, 0, 0, CYB::API::String::Static(u8"s"), CYB::API::String::Static(u8"sdfgsdfgs"), 0, 1, 1));
 				THEN("It ran") {
 					CHECK(FCommandLineExpectedRun);
 					CHECK_FALSE(FFakeExit2Ran);
+					CHECK(Count == 1);
 				}
 			}
 			WHEN("We test lack of optional arguments") {
-				CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>& thing) {
+				const auto Count(CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>& thing) {
 					FCommandLineExpectedRun = thing.size() == 0;
 					return true;
-				}, 0, 0, CYB::API::String::Static(u8"asdfasdfasds"), CYB::API::String::Static(u8"extended"), 0, 1, 1);
+				}, 0, 0, CYB::API::String::Static(u8"asdfasdfasds"), CYB::API::String::Static(u8"extended"), 0, 1, 1));
 				THEN("It ran") {
 					CHECK(FCommandLineExpectedRun);
 					CHECK_FALSE(FFakeExit2Ran);
+					CHECK(Count == 1);
 				}
 			}
 			WHEN("We test required and optional arguments") {
-				CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>& thing) {
+				const auto Count(CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>& thing) {
 					FCommandLineExpectedRun = thing.size() == 2 && *thing[0] == CYB::API::String::Static(u8"Hello world") && *thing[1] == CYB::API::String::Static(u8"How are you");
 					return true;
-				}, 0, 0, CYB::API::String::Static(u8"s"), CYB::API::String::Static(u8"sdfgsdfgs"), 1, 1, 1);
+				}, 0, 0, CYB::API::String::Static(u8"s"), CYB::API::String::Static(u8"sdfgsdfgs"), 1, 1, 1));
 				THEN("It ran") {
 					CHECK(FCommandLineExpectedRun);
 					CHECK_FALSE(FFakeExit2Ran);
+					CHECK(Count == 1);
 				}
 			}
-			RunCount = 0;
 			WHEN("We test maximum invocations") {
-				CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>&) {
-					++RunCount;
+				const auto Count(CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>&) {
 					return true;
-				}, 0, 0, CYB::API::String::Static(u8"s"), CYB::API::String::Static(u8"extended"), 0, 0, 1);
+				}, 0, 0, CYB::API::String::Static(u8"s"), CYB::API::String::Static(u8"extended"), 0, 0, 1));
 				THEN("It ran ONCE") {
-					CHECK(RunCount == 1);
 					CHECK_FALSE(FFakeExit2Ran);
+					CHECK(Count == 1);
 				}
 			}
 			WHEN("We test maximum invocations in a slightly different way") {
-				CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>&) {
-					++RunCount;
+				const auto Count(CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>&) {
 					return true;
-				}, 0, 0, CYB::API::String::Static(u8"s"), CYB::API::String::Static(u8"extended"), 0, 0, 2);
+				}, 0, 0, CYB::API::String::Static(u8"s"), CYB::API::String::Static(u8"extended"), 0, 0, 2));
 				THEN("It ran twice") {
-					CHECK(RunCount == 2);
 					CHECK_FALSE(FFakeExit2Ran);
+					CHECK(Count == 2);
 				}
 			}
 			WHEN("We test return exiting") {
-				CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>&) { return false; }, 0, 0, CYB::API::String::Static(u8"ad"), CYB::API::String::Static(u8"ajksdfhjk"), 0, 0, 1);
+				const auto Count(CL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>&) { return false; }, 0, 0, CYB::API::String::Static(u8"ad"), CYB::API::String::Static(u8"ajksdfhjk"), 0, 0, 1));
 				THEN("It tried to exit") {
 					CHECK(FFakeExit2Ran);
+					CHECK(Count == 1);
 				}
 			}
 		}

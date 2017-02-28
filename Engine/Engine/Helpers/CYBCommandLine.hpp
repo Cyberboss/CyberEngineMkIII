@@ -45,7 +45,8 @@ namespace CYB {
 				*/
 				CommandLine(const unsigned int ANumArguments, const oschar_t* const* const AArguments);
 
-				void RunHandler(Callback ACallback, const int AFullNameKey, const int ADescriptionKey, const API::String::CStyle& AShortFlag, const API::String::CStyle& ALongFlag, const unsigned int ANumExpectedTokens, const unsigned int ANumOptionalTokens, unsigned long long AMaxInvocations) const final override;
+				//! @copydoc CYB::API::CommandLine::RunHandler()
+				unsigned int RunHandler(Callback ACallback, const int AFullNameKey, const int ADescriptionKey, const API::String::CStyle& AShortFlag, const API::String::CStyle& ALongFlag, const unsigned int ANumExpectedTokens, const unsigned int ANumOptionalTokens, const unsigned long long AMaxInvocations) const final override;
 			};
 		};
 	};

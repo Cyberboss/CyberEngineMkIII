@@ -31,7 +31,7 @@ CYB::Engine::Core::Core(const unsigned int ANumArguments, const oschar_t* const*
 	FLogger(FConsole),
 	FHeap(Parameters::ENGINE_HEAP_INITIAL_COMMIT_SIZE),
 	FEngineContext(FHeap, FLogger, true),
-	FCommandLine(ANumArguments, AArguments)
+	FCommandLine(SetupCommandLine(ANumArguments, AArguments))
 {
 	FLogger.Log(API::String::Static(u8"Core created"), Logger::Level::DEV);
 	static_cast<void>(ANumArguments);
@@ -40,6 +40,11 @@ CYB::Engine::Core::Core(const unsigned int ANumArguments, const oschar_t* const*
 
 CYB::Engine::Core::~Core() {
 	FLogger.Log(API::String::Static(u8"Core shutdown"), Logger::Level::DEV);
+}
+
+CYB::Engine::Helpers::CommandLine CYB::Engine::Core::SetupCommandLine(const unsigned int ANumArguments, const oschar_t* const* const AArguments) {
+	Helpers::CommandLine CL(ANumArguments, AArguments);
+	return CL;
 }
 
 CYB::Engine::Core& CYB::Engine::Core::GetCore(void) noexcept {

@@ -64,6 +64,8 @@ namespace CYB {
 					@brief For loading optional AutoModules
 					@par Thread Safety
 						This function requires no thread safety
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MODULE_LOAD_FAILURE. Thrown if a module is unable to be loaded
+					@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE. Thrown if a requested function is unable to be loaded from a required module
 				*/
 				Manager();
 				/*!

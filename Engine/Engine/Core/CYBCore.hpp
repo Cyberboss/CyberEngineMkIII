@@ -28,7 +28,7 @@ namespace CYB {
 			Memory::Heap FHeap;	//!< @brief The engine's primary Heap
 			Context FEngineContext;	//!< @brief The engine Context
 		public:
-			CYB::Engine::Helpers::CommandLine FCommandLine;	//!< @brief The parsed command line handler
+			Helpers::CommandLine FCommandLine;	//!< @brief The parsed command line handler
 
 			//ThreadPool
 			//Steam
@@ -46,12 +46,35 @@ namespace CYB {
 				@param AArguments The command line arguments
 				@par Thread Safety
 					This function should only be called once
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if something could not be allocated
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STRING_VALIDATION_FAILURE. Thrown if some string does not validate
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if the log File could not be opened/written to
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::SYSTEM_PATH_RETRIEVAL_FAILURE. Thrown if the temporary Path could not be retrieved
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::STREAM_NOT_WRITABLE. Thrown if the log File could not be written to
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_TOO_LONG. Thrown if a new Path would exceed the limitation
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::PATH_LOST. Thrown if Path errors occured while setting up
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::MUTEX_INITIALIZATION_FAILURE. Thrown if one of the required Mutexes could not be initialized
+				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MODULE_LOAD_FAILURE. Thrown if a module is unable to be loaded
+				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MODULE_FUNCTION_LOAD_FAILURE. Thrown if a requested function is unable to be loaded from a required module
 				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_RESERVATION_FAILURE. Thrown if a heap's memory could not be reserved
 				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::MEMORY_COMMITAL_FAILURE. Thrown if a heap's memory could not be committed
+				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if Windows failed to convert the command line
 			*/
 			Core(const unsigned int ANumArguments, const oschar_t* const* const AArguments);
 			//! @brief Cleans up the engine and terminates the process
 			~Core();
+
+			/*!
+				@brief Setup the command line and run handlers for previously initialized components
+				@param ANumArguments The number of command line arguments
+				@param AArguments The command line arguments
+				@return The initialized CommandLine
+				@par Thread Safety
+					This function should only be called once
+				@throws CYB::Exception::SystemData Error code: CYB::Exception::SystemData::HEAP_ALLOCATION_FAILURE. Thrown if the current heap runs out of memory
+				@throws CYB::Exception::Internal Error code: CYB::Exception::Internal::FAILED_TO_CONVERT_UTF16_STRING. Thrown if Windows failed to convert a string
+			*/
+			Helpers::CommandLine SetupCommandLine(const unsigned int ANumArguments, const oschar_t* const* const AArguments);
 
 			/*!
 				@brief Run the main unit

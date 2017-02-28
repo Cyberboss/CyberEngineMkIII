@@ -53,13 +53,15 @@ unsigned int CYB::Engine::Helpers::CommandLine::RunHandler(Callback ACallback, c
 			auto Remaining(ANumExpectedTokens);
 			//Make sure we have enough normal tokens to fill requirements
 			auto J(I + 1);
-			for (; Remaining > 0 && J != FTokens.end() && J->FType == TokenType::NORMAL; ++J, --Remaining)
-				Work.emplace_back(&(J->FEntry));
+			const auto AddRemaining([&]() {
+				for (; Remaining > 0 && J != FTokens.end() && J->FType == TokenType::NORMAL; ++J, --Remaining)
+					Work.emplace_back(&(J->FEntry));
+			});
+			AddRemaining();
 			if (Remaining == 0) {
 				//found all required, check for optional
 				Remaining = ANumOptionalTokens;
-				for (; Remaining > 0 && J != FTokens.end() && J->FType == TokenType::NORMAL; ++J, --Remaining)
-					Work.emplace_back(&(J->FEntry));
+				AddRemaining();
 				if (!ACallback(Work))
 					Platform::System::Process::GetSelf().Terminate();	//Stop immediately, no consideration
 				++InvocationCount;

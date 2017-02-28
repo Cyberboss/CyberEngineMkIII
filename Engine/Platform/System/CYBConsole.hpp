@@ -19,6 +19,14 @@ namespace CYB {
 				static void WriteOut(const API::String::CStyle& AMessage, const bool AError) noexcept;
 			public:
 				/*!
+					@brief Runs the CommandLine handler to become a dedicated holder process
+					@param ACL The CommandLine to use to run the handler
+					@par Thread Safety
+						This function requries no thread safety
+				*/
+				static void CheckCommandLineForParent(API::CommandLine& ACL) noexcept;
+
+				/*!
 					@brief Contructs a console interface and sets up the fake Path and Logger
 					@par Thread Safety
 						This function may only be called once
@@ -34,6 +42,13 @@ namespace CYB {
 						This function requries no thread safety
 				*/
 				void Show(void) noexcept;
+
+				/*!
+					@brief Spawn a holder for the console so commands sent through it won't affect the process
+					@par Thread Safety
+						This function requires sychronization at the object level
+				*/
+				void CreateHolder(void) const noexcept;
 
 				/*!
 					@copydoc CYB::API::Logger::Log()

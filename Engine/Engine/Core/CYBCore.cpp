@@ -44,6 +44,7 @@ CYB::Engine::Core::~Core() {
 
 CYB::Engine::Helpers::CommandLine CYB::Engine::Core::SetupCommandLine(const unsigned int ANumArguments, const oschar_t* const* const AArguments) {
 	Helpers::CommandLine CL(ANumArguments, AArguments);
+	Platform::System::Console::CheckCommandLineForParent(CL);
 	return CL;
 }
 

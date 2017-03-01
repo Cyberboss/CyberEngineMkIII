@@ -1,7 +1,5 @@
 #include "CYB.hpp"
 
-using namespace CYB::Platform::Win32;
-
 void CYB::Platform::System::Process::Terminate(void) {
 	//Self terminating is actually safer than exiting due to locks and shit, also allows for us to kill ourselves and other processes in one line
 	//No FK32 because this can be called without Core
@@ -12,6 +10,10 @@ void CYB::Platform::System::Process::Terminate(void) {
 //No FK32 because this can be called without Core
 CYB::Platform::System::Implementation::Process::Process() noexcept :
 	FHandle(reinterpret_cast<Win32::HANDLE>(System::Sys::Call(Sys::GET_CURRENT_PROCESS)))
+{}
+
+CYB::Platform::System::Implementation::Process::Process(const API::String::CStyle& ATextHandle) :
+	FHandle(HexToHandle(ATextHandle))
 {}
 
 CYB::Platform::System::Implementation::Process::Process(Process&& AMove) noexcept :
@@ -31,8 +33,8 @@ CYB::Platform::System::Process::~Process() {
 		Core().FModuleManager.Call<Modules::Kernel32::CloseHandle>(FHandle);
 }
 
-HANDLE CYB::Platform::System::Implementation::Process::CreateProcess(const CYB::Platform::System::Path& APath, const CYB::API::String::UTF8& ACommandLine) {
-
+CYB::Platform::Win32::HANDLE CYB::Platform::System::Implementation::Process::CreateProcess(const CYB::Platform::System::Path& APath, const CYB::API::String::UTF8& ACommandLine) {
+	using namespace CYB::Platform::Win32;
 	CYB::API::String::UTF16 ExeAs16(APath()), CmdlAs16(ACommandLine);
 	STARTUPINFO StartupInfo{ sizeof(STARTUPINFO), nullptr, nullptr, nullptr, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, nullptr, 0, 0, 0};
 	PROCESS_INFORMATION ProcessInformation;
@@ -68,6 +70,54 @@ HANDLE CYB::Platform::System::Implementation::Process::CreateProcess(const CYB::
 	return ProcessInformation.hProcess;
 }
 
+CYB::Platform::Win32::HANDLE CYB::Platform::System::Implementation::Process::HexToHandle(const API::String::CStyle& ATextHandle){
+	//64 bit platform, 16 hex characters, capitals only
+	enum {
+		EXPECTED_LENGTH = 16,
+		ZERO = 48,
+		A = 65,
+	};
+	union {
+		Win32::HANDLE FHandle;
+		byte FBytes[8];
+	} Result;
+	Result.FHandle = 0;
+	bool Success(true);
+	if (ATextHandle.RawLength() == EXPECTED_LENGTH) {
+		for (auto I(0U); I < EXPECTED_LENGTH; ++I) {
+			const auto Character(ATextHandle.CString()[I]);
+			byte Value;
+			if (Character >= ZERO && Character < ZERO + 10)
+				Value = static_cast<byte>(Character - ZERO);
+			else if (Character >= A && Character < A + 6)
+				Value = static_cast<byte>(Character + (10 - A));
+			else {
+				using namespace CYB::Platform::Win32;
+				Success = false;
+				break;
+			}
+			//Endianess doesn't matter since it's the same system
+			const bool DoingHigh((I % 2) == 0);
+			if (DoingHigh)
+				Value *= 16;
+			Result.FBytes[I / 2] += Value;
+		}
+		using namespace CYB::Platform::Win32;
+		if (Success) {
+			HANDLE Dupe;
+			//validate it by duplicating it
+			Process Ourself;
+			auto& MM(Core().FModuleManager);
+			if (MM.Call<Modules::Kernel32::DuplicateHandle>(Ourself.FHandle, Result.FHandle, Ourself.FHandle, &Dupe, static_cast<DWORD>(0), FALSE, static_cast<DWORD>(DUPLICATE_SAME_ACCESS)) != 0) {
+				//must be valid then
+				MM.Call<Modules::Kernel32::CloseHandle>(Dupe);
+				return Result.FHandle;
+			}
+		}
+	}
+	throw CYB::Exception::Internal(CYB::Exception::Internal::PROCESS_CREATION_ERROR);
+}
+
 CYB::Platform::System::Implementation::Process::Process(const System::Path& APath, const API::String::UTF8& ACommandLine):
 	FHandle(CreateProcess(APath, ACommandLine))
 {}
@@ -86,6 +136,7 @@ bool CYB::Platform::System::Process::operator==(const Process& ARHS) const noexc
 }
 
 bool CYB::Platform::System::Process::Wait(const unsigned int AMilliseconds) {
+	using namespace CYB::Platform::Win32;
 	const auto Result(Core().FModuleManager.Call<Modules::Kernel32::WaitForSingleObject>(FHandle, AMilliseconds == 0 ? INFINITE : AMilliseconds));
 	API::Assert::NotEqual<decltype(Result)>(Result, WAIT_FAILED);
 	return Result == WAIT_OBJECT_0;
@@ -93,7 +144,7 @@ bool CYB::Platform::System::Process::Wait(const unsigned int AMilliseconds) {
 
 int CYB::Platform::System::Process::GetExitCode(void) {
 	Wait();
-	DWORD Result;
+	CYB::Platform::Win32::DWORD Result;
 	auto& MM(Core().FModuleManager);
 	if (MM.Call<Modules::Kernel32::GetExitCodeProcess>(FHandle, &Result) == 0) {
 		const auto ErrorCode(MM.Call<Modules::Kernel32::GetLastError>());

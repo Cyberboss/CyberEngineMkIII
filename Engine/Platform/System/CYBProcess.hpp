@@ -11,6 +11,7 @@ namespace CYB {
 				@attention Processes with the same PID/Handle will appear equivalent. Ensure that a reference to a Process object does not persist through operating system recycling
 			*/
 			class Process : private Implementation::Process {
+				friend class Console;
 			protected:
 				/*!
 					@brief Constructor for self process. Use GetSelf()

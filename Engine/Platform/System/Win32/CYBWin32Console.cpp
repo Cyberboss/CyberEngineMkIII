@@ -10,8 +10,17 @@ void CYB::Platform::System::Console::Show(void) noexcept {
 }
 
 void CYB::Platform::System::Console::CheckCommandLineForParent(API::CommandLine& ACL) noexcept {
-	ACL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>& AHandle) {
-		static_cast<void>(AHandle);
+	ACL.RunHandler([](const CYB::API::Container::Deque<const CYB::API::String::Dynamic*>& AHandleContainer) {
+		const auto& Handle(*AHandleContainer.front());
+		try {
+			Implementation::Process Parent(Handle);
+			AttachConsole(GetProcessId(Parent.FHandle));
+			static_cast<Process&>(Parent).Wait();
+		}
+		catch(CYB::Exception::Internal& AException){
+			API::Assert::Equal<unsigned int>(AException.FErrorCode, CYB::Exception::Internal::PROCESS_CREATION_ERROR);
+			API::Context().FLogger.Log(API::String::Dynamic("Failed to inherit supposed parent handle 0x") + Handle, API::Logger::Level::ERR);
+		}
 		return false;	//We want to die now
 	}, 0, 0, API::String::Static("rfcl"), API::String::Static(), 1, 0, 1);
 }

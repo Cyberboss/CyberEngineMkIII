@@ -7,7 +7,7 @@ namespace CYB {
 			namespace Implementation {
 				//! @brief Contains the Process handle and spawning function
 				class Process {
-				protected:
+				public:
 					Win32::HANDLE FHandle;	//!< @brief The Process handle
 				private:
 					/*!
@@ -25,6 +25,16 @@ namespace CYB {
 						@attention Launching processes which require administrator elevation on Windows will block the current thread until the authorization dialog is closed
 					*/
 					static Win32::HANDLE CreateProcess(const System::Path& APath, const API::String::UTF8& ACommandLine);
+
+					/*!
+						@brief Create and verify a handle from a given string
+						@param ATextHandle The numeric text for the handle
+						@par Thread Safety
+							This function requires no thread safety
+						@return A valid handle from @p ATextHandle
+						@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::PROCESS_CREATION_ERROR. Thrown if the handle was invalid in some form
+					*/
+					static Win32::HANDLE HexToHandle(const API::String::CStyle& ATextHandle);
 				protected:
 					/*!
 						@brief Get's the Process representing the current execution
@@ -52,6 +62,15 @@ namespace CYB {
 					Process(Process&& AMove) noexcept;
 					//! @brief See @ref structors
 					Process& operator=(Process&& AMove) noexcept;
+				public:
+					/*!
+						@brief Attempt to inherit a handle from a given string
+						@param ATextHandle The numeric text for the handle
+						@par Thread Safety
+							This function requires no thread safety
+						@throws CYB::Exception::Internal Error Code: CYB::Exception::Internal::PROCESS_CREATION_ERROR. Thrown if the handle was invalid in some form
+					*/
+					Process(const API::String::CStyle& ATextHandle);
 				};
 			};
 		};

@@ -18,7 +18,7 @@ namespace CYB {
 DEFINE_WINDOWS_MODULE(Kernel32, u8"kernel32", Win32, false, true,
 	CreateThread,
 	WaitForSingleObject, Sleep, SwitchToThread, GetSystemInfo, GetLastError,
-	CloseHandle,
+	CloseHandle, DuplicateHandle,
 	InitializeCriticalSection, DeleteCriticalSection, EnterCriticalSection, TryEnterCriticalSection, LeaveCriticalSection,
 	InitializeConditionVariable, WakeConditionVariable, WakeAllConditionVariable, SleepConditionVariableCS,
 	VirtualAlloc, VirtualFree, VirtualProtect, VirtualQuery, GetProcessId,

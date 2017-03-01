@@ -62,8 +62,10 @@ unsigned int CYB::Engine::Helpers::CommandLine::RunHandler(Callback ACallback, c
 				//found all required, check for optional
 				Remaining = ANumOptionalTokens;
 				AddRemaining();
-				if (!ACallback(Work))
+				if (!ACallback(Work)) {
+					API::Context().FLogger.Flush();
 					Platform::System::Process::GetSelf().Terminate();	//Stop immediately, no consideration
+				}
 				++InvocationCount;
 			}
 			else
